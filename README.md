@@ -6,7 +6,7 @@ This repository contains tutorials for many versions of the [Hortonworks Sandbox
 
 If you would like to write a tutorial or make a contribution to the repository, please see the wiki guides. 
 
-[**Contribution Guides**](https://github.com/ZacBlanco/hwx-tutorials/wiki)
+[**Contribution Guides**](https://github.com/hortonworks/tutorials/wiki)
 
 If there is an issue with a tutorial you want to bring to our attention, please create an **Issue** and make sure to add the label **bug**.
 
