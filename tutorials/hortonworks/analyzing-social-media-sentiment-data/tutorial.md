@@ -258,7 +258,7 @@ cd /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/banana/app/dashboard
 
 mv default.json default.json.orig
 
-wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/default.json
+wget https://raw.githubusercontent.com/abajwa-hw/ambari-nifi-service/master/demofiles/default.json
 ~~~
 
 Now we're going to start Solr. Execute
