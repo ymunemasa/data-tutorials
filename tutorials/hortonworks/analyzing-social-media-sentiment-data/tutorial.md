@@ -23,7 +23,7 @@ Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) 
 
 - Downloaded and Installed the [Hortonworks Sandbox with HDP 2.3](http://hortonworks.com/hdp/downloads/)
 - Downloaded the GZipped version of the [Hortonworks DataFlow](http://hortonworks.com/products/dataflow)
-- [Configuring Hortonworks Sandbox on Azure](https://github.com/saptak/spark/blob/master/001-configuring-hortonwork-sandbox-azure.md)
+- [Setup Hortonworks Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
 - Added `sandbox.hortonworks.com` to your `/etc/hosts` file (mac and linux users).
 - Added `sandbox.hortonworks.com` to your `%systemroot%\system32\drivers\etc\hosts` file (windows users)
 
