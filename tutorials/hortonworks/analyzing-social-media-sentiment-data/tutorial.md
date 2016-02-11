@@ -304,7 +304,7 @@ wget https://raw.githubusercontent.com/abajwa-hw/ambari-nifi-service/master/demo
 Now we're going to start Solr. Execute
 
 ~~~
-export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64
+export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
 /opt/lucidworks-hdpsearch/solr/bin/solr start -c -z localhost:2181
 ~~~
 
