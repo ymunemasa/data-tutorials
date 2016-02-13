@@ -48,7 +48,7 @@ Login to Ambari using the following:
 
 | Username | Password |
 |:--------:|:--------:|
-|maria.dev1|maria.dev1|
+|  admin   | 4o12t0n  |
 
 
 After logging in to Ambari, select **Knox** from the list of `Services` on the left-hand side of the page.  
@@ -63,7 +63,7 @@ From the following you can track the start of the Knox service to completion:
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.20.01.png)
 
-Then go back to the `Service Actions` button on the `Knox` service and click on `Start  Demo LDAP`. This LDAP server is used in the
+Then go back to the `Service Actions` button on the `Knox` service and click on `Start  Demo LDAP`. This LDAP server is when authenticating users against Knox in the Sandbox because there is no other LDAP server running on the Sandbox.
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.37.09.png)
 
@@ -71,12 +71,13 @@ You can track the start of the `Demo LDAP Service` from the following screen:
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.39.01.png)
 
-### [](#knox-access-scenarios)Knox access scenarios
+### [](#knox-access-scenarios)Knox Access Scenarios
 
 Check if Ranger Admin console is running, at [http://localhost:6080/](http://localhost:6080/)from your host machine. The username is `admin` and the password is `admin`
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.11.01.png)
 
+<!--
 If it is not running you can start from the command line using the command
 
 ~~~
@@ -84,6 +85,7 @@ sudo service ranger-admin start
 ~~~
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-02 15.06.00.png)
+-->
 
 Click on sandbox_knox link under Knox section in the main screen of Ranger Administration Portal
 
@@ -93,15 +95,17 @@ You can review policy details by a clicking on the policy name.
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.31.31.png)
 
-To start testing Knox policies, we would need to turn off the “global knox allow” policy.
+To start testing Knox policies, we would need to turn off the "global knox allow" policy.  Edit the policy using the button on the right hand side and use the first slider to **disable** the policy.
+
+Then, click **Save**
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.33.53.png)
 
-Locate `Sandbox  for  Guest` policy on the Ranger Admin console and edit the policy
+Locate `Sandbox for Guest` policy on the Ranger Admin console and edit the policy
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.45.17.png)
 
-and enable policy named “Sandbox for Guest”
+and use the slider to enable the policy named "Sandbox for Guest". Click **Save**.
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.47.28.png)
 
@@ -111,13 +115,15 @@ From your local SSHd terminal (not directly on the Sandbox), run this CURL comma
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.50.43.png)
 
-Go to Ranger Policy Manager tool → Audit screen and check the knox access (denied) being audited.
+Go to Ranger Policy Manager tool →  Audit screen and check the knox access (denied) being audited.
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.53.47.png)
 
 Now let us try the same CURL command using “guest” user credentials from the terminal
 
 `curl -k -u guest:guest-password 'https://127.0.0.1:8443/gateway/knox_sample/webhdfs/v1?op=LISTSTATUS'`
+
+The result which should return is a set of JSON data from WebHDFS which lists the status of the files in the root of HDFS
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.55.29.png)
 
@@ -135,7 +141,9 @@ You can configure the Knox policies in Ranger to restrict to a specific service 
 
 ### [](#hive-grantrevoke-permission-scenarios)Hive grant/revoke permission scenarios
 
-Ranger can support import of grant/revoke policies set through command line or Hue for Hive. Ranger can store these policies centrally along with policies created in the  administration portal and enforce it in Hive using its plugin.
+Ranger supports the import of grant/revoke policies set through command line for Hive. 
+
+Ranger can store these policies centrally along with policies created in the administration portal and enforce it in Hive using its plugin.
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 11.01.23.png)
 
@@ -153,11 +161,13 @@ Then issue the `GRANT` command
 
 `grant select, update on table xademo.customer_details to user network1;`
 
-You should see the following error:
+If you correctly disabled the Hive policies which allowed this command you should see the following error:
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 11.07.14.png)
 
-Let us check the audit log in the Ranger Administration Portal → Audit
+If you don't see the error, make sure you've disabled the correct Hive policies.
+
+Let's check the audit log in the Ranger Administration Portal → Audit
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 11.08.52.png)
 
@@ -165,7 +175,7 @@ You can see that access was denied for an admin operation for user it1.
 
 We can create a policy in Ranger for user ‘it1’ to be an admin. Create a new policy from the Ranger Admin console and ensure the configuration matches the illustration below
 
-![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 12.57.48.png)
+![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/hive-grant-revoke-1.png)
 
 We can try the beeline command again, once the policy has been saved.
 
@@ -173,8 +183,9 @@ We can try the beeline command again, once the policy has been saved.
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 13.00.35.png)
 
-If the command goes through successfully, you will see the policy created/updated in Ranger Admin Portal → Policy Manager. It checks if there is an existing relevant policy to update, else it creates a new one.   
-![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 13.02.33.png)
+If the command goes through successfully, you will see the policy created/updated in Ranger Admin Portal → Policy Manager. It checks if there is an existing relevant policy to update, else it creates a new one.  
+
+![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/hive-policy-view.png)
 
 What happened here?
 
@@ -200,13 +211,15 @@ Disable the public access policy “HBase Global Allow” in Ranger Administrati
 
 Login into HBase shell as ‘it1’ user
 
-    su - it1
+    su it1
 
     [it1@sandbox ~]$ hbase shell
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 13.14.33.png)
 
 Run a grant command to give “Read”, “Write”, “Create” access to user mktg1 in table ‘iemployee’
+
+`grant 'mktg1',  'RWC',  'iemployee'`
 
 `hbase(main):001:0> grant 'mktg1',  'RWC',  'iemployee'`
 
@@ -254,7 +267,7 @@ Ranger policies administration can be managed through REST APIs. Users can use t
 
 From your local command line shell, run this CURL command. This API will create a policy with the name “hadoopdev-testing-policy2” within the HDFS repository “sandbox_hdfs”
 
-    curl -i --header "Accept:application/json" -H "Content-Type: application/json" --user admin:admin -X POST http://127.0.0.1:6080/service/public/api/policy -d '{ "policyName":"hadoopdev-testing-policy2","resourceName":"/demo/data/test","description":"Testing policy for /demo/data/test","repositoryName":"sandbox_hdfs","repositoryType":"HDFS","permMapList":[{"userList":["mktg1"],"permList":["Read"]},{"groupList":["IT"],"permList":["Read"]}],"isEnabled":true,"isRecursive":true,"isAuditEnabled":true,"version":"0.1.0","replacePerm":false}'
+    curl -i --header "Accept:application/json" -H "Content-Type: application/json" -u admin:admin -X POST http://127.0.0.1:6080/service/public/api/policy -d '{ "policyName":"hadoopdev-testing-policy2","resourceName":"/demo/data","description":"Testing policy for /demo/data","repositoryName":"sandbox_hadoop","repositoryType":"HDFS","permMapList":[{"userList":["mktg1"],"permList":["Read"]},{"groupList":["IT"],"permList":["Read"]}],"isEnabled":true,"isRecursive":true,"isAuditEnabled":true,"version":"0.1.0","replacePerm":false}'
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 14.18.43.png)
 
@@ -264,17 +277,17 @@ the policy manager and see the new policy named “hadoopdev-testing-policy2”
 
 Click on the policy and check the permissions that has been created
 
-![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 14.21.51.png)
+![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/policy-id-ranger-1.png)
 
-The policy id is part of the URL of this policy detail page [http://127.0.0.1:6080/index.html#!/hdfs/1/policy/26](http://127.0.0.1:6080/index.html#!/hdfs/1/policy/26)
+The policy id is part of the URL of this policy detail page [http://127.0.0.1:6080/index.html#!/hdfs/1/policy/21](http://127.0.0.1:6080/index.html#!/hdfs/1/policy/21)
 
 We can use the policy id to retrieve or change the policy.
 
 Run the below CURL command to get policy details using API
 
-`curl -i --user admin:admin -X GET http://127.0.0.1:6080/service/public/api/policy/26`
+`curl -i -u admin:admin -X GET http://127.0.0.1:6080/service/public/api/policy/21`
 
-![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 14.24.23.png)
+![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/policy-rest-api-get.png)
 
 What happened here?
 
