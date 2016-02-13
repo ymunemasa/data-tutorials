@@ -1,9 +1,16 @@
+## Securing Your Hadoop Cluster with Apache Knox
+
+---
+
+
+## Introduction
+
 In this tutorial we will walk through the process of
 
 *   Configuring Apache Knox and LDAP services on HDP Sandbox
 *   Run a MapReduce Program using Apache Knox Gateway Server
 
-## What is Apache Knox?
+### What is Apache Knox?
 
 The [Apache Knox Gateway](http://hortonworks.com/hadoop/knox) is a system that provides a single point of authentication and access for Apache™ Hadoop® services. It provides the following features:
 
@@ -13,12 +20,6 @@ The [Apache Knox Gateway](http://hortonworks.com/hadoop/knox) is a system that p
 *   Eliminates SSH edge node risks
 *   Hides Network Topology
 
-## Prerequisites:
-
-A working HDP cluster – the easiest way to have a HDP cluster is to download the [Sandbox](http://hortonworks.com/products/hortonworks-sandbox/)
-
-- [**NOTE**] For HDP 2.1 users: anywhere you find `/usr/hdp/current/knox-server`, replace it with `/usr/lib/knox`
-
 ### Layers of Defense for a Hadoop Cluster
 
 *   Perimeter Level Security – Network Security, Apache Knox (gateway)
@@ -26,7 +27,7 @@ A working HDP cluster – the easiest way to have a HDP cluster is to download t
 *   Authorization
 *   OS Security : encryption of data in network and hdfs
 
-Apache Knox accesses Hadoop Cluster over HTTP/HTTPs
+Apache Knox can also access a Hadoop cluster over HTTP or HTTPS
 
 ### Current Features of Apache Knox
 
@@ -34,11 +35,23 @@ Apache Knox accesses Hadoop Cluster over HTTP/HTTPs
 2.  Provides services for HDFS, HCat, HBase, Oozie, Hive, YARN, and Storm
 3.  HTTP access for Hive over JDBC support is available (ODBC driver Support- In Future)
 
+### Prerequisites:
+
+A working HDP cluster – the easiest way to have a HDP cluster is to download the [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/) or get up and running on [Azure in Minutes](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
+
 ## Installation and Setup:
 
 ### Step 1:
 
-HDP Sandbox 2.3 comes with Apache Knox installed.  
+HDP Sandbox 2.4 comes with Apache Knox installed.  
+
+First you'll need to log in to the Ambari user interface at [http://127.0.0.1:8080](http://127.0.0.1:8080)
+
+Use these credentials:
+
+| User | Pass |
+|:----:|:----:|
+| admin|4o12t0n|
 
 
 SSH into the Sandbox using your terminal of choice, or using the Shell-in-a-Box.
