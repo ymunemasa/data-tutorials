@@ -1,8 +1,5 @@
 ## Lab 2 - Analyze Data with Excel or Apache Zeppelin <a name="lab-2"></a>
 
-
-# Data Reporting 
-
 In this tutorial you can choose to report with
 
 - [Microsoft Excel](#report-with-excel)
