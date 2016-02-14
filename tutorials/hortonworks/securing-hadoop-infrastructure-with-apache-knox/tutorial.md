@@ -54,7 +54,17 @@ Use these credentials:
 | admin|4o12t0n|
 
 
-SSH into the Sandbox using your terminal of choice, or using the Shell-in-a-Box.
+After logging in, head to the Knox service configs by clicking **Knox** on the left hand side of the page.
+
+![](../../../assets/securing-hadoop-with-knox/01_knox_ambari.png)
+
+After starting the service and turning on the demo LDAP you should see that Ambari says our service has started
+
+![](../../../assets/securing-hadoop-with-knox/02_knox_started.png)
+
+Now that knox has started we can start trying to route requests through it. For this next section you're going to need access to a terminal which utilizes the `curl` command. 
+
+We're going to need to SSH into our Sandbox. You can either use a local shell, the shell from VirtualBox or SSH in using the Shell-In-A-Box at `http://_host_:4200`
 
 **Shell in a Box**: `http://<ip_addr>:4200`
 
@@ -66,179 +76,110 @@ SSH into the Sandbox using your terminal of choice, or using the Shell-in-a-Box.
 
     ssh root@localhost -p 2222
 
-You can run the following command in your Sandbox to find if the knox processes are running:
-
-~~~
-ps -ef | grep knox
-~~~
-
-You will not see any process is running.
-
-You can check various knox libraries, configuration files etc. by checking in the following directory:  
-
-~~~
-ls -ltr /usr/hdp/current/knox-server
-~~~
-
 ### Step 2:
 
-Let’s see if LDAP processes are up and running.  
-
-~~~
-ps -ef | grep ldap
-~~~
-
-### Step 3:
-
-You can check if the LDAP and Gateway servers started as follows: `jps`
-
-![enter image description here](/assets/securing-hadoop-with-knox/jps.JPG "jps.JPG")
-
-If the services are not running, then you can 
-
-### Step 4:
-
-Here is another way of starting LDAP and Gateway servers:
-
-~~~
-cd /usr/hdp/current/knox-server
-
-java -jar bin/ldap.jar conf &
-~~~
-
-![enter image description here](/assets/securing-hadoop-with-knox/11-knox.JPG "11-knox.JPG")
-
-~~~
-java -jar bin/gateway.jar &
-~~~
-
-![enter image description here](/assets/securing-hadoop-with-knox/12-knox+-+jar+gateway.jar.JPG "12-knox - jar gateway.jar.JPG")
-
-
-You can also utilize the Ambari user interface to start Knox and the LDAP server. Head to `http://localhost:8080` in your browser and login with user/pass `admin/admin`. 
-
-Then head over to the Knox service and make sure it is started, and also start the Demo LDAP.
-
-![Ambari Knox](/assets/securing-hadoop-with-knox/01_knox_ambari.png)
-
-If you want to stop these services, you could use the following commands:
-
-~~~
-sudo -u knox bin/gateway.sh stop
-~~~
-
-~~~
-sudo -u knox bin/ldap.sh stop
-~~~
-
-![enter image description here](/assets/securing-hadoop-with-knox/knoxLDAPStop.JPG "knoxLDAPStop.JPG")
-
-### Step 5:
-
-With installation, a user named `knox` is created and you can see in the `/etc/passwd` file.
-
-### Step 6:
-
 Let’s check if the Hadoop Cluster is accessible via WebHDFS. Note that this request is directly accessing the WebHDFS API.
+
+This means that we are sending our request directly to WebHDFS without any security or encryption.
 
 ~~~
 curl -iku guest:guest-password -X GET 'http://sandbox:50070/webhdfs/v1/?op=LISTSTATUS'
 ~~~
 
-![enter image description here](/assets/securing-hadoop-with-knox/14+connect+to+hadoop+sandbox+.JPG "14 connect to hadoop sandbox .JPG")
+![enter image description here](../../../assets/securing-hadoop-with-knox/14+connect+to+hadoop+sandbox+.JPG "14 connect to hadoop sandbox .JPG")
 
-### Step 7:
+### Step 3:
 
-Now let’s check if we can access Hadoop Cluster via Apache Knox services. This time we are going to make our request more secure by routing it through Knox. This allows us to use SSL encryption on our requests and can also help to hide the layout of or cluster from other users.
+Now let’s check if we can access Hadoop Cluster via Apache Knox services. Using Knox means we can utilize the HTTPS protocol which utilizes SSL to encrypt our requests and makes using it much more secure. 
+
+Not only do we get the added benefit of the extra layer of protection with encryption, but we also get to plug in the LDAP server which many organizations already utilize for authentication
 
 ~~~
 curl -iku guest:guest-password -X GET 'https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS'
 ~~~
 
-### Step 8:
+This requests routes through the Knox Gateway. Note that here we use the HTTPS protocol meaning our request is completely encrypted. This is great if, for example, you wanted to access Hadoop services via an insecure medium such as the internet.
 
-Let’s work on an End to End Implementation use case using Apache Knox Service. Here we will take a simple example of a mapreduce jar that you might be already familiar with, the WordCount mapreduce program. We will first create the needed directories, upload the datafile into hdfs and also upload the mapreduce jar file into hdfs. Once these steps are done, using Apache Knox service, we will run this jar and process data to produce output result.
+### Step 4:
+
+Let’s work on an End to end implementation use case using Apache Knox Service. Here we will take a simple example of a mapreduce jar that you might be already familiar with, the WordCount mapreduce program. We will first create the needed directories, upload the datafile into hdfs and also upload the mapreduce jar file into hdfs. Once these steps are done, using Apache Knox service, we will run this jar and process data to produce output result.
 
 **NOTE:** If you get error “{“error”:”User: hcat is not allowed to impersonate guest”}”, do 
 
 `usermod -a -G users guest` 
-
-before step 8  
+ 
 
 Let’s go!
 
-`cd /usr/hdp/current/knox-user` (for HDP 2.2+)
+`cd /usr/hdp/current/knox-server` (for HDP 2.4)
 
 You could create the directories `knox-sample`, `knox-sample/input`, and `knox-sample/lib` as follows:
 
-    curl -iku guest:guest-password -X put 'https://localhost:8443/gateway/default/webhdfs/v1/user/guest/knox-sample?op=MKDIRS&permission=777'
+    curl -iku guest:guest-password -X put 'https://localhost:8443/gateway/knox_sample/webhdfs/v1/user/guest/knox-sample?op=MKDIRS&permission=777'
 
-    curl -iku guest:guest-password -X put 'https://localhost:8443/gateway/default/webhdfs/v1/user/guest/knox-sample/input?op=MKDIRS&permission=777'
+    curl -iku guest:guest-password -X put 'https://localhost:8443/gateway/knox_sample/webhdfs/v1/user/guest/knox-sample/input?op=MKDIRS&permission=777'
 
-    curl -iku guest:guest-password -X put 'https://localhost:8443/gateway/default/webhdfs/v1/user/guest/knox-sample/lib?op=MKDIRS&permission=777'
+    curl -iku guest:guest-password -X put 'https://localhost:8443/gateway/knox_sample/webhdfs/v1/user/guest/knox-sample/lib?op=MKDIRS&permission=777'
+    
+    curl -iku guest:guest-password -X put 'https://localhost:8443/gateway/knox_sample/webhdfs/v1/user/guest/knox-sample/output?op=MKDIRS&permission=777'
+    
+Note that if you don't get the `HTTP/1.1 200 OK` Return as a result, you may not have started the Knox LDAP server
 
 Let’s upload the data and the mapreduce jar files:
 
-    curl -iku guest:guest-password  -L -T samples/hadoop-examples.jar \
-    -X PUT  "https://localhost:8443\
-    /gateway/default/webhdfs/v1/user/guest/knox-sample/lib/hadoop-examples.jar?op=CREATE"
+    curl -iku guest:guest-password  -L -T samples/hadoop-examples.jar -X PUT  "https://localhost:8443/gateway/knox_sample/webhdfs/v1/user/guest/knox-sample/lib/hadoop-examples.jar?op=CREATE"
 
-    curl -iku guest:guest-password  -L -T README \
-    -X PUT  "https://localhost:8443\
-    /gateway/default/webhdfs/v1/user/guest/knox-sample/input/README?op=CREATE"
+    curl -iku guest:guest-password  -L -T README -X PUT  "https://localhost:8443/gateway/knox_sample/webhdfs/v1/user/guest/knox-sample/input/README?op=CREATE"
 
 Let’s run the mapreduce program.
 
-    curl -iku guest:guest-password --connect-timeout 60 -X POST \
-    -d arg=/user/guest/knox-sample/input -d arg=/user/guest/knox-sample/output \
-    -d jar=/user/guest/knox-sample/lib/hadoop-examples.jar \
-    -d class=org.apache.hadoop.examples.WordCount \
-    https://localhost:8443/gateway/default/templeton/v1/mapreduce/jar
+    curl -iku guest:guest-password --connect-timeout 60 -X POST -d arg=/user/guest/knox-sample/input -d arg=/user/guest/knox-sample/output -d jar=/user/guest/knox-sample/lib/hadoop-examples.jar -d class=org.apache.hadoop.examples.WordCount https://localhost:8443/gateway/knox_sample/templeton/v1/mapreduce/jar
 
 When you run the mapreduce execution step, you will see the following result. Please note down the Job Id. You will use it for checking status for this Job Id in the next step.  
-![enter image description here](/assets/securing-hadoop-with-knox/30.5-+map+reduce+job+submission.JPG "30.5- map reduce job submission.JPG")
 
-### Step 9:
+![enter image description here](../../../assets/securing-hadoop-with-knox/30.5-+map+reduce+job+submission.JPG "30.5- map reduce job submission.JPG")
+
+### Step 5:
 
 You can check the status of your above Job Id as follows:
 
-    curl -iku guest:guest-password 'https://localhost:8443/gateway/default/templeton/v1/jobs/job_1394770200462_004'
+    curl -iku guest:guest-password 'https://localhost:8443/gateway/knox_sample/templeton/v1/jobs/job_1394770200462_004'
     
-Remember to **replace everything after `jobs/` with your job id.
+Remember to **replace everything after `jobs/` with your job id**.
 
-![enter image description here](/assets/securing-hadoop-with-knox/30.6-+map+reduce+job+submission+log.JPG "30.6- map reduce job submission log.JPG")
+![enter image description here](../../../assets/securing-hadoop-with-knox/30.6-+map+reduce+job+submission+log.JPG "30.6- map reduce job submission log.JPG")
 
-### Step 10:
+### Step 6:
 
 Let’s look at the list of directories in /knox-sample parent directory in hdfs.
 
-    curl -iku guest:guest-password -X GET 'https://localhost:8443/gateway/default/webhdfs/v1/user/guest/knox-sample?op=LISTSTATUS'
+    curl -iku guest:guest-password -X GET 'https://localhost:8443/gateway/knox_sample/webhdfs/v1/user/guest/knox-sample?op=LISTSTATUS'
 
 These are the directories which we created earlier.
 
-### Step 11:
+### Step 7:
 
 Let’s look at the output result file.
 
-    curl -iku guest:guest-password -X GET 'https://localhost:8443/gateway/default/webhdfs/v1/user/guest/knox-sample/output?op=LISTSTATUS'
+    curl -iku guest:guest-password -X GET 'https://localhost:8443/gateway/knox_sample/webhdfs/v1/user/guest/knox-sample/output?op=LISTSTATUS'
 
 It should look something like below:
 
-![enter image description here](/assets/securing-hadoop-with-knox/output+resuslt+files.JPG "output resuslt files.JPG")
+![enter image description here](../../../assets/securing-hadoop-with-knox/output+resuslt+files.JPG "output resuslt files.JPG")
 
-### Step 12:
+### Step 8:
 
 Let’s look at the output result.
 
-    curl -iku guest:guest-password -L -X GET 'https://localhost:8443/gateway/default/webhdfs/v1/user/guest/knox-sample/output/part-r-00000?op=OPEN'
+    curl -iku guest:guest-password -L -X GET 'https://localhost:8443/gateway/knox_sample/webhdfs/v1/user/guest/knox-sample/output/part-r-00000?op=OPEN'
 
-![enter image description here](/assets/securing-hadoop-with-knox/results.JPG "results.JPG")
+![enter image description here](../../../assets/securing-hadoop-with-knox/results.JPG "results.JPG")
 
 You just ran a mapreduce program on Hadoop through the Apache Knox Gateway!
 
 Remember, Knox is a great way to remotely access API's form your Hadoop cluster securely. You can add many different core Hadoop services to it, and you can even create your own services which you can route through the Gateway. This can keep your cluster safe and secure. Not to mention that there is great LDAP integration for organizations as well.
 
-### Links and Furthur Reading
+### Links and Further Reading
 
 - [Hortonworks Community Connection](https://community.hortonworks.com/search.html?f=&type=question&redirect=search%2Fsearch&sort=relevance&q=knox)
 - [Apache Knox Site](http://knox.apache.org)
