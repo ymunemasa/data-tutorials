@@ -133,7 +133,7 @@ Let’s upload the data and the mapreduce jar files:
 
 Let’s run the mapreduce program.
 
-    curl -iku guest:guest-password --connect-timeout 60 -X POST -d arg=/user/guest/knox-sample/input -d arg=/user/guest/knox-sample/output -d jar=/user/guest/knox-sample/lib/hadoop-examples.jar -d class=org.apache.hadoop.examples.WordCount https://localhost:8443/gateway/knox_sample/templeton/v1/mapreduce/jar
+    curl -iku guest:guest-password --connect-timeout 60 -X POST -d 'arg=/user/guest/knox-sample/input' -d 'arg=/user/guest/knox-sample/output' -d 'jar=/user/guest/knox-sample/lib/hadoop-examples.jar' -d 'class=org.apache.hadoop.examples.WordCount' https://localhost:8443/gateway/knox_sample/templeton/v1/mapreduce/jar
 
 When you run the mapreduce execution step, you will see the following result. Please note down the Job Id. You will use it for checking status for this Job Id in the next step.  
 
@@ -185,4 +185,4 @@ Remember, Knox is a great way to remotely access API's form your Hadoop cluster 
 - [Apache Knox Site](http://knox.apache.org)
 - [How to set up Apache Knox](http://kminder.github.io/knox/2015/11/18/setting-up-knox.html)
 - [Adding a Service to Knox](http://kminder.github.io/knox/2015/11/16/adding-a-service-to-knox.html)
-- [Using Knox with Microsoft AD](http://kminder.github.io/knox/2015/11/18/knox-with-activedirectory.html)
+- [Using Knox with Microsoft Active Directory](http://kminder.github.io/knox/2015/11/18/knox-with-activedirectory.html)
