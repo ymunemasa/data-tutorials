@@ -2,7 +2,7 @@ Security breaches happen. And when they do, your server logs may be your best li
 
 In this demo, we demonstrate how an enterprise security breach analysis and response might be performed.
 
-<iframe width="700" height="394" src="https://www.youtube.com/embed/BPC_mClNSXk?feature=oembed" frameborder="0" allowfullscreen="" id="player0"></iframe>
+<!--<iframe width="700" height="394" src="https://www.youtube.com/embed/BPC_mClNSXk?feature=oembed" frameborder="0" allowfullscreen="" id="player0"></iframe>-->
 
 ### In this demo, learn how to:
 
@@ -28,6 +28,33 @@ IT organizations use server log analysis to answer questions about:
 *   **Compliance** – Large organizations are bound by regulations such as HIPAA and Sarbanes-Oxley. How can IT administrators prepare for system audits?
 
 In this tutorial, we will focus on a network security use case. Specifically, we will look at how Apache Hadoop can help the administrator of a large enterprise network diagnose and respond to a distributed denial-of-service attack.
+
+### What Is Apache Flume?
+
+**A service for streaming logs into Hadoop**. Apache Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of streaming data into the Hadoop Distributed File System (HDFS). It has a simple and flexible architecture based on streaming data flows; and is robust and fault tolerant with tunable reliability mechanisms for failover and recovery.
+
+**What Flume Does**. Flume lets Hadoop users make the most of valuable log data. Specifically, Flume allows users to:
+
+*   **Stream data from multiple sources** into Hadoop for analysis
+*   **Collect high-volume Web logs**in real time
+*   **Insulate** themselves from transient spikes when the rate of incoming data exceeds the rate at which data can be written to the destination
+*   **Guarantee data delivery**
+*   **Scale horizontally** to handle additional data volume
+
+**How Flume Works**. Flume's high-level architecture is focused on delivering a streamlined codebase that is easy-to-use and easy-to-extend. The project team has designed Flume with the following components:
+
+*   **Event** – a singular unit of data that is transported by Flume (typically a single log entry)
+*   **Source** – the entity through which data enters into Flume. Sources either actively poll for data or passively wait for data to be delivered to them. A variety of sources allow data to be collected, such as log4j logs and syslogs.
+*   **Sink** – the entity that delivers the data to the destination. A variety of sinks allow data to be streamed to a range of destinations. One example is the HDFS sink that writes events to HDFS.
+*   **Channel** – the conduit between the Source and the Sink. Sources ingest events into the channel and the sinks drain the channel.
+*   **Agent** – any physical Java virtual machine running Flume. It is a collection of sources, sinks and channels.
+*   **Client** – produces and transmits the Event to the Source operating within the Agent
+
+A flow in Flume starts from the Client. The Client transmits the event to a Source operating within the Agent. The Source receiving this event then delivers it to one or more Channels. These Channels are drained by one or more Sinks operating within the same Agent. Channels allow decoupling of ingestion rate from drain rate using the familiar producer-consumer model of data exchange. When spikes in client side activity cause data to be generated faster than what the provisioned capacity on the destination can handle, the channel size increases. This allows sources to continue normal operation for the duration of the spike. Flume agents can be chained together by connecting the sink of one agent to the source of another agent. This enables the creation of complex dataflow topologies.
+
+**Reliability & Scaling**. Flume is designed to be highly reliable, thereby no data is lost during normal operation. Flume also supports dynamic reconfiguration without the need for a restart, which allows for reduction in the downtime for flume agents. Flume is architected to be fully distributed with no central coordination point. Each agent runs independent of others with no inherent single point of failure. Flume also features built-in support for load balancing and failover. Flume's fully decentralized architecture also plays a key role in its ability to scale. Since each agent runs independently, Flume can be scaled horizontally with ease.
+
+**Note:** For more in-depth information about Flume, see **Appendix A: Collecting Data in the Events Log.**
 
 ### Prerequisites:
 
@@ -62,52 +89,7 @@ To refine and visualize server log data, we will:
 
     [Download ServerLogFiles.zip](http://s3.amazonaws.com/hw-sandbox/tutorial12/serverfiles.zip)
 
-*   Save the `ServerLogFiles.zip` file to your computer, then extract the files.
-
-* * *
-
-## Step 2 – Configure and Start Apache Flume
-
-### What Is Apache Flume?
-
-**A service for streaming logs into Hadoop**. Apache Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of streaming data into the Hadoop Distributed File System (HDFS). It has a simple and flexible architecture based on streaming data flows; and is robust and fault tolerant with tunable reliability mechanisms for failover and recovery.
-
-**What Flume Does**. Flume lets Hadoop users make the most of valuable log data. Specifically, Flume allows users to:
-
-*   **Stream data from multiple sources** into Hadoop for analysis
-*   **Collect high-volume Web logs**in real time
-*   **Insulate** themselves from transient spikes when the rate of incoming data exceeds the rate at which data can be written to the destination
-*   **Guarantee data delivery**
-*   **Scale horizontally** to handle additional data volume
-
-**How Flume Works**. Flume's high-level architecture is focused on delivering a streamlined codebase that is easy-to-use and easy-to-extend. The project team has designed Flume with the following components:
-
-*   **Event** – a singular unit of data that is transported by Flume (typically a single log entry)
-*   **Source** – the entity through which data enters into Flume. Sources either actively poll for data or passively wait for data to be delivered to them. A variety of sources allow data to be collected, such as log4j logs and syslogs.
-*   **Sink** – the entity that delivers the data to the destination. A variety of sinks allow data to be streamed to a range of destinations. One example is the HDFS sink that writes events to HDFS.
-*   **Channel** – the conduit between the Source and the Sink. Sources ingest events into the channel and the sinks drain the channel.
-*   **Agent** – any physical Java virtual machine running Flume. It is a collection of sources, sinks and channels.
-*   **Client** – produces and transmits the Event to the Source operating within the Agent
-
-A flow in Flume starts from the Client. The Client transmits the event to a Source operating within the Agent. The Source receiving this event then delivers it to one or more Channels. These Channels are drained by one or more Sinks operating within the same Agent. Channels allow decoupling of ingestion rate from drain rate using the familiar producer-consumer model of data exchange. When spikes in client side activity cause data to be generated faster than what the provisioned capacity on the destination can handle, the channel size increases. This allows sources to continue normal operation for the duration of the spike. Flume agents can be chained together by connecting the sink of one agent to the source of another agent. This enables the creation of complex dataflow topologies.
-
-**Reliability & Scaling**. Flume is designed to be highly reliable, thereby no data is lost during normal operation. Flume also supports dynamic reconfiguration without the need for a restart, which allows for reduction in the downtime for flume agents. Flume is architected to be fully distributed with no central coordination point. Each agent runs independent of others with no inherent single point of failure. Flume also features built-in support for load balancing and failover. Flume's fully decentralized architecture also plays a key role in its ability to scale. Since each agent runs independently, Flume can be scaled horizontally with ease.
-
-**Note:** For more in-depth information about Flume, see **Appendix A: Collecting Data in the Events Log.**
-
-First, login in to the Sandbox using the Ambari user interface which can be found at [http://sandbox.hortonworks.com:8080](http://sandbox.hortonworks.com:8080).
-
-**Note** that if the above doesn't work you can either **add sandbox.hortonworks.com to your /etc/hosts file** or you can trying using [http://localhost:8080](http://localhost:8080) or [http://127.0.0.1:8080](http://127.0.0.1:8080).
-
-Once you've logged in you'll need to use the Ambari views dropdown menu and select **Local Files**. This a view of the Sandbox VM's filesystem (**not** HDFS).
-
-![Image of Ambari Views Dropdown](/assets/server-logs/ambari_views_dropdown.png)
-
-Head on over to `/etc/flume` and upload the `flume.conf` and `generate_logs.py` files which were part of the ServerLogFiles.zip which you downloaded earlier.
-
-![Image of Uploading File](/assets/server-logs/ambari_files_upload.png)
-
-Once you've uploaded the file you'll need to login to the console through the virtual machine or login over SSH.
+*   You can save and explore the `ServerLogFiles.zip` archive on your computer.
 
 With the Hortonworks Sandbox virtual machine (VM) command prompt window active, press the Alt and F5 keys, then log in to the Sandbox using the following user name and password:
 
@@ -125,17 +107,26 @@ remember the username is `root` and the password is `hadoop`.
 
 After you log in, the command prompt will appear with the prefix `[root@Sandbox \~]\#:`
 
-First, because you uploaded the `flume.conf` file in Ambari, we're going to need to move it to the corrent location. Execute the following command
 
-~~~
-mv /etc/flume/flume.conf /etc/flume/conf/flume.conf
-~~~
+	wget http://s3.amazonaws.com/hw-sandbox/tutorial12/serverfiles.zip
 
-Also run 
 
-    mv /etc/flume/generate_logs.py /root
+Then you'll need to execute
 
-Next we're going to need to edit another flume configuration file.
+	unzip serverfiles.zip
+	
+
+* * *
+
+## Step 2 – Configure and Start Apache Flume
+
+First, we're going to need to move the `flume.conf` file
+
+
+	cp ServerLogFiles/flume.conf /etc/flume/conf/flume.conf
+
+
+Next we're going to need to edit a flume configuration file.
 
     vi /etc/flume/conf/log4j.properties`
 
@@ -143,24 +134,28 @@ Next we're going to need to edit another flume configuration file.
 
 ![](/assets/server-logs/05_vi_open.jpg)
 
-*   Press the "i" key to switch to Insert mode. "–INSERT–" will appear at the bottom of the command prompt window. Use the down-arrow key to scroll down until you find the following lines of text:
+* Press the "i" key to switch to Insert mode. "–INSERT–" will appear at the bottom of the command prompt window. Use the down-arrow key to scroll down until you find the following lines of text:
 
-~~~
-flume.root.logger=INFO,LOGFILE\ flume.log.dir=./logs\ flume.log.file=flume.log
-~~~
 
-*   Use the arrow keys to position the cursor at the end of the second line. Use the Delete (Mac) or Backspace (Windows) key to delete "./logs", then type in "/var/log/flume". When you are finished, the text should be as follows:
+		flume.root.logger=INFO,LOGFILE
+		flume.log.dir=./logs
+		flume.log.file=flume.log
 
-~~~
-flume.root.logger=INFO,LOGFILE\ flume.log.dir=/var/log/flume\ flume.log.file=flume.log
-~~~
+
+* Use the arrow keys to position the cursor at the end of the second line. Use the Delete (Mac) or Backspace (Windows) key to delete "./logs", then type in "/var/log/flume". When you are finished, the text should be as follows:
+
+
+		flume.root.logger=INFO,LOGFILE
+		flume.log.dir=/var/log/flume
+		flume.log.file=flume.log
+
 
 ![](/assets/server-logs/06_vi_edit.jpg)
 
 *   Press the Escape key to exit Insert mode and return to Command mode. "–INSERT–" will no longer appear at the bottom of the command prompt window. Type in the following command, then press the Enter key:
 
 
-    :wq
+		:wq
 
 
 *   This command saves your changes and exits the vi text editor.
@@ -173,7 +168,7 @@ flume.root.logger=INFO,LOGFILE\ flume.log.dir=/var/log/flume\ flume.log.file=flu
 
 Head back over to the Ambari UI at [http://sandbox.hortonworks.com:8080](http://sandbox.hortonworks.com:8080)
 
-Click on the flume Service and click **Service Actions** and select **Start** (if it is not already started) or **Restart**
+Click on the Flume service and click **Service Actions** and select **Start** (if it is not already started) or **Restart**
 
 ![Image of Flume Service Actions](/assets/server-logs/ambari_start_flume.png)
 
@@ -189,16 +184,18 @@ From the Sandbox's command line or your SSH sessions type the following
 
 When the log file has been generated, a timestamp will appear, and the command prompt will return to normal (`[root@Sandbox \~]\#`). It may take several seconds to generate the log file.
 
+![](/assets/server-logs/py_generate_logs.png)
+
 *   Next we will create an Hive table from the log file.
 
 Open the Ambari UI and head to the views dropdown list. Select **Hive** and then past the following query.
 
-~~~
-CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, status STRING)
-ROW FORMAT DELIMITED
-FIELDS TERMINATED BY '|' 
-LOCATION '/flume/events';
-~~~
+
+		CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, status STRING)
+		ROW FORMAT DELIMITED
+		FIELDS TERMINATED BY '|' 
+		LOCATION '/flume/events';
+
 
 **Note** if the query doesn't run successfully due to a permissions error you then you might need to update the permission on the directory. Run the following commands over SSH on the Sandbox
 
