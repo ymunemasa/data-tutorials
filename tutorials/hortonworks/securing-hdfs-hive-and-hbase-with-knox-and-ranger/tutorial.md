@@ -1,6 +1,6 @@
 ## [](#introduction)Introduction
 
-Apache Ranger delivers a comprehensive approach to security for a Hadoop cluster. It provides central security policy administration across the core enterprise security requirements of authorization, accounting and data protection.
+Apache Ranger delivers a comprehensive approach to security for a Hadoop cluster. It provides a central security policy administration across the core enterprise security requirements of authorization, accounting and data protection.
 
 Apache Ranger already extends baseline features for coordinated enforcement across Hadoop workloads from batch, interactive SQL and real–time in Hadoop.
 
@@ -19,7 +19,7 @@ The only prerequisite for this tutorial is that you have a running instance of t
 
 Ranger is a great tool to secure your data in Hadoop and HDP. It offers a simple centralized way to manage users' access to data in your cluster. Cluster administrators can easily manage policies for access to files folder, databases, tables, and more! In this tutorial we'll explore how we can use Ranger to manage access to these types of resources in the [Hortonworks Sandbox](http://hortonworks.com/sandbox)
 
-In this tutorial we will also utilize Apache Knox which is a REST API gateway for Hadoop services like HDFS and Hive! It allows a user to plug-and-play with already existing LDAP and Microsoft AD infrastructure to manage access to Hadoop services. Not to mention it supporting Kerberized clusters as well as utilizing HTTPS protocol for its communications.
+In this tutorial we will also utilize Apache Knox which is a REST API gateway for Hadoop services like HDFS and Hive! It allows a user to plug-and-play with already existing LDAP and Microsoft AD infrastructure to manage access to Hadoop services. Not to mention it supports Kerberized clusters as well as utilizes HTTPS protocol for its communications.
 
 ## Procedure
 
@@ -197,7 +197,7 @@ Users can run further GRANT commands to update permissions and REVOKE commands t
 
 Ranger can support import of grant/revoke policies set through command line in Hbase. Similar to Hive, Ranger can store these policies as part of the Policy Manager and enforce it in Hbase using its plugin.
 
-Before you go further, ensure HBase is running from Ambari – [http://127.0.0.1:8080](http://127.0.0.1:8080) (username and password are `admin`).
+Before you go further, ensure HBase is running from Ambari – [http://127.0.0.1:8080](http://127.0.0.1:8080) (username is `admin` and password is `4o12t0n`).
 
 If it is not go to `Service  Actions` button on top right and `Start` the service
 
@@ -267,7 +267,7 @@ Ranger policies administration can be managed through REST APIs. Users can use t
 
 From your local command line shell, run this CURL command. This API will create a policy with the name “hadoopdev-testing-policy2” within the HDFS repository “sandbox_hdfs”
 
-    curl -i --header "Accept:application/json" -H "Content-Type: application/json" -u admin:admin -X POST http://127.0.0.1:6080/service/public/api/policy -d '{ "policyName":"hadoopdev-testing-policy2","resourceName":"/demo/data","description":"Testing policy for /demo/data","repositoryName":"sandbox_hadoop","repositoryType":"HDFS","permMapList":[{"userList":["mktg1"],"permList":["Read"]},{"groupList":["IT"],"permList":["Read"]}],"isEnabled":true,"isRecursive":true,"isAuditEnabled":true,"version":"0.1.0","replacePerm":false}'
+    curl -i --header "Accept:application/json" -H "Content-Type: application/json" -u admin:4o12t0n -X POST http://127.0.0.1:6080/service/public/api/policy -d '{ "policyName":"hadoopdev-testing-policy2","resourceName":"/demo/data","description":"Testing policy for /demo/data","repositoryName":"sandbox_hadoop","repositoryType":"HDFS","permMapList":[{"userList":["mktg1"],"permList":["Read"]},{"groupList":["IT"],"permList":["Read"]}],"isEnabled":true,"isRecursive":true,"isAuditEnabled":true,"version":"0.1.0","replacePerm":false}'
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 14.18.43.png)
 
@@ -285,7 +285,7 @@ We can use the policy id to retrieve or change the policy.
 
 Run the below CURL command to get policy details using API
 
-`curl -i -u admin:admin -X GET http://127.0.0.1:6080/service/public/api/policy/21`
+`curl -i -u admin:4o12t0n -X GET http://127.0.0.1:6080/service/public/api/policy/21`
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/policy-rest-api-get.png)
 
