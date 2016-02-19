@@ -59,7 +59,7 @@ GROUP BY driverid;
 
 ![Lab3_2](/assets/hello-hdp/Lab3_2.png)
 
-3. Next, you will use Pig to compute the risk factor of each driver. Before we can run the Pig code, one of the requirements for the HCatStorer() class is that the table must already exist in Hive. The Pig code expects the following structure for a table named riskfactor. Execute the following DDL command:
+3. Next, you will use Pig to compute the risk factor of each driver. Before we can run the Pig code, one of the requirements for the HCatStorer() class is that the table must already exist in Hive. The Pig code expects the following structure for a table named **riskfactor**. Execute the following DDL command:
 
 **Create table avg_mileage from existing trucks_mileage data**
 
@@ -83,7 +83,7 @@ This will bring up the Ambari Pig User View interface. Your Pig View does not ha
 
 ![Lab3_4](/assets/hello-hdp/Lab3_4.png)
 
-On the left is a list of your scripts, and on the right is a composition box for writing scripts. A special feature of the interface is the Pig helper at the bottom. The Pig helper will provide us with templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. At the very bottom are status areas that will show the results of our script and log files.
+On the left is a list of your scripts, and on the right is a composition box for writing scripts. A special feature of the interface is the Pig helper located below the name of your script file. The Pig helper will provide us with templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. At the very bottom are status areas that will show the results of our script and log files.
 
 The following screenshot shows and describes the various components and features of the Pig User View:
 
@@ -103,7 +103,7 @@ Name the script **riskfactor.pig**, then click the **Create** button:
 
 We are going to use HCatalog to load data into Pig. HCatalog allows us to share schema across tools and users within our Hadoop environment. It also allows us to factor out schema and location information from our queries and scripts and centralize them in a common repository. Since it is in HCatalog we can use the HCatLoader() function. Pig makes it easy by allowing us to give the table a name or alias and not have to worry about allocating space and defining the structure. We just have to worry about how we are processing the table.
 
-* We can use the Pig helper at the bottom of the screen to give us a template for the line. Click on **Pig helper -> HCatalog->load template**
+* We can use the Pig helper at toward the top of the screen to give us a template for the line. Click on **Pig helper -> HCatalog->load template**
 * The entry **%TABLE%** is highlighted in red for us. Type the name of the table which is geolocation.
 * Remember to add the **a =** before the template. This saves the results into a. Note the **‘=’** has to have a space before and after it.
 * Our completed line of code will look like:
@@ -234,7 +234,7 @@ Before we execute the code, let’s review the code again:
 
 You need to configure the Pig Editor to use HCatalog so that the Pig script can load the proper libraries. In the Pig arguments text box, enter –**useHCatalog**   and click the **Add** button:
 
-**Note** that this argument is **case sensistive**. It should be typed exactly "-useHCatalog".
+**Note** that this argument is **case sensitive**. It should be typed exactly "-useHCatalog".
 
 ![Lab3_9](/assets/hello-hdp/Lab3_9.png)
 
