@@ -313,34 +313,37 @@ To make it easy to interact with Hive we use a tool in the Hortonworks Sandbox c
 
 Let’s now open the Ambari Hive User View and get introduced to the environment, go to the Ambari User VIew icon and select Hive :
 
-![Screen Shot 2015-07-21 at 10.10.18 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.10.18-AM.png)
+![Screen Shot 2016-02-17 at 7.10.18 PM](/assets/hello-hdp/hive_view_icon.png)
 
 Ambari Hive User View
 
-![Hive_6](/assets/hello-hdp/Hive_6.png)
+![Hive_6](/assets/hello-hdp/hiveUI_6.png)
 
 Now let’s take a closer look at the SQL editing capabilities in the User View:
 
-1.  There are four tabs to interact with SQL:
+1.  There are five tabs to interact with SQL:
     1.  **Query**: This is the interface shown above and the primary interface to write, edit and execute new SQL statements
     2.  **Saved Queries**: You can save your favorite queries and quickly have access to them to rerun or edit.
     3.  **History**: This allows you to look at past queries or currently running queries to view, edit and rerun.  It also allows you to see all SQL queries you have authority to view.  For example, if you are an operator and an analyst needs help with a query, then the Hadoop operator can use the History feature to see the query that was sent from the reporting tool.
     4.  **UDF**s:  Allows you to define UDF interfaces and associated classes so you can access them from the SQL editor.
+    5.  **Upload Table**: Allows you to upload your hive query tables to your preferred database and appears instantly in the Query Editor for execution.
 2.  **Database Explorer:**  The Database Explorer helps you navigate your database objects.  You can either search for a database object in the Search tables dialog box, or you can navigate through Database -> Table -> Columns in the navigation pane.
 3.  The principle pane to write and edit SQL statements. This editor includes content assist via **CTRL + Space** to help you build queries. Content assist helps you with SQL syntax and table objects.
-4.  Once you have created your SQL statement you have 3 options:
+4.  Once you have created your SQL statement you have 4 options:
     1.  **Execute**: This runs the SQL statement.
     2.  **Explain**: This provides you a visual plan, from the Hive optimizer, of how the SQL statement will be executed.
     3.  **Save as**:  Allows you to persist your queries into your list of saved queries.
+    4.  **Kill Session**: Terminates the SQL statement.
 5.  When the query is executed you can see the Logs or the actual query results.
     1.  **Logs:** When the query is executed you can see the logs associated with the query execution.  If your query fails this is a good place to get additional information for troubleshooting.
     2.  **Results**: You can view results in sets of 50 by default.
-6.  There are four sliding views on the right hand side with the following capabilities, which are in context of the tab you are in:
+6.  There are six sliding views on the right hand side with the following capabilities, which are in context of the tab you are in:
     1.  **Query**: This is the default operation,which allows you to write and edit SQL.
     2.  **Settings**:  This allows you to set properties globally or associated with an individual query.
-    3.  **Visual Explain**: This will generate an explain for the query.  This will also show the progress of the query.
-    4.  **TEZ**: If you use TEZ as the query execution engine then you can view the DAG associated with the query.  This integrates the TEZ User View so you can check for correctness and helps with performance tuning by visualizing the TEZ jobs associated with a SQL query.
-    5.  **Notifications**: This is how to get feedback on query execution.
+    3.  **Data Visualization**: Allows you to visualize your numeric data through different charts.
+    4.  **Visual Explain**: This will generate an explain for the query.  This will also show the progress of the query.
+    5.  **TEZ**: If you use TEZ as the query execution engine then you can view the DAG associated with the query.  This integrates the TEZ User View so you can check for correctness and helps with performance tuning by visualizing the TEZ jobs associated with a SQL query.
+    6.  **Notifications**: This is how to get feedback on query execution.
 
 The Apache Hive project provides a data warehouse view of the data in HDFS. Using a SQL dialect, [HiveQL](https://cwiki.apache.org/confluence/display/Hive/LanguageManual) (HQL), Hive lets you create summarizations of your data and perform ad-hoc queries and analysis of large datasets in the Hadoop cluster. The overall approach with Hive is to project a table structure on the dataset and then manipulate it with SQL.   The notion of projecting a table structure on a file is often referred to as [Schema-On-Read](http://hortonworks.com/blog/hivehcatalog-data-geeks-big-data-glue/).   Since you are using data in HDFS, your operations can be scaled across all the datanodes and you can manipulate huge datasets.
 
@@ -391,7 +394,7 @@ The user can run Pig in two modes, using either the “pig” command or the “
 
 To get to the Ambari Pig User View on Sandbox, click on the User Views icon at top right and select **Pig**:
 
-![Screen Shot 2015-07-21 at 10.12.41 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.12.41-AM.png)
+![Screen Shot 2016-02-17 at 7.12.41 PM](/assets/hello-hdp/pig_view_icon.png)
 
 This will bring up the Ambari Pig User View interface. Your Pig View does not have any scripts to display, so it will look like the following:
 
