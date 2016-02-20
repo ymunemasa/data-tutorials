@@ -314,7 +314,7 @@ This shows the new HDP 2.4 Ambari Smart Configurations, which simplifies setting
 
 By default the key configurations are displayed on the first page.  If the setting you are looking for is not on this page you can find additional settings in the **Advanced** tab:
 
-![Lab2_20](/assets/hello-hdp/Lab2_20.png)
+![Lab2_20](/assets/hello-hdp/hive_advanced_settings.png)
 
 For example, what if we wanted to improve SQL performance by using the new Hive vectorization features, where would we find the setting and how would we turn it on.   You would need to do the following steps:
 
