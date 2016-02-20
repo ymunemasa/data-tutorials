@@ -169,7 +169,7 @@ Let’s load some data into your two Hive tables. Populating a Hive table can be
 
 **2.3.1.1 After clicking on the Move arrow, your screen should look like the following:**
 
-![Lab2_10](/assets/hello-hdp/hiveUI-6.png)
+![Lab2_10](/assets/hello-hdp/Lab2_10.png)
 
 **2.3.1.2 Notice two things have changed:**
 
