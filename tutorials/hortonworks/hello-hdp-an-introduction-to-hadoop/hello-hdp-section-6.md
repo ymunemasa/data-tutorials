@@ -17,16 +17,16 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 
 **Outline:**
 
-*   Pig basics
-*   Step 3.1: Define Table schema
-*   Step 3.2: Create Pig Script
-*   Step 3.3: Quick Recap
-*   Step 3.4: Execute Pig Script on Tez
+*   [Pig basics](#pig-basics)
+*   [Step 3.1: Define Table schema](#step3.1)
+*   [Step 3.2: Create Pig Script](#step3.2)
+*   [Step 3.3: Quick Recap](#step3.3)
+*   [Step 3.4: Execute Pig Script on Tez](#step3.4)
 *   Suggested readings
 
-**Pig Basics:**
+**Pig Basics:** <a id="pig-basics"></a>
 
-Pig is a high level scripting language that is used with Apache Hadoop. Pig enables data workers to write complex data transformations without knowing Java. Pig’s simple SQL-like scripting language is called Pig Latin, and appeals to developers already familiar with scripting languages and SQL.
+Pig is a high-level scripting language that is used with Apache Hadoop. Pig enables data workers to write complex data transformations without knowing Java. Pig’s simple SQL-like scripting language is called Pig Latin, and appeals to developers already familiar with scripting languages and SQL.
 
 Pig is complete, so you can do all required data manipulations in Apache Hadoop with Pig. Through the User Defined Functions(UDF) facility in Pig, Pig can invoke code in many languages like JRuby, Jython and Java. You can also embed Pig scripts in other languages. The result is that you can use Pig as a component to build larger and more complex applications that tackle real business problems.
 
@@ -34,7 +34,7 @@ Pig works with data from many sources, including structured and unstructured dat
 
 Pig scripts are translated into a series of MapReduce jobs that are run on the Apache Hadoop cluster.
 
-**Step 3.1: Define table schema**
+**Step 3.1: Define table schema** <a id="step3.1"></a>
 
 Now we have refined the truck data to get the average mpg  for each truck. The next task is to compute the risk factor for each driver which is the total miles driven/abnormal events. We can get the event information from the geolocation table.
 
@@ -70,7 +70,7 @@ STORED AS ORC;
 
 4. Verify the riskfactor table was created successfully. It will be empty now, but you will populate it from a Pig script. You are now ready to compute the risk factor using Pig. Let’s take a look at Pig and how to execute Pig scripts from within Ambari.
 
-**Step 3.2: Create Pig Script**
+**Step 3.2: Create Pig Script** <a id="step3.2"></a>
 
 In this tutorial we create and run a Pig script. We will use the Ambari Pig User View. Let’s get started…
 
@@ -103,7 +103,7 @@ Name the script **riskfactor.pig**, then click the **Create** button:
 
 We are going to use HCatalog to load data into Pig. HCatalog allows us to share schema across tools and users within our Hadoop environment. It also allows us to factor out schema and location information from our queries and scripts and centralize them in a common repository. Since it is in HCatalog we can use the HCatLoader() function. Pig makes it easy by allowing us to give the table a name or alias and not have to worry about allocating space and defining the structure. We just have to worry about how we are processing the table.
 
-* We can use the Pig helper at toward the top of the screen to give us a template for the line. Click on **Pig helper -> HCatalog->load template**
+* We can use the Pig helper located below the name of your script file to give us a template for the line. Click on **Pig helper -> HCatalog->load template**
 * The entry **%TABLE%** is highlighted in red for us. Type the name of the table which is geolocation.
 * Remember to add the **a =** before the template. This saves the results into a. Note the **‘=’** has to have a space before and after it.
 * Our completed line of code will look like:
@@ -220,7 +220,7 @@ store final_data into 'riskfactor' using org.apache.hive.hcatalog.pig.HCatStorer
 
 Save the file riskfactor.pig by clicking the **Save** button in the left-hand column.
 
-**Step 3.3: Quick Recap**
+**Step 3.3: Quick Recap** <a id="step3.3"></a>
 
 Before we execute the code, let’s review the code again:
 
@@ -241,7 +241,7 @@ You need to configure the Pig Editor to use HCatalog so that the Pig script can 
 The **Arguments** section of the Pig View should now look like the following:  
 ![Lab3_10](/assets/hello-hdp/Lab3_10.png)
 
-**Step 3.4: Execute Pig Script on Tez**
+**Step 3.4: Execute Pig Script on Tez** <a id="step3.4"></a>
 
 1.  You are now ready to execute the script. Click Execute on Tez checkbox and finally hit the blue **Execute** button to submit the job. Pig job will be submitted to the cluster. This will generate a new tab with a status of the running of the Pig job and at the top you will find a progress bar that shows the job status.
 
