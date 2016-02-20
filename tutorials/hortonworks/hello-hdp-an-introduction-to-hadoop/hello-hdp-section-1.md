@@ -77,7 +77,6 @@ The goal of this tutorial is that you get familiar with the basics of following:
     6.  [Lab 5: Optional Visualization and Reporting with Excel](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_8)
         1.  [Configuring ODBC driver](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/)  (Mac and Windows)
     7.  [Lab 6: Optional Visualization and Reporting with Zeppelin](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_9)   
-        3.  Using Zeppelin (Coming Soon…)
 7.  Next Steps/Try These
     1.  Practitioner Journey-  As a Hadoop Practitioner you can adopt following learning paths
         *   Hadoop Developer - [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)
