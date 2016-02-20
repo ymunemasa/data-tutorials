@@ -1,10 +1,12 @@
+## Refine and Visualize Server Log Data
+
 Security breaches happen. And when they do, your server logs may be your best line of defense. Hadoop takes server-log analysis to the next level by speeding and improving security forensics and providing a low cost platform to show compliance.
 
 In this demo, we demonstrate how an enterprise security breach analysis and response might be performed.
 
 <!--<iframe width="700" height="394" src="https://www.youtube.com/embed/BPC_mClNSXk?feature=oembed" frameborder="0" allowfullscreen="" id="player0"></iframe>-->
 
-### In this demo, learn how to:
+### In this tutorial, learn how to:
 
 *   Stream server logs into Hadoop with [Flume](http://hortonworks.com/hadoop/flume)
 *   Use [HCatalog](http://hortonworks.com/hadoop/hcatalog) to build a relational view of the data
@@ -15,6 +17,8 @@ In this demo, we demonstrate how an enterprise security breach analysis and resp
 *   Use [Oozie](http://hortonworks.com/hadoop/oozie) to automatically update a firewall
 
 This Hadoop tutorial can be performed with the [Hortonworks Sandbox](http://hortonworks.com/products/sandbox) – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series. The tutorial presented here is for Sandbox v2.0
+
+## Background
 
 ### Server Log Data
 
@@ -87,19 +91,19 @@ To refine and visualize server log data, we will:
 
 *   The files needed for this tutorial are contained in a compressed (.zip) folder that you can download here:
 
-    [Download ServerLogFiles.zip](http://s3.amazonaws.com/hw-sandbox/tutorial12/serverfiles.zip)
+- [Download ServerLogFiles.zip](http://s3.amazonaws.com/hw-sandbox/tutorial12/serverfiles.zip)
 
-*   You can save and explore the `ServerLogFiles.zip` archive on your computer.
+You can save and explore the `ServerLogFiles.zip` archive on your computer.
 
 With the Hortonworks Sandbox virtual machine (VM) command prompt window active, press the Alt and F5 keys, then log in to the Sandbox using the following user name and password:
 
-`login: root Password: hadoop`
+	login: root
+	Password: hadoop
 
 If you wish to use SSH you can use your favorite terminal program and execute the command
 
-~~~
-ssh root@localhost -p 2222
-~~~
+
+	ssh root@localhost -p 2222
 
 Or you can choose to use the Sandbox's built-in Web-based SSH terminal **Shell-In-A-Box** which can be accessed at [http://sandbox.hortonworks.com:4200](http://sandbox.hortonworks.com:4200)
 
@@ -114,17 +118,55 @@ After you log in, the command prompt will appear with the prefix `[root@Sandbox 
 Then you'll need to execute
 
 	unzip serverfiles.zip
-	
+
+Lastly, we need to make create a few directories for flume. Run the following set of commands
+
+	mkdir /var/flume/
+	mkdir /var/flume/checkpoint/
+	mkdir /var/flume/data/
+	chmod 777 -R /var/flume
+
 
 * * *
 
 ## Step 2 – Configure and Start Apache Flume
 
-First, we're going to need to move the `flume.conf` file
+First, we're going to need to set up a flume agent. Copy the following agent config into the custom `flume.conf` in the Ambari Flume configuration
 
 
-	cp ServerLogFiles/flume.conf /etc/flume/conf/flume.conf
+	# Flume agent config
+	sandbox.sources = eventlog
+	sandbox.channels = file_channel
+	sandbox.sinks = sink_to_hdfs
 
+	# Define / Configure source
+	sandbox.sources.eventlog.type = exec
+	sandbox.sources.eventlog.command = tail -F /var/log/eventlog-demo.log
+	sandbox.sources.eventlog.restart = true
+	sandbox.sources.eventlog.batchSize = 1000
+	#sandbox.sources.eventlog.type = seq
+
+	# HDFS sinks
+	sandbox.sinks.sink_to_hdfs.type = hdfs
+	sandbox.sinks.sink_to_hdfs.hdfs.fileType = DataStream
+	sandbox.sinks.sink_to_hdfs.hdfs.path = /flume/events
+	sandbox.sinks.sink_to_hdfs.hdfs.filePrefix = eventlog
+	sandbox.sinks.sink_to_hdfs.hdfs.fileSuffix = .log
+	sandbox.sinks.sink_to_hdfs.hdfs.batchSize = 1000
+
+	# Use a channel which buffers events in memory
+	sandbox.channels.file_channel.type = file
+	sandbox.channels.file_channel.checkpointDir = /var/flume/checkpoint
+	sandbox.channels.file_channel.dataDirs = /var/flume/data
+
+	# Bind the source and sink to the channel
+	sandbox.sources.eventlog.channels = file_channel
+	sandbox.sinks.sink_to_hdfs.channel = file_channel
+
+
+Your screen should look like the following:
+
+![custom-flume-agent-ambari](../../../assets/server-logs/custom-flume-agent-ambari.png)
 
 Next we're going to need to edit a flume configuration file.
 
@@ -132,7 +174,7 @@ Next we're going to need to edit a flume configuration file.
 
 *   This command opens the log4j.properties file with the vi command line text editor.
 
-![](/assets/server-logs/05_vi_open.jpg)
+![](../../../assets/server-logs/05_vi_open.png)
 
 * Press the "i" key to switch to Insert mode. "–INSERT–" will appear at the bottom of the command prompt window. Use the down-arrow key to scroll down until you find the following lines of text:
 
@@ -150,9 +192,9 @@ Next we're going to need to edit a flume configuration file.
 		flume.log.file=flume.log
 
 
-![](/assets/server-logs/06_vi_edit.jpg)
+![](../../../assets/server-logs/06_vi_edit.png)
 
-*   Press the Escape key to exit Insert mode and return to Command mode. "–INSERT–" will no longer appear at the bottom of the command prompt window. Type in the following command, then press the Enter key:
+*   **Press the Escape key to exit Insert mode** and return to Command mode. "–INSERT–" will no longer appear at the bottom of the command prompt window. Type in the following command, then press the **Enter**:
 
 
 		:wq
@@ -160,7 +202,7 @@ Next we're going to need to edit a flume configuration file.
 
 *   This command saves your changes and exits the vi text editor.
 
-![](/assets/server-logs/07_vi_save.jpg)
+![](../../../assets/server-logs/07_vi_save.png)
 
 * * *
 
@@ -170,7 +212,7 @@ Head back over to the Ambari UI at [http://sandbox.hortonworks.com:8080](http://
 
 Click on the Flume service and click **Service Actions** and select **Start** (if it is not already started) or **Restart**
 
-![Image of Flume Service Actions](/assets/server-logs/ambari_start_flume.png)
+![Image of Flume Service Actions](../../../assets/server-logs/ambari_start_flume.png)
 
 * * *
 
@@ -184,7 +226,7 @@ From the Sandbox's command line or your SSH sessions type the following
 
 When the log file has been generated, a timestamp will appear, and the command prompt will return to normal (`[root@Sandbox \~]\#`). It may take several seconds to generate the log file.
 
-![](/assets/server-logs/py_generate_logs.png)
+![](../../../assets/server-logs/py_generate_logs.png)
 
 *   Next we will create an Hive table from the log file.
 
@@ -208,7 +250,7 @@ When the table has been created you should now be able to query the data table f
 
     Select * from FIREWALL_LOGS LIMIT 100;
 
-![Image of table query](/assets/server-logs/hive_table_view.png)
+![Image of table query](../../../assets/server-logs/hive_table_view.png)
 
 * * *
 
@@ -218,37 +260,37 @@ In this section, we will use Excel Professional Plus 2013 to access the generate
 
 *   In Windows, open a new Excel workbook, then select **Data > From Other Sources > From Microsoft Query**.
 
-![](/assets/server-logs/17_open_query.jpg)
+![](../../../assets/server-logs/17_open_query.jpg)
 
 *   On the Choose Data Source pop-up, select the Hortonworks ODBC data source you installed previously, then click **OK**.
 
     The Hortonworks ODBC driver enables you to access Hortonworks data with Excel and other Business Intelligence (BI) applications that support ODBC.
 
-![](/assets/server-logs/18_choose_data_source.jpg)
+![](../../../assets/server-logs/18_choose_data_source.jpg)
 
 *   After the connection to the Sandbox is established, the Query Wizard appears. Select the "firewall_logs" table in the Available tables and columns box, then click the right arrow button to add the entire "firewall_logs" table to the query. Click **Next** to continue.
 
-![](/assets/server-logs/19_query_wizard1.jpg)
+![](../../../assets/server-logs/19_query_wizard1.jpg)
 
 *   On the Filter Data screen, click **Next** to continue without filtering the data.
 
-![](/assets/server-logs/20_query_wizard2.jpg)
+![](../../../assets/server-logs/20_query_wizard2.jpg)
 
 *   On the Sort Order screen, click **Next** to continue without setting a sort order.
 
-![](/assets/server-logs/21_query_wizard3.jpg)
+![](../../../assets/server-logs/21_query_wizard3.jpg)
 
 *   Click **Finish** on the Query Wizard Finish screen to retrieve the query data from the Sandbox and import it into Excel.
 
-![](/assets/server-logs/22_query_wizard4.jpg)
+![](../../../assets/server-logs/22_query_wizard4.jpg)
 
 *   On the Import Data dialog box, click **OK** to accept the default settings and import the data as a table.
 
-![](/assets/server-logs/23_import_data.jpg)
+![](../../../assets/server-logs/23_import_data.jpg)
 
 *   The imported query data appears in the Excel workbook.
 
-![](/assets/server-logs/24_data_imported.jpg)
+![](../../../assets/server-logs/24_data_imported.jpg)
 
 Now that we have successfully imported Hortonworks Sandbox data into Microsoft Excel, we can use the Excel Power View feature to analyze and visualize the data.
 
@@ -266,29 +308,29 @@ We'll start by reviewing the network traffic by country.
 
 *   In the Excel worksheet with the imported "<firewall_logs>" table, select **Insert > Power View** to open a new Power View report. (note: if this is your first time running PowerView it will prompt you to [install Silverlight](#Excel%20configuration%20for%20PowerView).
 
-![](/assets/server-logs/25_open_powerview_firewall_logs.jpg)
+![](../../../assets/server-logs/25_open_powerview_firewall_logs.jpg)
 
 *   The Power View Fields area appears on the right side of the window, with the data table displayed on the left.
 
     Drag the handles or click the Pop Out icon to maximize the size of the data table, and close the Filters area.
 
-![](/assets/server-logs/26_powerview_firewall_logs.jpg)
+![](../../../assets/server-logs/26_powerview_firewall_logs.jpg)
 
 *   In the Power View Fields area, clear checkboxes next to the **ip** and **time** fields, then click **Map** on the Design tab in the top menu. (**Note:** If you do not get data plotted on your map look at [Geolocation of data using Bing](#Geolocation%20of%20data%20using%20Bing))
 
-![](/assets/server-logs/27_open_map.jpg)
+![](../../../assets/server-logs/27_open_map.jpg)
 
 *   Drag the **status** field into the **SIZE** box.
 
-![](/assets/server-logs/28_status_to_size.jpg)
+![](../../../assets/server-logs/28_status_to_size.jpg)
 
 *   The map view displays a global view of the network traffic by country. The color orange represents successful, authorized network connections. Blue represents connections from unauthorized sources.
 
-![](/assets/server-logs/29_network_traffic_by_country.jpg)
+![](../../../assets/server-logs/29_network_traffic_by_country.jpg)
 
 *   Let's assume that recent denial-of-service attacks have originated in Pakistan. We can use the map controls to zoom in and take a closer look at traffic from that country.
 
-![](/assets/server-logs/30_network_traffic_pakistan.jpg)
+![](../../../assets/server-logs/30_network_traffic_pakistan.jpg)
 
     It's obvious that this is a coordinated attack, originating from many countries. Now we can use Excel to generate a list of the unauthorized IP addresses.
 
@@ -296,13 +338,42 @@ We'll start by reviewing the network traffic by country.
 
     Click the arrow next to the **status** column header. Clear the **Select all** check box, select the **ERROR** check box, then click **OK**.
 
-![](/assets/server-logs/31_excel_error_list.jpg)
+![](../../../assets/server-logs/31_excel_error_list.jpg)
 
 *   Now that we have a list of the unauthorized IP addresses, we can update the network firewall to deny requests from those attacking IP addresses.
 
 We've shown how the Hortonworks Data Platform can help system administrators capture, store, and analyze server log data. With real-time access to massive amounts of data on the Hortonworks Data Platform, we were able to block unauthorized access, restore VPN access to authorized users.
 
 With log data flowing continuously into the Hortonworks Data Platform "data lake," we can protect the company network from similar attacks in the future. The data can be refreshed frequently and accessed to respond to security threats, or to prepare for compliance audits.
+
+----
+
+### Visualize Server Log Data with Apache Zeppelin
+
+First, make sure that the Apache Zeppelin service is started in Ambari. Then use the **Views Dropdown Menu** and select the Zeppelin View.
+
+You should be greeted by the following screen where you can choose to view notes, or create a new one.
+
+![](../../../assets/server-logs/zeppelin_create_note.png)
+
+You can choose to import the note from this tutorial using the following URL:
+
+	https://github.com/hortonworks/tutorials/hdp-2.4/data/zeppelin-notes/FlumeServerLogs.json
+	
+Once you've opened the note you can use the following commands to generate charts to visualize the data
+
+	%hive
+	select country from firewall_logs
+	
+and
+
+	%hive
+	select time, country from firewall_logs
+
+
+
+![](../../../assets/server-logs/sample_zeppelin_charts.png)
+
 
 * * *
 
