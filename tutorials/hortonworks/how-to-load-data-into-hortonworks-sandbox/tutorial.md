@@ -1,12 +1,12 @@
 ## How to Load Data Into the Hortonworks Sandbox
 
-### [](#summary)Summary
+### Summary
 
 The Hortonworks Sandbox is a fully contained Hortonworks Data Platform (HDP) environment. The sandbox includes the core Hadoop components, as well as all the tools needed for data ingestion and processing. You can access and analyze sandbox data with many Business Intelligence (BI) applications.
 
 In this tutorial, we will load and review data for a fictitious web retail store in what has become an established use case for Hadoop: deriving insights from large data sources such as web logs. By combining web logs with more traditional customer data, we can better understand our customers, and also understand how to optimize future promotions and advertising.
 
-### [](#prerequisites)Prerequisites:
+### Prerequisites:
 
 *   Hortonworks Sandbox 2.4 (installed and running)
 
@@ -19,6 +19,7 @@ To load data into the Hortonworks sandbox, you will:
 *   [Step 3: Create Hive Tables](#create-hive-tables)
 *   [Step 4: Load data into new tables](#load-data-into-new-tables)
 *   [Step 5: View and Refine the Data in the Sandbox](#view-and-refine-the-data-in-the-sandbox)
+*   [Further Resources](#further-resources)
 
 ### Step 1: Download the Sample Data <a id="download-sample-data"></a>
 
@@ -32,88 +33,78 @@ Save the sample data .zip file to your computer, then extract the files and unzi
 
 ### Step 2: Upload the Data Files into the Sandbox <a id="upload-the-data-files-into-the-sandbox"></a>
 
-Select the `HDFS Files view` from the Off-canvas menu at the top. The HDFS Files view allows you to view the Hortonworks Data Platform(HDP) file store. The HDP file system is separate from the local file system. 
+2.1) Select the `HDFS Files view` from the Off-canvas menu at the top. The HDFS Files view allows you to view the Hortonworks Data Platform(HDP) file store. The HDP file system is separate from the local file system. 
 
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f37777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138616d30314d6d52695a444a714e6b453f7261773d74727565.png?dl=1)
+![](/assets/hello-hdp/HDFS_file_view_icon.png)
+> **Note:** Must be logged in under a user with sufficient privileges to change permissions. In the image above, maria.dev1 may not have privileges to change permissions, so you may need to login under admin user.
 
-We navigate to `/tmp`, create an **admin** folder
+2.2) Navigate to `/tmp`, create an **admin** folder
 
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f42f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071386155744456453554576a497a516d633f7261773d74727565.png?dl=1)
+![](/assets/how-to-load-data-into-sandbox/68747470733a2f42f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071386155744456453554576a497a516d633f7261773d74727565.png)
 
-right click on admin and select **Permissions**:
-> **Note:** Must be logged in under a user with sufficient privileges to change permissions
+2.3) right click on admin and select **Permissions**:
 
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385331464f5133567a526a52716558633f7261773d74727565.png?dl=1)
+2.4) Now we check the `Write buttons` and `modify recursively` and press save.
 
-Now we check the `Write buttons` and `modify recursively` and press save.
+![](/assets/how-to-load-data-into-sandbox/68747470733a22f22f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384d33557a4e693171636e426a516d633f7261773d74727565.png)
 
-![](/assets/how-to-load-data-into-sandbox/68747470733a22f22f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384d33557a4e693171636e426a516d633f7261773d74727565.png?dl=1)
+2.5) Verify that the permissions look now like the image below:
 
-Verify that the permissions look now like this:
+![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713854475a716345395252316876596d633f7261773d74727565.png)
 
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713854475a716345395252316876596d633f7261773d74727565.png?dl=1)
-
-Now, we navigate to `/tmp/admin`, click on upload and browse the `Omniture.0.tsv`.
+2.6) Now, we navigate to `/tmp/admin`, click on upload and browse the `Omniture.0.tsv`.
 
 Repeat this procedure for `users.tsv` file and for `products.tsv`.
 
-![](/assets/how-to-load-data-into-sandbox/68747470733a22f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384e3342784f5655744f46707a576d383f7261773d74727565.png?dl=1)
-
 ### Step 3: Create Hive tables <a id="create-hive-tables"></a>
 
-Let’s open the `Hive  View` by clicking on the Hive button from the `views menu`.
+3.1) Let’s open the `Hive  View` by clicking on the Hive button from the `views menu`.
 
-![](/assets/how-to-load-data-into-sandbox/687474707133a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138566c68794c575934576e6c574e324d3f7261773d74727565.png?dl=1)
+![](/assets/how-to-load-data-into-sandbox/687474707133a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138566c68794c575934576e6c574e324d3f7261773d74727565.png)
 
-and create the tables users, products and omniture.
+3.2) Create the tables users, products and omniturelogs.
 
-<div class="highlight highlight-source-sql">
+~~~
+create  table  users  (swid STRING, birth_dt STRING, gender_cd CHAR(1)) ROW FORMAT DELIMITED
+FIELDS TERMINATED by  '\t' stored as textfile 
+tblproperties ("skip.header.line.count"="1");
+~~~
 
-<pre class=" prettyprinted">  create  table  users  (swid STRING, birth_dt STRING, gender_cd CHAR(1)) ROW FORMAT DELIMITED
-    FIELDS TERMINATED by  '\t' stored as textfile 
-    tblproperties ("skip.header.line.count"="1");</pre>
+![](/assets/how-to-load-data-into-sandbox/users_query.png)
 
-</div>
+~~~
+create  table  products  (url STRING, category STRING) ROW FORMAT DELIMITED
+FIELDS TERMINATED by  '\t' stored as textfile 
+tblproperties ("skip.header.line.count"="1");
+~~~
 
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f12f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138544752564c585574646c64596256553f7261773d74727565.png?dl=1)
+![](/assets/how-to-load-data-into-sandbox/products_query.png)
 
-<div class="highlight highlight-source-sql">
+~~~
+create  table  omniturelogs  (col_1 STRING,col_2 STRING,col_3 STRING,col_4 STRING,col_5 STRING,col_6 STRING,col_7 STRING,col_8 STRING,col_9 STRING,col_10 STRING,col_11 STRING,col_12 STRING,col_13 STRING,col_14 STRING,col_15 STRING,col_16 STRING,col_17 STRING,col_18 STRING,col_19 STRING,col_20 STRING,col_21 STRING,col_22 STRING,col_23 STRING,col_24 STRING,col_25 STRING,col_26 STRING,col_27 STRING,col_28 STRING,col_29 STRING,col_30 STRING,col_31 STRING,col_32 STRING,col_33 STRING,col_34 STRING,col_35 STRING,col_36 STRING,col_37 STRING,col_38 STRING,col_39 STRING,col_40 STRING,col_41 STRING,col_42 STRING,col_43 STRING,col_44 STRING,col_45 STRING,col_46 STRING,col_47 STRING,col_48 STRING,col_49 STRING,col_50 STRING,col_51 STRING,col_52 STRING,col_53 STRING) ROW FORMAT DELIMITED
+FIELDS TERMINATED by  '\t' stored as textfile 
+tblproperties ("skip.header.line.count"="1");
+~~~
 
-<pre class=" prettyprinted">  create  table  products  (url STRING, category STRING) ROW FORMAT DELIMITED
-    FIELDS TERMINATED by  '\t' stored as textfile 
-    tblproperties ("skip.header.line.count"="1");</pre>
-
-</div>
-
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f23f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a327459596b5a4463546b315a44413f7261773d74727565.png?dl=1)
-
-<div class="highlight highlight-source-sql">
-
-<pre class=" prettyprinted">  create  table  omniturelogs  (col_1 STRING,col_2 STRING,col_3 STRING,col_4 STRING,col_5 STRING,col_6 STRING,col_7 STRING,col_8 STRING,col_9 STRING,col_10 STRING,col_11 STRING,col_12 STRING,col_13 STRING,col_14 STRING,col_15 STRING,col_16 STRING,col_17 STRING,col_18 STRING,col_19 STRING,col_20 STRING,col_21 STRING,col_22 STRING,col_23 STRING,col_24 STRING,col_25 STRING,col_26 STRING,col_27 STRING,col_28 STRING,col_29 STRING,col_30 STRING,col_31 STRING,col_32 STRING,col_33 STRING,col_34 STRING,col_35 STRING,col_36 STRING,col_37 STRING,col_38 STRING,col_39 STRING,col_40 STRING,col_41 STRING,col_42 STRING,col_43 STRING,col_44 STRING,col_45 STRING,col_46 STRING,col_47 STRING,col_48 STRING,col_49 STRING,col_50 STRING,col_51 STRING,col_52 STRING,col_53 STRING) ROW FORMAT DELIMITED
-    FIELDS TERMINATED by  '\t' stored as textfile 
-    tblproperties ("skip.header.line.count"="1");</pre>
-
-</div>
-
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384c545a445548563262305a585546553f7261773d74727565.png?dl=1)
+![](/assets/how-to-load-data-into-sandbox/omniturelogs_query.png)
 
 ### Step 4: Load data into new tables <a id="load-data-into-new-tables"></a>
 
-To load the data into the tables, we have to execute the following queries.
+4.1) To load the data into the tables, we have to execute the following queries.
 
-<div class="highlight highlight-source-sql">
+~~~
+LOAD DATA INPATH '/tmp/admin/products.tsv' OVERWRITE INTO TABLE products; 
+LOAD DATA INPATH '/tmp/admin/users.tsv' OVERWRITE INTO TABLE users; 
+LOAD DATA INPATH '/tmp/admin/Omniture.0.tsv' OVERWRITE INTO TABLE omniturelogs;
+~~~
 
-<pre class=" prettyprinted">LOAD DATA INPATH '/tmp/admin/products.tsv' OVERWRITE INTO TABLE products; LOAD DATA INPATH '/tmp/admin/users.tsv' OVERWRITE INTO TABLE users; LOAD DATA INPATH '/tmp/admin/Omniture.0.tsv' OVERWRITE INTO TABLE omniturelogs;</pre>
+![](/assets/how-to-load-data-into-sandbox/load_data_newTables.png)
 
-</div>
+4.2) To check if the data was loaded, click on the icon next to the table name. It executes a sample query.
 
-![](/assets/how-to-load-data-into-sandbox/687474707333a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384f47395453324a57525864555245553f7261773d74727565.png?dl=1)
-
-To check if the data was loaded, click on the icon next to the table name. It executes a sample query.
-
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f21f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384d454630556a4a3056454a734f45553f7261773d74727565.png?dl=1)  
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f12f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138565656745a7a4a52524442686330303f7261773d74727565.png?dl=1)  
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713853474a6d65455533625745304d54673f7261773d74727565.png?dl=1)
+![](/assets/how-to-load-data-into-sandbox/products_data_table.png)  
+![](/assets/how-to-load-data-into-sandbox/users_data_table.png)  
+![](/assets/how-to-load-data-into-sandbox/omniturelog_data_table.png)
 
 ### Step 5: View and Refine the Data in the Sandbox <a id="view-and-refine-the-data-in-the-sandbox"></a>
 
@@ -132,45 +123,47 @@ Here’s a summary of the data we’re working with:
 
 **products** – CMS data that maps product categories to website URLs.
 
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384c545a445548563262305a585546553f7261773d74727565.png?dl=1)
+5.1) Now let’s use a Hive script to generate an “omniture” view that contains a subset of the data in the Omniture log table.
 
-Now let’s use a Hive script to generate an “omniture” view that contains a subset of the data in the Omniture log table.
+~~~
+CREATE  VIEW  omniture  AS  
+SELECT col_2 ts, col_8 ip, col_13 url, col_14 swid, col_50 city, col_51 country, col_53 state 
+FROM omniturelogs
+~~~
 
-<div class="highlight highlight-source-sql">
+![](/assets/how-to-load-data-into-sandbox/omniture_subsetview_query.png)
 
-<pre class=" prettyprinted">  CREATE  VIEW  omniture  AS  SELECT col_2 ts, col_8 ip, col_13 url, col_14 swid, col_50 city, col_51 country, col_53 state FROM omniturelogs </pre>
-
-</div>
-
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384e55467a556d744253586c5a6147383f7261773d74727565.png?dl=1)
-
-Click Save as. On the “Saving item” pop-up, type “omniture” in the box, then click OK.
+5.2) Click Save as. On the “Saving item” pop-up, type “omniture” in the box, then click OK.
 
 ![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138546c52745557684d5130686c5645453f7261773d74727565.png?dl=1)
 
-You can see your saved query now by clicking on the “Save Queries” button at the top.
+5.3) You can see your saved query now by clicking on the “Save Queries” button at the top.
 
 ![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138556c59305758426b623164526157633f7261773d74727565.png?dl=1)
 
-Click Execute to run the script.
+5.4) Click Execute to run the script.
 
 To view the data generated by the saved script, click on the icon next to the view’s name at the Database Explorer.  
 The query results will appear, and you can see that the results include the data from the omniturelogs table that were specified in the query.
 
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a4574665a305a47556b6c524d30553f7261773d74727565.png?dl=1)
+![](/assets/how-to-load-data-into-sandbox/omniture_data_table.png)
 
-Finally, we’ll create a script that joins the omniture website log data to the CRM data (registered users) and CMS data (products). Click Query Editor, then paste the following text in the Query box:
+5.5) Finally, we’ll create a script that joins the omniture website log data to the CRM data (registered users) and CMS data (products). Click Query Editor, then paste the following text in the Query box:
 
+~~~
+create  table  webloganalytics  as  select to_date(o.ts) logdate,  o.url,  o.ip,  o.city,  upper(o.state) state,  o.country,  p.category, CAST(datediff( from_unixtime( unix_timestamp()  ), from_unixtime( unix_timestamp(u.birth_dt,  'dd-MMM-yy')))  /  365  AS  INT) age,  u.gender_cd  from omniture o inner join products p on  o.url  =  p.url  left outer join users u on  o.swid  = concat('{',  u.swid  ,  '}')
+~~~
 
-        create  table  webloganalytics  as  select to_date(o.ts) logdate,  o.url,  o.ip,  o.city,  upper(o.state) state,  o.country,  p.category, CAST(datediff( from_unixtime( unix_timestamp()  ), from_unixtime( unix_timestamp(u.birth_dt,  'dd-MMM-yy')))  /  365  AS  INT) age,  u.gender_cd  from omniture o inner join products p on  o.url  =  p.url  left outer join users u on  o.swid  = concat('{',  u.swid  ,  '}')
-
-
-Save this script as “webloganalytics” and execute the script.
+5.6) Save this script as “webloganalytics” and execute the script.
 
 ![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138526c6877583246664d3367774e55453f7261773d74727565.png?dl=1)
 
 You can view the data generated by the script as described in the preceding steps.
 
-![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384d445631627a4a72633245305354513f7261773d74727565.png?dl=1)
+![](/assets/how-to-load-data-into-sandbox/webloganalytics_data_table.png)
 
 Now that you have loaded data into the Hortonworks Platform, you can use Business Intelligence (BI) applications such as Microsoft Excel to access and analyze the data.  
+
+### Further Resources <a id="further-resources"></a>
+- [How to Use Excel 2013 to Access Hadoop Data](http://hortonworks.com/hadoop-tutorial/how-to-use-excel-2013-to-access-hadoop-data/)
+- [How to Use Excel 2013 to Analyze Hadoop Data](http://hortonworks.com/hadoop-tutorial/how-use-excel-2013-to-analyze-hadoop-data/)
