@@ -122,6 +122,7 @@ Here’s a summary of the data we’re working with:
 ![](/assets/how-to-load-data-into-sandbox/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713854576b784d46677757576c465344513f7261773d74727565.png?dl=1)
 
 **products** – CMS data that maps product categories to website URLs.
+> **Note:** your products image should look similar to users image above.
 
 5.1) Now let’s use a Hive script to generate an “omniture” view that contains a subset of the data in the Omniture log table.
 
