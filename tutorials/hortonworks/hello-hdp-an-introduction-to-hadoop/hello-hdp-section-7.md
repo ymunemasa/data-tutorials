@@ -10,7 +10,7 @@ In this tutorial you will be introduced to Apache Spark. In the earlier section 
 
 **Prerequisites:**
 
-The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
+The tutorial is a part of a series of hands on tutorials to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
 * Lab 0: (Hortonworks sandbox set up)
 * Lab 1: Loading sensor data into HDFS
@@ -19,39 +19,39 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 
 #### **Outline:**
 
-*   Apache Spark backdrop
-*   Apache Spark basics
-*   Step 4.1: Configure Apache Spark services using Ambari
-*   Step 4.2: Create a Hive Context
-*   Step 4.3: Create RDD from Hive Context
-*   Step 4.4: RDD transformations and actions
-*   Step 4.5: Load and save data into Hive as ORC
-*   Suggested readings
+*   [Apache Spark Backdrop](#apache-spark-backdrop)
+*   [Apache Spark Basics](#apache-spark-basics)
+*   [Step 4.1: Configure Apache Spark services using Ambari](#step4.1)
+*   [Step 4.2: Create a Hive Context](#step4.2)
+*   [Step 4.3: Create RDD from Hive Context](#step4.3)
+*   [Step 4.4: RDD transformations and actions](#step4.4)
+*   [Step 4.5: Load and save data into Hive as ORC](#step4.5)
+*   [Suggested Readings](#suggested-readings)
 
-#### Background in Apache Spark
+### Background in Apache Spark <a id="apache-spark-backdrop"></a>
 
 MapReduce has been useful, but the amount of time it takes for the jobs to run can at times be exhaustive. Also, MapReduce jobs only work for a specific set of use cases. There is a need for computing framework that works for a wider set of use cases.
 
 Therefore Apache Spark was designed as a computing platform to be fast, general-purpose, and easy to use. It extends the MapReduce model and takes it to a whole other level. The speed comes from the in-memory computations. Applications running in memory allows for a much faster processing and response.
 
-#### Apache Spark
+### Apache Spark <a id="apache-spark-basics"></a>
 
 [Apache Spark](http://hortonworks.com/hadoop/spark/) is a fast, in-memory data processing engine with elegant and expressive development APIs in [Scala](https://spark.apache.org/docs/1.2.0/api/scala/index.html#org.apache.spark.package),[Java](https://spark.apache.org/docs/1.2.0/api/java/index.html), and [Python](https://spark.apache.org/docs/1.2.0/api/java/index.html) that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets. Spark on [Apache Hadoop YARN](http://hortonworks.com/hadoop/YARN) enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.
 
-You can run batch application such as MapReduce types jobs or iterative algorithms that builds upon each other. You can also run interactive queries and process streaming data with your application. Spark also provides number of libraries which you can easily use to expand beyond the basic Spark capabilities such as Machine Learning algorithms, SQL, streaming, and graph processing. Spark runs on Hadoop clusters such as Hadoop YARN or Apache Mesos, or even as a standalone with its own scheduler.
+You can run batch application such as MapReduce types jobs or iterative algorithms that builds upon each other. You can also run interactive queries and process streaming data with your application. Spark also provides a number of libraries which you can easily use to expand beyond the basic Spark capabilities such as Machine Learning algorithms, SQL, streaming, and graph processing. Spark runs on Hadoop clusters such as Hadoop YARN or Apache Mesos, or even as a standalone with its own scheduler.
 
 ![Lab4_1](/assets/hello-hdp/Lab4_1.png)  
 Lets get started…!!
 
-**Step 4.1: Configuring Spark services using Ambari**
+### **Step 4.1: Configuring Spark services using Ambari** <a id="step4.1"></a>
 
-1.  Log on to Ambari Dashboard and click on Actions tab at the bottom left corner. Hit Start All to ensure Spark is running. Ambari will take some time to start all services and you can monitor the progress of it.
+1)  Log on to Ambari Dashboard as admin and click on Actions tab at the bottom left corner. Hit Start All to ensure Spark is running. Ambari will take some time to start all services and you can monitor the progress of it.
 
 ![Lab4_2](/assets/hello-hdp/Lab4_2.png)
 
 ![Lab4_3](/assets/hello-hdp/Lab4_3.png)
 
-2.  Close the Ambari browser and we will get running with some codes on Spark. ssh into the sandbox using root as login and hadoop as password.
+2)  Close the Ambari browser and we will get running with some codes on Spark. ssh into the sandbox using root as login and hadoop as password.
 
 ~~~
 login: root
@@ -60,17 +60,17 @@ password: hadoop
 
 Optionally, if you don’t have an SSH client installed and configured you can use the built-in web client which can be accessed from here: **http://_host_:4200** (use the same username and password provided above)
 
-3.  Type the command spark-shell
+3)  Type the command spark-shell
 
 This will load the default Spark Scala API.
 
-![Lab4_4](/assets/hello-hdp/Lab4_4.png)
+![Lab4_4](/assets/hello-hdp/spark_welcome.png)
 
-Notice it is already starting with Hive integration as we have preconfigured it on the Hortonworks Sandbox.
+> **Notice** it is already starting with Hive integration as we have preconfigured it on the Hortonworks Sandbox.
 
-**Step 4.2: Create a HiveContext**
+### **Step 4.2: Create a HiveContext** <a id="step4.2"></a>
 
-For improved Hive integration, HDP 2.3 offers [ORC file](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/) support for Spark. This allows Spark to read data stored in ORC files. Spark can leverage ORC file’s more efficient columnar storage and predicate pushdown capability for even faster in-memory processing. HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
+For improved Hive integration, HDP 2.4 offers [ORC file](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/) support for Spark. This allows Spark to read data stored in ORC files. Spark can leverage ORC file’s more efficient columnar storage and predicate pushdown capability for even faster in-memory processing. HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
 
 **Import these sql libraries:**
 
@@ -93,7 +93,7 @@ val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 
 - `sc` stands for **Spark Context**. SparkContext is the main entry point to everything Spark. It can be used to create RDDs and shared variables on the cluster. When you start up the Spark Shell, the SparkContext is automatically initialized for you with the variable `sc`.
 
-**Step 4.3: Creating a RDD from HiveContext**
+### **Step 4.3: Creating a RDD from HiveContext** <a id="step4.3"></a>
 
 **What is RDD?**
 
@@ -105,7 +105,9 @@ There are three methods for creating a RDD:
 *   The second method to create a RDD, is to reference a dataset. This dataset can come from any storage source supported by Hadoop such as HDFS, Cassandra, HBase etc.
 *   The third method to create a RDD is from transforming an existing RDD to create a new RDD. We will be using the later two methods in our tutorial.
 
-#### 1. Use a simple show command to see the list of tables in Hive warehouse.
+**4.3.1 View List of Tables in Hive Warehouse**
+
+Use a simple show command to see the list of tables in Hive warehouse.
 
 ~~~
 hiveContext.sql("show tables").collect.foreach(println)
@@ -115,7 +117,7 @@ hiveContext.sql("show tables").collect.foreach(println)
 
 You will notice that geolocation table and driver mileage table that we created in earlier tutorial are already listed in Hive metastore and can be directly queried upon.
 
-#### 2. Query tables to build Spark RDD
+**4.3.2 Query Tables To Build Spark RDD**
 
 We will do a simple select query to fetch data from geolocation and drivermileage tables to a spark variable. Getting data into Spark this way also allows to copy table schema to RDD.
 
@@ -140,7 +142,7 @@ drivermileage_temp1.take(10)
 
 Both these commands will return 10 rows from respective RDD`s.
 
-#### 3. Registering a Temporary table
+**4.3.3 Registering a Temporary Table**
 
 Now let’s give this RDD a name, so that we can use it in Spark SQL statements
 
@@ -149,7 +151,7 @@ geolocation_temp1.registerTempTable("geolocation_temp1")
 drivermileage_temp1.registerTempTable("drivermileage_temp1")
 ~~~
 
-**Step 4.4: RDD transformations and Actions**
+### **Step 4.4: RDD Transformations and Actions** <a id="step4.4"></a>
 
 Typically, RDDs are instantiated by loading data from a shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat on a YARN cluster.
 
@@ -158,7 +160,7 @@ Once an RDD is instantiated, you can apply a [series of operations](https://spar
 *   **Transformation** operations, as the name suggests, create new datasets from an existing RDD and build out the processing DAG that can then be applied on the partitioned dataset across the YARN cluster. Transformations do not return a value. In fact, nothing is evaluated during the definition of these transformation statements. Spark just creates these Direct Acyclic Graphs or DAG, which will only be evaluated at runtime. We call this lazy evaluation.
 *   An **Action** operation, on the other hand, executes DAG and returns a value.
 
-#### 1.  Querying against the table
+**4.4.1 Querying Against The Table**
 
 Now that our schema’s RDD with data has a name, we can use Spark SQL commands to query it. Remember the table below is not a Hive table, it is just a RDD we are querying with SQL.
 
@@ -185,7 +187,7 @@ geolocation_temp2.collect.foreach(println)
 
 ![Lab4_11](/assets/hello-hdp/Lab4_11.png)
 
-1.  **Perform join operation**
+**4.4.2  Perform join Operation**
 
 In this section we will perform a join operation geolocation_temp2 table has details of drivers and count of their respective non-normal events. drivermileage_temp1 table has details of total miles travelled by each driver.
 
@@ -212,7 +214,7 @@ joined.collect.foreach(println)
 
 ![Lab4_13](/assets/hello-hdp/Lab4_13.png)
 
-1.  **Compute Driver Risk Factor**
+**4.4.3  Compute Driver Risk Factor**
 
 In this section we will associate a driver risk factor with every driver. Driver risk factor will be calculated by dividing total miles travelled by non normal event occurrences.
 
@@ -236,13 +238,13 @@ risk_factor_spark.collect.foreach(println)
 
 ![Lab4_15](/assets/hello-hdp/Lab4_15.png)
 
-**Step 4.5: Load and Save Data into Hive as ORC**
+### **Step 4.5: Load and Save Data into Hive as ORC** <a id="step4.5"></a>
 
 In this section we will try to store data in orc format in Hive from Spark.ORC is a self-describing type-aware columnar file format designed for Hadoop workloads. It is optimized for large streaming reads and with integrated support for finding required rows fast. Storing data in a columnar format lets the reader read, decompress, and process only the values required for the current query. Because ORC files are type aware, the writer chooses the most appropriate encoding for the type and builds an internal index as the file is persisted.
 
 Predicate pushdown uses those indexes to determine which stripes in a file need to be read for a particular query and the row indexes can narrow the search to a particular set of 10,000 rows. ORC supports the complete set of types in Hive, including the complex types: structs, lists, maps, and unions.
 
-#### Create an ORC table
+**4.5.1 Create an ORC table**
 
 Create a table and store it as ORC. Specifying as orc at the end of the SQL statement below ensures that the Hive table is stored in the ORC format.
 
@@ -250,23 +252,38 @@ Create a table and store it as ORC. Specifying as orc at the end of the SQL stat
 hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
 ~~~
 
-*   ** Load data into ORC table**
+**4.5.2 Load data into ORC table**
 
 Before we load the data into hive table that we created above, we will have to convert our data file into orc format too.
+> **Note:** For Spark 1.3.1, use 
 
 ~~~
 risk_factor_spark.saveAsOrcFile("risk_factor_spark")
 ~~~
 
-**Load the data into Hive table using load data command.**
+> **Note:** For Spark 1.4.1 and higher, use
+
+~~~
+risk_factor_spark.write.format(“orc”).save(“risk_factor_spark”)
+~~~
+
+**4.5.3 Load the data into Hive table using load data command.**
 
 ~~~
 hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 ~~~
 
-*   Execute a select query to verify your table has been successfully stored.You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
+**4.5.4 Verify Data Successfully Populated Table**
+
+Execute a select query to verify your table has been successfully stored.You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
 
 ~~~
 hiveContext.sql("select * from finalresults")
 ~~~
 
+### Suggested Readings <a id="suggested-readings"></a>
+
+Enhance your spark foundation with the following resources:
+- [Apache Spark](http://hortonworks.com/hadoop/spark/)
+- [Learning Spark](http://www.amazon.com/Learning-Spark-Lightning-Fast-Data-Analysis/dp/1449358624/ref=sr_1_1?ie=UTF8&qid=1456010684&sr=8-1&keywords=apache+spark)
+- [Advanced Analytics with Spark](http://www.amazon.com/Advanced-Analytics-Spark-Patterns-Learning/dp/1491912766/ref=pd_bxgy_14_img_2?ie=UTF8&refRID=19EGG68CJ0NTNE9RQ2VX)
