@@ -2,7 +2,7 @@
 
 ## Introduction
 
-I this tutorial we will learn how to install Apache NiFi on your Hortonworks Sandbox if you do not have it pre-installed already. Using NiFi we will create a data flow that can pull tweets directly from the [Twitter API](https://dev.twitter.com/overview/documentation).
+In this tutorial we will learn how to install Apache NiFi on your Hortonworks Sandbox if you do not have it pre-installed already. Using NiFi we will create a data flow that can pull tweets directly from the [Twitter API](https://dev.twitter.com/overview/documentation).
 
 We will then use [Solr](http://hortonworks.com/hadoop/solr/) and the [LucidWorks HDP Search](http://hortonworks.com/press-releases/hortonworks-partners-lucidworks-bring-search-big-data/) to view our streamed data in realtime to gather insights as the data arrives in our Hadoop cluster.
 
@@ -23,14 +23,48 @@ Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) 
 
 - Downloaded and Installed the [Hortonworks Sandbox with HDP 2.3](http://hortonworks.com/hdp/downloads/)
 - Downloaded the GZipped version of the [Hortonworks DataFlow](http://hortonworks.com/products/dataflow)
-- Added `sandbox.hortonworks.com` to your `/etc/hosts` file.
+- [Setup Hortonworks Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
+- Added `sandbox.hortonworks.com` to your `/etc/hosts` file (mac and linux users).
+- Added `sandbox.hortonworks.com` to your `%systemroot%\system32\drivers\etc\hosts` file (windows users)
 
 If you haven't added `sandbox.hortonworks.com` to your lists of hosts you can do so with the following command on a unix system:
 
 ~~~
-echo "127.0.0.1     sandbox.hortonworks.com >> /etc/hosts
+echo "127.0.0.1     sandbox.hortonworks.com >> /etc/hosts"
 ~~~
 
+Alernative approach in case above command doesn't work, write the commands:
+
+~~~
+cd /private/etc
+sudo nano hosts
+~~~
+
+We navigated to the etc directory, then opened our hosts file in the nano editor as a superuser using [sudo](https://www.linux.com/community/blogs/133-general-linux/801805-how-to-use-sudo-and-su-commands-in-linux-an-introduction). Now add the following text to your lists of hosts:
+
+~~~
+<ip address of your machine> sandbox.hortonworks.com
+~~~
+
+> **Note:** For Azure users, your ip address is located on the sandbox dashboard.
+For Virtualbox users, your ip address is located at the sandbox start screen.
+
+After inserting the above, the portion of the file should look similar to this:
+
+~~~
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1       localhost
+255.255.255.255 broadcasthost
+::1             localhost
+40.117.36.165 sandbox.hortonworks.com
+~~~
+
+Press ctrl-x, and type `y` to save and close the `hosts` file.
 
 ## Outline
 
@@ -63,7 +97,8 @@ Assuming that HDF has been downloaded to your `~/Downloads/` directory and that 
 **Note:** the `-P` argument is case sensitive.
 
 ~~~
-scp -P 2222 ~/Downloads/nifi-1.1.1.0-12-bin.tar.gz root@localhost:/root
+Virtualbox | scp -P 2222 ~/Downloads/nifi-1.1.1.0-12-bin.tar.gz root@localhost:/root 
+Azure	   | scp -P <port> ~/Downloads/nifi-1.1.1.0-12-bin.tar.gz <username>@<hostname>:/folder_destination
 ~~~
 
 Once you've done that you'll need to SSH into the sandbox
@@ -73,7 +108,8 @@ Once you've done that you'll need to SSH into the sandbox
 There are two options to connecting to your sandbox to execute terminal commands. The first is by using the terminal emulator at [http://sandbox.hortonworks.com:4200](http://sandbox.hortonworks.com:4200). Or you can open a terminal on your computer and use the following command
 
 ~~~
-ssh root@sandbox.hortonworks.com -p 2222
+Virtualbox | ssh root@sandbox.hortonworks.com -p 2222 
+Azure      | ssh <username>@<hostname> -p <port>       
 ~~~
 
 If you've already logged into your sandbox through SSH your password will be different than below.
@@ -82,7 +118,7 @@ If you've already logged into your sandbox through SSH your password will be dif
 |:--------:|:--------:|
 |  _root_  | _hadoop_ |
 
-> **Note** that you will be prompted to change the `root` user's password once you login to the sandbox. **Do NOT forget this!**
+> **Note** Virtualbox users will be prompted to change the `root` user's password once you login to the sandbox. **Do NOT forget this!** Azure users will have to manually enter a password to access root. This step is covered in the Azure tutorial in the prerequisites section.
 
 First, use the `export` command to create a temporary variable to store the name of the nifi file which you just downloaded.
 
@@ -113,7 +149,7 @@ Unzip the file
 tar -xvf $NIFI
 ~~~
 
-Then let's head into the directory we just unzipped. It will be the same as the $NIFI variable, expcept without the -bin.tar.gz at the end. In this case the command is:
+Then let's head into the directory we just unzipped. It will be the same as the $NIFI variable, except without the -bin.tar.gz at the end. In this case the command is:
 
 ~~~
 cd nifi-1.1.1.0-12
@@ -139,7 +175,7 @@ Make sure you can reach the NiFi user interface at [http://sandbox.hortonworks.c
 
 If you can't access it, first wait approximately 10-15 seconds after executing the command. If you still can't connect after that then you might need to forward port `9090` on your virtual machine.
 
-For VirtualBox you can forward the port **2** ways. Either through the GUI, or using the command line on the Host machine
+For VirtualBox you can forward the port **2** ways. Either through the GUI, or using the command line on the Host machine. For Azure you can forward the port **1** way, which involves the GUI.
 
 ### Forwarding a Port on the Host Machine's Terminal
 
@@ -177,8 +213,12 @@ Port 9090 should now be forwarded! You may skip the GUI section of port forwardi
 |------|---------|---------|-----------|----------|------------|
 | NiFi |   TCP   |127.0.0.1|    9090   |          |    9090    |
 
-
 ![Port Forward NiFi](/assets/nifi-sentiment-analytics/images/06_port_forward_nifi.png)
+
+1. Open Sandbox Virtual Machine (classic) in Azure
+2. Click **settings**
+3. Go to the **Endpoints** row under *Manage*
+4. Click the button that says **Add**. Add an entry with the values in the table above.
 
 You should now be able to access the NiFi user interface at [http://sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi).
 
@@ -216,7 +256,7 @@ vi /opt/lucidworks-hdpsearch/solr/server/solr/configsets/tweet_configs/conf/solr
 
 Once the file is opened in `vi` type 
 
-**Note**: In **vi** the command below should not be run in **INSERT** mode.  `/` will do a find for the text that you type after it.
+**Note** In **vi** the command below should not be run in **INSERT** mode.  `/` will do a find for the text that you type after it.
 
 ~~~
 /solr.ParseDateFieldUpdateProcessorFactory
@@ -230,7 +270,7 @@ This will bring you to the part of the config where we need to add the following
 
 Make sure this is inserted just above all of the other `<str>` tags.
 
-**Note**. In `vi`, to type or insert anything you must be in _insert mode_. Press `i` on your keyboard to enter insert mode in `vi`.
+**Note** In `vi`, to type or insert anything you must be in _insert mode_. Press `i` on your keyboard to enter insert mode in `vi`.
 
 After inserting the above, the portion of the file should look something like this:
 
@@ -258,12 +298,13 @@ cd /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/banana/app/dashboard
 
 mv default.json default.json.orig
 
-wget https://raw.githubusercontent.com/ZacBlanco/hwx-tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/default.json
+wget https://raw.githubusercontent.com/abajwa-hw/ambari-nifi-service/master/demofiles/default.json
 ~~~
 
 Now we're going to start Solr. Execute
 
 ~~~
+export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
 /opt/lucidworks-hdpsearch/solr/bin/solr start -c -z localhost:2181
 ~~~
 
@@ -315,7 +356,7 @@ After you've clicked that you'll need to fill in some details about your applica
 
  Then click **Create Your Twitter Application** at the bottom of the screen after reading the developer agreement.
 
-> Note that you might need to add your mobile phone to your Twitter account before creating your application
+> **Note** that you might need to add your mobile phone to your Twitter account before creating your application
 
 Once you've done that you should be greeted by a dashboard for your Twitter application. Head over to the permissions tab and select the **Read Only** Option and **Update** your application.
 
@@ -331,9 +372,9 @@ Please make note of your **Consumer Key**, **Consumer Secret**, **Access Token**
 
 ## Create a Data Flow with NiFi <a id="creating-a-data-flow-with-nifi"></a>
 
-The first thing you'll need to do here is download the NiFi data flow template for the [Twitter Dashboard here](https://raw.githubusercontent.com/ZacBlanco/hwx-tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/Twitter_Flow.xml)
+The first thing you'll need to do here is download the NiFi data flow template for the [Twitter Dashboard here](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/Twitter_Flow.xml)
 
-[**Download**](https://raw.githubusercontent.com/ZacBlanco/hwx-tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/Twitter_Flow.xml)
+[**Download**](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/Twitter_Flow.xml)
 
 Make note of where you download this file. You'll need it in the next step.
 
@@ -355,7 +396,7 @@ You should now see the template appear below.
 
 ![NiFi Template Imported](/assets/nifi-sentiment-analytics/images/16_nifi_template_imported.png)
 
-Now that we've got the template imported into NiFi we can instanstiate it. Drag the template icon (the 7th from the left) onto the workspace.
+Now that we've got the template imported into NiFi we can instantiate it. Drag the template icon (the 7th from the left) onto the workspace.
 
 ![Drag Template Icon](/assets/nifi-sentiment-analytics/images/17_nifi_drag_template.png)
 
@@ -384,9 +425,9 @@ Then you're going to need to place all of those Twitter API tokens from earlier 
 
 ![NiFi Tokens](/assets/nifi-sentiment-analytics/images/21_nifi_set_tokens.png)
 
-Once you've got all of your peroperties set up you can take a look at the configurations of some of the other processsors in our data.
+Once you've got all of your properties set up you can take a look at the configurations of some of the other processors in our data.
 
-Once you've done that head to the top of the page and lick the play button to watch the tweets roll in! Note that all of the red squares have now turned to green arrows.
+Once you've done that head to the top of the page and click the play button to watch the tweets roll in! Note that all of the red squares have now turned to green arrows.
 
 If only one of the boxes changes when you click **Start**, make sure that you don't have any specific processor selected. Deselect things by simply clicking on the blank area of the screen.
 
@@ -399,7 +440,7 @@ This section is for anyone who didn't want to set up a Twitter app so they could
 First you'll need to SSH into the sandbox execute the following command
 
 ~~~
-wget https://raw.githubusercontent.com/ZacBlanco/hwx-tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/twitter-gen.sh
+wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/twitter-gen.sh
 ~~~
 
 Then run the command with your specified number of tweets that you would like to generate.
@@ -453,7 +494,7 @@ Click on the query tab, and you should be brought to screen similar to the follo
 
 We're only going to be using 3 of these fields before we execute any queries, but let's quickly outline the different query parameters
 
-- **fq**: This is a filter query parameter it lets us retrieve data that only contains certain values that we're looking for. Example: we can specify that we only wants tweets after a certain time to be returned.
+- **fq**: This is a filter query parameter it lets us retrieve data that only contains certain values that we're looking for. Example: we can specify that we only want tweets after a certain time to be returned.
 - **sort**: self-explanatory. You can sort by a specified field in ascending or descending order. we could return all tweets by alphabetical order of Twitter handles, or possible by the time they were tweeted as well.
 - **start, rows**: This tells us where exactly in the index we should start searching, and how many rows should be returned when we execute the query. The defaults for each of these is `0` and `10` respectively.
 - **fl**: Short for _field list_ specify which fields you want to be returned. If the data many, many fields, you can choose to specify only a few that are returned in the query.
@@ -493,7 +534,7 @@ Let's try one last query. This time you can omit the **sort** field and chooses 
 ## Analyzing Tweet Data in Hive <a id="analyzing-tweet-data-in-hive"></a>
 --------------------------------
 
-Now that we've taken a look at some of our data and searched it with Solr, lets see if we can refine it a bit more.
+Now that we've taken a look at some of our data and searched it with Solr, let's see if we can refine it a bit more.
 
 We're going to attempt to get the sentiment of each tweet by matching the words in the tweets with a sentiment dictionary. From this we can determine the sentiment of each tweet and analyze it from there.
 
@@ -505,11 +546,12 @@ First off, if your Twitter flow on the NiFi instance is still running, you'll ne
 Next, you'll need to SSH into the sandbox again and run the following two commands
 
 ~~~
-sudo -u hdfs hadoop fs -chown -R admin /tmp/tweets_staging
+Virtualbox | sudo -u hdfs hadoop fs -chown -R admin /tmp/tweets_staging
+Azure	   | sudo -u hdfs hadoop fs -chown -R azure /tmp/tweets_staging
 sudo -u hdfs hadoop fs -chmod -R 777 /tmp/tweets_staging
 ~~~
 
-After the commands completes let's go to the Hive view. Head over to [http://sandbox.hortonworks.com:8080](http://sandbox.hortonworks.com:8080/). Login with credentials `admin/admin`. Use the dropdown menu at the top to get to the Hive view. 
+After the commands complete let's go to the Hive view. Head over to [http://sandbox.hortonworks.com:8080](http://sandbox.hortonworks.com:8080/). Login with credentials `admin/admin` (Virtualbox), else `azure/azure` (Azure). Use the dropdown menu at the top to get to the Hive view. 
 
 Execute the following command to create a table for the tweets
 
@@ -538,7 +580,7 @@ Then create two new directories inside of `/tmp/data/tables`. One named **time_z
 
 ![Data Table Folders](/assets/nifi-sentiment-analytics/images/31_data_table_folders.png)
 
-In each of the folders respectively you'll need to upload the [`dictionary.tsv` file](https://raw.githubusercontent.com/ZacBlanco/hwx-tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/dictionary.tsv), and the [`time_zone_map.tsv` file](https://raw.githubusercontent.com/ZacBlanco/hwx-tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/time_zone_map.tsv) to each of their respective directories.
+In each of the folders respectively you'll need to upload the [`dictionary.tsv` file](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/dictionary.tsv), and the [`time_zone_map.tsv` file](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/time_zone_map.tsv) to each of their respective directories.
 
 After doing so, you'll need to run the following command on the Sandbox:
 
@@ -572,6 +614,8 @@ LOCATION '/tmp/data/tables/time_zone_map';
 ~~~
 
 This will create two tables from that data which we will use to analyze the tweet sentiment. They should appear in the **database explorer** as shown below.
+
+> **Note** Refresh page if explorer doesn't appear automatically.
 
 ![Data Table Folders](/assets/nifi-sentiment-analytics/images/32_hive_table_db_explorer.png)
 
@@ -650,7 +694,7 @@ This command should yield our final results table as shown below.
 
 **Try the new Hive Visualization tab!**
 
- On the right hand side of the screen try clicking the **graph icon**. It will bring up a new tab where you can directly create charts using your query results in Hive!
+ On the right hand side of the screen try clicking the **graph icon** in the column located in row 3. It will bring up a new tab where you can directly create charts using your query results in Hive!
 
 
 Now that we can access the sentiment data in our Hive table let's do some visualization on the analysis using Apache Zeppelin.
@@ -658,7 +702,7 @@ Now that we can access the sentiment data in our Hive table let's do some visual
 ## Visualizing Sentiment With Zeppelin <a id="visualizing-sentiment-with-zeppelin"></a>
 ------------------------------------------------
 
-Make sure you Zeppelin service is started in Ambari and head over to the Zeppelin View.
+Make sure your Zeppelin service is started in Ambari and head over to the Zeppelin View. Alternative way to access Zeppelin is to head over to [http://sandbox.hortonworks.com:9995](http://sandbox.hortonworks.com:9995/).
 
 ![Hive Sentiment Analysis Results](/assets/nifi-sentiment-analytics/images/35_ambari_zeppelin_view.png)
 
@@ -689,6 +733,8 @@ After looking at the results we see that if we group by country that many tweets
 For the sake of visualization let's remove any tweets that might appear in our select statement that have a country value of "null", as well as increase our result limit to 500.
 
 Scroll down to the next note and create run the following query, and set up the results the same way as above.
+
+> **Note** Before running Hive queries, restart the Spark Interpreter since Spark jobs take up cluster resources. Click the **Interpreter** tab located near Zeppelin logo at the top of the page, under **Spark** click on the button that says **restart**. 
 
 ~~~
 %hive
