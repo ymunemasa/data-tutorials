@@ -1,14 +1,14 @@
-## Lab 4: Spark - Risk Factor
+# Lab 4: Spark - Risk Factor
 
-### Use Apache Spark to compute Driver Risk Factor
+## Use Apache Spark to compute Driver Risk Factor
 
 **Note** that this step is optional and produces the same result as in Lab 3. You may continue on to the next lab if you wish.
 
-**Introduction:**
+### **Introduction**
 
 In this tutorial you will be introduced to Apache Spark. In the earlier section of lab you learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand  risk associated with every driver. This section will teach you to compute risk using Apache spark.
 
-**Prerequisites:**
+## **Prerequisites**
 
 The tutorial is a part of a series of hands on tutorials to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -17,7 +17,7 @@ The tutorial is a part of a series of hands on tutorials to get you started on H
 * Lab 2: Data Manipulation with Apache Hive
 * Allow yourself around one hour to complete this tutorial.
 
-#### **Outline:**
+## **Outline**
 
 *   [Apache Spark Backdrop](#apache-spark-backdrop)
 *   [Apache Spark Basics](#apache-spark-basics)
@@ -28,13 +28,13 @@ The tutorial is a part of a series of hands on tutorials to get you started on H
 *   [Step 4.5: Load and save data into Hive as ORC](#step4.5)
 *   [Suggested Readings](#suggested-readings)
 
-### Background in Apache Spark <a id="apache-spark-backdrop"></a>
+## Background in Apache Spark <a id="apache-spark-backdrop"></a>
 
 MapReduce has been useful, but the amount of time it takes for the jobs to run can at times be exhaustive. Also, MapReduce jobs only work for a specific set of use cases. There is a need for computing framework that works for a wider set of use cases.
 
 Therefore Apache Spark was designed as a computing platform to be fast, general-purpose, and easy to use. It extends the MapReduce model and takes it to a whole other level. The speed comes from the in-memory computations. Applications running in memory allows for a much faster processing and response.
 
-### Apache Spark <a id="apache-spark-basics"></a>
+## Apache Spark <a id="apache-spark-basics"></a>
 
 [Apache Spark](http://hortonworks.com/hadoop/spark/) is a fast, in-memory data processing engine with elegant and expressive development APIs in [Scala](https://spark.apache.org/docs/1.2.0/api/scala/index.html#org.apache.spark.package),[Java](https://spark.apache.org/docs/1.2.0/api/java/index.html), and [Python](https://spark.apache.org/docs/1.2.0/api/java/index.html) that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets. Spark on [Apache Hadoop YARN](http://hortonworks.com/hadoop/YARN) enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.
 
@@ -281,7 +281,7 @@ Execute a select query to verify your table has been successfully stored.You can
 hiveContext.sql("select * from finalresults")
 ~~~
 
-### Suggested Readings <a id="suggested-readings"></a>
+## Suggested Readings <a id="suggested-readings"></a>
 
 Enhance your spark foundation with the following resources:
 - [Apache Spark](http://hortonworks.com/hadoop/spark/)
