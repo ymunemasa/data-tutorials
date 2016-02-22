@@ -1,12 +1,12 @@
-## Lab 3: Pig - Risk Factor
+# Lab 3: Pig - Risk Factor
 
-### **Use Pig to compute Driver Risk Factor**
+## **Use Pig to compute Driver Risk Factor**
 
-#### **Introduction:**
+### **Introduction**
 
 In this tutorial you will be introduced to Apache Pig. In the earlier section of lab you learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand  risk associated with every driver. This section will teach you to compute risk using Apache Pig.
 
-**Prerequisites:**
+## **Prerequisites**
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -15,7 +15,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   Lab 2: Data Manipulation with Apache Hive
 *   Allow yourself around one hour to complete this tutorial.
 
-**Outline:**
+## **Outline**
 
 *   [Pig Basics](#pig-basics)
 *   [Step 3.1: Define Table Schema](#step3.1)
@@ -24,7 +24,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   [Step 3.4: Execute Pig Script on Tez](#step3.4)
 *   [Suggested Readings](#suggested-readings)
 
-### **Pig Basics:** <a id="pig-basics"></a>
+## **Pig Basics** <a id="pig-basics"></a>
 
 Pig is a high-level scripting language that is used with Apache Hadoop. Pig enables data workers to write complex data transformations without knowing Java. Pig’s simple SQL-like scripting language is called Pig Latin, and appeals to developers already familiar with scripting languages and SQL.
 
@@ -271,7 +271,7 @@ Go back to the Ambari Hive User View and browse the data in the **riskfactor** t
 
 At this point we now have our truck miles per gallon table and our risk factor table. The next step is to pull this data into Excel to create the charts for the visualization step.
 
-### **Suggested Readings** <a id="suggested-readings"></a>
+## **Suggested Readings** <a id="suggested-readings"></a>
 
 Strengthen your foundation of pig latin and reinforce why this scripting platform is benficial for processing and analyzing massive data sets with these resources:
 
