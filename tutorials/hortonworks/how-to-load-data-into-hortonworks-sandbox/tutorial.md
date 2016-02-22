@@ -1,6 +1,6 @@
 # How to Load Data Into the Hortonworks Sandbox
 
-## Summary
+### Summary
 
 The Hortonworks Sandbox is a fully contained Hortonworks Data Platform (HDP) environment. The sandbox includes the core Hadoop components, as well as all the tools needed for data ingestion and processing. You can access and analyze sandbox data with many Business Intelligence (BI) applications.
 
