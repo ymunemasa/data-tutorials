@@ -2,7 +2,7 @@
 
 ### Introduction
 
-In this tutorial, we will install and explore the Sandbox on virtualbox, vmware or Azure. We also briefly navigate the Ambari user interface.
+In this tutorial, we will install and explore the Sandbox on virtualbox, vmware or Azure. We will also briefly navigate the Ambari user interface.
 
 ## Pre-Requisites
 - Allow yourself about half an hour to complete this tutorial
