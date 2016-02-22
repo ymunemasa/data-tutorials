@@ -1,26 +1,46 @@
-## Lab 0: Set-up
+# Lab 0: Set-up
 
-### **Start the Sandbox VM and Open Ambari**
+### Introduction
+
+In this tutorial, we will install and explore the Sandbox on virtualbox, vmware or Azure. We also briefly navigate the Ambari user interface.
+
+## Pre-Requisites
+- Allow yourself about half an hour to complete this tutorial
+
+## Outline
+- [Step 1: Start the Sandbox VM](#start-sandbox-vm)
+- [Step 2: Open Ambari](#open-ambari)
+- [Further Reading](#further-reading)
+
+### **Step 1: Start the Sandbox VM** <a id="start-sandbox-vm"></a>
 
 Start the HDP Sandbox following the [Sandbox Install Guide](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM:
 
-![Lab0_1](/assets/hello-hdp/Lab0_1.png)
+![Lab0_1](/assets/hello-hdp/download_install_sandbox.png)
+
+**Learn the Host Address of Your Environment**
 
 Once you have installed the Sandbox VM, it resolves to the host on your environment, the address of which varies depending upon the Virtual Machine you are using(Vmware, VirtualBox etc). As, a general thumb rule, wait for the installation to complete and confirmation screen will tell you the host your sandbox resolves to. For example:
 
-In case of VirtualBox: host would be 127.0.0.1
+In case of VirtualBox: `host` would be `127.0.0.1`
 
 ![Lab0_2](/assets/hello-hdp/Lab0_2.png)
 
+> **Note:** In case of Azure, your **host** can be found under **Public IP Address**. For further clarification, check out our guide for [Deploying Hortonworks Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
+
 If you are using a private cluster or a cloud to run sandbox. Please find the host your sandbox resolves to.
 
-Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at http://_host_:8888/.
+Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
 
 ![Screen Shot 2015-07-20 at 6.11.32 PM](/assets/hello-hdp/Screen-Shot-2015-07-20-at-6.11.32-PM.png)
 
+### Step 2: Open Ambari <a id="open-ambari"></a>
+
 Navigate to Ambari welcome page using the url given on Sandbox welcome page.
 
-**Both the username and password to login are admin.**
+> **Note:** Both the username and password to login are **maria.dev1**.
+
+**Use Terminal to Find the Host Address Sandbox Runs On **
 
 If you want to search for the host address your sandbox is running on, ssh into the sandbox terminal upon successful installation and follow subsequent steps:
 
@@ -34,12 +54,12 @@ If you want to search for the host address your sandbox is running on, ssh into 
 |---------|-----|
 | Sandbox Welcome Page | [http://_host_:8888]()|
 | Ambari Dashboard | [http://_host_:8080]()|
-| Ambari Welcome | [http://_host_:8080/views/ADMIN_VIEW/2.1.0/INSTANCE/#/]()|
-| Hive User View | [http://_host_:8080/#/main/views/HIVE/1.0.0/Hive]()|
-| Pig User View | [http://_host_:8080/#/main/views/PIG/0.1.0/MyPig]()|
-| File User View | [http://_host_:8080/#/main/views/FILES/0.2.0/MyFiles]()|
+| Ambari Welcome | [http://_host_:8080/views/ADMIN_VIEW/2.2.1.0/INSTANCE/#/]()|
+| Hive User View | [http://_host_/#/main/views/HIVE/1.0.0/AUTO_HIVE_INSTANCE]()|
+| Pig User View | [http://_host_:8080/#/main/views/PIG/1.0.0/Pig]()|
+| File User View | [http://_host_:8080/#/main/views/FILES/1.0.0/Files]()|
 | SSH Web Client | [http://_host_:4200]()|
-| Hadoop Configuration | [http://_host_:50070/dfshealth.html http://_host_:50070/explorer.html]() |
+| Hadoop Configuration | [http://_host_:50070/dfshealth.html]()   [http://_host_:50070/explorer.html]() |
 
 
 The following table has some useful URLs as well:
@@ -53,9 +73,9 @@ The following table has some useful URLs as well:
 
 Enter the Ambari Welcome URL and then you should see a similar screen:
 
-There are 5 key capabilities to explore in the Ambari Welcome screen:
-
 ![Lab0_3](/assets/hello-hdp/Lab0_3.png)
+
+**Explore Ambari Welcome Screen 5 Key Capabilities**
 
 1.  “**Operate Your Cluster**” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators
 2.  “**Manage Users + Groups**” allows you to add & remove Ambari users and groups
@@ -63,7 +83,7 @@ There are 5 key capabilities to explore in the Ambari Welcome screen:
 4.  “**Ambari User Views**” list the set of Ambari Users views that are part of the cluster
 5.  “**Deploy Views**” provides administration for adding and removing Ambari User Views
 
-Take a few minutes to quickly explore these 5 capabilities and to become familiar their features.
+Take a few minutes to quickly explore these 5 capabilities and become familiar with their features.
 
 Enter the Ambari Dashboard URL and you should see a similar screen:
 
@@ -76,6 +96,8 @@ Briefly skim through the Ambari Dashboard links (circled above) by clicking on
 and then the
 
 1.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
+
+## Further Reading <a id="further-reading"></a>
 
 - To learn more about Hadoop please explore the [HDP Getting Started documentation](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.4/bk_getting-started-guide/content/ch_about-hortonworks-data-platform.html).  
 - If you have questions, feedback or need help getting your environment ready visit  [developer.hortonworks.com](http://hortonworks.com/developer/).
