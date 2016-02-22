@@ -1,18 +1,21 @@
+# How To Process Data with Apache Pig
+
 ### Introduction
 
-In this tutorial, we will implement pig latin scripts to process, analyze and manipulate data files of baseball statistics.
+In this tutorial, we will learn to store data files using Ambari HDFS Files View. We will implement pig latin scripts to process, analyze and manipulate data files of baseball statistics. Let's build our own Pig Latin Scripts now.
 
-### Pre-Requisites
+## Pre-Requisites
 - Downloaded and Installed the [Hortonworks Sandbox with HDP 2.4](http://hortonworks.com/hdp/downloads/)
 
-### Outline
+## Outline
 - [What is Pig?](#what-is-pig)
 - [Our Data Processing Task](#our-data-processing-task)
 - [Step 1: Downloading The Data](#downloading-the-data)
 - [Step 2: Uploading The Data Files](#uploading-data-files)
 - [Step 3: Create Pig Script](#create-pig-script)
+- [Further Reading](#further-reading)
 
-### What is Pig? <a id="what-is-pig"></a>
+## What is Pig? <a id="what-is-pig"></a>
 
 Pig is a high level scripting language that is used with Apache Hadoop. Pig excels at describing data analysis problems as data flows. Pig is complete in that you can do all the required data manipulations in Apache Hadoop with Pig. In addition through the User Defined Functions(UDF) facility in Pig you can have Pig invoke code in many languages like JRuby, Jython and Java. Conversely you can execute Pig scripts in other languages. The result is that you can use Pig as a component to build larger and more complex applications that tackle real business problems.
 
@@ -20,7 +23,7 @@ A good example of a `Pig application` is the `ETL transaction model` that descri
 
 Pig scripts are translated into a series of `MapReduce jobs` that are run on the `Apache  Hadoop cluster`. As part of the translation the Pig interpreter does perform optimizations to speed execution on Apache Hadoop. We are going to write a Pig script that will do our data analysis task.
 
-### Our Data Processing Task <a id="our-data-processing-task"></a>
+## Our Data Processing Task <a id="our-data-processing-task"></a>
 
 We are going to read in a baseball statistics file. We are going to compute the highest runs by a player for each year. This file has all the statistics from 1871–2011 and it contains over 90,000 rows. Once we have the highest runs we will extend the script to translate a player id field into the first and last names of the players.
 
@@ -140,3 +143,8 @@ Then we **find the maximum runs for each year.**
 This is finally **mapped to the playerID** and we produce our final dataset.
 
 As mentioned before `Pig` operates on data flows. We consider each group of rows together and we specify how we operate on them as a group. As the datasets get larger and/or add fields our `Pig script` will remain pretty much the same because it is concentrating on how we want to manipulate the data.  
+
+## Further Reading <a id="further-reading"></a>
+- [Apache Pig](http://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-pig/)
+- [Welcome to Apache Pig!](https://pig.apache.org/)
+- [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645)
