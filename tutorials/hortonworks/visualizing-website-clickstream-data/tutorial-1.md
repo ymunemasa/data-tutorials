@@ -10,7 +10,7 @@ In this tutorial, we will load and review data for a fictitious web retail store
 
 ### Prerequisites:
 
-* Hortonworks Sandbox 2.3 (installed and running)
+* Hortonworks Sandbox 2.4 (installed and running)
 
 ### Overview
 
@@ -55,16 +55,18 @@ Save the sample data .zip file to your computer, then extract the files and unzi
 
 ### Step 2: Upload the Data Files into the Sandbox
 
-Select the ``HDFS Files view`` from the Off-canvas menu at the top. The HDFS Files view allows you to view the Hortonworks Data Platform(HDP) file store. The HDP file system is separate from the local file system.
+First Log in to the Ambari interface at [http://localhost:8080](http://localhost:8080). You can log in with the username `admin` and the password `4o12t0n`
+
+Select the `HDFS Files view` from the Off-canvas menu at the top. The HDFS Files view allows you to view the Hortonworks Data Platform(HDP) file store. The HDP file system is separate from the local file system.
 
 
-We navigate to ``/tmp``, create an **admin** folder
+We navigate to `/tmp`, create an **admin** folder
 
 ![](/assets/clickstream/68747470733a2f42f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071386155744456453554576a497a516d633f7261773d74727565.png)  
 
 right click on admin and select **Permissions**:
 
-Now we check the ``Write buttons`` and ``modify recursively`` and press save.
+Now we check the `Write buttons` and `modify recursively` and press save.
 
 ![](/assets/clickstream/68747470733a22f22f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384d33557a4e693171636e426a516d633f7261773d74727565.png) 
 
@@ -72,57 +74,55 @@ Verify that the permissions look now like this:
 
 ![](/assets/clickstream/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713854475a716345395252316876596d633f7261773d74727565.png) 
 
-Now, we navigate to ``/tmp/admin``, click on upload and browse the ``Omniture.0.tsv``. 
+Now, we navigate to `/tmp/admin`, click on upload and browse the `Omniture.0.tsv`. 
 
-Repeat this procedure for ``users.tsv`` file and for ``products.tsv``. 
+Repeat this procedure for `users.tsv` file and for `products.tsv`. 
 
 ### Step 3: Create Hive tables
 
-Let's open the ``Hive View`` by clicking on the Hive button from the ``views menu``. 
+Let's open the `Hive View` by clicking on the Hive button from the `views menu`. 
 
 ![](/assets/clickstream/687474707133a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138566c68794c575934576e6c574e324d3f7261773d74727565.png) 
 
 and create the tables users, products and omniture. 
 
-```
+
     create table users (swid STRING, birth_dt STRING, gender_cd CHAR(1))
     ROW FORMAT DELIMITED
     FIELDS TERMINATED by '\t'
     stored as textfile 
     tblproperties ("skip.header.line.count"="1");
-```
+
 
 ![](/assets/clickstream/68747470733a2f12f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138544752564c585574646c64596256553f7261773d74727565.png) 
 
-```sql
+
     create table products (url STRING, category STRING)
     ROW FORMAT DELIMITED
     FIELDS TERMINATED by '\t'
     stored as textfile 
     tblproperties ("skip.header.line.count"="1");
-```
+
 
 ![](/assets/clickstream/68747470733a2f23f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a327459596b5a4463546b315a44413f7261773d74727565.png) 
 
-```sql    
+    
     create table omniturelogs (col_1 STRING,col_2 STRING,col_3 STRING,col_4 STRING,col_5 STRING,col_6 STRING,col_7 STRING,col_8 STRING,col_9 STRING,col_10 STRING,col_11 STRING,col_12 STRING,col_13 STRING,col_14 STRING,col_15 STRING,col_16 STRING,col_17 STRING,col_18 STRING,col_19 STRING,col_20 STRING,col_21 STRING,col_22 STRING,col_23 STRING,col_24 STRING,col_25 STRING,col_26 STRING,col_27 STRING,col_28 STRING,col_29 STRING,col_30 STRING,col_31 STRING,col_32 STRING,col_33 STRING,col_34 STRING,col_35 STRING,col_36 STRING,col_37 STRING,col_38 STRING,col_39 STRING,col_40 STRING,col_41 STRING,col_42 STRING,col_43 STRING,col_44 STRING,col_45 STRING,col_46 STRING,col_47 STRING,col_48 STRING,col_49 STRING,col_50 STRING,col_51 STRING,col_52 STRING,col_53 STRING)
     ROW FORMAT DELIMITED
     FIELDS TERMINATED by '\t'
     stored as textfile 
     tblproperties ("skip.header.line.count"="1");
-```
+
 
 ### Step 4: Load data into new tables
 
 To load the data into the tables, we have to execute the following queries. 
 
-```sql
-LOAD DATA INPATH '/tmp/admin/products.tsv' OVERWRITE INTO TABLE products;
 
-LOAD DATA INPATH '/tmp/admin/users.tsv' OVERWRITE INTO TABLE users;
+	LOAD DATA INPATH '/tmp/admin/products.tsv' OVERWRITE INTO TABLE products;
+	LOAD DATA INPATH '/tmp/admin/users.tsv' OVERWRITE INTO TABLE users;
+	LOAD DATA INPATH '/tmp/admin/Omniture.0.tsv' OVERWRITE INTO TABLE omniturelogs;
 
-LOAD DATA INPATH '/tmp/admin/Omniture.0.tsv' OVERWRITE INTO TABLE omniturelogs;
-```
 
 ![](/assets/clickstream/687474707333a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384f47395453324a57525864555245553f7261773d74727565.png) 
 
@@ -150,11 +150,11 @@ Here’s a summary of the data we’re working with:
 
 Now let’s use a Hive script to generate an “omniture” view that contains a subset of the data in the Omniture log table. 
 
-```sql
-        CREATE VIEW omniture AS 
-        SELECT col_2 ts, col_8 ip, col_13 url, col_14 swid, col_50 city, col_51 country, col_53 state 
-        FROM omniturelogs 
-```
+
+	CREATE VIEW omniture AS 
+	SELECT col_2 ts, col_8 ip, col_13 url, col_14 swid, col_50 city, col_51 country, col_53 state 
+	FROM omniturelogs 
+	
 
 ![](/assets/clickstream/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384e55467a556d744253586c5a6147383f7261773d74727565.png) 
 
@@ -175,7 +175,7 @@ The query results will appear, and you can see that the results include the data
 
 Finally, we’ll create a script that joins the omniture website log data to the CRM data (registered users) and CMS data (products). Click Query Editor, then paste the following text in the Query box:
 
-```
+
     create table webloganalytics as 
     select to_date(o.ts) logdate, o.url, o.ip, o.city, upper(o.state) state, 
     o.country, p.category, CAST(datediff( from_unixtime( unix_timestamp() ), 
@@ -185,7 +185,7 @@ Finally, we’ll create a script that joins the omniture website log data to the
     on o.url = p.url 
     left outer join users u 
     on o.swid = concat('{', u.swid , '}')
-```
+
 
 Save this script as “webloganalytics” and execute the script. 
 

@@ -1,6 +1,6 @@
 ## Lab 2: Visualizing Clickstream Logs with Excel
 
-In this section, we will use Excel Professional Plus 2013 to access the refined clickstream data.
+In this section, You can choose to use  Excel Professional Plus 2013  or Apache Zeppelin (built in to the sandbox) to access the refined clickstream data.
 
 ### Step 1: Connecting Microsoft Excel
 
@@ -135,6 +135,26 @@ After setting these fields and filters, select **Column Chart > Clustered Column
 Now that you have successfully analyzed and visualized Hortonworks Sandbox data with Microsoft Excel, you can see how Excel and other BI tools can be used with the Hortonworks platform to derive insights about customers from various data sources.
 
 The data in the Hortonworks platform can be refreshed frequently and used for basket analysis, A/B testing, personalized product recommendations, and other sales optimization activities.
+
+
+------------------------------------------------
+
+## Analyzing Clickstream Data with Apache Zeppelin
+
+If you don't have access to Microsoft Excel Professional Plus, you can also utilize Apache Zeppelin to do you data visualization as well.
+
+
+Open up Ambari and make sure Zeppelin is running. If not, start the service. Then use the dropdown menu to access the views and select **Zeppelin**
+
+![Zeppelin View](../../../assets/clickstream/36_zeppelin_create_note.png)
+
+Once the Zeppelin view is open you can either create a new note and run the commands, or import the following notebook from this URL: [https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.4/data/zeppelin-notes/ClickstreamAnalytics.json]()
+
+
+
+
+
+
 
 **Feedback**
 
