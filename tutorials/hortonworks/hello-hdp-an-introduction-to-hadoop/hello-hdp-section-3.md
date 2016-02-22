@@ -89,7 +89,9 @@ Enter the Ambari Dashboard URL and you should see a similar screen:
 
 ##### ![Lab0_4](/assets/hello-hdp/Lab0_4.png)
 
-Briefly skim through the Ambari Dashboard links (circled above) by clicking on
+**Explore Ambari Dashboard Links**
+
+Click on
 
 1.  **Metrics**, **Heatmap** and **Configuration**
 
