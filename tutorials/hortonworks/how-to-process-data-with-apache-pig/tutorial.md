@@ -10,8 +10,8 @@ In this tutorial, we will learn to store data files using Ambari HDFS Files View
 ## Outline
 - [What is Pig?](#what-is-pig)
 - [Our Data Processing Task](#our-data-processing-task)
-- [Step 1: Downloading The Data](#downloading-the-data)
-- [Step 2: Uploading The Data Files](#uploading-data-files)
+- [Step 1: Download The Data](#downloading-the-data)
+- [Step 2: Upload The Data Files](#uploading-data-files)
 - [Step 3: Create Pig Script](#create-pig-script)
 - [Further Reading](#further-reading)
 
@@ -27,7 +27,7 @@ Pig scripts are translated into a series of `MapReduce jobs` that are run on the
 
 We are going to read in a baseball statistics file. We are going to compute the highest runs by a player for each year. This file has all the statistics from 1871–2011 and it contains over 90,000 rows. Once we have the highest runs we will extend the script to translate a player id field into the first and last names of the players.
 
-### Step 1: Downloading The Data <a id="downloading-the-data"></a>
+### Step 1: Download The Data <a id="downloading-the-data"></a>
 
 The data file we are using comes from the site [www.seanlahman.com](http://www.seanlahman.com). You can download the data file in `csv zip`:
 
@@ -35,7 +35,7 @@ The data file we are using comes from the site [www.seanlahman.com](http://www.s
 
 Once you have the file you will need to `unzip` the file into a directory. We will be `uploading` just the `master.csv` and `batting.csv` files.
 
-### Step 2: Uploading the data files <a id="uploading-data-files"></a>
+### Step 2: Upload the data files <a id="uploading-data-files"></a>
 
 We start by selecting the `HDFS Files view` from the Off-canvas menu at the top. The `HDFS Files view` allows us to view the Hortonworks Data Platform(HDP) file store. This is separate from the local file system. For the Hortonworks Sandbox, it will be part of the file system in the Hortonworks Sandbox VM.
 
