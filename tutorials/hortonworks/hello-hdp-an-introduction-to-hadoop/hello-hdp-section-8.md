@@ -1,13 +1,12 @@
+# Lab 5: Reporting
 
-## Lab 5: Reporting
+## **Data Visualization using Microsoft Excel**
 
-### **Data Visualization using Microsoft Excel**
-
-**Introduction:**
+### **Introduction**
 
 This step is optional as it requires you to have Excel and Power View, however feel free to connect from any reporting tool to do a similar exercise.   In this section, we will use Microsoft Excel Professional Plus 2013 to access the refined data. We will be using the ODBC connection.
 
-**Prerequisites:**
+## **Prerequisites**
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -21,7 +20,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 
 *   Allow yourself around half an hour to complete this tutorial.
 
-**Outline:**
+## **Outline**
 
 *   [Step 5.b.1: Access Data in Microsoft Excel](#step5.b.1)
 *   [Step 5.b.2: Visualize data with Excel](#step5.b.2)
@@ -135,7 +134,7 @@ Learn more about Hadoop through these case studies:
 *   Data Architecture Optimization: [Reduce cost by moving data and processing to Hadoop](http://hortonworks.com/solutions/data-architecture-optimization/)
 *   Industry specific: [Examples of Hadoop across Industries](http://hortonworks.com/industry/)
 
-### Suggested Readings <a id="suggested-reading"></a>
+## Suggested Readings <a id="suggested-reading"></a>
 
 *   [The Definitive Guide by O`Reilly](http://hadoopbook.com/)
 *   [Hadoop for Dummies](http://www.wiley.com/WileyCDA/WileyTitle/productCd-1118607554.html)
