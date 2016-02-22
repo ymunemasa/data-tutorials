@@ -1,26 +1,27 @@
-## How to Process Data with Apache Hive
+# How to Process Data with Apache Hive
 
 ### Introduction
 
 In this tutorial, we will use the [Ambari](http://hortonworks.com/hadoop/ambari/) HDFS file view to store massive data files of baseball statistics. We will implement [Hive](http://hortonworks.com/hadoop/hive/) queries to analyze, process and filter that data. 
 
-### Pre-Requisites
+## Pre-Requisites
 - Downloaded and installed the [Hortonworks Sandbox with HDP 2.4](http://hortonworks.com/hdp/downloads/)
 
-### Outline
+## Outline
 - [Hive](#hive)
 - [Hive or Pig?](#hive-or-pig)
 - [Our Data Processing Task](#our-data-processing-task)
 - [Step 1: Download The Data](#download-the-data)
 - [Step 2: Upload The Data Files](#upload-the-data-files)
 - [Step 3: Start the Hive View](#start-the-hive-view)
+- [Further Reading](#further-reading)
 
-### Hive <a id="hive"></a>
+## Hive <a id="hive"></a>
 
 Hive is a component of [Hortonworks Data Platform](http://hortonworks.com/hdp/)(HDP). Hive provides a SQL-like interface to data stored in HDP. In the previous tutorial,
 we used Pig which is a scripting language with a focus on dataflows. Hive provides a database query interface to Apache Hadoop.
 
-### Hive or Pig? <a id="hive-or-pig"></a>
+## Hive or Pig? <a id="hive-or-pig"></a>
 
 People often ask why do [Pig](http://hortonworks.com/hadoop/pig/) and [Hive](http://hortonworks.com/hadoop/hive/) exist when they seem to do much of the same thing. Hive because of its SQL like query language is 
 often used as the interface to an Apache Hadoop based data warehouse. Hive is considered friendlier and more familiar to users who are 
@@ -170,3 +171,5 @@ The resulting data looks like:
 ![year_playerid_runs_data_table](/assets/how-to-process-data-with-apache-hive/year_playerid_runs_data_table.png)
 
 So now we have our results. As described earlier we solved this problem using Hive step by step. At any time we were free to look around at the data, decide we needed to do another task and come back. At all times the data is live and accessible to us.
+
+## Further Reading <a id="further-reading"></a>
