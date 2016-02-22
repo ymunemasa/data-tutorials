@@ -18,7 +18,7 @@ Start the HDP Sandbox following the [Sandbox Install Guide](http://hortonworks.c
 
 ![Lab0_1](/assets/hello-hdp/download_install_sandbox.png)
 
-**Learn the Host Address of Your Environment**
+**1.1 Learn the Host Address of Your Environment**
 
 Once you have installed the Sandbox VM, it resolves to the host on your environment, the address of which varies depending upon the Virtual Machine you are using(Vmware, VirtualBox etc). As, a general thumb rule, wait for the installation to complete and confirmation screen will tell you the host your sandbox resolves to. For example:
 
@@ -40,7 +40,7 @@ Navigate to Ambari welcome page using the url given on Sandbox welcome page.
 
 > **Note:** Both the username and password to login are **maria.dev1**.
 
-**Use Terminal to Find the Host Address Sandbox Runs On **
+**2.1 Use Terminal to Find the Host Address Sandbox Runs On**
 
 If you want to search for the host address your sandbox is running on, ssh into the sandbox terminal upon successful installation and follow subsequent steps:
 
@@ -75,7 +75,7 @@ Enter the Ambari Welcome URL and then you should see a similar screen:
 
 ![Lab0_3](/assets/hello-hdp/Lab0_3.png)
 
-**Explore Ambari Welcome Screen 5 Key Capabilities**
+**2.2 Explore Ambari Welcome Screen 5 Key Capabilities**
 
 1.  “**Operate Your Cluster**” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators
 2.  “**Manage Users + Groups**” allows you to add & remove Ambari users and groups
@@ -89,7 +89,7 @@ Enter the Ambari Dashboard URL and you should see a similar screen:
 
 ##### ![Lab0_4](/assets/hello-hdp/Lab0_4.png)
 
-**Explore Ambari Dashboard Links**
+**2.3 Explore Ambari Dashboard Links**
 
 Click on
 
