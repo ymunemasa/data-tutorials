@@ -1,14 +1,13 @@
+# Lab 6: Data Reporting With Zeppelin
 
-## Lab 6: Data Reporting With Zeppelin
+## **Data Visualization using Apache Zeppelin**
 
-### **Data Visualization using Apache Zeppelin**
-
-#### **Introduction:**
+### **Introduction**
 
 In this tutorial you will be introduced to Apache Zeppelin. In the earlier section of lab, you learned how to perform data visualization 
 using Excel. This section will teach you to visualize data using Zeppelin.
 
-**Prerequisites:**
+## **Prerequisites**
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -20,7 +19,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   Please configure ODBC drivers on your system with the help of following tutorial:
 *   Allow yourself around half an hour to complete this tutorial.
 
-**Outline:**
+## **Outline**
 
 *   [Apache Zeppelin](#apache-zeppelin)
 *   [Step 6.1: Creating a Zeppelin Notebook](#step6.1)
@@ -29,7 +28,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   [Outro](#outro)
 *   [Suggested readings](#suggested-readings)
 
-### Apache Zeppelin <a id="apache-zeppelin"></a>
+## Apache Zeppelin <a id="apache-zeppelin"></a>
 
 Apache Zeppelin provides a powerful web-based notebook platform for data analysis and discovery.  
 Behind the scenes it supports Spark distributed contexts as well as other language bindings on top of Spark.
@@ -140,7 +139,7 @@ Now that we know how to use Apache Zeppelin to obtain and visualize our data, we
 we've learned from our Hive, Pig, and Spark labs, as well and apply them to new kinds of data to 
 try to make better sense and meaning from the numbers!
 
-### Suggested Readings <a id="suggested-readings"></a>
+## Suggested Readings <a id="suggested-readings"></a>
 
 - [Zeppelin on HDP](http://hortonworks.com/hadoop/zeppelin/)
 - [Apache Zeppelin Docs](https://zeppelin.incubator.apache.org/docs/)
