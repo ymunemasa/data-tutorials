@@ -1,4 +1,6 @@
-## Introduction
+# Hadoop Tutorial – Getting Started with HDP
+
+### Introduction
 
 This tutorial describes how to refine data for a Trucking IoT  [Data Discovery](http://hortonworks.com/solutions/advanced-analytic-apps/#data-discovery) (aka IoT Discovery) use case using the Hortonworks Data Platform. The IoT Discovery use cases involves vehicles, devices and people moving across a map or similar surface. Your analysis is interested in tying together location information with your analytic data.
 
@@ -8,9 +10,9 @@ For our tutorial we are looking at a use case where we have a truck fleet. Each 
 
 Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) to show you what you’ll be doing in this tutorial.
 
-**Prerequisites:**
+## **Prerequisites:**
 
-*   Hortonworks Sandbox 2.3 (installed and running)
+*   Hortonworks Sandbox 2.4 (installed and running)
 
 [Download Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 
@@ -29,7 +31,7 @@ Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) t
 
 - Note, other versions of Excel will work, but the visualizations will be limited to charts or graphs. You can also use other visualization tool.
 
-**Tutorial Overview**
+## **Tutorial Overview**
 
 In this tutorial we will be providing the collected geolocation and truck data.   We will import this data into HDFS and build derived tables in Hive. Then we will process the data using Pig, Hive and Spark. The processed data is then imported into Microsoft Excel where it can be visualized.
 
@@ -42,7 +44,7 @@ To refine and analyze Geolocation data, we will:
 *   Access the refined sensor data with Microsoft Excel.
 *   Visualize the sensor data using Excel Power View.
 
-**Goals of the Tutorial**
+## **Goals of the Tutorial**
 
 The goal of this tutorial is that you get familiar with the basics of following:
 
@@ -53,12 +55,12 @@ The goal of this tutorial is that you get familiar with the basics of following:
 *   Apache Spark
 *   Data Visualization with Excel (Optional)
 
-#### Outline
+## Outline
 
 1.  Introduction
 2.  Prerequisites
     1.  Data Set Used: [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
-    2.  HDP version: 2.3
+    2.  HDP version: 2.4
 3.  Tutorial Overview
 4.  Goals of the Tutorial (outcomes)
 5.  Hadoop Data Platform Concepts (New to Hadoop or HDP- Refer following)
@@ -84,7 +86,7 @@ The goal of this tutorial is that you get familiar with the basics of following:
         *   Data Scientist - [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-analysts)
     2.  [Case Studies](http://hortonworks.com/industry/) – Learn how Hadoop is being used by various industries.
 8.  References and Resources
-    1.  Hadoop - The Definitive Guide by O`Reilly
-    2.  Hadoop for Dummies
+    1.  [Hadoop - The Definitive Guide by O`Reilly](http://www.amazon.com/Hadoop-Definitive-Guide-Tom-White/dp/1491901632/ref=dp_ob_image_bk)
+    2.  [Hadoop for Dummies](http://www.amazon.com/Hadoop-Dummies-Dirk-deRoos/dp/1118607554/ref=sr_1_1?s=books&ie=UTF8&qid=1456105405&sr=1-1&keywords=hadoop+dummies)
     3.  [Hadoop Crash Course slides-Hadoop Summit 2015](http://www.slideshare.net/Hadoop_Summit/hadoop-crash-course-workshop-at-hadoop-summit)
     4.  [Hadoop Crash Course Workshop- Hadoop Summit 2015](https://www.youtube.com/watch?v=R-va7pZg7HM)
