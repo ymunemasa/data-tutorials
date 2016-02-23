@@ -1,12 +1,12 @@
 # Lab 2: Hive - Data ETL
 
-## **Data manipulation with Hive**
+## Data manipulation with Hive
 
-### **Introduction**
+### Introduction
 
 In this section of tutorial you will be introduced to Apache Hive. In the earlier section we covered how to load data into HDFS. So now you have ‘geolocation’ and ‘trucks’ files stored in HDFS as csv files. In order to use this data in Hive we will tell you how to create a table and how to move data into Hive warehouse, from where it can be queried upon. We will analyze this data using SQL queries in Hive User Views and store it as ORC. We will also walk through Apache Tez and how a DAG is created when you specify Tez as execution engine for Hive. Lets start..!!
 
-## **Prerequisites**
+## Prerequisites
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -14,7 +14,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   Lab 1: Loading sensor data into HDFS
 *   Allow yourself around one hour to complete this tutorial.
 
-## **Outline**
+## Outline
 
 *   [Hive basics](#hive-basics)
 *   [Step 2.1: Use Ambari Hive User Views](#use-ambari-hive-user-views)
@@ -25,11 +25,11 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   [Step 2.6: Analyze Truck Data](#analyze-truck-data)
 *   [Suggested readings](#suggested-readings)
 
-## **Hive** <a id="hive-basics"></a>
+## Hive <a id="hive-basics"></a>
 
 Hive is a SQL like query language that enables analysts familiar with SQL to run queries on large volumes of data.  Hive has three main functions: data summarization, query and analysis. Hive provides tools that enable easy data extraction, transformation and loading (ETL).
 
-### **Step 2.1: Become Familiar with Ambari Hive User View** <a id="use-ambari-hive-user-views"></a>
+### Step 2.1: Become Familiar with Ambari Hive User View <a id="use-ambari-hive-user-views"></a>
 
 Apache Hive™ presents a relational view of data in HDFS and ensures that users need not worry about where or in what format their data is stored.  Hive can display data from RCFile format, text files, ORC, JSON, parquet,  sequence files and many of other formats in a tabular view.   Through the use of SQL you can view your data as a table and create queries like you would in an RDBMS.
 
@@ -71,7 +71,7 @@ Now let’s take a closer look at the SQL editing capabilities in the User View:
 
 Take a few minutes to explore the various Hive User View features.
 
-### **Step 2.2: Define a Hive Table** <a id="define-a-hive-table"></a>
+### Step 2.2: Define a Hive Table <a id="define-a-hive-table"></a>
 
 Now that you are familiar with the Hive User View, let’s create the initial staging tables for the geolocation and trucks data. In this section we will learn how to use the Ambari Hive User View to create four tables: geolocaiton_stage, trucking_stage, geolocation, trucking.  First we are going to create 2 tables to stage the data in their original csv text format and then will create two more tables where we will optimize the storage with ORC. Here is a visual representation of the Data Flow:
 
@@ -159,7 +159,7 @@ Click on the **Load sample data** icon to generate and execute a select SQL stat
 
 - The definition of a Hive table and its associated metadata (i.e., the directory the data is stored in, the file format, what Hive properties are set, etc.) are stored in the Hive metastore, which on the Sandbox is a MySQL database.
 
-### **Step 2.3: Load Data into a Hive table** <a id="load-data-hive-table"></a>
+### Step 2.3: Load Data into a Hive table <a id="load-data-hive-table"></a>
 
 **2.3.1 Manual Approach: Populate Hive Table with Data**
  
@@ -206,7 +206,7 @@ You should now see data in the trucks_stage table:
 
 Navigate to the `/tmp/admin/data` folder. Notice the folder is empty! The LOAD DATA INPATH command moved the `trucks.csv` file from the `/user/admin/data` folder to the `/apps/hive/warehouse/trucks_stage` folder.
 
-### **Step 2.4: Define an ORC Table in Hive** <a id="define-orc-table-hive"></a>
+### Step 2.4: Define an ORC Table in Hive <a id="define-orc-table-hive"></a>
 
 **Introducing** [**Apache ORC**](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+ORC)
 
