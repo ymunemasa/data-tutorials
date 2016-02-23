@@ -1,13 +1,13 @@
 # Lab 6: Data Reporting With Zeppelin
 
-## **Data Visualization using Apache Zeppelin**
+## Data Visualization using Apache Zeppelin
 
-### **Introduction**
+### Introduction
 
 In this tutorial you will be introduced to Apache Zeppelin. In the earlier section of lab, you learned how to perform data visualization 
 using Excel. This section will teach you to visualize data using Zeppelin.
 
-## **Prerequisites**
+## Prerequisites
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -19,7 +19,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   Please configure ODBC drivers on your system with the help of following tutorial:
 *   Allow yourself around half an hour to complete this tutorial.
 
-## **Outline**
+## Outline
 
 *   [Apache Zeppelin](#apache-zeppelin)
 *   [Step 6.1: Creating a Zeppelin Notebook](#step6.1)
@@ -38,7 +38,7 @@ riskfactor data that we've collected earlier and visualize the result through gr
 
 NOTE: We can also run queries via various interpreters for the following (but not limited to) spark, hawq and postgresql.
 
-### **Step 6.1: Creating a Zeppelin Notebook** <a id="step6.1"></a>
+### Step 6.1: Creating a Zeppelin Notebook <a id="step6.1"></a>
 
 **6.1.1 Navigate to Zeppelin Notebook**
 
@@ -55,7 +55,7 @@ NOTE: We can also run queries via various interpreters for the following (but no
 
 ![Zeppelin Create New Notebook](/assets/hello-hdp/zeppelin_create_new_notebook.png)
 
-### **Step 6.2: Running a Hive Query** <a id="step6.2"></a>
+### Step 6.2: Running a Hive Query <a id="step6.2"></a>
 
 **6.2.1 Visualize finalresults Data in Tabular Format**
 
@@ -80,7 +80,7 @@ Initially, the query will produce the data in tabular format as shown in the scr
 
 ![finalresults_data_tabular](/assets/hello-hdp/finalresults_data_tabular_lab6.png)
 
-### **Step 6.3: Making Charts using Zeppelin** <a id="step6.3"></a>
+### Step 6.3: Making Charts using Zeppelin <a id="step6.3"></a>
 
 **6.3.1 Visualize finalresults Data in Chart Format**
 
