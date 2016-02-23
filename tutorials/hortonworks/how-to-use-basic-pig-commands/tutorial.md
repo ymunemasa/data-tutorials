@@ -63,7 +63,7 @@ Select the `HDFS Files view` from the Off-canvas menu at the top. That is the `v
 
 ![](/assets/hello-hdp/HDFS_file_view_icon.png)
 
-Navigate to `/user/admin`, click Upload and Browse, which brings up a dialog box where you can select the `NYSE_daily_prices_A.csv` file from you computer. Upload the `NYSE_dividends_A.csv` file in the same way. When finished, notice that both files are now in HDFS.
+Navigate to `/user/maria_dev` or a path of your choice, click Upload and Browse, which brings up a dialog box where you can select the `NYSE_daily_prices_A.csv` file from you computer. Upload the `NYSE_dividends_A.csv` file in the same way. When finished, notice that both files are now in HDFS.
 
 ![](/assets/how-to-use-basic-pig-commands/68747470733a2f2f77757772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713862336f315932745a645464465955453f7261773d74727565.png?dl=1)
 
@@ -95,7 +95,7 @@ In this step, you will create a script to load the data and define a relation.
 The completed code will look like:
 
 ~~~
-STOCK_A = LOAD '/user/maria.dev1/NYSE_daily_prices_A.csv' USING PigStorage(','); 
+STOCK_A = LOAD '/user/maria_dev/NYSE_daily_prices_A.csv' USING PigStorage(','); 
 DESCRIBE STOCK_A; 
 ~~~
 
@@ -117,7 +117,7 @@ When the job completes, check the results in the green box. You can also downloa
 
 Let’s use the above code but this time with a schema. Modify line 1 of your script and add the following **AS** clause to `define a schema` for the daily stock price data. The complete code will be:
 
-        STOCK_A = LOAD '/user/maria.dev1/NYSE_daily_prices_A.csv' USING PigStorage(',') 
+        STOCK_A = LOAD '/user/maria_dev/NYSE_daily_prices_A.csv' USING PigStorage(',') 
         AS (exchange:chararray, symbol:chararray, date:chararray,                 
         open:float, high:float, low:float, close:float, volume:int, adj_close:float); 
         DESCRIBE STOCK_A; 
@@ -165,7 +165,7 @@ One of the key uses of Pig is data transformation. You can define a new relation
 
 Now the complete code is:
 
-        STOCK_A = LOAD '/user/admin/NYSE_daily_prices_A.csv' using PigStorage(',') 
+        STOCK_A = LOAD '/user/maria_dev/NYSE_daily_prices_A.csv' using PigStorage(',') 
         AS (exchange:chararray, symbol:chararray, date:chararray, open:float, 
         high:float, low:float, close:float, volume:int, adj_close:float); 
 
@@ -187,7 +187,9 @@ In this step, you will use the `STORE` command to output a relation into a new f
 
 Again, this requires a MapReduce job (just like the `DUMP` command), so you will need to wait a minute for the job to complete.
 
-Once the job is finished, go to `HDFS Files view` and look for a newly created folder called “output” under `/user/admin`:
+Once the job is finished, go to `HDFS Files view` and look for a newly created folder called “output” under `/user/maria_dev`:
+
+> **Note:** If you didn't use the default path above, then the new folder will exist in the path you created.
 
 ![](/assets/how-to-use-basic-pig-commands/68747470733a23f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713864585a3654563968625646586154673f7261773d74727565.png?dl=1)
 
