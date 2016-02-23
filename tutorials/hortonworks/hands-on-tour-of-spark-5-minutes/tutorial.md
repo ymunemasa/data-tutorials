@@ -6,7 +6,10 @@ In this blog, we will introduce the basic concepts of Apache Spark and the first
 
 ### Prerequisite
 
-**Download [Hortonworks Sandbox](http://hortonworks.com/sandbox)**
+There are two options for setting up the Hortonworks Sandbox:
+
+1. **Download & Install [Hortonworks Sandbox](http://hortonworks.com/sandbox)** on your local machine (recommended 8GB of dedicated RAM for the Virtual Machine)
+2. **Deploy [Hortonworks Sandbox on Microsoft Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)**
 
 ### Concepts
 
@@ -20,11 +23,14 @@ Let’s try it out.
 
 ### A Hands-On Example
 
-Let’s open a shell to our Sandbox through SSH:
+Let’s open a shell to our Sandbox through SSH. In your Terminal window type:
+
+    ssh root@127.0.0.1 -p 2222
+
+The default password is `hadoop`
 
 ![](/assets/a-tour-of-spark-in-5-minutes/Screenshot_2015-04-13_07_58_43.png?dl=1)
 
-The default password is `hadoop`
 
 Then let’s get some data with the command below in your shell prompt:
 
@@ -62,7 +68,7 @@ Let’s make this transformation real, with an Action operation like ‘count()�
 
 ![](/assets/a-tour-of-spark-in-5-minutes/Screenshot%202015-04-13%2009.19.07.png?dl=1)
 
-The final result of this little Spark Job is the number you see at the end. In this case it is `341`.
+The final result of this little Spark Job is the number you see at the end. In this case it is `341*`.
 
 We hope that this little example whets your appetite for more ambitious data science projects on the Hortonworks Data Platform.
 
