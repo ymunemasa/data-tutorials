@@ -32,6 +32,7 @@ We will first read in two data files that contain New York Stock Exchange divide
 - [Step 12: Sort the data using “ORDER BY”](#step-12-sort-the-data-using-order-by)
 - [Step 13: Filter and Group the data using “GROUP BY”](#step-13-filter-and-group-the-data-using-group-by)
 - [Further Reading](#further-reading)
+- [Resources](#resources)
 
 ## What is Pig? <a id="what-is-pig"></a>
 
@@ -263,3 +264,6 @@ Congratulations! You have successfully completed the tutorial and well on your w
 - [Welcome to Apache Pig!](https://pig.apache.org/)
 - [Pig Latin Basics](https://pig.apache.org/docs/r0.12.0/basic.html#store)
 - [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645)
+ 
+## Resources <a id="resources"></a>
+- [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
