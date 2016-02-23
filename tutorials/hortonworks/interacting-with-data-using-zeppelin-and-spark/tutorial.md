@@ -8,7 +8,7 @@ By the end of this tutorial, you will have learned:
 
 ### [](#getting-started)Getting started
 
-**Spark** and **Zeppelin Notebook** should already be running on startup.
+**Spark** and **Zeppelin Notebook** services should already be running when you start your Virtual Machine, as highlighted below in Ambari manager.
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713864304a50596931345456524c536c553f7261773d74727565.png)
 
