@@ -93,8 +93,12 @@ In this step, you will create a script to load the data and define a relation.
 
 The completed code will look like:
 
-    STOCK_A = LOAD '/user/admin/NYSE_daily_prices_A.csv' using PigStorage(','); 
-    DESCRIBE STOCK_A; 
+~~~
+STOCK_A = LOAD '/user/maria.dev1/NYSE_daily_prices_A.csv' USING PigStorage(','); 
+DESCRIBE STOCK_A; 
+~~~
+
+> **Note:** In the LOAD script, you can choose any directory path. Verify the folders have been created in HDFS Files View.
 
 ![](/assets/how-to-use-basic-pig-commands/68747470733a2f25f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071386130787858306c4852446c7464316b3f7261773d74727565.png?dl=1)
 
@@ -112,7 +116,7 @@ When the job completes, check the results in the green box. You can also downloa
 
 Let’s use the above code but this time with a schema. Modify line 1 of your script and add the following **AS** clause to `define a schema` for the daily stock price data. The complete code will be:
 
-        STOCK_A = LOAD '/user/admin/NYSE_daily_prices_A.csv' using PigStorage(',') 
+        STOCK_A = LOAD '/user/maria.dev1/NYSE_daily_prices_A.csv' USING PigStorage(',') 
         AS (exchange:chararray, symbol:chararray, date:chararray,                 
         open:float, high:float, low:float, close:float, volume:int, adj_close:float); 
         DESCRIBE STOCK_A; 
@@ -176,7 +180,7 @@ Save and execute the script and your output will look like the following:
 
 In this step, you will use the `STORE` command to output a relation into a new file in `HDFS`. Enter the following command to output the C relation to a folder named `output/C` (then save and execute):
 
-        STORE C INTO 'output/C'; 
+        STORE C INTO 'output/C' USING PigStorage(','); 
 
 ![](/assets/how-to-use-basic-pig-commands/68747470733a23f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713864585a3654563968625646586154673f7261773d74727565.png?dl=1)
 
@@ -257,4 +261,5 @@ Congratulations! You have successfully completed the tutorial and well on your w
 ## Further Reading <a id="further-reading"></a>
 - [Apache Pig](http://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-pig/)
 - [Welcome to Apache Pig!](https://pig.apache.org/)
+- [Pig Latin Basics](https://pig.apache.org/docs/r0.12.0/basic.html#store)
 - [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645)
