@@ -39,6 +39,8 @@ Once you have the file you will need to `unzip` the file into a directory. We wi
 
 We start by selecting the `HDFS Files view` from the Off-canvas menu at the top. The `HDFS Files view` allows us to view the Hortonworks Data Platform(HDP) file store. This is separate from the local file system. For the Hortonworks Sandbox, it will be part of the file system in the Hortonworks Sandbox VM.
 
+![](/assets/hello-hdp/HDFS_file_view_icon.png)
+
 Navigate to `/user/admin` and click on the Upload button to select the files we want to upload into the Hortonworks Sandbox environment.
 
 ![](/assets/how-to-process-data-with-apache-pig/68747470733a2f2f7797772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138574845314f486c434e31684e556c453f7261773d74727565.png?dl=1)
@@ -51,9 +53,11 @@ Click on the browse button to open a dialog box. Navigate to where you stored th
 
 Now that we have our data files, we can start writing our `Pig script`. Click on the `Pig button` from the Off-canvas menu.
 
+![](/assets/hello-hdp/pig_view_icon.png)
+
 **3.1 Explore the Pig User Interface** 
 
-We see the `Pig user interface` in our browser window. On the left we can choose between our `saved Pig  Scripts,  UDFs  and the Pig  Jobs` executed in the past. To the right of this menu bar we see our `saved Pig  Scripts`.
+We see the `Pig user interface` in our browser window. On the left we can choose between our `saved Pig  Scripts`,  `UDFs`  and the `Pig  Jobs` executed in the past. To the right of this menu bar we see our `saved Pig  Scripts`.
 
 **3.2 Create a New Script**
 
