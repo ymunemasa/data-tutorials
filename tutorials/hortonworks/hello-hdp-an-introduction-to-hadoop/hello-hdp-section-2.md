@@ -1,6 +1,4 @@
-# Hadoop Tutorial – Getting Started with HDP
-
-## Concepts
+# Concepts
 
 ### Introduction
 
