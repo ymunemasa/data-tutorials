@@ -15,11 +15,11 @@ Spark SQL uses the Spark engine to execute SQL queries either on data sets persi
 
 The only prerequiste for this tutorial is the latest [Hortonworks Sandbox](http://hortonworks.com/sandbox) installed on your computer or on the [cloud](http://hortonworks.com/blog/hortonworks-sandbox-azure/).
 
-In case you are running an Hortonworks Sandbox with an earlier version of Apache Spark, for the instruction in this tutorial, you need to install the Apache Spark 1.3.1.
+In case you are running an Hortonworks Sandbox with an earlier version of Apache Spark, for the instruction in this tutorial, you need to install the Apache Spark 1.6.
 
 ### Getting the dataset
 
-To begin, login in to Hortonworks Sandbox through SSH:
+To begin, login to Hortonworks Sandbox through SSH:
 
 ![](/assets/orc-with-spark/Screenshot_2015-04-13_07_58_43.png?dl=1)
 
@@ -41,13 +41,13 @@ and copy the downloaded file to HDFS:
 
 Use the command below to launch the Scala REPL for Apache Spark:
 
-    ./bin/spark-shell --master yarn-client --driver-memory 512m --executor-memory 512m
+    spark-shell --master yarn-client --driver-memory 512m --executor-memory 512m
 
 ![](/assets/orc-with-spark/Screenshot%202015-05-28%2008.53.08.png?dl=1)
 
 Notice it is already starting with Hive integration as we have preconfigured it on the Hortonworks Sandbox.
 
-Before we get started with the actual analytics lets import some of the libraries we are going to use below.
+Before we get started with the actual analytics let's import some of the libraries we are going to use below.
 
     import org.apache.spark.sql.hive.orc._
     import org.apache.spark.sql._
@@ -76,7 +76,7 @@ Specifying `as orc` at the end of the SQL statement below ensures that the Hive 
 
 ### Loading the file and creating a RDD
 
-**Resilient Distributed Dataset **(RDD), is an immutable collection of objects that is partitioned and distributed across multiple physical nodes of a YARN cluster and that can be operated in parallel.
+A **Resilient Distributed Dataset** (RDD), is an immutable collection of objects that is partitioned and distributed across multiple physical nodes of a YARN cluster and that can be operated in parallel.
 
 Once an RDD is instantiated, you can apply a [series of operations](https://spark.apache.org/docs/1.2.0/programming-guide.html#rdd-operations). All operations fall into one of two types: [transformations](https://spark.apache.org/docs/1.2.0/programming-guide.html#transformations) or [actions](https://spark.apache.org/docs/1.2.0/programming-guide.html#actions). **Transformation** operations, as the name suggests, create new datasets from an existing RDD and build out the processing DAG that can then be applied on the partitioned dataset across the YARN cluster. An **Action** operation, on the other hand, executes DAG and returns a value.
 
@@ -87,6 +87,12 @@ With the command below we instantiate an RDD:
     val yahoo_stocks = sc.textFile("hdfs://sandbox.hortonworks.com:8020/tmp/yahoo_stocks.csv")
 
 ![](/assets/orc-with-spark/Screenshot%202015-05-21%2012.08.16.png?dl=1)
+
+To preview data in `yahoo_stocks` type:
+
+    yahoo_stocks.take(10)
+
+Note that `take(10)` returns only ten records that are not in any particular order.
 
 ### Separating the header from the data
 
@@ -104,7 +110,7 @@ Let’s dump this new RDD in the console to see what we have here:
 
 Now we need to separate the data into a new RDD where we do not have the header above and :
 
-    val data = yahoo_stocks.filter(_(0) != header(0))
+    val data = yahoo_stocks.filter(_ != header)
 
 the first row to be seen is indeed only the data in the RDD
 
@@ -170,13 +176,17 @@ The resultset returned from the Spark SQL query is now loaded in the `results` R
 
 Now let’s persist back the RDD into the Hive ORC table we created before.
 
-    results.saveAsOrcFile("yahoo_stocks_orc")
+    results.write.format("orc").save("yahoo_stocks_orc")
+
+To store results in a hive directory rather than user directory, use this path instead:
+
+    /apps/hive/warehouse/yahoo_stocks_orc
 
 ![](/assets/orc-with-spark/Screenshot%202015-05-28%2016.52.44.png?dl=1)
 
 ### Reading the ORC file
 
-Let’s now try to read back the ORC file, we just created back into an RDD. But before we do so, we need a hiveContext:
+Let’s now try to read back the ORC file, we just created back into an RDD. But before we do so, we need a `hiveContext`:
 
     val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 
@@ -184,7 +194,7 @@ Let’s now try to read back the ORC file, we just created back into an RDD. But
 
 now we can try to read the ORC file with:
 
-    val yahoo_stocks_orc = hiveContext.orcFile("yahoo_stocks_orc")
+    val yahoo_stocks_orc = hiveContext.read.format("orc").load("yahoo_stocks_orc")
 
 ![](/assets/orc-with-spark/Screenshot%202015-05-28%2017.24.05.png?dl=1)
 
@@ -194,7 +204,7 @@ Let’s register it as a temporary in-memory table mapped to the ORC table:
 
 ![](/assets/orc-with-spark/Screenshot%202015-05-28%2017.24.53.png?dl=1)
 
-Now we can verify wether we can query it back:
+Now we can verify whether we can query it back:
 
     hiveContext.sql("SELECT * from orcTest").collect.foreach(println)
 
