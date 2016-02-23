@@ -26,7 +26,8 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   [Step 6.2: Running a Hive Query](#step6.2)
 *   [Step 6.3: Making Charts Using Zeppelin](#step6.3)
 *   [Outro](#outro)
-*   [Suggested readings](#suggested-readings)
+*   [Suggested Readings](#suggested-readings)
+*   [Resources](#resources)
 
 ## Apache Zeppelin <a id="apache-zeppelin"></a>
 
@@ -144,3 +145,6 @@ try to make better sense and meaning from the numbers!
 - [Zeppelin on HDP](http://hortonworks.com/hadoop/zeppelin/)
 - [Apache Zeppelin Docs](https://zeppelin.incubator.apache.org/docs/)
 - [Zeppelin Homepage](https://zeppelin.incubator.apache.org/)
+
+## Resources <a id="resources"></a>
+- [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
