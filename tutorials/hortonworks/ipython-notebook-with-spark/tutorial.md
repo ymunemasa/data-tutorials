@@ -6,7 +6,7 @@ IPython notebook supports tab autocompletion on class names, functions, methods,
 
 ### Prerequisites
 
-The only prerequiste for this tutorial is the latest [Hortonworks Sandbox](http://hortonworks.com/sandbox) installed on your computer or on the [cloud](http://hortonworks.com/blog/hortonworks-sandbox-azure/). In case you are running an Hortonworks Sandbox with an earlier version of Apache Spark, for the instruction in this tutorial, you need to install the Apache Spark 1.3.1.
+The only prerequiste for this tutorial is the latest [Hortonworks Sandbox](http://hortonworks.com/sandbox) installed on your computer or on the [cloud](http://hortonworks.com/blog/hortonworks-sandbox-azure/). In case you are running an Hortonworks Sandbox with an earlier version of Apache Spark, for the instruction in this tutorial, you need to install the Apache Spark 1.6.
 
 ### Installing and configuring IPython
 
@@ -16,21 +16,21 @@ To begin, login in to Hortonworks Sandbox through SSH:The default password is `h
 
 Now let’s configure the dependencies by typing in the following command:
 
-    yum install nano centos-release-SCL zlib-devel \
+    yum install nano centos-release-SCL zlib-devel
 
-    bzip2-devel openssl-devel ncurses-devel \
+    yum install bzip2-devel openssl-devel ncurses-devel
 
-    sqlite-devel readline-devel tk-devel \
+    yum install sqlite-devel readline-devel tk-devel
 
-    gdbm-devel db4-devel libpcap-devel xz-devel \
+    yum install gdbm-devel db4-devel libpcap-devel xz-devel
 
-    libpng-devel libjpg-devel atlas-devel
+    yum install libpng-devel libjpg-devel atlas-devel
 
 ![saptek2](/assets/ipython-with-spark/saptek2.png)
 
 IPython has a requirement for Python 2.7 or higher. So, let’s install the “Development tools” dependency for Python 2.7
 
-    yum groupinstall “Development tools“
+    yum groupinstall "Development tools"
 
 ![saptek3](/assets/ipython-with-spark/saptek3.png)
 
@@ -46,9 +46,7 @@ Now the Sandbox has multiple versions of Python, so we have to select which vers
 
 Then we will download `easy_install` which we will use to configure `pip`, a Python package installer.
 
-    wget https://bitbucket.org/pypa/setuptools\
-
-/raw/bootstrap/ez_setup.py
+    wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
 
 Now let’s configure `easy_install` with the following command:
 
@@ -62,17 +60,19 @@ Now we can install `pip` with `easy_install` using the following command:
 
 `pip` makes it really easy to install the Python packages. We will use `pip` to install the data science packages we might need using the following command:
 
-    pip install numpy scipy pandas \
+    pip install numpy scipy pandas
 
-    scikit-learn tornado pyzmq \
+    pip install scikit-learn tornado pyzmq
 
-    pygments matplotlib jinja2 jsonschema
+    pip install pygments matplotlib jsonschema
+
+    pip install jinja2 --upgrade
 
 ![saptek6](/assets/ipython-with-spark/saptek6.png)
 
 Finally, we are ready to install IPython notebook using `pip` using the following command:
 
-    pip install “ipython[notebook]“
+    pip install "ipython[notebook]"
 
 ![saptek8](/assets/ipython-with-spark/saptek8.png)
 
@@ -86,21 +86,33 @@ As a first step of configuring that, let’s create a IPython profile for `pyspa
 
 ![saptek9](/assets/ipython-with-spark/saptek9.png)
 
-Within the this newly minted IPython profile for `pyspark` found at `~/.ipython/profile_pyspark/`, edit the file `ipython_notebook_config.py` with text editor like `nano` and change the values in the file to resemble values below:
+Next generate a jupyter config file:
 
-    c.NotebookApp.ip = ‘*’
+    jupyter notebook --generate-config                                            
+You should see the following output:
 
-    c.NotebookApp.open_browser = False
+    Writing default config to: /root/.jupyter/jupyter_notebook_config.py
 
-    c.NotebookApp.port = 8889
+Now open your preferred editor. I’m using `nano` to edit `jupyter_notebook_config.py`
 
-    c.NotebookApp.notebook_dir = u’/usr/hdp/current/spark-client/’
+    nano  ~/.jupyter/jupyter_notebook_config.py  
 
-Note the port we are using for IPython. Ensure this port is not already being used. The default port for IPython notebook is `8888`, which is also being used by Sandbox as it’s welcome page. So we are changing it to `8889`. We are going to forward this port in the next section to ensure we can access IPython notebook from the host machine.
+Next copy and paste the following:
+
+    #!/bin/bash
+    source /opt/rh/python27/enable
+    IPYTHON_OPTS="notebook --port 8889 \
+    --notebook-dir='/usr/hdp/current/spark-client/' \
+    --ip='*' --no-browser" pyspark
+
+Save and exit your editor.
+
+For more info checkout: http://simnotes.github.io/blog/installing-jupyter-on-hdp-2.3.2/
+
 
 ![saptek10](/assets/ipython-with-spark/saptek10.png)
 
-Next we are going to create a shell script to set the appropriate values everytime we want to start IPython.
+Next we are going to create a shell script to set the appropriate values every time we want to start IPython.
 
 Create a shell script with the following command:
 
@@ -110,11 +122,11 @@ Then copy the following lines into the file:
 
     #!/bin/bash
 
-    source /opt/rh/python27/enable
+    source /opt/rh/python27/enable
 
-    IPYTHON_OPTS=”notebook –profile pyspark” pyspark
+    IPYTHON_OPTS="notebook" pyspark
 
-![saptek11](/assets/ipython-with-spark/saptek11.png)
+Save and exit your editor.
 
 Finally we need to make the shell script we just created executable:
 
