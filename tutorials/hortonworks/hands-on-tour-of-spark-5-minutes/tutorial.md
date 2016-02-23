@@ -8,8 +8,10 @@ In this blog, we will introduce the basic concepts of Apache Spark and the first
 
 There are two options for setting up the Hortonworks Sandbox:
 
-1. **Download & Install [Hortonworks Sandbox](http://hortonworks.com/sandbox)** on your local machine (recommended 8GB of dedicated RAM for the Virtual Machine)
+1. **Download & Install [Hortonworks Sandbox](http://hortonworks.com/sandbox)** on your local machine*
 2. **Deploy [Hortonworks Sandbox on Microsoft Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)**
+
+\* We recommend at least 8GB of dedicated RAM for the Virtual Machine
 
 ### Concepts
 
@@ -23,7 +25,7 @@ Let’s try it out.
 
 ### A Hands-On Example
 
-Let’s open a shell to our Sandbox through SSH. In your Terminal window type:
+Let’s open a shell to our Sandbox through SSH. In your Terminal type:
 
     ssh root@127.0.0.1 -p 2222
 
