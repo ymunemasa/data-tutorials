@@ -1,12 +1,12 @@
 # Lab 3: Pig - Risk Factor
 
-## **Use Pig to compute Driver Risk Factor**
+## Use Pig to compute Driver Risk Factor
 
-### **Introduction**
+### Introduction
 
 In this tutorial you will be introduced to Apache Pig. In the earlier section of lab you learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand  risk associated with every driver. This section will teach you to compute risk using Apache Pig.
 
-## **Prerequisites**
+## Prerequisites
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -15,7 +15,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   Lab 2: Data Manipulation with Apache Hive
 *   Allow yourself around one hour to complete this tutorial.
 
-## **Outline**
+## Outline
 
 *   [Pig Basics](#pig-basics)
 *   [Step 3.1: Define Table Schema](#step3.1)
@@ -24,7 +24,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   [Step 3.4: Execute Pig Script on Tez](#step3.4)
 *   [Suggested Readings](#suggested-readings)
 
-## **Pig Basics** <a id="pig-basics"></a>
+## Pig Basics <a id="pig-basics"></a>
 
 Pig is a high-level scripting language that is used with Apache Hadoop. Pig enables data workers to write complex data transformations without knowing Java. Pig’s simple SQL-like scripting language is called Pig Latin, and appeals to developers already familiar with scripting languages and SQL.
 
@@ -34,7 +34,7 @@ Pig works with data from many sources, including structured and unstructured dat
 
 Pig scripts are translated into a series of MapReduce jobs that are run on the Apache Hadoop cluster.
 
-### **Step 3.1: Define Table Schema** <a id="step3.1"></a>
+### Step 3.1: Define Table Schema <a id="step3.1"></a>
 
 Now we have refined the truck data to get the average mpg  for each truck. The next task is to compute the risk factor for each driver which is the total miles driven/abnormal events. We can get the event information from the geolocation table.
 
@@ -74,7 +74,7 @@ STORED AS ORC;
 
 Verify the riskfactor table was created successfully. It will be empty now, but you will populate it from a Pig script. You are now ready to compute the risk factor using Pig. Let’s take a look at Pig and how to execute Pig scripts from within Ambari.
 
-### **Step 3.2: Create Pig Script** <a id="step3.2"></a>
+### Step 3.2: Create Pig Script <a id="step3.2"></a>
 
 In this tutorial we create and run a Pig script. We will use the Ambari Pig User View. Let’s get started…
 
@@ -224,7 +224,7 @@ store final_data into 'riskfactor' using org.apache.hive.hcatalog.pig.HCatStorer
 
 Save the file riskfactor.pig by clicking the **Save** button in the left-hand column.
 
-### **Step 3.3: Quick Recap** <a id="step3.3"></a>
+### Step 3.3: Quick Recap <a id="step3.3"></a>
 
 Before we execute the code, let’s review the code again:
 
@@ -245,7 +245,7 @@ You need to configure the Pig Editor to use HCatalog so that the Pig script can 
 The **Arguments** section of the Pig View should now look like the following:  
 ![Lab3_10](/assets/hello-hdp/Lab3_10.png)
 
-### **Step 3.4: Execute Pig Script on Tez** <a id="step3.4"></a>
+### Step 3.4: Execute Pig Script on Tez <a id="step3.4"></a>
 
 **3.4.1 Execute Pig Script** 
 
@@ -271,7 +271,7 @@ Go back to the Ambari Hive User View and browse the data in the **riskfactor** t
 
 At this point we now have our truck miles per gallon table and our risk factor table. The next step is to pull this data into Excel to create the charts for the visualization step.
 
-## **Suggested Readings** <a id="suggested-readings"></a>
+## Suggested Readings <a id="suggested-readings"></a>
 
 Strengthen your foundation of pig latin and reinforce why this scripting platform is benficial for processing and analyzing massive data sets with these resources:
 
