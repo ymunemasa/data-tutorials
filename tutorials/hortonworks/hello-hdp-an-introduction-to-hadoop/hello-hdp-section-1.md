@@ -10,7 +10,7 @@ For our tutorial we are looking at a use case where we have a truck fleet. Each 
 
 Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) to show you what you’ll be doing in this tutorial.
 
-## **Prerequisites:**
+## Prerequisites:
 
 *   Hortonworks Sandbox 2.4 (installed and running)
 
@@ -31,7 +31,7 @@ Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) t
 
 - Note, other versions of Excel will work, but the visualizations will be limited to charts or graphs. You can also use other visualization tool.
 
-## **Tutorial Overview**
+## Tutorial Overview
 
 In this tutorial we will be providing the collected geolocation and truck data.   We will import this data into HDFS and build derived tables in Hive. Then we will process the data using Pig, Hive and Spark. The processed data is then imported into Microsoft Excel where it can be visualized.
 
@@ -44,7 +44,7 @@ To refine and analyze Geolocation data, we will:
 *   Access the refined sensor data with Microsoft Excel.
 *   Visualize the sensor data using Excel Power View.
 
-## **Goals of the Tutorial**
+## Goals of the Tutorial
 
 The goal of this tutorial is that you get familiar with the basics of following:
 
