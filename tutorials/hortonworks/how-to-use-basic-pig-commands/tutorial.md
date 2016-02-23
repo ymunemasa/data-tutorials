@@ -1,4 +1,4 @@
-# Data Transformation on New York Stock Exchange With Apache Pig
+# Transform New York Stock Exchange Data With Apache Pig
 
 ### [](#tutorial-overview)Introduction
 
