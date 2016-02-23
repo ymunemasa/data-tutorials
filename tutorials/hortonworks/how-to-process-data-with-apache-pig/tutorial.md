@@ -14,6 +14,7 @@ In this tutorial, we will learn to store data files using Ambari HDFS Files View
 - [Step 2: Upload The Data Files](#uploading-data-files)
 - [Step 3: Create Pig Script](#create-pig-script)
 - [Further Reading](#further-reading)
+- [Resources](#resources)
 
 ## What is Pig? <a id="what-is-pig"></a>
 
@@ -41,7 +42,7 @@ We start by selecting the `HDFS Files view` from the Off-canvas menu at the top.
 
 ![](/assets/hello-hdp/HDFS_file_view_icon.png)
 
-Navigate to `/user/admin` and click on the Upload button to select the files we want to upload into the Hortonworks Sandbox environment.
+Navigate to `/user/maria_dev` and click on the Upload button to select the files we want to upload into the Hortonworks Sandbox environment.
 
 ![](/assets/how-to-process-data-with-apache-pig/68747470733a2f2f7797772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138574845314f486c434e31684e556c453f7261773d74727565.png?dl=1)
 
@@ -151,4 +152,8 @@ As mentioned before `Pig` operates on data flows. We consider each group of rows
 ## Further Reading <a id="further-reading"></a>
 - [Apache Pig](http://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-pig/)
 - [Welcome to Apache Pig!](https://pig.apache.org/)
+- [Pig Latin Basics](https://pig.apache.org/docs/r0.12.0/basic.html#store)
 - [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645)
+
+## Resources <a id="resources"></a>
+- [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
