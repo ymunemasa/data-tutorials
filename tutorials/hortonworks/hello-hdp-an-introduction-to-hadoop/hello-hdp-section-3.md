@@ -38,7 +38,7 @@ Append the port number :8888 to your host address, open your browser, and access
 
 Navigate to Ambari welcome page using the url given on Sandbox welcome page.
 
-> **Note:** Both the username and password to login are **maria.dev1**.
+> **Note:** Both the username and password to login are **maria_dev**.
 
 **2.1 Use Terminal to Find the Host Address Sandbox Runs On**
 
@@ -67,7 +67,7 @@ The following table has some useful URLs as well:
 
 | Service | User | Password |
 |---------|------|----------|
-| Ambari | admin | admin |
+| Ambari | maria_dev | maria_dev |
 | Linux OS | root | hadoop |
 
 
@@ -104,4 +104,4 @@ and then the
 - To learn more about Hadoop please explore the [HDP Getting Started documentation](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.4/bk_getting-started-guide/content/ch_about-hortonworks-data-platform.html).  
 - If you have questions, feedback or need help getting your environment ready visit  [developer.hortonworks.com](http://hortonworks.com/developer/).
 - Please also explore the [HDP documentation](http://docs.hortonworks.com/).
-- To ask a question check out the [Hortonworks Forums](http://hortonworks.com/community/forums/).
+- To ask a question check out the [Hortonworks Community Connection](http://hortonworks.com/community/forums/).
