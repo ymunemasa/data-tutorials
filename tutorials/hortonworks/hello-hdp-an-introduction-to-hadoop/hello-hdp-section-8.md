@@ -1,12 +1,12 @@
 # Lab 5: Reporting
 
-## **Data Visualization using Microsoft Excel**
+## Data Visualization using Microsoft Excel
 
-### **Introduction**
+### Introduction
 
 This step is optional as it requires you to have Excel and Power View, however feel free to connect from any reporting tool to do a similar exercise.   In this section, we will use Microsoft Excel Professional Plus 2013 to access the refined data. We will be using the ODBC connection.
 
-## **Prerequisites**
+## Prerequisites
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -20,13 +20,13 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 
 *   Allow yourself around half an hour to complete this tutorial.
 
-## **Outline**
+## Outline
 
 *   [Step 5.b.1: Access Data in Microsoft Excel](#step5.b.1)
 *   [Step 5.b.2: Visualize data with Excel](#step5.b.2)
 *   [Suggested readings](#suggested-reading)
 
-### **Step 5.b.1: Access the Refined Data with Microsoft Excel** <a id="step5.b.1"></a>
+### Step 5.b.1: Access the Refined Data with Microsoft Excel <a id="step5.b.1"></a>
 
 The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions and these are the [Mac ODBC driver setup](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/) instructions.   Open the ODBC connection manager and open the connection you setup up. It should look like this. Click on the test button and it should report success. If the test fails you will need to troubleshoot the connection before you can go on.
 
@@ -65,7 +65,7 @@ The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the H
 
 ![Lab5_7](/assets/hello-hdp/Lab5_7.jpg)
 
-### **Step 5.b.2: Visualize Data with Microsoft Excel** <a id="step5.b.2"></a>
+### Step 5.b.2: Visualize Data with Microsoft Excel <a id="step5.b.2"></a>
 
 1)  So now we are going to insert a Power View report. We do this by selecting the “Insert” tab at the top and select “Power View Reports” button in the middle. This will create a new tab in your workbook with the data inserted in the Power View page.”
 
