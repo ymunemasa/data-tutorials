@@ -15,6 +15,7 @@ In this tutorial, we will use the [Ambari](http://hortonworks.com/hadoop/ambari/
 - [Step 2: Upload The Data Files](#upload-the-data-files)
 - [Step 3: Start the Hive View](#start-the-hive-view)
 - [Further Reading](#further-reading)
+- [Resources](#resources)
 
 ## Hive <a id="hive"></a>
 
@@ -173,3 +174,8 @@ The resulting data looks like:
 So now we have our results. As described earlier we solved this problem using Hive step by step. At any time we were free to look around at the data, decide we needed to do another task and come back. At all times the data is live and accessible to us.
 
 ## Further Reading <a id="further-reading"></a>
+- [Apache Hive](http://hortonworks.com/hadoop/hive/)
+- [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)
+ 
+## Resources <a id="resources"></a>
+- [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
