@@ -24,6 +24,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   [Step 2.5: Review Hive Settings](#review-hive-settings)
 *   [Step 2.6: Analyze Truck Data](#analyze-truck-data)
 *   [Suggested readings](#suggested-readings)
+*   [Resources](#resources)
 
 ## Hive <a id="hive-basics"></a>
 
@@ -163,7 +164,7 @@ Click on the **Load sample data** icon to generate and execute a select SQL stat
 
 **2.3.1 Manual Approach: Populate Hive Table with Data**
  
-Let’s load some data into your two Hive tables. Populating a Hive table can be done in various ways. A simple way to populate a table is to put a file into the directory associated with the table. Using the Ambari Files User View, click on the **Move** icon next to the file /tmp/admin/data/geolocation.csv. (Clicking on **Move** is similar to “cut” in cut-and-paste.)
+Let’s load some data into your two Hive tables. Populating a Hive table can be done in various ways. A simple way to populate a table is to put a file into the directory associated with the table. Using the Ambari Files User View, click on the **Move** icon next to the file /tmp/maria_dev/data/geolocation.csv. (Clicking on **Move** is similar to “cut” in cut-and-paste.)
 
 ![Screen Shot 2015-07-27 at 9.45.11 PM](/assets/hello-hdp/Screen-Shot-2015-07-27-at-9.45.11-PM.png)
 
@@ -193,7 +194,7 @@ Go back to the Ambari Hive View and click on the **Load sample data** icon next 
 Enter the following SQL command into an empty Worksheet in the Ambari Hive User View:
 
 ~~~
-LOAD DATA INPATH '/tmp/admin/data/trucks.csv' OVERWRITE INTO TABLE trucks_stage;
+LOAD DATA INPATH '/tmp/maria_dev/data/trucks.csv' OVERWRITE INTO TABLE trucks_stage;
 ~~~
 
 **2.3.2.1 Load Sample Data of trucks_stage** 
@@ -204,7 +205,7 @@ You should now see data in the trucks_stage table:
 
 **2.3.2.2 Click on HDFS Files View** 
 
-Navigate to the `/tmp/admin/data` folder. Notice the folder is empty! The LOAD DATA INPATH command moved the `trucks.csv` file from the `/user/admin/data` folder to the `/apps/hive/warehouse/trucks_stage` folder.
+Navigate to the `/tmp/maria_dev/data` folder. Notice the folder is empty! The LOAD DATA INPATH command moved the `trucks.csv` file from the `/user/maria_dev/data` folder to the `/apps/hive/warehouse/trucks_stage` folder.
 
 ### Step 2.4: Define an ORC Table in Hive <a id="define-orc-table-hive"></a>
 
@@ -453,3 +454,7 @@ Augment your hive foundation with the following resources:
 
 - [Apache Hive](http://hortonworks.com/hadoop/hive/)
 - [Programming Hive](http://www.amazon.com/Programming-Hive-Edward-Capriolo/dp/1449319335/ref=sr_1_3?ie=UTF8&qid=1456009871&sr=8-3&keywords=apache+hive)
+- [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)
+ 
+## Resources <a id="resources"></a>
+- [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
