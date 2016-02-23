@@ -12,7 +12,7 @@ In this tutorial, we will install and explore the Sandbox on virtualbox, vmware 
 - [Step 2: Open Ambari](#open-ambari)
 - [Further Reading](#further-reading)
 
-### **Step 1: Start the Sandbox VM** <a id="start-sandbox-vm"></a>
+### Step 1: Start the Sandbox VM <a id="start-sandbox-vm"></a>
 
 Start the HDP Sandbox following the [Sandbox Install Guide](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM:
 
@@ -87,7 +87,7 @@ Take a few minutes to quickly explore these 5 capabilities and become familiar w
 
 Enter the Ambari Dashboard URL and you should see a similar screen:
 
-##### ![Lab0_4](/assets/hello-hdp/Lab0_4.png)
+![Lab0_4](/assets/hello-hdp/Lab0_4.png)
 
 **2.3 Explore Ambari Dashboard Links**
 
