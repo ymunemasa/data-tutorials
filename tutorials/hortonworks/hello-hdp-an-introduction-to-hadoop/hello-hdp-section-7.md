@@ -4,11 +4,11 @@
 
 **Note** that this step is optional and produces the same result as in Lab 3. You may continue on to the next lab if you wish.
 
-### **Introduction**
+### Introduction
 
 In this tutorial you will be introduced to Apache Spark. In the earlier section of lab you learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand  risk associated with every driver. This section will teach you to compute risk using Apache spark.
 
-## **Prerequisites**
+## Prerequisites
 
 The tutorial is a part of a series of hands on tutorials to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -17,7 +17,7 @@ The tutorial is a part of a series of hands on tutorials to get you started on H
 * Lab 2: Data Manipulation with Apache Hive
 * Allow yourself around one hour to complete this tutorial.
 
-## **Outline**
+## Outline
 
 *   [Apache Spark Backdrop](#apache-spark-backdrop)
 *   [Apache Spark Basics](#apache-spark-basics)
@@ -43,7 +43,7 @@ You can run batch application such as MapReduce types jobs or iterative algorith
 ![Lab4_1](/assets/hello-hdp/Lab4_1.png)  
 Lets get started…!!
 
-### **Step 4.1: Configuring Spark services using Ambari** <a id="step4.1"></a>
+### Step 4.1: Configuring Spark services using Ambari <a id="step4.1"></a>
 
 1)  Log on to Ambari Dashboard as admin and click on Actions tab at the bottom left corner. Hit Start All to ensure Spark is running. Ambari will take some time to start all services and you can monitor the progress of it.
 
@@ -68,7 +68,7 @@ This will load the default Spark Scala API.
 
 > **Notice** it is already starting with Hive integration as we have preconfigured it on the Hortonworks Sandbox.
 
-### **Step 4.2: Create a HiveContext** <a id="step4.2"></a>
+### Step 4.2: Create a HiveContext <a id="step4.2"></a>
 
 For improved Hive integration, HDP 2.4 offers [ORC file](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/) support for Spark. This allows Spark to read data stored in ORC files. Spark can leverage ORC file’s more efficient columnar storage and predicate pushdown capability for even faster in-memory processing. HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
 
@@ -93,7 +93,7 @@ val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 
 - `sc` stands for **Spark Context**. SparkContext is the main entry point to everything Spark. It can be used to create RDDs and shared variables on the cluster. When you start up the Spark Shell, the SparkContext is automatically initialized for you with the variable `sc`.
 
-### **Step 4.3: Creating a RDD from HiveContext** <a id="step4.3"></a>
+### Step 4.3: Creating a RDD from HiveContext <a id="step4.3"></a>
 
 **What is RDD?**
 
@@ -151,7 +151,7 @@ geolocation_temp1.registerTempTable("geolocation_temp1")
 drivermileage_temp1.registerTempTable("drivermileage_temp1")
 ~~~
 
-### **Step 4.4: RDD Transformations and Actions** <a id="step4.4"></a>
+### Step 4.4: RDD Transformations and Actions <a id="step4.4"></a>
 
 Typically, RDDs are instantiated by loading data from a shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat on a YARN cluster.
 
@@ -238,7 +238,7 @@ risk_factor_spark.collect.foreach(println)
 
 ![Lab4_15](/assets/hello-hdp/Lab4_15.png)
 
-### **Step 4.5: Load and Save Data into Hive as ORC** <a id="step4.5"></a>
+### Step 4.5: Load and Save Data into Hive as ORC <a id="step4.5"></a>
 
 In this section we will try to store data in orc format in Hive from Spark.ORC is a self-describing type-aware columnar file format designed for Hadoop workloads. It is optimized for large streaming reads and with integrated support for finding required rows fast. Storing data in a columnar format lets the reader read, decompress, and process only the values required for the current query. Because ORC files are type aware, the writer chooses the most appropriate encoding for the type and builds an internal index as the file is persisted.
 
