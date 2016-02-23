@@ -8,7 +8,7 @@ By the end of this tutorial, you will have learned:
 
 ### [](#getting-started)Getting started
 
-First we have to ensure that **spark** and **zeppelin** are running.
+**Spark** and **Zeppelin Notebook** should already be running on startup.
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713864304a50596931345456524c536c553f7261773d74727565.png)
 
@@ -49,7 +49,7 @@ val  file  = sc.textFile("hdfs://sandbox.hortonworks.com:8020/tmp/littlelog.csv"
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138513142794e5652336254524851556b3f7261773d74727565.png)
 
-Now we have a freshly created RDD. We have to use an action operation like collect() to gather up the data into the drivers memory and then to print out the contents of the file:
+Now we have a freshly created RDD. We have to use an action operation like collect() to gather up the data into the driver's memory and then to print out the contents of the file:
 
 
 
@@ -115,7 +115,7 @@ In other words within the parenthesis of our filter method we are defining the a
 
 This pattern of constructing a function within the argument to a method is one of the **fundamental characteristics** of Scala and once you get used to it, it will make sense and speed up your programming a lot.
 
-Then let’s split the line into individual columns seperated by `,` and then let’s grab the 6th columns, which means the column with index 5.
+Then let’s split the line into individual columns separated by `,` and then let’s grab the 6th columns, which means the column with index 5.
 
 
 
@@ -132,7 +132,7 @@ This is a row of the littlelog.csv file:
 if we execute the query, first, **each row** of the fltr RDD is having the `split(“,”)` method called on it.  
 It will seperate all columns with a `,` between them.
 
-    [ 
+    [
       20120315 01:17:06,
       99.122.210.248,
       [http://www.acme.com/SH55126545/VD55170364,
