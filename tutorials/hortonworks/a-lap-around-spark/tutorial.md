@@ -1,26 +1,26 @@
 ## A Lap Around Spark with HDP
 
-This Apache Spark 1.3.1 with HDP 2.3 guide walks you through many of the newer features of Apache Spark 1.3.1 on YARN.
+This Apache Spark 1.6 with HDP 2.4 guide walks you through many of the newer features of Apache Spark 1.6 on YARN.
 
-Hortonworks recently announced general availability of Spark 1.3.1 on the HDP platform. Apache Spark is a fast moving community and Hortonworks plans frequent releases to allow evaluation and production use of the latest capabilities of Apache Spark on HDP for our customers.
+Hortonworks recently announced General Availability (GA) of Spark 1.6 on the HDP platform. Apache Spark is a fast moving community and Hortonworks plans frequent releases to allow evaluation and production use of the latest capabilities of Apache Spark on HDP for our customers.
 
 With YARN, Hadoop can now support many types of data and application workloads; Spark on YARN becomes yet another workload running against the same set of hardware resources.
 
 This guide describes how to:
 
 *   Run Spark on YARN and run the canonical Spark examples: SparkPi and Wordcount.
-*   Run Spark 1.3.1 on HDP 2.3.
+*   Run Spark 1.6 on HDP 2.4
 *   Use Spark DataFrame API
-*   Work with a built-in UDF, collect_list, a key feature of Hive 13\. This release provides support for Hive 0.13.1 and instructions on how to call this UDF from Spark shell.
+*   Work with a built-in UDF, collect_list, a key feature of Hive. This release provides support for Hive 1.2.1 and instructions on how to call this UDF from Spark shell.
 *   Use SparkSQL thrift JDBC/ODBC Server.
 *   View history of finished jobs with Spark Job History.
 *   Use ORC files with Spark, with examples.
 
-When you are ready to go beyond these tasks, try the machine learning examples at Apache Spark.
+When you are ready to go beyond these tasks, checkout the [Apache Spark Machine Learning Library (MLlib) Guide](http://spark.apache.org/docs/latest/mllib-guide.html).
 
 ### HDP Cluster Requirement
 
-Spark 1.3.1 can be configured on any HDP 2.3 cluster whether it is a multi node cluster or a single node HDP Sandbox.
+Spark can be configured on any HDP cluster whether it is a multi node cluster or a single node HDP Sandbox.
 
 The instructions in this guide assumes you are using the latest Hortonworks Sandbox
 
@@ -30,17 +30,17 @@ To test compute intensive tasks in Spark, the Pi example calculates pi by “thr
 
 To calculate Pi with Spark:
 
-1.  **Change to your Spark directory and become spark OS user:**
+**Change to your Spark directory and become spark OS user:**
 
 
 
-          cd /usr/hdp/current/spark-client  
+    cd /usr/hdp/current/spark-client  
 
-          su spark
+    su spark
 
 
 
-1.  **Run the Spark Pi example in yarn-client mode:**
+**Run the Spark Pi example in yarn-client mode:**
 
 
 
@@ -88,6 +88,8 @@ Output similar to below displays before the Scala REPL prompt, scala>:
 
     val counts = file.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)
 
+Save *counts* to a file:
+
     counts.saveAsTextFile("/tmp/wordcount")
 
 
@@ -125,7 +127,7 @@ Exit the scala shell.
 
 
 
-    View WordCount Results:
+View WordCount Results:
 
 
 
@@ -149,7 +151,7 @@ Use the HDFS cat command to see the WordCount output. For example,
 
 ##### Using Spark DataFrame API
 
-With Spark 1.3.1, DataFrame API is a new feature. DataFrame API provide easier access to data since it looks conceptually like a Table and a lot of developers from Python/R/Pandas are familiar with it.
+ DataFrame API provides easier access to data since it looks conceptually like a Table and a lot of developers from Python/R/Pandas are familiar with it.
 
 Let's upload people text file to HDFS
 
@@ -157,21 +159,17 @@ Let's upload people text file to HDFS
 
     cd /usr/hdp/current/spark-client
 
-
-
     su spark
 
-    hdfs dfs -copyFromLocal examples/src/main/resources/people.txt people.txt
+    hadoop fs -copyFromLocal examples/src/main/resources/people.txt people.txt
 
-
-
-    hdfs dfs -copyFromLocal examples/src/main/resources/people.json people.json
+    hadoop fs -copyFromLocal examples/src/main/resources/people.json people.json
 
 
 
 ![](/assets/a-lap-around-spark/Screenshot%202015-07-20%2015.01.49.png?dl=1)
 
-Then let's launch the Spark Shell
+Then let's launch the Spark Shell.
 
 
 
@@ -183,7 +181,7 @@ Then let's launch the Spark Shell
 
 
 
-    At the Spark Shell type the following:
+At the Spark Shell type the following:
 
 
 
@@ -195,9 +193,9 @@ This will produce and output such as
 
 ![](/assets/a-lap-around-spark/Screenshot%202015-07-20%2015.04.33.png?dl=1)
 
-**Note:** The highlighted output shows the inferred schema of the underlying people.json.
+**Note:** The highlighted output shows the inferred schema of the underlying *people.json*.
 
-Now print the content of DataFrame with df.show
+Now print the content of DataFrame with `df.show`:
 
 
 
@@ -279,9 +277,9 @@ This will produce an output like
 
 ![](/assets/a-lap-around-spark/Screenshot%202015-07-20%2015.19.49.png?dl=1)
 
-### Running Hive 0.13.1 UDF
+### Running Hive UDF
 
-Hive 0.13.1 provides a new built-in UDF collect_list(col) which returns a list of objects with duplicates.  
+Hive a built-in UDF collect_list(col) which returns a list of objects with duplicates.  
 The below example reads and write to HDFS under Hive directories. In a production environment one needs appropriate HDFS permission. However for evaluation you can run all this section as hdfs user.
 
 Before running Hive examples run the following steps:
@@ -291,6 +289,10 @@ Before running Hive examples run the following steps:
 
 
     su hdfs
+
+    # If not already in spark-client directory, change to that directory
+
+    cd /usr/hdp/current/spark-client
 
     ./bin/spark-shell --num-executors 2 --executor-memory 512m --master yarn-client
 
@@ -408,7 +410,7 @@ You should see output similar to the following:
 
     su spark
 
-    hadoop dfs -put examples/src/main/resources/people.txt people.txt
+    hadoop fs -put examples/src/main/resources/people.txt people.txt
 
 
 
@@ -438,40 +440,38 @@ on Scala prompt type the following, except for the comments
 
 Load and register the spark table
 
+    // Create an RDD
+    val people = sc.textFile("examples/src/main/resources/people.txt")
 
+    // The schema is encoded in a string
+    val schemaString = "name age"
 
-    val people = sc.textFile("people.txt")
+    // Import Row.
+    import org.apache.spark.sql.Row;
 
-    val schemaString = "name age"
+    // Import Spark SQL data types
+    import org.apache.spark.sql.types.{StructType,StructField,StringType};
 
-    val schema = StructType(schemaString.split(" ").map(fieldName => StructField(fieldName, StringType, true)))
+    // Generate the schema based on the string of schema
+    val schema =
+      StructType(
+        schemaString.split(" ").map(fieldName => StructField(fieldName, StringType, true)))
 
-    val rowRDD = people.map(_.split(",")).map(p => Row(p(0), new Integer(p(1).trim)))
+    // Convert records of the RDD (people) to Rows.
+    val rowRDD = people.map(_.split(",")).map(p => Row(p(0), p(1).trim))
 
+    // Apply the schema to the RDD.
+    val peopleDataFrame = sqlContext.createDataFrame(rowRDD, schema)
 
+    // Register the DataFrames as a table.
+    peopleDataFrame.registerTempTable("people")
 
-![](/assets/a-lap-around-spark/Screenshot%202015-07-21%2013.35.47.png?dl=1)
+    // SQL statements can be run by using the sql methods provided by sqlContext.
+    val results = sqlContext.sql("SELECT name FROM people")
 
-Infer table schema from RDD
-
-
-
-    val peopleSchemaRDD = hiveContext.applySchema(rowRDD, schema)
-
-
-
-![](/assets/a-lap-around-spark/Screenshot%202015-07-21%2013.37.06.png?dl=1)
-
-Create a table from schema
-
-
-
-    peopleSchemaRDD.registerTempTable("people")
-
-    val results = hiveContext.sql("SELECT * FROM people")
-
-    results.map(t => "Name: " + t.toString).collect().foreach(println)
-
+    // The results of SQL queries are DataFrames and support all the normal RDD operations.
+    // The columns of a row in the result can be accessed by field index or by field name.
+    results.map(t => "Name: " + t(0)).collect().foreach(println)
 
 
 ![](/assets/a-lap-around-spark/Screenshot%202015-07-21%2013.43.49.png?dl=1)
@@ -480,7 +480,7 @@ Save Table to ORCFile
 
 
 
-    peopleSchemaRDD.saveAsOrcFile("people.orc")
+    peopleDataFrame.write.orc("people.orc")
 
 
 
@@ -488,9 +488,9 @@ Create Table from ORCFile
 
 
 
-    val morePeople = hiveContext.orcFile("people.orc")
+    val morePeopleDF = hiveContext.read.orc("people.orc")
 
-    morePeople.registerTempTable("morePeople")
+    morePeopleDF.registerTempTable("morePeople")
 
 
 
@@ -510,38 +510,32 @@ Query from the table
 
 With this release SparkSQL’s thrift server provides JDBC access to SparkSQL.
 
-1.  **Start Thrift Server**  
-    From SPARK_HOME, start SparkSQL thrift server, Note the port value of the thrift JDBC server
+**Start Thrift Server**  
+
+    su spark
+
+    cd /usr/hdp/current/spark-client
+
+    ./sbin/start-thriftserver.sh --master yarn-client --executor-memory 512m --hiveconf hive.server2.thrift.port=10015
 
 
 
-        su spark
-
-        ./sbin/start-thriftserver.sh --master yarn-client --executor-memory 512m --hiveconf hive.server2.thrift.port=10001
-
-
-
-*   **Connect to Thrift Server over beeline**  
-    Launch beeline from SPARK_HOME
-
-
-
-        su spark
+**Connect to Thrift Server over beeline**\
+Launch beeline
 
         ./bin/beeline
 
 
-
-*   **Connect to Thrift Server & Issue SQL commands**  
-    On beeline prompt
-
-
-
-        !connect jdbc:hive2://localhost:10001
+**Connect to Thrift Server & Issue SQL commands**  
+On beeline prompt
 
 
 
-Note this is example is without security enabled, so any username password should work.
+        !connect jdbc:hive2://localhost:10015
+
+
+
+Note this is example is without security enabled, so any username password should work or simply press enter/return.
 
 Note, the connection may take a few second to be available and try show tables after a wait of 10-15 second in a Sandbox env.
 
