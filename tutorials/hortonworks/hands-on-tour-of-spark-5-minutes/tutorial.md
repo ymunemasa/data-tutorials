@@ -84,7 +84,11 @@ We finally execute an action operation using the aggregate function `count()`, w
 
 Lastly, with `print count` we display the final count value, which in this case returns `311`.
 
-That's it! We hope that this little example whets your appetite for more ambitious data science projects on the Hortonworks Data Platform.
+That's it! Your complete notebook should like this after you run your code in each paragraph/block:
+
+**TODO: add image of completed notebook**
+
+We hope that this little example whets your appetite for more ambitious data science projects on the Hortonworks Data Platform.
 
 For more on Apache Spark, check out the links below:
 
