@@ -8,10 +8,9 @@ In this blog, we will introduce the basic concepts of Apache Spark and the first
 
 There are two options for setting up the Hortonworks Sandbox:
 
-1. **Download & Install [Hortonworks Sandbox](http://hortonworks.com/sandbox)** on your local machine*
-2. **Deploy [Hortonworks Sandbox on Microsoft Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)**
-
-\* We recommend at least 8GB of dedicated RAM for the Virtual Machine
+1.  **Download & Install [Hortonworks Sandbox on Local Machine](http://hortonworks.com/sandbox)**  
+or
+2.  **Deploy [Hortonworks Sandbox on Microsoft Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)**
 
 ### Concepts
 
@@ -25,54 +24,67 @@ Let’s try it out.
 
 ### A Hands-On Example
 
-Let’s open a shell to our Sandbox through SSH. In your Terminal type:
+ From an Ambari dropdown view select **Zeppelin Notebook**
 
-    ssh root@127.0.0.1 -p 2222
+**TODO: Image of Ambari View**
 
-The default password is `hadoop`
+Click **Create new note** and give it a name. I gave it *Apache Spark in 5 Minutes*.
 
-![](/assets/a-tour-of-spark-in-5-minutes/Screenshot_2015-04-13_07_58_43.png?dl=1)
+**TODO: Image of Adding Notebook Name**
 
+Zeppelin has several interpreters pre-configured. In this tutorial we will use a shell interpreter `%sh` and a pyspark interpreter `%pyspark`.
 
-Then let’s get some data with the command below in your shell prompt:
+Let's start with a shell interpreter `%sh` and bring in some Hortonworks related Wikipedia data.
+
+Type the following in your Zeppelin Notebook and hit **shift + enter** to run
+
+    %sh
 
     wget http://en.wikipedia.org/wiki/Hortonworks
 
-![](/assets/a-tour-of-spark-in-5-minutes/Screenshot_2015-04-13_08_11_41.png?dl=1)
+You should see an output similar to this:
 
-Copy the data over to HDFS on Sandbox:
+**TODO: add image of running wget**
 
-    hadoop fs -put ~/Hortonworks /user/guest/Hortonworks
+Next, let's copy the data over to HDFS. Type and run the following:
 
-Let’s start the PySpark shell and work through a simple example of counting the lines in a file. The shell allows us to interact with our data using Spark and Python:
+    %sh
 
-    pyspark
+    hadoop fs -put ~/Hortonworks /tmp
 
-![](/assets/a-tour-of-spark-in-5-minutes/Screenshot%202015-04-13%2007.59.59.png?dl=1)
+Now we are ready to run a simple Python program with Spark. This time we will use the python interpreter `%pyspark`. Copy and run this code:
 
-As discussed above, the first step is to instantiate the RDD using the Spark Context `sc` with the file `Hortonworks` on HDFS.
+    %pyspark
 
-    myLines = sc.textFile('hdfs://sandbox.hortonworks.com/user/guest/Hortonworks')
+    myLines = sc.textFile('hdfs://sandbox.hortonworks.com/tmp/Hortonworks')
 
-![](/assets/a-tour-of-spark-in-5-minutes/Screenshot%202015-04-13%2009.10.32.png?dl=1)
+    myLinesFiltered = myLines.filter( lambda x: len(x) > 0 )
 
-Now that we have instantiated the RDD, it’s time to apply some transformation operations on the RDD. In this case, I am going to apply a simple transformation operation using a Python lambda expression to filter out all the empty lines.
+    count = myLinesFiltered.count()
 
-    myLines_filtered = myLines.filter( lambda x: len(x) > 0 )
+    print count
 
-![](/assets/a-tour-of-spark-in-5-minutes/Screenshot%202015-04-13%2009.17.52.png?dl=1)
+When you execute the above you should get only a number as an output. I got `311` but it may vary depending on the Wikipedia entry.
 
-Note that the previous Python statement returned without any output. This lack of output signifies that the transformation operation did not touch the data in any way but has only modified the processing graph.
+**TODO: add image of running the Zeppelin notebook**
 
-Let’s make this transformation real, with an Action operation like ‘count()’, which will execute all the transformation actions before and apply this aggregate function.
+Let's go over what's actually going on. After the python interpreter `%pyspark` is initialized we instantiate the RDD using the Spark Context `sc` with the file `Hortonworks` on HDFS:
 
-    myLines_filtered.count()
+    myLines = sc.textFile('hdfs://sandbox.hortonworks.com/tmp/Hortonworks')
 
-![](/assets/a-tour-of-spark-in-5-minutes/Screenshot%202015-04-13%2009.19.07.png?dl=1)
+Then, after we instantiate the RDD, we apply a transformation operation on the RDD. In this case, a simple transformation operation using a Python lambda expression to filter out all the empty lines:
 
-The final result of this little Spark Job is the number you see at the end. In this case it is `341*`.
+    myLinesFiltered = myLines.filter( lambda x: len(x) > 0 )
 
-We hope that this little example whets your appetite for more ambitious data science projects on the Hortonworks Data Platform.
+At this point, the transformation operation above did not touch the data in any way. It has only modified the processing graph.
+
+We finally execute an action operation using the aggregate function `count()`, which then executes all the transformation operations:
+
+    count = myLinesFiltered.count()
+
+Lastly, with `print count` we display the final count value, which in this case returns `311`.
+
+That's it! We hope that this little example whets your appetite for more ambitious data science projects on the Hortonworks Data Platform.
 
 For more on Apache Spark, check out the links below:
 
