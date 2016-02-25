@@ -41,32 +41,34 @@ Zeppelin comes with several interpreters pre-configured on Sandbox. In this tuto
 Let's start with a shell interpreter `%sh` and bring in some Hortonworks related Wikipedia data.
 
 Type the following in your Zeppelin Notebook and hit **shift + enter** to execute the code:
+``` bash
+%sh
 
-    %sh
-
-    wget http://en.wikipedia.org/wiki/Hortonworks
-
+wget http://en.wikipedia.org/wiki/Hortonworks
+```
 You should see an output similar to this
 
 ![](/assets/a-tour-of-spark-in-5-minutes/5-apache-spark-tour-in-5-minutes.png)
 
 Next, let's copy the data over to HDFS. Type and execute the following:
+``` bash
+%sh
 
-    %sh
-
-    hadoop fs -put ~/Hortonworks /tmp
-
+hadoop fs -put ~/Hortonworks /tmp
+```
 Now we are ready to run a simple Python program with Spark. This time we will use the python interpreter `%pyspark`. Copy and execute this code:
 
-    %pyspark
+``` python
+%pyspark
 
-    myLines = sc.textFile('hdfs://sandbox.hortonworks.com/tmp/Hortonworks')
+myLines = sc.textFile('hdfs://sandbox.hortonworks.com/tmp/Hortonworks')
 
-    myLinesFiltered = myLines.filter( lambda x: len(x) > 0 )
+myLinesFiltered = myLines.filter( lambda x: len(x) > 0 )
 
-    count = myLinesFiltered.count()
+count = myLinesFiltered.count()
 
-    print count
+print count
+```
 
 When you execute the above you should get only a number as an output. I got `311` but it may vary depending on the Wikipedia entry.
 
@@ -74,18 +76,21 @@ When you execute the above you should get only a number as an output. I got `311
 
 Let's go over what's actually going on. After the python interpreter `%pyspark` is initialized we instantiate an RDD using a Spark Context `sc` with a `Hortonworks` file on HDFS:
 
-    myLines = sc.textFile('hdfs://sandbox.hortonworks.com/tmp/Hortonworks')
-
+``` python
+myLines = sc.textFile('hdfs://sandbox.hortonworks.com/tmp/Hortonworks')
+```
 After we instantiate the RDD, we apply a transformation operation on the RDD. In this case, a simple transformation operation using a Python lambda expression to filter out all the empty lines:
 
-    myLinesFiltered = myLines.filter( lambda x: len(x) > 0 )
-
+``` python
+myLinesFiltered = myLines.filter( lambda x: len(x) > 0 )
+```
 At this point, the transformation operation above did not touch the data in any way. It has only modified the processing graph.
 
 We finally execute an action operation using the aggregate function `count()`, which then executes all the transformation operations:
 
-    count = myLinesFiltered.count()
-
+``` python
+count = myLinesFiltered.count()
+```
 Lastly, with `print count` we display the final count value, which returns `311`.
 
 That's it! Your complete notebook should look like this after you run your code in all paragraphs:
@@ -94,4 +99,4 @@ That's it! Your complete notebook should look like this after you run your code 
 
 We hope that this little example wets your appetite for more ambitious data science projects on the Hortonworks Data Platform (HDP) Sandbox.
 
-For more information checkout [Apache Spark & Hadoop](http://hortonworks.com/spark).
+If you're feeling adventurous checkout our other great  [Apache Spark & Hadoop](http://hortonworks.com/hadoop/spark/#tutorials) tutorials.
