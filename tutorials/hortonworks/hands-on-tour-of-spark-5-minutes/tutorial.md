@@ -1,4 +1,4 @@
-### Introduction
+  ### Introduction
 
 Apache Spark is a fast, in-memory data processing engine with elegant and expressive development APIs in Scala, Java, Python, and R that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets (see [Spark API Documentation](http://spark.apache.org/docs/latest/api.html) for more info). Spark on [Apache Hadoop YARN](http://hortonworks.com/hadoop/YARN "Apache Hadoop YARN") enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.
 
@@ -43,7 +43,6 @@ Let's start with a shell interpreter `%sh` and bring in some Hortonworks related
 Type the following in your Zeppelin Notebook and hit **shift + enter** to execute the code:
 ``` bash
 %sh
-
 wget http://en.wikipedia.org/wiki/Hortonworks
 ```
 You should see an output similar to this
@@ -53,20 +52,15 @@ You should see an output similar to this
 Next, let's copy the data over to HDFS. Type and execute the following:
 ``` bash
 %sh
-
 hadoop fs -put ~/Hortonworks /tmp
 ```
 Now we are ready to run a simple Python program with Spark. This time we will use the python interpreter `%pyspark`. Copy and execute this code:
 
 ``` python
 %pyspark
-
 myLines = sc.textFile('hdfs://sandbox.hortonworks.com/tmp/Hortonworks')
-
 myLinesFiltered = myLines.filter( lambda x: len(x) > 0 )
-
 count = myLinesFiltered.count()
-
 print count
 ```
 
