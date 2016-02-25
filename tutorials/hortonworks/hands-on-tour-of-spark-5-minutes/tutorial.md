@@ -94,7 +94,4 @@ That's it! Your complete notebook should look like this after you run your code 
 
 We hope that this little example wets your appetite for more ambitious data science projects on the Hortonworks Data Platform (HDP) Sandbox.
 
-For more on Apache Spark, check out the links below:
-
-*   [The Apache Spark Project](http://hortonworks.com/spark)
-*   [Announcing Apache Spark, Now GA on Hortonworks Data Platform](http://hortonworks.com/blog/announcing-apache-spark-now-ga-on-hortonworks-data-platform/)
+For more information checkout [Apache Spark & Hadoop](http://hortonworks.com/spark).
