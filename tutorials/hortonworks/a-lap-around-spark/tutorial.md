@@ -351,7 +351,7 @@ At a `scala>` REPL prompt type the following:
 val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 ```
 
-You should see output similar to the following:
+You should see an output similar to the following:
 
 ``` bash
 ...
@@ -368,7 +368,7 @@ scala>
 hiveContext.sql("CREATE TABLE IF NOT EXISTS TestTable (key INT, value STRING)")
 ```
 
-You should see output similar to the following:
+You should see an output similar to the following:
 
 ``` js
 ...
@@ -385,7 +385,7 @@ scala>
 hiveContext.sql("LOAD DATA LOCAL INPATH 'examples/src/main/resources/kv1.txt' INTO TABLE TestTable")
 ```
 
-You should see output similar to the following:
+You should see an output similar to the following:
 
 ``` js
 16/02/25 20:19:17 INFO PerfLogger: </PERFLOG method=releaseLocks start=1456431557360 end=1456431557360 duration=0 from=org.apache.hadoop.hive.ql.Driver>
@@ -421,7 +421,7 @@ Hortonworks worked in the community to bring full ORC support to Spark. Recently
 SparkSQL’s thrift server provides JDBC access to SparkSQL.
 
 
-** Create logs directory **
+**Create logs directory**
 
 Change ownership of `logs` directory from `root` to `spark` user:
 
@@ -438,7 +438,7 @@ su spark
 ./sbin/start-thriftserver.sh --master yarn-client --executor-memory 512m --hiveconf hive.server2.thrift.port=10015
 ```
 
-** Connect to the Thrift Server over Beeline**
+**Connect to the Thrift Server over Beeline**
 
 Launch Beeline:
 
@@ -492,7 +492,7 @@ You should see an output similar to the following:
 0: jdbc:hive2://localhost:10015>
 ```
 
-type `Ctrl+C` to exit beeline.
+Type `Ctrl+C` to exit beeline.
 
 *   **Stop Thrift Server**
 
@@ -579,7 +579,7 @@ age    name
 ```
 For additional SparkR examples, see https://spark.apache.org/docs/latest/sparkr.html.
 
-To exit SparkR:
+To exit SparkR type:
 ``` js
 quit()
 ```
