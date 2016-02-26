@@ -111,18 +111,10 @@ counts.saveAsTextFile("/tmp/wordcount")
 
 ##### Viewing the WordCount output with Scala Shell
 
-To view the output in the scala shell:
+To view the output, at the `scala>` prompt type:
 
 ``` js
 counts.count()
-```
-
-**TODO: add screen output**
-
-To print the full output of the WordCount job:
-
-``` js
-counts.toArray().foreach(println)
 ```
 
 You should see an output screen similar to:
@@ -130,6 +122,24 @@ You should see an output screen similar to:
 ...
 16/02/25 23:12:20 INFO DAGScheduler: Job 1 finished: count at <console>:32, took 0.541229 s
 res1: Long = 341
+
+scala>
+```
+
+To print the full output of the WordCount job type:
+
+``` js
+counts.toArray().foreach(println)
+```
+You should see an output screen similar to:
+
+``` js
+...
+((Hadoop,1)
+(compliance,1)
+(log4j.appender.RFAS.layout.ConversionPattern=%d{ISO8601},1)
+(additional,1)
+(default,2)
 
 scala>
 ```
