@@ -458,7 +458,7 @@ Launch Beeline:
 
 **Connect to Thrift Server and issue SQL commands**  
 
-On the `beeline>` prompt:
+On the `beeline>` prompt type:
 
 ``` sql
 !connect jdbc:hive2://localhost:10015
@@ -602,7 +602,7 @@ The Spark Dataset API brings the best of RDD and Data Frames together, for type 
 
 As `spark` user, launch the Spark Shell:
 
-``` js
+``` bash
 cd $SPARK_HOME
 su spark
 ./bin/spark-shell --num-executors 2 --executor-memory 512m --master yarn-client
