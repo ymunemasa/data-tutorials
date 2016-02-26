@@ -353,7 +353,7 @@ val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 
 You should see output similar to the following:
 
-```js
+``` bash
 ...
 16/02/25 20:13:33 INFO SessionState: Created local directory: /tmp/root/f3b7d0fb-031f-4e69-a792-6f12ed7ffa03
 16/02/25 20:13:33 INFO SessionState: Created HDFS directory: /tmp/hive/root/f3b7d0fb-031f-4e69-a792-6f12ed7ffa03/_tmp_space.db
