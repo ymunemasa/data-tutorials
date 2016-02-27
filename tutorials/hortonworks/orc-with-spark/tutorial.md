@@ -1,4 +1,4 @@
-
+### Introduction
 
 In this tutorial, we will explore how you can access and analyze data on Hive from Spark. In particular, you will learn:
 
@@ -11,9 +11,9 @@ In this tutorial, we will explore how you can access and analyze data on Hive fr
 
 Spark SQL uses the Spark engine to execute SQL queries either on data sets persisted in HDFS or on existing RDDs. It allows you to manipulate data with SQL statements within a Spark program.
 
-### Prerequisite
+### Prerequisites
 
-The only prerequiste for this tutorial is the latest [Hortonworks Sandbox](http://hortonworks.com/sandbox) installed on your computer or in the [cloud](http://hortonworks.com/blog/hortonworks-sandbox-azure/).
+The only prerequisite for this tutorial is the latest [Hortonworks Sandbox](http://hortonworks.com/sandbox) installed on your computer or in the [cloud](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
 
 ### Getting the dataset
 

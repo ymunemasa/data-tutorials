@@ -1,3 +1,5 @@
+### Introduction
+
 In this tutorial we are going to configure IPython notebook with Apache Spark on YARN in a few steps.
 
 IPython notebook is an interactive Python shell which lets you interact with your data one step at a time and also perform simple visualizations.
@@ -6,7 +8,7 @@ IPython notebook supports tab autocompletion on class names, functions, methods,
 
 ### Prerequisites
 
-The only prerequiste for this tutorial is the latest [Hortonworks Sandbox](http://hortonworks.com/sandbox) installed on your computer or on the [cloud](http://hortonworks.com/blog/hortonworks-sandbox-azure/). In case you are running an Hortonworks Sandbox with an earlier version of Apache Spark, for the instruction in this tutorial, you need to install the Apache Spark 1.6.
+The only prerequisite for this tutorial is the latest [Hortonworks Sandbox](http://hortonworks.com/sandbox) installed on your computer or in the [cloud](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
 
 ### Installing and configuring IPython
 

@@ -1,4 +1,4 @@
-## A Lap Around Spark with HDP
+### Introduction
 
 This Apache Spark with Hortonworks Data Platform (HDP) guide walks you through many of the newer features of Spark 1.6 on YARN.
 
@@ -17,11 +17,9 @@ This guide describes how to:
 
 When you are ready to go beyond these tasks, checkout the [Apache Spark Machine Learning Library (MLlib) Guide](http://spark.apache.org/docs/latest/mllib-guide.html).
 
-### HDP Cluster Requirement
+### Prerequisites
 
-Spark can be configured on any HDP cluster whether it is a multi node cluster or a single node HDP Sandbox.
-
-The instructions in this guide assume you are using the latest Hortonworks Sandbox.
+The only prerequisite for this tutorial is the latest [Hortonworks Sandbox](http://hortonworks.com/sandbox) installed on your computer or in the [cloud](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
 
 ### Set SPARK_HOME
 

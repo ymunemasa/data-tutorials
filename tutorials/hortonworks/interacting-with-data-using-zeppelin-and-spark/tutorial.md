@@ -1,3 +1,5 @@
+### Introduction
+
 In this section we are going to walk through the process of using Apache Zeppelin and Apache Spark to interactively analyze data on a Apache Hadoop Cluster.
 
 By the end of this tutorial, you will have learned:
@@ -5,6 +7,10 @@ By the end of this tutorial, you will have learned:
 1.  How to interact with Apache Spark from Apache Zeppelin
 2.  How to read a text file from HDFS and create a RDD
 3.  How to interactively analyze a data set through a rich set of Spark API operations
+
+### Prerequisites
+
+The only prerequisite for this tutorial is the latest [Hortonworks Sandbox](http://hortonworks.com/sandbox) installed on your computer or in the [cloud](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
 
 ### Getting started
 
