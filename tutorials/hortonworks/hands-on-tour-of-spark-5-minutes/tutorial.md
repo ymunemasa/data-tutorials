@@ -6,9 +6,7 @@ In this tutorial, we will introduce the basic concepts of Apache Spark and the f
 
 ### Prerequisites
 
-There are two options for setting up the Hortonworks Sandbox.
-
-**Download & Install [Hortonworks Sandbox on Local Machine](http://hortonworks.com/sandbox)** or **Deploy [Hortonworks Sandbox on Microsoft Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)**
+The only prerequisite for this tutorial is the latest [Hortonworks Sandbox](http://hortonworks.com/sandbox) installed on your computer or in the [cloud](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
 
 ### Concepts
 
