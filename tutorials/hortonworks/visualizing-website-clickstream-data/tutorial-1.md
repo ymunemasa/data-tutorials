@@ -1,13 +1,5 @@
 ## Lab 1: Loading Data into HDFS and Hive
 
-### Summary
-
-This tutorial describes how to load data into the Hortonworks sandbox.
-
-The Hortonworks sandbox is a fully contained Hortonworks Data Platform (HDP) environment. The sandbox includes the core Hadoop components (HDFS and MapReduce), as well as all the tools needed for data ingestion and processing. You can access and analyze sandbox data with many Business Intelligence (BI) applications.
-
-In this tutorial, we will load and review data for a fictitious web retail store in what has become an established use case for Hadoop: deriving insights from large data sources such as web logs. By combining web logs with more traditional customer data, we can better understand our customers, and also understand how to optimize future promotions and advertising.
-
 ### Prerequisites:
 
 * Hortonworks Sandbox 2.4 (installed and running)
@@ -49,22 +41,22 @@ You can download a set of sample data contained in a compressed (.zip) folder he
 
 [RefineDemoData.zip](https://s3.amazonaws.com/hw-sandbox/tutorial8/RefineDemoData.zip)
 
-Save the sample data .zip file to your computer, then extract the files and unzip Omniture.0.tsv.gz, user.tsv.gz and products.tsv.gz.
+Save the sample data .zip file to your computer, then extract the files and unzip `Omniture.0.tsv.gz`, `user.tsv.gz` and `products.tsv.gz`.
 
 **Note**: The extracted data files should have a .tsv file extension at the end. 
 
 ### Step 2: Upload the Data Files into the Sandbox
 
-First Log in to the Ambari interface at [http://localhost:8080](http://localhost:8080). You can log in with the username `admin` and the password `4o12t0n`
+First Log in to the Ambari interface at [http://localhost:8080](http://localhost:8080). You can log in with the username `maria_dev` and the password `maria_dev`
 
 Select the `HDFS Files view` from the Off-canvas menu at the top. The HDFS Files view allows you to view the Hortonworks Data Platform(HDP) file store. The HDP file system is separate from the local file system.
 
 
-We navigate to `/tmp`, create an **admin** folder
+We navigate to `/tmp`, create a **maria** folder
 
 ![](/assets/clickstream/68747470733a2f42f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071386155744456453554576a497a516d633f7261773d74727565.png)  
 
-right click on admin and select **Permissions**:
+right click on `maria` and select **Permissions**:
 
 Now we check the `Write buttons` and `modify recursively` and press save.
 
@@ -74,7 +66,7 @@ Verify that the permissions look now like this:
 
 ![](/assets/clickstream/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713854475a716345395252316876596d633f7261773d74727565.png) 
 
-Now, we navigate to `/tmp/admin`, click on upload and browse the `Omniture.0.tsv`. 
+Now, we navigate to `/tmp/maria`, click on upload and browse the `Omniture.0.tsv`. 
 
 Repeat this procedure for `users.tsv` file and for `products.tsv`. 
 
@@ -119,9 +111,9 @@ and create the tables users, products and omniture.
 To load the data into the tables, we have to execute the following queries. 
 
 
-	LOAD DATA INPATH '/tmp/admin/products.tsv' OVERWRITE INTO TABLE products;
-	LOAD DATA INPATH '/tmp/admin/users.tsv' OVERWRITE INTO TABLE users;
-	LOAD DATA INPATH '/tmp/admin/Omniture.0.tsv' OVERWRITE INTO TABLE omniturelogs;
+	LOAD DATA INPATH '/tmp/maria/products.tsv' OVERWRITE INTO TABLE products;
+	LOAD DATA INPATH '/tmp/maria/users.tsv' OVERWRITE INTO TABLE users;
+	LOAD DATA INPATH '/tmp/maria/Omniture.0.tsv' OVERWRITE INTO TABLE omniturelogs;
 
 
 ![](/assets/clickstream/687474707333a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384f47395453324a57525864555245553f7261773d74727565.png) 
