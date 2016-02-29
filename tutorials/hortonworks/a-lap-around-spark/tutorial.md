@@ -1,10 +1,10 @@
 ### Introduction
 
-This Apache Spark with Hortonworks Data Platform (HDP) guide walks you through many of the newer features of Spark 1.6 on YARN.
+This tutorial walks you through many of the newer features of Spark 1.6 on YARN.
 
 With YARN, Hadoop can now support many types of data and application workloads; Spark on YARN becomes yet another workload running against the same set of hardware resources.
 
-This guide describes how to:
+The tutorial describes how to:
 
 * Run Spark on YARN and run the canonical Spark examples: SparkPi and Wordcount.
 * Run Spark 1.6 on HDP 2.4.
@@ -19,7 +19,11 @@ When you are ready to go beyond these tasks, checkout the [Apache Spark Machine 
 
 ### Prerequisites
 
-The only prerequisite for this tutorial is the latest [Hortonworks Sandbox](http://hortonworks.com/sandbox) installed on your computer or in the [cloud](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
+This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
+
+*   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+
 
 ### Set SPARK_HOME
 
