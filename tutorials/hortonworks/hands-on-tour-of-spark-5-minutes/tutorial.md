@@ -23,11 +23,9 @@ Let’s try it out.
 
 ### A Hands-On Example
 
- From an Ambari view select **Zeppelin**
+Once your Sandbox starts, go to http://localhost:9995 to use a Zeppelin Notebook from your browser.
 
-![](/assets/a-tour-of-spark-in-5-minutes/4-apache-spark-tour-in-5-minutes.png)
-
-Once Zeppelin launches, select **Create new note** from **Notebook** dropdown menu
+Next, select **Create new note** from **Notebook** dropdown menu:
 
 ![](/assets/a-tour-of-spark-in-5-minutes/2-apache-spark-tour-in-5-minutes.png)
 
