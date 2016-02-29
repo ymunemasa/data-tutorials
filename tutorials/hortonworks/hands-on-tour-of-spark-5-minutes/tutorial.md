@@ -23,7 +23,7 @@ Let’s try it out.
 
 ### A Hands-On Example
 
-Once your Sandbox starts, go to http://localhost:9995 to use a Zeppelin Notebook from your browser.
+Once your Sandbox starts, go to [http://localhost:9995](http://localhost:9995) to use a Zeppelin Notebook from your browser.
 
 Next, select **Create new note** from **Notebook** dropdown menu:
 
