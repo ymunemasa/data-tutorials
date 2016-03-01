@@ -4,7 +4,7 @@
 ### Step 2: Load the Sensor Data into the Hortonworks Sandbox
 
 -   Navigate to the ambari login by going to the web address [`http://localhost:8080`](http://localhost:8080) 
--   Login with the username `admin` and password `4o12t0n`.
+-   Login with the username `maria_dev` and password `maria_dev`.
 
 Head on over to the Hive view using the dropdown menu in the top-right corner.
 
@@ -26,7 +26,7 @@ For `HVAC.csv`
 
 For `buildings.csv`
 
-1. Change the table name to `building_raw
+1. Change the table name to `building_raw`
 
 ![](/assets/analyzing-machine-and-sensor-data/04_upload_building_raw.png)
 
