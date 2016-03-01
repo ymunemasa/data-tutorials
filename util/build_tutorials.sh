@@ -10,6 +10,7 @@
 # Jekyll installed 
     #$ gem install jekyll
 
+########################
 # Remove any old things
 rm -rf ./build/tutorials
 
@@ -48,7 +49,7 @@ for f in $(find ./build/_site -name "*.html")
 do
   if [[ $f == *.html ]]
   then
-    sed -i '.bak' "s/src=\"\/assets\//src=\"https:\/\/raw.githubusercontent.com\/ZacBlanco\/hwx-tutorials\/$BRANCH\/assets\//g" $f
+    sed -i '.bak' "s/src=\"\/assets\//src=\"https:\/\/raw.githubusercontent.com\/hortonworks\/tutorials\/$BRANCH\/assets\//g" $f
     sed -i '' "s/‘/'/g" $f
     sed -i '' "s/’/'/g" $f
     sed -i '' "s/”/\"/g" $f

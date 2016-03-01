@@ -14,11 +14,12 @@ In this demo, we demonstrate how an online retailer can optimize buying paths to
 *   Import the data into Microsoft Excel with the [ODBC connector](http://hortonworks.com/hdp/add_ons)
 *   Visualize data with Powerview
 
-This demo can be completed with the [Hortonworks Sandbox](http://hortonworks.com/products/sandbox) – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series. The tutorials presented here are for Sandbox v2.0
+This demo can be completed with the [Hortonworks Sandbox](http://hortonworks.com/products/sandbox) – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series.
 
-### Summary
+The Hortonworks sandbox is a fully contained Hortonworks Data Platform (HDP) environment. The sandbox includes the core Hadoop components (HDFS and MapReduce), as well as all the tools needed for data ingestion and processing. You can access and analyze sandbox data with many Business Intelligence (BI) applications.
 
-This tutorial describes how to refine website clickstream data using the Hortonworks Data Platform, and how to analyze and visualize this refined data using the Power View feature in Microsoft Excel 2013.
+In this tutorial, we will load and review data for a fictitious web retail store in what has become an established use case for Hadoop: deriving insights from large data sources such as web logs. By combining web logs with more traditional customer data, we can better understand our customers, and also understand how to optimize future promotions and advertising.
+
 
 ### Clickstream Data
 
@@ -42,8 +43,14 @@ In this tutorial, we will focus on the “path optimization” use case. Specifi
 *   Hortonworks sample data files uploaded and refined as described in “Loading Data into the Hortonworks Sandbox”
   - If you haven't loaded this data yet, please [download it here](https://s3.amazonaws.com/hw-sandbox/tutorial8/RefineDemoData.zip)  and import it by following this tutorial: [http://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox/](http://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox/)
 *   Microsoft Excel 2013 Professional Plus 64-bit
-*   Windows 7 or later(required to run Microsoft Excel 2013 Professional Plus edition)
-    *   Note this tutorial can still be run with any version of Excel, but your visualizaitons will be limited to the built in charts. You may wish to attempt this with another visualization tool that can accept data via an ODBC connection, like Tableau, Lumira, etc.
+*   Windows 7 or later(Optional - to run Microsoft Excel 2013 Professional Plus edition) 
+  - Note this tutorial can still be run with any version of Excel, but your visualizaitons will be limited to the built in charts. You may wish to attempt this with another visualization tool that can accept data via an ODBC connection, like Tableau, Lumira, etc.
+
+There are two options for setting up the Hortonworks Sandbox:
+
+1. **Download & Install [Hortonworks Sandbox](http://hortonworks.com/sandbox)** on your local machine (recommended 8GB of dedicated RAM for the Virtual Machine)
+2. **Deploy [Hortonworks Sandbox on Microsoft Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)**
+ 
 
 ### Overview
 
