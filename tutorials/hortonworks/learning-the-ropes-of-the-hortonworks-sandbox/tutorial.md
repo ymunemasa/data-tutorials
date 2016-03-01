@@ -36,7 +36,7 @@ Once you have installed the Sandbox VM, it resolves to the host on your environm
 
 In case of VirtualBox: `host` would be `127.0.0.1`
 
-![Lab0_2](/assets/hello-hdp/Lab0_2.png)
+![Host Address of Sandbox Environment](/assets/learning-the-ropes-of-the-hortonworks-sandbox/learn_host_address_learning_the_ropes_sandbox.png)
 
 > **Note:** In case of Azure, your **host** can be found under **Public IP Address** on the dashboard. For further clarification, check out our guide for [Deploying Hortonworks Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
 
@@ -46,7 +46,7 @@ If you are using a private cluster or a cloud to run sandbox. Please find the ho
 
 Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
 
-![Screen Shot 2015-07-20 at 6.11.32 PM](/assets/hello-hdp/Screen-Shot-2015-07-20-at-6.11.32-PM.png)
+![Sandbox Welcome Screen](/assets/learning-the-ropes-of-the-hortonworks-sandbox/sandbox_welcome_page_learning_the_ropes_sandbox.png)
 
 #### 1.4 Multiple Ways to Execute Terminal Commands
 
@@ -65,13 +65,13 @@ Open your terminal (mac and linux) or putty (windows). Type the following comman
       ssh root@127.0.0.1 -p 2222;
 ~~~
 
-![Mac Terminal SSH](/assets/learning-the-ropes-of-the-hortonworks-sandbox/)
+![Mac Terminal SSH](/assets/learning-the-ropes-of-the-hortonworks-sandbox/secure_shell_sandbox_learning_the_ropes_sandbox.png)
 
 > Mac OS Terminal
 
 ##### Shell Web Client Method: 
 
-Open your web browser. Type the following text in your browser to access the Sandbox through the shell:
+Open your web browser. Type the following text into your browser to access the Sandbox through the shell:
 
 ~~~
 Usage:
@@ -80,13 +80,15 @@ Example:
       127.0.0.1:4200
 ~~~
 
-![Shell in the Browser Sandbox](/assets/learning-the-ropes-of-the-hortonworks-sandbox/)
+![Shell in the Browser Sandbox](/assets/learning-the-ropes-of-the-hortonworks-sandbox/browser_shell_learning_ropes_sandbox.png)
+
+> Appearance of Web Shell
 
 ##### VM Terminal Method: 
 
 Open the Sandbox through Virtualbox or VMware. The Sandbox VM Welcome Screen will appear. For Linux/Windows users, press `Alt+F5` and for Mac, press `Fn+Alt+F5` to login into the Sandbox VM Terminal.
 
-![Shell VM Terminal Sandbox](/assets/learning-the-ropes-of-the-hortonworks-sandbox/)
+![Shell VM Terminal Sandbox](/assets/learning-the-ropes-of-the-hortonworks-sandbox/vm_terminal_sandbox_learning_ropes_sandbox.png)
 
 > VirtualBox VM Terminal
 
@@ -96,7 +98,7 @@ Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 
 > **Note:** Both the username and password to login are **maria_dev**.
 
-#### 2.1 Use Terminal to Find the Host Address Sandbox Runs On
+#### 2.1 Use Terminal to Find the Host Sandbox Runs On and Login to Ambari
 
 If you want to search for the host address your sandbox is running on, ssh into the sandbox terminal upon successful installation and follow subsequent steps:
 
@@ -105,9 +107,8 @@ If you want to search for the host address your sandbox is running on, ssh into 
 3.  Use the inet addr, append **:8080** and open it into a browser. It shall direct you to Ambari login page.
 4.  This inet address is randomly generated for every session and therefore differs from session to session.
 
-![Host_Address_Sandbox_Runs_On](/assets/learning-the-ropes-of-the-hortonworks-sandbox/)
+![Host_Address_Sandbox_Runs_On](/assets/learning-the-ropes-of-the-hortonworks-sandbox/find_host_sandbox_runs_on_learning_the_ropes_sandbox.png)
 
-> Ambari Login Page
 
 ##### Services Provided By the Sandbox
 
@@ -141,19 +142,19 @@ The following table contains login credentials:
 ~~~
 # Updates password
 ambari-admin-password-reset
-# Restarts ambari service
+# If Ambari doesn't restart automatically, restart ambari service
 ambari-agent restart
 ~~~
 
 > **Note:** Now you can login to ambari as an admin user to perform operations, such as starting and stopping services.
 
-![Terminal Update Ambari admin password](/assets/learning-the-ropes-of-the-hortonworks-sandbox/)
+![Terminal Update Ambari admin password](/assets/learning-the-ropes-of-the-hortonworks-sandbox/terminal_update_ambari_password_learning_the_ropes_sandbox.png)
 
 #### 2.3 Explore Ambari Welcome Screen 5 Key Capabilities
 
 Enter the **Ambari Welcome URL** and then you should see a similar screen:
 
-![Lab0_3](/assets/hello-hdp/Lab0_3.png)
+![Lab0_3](/assets/learning-the-ropes-of-the-hortonworks-sandbox/ambari_welcome_learning_the_ropes_sandbox.png)
 
 1.  “**Operate Your Cluster**” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators
 2.  “**Manage Users + Groups**” allows you to add & remove Ambari users and groups
@@ -180,7 +181,7 @@ and then the
 
 Check [Hortonworks Community Connection](http://hortonworks.com/community/forums/)(HCC) for answers to problems you may come across during your hadoop journey.
 
-![Hortonworks Community Connection Main Page](/assets/learning-the-ropes-of-the-hortonworks-sandbox/)
+![Hortonworks Community Connection Main Page](/assets/learning-the-ropes-of-the-hortonworks-sandbox/hcc_page_learning_the_ropes_sandbox.png)
 
 #### 3.1 Technique for Finding Answers in HCC
 - Insert quotes around your tutorial related problem
