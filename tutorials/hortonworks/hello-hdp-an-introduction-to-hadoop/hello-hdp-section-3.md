@@ -1,83 +1,62 @@
-## Lab 0: Set-up
+# Lab 1: HDFS - Loading Data
 
-### **Start the Sandbox VM and Open Ambari**
+## Loading Sensor Data into HDFS
 
-Start the HDP Sandbox following the [Sandbox Install Guide](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM:
+### Introduction
 
-![Lab0_1](/assets/hello-hdp/Lab0_1.png)
+In this section you will download the sensor data and load that into HDFS using Ambari User Views. You will get introduced to the Ambari Files User View to manage files. You can perform tasks like create directories, navigate file systems and upload files to HDFS.  In addition you’ll perform a few other file-related tasks as well.  Once you get the basics, you will create two directories and then load two files into HDFS using the Ambari Files User View.
 
-Once you have installed the Sandbox VM, it resolves to the host on your environment, the address of which varies depending upon the Virtual Machine you are using(Vmware, VirtualBox etc). As, a general thumb rule, wait for the installation to complete and confirmation screen will tell you the host your sandbox resolves to. For example:
+## Prerequisites
 
-In case of VirtualBox: host would be 127.0.0.1
+The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-![Lab0_2](/assets/hello-hdp/Lab0_2.png)
+*   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
-If you are using a private cluster or a cloud to run sandbox. Please find the host your sandbox resolves to.
+## Outline
 
-Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at http://_host_:8888/.
+*   [HDFS backdrop](#hdfs-backdrop)
+*   [Step 1.1: Download data](#step1.1) – [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
+*   [Step 1.2: Load Data into HDFS](#step1.2)
+*   [Suggested Reading](#suggested-reading)
 
-![Screen Shot 2015-07-20 at 6.11.32 PM](/assets/hello-hdp/Screen-Shot-2015-07-20-at-6.11.32-PM.png)
+## HDFS backdrop <a id"hdfs-backdrop"></a>
 
-Navigate to Ambari welcome page using the url given on Sandbox welcome page.
+A single physical machine gets saturated with its storage capacity as the data grows. Thereby comes impending need to partition your data across separate machines. This type of File system that manages storage of data across a network of machines is called Distributed File Systems. [HDFS](http://hortonworks.com/blog/thinking-about-the-hdfs-vs-other-storage-technologies/) is a core component of Apache Hadoop and is designed to store large files with streaming data access patterns, running on clusters of commodity hardware. With Hortonworks Data Platform HDP 2.2, HDFS is now expanded to support [heterogeneous storage](http://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)  media within the HDFS cluster.
 
-**Both the username and password to login are admin.**
+### Step 1.1: Download and Extract the Sensor Data Files <a id="step1.1"></a>
 
-If you want to search for the host address your sandbox is running on, ssh into the sandbox terminal upon successful installation and follow subsequent steps:
+*   You can download the sample sensor data contained in a compressed (.zip) folder here:  [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
+*   Save the Geolocation.zip file to your computer, then extract the files. You should see a Geolocation folder that contains the following files:
+    *   geolocation.csv – This is the collected geolocation data from the trucks. it contains records showing truck location, date, time, type of event, speed, etc.
+    *   trucks.csv – This is data was exported from a relational database and it shows info on truck model, driverid, truckid, and aggregated mileage info.
 
-1.  login using username as “root” and password as “hadoop”.
-2.  Type ifconfig and look for inet address under eth.
-3.  Use the inet address, append :8080 and open it into a browser. It shall direct you to Ambari login page.
-4.  This inet address is randomly generated for every session and therefore differs from session to session.
+### Step 1.2: Load the Sensor Data into HDFS <a id="step1.2"></a>
 
+*   Go to the Ambari Dashboard and open the HDFS User View by click on the User Views icon and selecting the HDFS Files menu item.
 
-| Service | URL | 
-|---------|-----|
-| Sandbox Welcome Page | [http://_host_:8888]()|
-| Ambari Dashboard | [http://_host_:8080]()|
-| Ambari Welcome | [http://_host_:8080/views/ADMIN_VIEW/2.1.0/INSTANCE/#/]()|
-| Hive User View | [http://_host_:8080/#/main/views/HIVE/1.0.0/Hive]()|
-| Pig User View | [http://_host_:8080/#/main/views/PIG/0.1.0/MyPig]()|
-| File User View | [http://_host_:8080/#/main/views/FILES/0.2.0/MyFiles]()|
-| SSH Web Client | [http://_host_:4200]()|
-| Hadoop Configuration | [http://_host_:50070/dfshealth.html http://_host_:50070/explorer.html]() |
+![Screen Shot 2015-07-21 at 10.17.21 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.17.21-AM.png)
 
+*   Starting from the top root of the HDFS file system, you will see all the files the logged in user (maria_dev in this case) has access to see:
 
-The following table has some useful URLs as well:
+![Lab2_2](/assets/hello-hdp/Lab2_2.png)
 
+*   Click tmp. Then click  ![Lab2_3](/assets/hello-hdp/Lab2_3.png) button to create the `/tmp/maria_dev` directory and then create the `/tmp/maria_dev/data` directory.
 
-| Service | User | Password |
-|---------|------|----------|
-| Ambari | admin | admin |
-| Linux OS | root | hadoop |
+![Screen Shot 2015-07-27 at 9.42.07 PM](/assets/hello-hdp/Screen-Shot-2015-07-27-at-9.42.07-PM.png)
 
+*   Now traverse to the /tmp/admin/data directory and upload the corresponding geolocation.csv and trucks.csv files into it.
 
-Enter the Ambari Welcome URL and then you should see a similar screen:
+![Screen Shot 2015-07-27 at 9.43.28 PM](/assets/hello-hdp/Screen-Shot-2015-07-27-at-9.43.28-PM.png)
 
-There are 5 key capabilities to explore in the Ambari Welcome screen:
+You can also perform the following operations on a file by right clicking on the file: **Download**, **Move**, **Permissions**, **Rename** and **Delete**.
 
-![Lab0_3](/assets/hello-hdp/Lab0_3.png)
+**IMPORTANT**
 
-1.  “**Operate Your Cluster**” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators
-2.  “**Manage Users + Groups**” allows you to add & remove Ambari users and groups
-3.  “**Clusters**” allows you to grant permission to Ambari users and groups
-4.  “**Ambari User Views**” list the set of Ambari Users views that are part of the cluster
-5.  “**Deploy Views**” provides administration for adding and removing Ambari User Views
+- Right click on the folder `data` which is contained within `/tmp/maria_dev`. Click **Permissions**. Make sure that the background of all the **write** boxes are checked (blue).
 
-Take a few minutes to quickly explore these 5 capabilities and to become familiar their features.
+![Lab2_5](/assets/hello-hdp/Lab2_5.png)
 
-Enter the Ambari Dashboard URL and you should see a similar screen:
-
-##### ![Lab0_4](/assets/hello-hdp/Lab0_4.png)
-
-Briefly skim through the Ambari Dashboard links (circled above) by clicking on
-
-1.  **Metrics**, **Heatmap** and **Configuration**
-
-and then the
-
-1.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
-
-- To learn more about Hadoop please explore the [HDP Getting Started documentation](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.4/bk_getting-started-guide/content/ch_about-hortonworks-data-platform.html).  
-- If you have questions, feedback or need help getting your environment ready visit  [developer.hortonworks.com](http://hortonworks.com/developer/).
-- Please also explore the [HDP documentation](http://docs.hortonworks.com/).
-- To ask a question check out the [Hortonworks Forums](http://hortonworks.com/community/forums/).
+## Suggested Reading <a id="suggested-reading"></a>
+- [HDFS](http://hortonworks.com/hadoop/hdfs/)
+- [HDFS User Guide](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html)

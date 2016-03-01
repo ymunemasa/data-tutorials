@@ -1,25 +1,76 @@
+# Using the Command Line to Manage Files on HDFS
 
-## Using the command line to manage files on HDFS
+### Introduction
 
-In this tutorial we will walk through some of the basic HDFS commands you will need to manage files on HDFS. To complete this tutorial you will need a working HDP cluster. The easiest way to have a Hadoop cluster is to download the [Hortonworks Sandbox](/sandbox).
+In this tutorial, we will walk through some of the basic Hadoop Distributed File System (HDFS) commands you will need to manage files on HDFS.
+
+## Pre-Requisites
+*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  Create popularNames.txt file and save it on your local file system
+
+1. Open your vi editor with the following command:
+
+~~~
+vi popularNames.txt
+~~~
+
+2. In vi, press `i` to insert text. Copy and paste the following data into the text file:
+
+~~~
+Rank    Male            Female
+1	Noah	        Emma
+2	Liam	        Olivia
+3	Mason	        Sophia
+4	Jacob	        Isabella
+5	William	        Ava
+6	Ethan	        Mia
+7	Michael	        Emily
+8	Alexander	Abigail
+9	James	        Madison
+10	Daniel	        Charlotte
+~~~
+
+3. Press `esc` button and `:wq` to save and quit the vi.
+
+![local_file_system_path_popularNames_txt](/assets/using-the-command-line-to-manage-hdfs/)
+
+> popularNames.txt in the example above is located in `~` directory.
+
+## Outline
+- [Step 1: Create a directory in HDFS, Upload a file and List Contents](#create-a-directory-in-hdfs-upload-a-file-and-list-contents)
+- 
 
 Let’s get started.
 
-#### [](#step-1-lets-create-a-directory-in-hdfs-upload-a-file-and-list)Step 1: Let’s create a directory in HDFS, upload a file and list.
+### Step 1: Create a directory in HDFS, Upload a file and List Contents <a id="create-a-directory-in-hdfs-upload-a-file-and-list-contents"></a>
 
-Let’s look at the syntax first:
+Learn the syntax:
 
-##### [](#hadoop-fs--mkdir)hadoop fs -mkdir:
+#### hadoop fs -mkdir:
 
-*   It will take path uri’s as argument and creates directory or directories.
+*   Takes the path uri's as an argument and creates a directory or multiple directories.
 
-        Usage: 
-                hadoop fs -mkdir <paths> 
-        Example:
-                hadoop fs -mkdir /user/hadoop/dir1 /user/hadoop/dir2
-                hadoop fs -mkdir hdfs://nn1.example.com/user/hadoop/dir
+~~~
+Usage: 
+        hadoop fs -mkdir <paths> 
+Example:
+        hadoop fs -mkdir /user/hadoop
+        hadoop fs -mkdir /user/hadoop/dir1 /user/hadoop/dir2 /user/hadoop/dir3
+~~~
 
-##### [](#hadoop-fs--ls)hadoop fs -ls:
+#### hadoop fs -put:
+
+*   Copies single src file or multiple src files from local file system to the Hadoop Distributed File System.
+  
+~~~
+Usage: 
+        hadoop fs -put <local-src> ... <HDFS_dest_path>
+Example:
+        hadoop fs -put popularNames.txt /user/hadoop/dir1/popularNames.txt
+~~~
+
+#### hadoop fs -ls:
 
 *   Lists the contents of a directory
 *   For a file returns stats of a file
