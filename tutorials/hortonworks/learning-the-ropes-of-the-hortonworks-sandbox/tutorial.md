@@ -65,7 +65,7 @@ Open your terminal (mac and linux) or putty (windows). Type the following comman
       ssh root@127.0.0.1 -p 2222;
 ~~~
 
-![Mac Terminal SSH](/assets/learning-the-ropes-hadoop-hortonworks-sandbox/)
+![Mac Terminal SSH](/assets/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 > Mac OS Terminal
 
@@ -80,13 +80,13 @@ Example:
       127.0.0.1:4200
 ~~~
 
-![Shell in the Browser Sandbox](/assets/learning-the-ropes-hadoop-hortonworks-sandbox/)
+![Shell in the Browser Sandbox](/assets/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ##### VM Terminal Method: 
 
 Open the Sandbox through Virtualbox or VMware. The Sandbox VM Welcome Screen will appear. For Linux/Windows users, press `Alt+F5` and for Mac, press `Fn+Alt+F5` to login into the Sandbox VM Terminal.
 
-![Shell VM Terminal Sandbox](/assets/learning-the-ropes-hadoop-hortonworks-sandbox/)
+![Shell VM Terminal Sandbox](/assets/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 > VirtualBox VM Terminal
 
@@ -101,13 +101,15 @@ Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 If you want to search for the host address your sandbox is running on, ssh into the sandbox terminal upon successful installation and follow subsequent steps:
 
 1.  login using username as **root** and password as **hadoop**.
-2.  Type `ifconfig` and look for **inet address** under eth.
-3.  Use the inet address, append **:8080** and open it into a browser. It shall direct you to Ambari login page.
+2.  Type `ifconfig` and look for **inet addr:** under eth0.
+3.  Use the inet addr, append **:8080** and open it into a browser. It shall direct you to Ambari login page.
 4.  This inet address is randomly generated for every session and therefore differs from session to session.
 
-![Host_Address_Sandbox_Runs_On](/assets/learning-the-ropes-hadoop-hortonworks-sandbox/)
+![Host_Address_Sandbox_Runs_On](/assets/learning-the-ropes-of-the-hortonworks-sandbox/)
 
-> Services Provided By the Sandbox
+> Ambari Login Page
+
+##### Services Provided By the Sandbox
 
 | Service | URL | 
 |---------|-----|
@@ -121,7 +123,7 @@ If you want to search for the host address your sandbox is running on, ssh into 
 | Hadoop Configuration | [http://_host_:50070/dfshealth.html]()   [http://_host_:50070/explorer.html]() |
 
 
-The following table has some useful URLs as well:
+The following table contains login credentials:
 
 
 | Service | User | Password |
@@ -137,15 +139,15 @@ The following table has some useful URLs as well:
 3. Type the following commands:
 
 ~~~
-# Update password
+# Updates password
 ambari-admin-password-reset
-# Restart ambari service
+# Restarts ambari service
 ambari-agent restart
 ~~~
 
 > **Note:** Now you can login to ambari as an admin user to perform operations, such as starting and stopping services.
 
-![Terminal Update Ambari admin password](/assets/learning-the-ropes-hadoop-hortonworks-sandbox/)
+![Terminal Update Ambari admin password](/assets/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 #### 2.3 Explore Ambari Welcome Screen 5 Key Capabilities
 
@@ -178,7 +180,7 @@ and then the
 
 Check [Hortonworks Community Connection](http://hortonworks.com/community/forums/)(HCC) for answers to problems you may come across during your hadoop journey.
 
-![Hortonworks Community Connection Main Page](/assets/learning-the-ropes-hadoop-hortonworks-sandbox/)
+![Hortonworks Community Connection Main Page](/assets/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 #### 3.1 Technique for Finding Answers in HCC
 - Insert quotes around your tutorial related problem
