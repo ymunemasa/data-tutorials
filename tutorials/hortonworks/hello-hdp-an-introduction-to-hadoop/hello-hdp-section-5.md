@@ -87,26 +87,34 @@ In this tutorial we create and run a Pig script. We will use the Ambari Pig User
 
 To get to the Ambari Pig User View, click on the User Views icon at top right and select **Pig**:
 
+
 ![Screen Shot 2015-07-21 at 10.12.41 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.12.41-AM.png)  
 This will bring up the Ambari Pig User View interface. Your Pig View does not have any scripts to display, so it will look like the following:
 
 ![Lab3_4](/assets/hello-hdp/Lab3_4.png)
 
+
 On the left is a list of your scripts, and on the right is a composition box for writing scripts. A special feature of the interface is the Pig helper located below the name of your script file. The Pig helper will provide us with templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. At the very bottom are status areas that will show the results of our script and log files.
 
 The following screenshot shows and describes the various components and features of the Pig User View:
 
+
 ![Lab3_5](/assets/hello-hdp/Lab3_5.png)
+
 
 #### 3.2.2 Create a New Script
 
 Let’s enter a Pig script. Click the **New Script** button in the upper-right corner of the view:
 
+
 ![Lab3_6](/assets/hello-hdp/Lab3_6.png)
+
 
 Name the script **riskfactor.pig**, then click the **Create** button:
 
+
 ![Lab3_7](/assets/hello-hdp/Lab3_7.png)
+
 
 #### 3.2.3 Load Data in Pig using Hcatalog
 
@@ -226,6 +234,7 @@ final_data = foreach h generate $0 as driverid, $1 as events, $3 as totmiles, (f
 store final_data into 'riskfactor' using org.apache.hive.hcatalog.pig.HCatStorer();
 ~~~
 
+
 ![Lab3_8](/assets/hello-hdp/Lab3_8.png)
 
 
@@ -250,8 +259,10 @@ You need to configure the Pig Editor to use HCatalog so that the Pig script can 
 
 ![Lab3_9](/assets/hello-hdp/Lab3_9.png)
 
+
 The **Arguments** section of the Pig View should now look like the following:  
 ![Lab3_10](/assets/hello-hdp/Lab3_10.png)
+
 
 ### Step 3.4: Execute Pig Script on Tez <a id="step3.4"></a>
 
@@ -261,6 +272,7 @@ Click Execute on Tez checkbox and finally hit the blue **Execute** button to sub
 
 
 ![Lab3_11](/assets/hello-hdp/Lab3_11.png)
+
 
 #### 3.4.2 View Results Section  
 
