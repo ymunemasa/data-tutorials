@@ -28,7 +28,6 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   [Step 6.3: Making Charts Using Zeppelin](#step6.3)
 *   [Outro](#outro)
 *   [Suggested Readings](#suggested-readings)
-*   [Resources](#resources)
 
 ## Apache Zeppelin <a id="apache-zeppelin"></a>
 
@@ -42,7 +41,7 @@ NOTE: We can also run queries via various interpreters for the following (but no
 
 ### Step 6.1: Creating a Zeppelin Notebook <a id="step6.1"></a>
 
-**6.1.1 Navigate to Zeppelin Notebook**
+##### 6.1.1 Navigate to Zeppelin Notebook
 
 1) Click on Ambari User view icon and navigate to Zeppelin notebook.
 
@@ -59,7 +58,7 @@ NOTE: We can also run queries via various interpreters for the following (but no
 
 ### Step 6.2: Running a Hive Query <a id="step6.2"></a>
 
-**6.2.1 Visualize finalresults Data in Tabular Format**
+##### 6.2.1 Visualize finalresults Data in Tabular Format
 
 In the previous Spark and Pig tutorials you already created a table finalresults which gives the risk factor 
 associated with every driver. We will use the data we generated in this table to visualize which drivers have the highest risk factor.
@@ -84,7 +83,7 @@ Initially, the query will produce the data in tabular format as shown in the scr
 
 ### Step 6.3: Making Charts using Zeppelin <a id="step6.3"></a>
 
-**6.3.1 Visualize finalresults Data in Chart Format**
+##### 6.3.1 Visualize finalresults Data in Chart Format
 
 1) Iterate through each of the tabs that appear underneath the query. 
 Each one will display a different type of chart depending on the data that is returned in the query.
@@ -147,5 +146,3 @@ try to make better sense and meaning from the numbers!
 - [Apache Zeppelin Docs](https://zeppelin.incubator.apache.org/docs/)
 - [Zeppelin Homepage](https://zeppelin.incubator.apache.org/)
 
-## Resources <a id="resources"></a>
-- [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
