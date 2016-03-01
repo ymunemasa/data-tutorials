@@ -45,7 +45,9 @@ NOTE: We can also run queries via various interpreters for the following (but no
 
 1) Click on Ambari User view icon and navigate to Zeppelin notebook.
 
+
 ![Zeppelin Dashboard](/assets/hello-hdp/zeppelin_dashboard.png)
+
 
 - NOTE: You can also navigate to http://sandbox.hortonworks.com:9995 directly to open the Zeppelin interface.
 
@@ -54,7 +56,9 @@ NOTE: We can also run queries via various interpreters for the following (but no
 
 2) Click on create note, name the notebook **Driver Risk Factor** and a new notebook shall get started.
 
+
 ![Zeppelin Create New Notebook](/assets/hello-hdp/zeppelin_create_new_notebook.png)
+
 
 ### Step 6.2: Running a Hive Query <a id="step6.2"></a>
 
@@ -77,9 +81,12 @@ Alternative way to run query is "shift+enter."
 
 ![play_button_zeppelin_workbook](/assets/hello-hdp/play_button_lab6.png)
 
+
 Initially, the query will produce the data in tabular format as shown in the screenshot.
 
+
 ![finalresults_data_tabular](/assets/hello-hdp/finalresults_data_tabular_lab6.png)
+
 
 ### Step 6.3: Making Charts using Zeppelin <a id="step6.3"></a>
 
@@ -88,25 +95,35 @@ Initially, the query will produce the data in tabular format as shown in the scr
 1) Iterate through each of the tabs that appear underneath the query. 
 Each one will display a different type of chart depending on the data that is returned in the query.
 
+
 ![charts_tab_under_query_lab6](/assets/hello-hdp/charts_tab_under_query_lab6.png)
+
 
 2) After clicking on a chart, we can view extra advanced settings to tailor the view of the data we want
 
+
 ![Chart Advanced Settings](/assets/hello-hdp/advanced_settings_chart_lab6.png)
+
 
 3) Click settings to open the advanced chart features.
 
 4) To make the same chart as the one above, drag the table relations into the boxes as shown in the image below.
 
+
 ![Advanced Settings Boxes](/assets/hello-hdp/advanced_settings_boxes_lab6.png)
+
 
 5) You should now see an image like the one below.
 
+
 ![Bar Graph Example Image](/assets/hello-hdp/bar_graph_chart_ex_lab6.png)
+
 
 6) If you hover on the peaks, each will give the driverid and riskfactor.
 
+
 ![driverid_riskfactor_peak](/assets/hello-hdp/driverid_riskfactor_peak_lab6.png)
+
 
 7) Try experimenting with the different types of charts as well as dragging and 
 dropping the different table fields to see what kind of results you can obtain.
@@ -123,14 +140,18 @@ FROM finalresults a, geolocation b where a.driverid=b.driverid
 9) Run the query above using the keyboard shortcut Shift+Enter. 
 You should eventually end up with the results in a table below.
 
+
 ![Filter City and States](/assets/hello-hdp/filter_city_states_lab6.png)
+
 
 10) After changing a few of the settings we can figure out which of the cities has the high risk factors. 
 Try changing the chart settings by clicking the scatterplot icon. Then make sure that they keys a.driverid 
 is within the xAxis field, a.riskfactor is in the yAxis field, and b.city is in the group field. 
 The chart should look similar to the following.
 
+
 ![Scatter Plot Graph](/assets/hello-hdp/scatter_plot_lab6.png)
+
 
 The graph shows that driver id number A39 has a high risk factor of 652417 and drives in Santa Maria.  
 
