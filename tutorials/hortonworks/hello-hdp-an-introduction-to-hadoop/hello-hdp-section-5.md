@@ -207,9 +207,10 @@ store final_data into 'riskfactor' using org.apache.hive.hcatalog.pig.HCatStorer
 ~~~
 Here is the final code and what it will look like once you paste it into the editor.
 
+
 **Geolocation has data stored in ORC format**
 
-~~~~
+~~~
 a = LOAD 'geolocation' using org.apache.hive.hcatalog.pig.HCatLoader();
 b = filter a by event != 'normal';
 c = foreach b generate driverid, event, (int) '1' as occurance;
