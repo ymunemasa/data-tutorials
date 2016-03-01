@@ -123,6 +123,7 @@ To check if the data was loaded, click on the icon next to the table name. It ex
 ![](/assets/clickstream/68747470733a2f21f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384d454630556a4a3056454a734f45553f7261773d74727565.png) 
 ![](/assets/clickstream/68747470733a2f12f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138565656745a7a4a52524442686330303f7261773d74727565.png) 
 ![](/assets/clickstream/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713853474a6d65455533625745304d54673f7261773d74727565.png) 
+
 ### Step 5: View and Refine the Data in the Sandbox
 
 In the previous section, we created sandbox tables from uploaded data files. Now let’s take a closer look at that data.

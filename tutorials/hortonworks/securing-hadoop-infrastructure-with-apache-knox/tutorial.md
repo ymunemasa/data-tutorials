@@ -56,11 +56,11 @@ Use these credentials:
 
 After logging in, head to the Knox service configs by clicking **Knox** on the left hand side of the page.
 
-![](../../../assets/securing-hadoop-with-knox/01_knox_ambari.png)
+![](/assets/securing-hadoop-with-knox/01_knox_ambari.png)
 
 After starting the service and turning on the demo LDAP you should see that Ambari says our service has started
 
-![](../../../assets/securing-hadoop-with-knox/02_knox_started.png)
+![](/assets/securing-hadoop-with-knox/02_knox_started.png)
 
 Now that Knox has started we can start trying to route requests through it. For this next section you're going to need access to a terminal which utilizes the `curl` command. 
 
@@ -86,7 +86,7 @@ Note that this request is directly accessing the WebHDFS API. This means that we
 curl -iku guest:guest-password -X GET 'http://sandbox:50070/webhdfs/v1/?op=LISTSTATUS'
 ~~~
 
-![enter image description here](../../../assets/securing-hadoop-with-knox/14+connect+to+hadoop+sandbox+.JPG "14 connect to hadoop sandbox .JPG")
+![enter image description here](/assets/securing-hadoop-with-knox/14+connect+to+hadoop+sandbox+.JPG "14 connect to hadoop sandbox .JPG")
 
 ### Step 3:
 
@@ -137,7 +137,7 @@ Let’s run the mapreduce program.
 
 When you run the mapreduce execution step, you will see the following result. Please note down the Job Id. You will use it for checking status for this Job Id in the next step.  
 
-![enter image description here](../../../assets/securing-hadoop-with-knox/30.5-+map+reduce+job+submission.JPG "30.5- map reduce job submission.JPG")
+![enter image description here](/assets/securing-hadoop-with-knox/30.5-+map+reduce+job+submission.JPG "30.5- map reduce job submission.JPG")
 
 ### Step 5:
 
@@ -147,7 +147,7 @@ You can check the status of your above Job Id as follows:
     
 Remember to **replace everything after `jobs/` with your job id**.
 
-![enter image description here](../../../assets/securing-hadoop-with-knox/30.6-+map+reduce+job+submission+log.JPG "30.6- map reduce job submission log.JPG")
+![enter image description here](/assets/securing-hadoop-with-knox/30.6-+map+reduce+job+submission+log.JPG "30.6- map reduce job submission log.JPG")
 
 ### Step 6:
 
@@ -165,7 +165,7 @@ Let’s look at the output result file.
 
 It should look something like below:
 
-![enter image description here](../../../assets/securing-hadoop-with-knox/output+resuslt+files.JPG "output resuslt files.JPG")
+![enter image description here](/assets/securing-hadoop-with-knox/output+resuslt+files.JPG "output resuslt files.JPG")
 
 ### Step 8:
 
@@ -173,7 +173,7 @@ Let’s look at the output result.
 
     curl -iku guest:guest-password -L -X GET 'https://localhost:8443/gateway/knox_sample/webhdfs/v1/user/guest/knox-sample/output/part-r-00000?op=OPEN'
 
-![enter image description here](../../../assets/securing-hadoop-with-knox/results.JPG "results.JPG")
+![enter image description here](/assets/securing-hadoop-with-knox/results.JPG "results.JPG")
 
 You just ran a mapreduce program on Hadoop through the Apache Knox Gateway!
 
