@@ -131,7 +131,15 @@ Lastly, we need to make create a few directories for flume. Run the following se
 
 ## Step 2 – Configure and Start Apache Flume
 
-First, we're going to need to set up a flume agent. Copy the following agent config into the custom `flume.conf` in the Ambari Flume configuration
+First we're going to need to update our flume agent config. Make sure you are SSH'd into your sandbox and run the following commands on the terminal:
+
+	cd /etc/flume/conf
+	mv flume.conf flume.conf.bak
+
+
+Next, we're going to need to set up a flume agent. Copy the following agent config into a new file called `flume.conf` under `/etc/flume/conf`
+
+Run `vi flume.conf` then hit the **I** key to enter insert mode in `vi`. Then copy the following config into your terminal:
 
 
 	# Flume agent config
@@ -166,7 +174,10 @@ First, we're going to need to set up a flume agent. Copy the following agent con
 
 Your screen should look like the following:
 
-![custom-flume-agent-ambari](../../../assets/server-logs/custom-flume-agent-ambari.png)
+![custom-flume-agent-ambari](../../../assets/server-logs/custom-flume-agent.png)
+
+Then exit insert mode by hitting **Esc**. Finally exit `vi` by typing `:wq`
+
 
 Next we're going to need to edit a flume configuration file.
 
@@ -208,11 +219,12 @@ Next we're going to need to edit a flume configuration file.
 
 ## Step 3: Start Flume
 
-Head back over to the Ambari UI at [http://sandbox.hortonworks.com:8080](http://sandbox.hortonworks.com:8080)
+While still at your terminal we'll need to restart flume. Type the following command to start the flume agent which will begin collecting data for us.
+
+	flume-ng -n sandbox --conf /etc/flume/conf -f /etc/flume/conf/flume.conf
 
 Click on the Flume service and click **Service Actions** and select **Start** (if it is not already started) or **Restart**
 
-![Image of Flume Service Actions](../../../assets/server-logs/ambari_start_flume.png)
 
 * * *
 
@@ -233,10 +245,10 @@ When the log file has been generated, a timestamp will appear, and the command p
 Open the Ambari UI and head to the views dropdown list. Select **Hive** and then past the following query.
 
 
-		CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, status STRING)
-		ROW FORMAT DELIMITED
-		FIELDS TERMINATED BY '|' 
-		LOCATION '/flume/events';
+	CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, status STRING)
+	ROW FORMAT DELIMITED
+	FIELDS TERMINATED BY '|' 
+	LOCATION '/flume/events';
 
 
 **Note** if the query doesn't run successfully due to a permissions error you then you might need to update the permission on the directory. Run the following commands over SSH on the Sandbox
