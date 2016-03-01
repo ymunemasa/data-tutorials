@@ -108,7 +108,7 @@ There are three methods for creating a RDD:
 *   The second method to create a RDD, is to reference a dataset. This dataset can come from any storage source supported by Hadoop such as HDFS, Cassandra, HBase etc.
 *   The third method to create a RDD is from transforming an existing RDD to create a new RDD. We will be using the later two methods in our tutorial.
 
-**4.3.1 View List of Tables in Hive Warehouse**
+#### 4.3.1 View List of Tables in Hive Warehouse
 
 Use a simple show command to see the list of tables in Hive warehouse.
 
@@ -120,7 +120,7 @@ hiveContext.sql("show tables").collect.foreach(println)
 
 You will notice that geolocation table and driver mileage table that we created in earlier tutorial are already listed in Hive metastore and can be directly queried upon.
 
-**4.3.2 Query Tables To Build Spark RDD**
+#### 4.3.2 Query Tables To Build Spark RDD
 
 We will do a simple select query to fetch data from geolocation and drivermileage tables to a spark variable. Getting data into Spark this way also allows to copy table schema to RDD.
 
@@ -145,7 +145,7 @@ drivermileage_temp1.take(10)
 
 Both these commands will return 10 rows from respective RDD`s.
 
-**4.3.3 Registering a Temporary Table**
+#### 4.3.3 Registering a Temporary Table
 
 Now let’s give this RDD a name, so that we can use it in Spark SQL statements
 
@@ -163,7 +163,7 @@ Once an RDD is instantiated, you can apply a [series of operations](https://spar
 *   **Transformation** operations, as the name suggests, create new datasets from an existing RDD and build out the processing DAG that can then be applied on the partitioned dataset across the YARN cluster. Transformations do not return a value. In fact, nothing is evaluated during the definition of these transformation statements. Spark just creates these Direct Acyclic Graphs or DAG, which will only be evaluated at runtime. We call this lazy evaluation.
 *   An **Action** operation, on the other hand, executes DAG and returns a value.
 
-**4.4.1 Querying Against The Table**
+#### 4.4.1 Querying Against The Table
 
 Now that our schema’s RDD with data has a name, we can use Spark SQL commands to query it. Remember the table below is not a Hive table, it is just a RDD we are querying with SQL.
 
@@ -190,7 +190,7 @@ geolocation_temp2.collect.foreach(println)
 
 ![Lab4_11](/assets/hello-hdp/Lab4_11.png)
 
-**4.4.2  Perform join Operation**
+#### 4.4.2  Perform join Operation
 
 In this section we will perform a join operation geolocation_temp2 table has details of drivers and count of their respective non-normal events. drivermileage_temp1 table has details of total miles travelled by each driver.
 
@@ -217,7 +217,7 @@ joined.collect.foreach(println)
 
 ![Lab4_13](/assets/hello-hdp/Lab4_13.png)
 
-**4.4.3  Compute Driver Risk Factor**
+#### 4.4.3  Compute Driver Risk Factor
 
 In this section we will associate a driver risk factor with every driver. Driver risk factor will be calculated by dividing total miles travelled by non normal event occurrences.
 
@@ -247,7 +247,7 @@ In this section we will try to store data in orc format in Hive from Spark.ORC i
 
 Predicate pushdown uses those indexes to determine which stripes in a file need to be read for a particular query and the row indexes can narrow the search to a particular set of 10,000 rows. ORC supports the complete set of types in Hive, including the complex types: structs, lists, maps, and unions.
 
-**4.5.1 Create an ORC table**
+#### 4.5.1 Create an ORC table
 
 Create a table and store it as ORC. Specifying as orc at the end of the SQL statement below ensures that the Hive table is stored in the ORC format.
 
@@ -255,7 +255,7 @@ Create a table and store it as ORC. Specifying as orc at the end of the SQL stat
 hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
 ~~~
 
-**4.5.2 Load data into ORC table**
+#### 4.5.2 Load data into ORC table
 
 Before we load the data into hive table that we created above, we will have to convert our data file into orc format too.
 > **Note:** For Spark 1.3.1, use 
@@ -270,13 +270,13 @@ risk_factor_spark.saveAsOrcFile("risk_factor_spark")
 risk_factor_spark.write.format(“orc”).save(“risk_factor_spark”)
 ~~~
 
-**4.5.3 Load the data into Hive table using load data command.**
+#### 4.5.3 Load the data into Hive table using load data command
 
 ~~~
 hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 ~~~
 
-**4.5.4 Verify Data Successfully Populated Table**
+#### 4.5.4 Verify Data Successfully Populated Table
 
 Execute a select query to verify your table has been successfully stored.You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
 
