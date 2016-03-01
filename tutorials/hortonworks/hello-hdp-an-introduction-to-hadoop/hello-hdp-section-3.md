@@ -35,19 +35,27 @@ A single physical machine gets saturated with its storage capacity as the data g
 
 *   Go to the Ambari Dashboard and open the HDFS User View by click on the User Views icon and selecting the HDFS Files menu item.
 
+
 ![Screen Shot 2015-07-21 at 10.17.21 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.17.21-AM.png)
+
 
 *   Starting from the top root of the HDFS file system, you will see all the files the logged in user (maria_dev in this case) has access to see:
 
+
 ![Lab2_2](/assets/hello-hdp/Lab2_2.png)
+
 
 *   Click tmp. Then click  ![Lab2_3](/assets/hello-hdp/Lab2_3.png) button to create the `/tmp/maria_dev` directory and then create the `/tmp/maria_dev/data` directory.
 
+
 ![Screen Shot 2015-07-27 at 9.42.07 PM](/assets/hello-hdp/Screen-Shot-2015-07-27-at-9.42.07-PM.png)
+
 
 *   Now traverse to the /tmp/admin/data directory and upload the corresponding geolocation.csv and trucks.csv files into it.
 
+
 ![Screen Shot 2015-07-27 at 9.43.28 PM](/assets/hello-hdp/Screen-Shot-2015-07-27-at-9.43.28-PM.png)
+
 
 You can also perform the following operations on a file by right clicking on the file: **Download**, **Move**, **Permissions**, **Rename** and **Delete**.
 
@@ -55,7 +63,9 @@ You can also perform the following operations on a file by right clicking on the
 
 - Right click on the folder `data` which is contained within `/tmp/maria_dev`. Click **Permissions**. Make sure that the background of all the **write** boxes are checked (blue).
 
+
 ![Lab2_5](/assets/hello-hdp/Lab2_5.png)
+
 
 ## Suggested Reading <a id="suggested-reading"></a>
 - [HDFS](http://hortonworks.com/hadoop/hdfs/)
