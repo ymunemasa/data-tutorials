@@ -10,7 +10,8 @@ In this tutorial you will be introduced to Apache Pig. In the earlier section of
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Lab 0: (Hortonworks sandbox set up)
+*   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *   Lab 1: Loading sensor data into HDFS
 *   Lab 2: Data Manipulation with Apache Hive
 *   Allow yourself around one hour to complete this tutorial.
