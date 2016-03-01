@@ -1,5 +1,6 @@
 # Lab 4: Spark - Risk Factor
 
+
 ## Use Apache Spark to compute Driver Risk Factor
 
 **Note** that this step is optional and produces the same result as in Lab 3. You may continue on to the next lab if you wish.
