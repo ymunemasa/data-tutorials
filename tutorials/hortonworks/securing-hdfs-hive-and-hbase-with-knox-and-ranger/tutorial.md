@@ -27,9 +27,7 @@ First you're going to need to log in to your Sandbox via SSH.
 
 If you're using Virtualbox you can log in with the command
 
-```
-ssh root@127.0.0.1
-```
+	ssh root@127.0.0.1 -p 2222
 
 If you're on Azure, change `127.0.0.1` to the IP address of your Azure machine.
 
@@ -153,13 +151,13 @@ As a first step, disable the global access policy for Hive in Ranger Administrat
 
 Let us try running a Grant operation using user Hive from the command line. Login into beeline tool using the following command
 
-`beeline -u "jdbc:hive2://sandbox.hortonworks.com:10000/default"  -n it1 -p it1-d org.apache.hive.jdbc.HiveDriver`
+	beeline -u "jdbc:hive2://sandbox.hortonworks.com:10000/default"  -n it1 -p it1-d org.apache.hive.jdbc.HiveDriver`
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 11.05.44.png)
 
 Then issue the `GRANT` command
 
-`grant select, update on table xademo.customer_details to user network1;`
+	grant select, update on table xademo.customer_details to user network1;
 
 If you correctly disabled the Hive policies which allowed this command you should see the following error:
 
@@ -179,7 +177,7 @@ We can create a policy in Ranger for user ‘it1’ to be an admin. Create a new
 
 We can try the beeline command again, once the policy has been saved.
 
-`GRANT select, update on table xademo.customer_details to user network1;`
+	GRANT select, update on table xademo.customer_details to user network1;
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 13.00.35.png)
 
@@ -219,9 +217,9 @@ Login into HBase shell as ‘it1’ user
 
 Run a grant command to give “Read”, “Write”, “Create” access to user mktg1 in table ‘iemployee’
 
-`grant 'mktg1',  'RWC',  'iemployee'`
+	grant 'mktg1',  'RWC',  'iemployee'
 
-`hbase(main):001:0> grant 'mktg1',  'RWC',  'iemployee'`
+	hbase(main):001:0> grant 'mktg1',  'RWC',  'iemployee'
 
 you should get a Acess Denied as below:
 
@@ -285,7 +283,7 @@ We can use the policy id to retrieve or change the policy.
 
 Run the below CURL command to get policy details using API
 
-`curl -i -u admin:4o12t0n -X GET http://127.0.0.1:6080/service/public/api/policy/21`
+	curl -i -u admin:4o12t0n -X GET http://127.0.0.1:6080/service/public/api/policy/21
 
 ![](../../../assets/securing-hdfs-hive-hbase-with-knox-ranger/policy-rest-api-get.png)
 
