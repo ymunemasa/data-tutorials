@@ -26,7 +26,6 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   [Step 5.b.1: Access Data in Microsoft Excel](#step5.b.1)
 *   [Step 5.b.2: Visualize data with Excel](#step5.b.2)
 *   [Suggested readings](#suggested-reading)
-*   [Resources](#resources)
 
 ### Step 5.b.1: Access the Refined Data with Microsoft Excel <a id="step5.b.1"></a>
 
@@ -141,8 +140,6 @@ Learn more about Hadoop through these case studies:
 *   [The Definitive Guide by O`Reilly](http://hadoopbook.com/)
 *   [Hadoop for Dummies](http://www.wiley.com/WileyCDA/WileyTitle/productCd-1118607554.html)
 
-## Resources <a id="resources"></a>
-*   [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
 
 ~~~
 risk_factor_spark.write.orc("risk_factor_spark")
