@@ -1,13 +1,13 @@
+# Lab 6: Data Reporting With Zeppelin
 
-## Lab 5: Reporting
+## Data Visualization using Apache Zeppelin
 
-### **Data Visualization using Microsoft Excel**
+### Introduction
 
-**Introduction:**
+In this tutorial you will be introduced to Apache Zeppelin. In the earlier section of lab, you learned how to perform data visualization 
+using Excel. This section will teach you to visualize data using Zeppelin.
 
-This step is optional as it requires you to have Excel and Power View, however feel free to connect from any reporting tool to do a similar exercise.   In this section, we will use Microsoft Excel Professional Plus 2013 to access the refined data. We will be using the ODBC connection.
-
-**Prerequisites:**
+## Prerequisites
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -15,127 +15,136 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   Lab 1: Loading sensor data into HDFS
 *   Lab 2: Data Manipulation with Apache Hive
 *   Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor
+*   Working Zeppelin installation
 *   Please configure ODBC drivers on your system with the help of following tutorial:
-    *   [Installing and Configuring the Hortonworks ODBC driver on Windows 7](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/)
-    *   [Installing and Configuring the Hortonworks ODBC driver on Mac OS X](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/)
-
 *   Allow yourself around half an hour to complete this tutorial.
 
-**Outline:**
+## Outline
 
-*   Step 5.b.1: Access Data in Microsoft Excel
-*   Step 5.b.2: Visualize data with Excel
-*   Suggested readings
+*   [Apache Zeppelin](#apache-zeppelin)
+*   [Step 6.1: Creating a Zeppelin Notebook](#step6.1)
+*   [Step 6.2: Running a Hive Query](#step6.2)
+*   [Step 6.3: Making Charts Using Zeppelin](#step6.3)
+*   [Outro](#outro)
+*   [Suggested Readings](#suggested-readings)
+*   [Resources](#resources)
 
-**Step 5.b.1: Access the Refined Data with Microsoft Excel**
+## Apache Zeppelin <a id="apache-zeppelin"></a>
 
-The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions and these are the [Mac ODBC driver setup](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/) instructions.   Open the ODBC connection manager and open the connection you setup up. It should look like this. Click on the test button and it should report success. If the test fails you will need to troubleshoot the connection before you can go on.
+Apache Zeppelin provides a powerful web-based notebook platform for data analysis and discovery.  
+Behind the scenes it supports Spark distributed contexts as well as other language bindings on top of Spark.
 
-**For Mac Users**:-
+In this tutorial we will be using Apache Zeppelin to run SQL queries on our geolocation, trucks, and 
+riskfactor data that we've collected earlier and visualize the result through graphs and charts.
 
-1.  Open a new blank workbook. Select Data tab at the top then select “Get External Data” and then select “New Database query”.
-2.  Chose Sample Hortonworks Hive DSN and hit Ok.
+NOTE: We can also run queries via various interpreters for the following (but not limited to) spark, hawq and postgresql.
 
-![Lab5_1](/assets/hello-hdp/Lab5_1.png)
+### Step 6.1: Creating a Zeppelin Notebook <a id="step6.1"></a>
 
-3.  Next prompt shall ask you to enter login and password. Type “sandbox” in login and the leave the password empty. Hit Ok.
+**6.1.1 Navigate to Zeppelin Notebook**
 
-![Lab5_2](/assets/hello-hdp/Lab5_2.png)
+1) Click on Ambari User view icon and navigate to Zeppelin notebook.
 
-4.   Choose the data table avg_mileage table from the table chart on the right and hit      Add Table. avg_mileage should now appear under Query View tab on the left. Choose avg_mileage.* in the Field column. You are set to import data from your Hive table. As a final step, Hit Test!
+![Zeppelin Dashboard](/assets/hello-hdp/zeppelin_dashboard.png)
 
-![Lab5_3](/assets/hello-hdp/Lab5_3.png)
+- NOTE: You can also navigate to http://sandbox.hortonworks.com:9995 directly to open the Zeppelin interface.
 
-5.  Click on Return Data to import your table into an excel. Submit OK to populate your excel.
+- You can also change the port that the zeppelin server runs on by Navigating to the Ambari service > configs > Advanced zeppelin config and then changing the zeppelin.server.port.
+- You may also need to modify the forwarded ports on the virtual machine as well if you do this.
 
-![Lab5_4](/assets/hello-hdp/Lab5_4.png)
+2) Click on create note, name the notebook **Driver Risk Factor** and a new notebook shall get started.
 
-6.  Once the data is placed you will see the avg_mileage table imported into your spreadsheet.
+![Zeppelin Create New Notebook](/assets/hello-hdp/zeppelin_create_new_notebook.png)
 
-**For Windows users**:-
+### Step 6.2: Running a Hive Query <a id="step6.2"></a>
 
-1.  Open a new blank workbook. Select Data tab at the top then select “Get External Data” and then select “From Other Data Sources”. Then at the bottom select “From Microsoft Query”. Choose your data source and ours is called Hadoop and you will then see the Query Wizard. We will import the avg_mileage table.
+**6.2.1 Visualize finalresults Data in Tabular Format**
 
-![Lab5_6](/assets/hello-hdp/Lab5_6.png)
+In the previous Spark and Pig tutorials you already created a table finalresults which gives the risk factor 
+associated with every driver. We will use the data we generated in this table to visualize which drivers have the highest risk factor.
 
-2.  Accept the defaults for everything and click through till you hit the Finish button. After you click on Finish, Excel will send the data request over to Hadoop. It will take awhile for this to happen. When the data is returned it will ask you to place the data in the workbook. We want to be in cell \$A\$1 like this.
-
-![Lab5_6](/assets/hello-hdp/Lab5_61.png)
-
-3.  The data is placed you will see the avg_mileage table imported into your spreadsheet.
-
-![Lab5_7](/assets/hello-hdp/Lab5_7.jpg)
-
-**Step 5.b.2: Visualize Data with Microsoft Excel**
-
-1.  So now we are going to insert a Power View report. We do this by selecting the “Insert” tab at the top and select “Power View Reports” button in the middle. This will create a new tab in your workbook with the data inserted in the Power View page.”
-
-![Lab5_14](/assets/hello-hdp/Lab5_14.jpg)
-
-2.  Select the design tab at the top and then select a column chart and use the stacked column version in the drop down menu. This will give you a bar chart. Grab the lower right of the chart and stretch it out to the full pane. Close the filter tab and the chart will expand and look like this.
-
-![Lab5_9](/assets/hello-hdp/Lab5_9.jpg)
-
-3.  So to finish off the tutorial I am going to create a map of the events reported in the geolocation table. I will show you how you can build up the queries and create a map of the data on an ad hoc basis.
-
-4.  For a map we need location information and a data point. Looking at the geolocation table I will simply plot the location of each of the events. I will need the driverid, city and state columns from this table. We know that the select statement will let me extract these columns. So to start off I can just create the select query in the Query Editor.
-
-5. Query subset of geolocation columns
+1) Copy and paste the code below into your Zeppelin note.
 
 ~~~
-select driverid, city, state from geolocation;
+%hive
+
+SELECT * FROM finalresults
 ~~~
 
-![Lab5_10](/assets/hello-hdp/Lab5_10.png)
+2) Click the play button next to "ready" or "finished" to run the query in the Zeppelin notebook. 
+Alternative way to run query is "shift+enter."
 
-6.  After I execute the query I see what results are returned. In a more complex query you can easily make changes to the query at this point till you get the right results. So the results I get back look like this.
 
-![Lab5_11](/assets/hello-hdp/Lab5_11.png)
+![play_button_zeppelin_workbook](/assets/hello-hdp/play_button_lab6.png)
 
-7.  Since my results look fine I now need to capture the result in a table. So I will use the select statement as part of my CTAS (create table select as) pattern. I will call the table events and the query now looks like this. 
+Initially, the query will produce the data in tabular format as shown in the screenshot.
 
-**Create table avg_mileage from existing trucks_mileage data**
+![finalresults_data_tabular](/assets/hello-hdp/finalresults_data_tabular_lab6.png)
+
+### Step 6.3: Making Charts using Zeppelin <a id="step6.3"></a>
+
+**6.3.1 Visualize finalresults Data in Chart Format**
+
+1) Iterate through each of the tabs that appear underneath the query. 
+Each one will display a different type of chart depending on the data that is returned in the query.
+
+![charts_tab_under_query_lab6](/assets/hello-hdp/charts_tab_under_query_lab6.png)
+
+2) After clicking on a chart, we can view extra advanced settings to tailor the view of the data we want
+
+![Chart Advanced Settings](/assets/hello-hdp/advanced_settings_chart_lab6.png)
+
+3) Click settings to open the advanced chart features.
+
+4) To make the same chart as the one above, drag the table relations into the boxes as shown in the image below.
+
+![Advanced Settings Boxes](/assets/hello-hdp/advanced_settings_boxes_lab6.png)
+
+5) You should now see an image like the one below.
+
+![Bar Graph Example Image](/assets/hello-hdp/bar_graph_chart_ex_lab6.png)
+
+6) If you hover on the peaks, each will give the driverid and riskfactor.
+
+![driverid_riskfactor_peak](/assets/hello-hdp/driverid_riskfactor_peak_lab6.png)
+
+7) Try experimenting with the different types of charts as well as dragging and 
+dropping the different table fields to see what kind of results you can obtain.
+
+8) Let' try a different query to find which cities and states contain the drivers with the highest riskfactors.
 
 ~~~
-CREATE TABLE events
-STORED AS ORC
-AS
-SELECT driverid, city, state FROM geolocation;
+%hive
+
+SELECT a.driverid, a.riskfactor, b.city, b.state 
+FROM finalresults a, geolocation b where a.driverid=b.driverid
 ~~~
 
-![Lab5_12](/assets/hello-hdp/Lab5_12.png)
+9) Run the query above using the keyboard shortcut Shift+Enter. 
+You should eventually end up with the results in a table below.
 
-8.  I can execute the query and the table events gets created. As we saw earlier I can go to Excel and import the table into a blank worksheet. The imported data will look like this.
+![Filter City and States](/assets/hello-hdp/filter_city_states_lab6.png)
 
-![Lab5_13](/assets/hello-hdp/Lab5_13.jpg)
+10) After changing a few of the settings we can figure out which of the cities has the high risk factors. 
+Try changing the chart settings by clicking the scatterplot icon. Then make sure that they keys a.driverid 
+is within the xAxis field, a.riskfactor is in the yAxis field, and b.city is in the group field. 
+The chart should look similar to the following.
 
-9.  Now I can insert the PowerView tab in the Excel workbook. To get a map I just select the Design tab at the top and select the Map button in the menu bar.
+![Scatter Plot Graph](/assets/hello-hdp/scatter_plot_lab6.png)
 
-![Lab5_8](/assets/hello-hdp/Lab5_8.jpg)
+The graph shows that driver id number A39 has a high risk factor of 652417 and drives in Santa Maria.  
 
-10.  Make sure you have a network connection because Power View using Bing to do the geocoding which translates the city and state columns into map coordinates. If we just want to see where events took place we can uncheck the driverid. The finished map looks like this.
+### Outro <a id="outro"></a>
 
-![Lab5_15](/assets/hello-hdp/Lab5_15.jpg)
+Now that we know how to use Apache Zeppelin to obtain and visualize our data, we can use the skills 
+we've learned from our Hive, Pig, and Spark labs, as well and apply them to new kinds of data to 
+try to make better sense and meaning from the numbers!
 
-We’ve shown how the Hortonworks Data Platform (HDP) can store and analyze geolocation data. In addition I have shown you a few techniques on building your own queries. You can easily plot risk factor and miles per gallon as bar charts. I showed you the basics of creating maps. A good next step is to only plot certain types of events. Using the pattern I gave you it is pretty straight forward to extract the data and visualize it in Excel.
+## Suggested Readings <a id="suggested-readings"></a>
 
-## Next Steps: Try These
+- [Zeppelin on HDP](http://hortonworks.com/hadoop/zeppelin/)
+- [Apache Zeppelin Docs](https://zeppelin.incubator.apache.org/docs/)
+- [Zeppelin Homepage](https://zeppelin.incubator.apache.org/)
 
-Congratulations on finishing a comprehensive series on Hadoop and HDP. By now you should have a good understanding on fundamentals of Hadoop and its related ecosystem such as Map Reduce, YARN, HDFS, Hive, Pig and Spark. As a Hadoop practitioner you can choose three basic personas to build upon your skill:
-
-*   Hadoop Developer- [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)
-*   Hadoop Administrator-[Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-admins)
-*   Data Scientist- [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-analysts)
-
-#### Case Studies:
-
-Learn more about Hadoop through these case studies:
-
-*   Analytics- [New types of data and new opportunities](http://hortonworks.com/solutions/advanced-analytic-apps/)
-*   Data Architecture Optimization: [Reduce cost by moving data and processing to Hadoop](http://hortonworks.com/solutions/data-architecture-optimization/)
-*   Industry specific: [Examples of Hadoop across Industries](http://hortonworks.com/industry/)
-
-#### References:
-
-*   [The Definitive Guide by O`Reilly](http://hadoopbook.com/)
-*   [Hadoop for Dummies](http://www.wiley.com/WileyCDA/WileyTitle/productCd-1118607554.html)
+## Resources <a id="resources"></a>
+- [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)

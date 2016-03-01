@@ -1,263 +1,296 @@
-## Lab 3: Pig - Risk Factor
+# Lab 4: Spark - Risk Factor
 
-### **Use Pig to compute Driver Risk Factor**
+## Use Apache Spark to compute Driver Risk Factor
 
-#### **Introduction:**
+**Note** that this step is optional and produces the same result as in Lab 3. You may continue on to the next lab if you wish.
 
-In this tutorial you will be introduced to Apache Pig. In the earlier section of lab you learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand  risk associated with every driver. This section will teach you to compute risk using Apache Pig.
+### Introduction
 
-**Prerequisites:**
+In this tutorial you will be introduced to Apache Spark. In the earlier section of lab you learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand  risk associated with every driver. This section will teach you to compute risk using Apache spark.
 
-The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
+## Prerequisites
 
-*   Lab 0: (Hortonworks sandbox set up)
-*   Lab 1: Loading sensor data into HDFS
-*   Lab 2: Data Manipulation with Apache Hive
-*   Allow yourself around one hour to complete this tutorial.
+The tutorial is a part of a series of hands on tutorials to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-**Outline:**
+* Lab 0: (Hortonworks sandbox set up)
+* Lab 1: Loading sensor data into HDFS
+* Lab 2: Data Manipulation with Apache Hive
+* Allow yourself around one hour to complete this tutorial.
 
-*   Pig basics
-*   Step 3.1: Define Table schema
-*   Step 3.2: Create Pig Script
-*   Step 3.3: Quick Recap
-*   Step 3.4: Execute Pig Script on Tez
-*   Suggested readings
+## Outline
 
-**Pig Basics:**
+*   [Apache Spark Backdrop](#apache-spark-backdrop)
+*   [Apache Spark Basics](#apache-spark-basics)
+*   [Step 4.1: Configure Apache Spark services using Ambari](#step4.1)
+*   [Step 4.2: Create a Hive Context](#step4.2)
+*   [Step 4.3: Create RDD from Hive Context](#step4.3)
+*   [Step 4.4: RDD transformations and actions](#step4.4)
+*   [Step 4.5: Load and save data into Hive as ORC](#step4.5)
+*   [Suggested Readings](#suggested-readings)
+*   [Resources](#resources)
 
-Pig is a high level scripting language that is used with Apache Hadoop. Pig enables data workers to write complex data transformations without knowing Java. Pig’s simple SQL-like scripting language is called Pig Latin, and appeals to developers already familiar with scripting languages and SQL.
+## Background in Apache Spark <a id="apache-spark-backdrop"></a>
 
-Pig is complete, so you can do all required data manipulations in Apache Hadoop with Pig. Through the User Defined Functions(UDF) facility in Pig, Pig can invoke code in many languages like JRuby, Jython and Java. You can also embed Pig scripts in other languages. The result is that you can use Pig as a component to build larger and more complex applications that tackle real business problems.
+MapReduce has been useful, but the amount of time it takes for the jobs to run can at times be exhaustive. Also, MapReduce jobs only work for a specific set of use cases. There is a need for computing framework that works for a wider set of use cases.
 
-Pig works with data from many sources, including structured and unstructured data, and store the results into the Hadoop Data File System.
+Therefore Apache Spark was designed as a computing platform to be fast, general-purpose, and easy to use. It extends the MapReduce model and takes it to a whole other level. The speed comes from the in-memory computations. Applications running in memory allows for a much faster processing and response.
 
-Pig scripts are translated into a series of MapReduce jobs that are run on the Apache Hadoop cluster.
+## Apache Spark <a id="apache-spark-basics"></a>
 
-**Step 3.1: Define table schema**
+[Apache Spark](http://hortonworks.com/hadoop/spark/) is a fast, in-memory data processing engine with elegant and expressive development APIs in [Scala](https://spark.apache.org/docs/1.2.0/api/scala/index.html#org.apache.spark.package),[Java](https://spark.apache.org/docs/1.2.0/api/java/index.html), and [Python](https://spark.apache.org/docs/1.2.0/api/java/index.html) that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets. Spark on [Apache Hadoop YARN](http://hortonworks.com/hadoop/YARN) enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.
 
-Now we have refined the truck data to get the average mpg  for each truck. The next task is to compute the risk factor for each driver which is the total miles driven/abnormal events. We can get the event information from the geolocation table.
+You can run batch application such as MapReduce types jobs or iterative algorithms that builds upon each other. You can also run interactive queries and process streaming data with your application. Spark also provides a number of libraries which you can easily use to expand beyond the basic Spark capabilities such as Machine Learning algorithms, SQL, streaming, and graph processing. Spark runs on Hadoop clusters such as Hadoop YARN or Apache Mesos, or even as a standalone with its own scheduler.
 
-![Lab3_1](/assets/hello-hdp/Lab3_1.png)
+![Lab4_1](/assets/hello-hdp/Lab4_1.png)  
+Lets get started…!!
 
-If we look at the truck_mileage table, we we have the driverid and the number of miles for each trip. To get the total miles for each driver, we can group those records by driverid and then sum the miles.
+### Step 4.1: Configuring Spark services using Ambari <a id="step4.1"></a>
 
-1.  We will start by creating a table named driver_mileage that is created from a query of the columns we want from truck_mileage. The following query groups the records by driverid and sums the miles in the select statement. Execute this query in a new Worksheet:
+1)  Log on to Ambari Dashboard as maria_dev. At the bottom left corner of the services column, check that Spark and Zeppelin are running. 
+> **Note:** If these services are disabled, you will need to login in as an admin user to start all services. Explore HCC for further clarification.
 
-**Create table DriverMileage from existing truck_mileage data**
+![Lab4_2](/assets/hello-hdp/Lab4_2.png)
 
-~~~
-CREATE TABLE DriverMileage
-STORED AS ORC
-AS
-SELECT driverid, sum(miles) totmiles
-FROM truck_mileage
-GROUP BY driverid;
-~~~
+![Lab4_3](/assets/hello-hdp/Lab4_3.png)
 
-2. View the data generated by the script by clicking the **Load sample data** icon in the Database Explorer next to drivermileage. The results should look like:
-
-![Lab3_2](/assets/hello-hdp/Lab3_2.png)
-
-3. Next, you will use Pig to compute the risk factor of each driver. Before we can run the Pig code, one of the requirements for the HCatStorer() class is that the table must already exist in Hive. The Pig code expects the following structure for a table named riskfactor. Execute the following DDL command:
-
-**Create table avg_mileage from existing trucks_mileage data**
+2)  Close the Ambari browser and we will get running with some codes on Spark. ssh into the sandbox using root as login and hadoop as password.
 
 ~~~
-CREATE TABLE riskfactor (driverid string,events bigint,totmiles bigint,riskfactor float)
-STORED AS ORC;
+login: root
+password: hadoop
 ~~~
 
-4. Verify the riskfactor table was created successfully. It will be empty now, but you will populate it from a Pig script. You are now ready to compute the risk factor using Pig. Let’s take a look at Pig and how to execute Pig scripts from within Ambari.
+Optionally, if you don’t have an SSH client installed and configured you can use the built-in web client which can be accessed from here: **http://_host_:4200** (use the same username and password provided above)
 
-**Step 3.2: Create Pig Script**
+3)  Type the command spark-shell
 
-In this tutorial we create and run a Pig script. We will use the Ambari Pig User View. Let’s get started…
+This will load the default Spark Scala API.
 
-#### 1. Log in to Ambari Pig User Views
+![Lab4_4](/assets/hello-hdp/spark_welcome.png)
 
-To get to the Ambari Pig User View, click on the User Views icon at top right and select **Pig**:
+> **Notice** it is already starting with Hive integration as we have preconfigured it on the Hortonworks Sandbox.
 
-![Screen Shot 2015-07-21 at 10.12.41 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.12.41-AM.png)  
-This will bring up the Ambari Pig User View interface. Your Pig View does not have any scripts to display, so it will look like the following:
+### Step 4.2: Create a HiveContext <a id="step4.2"></a>
 
-![Lab3_4](/assets/hello-hdp/Lab3_4.png)
+For improved Hive integration, HDP 2.4 offers [ORC file](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/) support for Spark. This allows Spark to read data stored in ORC files. Spark can leverage ORC file’s more efficient columnar storage and predicate pushdown capability for even faster in-memory processing. HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
 
-On the left is a list of your scripts, and on the right is a composition box for writing scripts. A special feature of the interface is the Pig helper at the bottom. The Pig helper will provide us with templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. At the very bottom are status areas that will show the results of our script and log files.
-
-The following screenshot shows and describes the various components and features of the Pig User View:
-
-![Lab3_5](/assets/hello-hdp/Lab3_5.png)
-
-#### 2. Create a New Script
-
-Let’s enter a Pig script. Click the **New Script** button in the upper-right corner of the view:
-
-![Lab3_6](/assets/hello-hdp/Lab3_6.png)
-
-Name the script **riskfactor.pig**, then click the **Create** button:
-
-![Lab3_7](/assets/hello-hdp/Lab3_7.png)
-
-#### 3. Load Data in Pig using Hcatalog
-
-We are going to use HCatalog to load data into Pig. HCatalog allows us to share schema across tools and users within our Hadoop environment. It also allows us to factor out schema and location information from our queries and scripts and centralize them in a common repository. Since it is in HCatalog we can use the HCatLoader() function. Pig makes it easy by allowing us to give the table a name or alias and not have to worry about allocating space and defining the structure. We just have to worry about how we are processing the table.
-
-* We can use the Pig helper at the bottom of the screen to give us a template for the line. Click on **Pig helper -> HCatalog->load template**
-* The entry **%TABLE%** is highlighted in red for us. Type the name of the table which is geolocation.
-* Remember to add the **a =** before the template. This saves the results into a. Note the **‘=’** has to have a space before and after it.
-* Our completed line of code will look like:
+**Import these sql libraries:**
 
 ~~~
-a = LOAD 'geolocation' using org.apache.hive.hcatalog.pig.HCatLoader();
-~~~
-
-Copy-and-paste the above Pig code into the riskfactor.pig window.
-
-#### 4. Filter your data set
-
-The next step is to select a subset of the records so that we just have the records of drivers for which the event is not normal. To do this in Pig we use the Filter operator. We tell Pig to Filter our table and keep all records where event !=“normal” and store this in b. With this one simple statement Pig will look at each record in the table and filter out all the ones that do not meet our criteria.
-
-* We can use Pig Help again by clicking on **Pig helper->Relational Operators->FILTER template**
-* We can replace **%VAR%** with **“a”** (hint: tab jumps you to the next field)
-* Our **%COND%** is “**event !=’normal’;** ” (note: single quotes are needed around normal and don’t forget the trailing semi-colon)
-* Complete line of code will look like:
-
-~~~
-b = filter a by event != 'normal';
-~~~
-
-Copy-and-paste the above Pig code into the riskfactor.pig window.
-
-#### 5. Iterate your data set
-
-Now that we have the right set of records we can iterate through them. We use the “foreach” operator on the grouped data to iterate through all the records. We would also like to know how many times a driver has a non normal event associated with him. to achieve this we add ‘1’ to every row in the data set.
-
-* Pig helper ->Relational Operators->FOREACH template will get us the code
-* Our **%DATA%** is **b** and the second **%NEW_DATA%** is “**driverid,event,(int) ‘1’ as occurance;**”
-* Complete line of code will look like:
-
-~~~
-c = foreach b generate driverid, event, (int) '1' as occurance;
-~~~
-
-Copy-and-paste the above Pig code into the riskfactor.pig window:
-
-#### 6. Calculate the total non normal events for each driver
-
-The group statement is important because it groups the records by one or more relations. In this case we would like to group by driver id and iterate over each row again to sum the non normal events.
-
-* **Pig helper ->Relational Operators->GROUP %VAR% BY %VAR%** template will get us the code
-* First **%VAR%** takes **“c”** and second **%VAR%** takes “**driverid;**”
-* Complete line of code will look like:
-
-~~~
-d = group c by driverid;
-~~~
-
-Copy-and-paste the above Pig code into the riskfactor.pig window.
-
-* Next use Foreach statement again to add the occurance.
-
-~~~
-e = foreach d generate group as driverid, SUM(c.occurance) as t_occ;
+import org.apache.spark.sql.hive.orc._
+import org.apache.spark.sql._
 ~~~
 
 
-#### 7. Load drivermileage table and perform a join operation
+![Lab4_5](/assets/hello-hdp/Lab4_5.png)
 
-In this section we will load drivermileage table into Pig using Hcatlog and perform a join operation on driverid. The resulting data set will give us total miles and total non normal events for a particular driver.
-
-* Load drivermileage using HcatLoader()
+**Instantiate HiveContext**
 
 ~~~
-g = LOAD 'drivermileage' using org.apache.hive.hcatalog.pig.HCatLoader();
+val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 ~~~
 
-* **Pig helper ->Relational Operators->JOIN %VAR% BY** template will get us the code
-* Replace **%VAR%** by ‘**e**’ and after **BY** put ‘**driverid, g by driverid;**’
-* Complete line of code will look like:
+![Lab4_6](/assets/hello-hdp/Lab4_6.png)
+
+
+- `sc` stands for **Spark Context**. SparkContext is the main entry point to everything Spark. It can be used to create RDDs and shared variables on the cluster. When you start up the Spark Shell, the SparkContext is automatically initialized for you with the variable `sc`.
+
+### Step 4.3: Creating a RDD from HiveContext <a id="step4.3"></a>
+
+**What is RDD?**
+
+Spark’s primary core abstraction is called Resilient Distributed Dataset or RDD. Essentially it is just a distributed collection of elements that is parallelized across the cluster. What this means is which is that RDD is an immutable collection of objects that is partitioned and distributed across multiple physical nodes of a YARN cluster and that can be operated in parallel.
+
+There are three methods for creating a RDD:
+
+*   You can parallelize an existing collection. This means that the data already resides within Spark and can now be operated on in parallel.
+*   The second method to create a RDD, is to reference a dataset. This dataset can come from any storage source supported by Hadoop such as HDFS, Cassandra, HBase etc.
+*   The third method to create a RDD is from transforming an existing RDD to create a new RDD. We will be using the later two methods in our tutorial.
+
+**4.3.1 View List of Tables in Hive Warehouse**
+
+Use a simple show command to see the list of tables in Hive warehouse.
 
 ~~~
-h = join e by driverid, g by driverid;
+hiveContext.sql("show tables").collect.foreach(println)
 ~~~
 
-Copy-and-paste the above two Pig codes into the riskfactor.pig window.
+![Lab4_7](/assets/hello-hdp/Lab4_7.png)
 
-#### 8. Compute Driver Risk factor
+You will notice that geolocation table and driver mileage table that we created in earlier tutorial are already listed in Hive metastore and can be directly queried upon.
+
+**4.3.2 Query Tables To Build Spark RDD**
+
+We will do a simple select query to fetch data from geolocation and drivermileage tables to a spark variable. Getting data into Spark this way also allows to copy table schema to RDD.
+
+~~~
+val geolocation_temp1 = hiveContext.sql("select * from geolocation")
+~~~
+
+![Lab4_8](/assets/hello-hdp/Lab4_8.png)
+
+~~~
+val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
+~~~
+
+![Lab4_9](/assets/hello-hdp/Lab4_9.png)  
+
+Make sure that the RDD`s carry the exact data. You can verify through following   command
+
+~~~
+geolocation_temp1.take(10) 
+drivermileage_temp1.take(10)
+~~~
+
+Both these commands will return 10 rows from respective RDD`s.
+
+**4.3.3 Registering a Temporary Table**
+
+Now let’s give this RDD a name, so that we can use it in Spark SQL statements
+
+~~~
+geolocation_temp1.registerTempTable("geolocation_temp1")
+drivermileage_temp1.registerTempTable("drivermileage_temp1")
+~~~
+
+### Step 4.4: RDD Transformations and Actions <a id="step4.4"></a>
+
+Typically, RDDs are instantiated by loading data from a shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat on a YARN cluster.
+
+Once an RDD is instantiated, you can apply a [series of operations](https://spark.apache.org/docs/1.2.0/programming-guide.html#rdd-operations). All operations fall into one of two types:[transformations](https://spark.apache.org/docs/1.2.0/programming-guide.html#transformations) or [actions](https://spark.apache.org/docs/1.2.0/programming-guide.html#actions).
+
+*   **Transformation** operations, as the name suggests, create new datasets from an existing RDD and build out the processing DAG that can then be applied on the partitioned dataset across the YARN cluster. Transformations do not return a value. In fact, nothing is evaluated during the definition of these transformation statements. Spark just creates these Direct Acyclic Graphs or DAG, which will only be evaluated at runtime. We call this lazy evaluation.
+*   An **Action** operation, on the other hand, executes DAG and returns a value.
+
+**4.4.1 Querying Against The Table**
+
+Now that our schema’s RDD with data has a name, we can use Spark SQL commands to query it. Remember the table below is not a Hive table, it is just a RDD we are querying with SQL.
+
+*   Here we will try to perform iteration and filter operation. First, we need to filter drivers that have non- normal events associated to them and then count the number for non- normal events for each driver.
+
+~~~
+val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from             geolocation_temp1  where event!='normal' group by driverid")
+~~~
+
+- As stated earlier about RDD transformations, select operation is a RDD transformation and therefore does not return anything.
+
+*   The resulting table will have count of total non normal events associated to each driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
+
+
+~~~
+geolocation_temp2.registerTempTable("geolocation_temp2")
+~~~
+
+*   You can view the result by doing an action operation on RDD.
+
+~~~
+geolocation_temp2.collect.foreach(println)
+~~~
+
+![Lab4_11](/assets/hello-hdp/Lab4_11.png)
+
+**4.4.2  Perform join Operation**
+
+In this section we will perform a join operation geolocation_temp2 table has details of drivers and count of their respective non-normal events. drivermileage_temp1 table has details of total miles travelled by each driver.
+
+*   We will join two tables on common column, which in our case is driverid.
+
+~~~
+val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geolocation_temp2 a,drivermileage_temp1 b where a.driverid=b.driverid")
+~~~
+
+
+![Lab4_12](/assets/hello-hdp/Lab4_12.png)
+
+*   The resulting data set will give us total miles and total non normal events for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
+
+~~~
+joined.registerTempTable("joined")
+~~~
+
+*   You can view the result by doing an action operation on RDD.
+
+~~~
+joined.collect.foreach(println)
+~~~
+
+![Lab4_13](/assets/hello-hdp/Lab4_13.png)
+
+**4.4.3  Compute Driver Risk Factor**
 
 In this section we will associate a driver risk factor with every driver. Driver risk factor will be calculated by dividing total miles travelled by non normal event occurrences.
 
-* We will use Foreach statement again to compute driver risk factor for each driver.
-* Use the following code and paste it into your Pig script.
-
 ~~~
-final_data = foreach h generate $0 as driverid, $1 as events, $3 as totmiles, (float) $3/$1 as riskfactor;
+val risk_factor_spark=hiveContext.sql("select driverid, totmiles,occurance, totmiles/occurance riskfactor from joined")
 ~~~
 
-* As a final step store the data into a table using Hcatalog.
+![Lab4_14](/assets/hello-hdp/Lab4_14.png)
+
+*   The resulting data set will give us total miles and total non normal events and what is a risk for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
 
 ~~~
-store final_data into 'riskfactor' using org.apache.hive.hcatalog.pig.HCatStorer();
-~~~
-Here is the final code and what it will look like once you paste it into the editor.
-
-**Geolocation has data stored in ORC format**
-
-~~~~
-a = LOAD 'geolocation' using org.apache.hive.hcatalog.pig.HCatLoader();
-b = filter a by event != 'normal';
-c = foreach b generate driverid, event, (int) '1' as occurance;
-d = group c by driverid;
-e = foreach d generate group as driverid, SUM(c.occurance) as t_occ;
-g = LOAD 'drivermileage' using org.apache.hive.hcatalog.pig.HCatLoader();
-h = join e by driverid, g by driverid;
-final_data = foreach h generate $0 as driverid, $1 as events, $3 as totmiles, (float) $3/$1 as riskfactor;
-store final_data into 'riskfactor' using org.apache.hive.hcatalog.pig.HCatStorer();
+risk_factor_spark.registerTempTable("risk_factor_spark")
 ~~~
 
-![Lab3_8](/assets/hello-hdp/Lab3_8.png)
+*   View the results
 
-Save the file riskfactor.pig by clicking the **Save** button in the left-hand column.
+~~~
+risk_factor_spark.collect.foreach(println)
+~~~
 
-**Step 3.3: Quick Recap**
+![Lab4_15](/assets/hello-hdp/Lab4_15.png)
 
-Before we execute the code, let’s review the code again:
+### Step 4.5: Load and Save Data into Hive as ORC <a id="step4.5"></a>
 
-* The line `a=` loads the geolocation table from HCatalog.
-* The line `b=` filters out all the rows where the event is not ‘Normal’.
-* Then we add a column called occurrence and assign it a value of 1.
-* We then group the records by driverid and sum up the occurrences for each driver.
-* At this point we need the miles driven by each driver, so we load the table we created using Hive.
-* To get our final result, we join by the driverid the count of events in e with the mileage data in g.
-* Now it is real simple to calculate the risk factor by dividing the miles driven by the number of events
+In this section we will try to store data in orc format in Hive from Spark.ORC is a self-describing type-aware columnar file format designed for Hadoop workloads. It is optimized for large streaming reads and with integrated support for finding required rows fast. Storing data in a columnar format lets the reader read, decompress, and process only the values required for the current query. Because ORC files are type aware, the writer chooses the most appropriate encoding for the type and builds an internal index as the file is persisted.
 
-You need to configure the Pig Editor to use HCatalog so that the Pig script can load the proper libraries. In the Pig arguments text box, enter –**useHCatalog**   and click the **Add** button:
+Predicate pushdown uses those indexes to determine which stripes in a file need to be read for a particular query and the row indexes can narrow the search to a particular set of 10,000 rows. ORC supports the complete set of types in Hive, including the complex types: structs, lists, maps, and unions.
 
-**Note** that this argument is **case sensistive**. It should be typed exactly "-useHCatalog".
+**4.5.1 Create an ORC table**
 
-![Lab3_9](/assets/hello-hdp/Lab3_9.png)
+Create a table and store it as ORC. Specifying as orc at the end of the SQL statement below ensures that the Hive table is stored in the ORC format.
 
-The **Arguments** section of the Pig View should now look like the following:  
-![Lab3_10](/assets/hello-hdp/Lab3_10.png)
+~~~
+hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
+~~~
 
-**Step 3.4: Execute Pig Script on Tez**
+**4.5.2 Load data into ORC table**
 
-1.  You are now ready to execute the script. Click Execute on Tez checkbox and finally hit the blue **Execute** button to submit the job. Pig job will be submitted to the cluster. This will generate a new tab with a status of the running of the Pig job and at the top you will find a progress bar that shows the job status.
+Before we load the data into hive table that we created above, we will have to convert our data file into orc format too.
+> **Note:** For Spark 1.3.1, use 
 
-![Lab3_11](/assets/hello-hdp/Lab3_11.png)
+~~~
+risk_factor_spark.saveAsOrcFile("risk_factor_spark")
+~~~
 
-1.  Wait for the job to complete. The output of the job is displayed in the **Results** section. Your script does not output any result – it stores the result into a Hive table – so your Results section will be empty.
+> **Note:** For Spark 1.4.1 and higher, use
 
-![Lab3_12](/assets/hello-hdp/Lab3_12.png)
+~~~
+risk_factor_spark.write.format(“orc”).save(“risk_factor_spark”)
+~~~
 
-![Lab3_13](/assets/hello-hdp/Lab3_13.png)
+**4.5.3 Load the data into Hive table using load data command.**
 
-Click on the **Logs** dropdown menu to see what happened when your script ran. Errors will appear here.
+~~~
+hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
+~~~
 
-1.  Go back to the Ambari Hive User View and browse the data in the riskfactor table to verify that your Pig job successfully populated this table. Here is what is should look like:
+**4.5.4 Verify Data Successfully Populated Table**
 
-![Lab3_14](/assets/hello-hdp/Lab3_14.png)
+Execute a select query to verify your table has been successfully stored.You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
 
-At this point we now have our truck miles per gallon table and our risk factor table. The next step is to pull this data into Excel to create the charts for the visualization step.
+~~~
+hiveContext.sql("select * from finalresults")
+~~~
 
+## Suggested Readings <a id="suggested-readings"></a>
+
+Enhance your spark foundation with the following resources:
+- [Apache Spark](http://hortonworks.com/hadoop/spark/)
+- [Apache Spark Welcome](http://spark.apache.org/)
+- [Spark Programming Guide](http://spark.apache.org/docs/latest/programming-guide.html#passing-functions-to-spark)
+- [Learning Spark](http://www.amazon.com/Learning-Spark-Lightning-Fast-Data-Analysis/dp/1449358624/ref=sr_1_1?ie=UTF8&qid=1456010684&sr=8-1&keywords=apache+spark)
+- [Advanced Analytics with Spark](http://www.amazon.com/Advanced-Analytics-Spark-Patterns-Learning/dp/1491912766/ref=pd_bxgy_14_img_2?ie=UTF8&refRID=19EGG68CJ0NTNE9RQ2VX)
+
+## Resources <a id="resources"></a>
+- [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)

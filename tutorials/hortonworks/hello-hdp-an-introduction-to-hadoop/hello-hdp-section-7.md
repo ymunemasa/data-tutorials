@@ -1,258 +1,147 @@
-## Lab 4: Spark - Risk Factor
+# Lab 5: Reporting
 
-### Use Apache Spark to compute Driver Risk Factor
+## Data Visualization using Microsoft Excel
 
-**Note** that this step is optional and produces the same result as in Lab 3. You may continue on to the next lab if you wish.
+### Introduction
 
-**Introduction:**
+This step is optional as it requires you to have Excel and Power View, however feel free to connect from any reporting tool to do a similar exercise.   In this section, we will use Microsoft Excel Professional Plus 2013 to access the refined data. We will be using the ODBC connection.
 
-In this tutorial you will be introduced to Apache Spark. In the earlier section of lab you learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand  risk associated with every driver. This section will teach you to compute risk using Apache spark.
-
-**Prerequisites:**
+## Prerequisites
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-* Lab 0: (Hortonworks sandbox set up)
-* Lab 1: Loading sensor data into HDFS
-* Lab 2: Data Manipulation with Apache Hive
-* Allow yourself around one hour to complete this tutorial.
+*   Lab 0: (Hortonworks sandbox set up)
+*   Lab 1: Loading sensor data into HDFS
+*   Lab 2: Data Manipulation with Apache Hive
+*   Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor
+*   Please configure ODBC drivers on your system with the help of following tutorial:
+    *   [Installing and Configuring the Hortonworks ODBC driver on Windows 7](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/)
+    *   [Installing and Configuring the Hortonworks ODBC driver on Mac OS X](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/)
 
-#### **Outline:**
+*   Allow yourself around half an hour to complete this tutorial.
 
-*   Apache Spark backdrop
-*   Apache Spark basics
-*   Step 4.1: Configure Apache Spark services using Ambari
-*   Step 4.2: Create a Hive Context
-*   Step 4.3: Create RDD from Hive Context
-*   Step 4.4: RDD transformations and actions
-*   Step 4.5: Load and save data into Hive as ORC
-*   Suggested readings
+## Outline
 
-#### Background in Apache Spark
+*   [Step 5.b.1: Access Data in Microsoft Excel](#step5.b.1)
+*   [Step 5.b.2: Visualize data with Excel](#step5.b.2)
+*   [Suggested readings](#suggested-reading)
+*   [Resources](#resources)
 
-MapReduce has been useful, but the amount of time it takes for the jobs to run can at times be exhaustive. Also, MapReduce jobs only work for a specific set of use cases. There is a need for computing framework that works for a wider set of use cases.
+### Step 5.b.1: Access the Refined Data with Microsoft Excel <a id="step5.b.1"></a>
 
-Therefore Apache Spark was designed as a computing platform to be fast, general-purpose, and easy to use. It extends the MapReduce model and takes it to a whole other level. The speed comes from the in-memory computations. Applications running in memory allows for a much faster processing and response.
+The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions and these are the [Mac ODBC driver setup](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/) instructions.   Open the ODBC connection manager and open the connection you setup up. It should look like this. Click on the test button and it should report success. If the test fails you will need to troubleshoot the connection before you can go on.
 
-#### Apache Spark
+**For Mac Users**:-
 
-[Apache Spark](http://hortonworks.com/hadoop/spark/) is a fast, in-memory data processing engine with elegant and expressive development APIs in [Scala](https://spark.apache.org/docs/1.2.0/api/scala/index.html#org.apache.spark.package),[Java](https://spark.apache.org/docs/1.2.0/api/java/index.html), and [Python](https://spark.apache.org/docs/1.2.0/api/java/index.html) that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets. Spark on [Apache Hadoop YARN](http://hortonworks.com/hadoop/YARN) enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.
+1)  Open a new blank workbook. Select Data tab at the top then select “Get External Data” and then select “New Database query”.
+2)  Chose Sample Hortonworks Hive DSN and hit Ok.
 
-You can run batch application such as MapReduce types jobs or iterative algorithms that builds upon each other. You can also run interactive queries and process streaming data with your application. Spark also provides number of libraries which you can easily use to expand beyond the basic Spark capabilities such as Machine Learning algorithms, SQL, streaming, and graph processing. Spark runs on Hadoop clusters such as Hadoop YARN or Apache Mesos, or even as a standalone with its own scheduler.
+![Lab5_1](/assets/hello-hdp/Lab5_1.png)
 
-![Lab4_1](/assets/hello-hdp/Lab4_1.png)  
-Lets get started…!!
+3)  Next prompt shall ask you to enter login and password. Type “sandbox” in login and the leave the password empty. Hit Ok.
 
-**Step 4.1: Configuring Spark services using Ambari**
+![Lab5_2](/assets/hello-hdp/Lab5_2.png)
 
-1.  Log on to Ambari Dashboard and click on Actions tab at the bottom left corner. Hit Start All to ensure Spark is running. Ambari will take some time to start all services and you can monitor the progress of it.
+4)   Choose the data table avg_mileage table from the table chart on the right and hit      Add Table. avg_mileage should now appear under Query View tab on the left. Choose avg_mileage.* in the Field column. You are set to import data from your Hive table. As a final step, Hit Test!
 
-![Lab4_2](/assets/hello-hdp/Lab4_2.png)
+![Lab5_3](/assets/hello-hdp/Lab5_3.png)
 
-![Lab4_3](/assets/hello-hdp/Lab4_3.png)
+5)  Click on Return Data to import your table into an excel. Submit OK to populate your excel.
 
-2.  Close the Ambari browser and we will get running with some codes on Spark. ssh into the sandbox using root as login and hadoop as password.
+![Lab5_4](/assets/hello-hdp/Lab5_4.png)
 
-~~~
-login: root
-password: hadoop
-~~~
+6)  Once the data is placed you will see the avg_mileage table imported into your spreadsheet.
 
-Optionally, if you don’t have an SSH client installed and configured you can use the built-in web client which can be accessed from here: **http://_host_:4200** (use the same username and password provided above)
+**For Windows users**:-
 
-3.  Type the command spark-shell
+1)  Open a new blank workbook. Select Data tab at the top then select “Get External Data” and then select “From Other Data Sources”. Then at the bottom select “From Microsoft Query”. Choose your data source and ours is called Hadoop and you will then see the Query Wizard. We will import the avg_mileage table.
 
-This will load the default Spark Scala API.
+![Lab5_6](/assets/hello-hdp/Lab5_6.png)
 
-![Lab4_4](/assets/hello-hdp/Lab4_4.png)
+2)  Accept the defaults for everything and click through till you hit the Finish button. After you click on Finish, Excel will send the data request over to Hadoop. It will take awhile for this to happen. When the data is returned it will ask you to place the data in the workbook. We want to be in cell \$A\$1 like this.
 
-Notice it is already starting with Hive integration as we have preconfigured it on the Hortonworks Sandbox.
+![Lab5_6](/assets/hello-hdp/Lab5_61.png)
 
-**Step 4.2: Create a HiveContext**
+3)  The data is placed you will see the avg_mileage table imported into your spreadsheet.
 
-For improved Hive integration, HDP 2.3 offers [ORC file](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/) support for Spark. This allows Spark to read data stored in ORC files. Spark can leverage ORC file’s more efficient columnar storage and predicate pushdown capability for even faster in-memory processing. HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
+![Lab5_7](/assets/hello-hdp/Lab5_7.jpg)
 
-**Import these sql libraries:**
+### Step 5.b.2: Visualize Data with Microsoft Excel <a id="step5.b.2"></a>
 
-~~~
-import org.apache.spark.sql.hive.orc._
-import org.apache.spark.sql._
-~~~
+1)  So now we are going to insert a Power View report. We do this by selecting the “Insert” tab at the top and select “Power View Reports” button in the middle. This will create a new tab in your workbook with the data inserted in the Power View page.”
 
+![Lab5_14](/assets/hello-hdp/Lab5_14.jpg)
 
-![Lab4_5](/assets/hello-hdp/Lab4_5.png)
+2)  Select the design tab at the top and then select a column chart and use the stacked column version in the drop down menu. This will give you a bar chart. Grab the lower right of the chart and stretch it out to the full pane. Close the filter tab and the chart will expand and look like this.
 
-**Instantiate HiveContext**
+![Lab5_9](/assets/hello-hdp/Lab5_9.jpg)
 
-~~~
-val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
-~~~
+3)  So to finish off the tutorial I am going to create a map of the events reported in the geolocation table. I will show you how you can build up the queries and create a map of the data on an ad hoc basis.
 
-![Lab4_6](/assets/hello-hdp/Lab4_6.png)
+4)  For a map we need location information and a data point. Looking at the geolocation table I will simply plot the location of each of the events. I will need the driverid, city and state columns from this table. We know that the select statement will let me extract these columns. So to start off I can just create the select query in the Query Editor.
 
-
-- `sc` stands for **Spark Context**. SparkContext is the main entry point to everything Spark. It can be used to create RDDs and shared variables on the cluster. When you start up the Spark Shell, the SparkContext is automatically initialized for you with the variable `sc`.
-
-**Step 4.3: Creating a RDD from HiveContext**
-
-**What is RDD?**
-
-Spark’s primary core abstraction is called Resilient Distributed Dataset or RDD. Essentially it is just a distributed collection of elements that is parallelized across the cluster. What this means is which is that RDD is an immutable collection of objects that is partitioned and distributed across multiple physical nodes of a YARN cluster and that can be operated in parallel.
-
-There are three methods for creating a RDD:
-
-*   You can parallelize an existing collection. This means that the data already resides within Spark and can now be operated on in parallel.
-*   The second method to create a RDD, is to reference a dataset. This dataset can come from any storage source supported by Hadoop such as HDFS, Cassandra, HBase etc.
-*   The third method to create a RDD is from transforming an existing RDD to create a new RDD. We will be using the later two methods in our tutorial.
-
-#### 1. Use a simple show command to see the list of tables in Hive warehouse.
+5) Query subset of geolocation columns
 
 ~~~
-hiveContext.sql("show tables").collect.foreach(println)
+select driverid, city, state from geolocation;
 ~~~
 
-![Lab4_7](/assets/hello-hdp/Lab4_7.png)
+![Lab5_10](/assets/hello-hdp/Lab5_10.png)
 
-You will notice that geolocation table and driver mileage table that we created in earlier tutorial are already listed in Hive metastore and can be directly queried upon.
+6)  After I execute the query I see what results are returned. In a more complex query you can easily make changes to the query at this point till you get the right results. So the results I get back look like this.
 
-#### 2. Query tables to build Spark RDD
+![Lab5_11](/assets/hello-hdp/Lab5_11.png)
 
-We will do a simple select query to fetch data from geolocation and drivermileage tables to a spark variable. Getting data into Spark this way also allows to copy table schema to RDD.
+7)  Since my results look fine I now need to capture the result in a table. So I will use the select statement as part of my CTAS (create table select as) pattern. I will call the table events and the query now looks like this. 
 
-~~~
-val geolocation_temp1 = hiveContext.sql("select * from geolocation")
-~~~
-
-![Lab4_8](/assets/hello-hdp/Lab4_8.png)
+**Create table avg_mileage from existing trucks_mileage data**
 
 ~~~
-val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
+CREATE TABLE events
+STORED AS ORC
+AS
+SELECT driverid, city, state FROM geolocation;
 ~~~
 
-![Lab4_9](/assets/hello-hdp/Lab4_9.png)  
+![Lab5_12](/assets/hello-hdp/Lab5_12.png)
 
-Make sure that the RDD`s carry the exact data. You can verify through following   command
+8)  I can execute the query and the table events gets created. As we saw earlier I can go to Excel and import the table into a blank worksheet. The imported data will look like this.
 
-~~~
-geolocation_temp1.take(10) 
-drivermileage_temp1.take(10)
-~~~
+![Lab5_13](/assets/hello-hdp/Lab5_13.jpg)
 
-Both these commands will return 10 rows from respective RDD`s.
+9)  Now I can insert the PowerView tab in the Excel workbook. To get a map I just select the Design tab at the top and select the Map button in the menu bar.
 
-#### 3. Registering a Temporary table
+![Lab5_8](/assets/hello-hdp/Lab5_8.jpg)
 
-Now let’s give this RDD a name, so that we can use it in Spark SQL statements
+10)  Make sure you have a network connection because Power View using Bing to do the geocoding which translates the city and state columns into map coordinates. If we just want to see where events took place we can uncheck the driverid. The finished map looks like this.
 
-~~~
-geolocation_temp1.registerTempTable("geolocation_temp1")
-drivermileage_temp1.registerTempTable("drivermileage_temp1")
-~~~
+![Lab5_15](/assets/hello-hdp/Lab5_15.jpg)
 
-**Step 4.4: RDD transformations and Actions**
+We’ve shown how the Hortonworks Data Platform (HDP) can store and analyze geolocation data. In addition I have shown you a few techniques on building your own queries. You can easily plot risk factor and miles per gallon as bar charts. I showed you the basics of creating maps. A good next step is to only plot certain types of events. Using the pattern I gave you it is pretty straightforward to extract the data and visualize it in Excel.
 
-Typically, RDDs are instantiated by loading data from a shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat on a YARN cluster.
+## Next Steps: Try These
 
-Once an RDD is instantiated, you can apply a [series of operations](https://spark.apache.org/docs/1.2.0/programming-guide.html#rdd-operations). All operations fall into one of two types:[transformations](https://spark.apache.org/docs/1.2.0/programming-guide.html#transformations) or [actions](https://spark.apache.org/docs/1.2.0/programming-guide.html#actions).
+Congratulations on finishing a comprehensive series on Hadoop and HDP. By now you should have a good understanding on fundamentals of Hadoop and its related ecosystem such as Map Reduce, YARN, HDFS, Hive, Pig and Spark. As a Hadoop practitioner you can choose three basic personas to build upon your skill:
 
-*   **Transformation** operations, as the name suggests, create new datasets from an existing RDD and build out the processing DAG that can then be applied on the partitioned dataset across the YARN cluster. Transformations do not return a value. In fact, nothing is evaluated during the definition of these transformation statements. Spark just creates these Direct Acyclic Graphs or DAG, which will only be evaluated at runtime. We call this lazy evaluation.
-*   An **Action** operation, on the other hand, executes DAG and returns a value.
+*   Hadoop Developer- [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)
+*   Hadoop Administrator-[Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-admins)
+*   Data Scientist- [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-analysts)
 
-#### 1.  Querying against the table
+### Case Studies:
 
-Now that our schema’s RDD with data has a name, we can use Spark SQL commands to query it. Remember the table below is not a Hive table, it is just a RDD we are querying with SQL.
+Learn more about Hadoop through these case studies:
 
-*   Here we will try to perform iteration and filter operation. First, we need to filter drivers that have non- normal events associated to them and then count the number for non- normal events for each driver.
+*   Analytics- [New types of data and new opportunities](http://hortonworks.com/solutions/advanced-analytic-apps/)
+*   Data Architecture Optimization: [Reduce cost by moving data and processing to Hadoop](http://hortonworks.com/solutions/data-architecture-optimization/)
+*   Industry specific: [Examples of Hadoop across Industries](http://hortonworks.com/industry/)
 
-~~~
-val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from             geolocation_temp1  where event!='normal' group by driverid")
-~~~
+## Suggested Readings <a id="suggested-reading"></a>
 
-- As stated earlier about RDD transformations, select operation is a RDD transformation and therefore does not return anything.
+*   [The Definitive Guide by O`Reilly](http://hadoopbook.com/)
+*   [Hadoop for Dummies](http://www.wiley.com/WileyCDA/WileyTitle/productCd-1118607554.html)
 
-*   The resulting table will have count of total non normal events associated to each driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
-
-
-~~~
-geolocation_temp2.registerTempTable("geolocation_temp2")
-~~~
-
-*   You can view the result by doing an action operation on RDD.
-
-~~~
-geolocation_temp2.collect.foreach(println)
-~~~
-
-![Lab4_11](/assets/hello-hdp/Lab4_11.png)
-
-1.  **Perform join operation**
-
-In this section we will perform a join operation geolocation_temp2 table has details of drivers and count of their respective non-normal events. drivermileage_temp1 table has details of total miles travelled by each driver.
-
-*   We will join two tables on common column, which in our case is driverid.
-
-~~~
-val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geolocation_temp2 a,drivermileage_temp1 b where a.driverid=b.driverid")
-~~~
-
-
-![Lab4_12](/assets/hello-hdp/Lab4_12.png)
-
-*   The resulting data set will give us total miles and total non normal events for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
-
-~~~
-joined.registerTempTable("joined")
-~~~
-
-*   You can view the result by doing an action operation on RDD.
-
-~~~
-joined.collect.foreach(println)
-~~~
-
-![Lab4_13](/assets/hello-hdp/Lab4_13.png)
-
-1.  **Compute Driver Risk Factor**
-
-In this section we will associate a driver risk factor with every driver. Driver risk factor will be calculated by dividing total miles travelled by non normal event occurrences.
-
-~~~
-val risk_factor_spark=hiveContext.sql("select driverid, totmiles,occurance, totmiles/occurance riskfactor from joined")
-~~~
-
-![Lab4_14](/assets/hello-hdp/Lab4_14.png)
-
-*   The resulting data set will give us total miles and total non normal events and what is a risk for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
-
-~~~
-risk_factor_spark.registerTempTable("risk_factor_spark")
-~~~
-
-*   View the results
-
-~~~
-risk_factor_spark.collect.foreach(println)
-~~~
-
-![Lab4_15](/assets/hello-hdp/Lab4_15.png)
-
-**Step 4.5: Load and Save Data into Hive as ORC**
-
-In this section we will try to store data in orc format in Hive from Spark.ORC is a self-describing type-aware columnar file format designed for Hadoop workloads. It is optimized for large streaming reads and with integrated support for finding required rows fast. Storing data in a columnar format lets the reader read, decompress, and process only the values required for the current query. Because ORC files are type aware, the writer chooses the most appropriate encoding for the type and builds an internal index as the file is persisted.
-
-Predicate pushdown uses those indexes to determine which stripes in a file need to be read for a particular query and the row indexes can narrow the search to a particular set of 10,000 rows. ORC supports the complete set of types in Hive, including the complex types: structs, lists, maps, and unions.
-
-#### Create an ORC table
-
-Create a table and store it as ORC. Specifying as orc at the end of the SQL statement below ensures that the Hive table is stored in the ORC format.
-
-~~~
-hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
-~~~
-
-*   ** Load data into ORC table**
-
-Before we load the data into hive table that we created above, we will have to convert our data file into orc format too.
+## Resources <a id="resources"></a>
+*   [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
 
 ~~~
 risk_factor_spark.write.orc("risk_factor_spark")

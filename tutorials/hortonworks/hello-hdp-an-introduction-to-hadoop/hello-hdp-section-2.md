@@ -1,22 +1,38 @@
-## Concepts: Hadoop & HDP
+# Concepts
 
-### **Introduction**
+### Introduction
 
-In this module you will learn about Apache Hadoop and what makes it scale to large data sets. We will also talk about various components of Hadoop ecosystem that make Apache Hadoop enterprise ready in form of Hortonworks Data Platform (HDP) distribution. The module discusses Apache Hadoop, its capabilities as a data platform and how the core of Hadoop and its surrounding ecosystem solution vendors provides the enterprise requirements to integrate alongside the Data Warehouse and other enterprise data systems as part of a modern data architecture, and as a step on the journey toward delivering an enterprise ‘Data Lake’
+In this tutorial, we will explore important concepts that will strengthen your foundation in the Hortonworks Data Platform (HDP). Apache Hadoop is a layered structure to process and store massive amounts of data. In our case, Apache Hadoop will be recognized as an enterprise solution in the form of HDP. At the base of HDP exists our data storage environment known as the hadoop distributed file system. When data files are accessed by Hive, Pig or another coding language, YARN is the Data Operating System that enables them to analyze, manipulate or process that data. HDP includes various components that open new opportunities and efficiencies in healthcare, finance, insurance and other industries that impact people.
 
-#### **Goals of this module**
+## Pre-Requisites
+
+- [Hortonworks Sandbox 2.4](http://hortonworks.com/products/hortonworks-sandbox/#install) (installed and running)
+
+## Outline
+
+1. [Concepts: Hadoop & HDP](#concepts-hadoop-hdp)
+2. [Concepts: HDFS](#concepts-hdfs)
+3. [Concepts: MapReduce & YARN](#concepts-mapreduce-yarn)
+4. [Concepts: Hive and Pig](#concepts-hive-pig)
+
+
+## 1st Concepts: Hadoop & HDP <a id="concepts-hadoop-hdp"></a>
+
+### 1.1 Introduction
+
+In this module you will learn about Apache Hadoop and what makes it scale to large data sets. We will also talk about various components of Hadoop ecosystem that make Apache Hadoop enterprise ready in form of Hortonworks Data Platform (HDP) distribution. This module discusses Apache Hadoop, its capabilities as a data platform and how the core of Hadoop and its surrounding ecosystem solution vendors provides the enterprise requirements to integrate alongside the Data Warehouse and other enterprise data systems as part of a modern data architecture, and as a step on the journey toward delivering an enterprise ‘Data Lake’
+
+## 1.2 Goals of this module
 
 *   Understanding Hadoop.
 *   Understanding five pillars of HDP
 *   Understanding HDP components and their purpose.
 
-**Apache Hadoop:**
+### 1.3a Apache Hadoop
 
 Apache Hadoop® is an open source framework for distributed storage and processing of large sets of data on commodity hardware. Hadoop enables businesses to quickly gain insight from massive amounts of structured and unstructured data. Numerous Apache Software Foundation projects make up the services required by an enterprise to deploy, integrate and work with Hadoop.
 
 - Hortonworks Blog : [Understanding Hadoop 2.0](http://hortonworks.com/blog/understanding-hadoop-2-0/)
-
-
 
 The base Apache Hadoop framework is composed of the following modules:
 
@@ -62,7 +78,7 @@ Apache Hadoop can be useful across a range of use cases spanning virtually every
 
 <iframe width="500" height="375" src="https://www.youtube.com/embed/6UtD53BzDNk?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player0"></iframe>
 
-### **Hortonworks Data Platform (HDP)**
+### 1.3b Hortonworks Data Platform (HDP)
 
 Hortonworks Data Platform is a packaged software hadoop distribution that aim to ease deployment and management of Hadoop clusters compared with simply downloading the various Apache code bases and trying to run them together a system. Architected, developed, and built completely in the open, Hortonworks Data Platform (HDP) provides an enterprise ready data platform that enables organizations to adopt a Modern Data Architecture.
 
@@ -72,7 +88,7 @@ The Hortonworks **Sandbox** is a single node implementation of the Hortonworks D
 
 [Download](http://hortonworks.com/download/)
 
-**Suggested Readings**
+## 1.4 Suggested Readings
 
 
 - HDFS is one of the 4 components of [Apache Hadoop](http://hadoop.apache.org/) the other 3 are Hadoop Common, [Hadoop YARN](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html) and [Hadoop MapReduce](http://hortonworks.com/hadoop/mapreduce/).
@@ -86,18 +102,18 @@ The Hortonworks **Sandbox** is a single node implementation of the Hortonworks D
 - [Understanding Hadoop 2.0](http://hortonworks.com/blog/understanding-hadoop-2-0/)
 
 
-## Concepts: HDFS
+## 2nd Concepts: HDFS <a id="concepts-hdfs"></a>
 
-### **Introduction**
+### 2.1 Introduction
 
 A single physical machine gets saturated with its storage capacity as the data grows. Thereby comes impending need to partition your data across separate machines. This type of File system that manages storage of data across a network of machines is called Distributed File Systems. [HDFS](http://hortonworks.com/blog/thinking-about-the-hdfs-vs-other-storage-technologies/) is a core component of Apache Hadoop and is designed to store large files with streaming data access patterns, running on clusters of commodity hardware. With Hortonworks Data Platform HDP 2.2, HDFS is now expanded to support [heterogeneous storage](http://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)  media within the HDFS cluster.
 
-**Goals of this module**
+## 2.2 Goals of this module
 
 *   Understanding HDFS architecture
 *   Understanding Hortonworks Sandbox Amabri File User View
 
-**Hadoop Distributed File System**
+### 2.3 Hadoop Distributed File System
 
 HDFS is a distributed file system that is designed for storing large data files. HDFS is a Java-based file system that provides scalable and reliable data storage, and it was designed to span large clusters of commodity servers. HDFS has demonstrated production scalability of up to 200 PB of storage and a single cluster of 4500 servers, supporting close to a billion files and blocks. HDFS is a scalable, fault-tolerant, distributed storage system that works closely with a wide variety of concurrent data access applications, coordinated by YARN. HDFS will “just work” under a variety of physical and systemic circumstances. By distributing storage and computation across many servers, the combined storage resource can grow linearly with demand while remaining economical at every amount of storage.
 
@@ -124,7 +140,7 @@ With [next generation HDFS data architecture](http://hortonworks.com/blog/hdfs-2
 
 <iframe width="500" height="281" src="https://www.youtube.com/embed/1_ly9dZnmWc?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player1"></iframe>
 
-**Ambari Files User View on Hortonworks Sandbox**
+#### 2.3.1 Ambari Files User View on Hortonworks Sandbox
 
 Ambari Files User View
 
@@ -132,7 +148,7 @@ Ambari Files User View
 
 Ambari Files User View provides a user friendly interface to upload, store and move data. Underlying all components in Hadoop is the Hadoop Distributed File System([HDFS](http://hortonworks.com/hadoop/hdfs/)™).  This is the foundation of the Hadoop cluster. The HDFS file system manages how the datasets are stored in the Hadoop cluster. It is responsible for distributing the data across the datanodes, managing replication for redundancy and administrative tasks like adding, removing and recovery of data nodes.
 
-#### **Suggested Readings**
+## 2.4 Suggested Readings
 
 - HDFS is one of the 4 components of [Apache Hadoop](http://hadoop.apache.org/) the other 3 are Hadoop Common, [Hadoop YARN](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html) and [Hadoop MapReduce](http://hortonworks.com/hadoop/mapreduce/).
 - To learn more about HDFS watch the following [HDFS introduction video](https://www.youtube.com/watch?v=1_ly9dZnmWc).
@@ -152,20 +168,20 @@ Ambari Files User View provides a user friendly interface to upload, store and m
 - [NameNode High Availability in HDP 2.0](http://hortonworks.com/blog/namenode-high-availability-in-hdp-2-0/)  
 - [Introducing… Tez: Accelerating processing of data stored in HDFS](http://hortonworks.com/blog/introducing-tez-faster-hadoop-processing/)
 
-## Concepts: MapReduce & YARN
+## 3rd Concepts: MapReduce & YARN <a id="concepts-mapreduce-yarn"></a>
 
-### **Introduction**
+### 3.1 Introduction
 
 Cluster computing faces several challenges such as how to store data persistently and keep it available if nodes fail or how to deal with node failures during a long running computation. Then there is network bottleneck which delays the time of processing data. MapReduce offers a solution by bring computation close to data thereby minimizing data movement. It is a simple programming model designed for process large volumes of data in parallel by dividing the job into a set of independent tasks.
 
 The biggest limitation with MapReduce programming is that map and reduce jobs are not stateless. This means that Reduce jobs have to wait for map jobs to be completed first. This limits maximum parallelism and therefore [YARN](http://hortonworks.com/blog/philosophy-behind-yarn-resource-management/) was born as a generic resource management and distributed application framework.
 
-**Goals of the Module**
+## 3.2 Goals of the Module
 
 *   Understanding Map and Reduce jobs.
 *   Understanding YARN
 
-[**Apache MapReduce**](http://hortonworks.com/hadoop/mapreduce/)
+### [3.3a Apache MapReduce](http://hortonworks.com/hadoop/mapreduce/)
 
 MapReduce is the key algorithm that the Hadoop data processing engine uses to distribute work around a cluster. A MapReduce job splits a large data set into independent chunks and organizes them into key, value pairs for parallel processing. This parallel processing improves the speed and reliability of the cluster, returning solutions more quickly and with greater reliability.
 
@@ -189,7 +205,7 @@ The Apache Hadoop projects provide a series of tools designed to solve big data 
 
 ![MapR_2](/assets/hello-hdp/MapR_2.png)
 
-### [Apache YARN](http://hortonworks.com/blog/apache-hadoop-yarn-background-and-an-overview/) **(Yet Another Resource Negotiator):**
+### [3.3b Apache YARN](http://hortonworks.com/blog/apache-hadoop-yarn-background-and-an-overview/)(Yet Another Resource Negotiator)
 
 Hadoop HDFS is the data storage layer for Hadoop and MapReduce was the data-processing layer in Hadoop 1x. However, the MapReduce algorithm, by itself, isn’t sufficient for the very wide variety of use-cases we see Hadoop being employed to solve. Hadoop 2.0 presents YARN, as a generic resource-management and distributed application framework, whereby, one can implement multiple data processing applications customized for the task at hand. The fundamental idea of YARN is to split up the two major responsibilities of the JobTracker i.e. resource management and job scheduling/monitoring, into separate daemons: a global **ResourceManager** and per-application **ApplicationMaster** (AM).
 
@@ -211,7 +227,7 @@ One of the crucial implementation details for MapReduce within the new YARN **sy
 
 <iframe width="500" height="281" src="https://www.youtube.com/embed/wlouNFscZS0?start=147&amp;feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player3"></iframe>
 
-#### Suggested Readings
+## 3.4 Suggested Readings
 
 - HDFS is one of the 4 components of [Apache Hadoop](http://hadoop.apache.org/) the other 3 are Hadoop Common, [Hadoop YARN](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html) and [Hadoop MapReduce](http://hortonworks.com/hadoop/mapreduce/).  To learn more about HDFS watch the following [HDFS introduction video](https://www.youtube.com/watch?v=1_ly9dZnmWc).  To learn more about YARN watch the following [YARN introduction video](https://www.youtube.com/watch?v=ZYXVNxmMchc&list=PL2y_WpKCCNQc-7RJNoYym4_g7EZb3yzJW).
 
@@ -235,19 +251,19 @@ One of the crucial implementation details for MapReduce within the new YARN **sy
 [Better SLAs via Resource-preemption in YARN’s Capacity Scheduler](http://hortonworks.com/blog/better-slas-via-resource-preemption-in-yarns-capacityscheduler/)
 
 
-## Concepts: Hive and Pig
+## 4th Concepts: Hive and Pig <a id="concepts-hive-pig"></a>
 
-### **Introduction: Apache Hive**
+### 4.1a Introduction: Apache Hive
 
 Hive is a SQL like query language that enables analysts familiar with SQL to run queries on large volumes of data.  Hive has three main functions: data summarization, query and analysis. Hive provides tools that enable easy data extraction, transformation and loading (ETL).
 
-**Goals of the module**
+## 4.2a Goals of the module
 
 *   Understanding Apache Hive
 *   Understanding Apache Tez
 *   Understanding Ambari Hiver User Views on Hortonworks Sandbox
 
-[**Apache Hive**](https://hive.apache.org/)**™:**
+### [4.3a Apache Hive](https://hive.apache.org/)**™**
 
 Data analysts use Hive to explore, structure and analyze that data, then turn it into business insight. Hive implements a dialect of SQL (Hive QL) that focuses on analytics and presents a rich set of SQL semantics including OLAP functions, sub-queries, common table expressions and more. Hive allows SQL  
 developers or users with SQL tools to easily query, analyze and process data stored in Hadoop.Hive also allows programmers familiar with the MapReduce framework to plug in their custom mappers and reducers to perform more sophisticated analysis that may not be supported by the built-in capabilities of the language.
@@ -263,13 +279,13 @@ Here are some advantageous characteristics of Hive for enterprise SQL in Hadoop:
 | Fast    | Interactive response times, even over huge datasets |
 | Scalable and Extensible| As data variety and volume grows, more commodity machines can be added, without a corresponding reduction in performance|
 
-**How Hive Works**
+#### 4.3.1a How Hive Works
 
 The tables in Hive are similar to tables in a relational database, and data units are organized in a taxonomy from larger to more granular units. Databases are comprised of tables, which are made up of partitions. Data can be accessed via a simple query language and Hive supports overwriting or appending data.
 
 Within a particular database, data in the tables is serialized and each table has a corresponding Hadoop Distributed File System (HDFS) directory. Each table can be sub-divided into partitions that determine how data is distributed within sub-directories of the table directory. Data within partitions can be further broken down into buckets.
 
-**Components of Hive**
+#### 4.3.2a Components of Hive
 
 *   [**HCatalog**](https://cwiki.apache.org/confluence/display/Hive/HCatalog) is a component of Hive. It is a table and storage management layer for Hadoop that enables users with different data processing tools — including Pig and MapReduce — to more easily read and write data on the grid. HCatalog holds a set of files paths and metadata about data in a Hadoop cluster. This allows scripts, MapReduce and Tez, jobs to be decoupled from data location and metadata like the schema. Additionally, since HCatalog also supports tools like Hive and Pig, the location and metadata can be shared between tools. Using the open APIs of HCatalog external tools that want to integrate, such as Teradata Aster, can also use leverage file path location and metadata in HCatalog.
 
@@ -281,7 +297,7 @@ Here is a short video introduction on Hive:
 
 <iframe width="500" height="281" src="https://www.youtube.com/embed/Pn7Sp2-hUXE?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player4"></iframe>
 
-[**Apache Tez**](https://tez.apache.org/)**:**
+#### [4.3.3a Apache Tez](https://tez.apache.org/)
 
 Apache™ Tez is an extensible framework for building high performance batch and interactive data processing applications, coordinated by YARN in Apache Hadoop. Tez improves the MapReduce paradigm by dramatically improving its speed, while maintaining MapReduce’s ability to scale to petabytes of data. Important Hadoop ecosystem projects like Apache Hive and Apache Pig use Apache Tez, as do a growing number of third party data access applications developed for the broader Hadoop ecosystem.
 
@@ -299,7 +315,7 @@ Here is a short video introduction on Tez.
 
 <iframe width="500" height="281" src="https://www.youtube.com/embed/cPSfA1bhgVA?feature=oembed&amp;start=50&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player5"></iframe>
 
-### **Stinger and Stinger.next**
+#### 4.3.4a Stinger and Stinger.next
 
 The Stinger Initiative was started to enable Hive to support an even broader range of use cases at truly Big Data scale: bringing it beyond its Batch roots to support interactive queries – all with a common SQL access layer.
 
@@ -307,54 +323,58 @@ Stinger.next is a continuation of this initiative focused on even further enhanc
 
 ![Hive_4](/assets/hello-hdp/Hive_4.png)
 
-**Ambari Hive User Views on Hortonworks Sandbox**
+#### 4.3.5a Ambari Hive User Views on Hortonworks Sandbox
 
 To make it easy to interact with Hive we use a tool in the Hortonworks Sandbox called the Ambari Hive User View.   Ambari Hive User View provides an interactive interface to Hive.   We can create, edit, save and run queries, and have Hive evaluate them for us using a series of MapReduce jobs or Tez jobs.
 
 Let’s now open the Ambari Hive User View and get introduced to the environment, go to the Ambari User VIew icon and select Hive :
 
-![Screen Shot 2015-07-21 at 10.10.18 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.10.18-AM.png)
+![Screen Shot 2016-02-17 at 7.10.18 PM](/assets/hello-hdp/hive_view_icon.png)
 
 Ambari Hive User View
 
-![Hive_6](/assets/hello-hdp/Hive_6.png)
+![Hive_6](/assets/hello-hdp/hiveUI_6.png)
 
 Now let’s take a closer look at the SQL editing capabilities in the User View:
 
-1.  There are four tabs to interact with SQL:
+1.  There are five tabs to interact with SQL:
     1.  **Query**: This is the interface shown above and the primary interface to write, edit and execute new SQL statements
     2.  **Saved Queries**: You can save your favorite queries and quickly have access to them to rerun or edit.
     3.  **History**: This allows you to look at past queries or currently running queries to view, edit and rerun.  It also allows you to see all SQL queries you have authority to view.  For example, if you are an operator and an analyst needs help with a query, then the Hadoop operator can use the History feature to see the query that was sent from the reporting tool.
     4.  **UDF**s:  Allows you to define UDF interfaces and associated classes so you can access them from the SQL editor.
+    5.  **Upload Table**: Allows you to upload your hive query tables to your preferred database and appears instantly in the Query Editor for execution.
 2.  **Database Explorer:**  The Database Explorer helps you navigate your database objects.  You can either search for a database object in the Search tables dialog box, or you can navigate through Database -> Table -> Columns in the navigation pane.
 3.  The principle pane to write and edit SQL statements. This editor includes content assist via **CTRL + Space** to help you build queries. Content assist helps you with SQL syntax and table objects.
-4.  Once you have created your SQL statement you have 3 options:
+4.  Once you have created your SQL statement you have 4 options:
     1.  **Execute**: This runs the SQL statement.
     2.  **Explain**: This provides you a visual plan, from the Hive optimizer, of how the SQL statement will be executed.
     3.  **Save as**:  Allows you to persist your queries into your list of saved queries.
+    4.  **Kill Session**: Terminates the SQL statement.
 5.  When the query is executed you can see the Logs or the actual query results.
     1.  **Logs:** When the query is executed you can see the logs associated with the query execution.  If your query fails this is a good place to get additional information for troubleshooting.
     2.  **Results**: You can view results in sets of 50 by default.
-6.  There are four sliding views on the right hand side with the following capabilities, which are in context of the tab you are in:
+6.  There are six sliding views on the right hand side with the following capabilities, which are in context of the tab you are in:
     1.  **Query**: This is the default operation,which allows you to write and edit SQL.
     2.  **Settings**:  This allows you to set properties globally or associated with an individual query.
-    3.  **Visual Explain**: This will generate an explain for the query.  This will also show the progress of the query.
-    4.  **TEZ**: If you use TEZ as the query execution engine then you can view the DAG associated with the query.  This integrates the TEZ User View so you can check for correctness and helps with performance tuning by visualizing the TEZ jobs associated with a SQL query.
-    5.  **Notifications**: This is how to get feedback on query execution.
+    3.  **Data Visualization**: Allows you to visualize your numeric data through different charts.
+    4.  **Visual Explain**: This will generate an explain for the query.  This will also show the progress of the query.
+    5.  **TEZ**: If you use TEZ as the query execution engine then you can view the DAG associated with the query.  This integrates the TEZ User View so you can check for correctness and helps with performance tuning by visualizing the TEZ jobs associated with a SQL query.
+    6.  **Notifications**: This is how to get feedback on query execution.
 
 The Apache Hive project provides a data warehouse view of the data in HDFS. Using a SQL dialect, [HiveQL](https://cwiki.apache.org/confluence/display/Hive/LanguageManual) (HQL), Hive lets you create summarizations of your data and perform ad-hoc queries and analysis of large datasets in the Hadoop cluster. The overall approach with Hive is to project a table structure on the dataset and then manipulate it with SQL.   The notion of projecting a table structure on a file is often referred to as [Schema-On-Read](http://hortonworks.com/blog/hivehcatalog-data-geeks-big-data-glue/).   Since you are using data in HDFS, your operations can be scaled across all the datanodes and you can manipulate huge datasets.
 
-### **Introduction: Apache Pig**
+=================================
+### 4.1b Introduction: Apache Pig
 
 MapReduce allows allows you to specify map and reduce functions, but working out how to fit your data processing into this pattern may sometimes require you to write multiple MapReduce stages. With Pig, data structures are much richer and the transformations you can apply to data are much more powerful.
 
-**Goals of this Module**
+## 4.2b Goals of this Module
 
 *   Understanding Apache Pig
 *   Understanding Apache Pig on Tez
 *   Understanding Ambari Pig User Views on Hortonworks Sandbox
 
-[**Apache Pig**](https://pig.apache.org/)**™**
+### [4.3b Apache Pig](https://pig.apache.org/)**™**
 
 Apache Pig allows Apache Hadoop users to write complex MapReduce transformations using a simple scripting language called Pig Latin. Pig translates the Pig Latin script into MapReduce so that it can be executed within YARN for access to a single dataset stored in the Hadoop Distributed File System (HDFS).
 
@@ -376,7 +396,7 @@ Please refer the following video on Pig for more clarity:
 
 <iframe width="500" height="281" src="https://www.youtube.com/embed/PQb9I-8986s?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player6"></iframe>
 
-**How Pig Works**
+#### 4.3.1b How Pig Works
 
 Pig runs on Apache Hadoop YARN and makes use of MapReduce and the Hadoop Distributed File System (HDFS). The language for the platform is called Pig Latin, which abstracts from the Java MapReduce idiom into a form similar to SQL. While SQL is designed to query the data, Pig Latin allows you to write a data flow that describes how your data will be transformed (such as aggregate, join and sort).
 
@@ -387,11 +407,11 @@ The user can run Pig in two modes, using either the “pig” command or the “
 *   **MapReduce Mode.** This is the default mode, which requires access to a Hadoop cluster. The cluster may be a pseudo- or fully distributed one.
 *   **Local Mode.** With access to a single machine, all files are installed and run using a local host and file system
 
-**Ambari Pig User Views on Hortonworks Sandbox**:
+#### 4.3.2b Ambari Pig User Views on Hortonworks Sandbox
 
 To get to the Ambari Pig User View on Sandbox, click on the User Views icon at top right and select **Pig**:
 
-![Screen Shot 2015-07-21 at 10.12.41 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.12.41-AM.png)
+![Screen Shot 2016-02-17 at 7.12.41 PM](/assets/hello-hdp/pig_view_icon.png)
 
 This will bring up the Ambari Pig User View interface. Your Pig View does not have any scripts to display, so it will look like the following:
 
@@ -403,7 +423,7 @@ The following screenshot shows and describes the various components and features
 
 ![Pig_3](/assets/hello-hdp/Pig_3.png)
 
-**Suggested Readings**
+## 4.4 Suggested Readings
 
 
 - [Apache Ambari](https://ambari.apache.org/) is an open source and open community based web based tool for Hadoop operations which has been extended via [Ambari User Views](https://cwiki.apache.org/confluence/display/AMBARI/Views) to provide a growing list of developer tools as User Views.
