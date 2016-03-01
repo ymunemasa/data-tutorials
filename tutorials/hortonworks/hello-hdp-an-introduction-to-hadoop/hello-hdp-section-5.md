@@ -39,7 +39,9 @@ Pig scripts are translated into a series of MapReduce jobs that are run on the A
 
 Now we have refined the truck data to get the average mpg  for each truck. The next task is to compute the risk factor for each driver which is the total miles driven/abnormal events. We can get the event information from the geolocation table.
 
+
 ![Lab3_1](/assets/hello-hdp/Lab3_1.png)
+
 
 If we look at the truck_mileage table, we we have the driverid and the number of miles for each trip. To get the total miles for each driver, we can group those records by driverid and then sum the miles.
 
@@ -60,7 +62,9 @@ GROUP BY driverid;
 
 To view data, click the **Load sample data** icon in the Database Explorer next to drivermileage. The results should look like:
 
+
 ![Lab3_2](/assets/hello-hdp/Lab3_2.png)
+
 
 #### 3.1.3 Create Table riskfactor from Existing trucks_mileage Data
 
@@ -224,6 +228,7 @@ store final_data into 'riskfactor' using org.apache.hive.hcatalog.pig.HCatStorer
 
 ![Lab3_8](/assets/hello-hdp/Lab3_8.png)
 
+
 Save the file riskfactor.pig by clicking the **Save** button in the left-hand column.
 
 ### Step 3.3: Quick Recap <a id="step3.3"></a>
@@ -242,6 +247,7 @@ You need to configure the Pig Editor to use HCatalog so that the Pig script can 
 
 **Note** that this argument is **case sensitive**. It should be typed exactly "-useHCatalog".
 
+
 ![Lab3_9](/assets/hello-hdp/Lab3_9.png)
 
 The **Arguments** section of the Pig View should now look like the following:  
@@ -253,15 +259,18 @@ The **Arguments** section of the Pig View should now look like the following:
 
 Click Execute on Tez checkbox and finally hit the blue **Execute** button to submit the job. Pig job will be submitted to the cluster. This will generate a new tab with a status of the running of the Pig job and at the top you will find a progress bar that shows the job status.
 
+
 ![Lab3_11](/assets/hello-hdp/Lab3_11.png)
 
 #### 3.4.2 View Results Section  
 
 Wait for the job to complete. The output of the job is displayed in the **Results** section. Notice your script does not output any result – it stores the result into a Hive table – so your Results section will be empty.
 
+
 ![Lab3_12](/assets/hello-hdp/Lab3_12.png)
 
 ![Lab3_13](/assets/hello-hdp/Lab3_13.png)
+
 
 Click on the **Logs** dropdown menu to see what happened when your script ran. Errors will appear here.
 
@@ -269,7 +278,9 @@ Click on the **Logs** dropdown menu to see what happened when your script ran. E
 
 Go back to the Ambari Hive User View and browse the data in the **riskfactor** table to verify that your Pig job successfully populated this table. Here is what is should look like:
 
+
 ![Lab3_14](/assets/hello-hdp/Lab3_14.png)
+
 
 At this point we now have our truck miles per gallon table and our risk factor table. The next step is to pull this data into Excel to create the charts for the visualization step.
 
