@@ -62,11 +62,11 @@ After starting the service and turning on the demo LDAP you should see that Amba
 
 ![](../../../assets/securing-hadoop-with-knox/02_knox_started.png)
 
-Now that knox has started we can start trying to route requests through it. For this next section you're going to need access to a terminal which utilizes the `curl` command. 
+Now that Knox has started we can start trying to route requests through it. For this next section you're going to need access to a terminal which utilizes the `curl` command. 
 
 We're going to need to SSH into our Sandbox. You can either use a local shell, the shell from VirtualBox or SSH in using the Shell-In-A-Box at `http://_host_:4200`
 
-**Shell in a Box**: `http://<ip_addr>:4200`
+**Shell in a Box**: `http://_host_:4200`
 
 **SSH**
 
@@ -78,9 +78,9 @@ We're going to need to SSH into our Sandbox. You can either use a local shell, t
 
 ### Step 2:
 
-Let’s check if the Hadoop Cluster is accessible via WebHDFS. Note that this request is directly accessing the WebHDFS API.
+Let’s check if the Hadoop Cluster is accessible via WebHDFS. 
 
-This means that we are sending our request directly to WebHDFS without any security or encryption.
+Note that this request is directly accessing the WebHDFS API. This means that we are sending our request directly to WebHDFS without any security or encryption.
 
 ~~~
 curl -iku guest:guest-password -X GET 'http://sandbox:50070/webhdfs/v1/?op=LISTSTATUS'
@@ -94,9 +94,9 @@ Now let’s check if we can access Hadoop Cluster via Apache Knox services. Usin
 
 Not only do we get the added benefit of the extra layer of protection with encryption, but we also get to plug in the LDAP server which many organizations already utilize for authentication
 
-~~~
-curl -iku guest:guest-password -X GET 'https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS'
-~~~
+
+	curl -iku guest:guest-password -X GET 'https://localhost:8443/gateway/default/webhdfs/v1/?op=LISTSTATUS'
+
 
 This requests routes through the Knox Gateway. Note that here we use the HTTPS protocol meaning our request is completely encrypted. This is great if, for example, you wanted to access Hadoop services via an insecure medium such as the internet.
 
@@ -106,12 +106,12 @@ Let’s work on an End to end implementation use case using Apache Knox Service.
 
 **NOTE:** If you get error “{“error”:”User: hcat is not allowed to impersonate guest”}”, do 
 
-`usermod -a -G users guest` 
+	usermod -a -G users guest
  
 
 Let’s go!
 
-`cd /usr/hdp/current/knox-server` (for HDP 2.4)
+	cd /usr/hdp/current/knox-server
 
 You could create the directories `knox-sample`, `knox-sample/input`, and `knox-sample/lib` as follows:
 
@@ -181,7 +181,7 @@ Remember, Knox is a great way to remotely access API's form your Hadoop cluster 
 
 ### Links and Further Reading
 
-- [Hortonworks Community Connection](https://community.hortonworks.com/search.html?f=&type=question&redirect=search%2Fsearch&sort=relevance&q=knox)
+- [Knox on Hortonworks Community Connection](https://community.hortonworks.com/search.html?f=&type=question&redirect=search%2Fsearch&sort=relevance&q=knox)
 - [Apache Knox Site](http://knox.apache.org)
 - [How to set up Apache Knox](http://kminder.github.io/knox/2015/11/18/setting-up-knox.html)
 - [Adding a Service to Knox](http://kminder.github.io/knox/2015/11/16/adding-a-service-to-knox.html)
