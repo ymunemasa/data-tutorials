@@ -28,7 +28,6 @@ The tutorial is a part of a series of hands on tutorials to get you started on H
 *   [Step 4.4: RDD transformations and actions](#step4.4)
 *   [Step 4.5: Load and save data into Hive as ORC](#step4.5)
 *   [Suggested Readings](#suggested-readings)
-*   [Resources](#resources)
 
 ## Background in Apache Spark <a id="apache-spark-backdrop"></a>
 
@@ -293,5 +292,3 @@ Enhance your spark foundation with the following resources:
 - [Learning Spark](http://www.amazon.com/Learning-Spark-Lightning-Fast-Data-Analysis/dp/1449358624/ref=sr_1_1?ie=UTF8&qid=1456010684&sr=8-1&keywords=apache+spark)
 - [Advanced Analytics with Spark](http://www.amazon.com/Advanced-Analytics-Spark-Patterns-Learning/dp/1491912766/ref=pd_bxgy_14_img_2?ie=UTF8&refRID=19EGG68CJ0NTNE9RQ2VX)
 
-## Resources <a id="resources"></a>
-- [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
