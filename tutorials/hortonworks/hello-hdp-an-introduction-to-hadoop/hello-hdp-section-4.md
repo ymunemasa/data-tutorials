@@ -25,7 +25,6 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   [Step 2.5: Review Hive Settings](#review-hive-settings)
 *   [Step 2.6: Analyze Truck Data](#analyze-truck-data)
 *   [Suggested readings](#suggested-readings)
-*   [Resources](#resources)
 
 ## Hive <a id="hive-basics"></a>
 
@@ -457,5 +456,3 @@ Augment your hive foundation with the following resources:
 - [Programming Hive](http://www.amazon.com/Programming-Hive-Edward-Capriolo/dp/1449319335/ref=sr_1_3?ie=UTF8&qid=1456009871&sr=8-3&keywords=apache+hive)
 - [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)
  
-## Resources <a id="resources"></a>
-- [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
