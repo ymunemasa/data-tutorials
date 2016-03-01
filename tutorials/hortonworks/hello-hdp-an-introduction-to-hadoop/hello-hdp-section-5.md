@@ -24,7 +24,6 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   [Step 3.3: Quick Recap](#step3.3)
 *   [Step 3.4: Execute Pig Script on Tez](#step3.4)
 *   [Suggested Readings](#suggested-readings)
-*   [Resources](#resources)
 
 ## Pig Basics <a id="pig-basics"></a>
 
@@ -281,5 +280,3 @@ Strengthen your foundation of pig latin and reinforce why this scripting platfor
 * [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645/ref=sr_1_2?ie=UTF8&qid=1455994738&sr=8-2&keywords=pig+latin&refinements=p_72%3A2661618011)
 * [Pig Latin Basics](http://pig.apache.org/docs/r0.14.0/basic.html)
 
-## Resources <a id="resources"></a>
-- [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
