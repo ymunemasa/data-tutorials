@@ -79,7 +79,7 @@ Now that you are familiar with the Hive User View, let’s create the initial st
 
 ![Lab2_3](/assets/hello-hdp/Lab2_31.png)
 
-**2.2.1 Create Table geolocation_stage For Staging Initial Load**
+#### 2.2.1 Create Table geolocation_stage For Staging Initial Load
 
 Copy-and-paste the the following table DDL into the empty **Worksheet** of the **Query Editor** to define a new table named geolocation_stage:
 
@@ -91,25 +91,25 @@ STORED AS TEXTFILE
 TBLPROPERTIES ("skip.header.line.count"="1");
 ~~~
 
-**2.2.2 Execute Query**
+#### 2.2.2 Execute Query
 
 Click the green **Execute** button to run the command. If successful, you should see the **Succeeded** status in the **Query Process Results** section:
 
 ![Lab2_4](/assets/hello-hdp/Lab2_41.png)
 
-**2.2.3 Create New Worksheet**
+#### 2.2.3 Create New Worksheet
 
 Click the blue **New Worksheet** button:
 
 ![Lab2_5](/assets/hello-hdp/Lab2_51.png)
 
-**2.2.4 Rename Query Worksheet** 
+#### 2.2.4 Rename Query Worksheet 
 
 Notice the tab of your new Worksheet is labeled “Worksheet (1)”. Double-click on this tab to rename the label to “trucks_stage”:
 
 ![Lab2_6](/assets/hello-hdp/Lab2_6.png)
 
-**2.2.5 Create Table trucks_stage For Staging Initial Load**
+#### 2.2.5 Create Table trucks_stage For Staging Initial Load
 
 Copy-and-paste the following table DDL into your **trucks_stage** worksheet to define a new table named trucks_stage:
 
@@ -121,7 +121,7 @@ STORED AS TEXTFILE
 TBLPROPERTIES ("skip.header.line.count"="1");
 ~~~
 
-**2.2.6 Execute the query and make sure it runs successfully.**
+#### 2.2.6 Execute the query and make sure it runs successfully
 
 Let’s review some aspects of the CREATE TABLE statements issued above.  If you have a SQL background this statement should seem very familiar except for the last 3 lines after the columns definition:
 
@@ -131,17 +131,17 @@ Let’s review some aspects of the CREATE TABLE statements issued above.  If yo
 
 For details on these clauses consult the [Apache Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL).
 
-**2.2.7 Verify New Tables Exist**
+#### 2.2.7 Verify New Tables Exist
 
 To verify the tables were defined successfully, click the “refresh” icon in the Database Explorer. Under Databases, click default database to expand the list of table and the new tables should appear:
 
 ![Lab2_7](/assets/hello-hdp/Lab2_7.png)
 
-**2.2.8 View trucks_stage Schema**
+#### 2.2.8 View trucks_stage Schema
 
 Click on the trucks_stage table name to view its schema.
 
-**2.2.9 Load Sample Data of trucks_stage** 
+#### 2.2.9 Load Sample Data of trucks_stage
 
 Click on the **Load sample data** icon to generate and execute a select SQL statement to query the table for a 100 rows. Notice your two new tables are currently empty.
 
@@ -163,34 +163,34 @@ Click on the **Load sample data** icon to generate and execute a select SQL stat
 
 ### Step 2.3: Load Data into a Hive table <a id="load-data-hive-table"></a>
 
-**2.3.1 Manual Approach: Populate Hive Table with Data**
+#### 2.3.1 Manual Approach: Populate Hive Table with Data
  
 Let’s load some data into your two Hive tables. Populating a Hive table can be done in various ways. A simple way to populate a table is to put a file into the directory associated with the table. Using the Ambari Files User View, click on the **Move** icon next to the file /tmp/maria_dev/data/geolocation.csv. (Clicking on **Move** is similar to “cut” in cut-and-paste.)
 
 ![Screen Shot 2015-07-27 at 9.45.11 PM](/assets/hello-hdp/Screen-Shot-2015-07-27-at-9.45.11-PM.png)
 
-**2.3.1.1 After clicking on the Move arrow, your screen should look like the following:**
+##### 2.3.1.1 After clicking on the Move arrow, your screen should look like the following:
 
 ![Lab2_10](/assets/hello-hdp/Lab2_10.png)
 
-**2.3.1.2 Notice two things have changed:**
+##### 2.3.1.2 Notice two things have changed:
 
 1.  The file name geolocation.csv has grayed out some
 2.  The icons associated with the operations on the files are removed. This is to indicate that this file is in a special state that is ready to be moved.
 
-**2.3.1.3 Navigate to Destination Path and Paste File**
+##### 2.3.1.3 Navigate to Destination Path and Paste File
 
 Now navigate to the destination path /apps/hive/warehouse/geolocation_stage.  You might notice that as you navigate through the directories that the file is pinned at the top.  Once you get to the appropriate directory click on the **Paste** icon to move the file:
 
 ![Lab2_11](/assets/hello-hdp/Lab2_111.png)
 
-**2.3.1.4 Load Sample Data of geolocation_stage**
+##### 2.3.1.4 Load Sample Data of geolocation_stage
 
 Go back to the Ambari Hive View and click on the **Load sample data** icon next to the geolocation_stage table. Notice the table is no longer empty, and you should see the first 100 rows of the table:
 
 ![Lab2_12](/assets/hello-hdp/Lab2_12.png)
 
-**2.3.2 Automatic Approach: Populate Hive Table with Data**
+#### 2.3.2 Automatic Approach: Populate Hive Table with Data
 
 Enter the following SQL command into an empty Worksheet in the Ambari Hive User View:
 
@@ -198,13 +198,13 @@ Enter the following SQL command into an empty Worksheet in the Ambari Hive User 
 LOAD DATA INPATH '/tmp/maria_dev/data/trucks.csv' OVERWRITE INTO TABLE trucks_stage;
 ~~~
 
-**2.3.2.1 Load Sample Data of trucks_stage** 
+##### 2.3.2.1 Load Sample Data of trucks_stage 
 
 You should now see data in the trucks_stage table:
 
 ![Lab2_13](/assets/hello-hdp/Lab2_13.png)
 
-**2.3.2.2 Click on HDFS Files View** 
+##### 2.3.2.2 Click on HDFS Files View 
 
 Navigate to the `/tmp/maria_dev/data` folder. Notice the folder is empty! The LOAD DATA INPATH command moved the `trucks.csv` file from the `/user/maria_dev/data` folder to the `/apps/hive/warehouse/trucks_stage` folder.
 
@@ -220,7 +220,7 @@ To use the ORC format, specify ORC as the file format when creating the table:
 
 In this step, you will create two ORC tables (geolocation and trucks) that are created from the text data in your geolocation_stage and trucks_stage tables.
 
-**2.4.1 Create Table geolocation as ORC From geolocation_stage Table**  
+#### 2.4.1 Create Table geolocation as ORC From geolocation_stage Table  
 
 From the Ambari Hive User View, execute the following table DDL to define a new table named geolocation:
 
@@ -228,7 +228,7 @@ From the Ambari Hive User View, execute the following table DDL to define a new 
 CREATE TABLE geolocation STORED AS ORC AS SELECT * FROM geolocation_stage;
 ~~~
 
-**2.4.2 Verify table geolocation is in default database**
+#### 2.4.2 Verify table geolocation is in default database
 
 Refresh the **Database Explorer** and verify you have a table named geolocation in the default database:
 
@@ -246,7 +246,7 @@ describe formatted geolocation;
 
 ![Lab2_15](/assets/hello-hdp/Lab2_15.png)
 
-**2.4.4 Create Table trucks As ORC From trucks_stage Table**
+#### 2.4.3 Create Table trucks As ORC From trucks_stage Table
 
 Execute the following query to define a new ORC table named trucks that contains the data from trucks_stage:
 
@@ -254,13 +254,13 @@ Execute the following query to define a new ORC table named trucks that contains
 CREATE TABLE trucks STORED AS ORC TBLPROPERTIES ("orc.compress.size"="1024") AS SELECT * FROM trucks_stage;
 ~~~
 
-**2.4.5 Verify Table was Properly Created** 
+#### 2.4.4 Verify Table was Properly Created
 
 Refresh the **Database Explorer** and view the contents of trucks:
 
 ![Lab2_16](/assets/hello-hdp/Lab2_16.png)
 
-**2.4.6 Enter Hive Shell**
+#### 2.4.5 Enter Hive Shell
 
 If you want to try running some of these commands from the Hive Shell, follow the following steps from your terminal shell (or putty if using Windows):
 
@@ -280,13 +280,13 @@ Exits out of the Hive shell.
 
 ### Step 2.5: Review Hive Settings <a id="review-hive-settings"></a>
 
-**2.5.1 Open Ambari Dashboard in New Tab**
+#### 2.5.1 Open Ambari Dashboard in New Tab
 
 Open the Ambari Dashboard in another tab by right clicking on the Ambari icon
 
 ![Lab2_17](/assets/hello-hdp/Lab2_17.png)
 
-**2.5.2 Open Hive Settings**
+#### 2.5.2 Open Hive Settings
 
 Go to the **Hive page** then select the **Configs tab** then click on **Settings tab**:
 
@@ -341,7 +341,7 @@ Next we will be using Hive, Pig and Excel to analyze derived data from the geolo
 
 Let’s get started with the first transformation.   We want to calculate the miles per gallon for each truck. We will start with our truck data table.  We need to sum up all the miles and gas columns on a per truck basis. Hive has a series of functions that can be used to reformat a table. The keyword [LATERAL VIEW](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+LateralView) is how we invoke things. The stack function allows us to restructure the data into 3 columns labeled rdate, gas and mile with 54 rows. We pick truckid, driverid, rdate, miles, gas from our original table and add a calculated column for mpg (miles/gas).  And then we will calculate average mileage.
 
-**2.6.1 Create Table truck_mileage From Existing Trucking Data**
+#### 2.6.1 Create Table truck_mileage From Existing Trucking Data
 
 Using the Ambari Hive User View, execute the following query:
 
@@ -351,13 +351,13 @@ CREATE TABLE truck_mileage STORED AS ORC AS SELECT truckid, driverid, rdate, mil
 
 ![Lab2_22](/assets/hello-hdp/Lab2_22.png)  
 
-**2.6.2 Load Sample Data of truck_mileage**
+#### 2.6.2 Load Sample Data of truck_mileage
 
 To view the data generated by the script, click **Load Sample Data** icon in the Database Explorer next to truck_mileage. After clicking the next button once, you should see a table that list each trip made by a truck and driver:
 
 ![Lab2_23](/assets/hello-hdp/Lab2_23.png)
 
-**2.6.3 Use the Content Assist to build a query**
+#### 2.6.3 Use the Content Assist to build a query
 
 1)  Create a new SQL Worksheet.
 
@@ -389,7 +389,7 @@ SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 
 7)  Execute the “**average mpg**” query and view its results.
 
-**2.6.4 Explore Explain Features of the Hive Query Editor**
+#### 2.6.4 Explore Explain Features of the Hive Query Editor
 
 1) Now let's explore the various explain features to better understand the execution of a query: Text Explain, Visual Explain and Tez Explain. Click on the **Explain** button:
 
@@ -411,7 +411,7 @@ SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 
 ![Lab2_31](/assets/hello-hdp/Lab2_311.png)
 
-**2.6.5 Explore TEZ**
+#### 2.6.5 Explore TEZ
 
 1) If you click on the **TEZ** tab on the right-hand column, you can see DAG details associated with the query.
 
@@ -430,7 +430,7 @@ SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 
 6) Go back to the Hive UV and save the query by
 
-**2.6.6 Create Table truck avg_mileage From Existing trucks_mileage Data**
+#### 2.6.6 Create Table truck avg_mileage From Existing trucks_mileage Data
 
 To persist these results into a table, This is a fairly common pattern in Hive and it is called [Create Table As Select](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-CreateTableAsSelect(CTAS)) (CTAS ).  Paste the following script into a new Worksheet, then click the **Execute** button:
 
@@ -443,7 +443,7 @@ FROM truck_mileage
 GROUP BY truckid;
 ~~~
 
-**2.6.7 Load Sample Data of avg_mileage**
+#### 2.6.7 Load Sample Data of avg_mileage
 
 To view the data generated by the script, click **Load sample data** icon in the Database Explorer next to avg_mileage. You see our table is now a list of each trip made by a truck.
 
