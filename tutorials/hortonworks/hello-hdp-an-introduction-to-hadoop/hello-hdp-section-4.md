@@ -10,7 +10,8 @@ In this section of tutorial you will be introduced to Apache Hive. In the earlie
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Lab 0: (Hortonworks sandbox set up)
+*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *   Lab 1: Loading sensor data into HDFS
 *   Allow yourself around one hour to complete this tutorial.
 
