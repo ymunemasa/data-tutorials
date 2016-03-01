@@ -1,26 +1,36 @@
-# Learning the Ropes: Hadoop and the Hortonworks Sandbox
+# Learning the Ropes of the Hortonworks Sandbox
 
 ### Introduction
 
-This tutorial is aimed for users who have little to no experience with Hadoop or do not have much experience in using the Sandbox. 
+This tutorial is aimed for users who do not have much experience in using the Sandbox. 
 We will install and explore the Sandbox on virtual machine and cloud environments. We will also navigate the Ambari user interface.
-Let's begin our Hadoop journey
+Let's begin our Hadoop journey.
 
 ## Pre-Requisites
-- [Hortonworks Sandbox 2.4](http://hortonworks.com/products/hortonworks-sandbox/#install)
+- Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 
 ## Outline
-- [Step 1: Start the Sandbox VM](#start-sandbox-vm)
-- [Step 2: Open Ambari](#open-ambari)
+- [What is the Sandbox?](#what-is-the-sandbox)
+- [Step 1: Explore the Sandbox in a VM](#explore-sandbox-vm)
+- [Step 2: Explore Ambari](#explore-ambari)
+- [Step 3: Troubleshoot Problems](#troubleshoot-problems)
 - [Further Reading](#further-reading)
 
-### Step 1: Start the Sandbox VM <a id="start-sandbox-vm"></a>
+## What is the Sandbox? <a id="what-is-the-sandbox"></a>
 
-Start the HDP Sandbox following the [Sandbox Install Guide](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM:
+The Sandbox is a straightforward, pre-configured, learning environment that contains the latest developments from Apache Hadoop Enterprise, specifically Hortonworks Data Platform (HDP) Distribution. The Sandbox comes packaged in a virtual environment that can run in the cloud or on your personal machine. The Sandbox allows you to learn and explore HDP on your own.
+
+### Step 1: Explore the Sandbox in a VM <a id="explore-sandbox-vm"></a>
+
+#### 1.1 Install the Sandbox
+
+Start the HDP Sandbox following the [Installation Steps](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM.
 
 ![Lab0_1](/assets/hello-hdp/download_install_sandbox.png)
 
-**1.1 Learn the Host Address of Your Environment**
+> **Note:** The Sandbox [system requirements](http://hortonworks.com/products/hortonworks-sandbox/#install) include that you have a 64 bit OS with at least 8 GB of RAM and enabled BIOS for virtualization. Find out about the newest features, known and resolved issues along with other updates on HDP 2.4 from the [release notes](http://hortonworks.com/wp-content/uploads/2015/10/ReleaseNotes_10_27_2015.pdf).
+
+#### 1.2 Learn the Host Address of Your Environment
 
 Once you have installed the Sandbox VM, it resolves to the host on your environment, the address of which varies depending upon the Virtual Machine you are using(Vmware, VirtualBox etc). As, a general thumb rule, wait for the installation to complete and confirmation screen will tell you the host your sandbox resolves to. For example:
 
@@ -28,29 +38,76 @@ In case of VirtualBox: `host` would be `127.0.0.1`
 
 ![Lab0_2](/assets/hello-hdp/Lab0_2.png)
 
-> **Note:** In case of Azure, your **host** can be found under **Public IP Address**. For further clarification, check out our guide for [Deploying Hortonworks Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
+> **Note:** In case of Azure, your **host** can be found under **Public IP Address** on the dashboard. For further clarification, check out our guide for [Deploying Hortonworks Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
 
 If you are using a private cluster or a cloud to run sandbox. Please find the host your sandbox resolves to.
+
+#### 1.3 Connect to the Welcome Screen
 
 Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
 
 ![Screen Shot 2015-07-20 at 6.11.32 PM](/assets/hello-hdp/Screen-Shot-2015-07-20-at-6.11.32-PM.png)
 
-### Step 2: Open Ambari <a id="open-ambari"></a>
+#### 1.4 Multiple Ways to Execute Terminal Commands
 
-Navigate to Ambari welcome page using the url given on Sandbox welcome page.
+> **Note:** For all methods below, the login credential instructions will be the same to access the Sandbox through the terminal.
+- Login using username as **root** and password as **hadoop**. 
+- After first time login, you will be prompted to retype your current password, then change your password. 
+
+##### Secure Shell (SSH) Method:
+
+Open your terminal (mac and linux) or putty (windows). Type the following command to access the Sandbox through SSH:
+
+~~~
+# Usage:
+      ssh <username>@<hostname> -p <port>;
+# Example:
+      ssh root@127.0.0.1 -p 2222;
+~~~
+
+![Mac Terminal SSH](/assets/learning-the-ropes-hadoop-hortonworks-sandbox/)
+
+> Mac OS Terminal
+
+##### Shell Web Client Method: 
+
+Open your web browser. Type the following text in your browser to access the Sandbox through the shell:
+
+~~~
+Usage:
+      _host_:4200
+Example:
+      127.0.0.1:4200
+~~~
+
+![Shell in the Browser Sandbox](/assets/learning-the-ropes-hadoop-hortonworks-sandbox/)
+
+##### VM Terminal Method: 
+
+Open the Sandbox through Virtualbox or VMware. The Sandbox VM Welcome Screen will appear. For Linux/Windows users, press `Alt+F5` and for Mac, press `Fn+Alt+F5` to login into the Sandbox VM Terminal.
+
+![Shell VM Terminal Sandbox](/assets/learning-the-ropes-hadoop-hortonworks-sandbox/)
+
+> VirtualBox VM Terminal
+
+### Step 2: Explore Ambari <a id="explore-ambari"></a>
+
+Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 
 > **Note:** Both the username and password to login are **maria_dev**.
 
-**2.1 Use Terminal to Find the Host Address Sandbox Runs On**
+#### 2.1 Use Terminal to Find the Host Address Sandbox Runs On
 
 If you want to search for the host address your sandbox is running on, ssh into the sandbox terminal upon successful installation and follow subsequent steps:
 
-1.  login using username as “root” and password as “hadoop”.
-2.  Type ifconfig and look for inet address under eth.
-3.  Use the inet address, append :8080 and open it into a browser. It shall direct you to Ambari login page.
+1.  login using username as **root** and password as **hadoop**.
+2.  Type `ifconfig` and look for **inet address** under eth.
+3.  Use the inet address, append **:8080** and open it into a browser. It shall direct you to Ambari login page.
 4.  This inet address is randomly generated for every session and therefore differs from session to session.
 
+![Host_Address_Sandbox_Runs_On](/assets/learning-the-ropes-hadoop-hortonworks-sandbox/)
+
+> Services Provided By the Sandbox
 
 | Service | URL | 
 |---------|-----|
@@ -70,14 +127,31 @@ The following table has some useful URLs as well:
 | Service | User | Password |
 |---------|------|----------|
 | Ambari | maria_dev | maria_dev |
+| Ambari | admin | pwd process |
 | Linux OS | root | hadoop |
 
+#### 2.2 Update Ambari admin Password Manually
 
-Enter the Ambari Welcome URL and then you should see a similar screen:
+1. Start your sandbox and open a terminal (mac or linux) or putty (windows)
+2. Login to Sandbox through ssh as described in **SSH Method** earlier
+3. Type the following commands:
+
+~~~
+# Update password
+ambari-admin-password-reset
+# Restart ambari service
+ambari-agent restart
+~~~
+
+> **Note:** Now you can login to ambari as an admin user to perform operations, such as starting and stopping services.
+
+![Terminal Update Ambari admin password](/assets/learning-the-ropes-hadoop-hortonworks-sandbox/)
+
+#### 2.3 Explore Ambari Welcome Screen 5 Key Capabilities
+
+Enter the **Ambari Welcome URL** and then you should see a similar screen:
 
 ![Lab0_3](/assets/hello-hdp/Lab0_3.png)
-
-**2.2 Explore Ambari Welcome Screen 5 Key Capabilities**
 
 1.  “**Operate Your Cluster**” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators
 2.  “**Manage Users + Groups**” allows you to add & remove Ambari users and groups
@@ -85,13 +159,12 @@ Enter the Ambari Welcome URL and then you should see a similar screen:
 4.  “**Ambari User Views**” list the set of Ambari Users views that are part of the cluster
 5.  “**Deploy Views**” provides administration for adding and removing Ambari User Views
 
-Take a few minutes to quickly explore these 5 capabilities and become familiar with their features.
+#### 2.4 Explore Ambari Dashboard Links
 
-Enter the Ambari Dashboard URL and you should see a similar screen:
+Enter the **Ambari Dashboard URL** and you should see a similar screen:
 
 ![Lab0_4](/assets/hello-hdp/Lab0_4.png)
 
-**2.3 Explore Ambari Dashboard Links**
 
 Click on
 
@@ -99,11 +172,20 @@ Click on
 
 and then the
 
-1.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
+2.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
+
+### Step 3: Troubleshoot Problems <a id="troubleshoot-problems"></a>
+
+Check [Hortonworks Community Connection](http://hortonworks.com/community/forums/)(HCC) for answers to problems you may come across during your hadoop journey.
+
+![Hortonworks Community Connection Main Page](/assets/learning-the-ropes-hadoop-hortonworks-sandbox/)
+
+#### 3.1 Technique for Finding Answers in HCC
+- Insert quotes around your tutorial related problem
+- Be specific by including keywords (error, tutorial name, etc.)
 
 ## Further Reading <a id="further-reading"></a>
 
 - To learn more about Hadoop please explore the [HDP Getting Started documentation](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.4/bk_getting-started-guide/content/ch_about-hortonworks-data-platform.html).  
 - If you have questions, feedback or need help getting your environment ready visit  [developer.hortonworks.com](http://hortonworks.com/developer/).
 - Please also explore the [HDP documentation](http://docs.hortonworks.com/).
-- To ask a question check out the [Hortonworks Community Connection](http://hortonworks.com/community/forums/).
