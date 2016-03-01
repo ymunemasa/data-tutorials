@@ -20,7 +20,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   [Step 1.2: Load Data into HDFS](#step1.2)
 *   [Suggested Reading](#suggested-reading)
 
-## HDFS backdrop <a id"hdfs-backdrop"></a>
+## HDFS backdrop <a id="hdfs-backdrop"></a>
 
 A single physical machine gets saturated with its storage capacity as the data grows. Thereby comes impending need to partition your data across separate machines. This type of File system that manages storage of data across a network of machines is called Distributed File Systems. [HDFS](http://hortonworks.com/blog/thinking-about-the-hdfs-vs-other-storage-technologies/) is a core component of Apache Hadoop and is designed to store large files with streaming data access patterns, running on clusters of commodity hardware. With Hortonworks Data Platform HDP 2.2, HDFS is now expanded to support [heterogeneous storage](http://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)  media within the HDFS cluster.
 
