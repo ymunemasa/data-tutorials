@@ -42,17 +42,21 @@ Therefore Apache Spark was designed as a computing platform to be fast, general-
 
 You can run batch application such as MapReduce types jobs or iterative algorithms that builds upon each other. You can also run interactive queries and process streaming data with your application. Spark also provides a number of libraries which you can easily use to expand beyond the basic Spark capabilities such as Machine Learning algorithms, SQL, streaming, and graph processing. Spark runs on Hadoop clusters such as Hadoop YARN or Apache Mesos, or even as a standalone with its own scheduler.
 
+
 ![Lab4_1](/assets/hello-hdp/Lab4_1.png)  
 Lets get started…!!
+
 
 ### Step 4.1: Configuring Spark services using Ambari <a id="step4.1"></a>
 
 1)  Log on to Ambari Dashboard as maria_dev. At the bottom left corner of the services column, check that Spark and Zeppelin are running. 
 > **Note:** If these services are disabled, you will need to login in as an admin user to start all services. Explore HCC for further clarification.
 
+
 ![Lab4_2](/assets/hello-hdp/Lab4_2.png)
 
 ![Lab4_3](/assets/hello-hdp/Lab4_3.png)
+
 
 2)  Close the Ambari browser and we will get running with some codes on Spark. ssh into the sandbox using root as login and hadoop as password.
 
@@ -67,7 +71,9 @@ Optionally, if you don’t have an SSH client installed and configured you can u
 
 This will load the default Spark Scala API.
 
+
 ![Lab4_4](/assets/hello-hdp/spark_welcome.png)
+
 
 > **Notice** it is already starting with Hive integration as we have preconfigured it on the Hortonworks Sandbox.
 
@@ -87,9 +93,11 @@ import org.apache.spark.sql._
 
 **Instantiate HiveContext**
 
+
 ~~~
 val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 ~~~
+
 
 ![Lab4_6](/assets/hello-hdp/Lab4_6.png)
 
@@ -116,7 +124,9 @@ Use a simple show command to see the list of tables in Hive warehouse.
 hiveContext.sql("show tables").collect.foreach(println)
 ~~~
 
+
 ![Lab4_7](/assets/hello-hdp/Lab4_7.png)
+
 
 You will notice that geolocation table and driver mileage table that we created in earlier tutorial are already listed in Hive metastore and can be directly queried upon.
 
@@ -128,13 +138,17 @@ We will do a simple select query to fetch data from geolocation and drivermileag
 val geolocation_temp1 = hiveContext.sql("select * from geolocation")
 ~~~
 
+
 ![Lab4_8](/assets/hello-hdp/Lab4_8.png)
+
 
 ~~~
 val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
 ~~~
 
+
 ![Lab4_9](/assets/hello-hdp/Lab4_9.png)  
+
 
 Make sure that the RDD`s carry the exact data. You can verify through following   command
 
@@ -188,7 +202,9 @@ geolocation_temp2.registerTempTable("geolocation_temp2")
 geolocation_temp2.collect.foreach(println)
 ~~~
 
+
 ![Lab4_11](/assets/hello-hdp/Lab4_11.png)
+
 
 #### 4.4.2  Perform join Operation
 
@@ -203,6 +219,7 @@ val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geol
 
 ![Lab4_12](/assets/hello-hdp/Lab4_12.png)
 
+
 *   The resulting data set will give us total miles and total non normal events for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
 
 ~~~
@@ -215,7 +232,9 @@ joined.registerTempTable("joined")
 joined.collect.foreach(println)
 ~~~
 
+
 ![Lab4_13](/assets/hello-hdp/Lab4_13.png)
+
 
 #### 4.4.3  Compute Driver Risk Factor
 
@@ -225,7 +244,9 @@ In this section we will associate a driver risk factor with every driver. Driver
 val risk_factor_spark=hiveContext.sql("select driverid, totmiles,occurance, totmiles/occurance riskfactor from joined")
 ~~~
 
+
 ![Lab4_14](/assets/hello-hdp/Lab4_14.png)
+
 
 *   The resulting data set will give us total miles and total non normal events and what is a risk for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
 
@@ -239,7 +260,9 @@ risk_factor_spark.registerTempTable("risk_factor_spark")
 risk_factor_spark.collect.foreach(println)
 ~~~
 
+
 ![Lab4_15](/assets/hello-hdp/Lab4_15.png)
+
 
 ### Step 4.5: Load and Save Data into Hive as ORC <a id="step4.5"></a>
 
