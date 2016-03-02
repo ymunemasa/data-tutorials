@@ -96,7 +96,7 @@ The Hortonworks **Sandbox** is a single node implementation of the Hortonworks D
 - To learn more about YARN watch the following [YARN introduction video](https://www.youtube.com/watch?v=ZYXVNxmMchc&list=PL2y_WpKCCNQc-7RJNoYym4_g7EZb3yzJW).  
 
 
-**Hadoop 2.0 Blogs:**
+**Hadoop Blogs:**
 
 - [Hadoop 2.7.0 Blog](http://hortonworks.com/blog/apache-hadoop-2-7-0-released/)
 - [Understanding Hadoop 2.0](http://hortonworks.com/blog/understanding-hadoop-2-0/)
@@ -140,7 +140,7 @@ The NameNode does not directly send requests to DataNodes. It sends instructions
 
 - For more details on HDFS: [http://hortonworks.com/hadoop/hdfs/](http://hortonworks.com/hadoop/hdfs/)
 
-With [next generation HDFS data architecture](http://hortonworks.com/blog/hdfs-2-0-next-generation-architecture/) that comes with HDP 2.0, HDFS has evolved to provide [automated failure](http://hortonworks.com/blog/namenode-high-availability-in-hdp-2-0/) with a hot standby, with full stack resiliency. Please spare some time to go through this video for more clarity on HDFS.
+With the [next generation HDFS data architecture](http://hortonworks.com/blog/hdfs-2-0-next-generation-architecture/) that comes with HDP 2.4, HDFS has evolved to provide [automated failure](http://hortonworks.com/blog/namenode-high-availability-in-hdp-2-0/) with a hot standby, with full stack resiliency. Please spare some time to go through this video for more clarity on HDFS.
 
 <iframe width="500" height="281" src="https://www.youtube.com/embed/1_ly9dZnmWc?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player1"></iframe>
 
@@ -149,7 +149,7 @@ With [next generation HDFS data architecture](http://hortonworks.com/blog/hdfs-2
 Ambari Files User View
 
 
-![HDFS_3](/assets/hello-hdp/HDFS_3.png)
+![HDFS_3](/assets/hello-hdp/hdfs_files_user_view_maria_dev_hello_hdp.png)
 
 
 Ambari Files User View provides a user friendly interface to upload, store and move data. Underlying all components in Hadoop is the Hadoop Distributed File System([HDFS](http://hortonworks.com/hadoop/hdfs/)™).  This is the foundation of the Hadoop cluster. The HDFS file system manages how the datasets are stored in the Hadoop cluster. It is responsible for distributing the data across the datanodes, managing replication for redundancy and administrative tasks like adding, removing and recovery of data nodes.
@@ -346,13 +346,13 @@ To make it easy to interact with Hive we use a tool in the Hortonworks Sandbox c
 Let’s now open the Ambari Hive User View and get introduced to the environment, go to the Ambari User VIew icon and select Hive :
 
 
-![Screen Shot 2016-02-17 at 7.10.18 PM](/assets/hello-hdp/hive_view_icon.png)
+![Screen Shot 2016-02-17 at 7.10.18 PM](/assets/hello-hdp/hive_user_view_hello_hdp_concepts.png)
 
 
 Ambari Hive User View
 
 
-![Hive_6](/assets/hello-hdp/hiveUI_6.png)
+![Hive_6](/assets/hello-hdp/ambari_hive_user_view_interface_hello_hdp_concepts.png)
 
 
 Now let’s take a closer look at the SQL editing capabilities in the User View:
@@ -432,7 +432,7 @@ The user can run Pig in two modes, using either the “pig” command or the “
 To get to the Ambari Pig User View on Sandbox, click on the User Views icon at top right and select **Pig**:
 
 
-![Screen Shot 2016-02-17 at 7.12.41 PM](/assets/hello-hdp/pig_view_icon.png)
+![Screen Shot 2016-02-17 at 7.12.41 PM](/assets/hello-hdp/ambari_pig_user_view_hello_hdp.png)
 
 
 This will bring up the Ambari Pig User View interface. Your Pig View does not have any scripts to display, so it will look like the following:
@@ -446,7 +446,7 @@ On the left is a list of your scripts, and on the right is a composition box for
 The following screenshot shows and describes the various components and features of the Pig User View:
 
 
-![Pig_3](/assets/hello-hdp/Pig_3.png)
+![Pig_3](/assets/hello-hdp/pig_user_view_components_hello_hdp.png)
 
 
 ## 4.4 Suggested Readings
