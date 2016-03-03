@@ -65,7 +65,7 @@ Do the same thing for `Master.csv.` When you are done you will see there are two
 
 Lets open the `Hive View`by clicking on the Hive button in the top bar as previously when we selected the HDFS Files view. The Hive view provides a user interface to the Hive data warehouse system for Hadoop.
 
-![Hive View Icon from HDFS warehouse](/assets/hello-hdp/start_hive_view_process_data_hive.png)
+![Hive View Icon from HDFS warehouse](/assets/how-to-process-data-with-apache-hive/start_hive_view_process_data_hive.png)
 
 
 #### 3.1 Explore The Hive User Interface
@@ -99,11 +99,11 @@ Once the query has executed we can refresh the `Database Explorer` at the left o
 
 Clicking on the `icon` next to the table name a new Worksheets opens, which loads `sample data` from this table. We see the table is empty right now. This is a good example of the interactive feel you get with using Hive.
 
-![load_sample_data_temp_batting_empty](/assets/how-to-process-data-with-apache-hive/.png)
+![load_sample_data_temp_batting_empty](/assets/how-to-process-data-with-apache-hive/icon_temp_batting_process_data_hive.png)
 
 The next line of code will load the data file `Batting.csv` into the table `temp_batting`.
 
-![load_battingcsv_into_temp_batting](/assets/how-to-process-data-with-apache-hive/icon_temp_batting_process_data_hive.png)
+![load_battingcsv_into_temp_batting](/assets/how-to-process-data-with-apache-hive/load_data_tempbatting_process_data_hive.png)
 
 
 #### 3.3 Create Query to Populate Hive Table temp_batting with Batting.csv Data
@@ -116,7 +116,7 @@ LOAD DATA INPATH '/user/maria_dev/Batting.csv' OVERWRITE INTO TABLE temp_batting
 
 After executing the query we can look at the Tables again and when we browse the data for `temp_batting` we see that the data has been read in. Note Hive consumed the data file `Batting.csv` during this step. If you look in the `File Browser` you will see Batting.csv is no longer there.
 
-![temp_batting_sample_data_has_data](/assets/how-to-process-data-with-apache-hive/load_data_tempbatting_process_data_hive.png)
+![temp_batting_sample_data_has_data](/assets/how-to-process-data-with-apache-hive/verify_tempbatting_read_data_process_data_hive.png)
 
 
 #### 3.4 Create Table batting
