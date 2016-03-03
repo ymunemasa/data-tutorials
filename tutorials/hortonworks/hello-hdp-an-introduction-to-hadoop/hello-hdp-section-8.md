@@ -23,9 +23,9 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 ## Outline
 
 *   [Apache Zeppelin](#apache-zeppelin)
-*   [Step 6.1: Creating a Zeppelin Notebook](#step6.1)
-*   [Step 6.2: Running a Hive Query](#step6.2)
-*   [Step 6.3: Making Charts Using Zeppelin](#step6.3)
+*   [Step 6.1: Create a Zeppelin Notebook](#step6.1)
+*   [Step 6.2: Execute a Hive Query](#step6.2)
+*   [Step 6.3: Build Charts Using Zeppelin](#step6.3)
 *   [Outro](#outro)
 *   [Suggested Readings](#suggested-readings)
 
@@ -39,20 +39,15 @@ riskfactor data that we've collected earlier and visualize the result through gr
 
 NOTE: We can also run queries via various interpreters for the following (but not limited to) spark, hawq and postgresql.
 
-### Step 6.1: Creating a Zeppelin Notebook <a id="step6.1"></a>
+### Step 6.1: Create a Zeppelin Notebook <a id="step6.1"></a>
 
 ##### 6.1.1 Navigate to Zeppelin Notebook
 
-1) Click on Ambari User view icon and navigate to Zeppelin notebook.
+1) Navigate to http://sandbox.hortonworks.com:9995 directly to open the Zeppelin interface.
 
 
-![Zeppelin Dashboard](/assets/hello-hdp/zeppelin_dashboard.png)
+![Zeppelin Dashboard](/assets/hello-hdp/zeppelin_welcome_page_hello_hdp_lab4.png)
 
-
-- NOTE: You can also navigate to http://sandbox.hortonworks.com:9995 directly to open the Zeppelin interface.
-
-- You can also change the port that the zeppelin server runs on by Navigating to the Ambari service > configs > Advanced zeppelin config and then changing the zeppelin.server.port.
-- You may also need to modify the forwarded ports on the virtual machine as well if you do this.
 
 2) Click on create note, name the notebook **Driver Risk Factor** and a new notebook shall get started.
 
@@ -60,7 +55,7 @@ NOTE: We can also run queries via various interpreters for the following (but no
 ![Zeppelin Create New Notebook](/assets/hello-hdp/zeppelin_create_new_notebook.png)
 
 
-### Step 6.2: Running a Hive Query <a id="step6.2"></a>
+### Step 6.2: Execute a Hive Query <a id="step6.2"></a>
 
 ##### 6.2.1 Visualize finalresults Data in Tabular Format
 
@@ -88,7 +83,7 @@ Initially, the query will produce the data in tabular format as shown in the scr
 ![finalresults_data_tabular](/assets/hello-hdp/finalresults_data_tabular_lab6.png)
 
 
-### Step 6.3: Making Charts using Zeppelin <a id="step6.3"></a>
+### Step 6.3: Build Charts using Zeppelin <a id="step6.3"></a>
 
 ##### 6.3.1 Visualize finalresults Data in Chart Format
 
