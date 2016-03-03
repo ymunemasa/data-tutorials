@@ -91,7 +91,7 @@ For improved Hive integration, HDP 2.4 offers [ORC file](http://hortonworks.com/
 
 Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code.
 
-~~~
+~~~scala
 import org.apache.spark.sql.hive.orc._
 import org.apache.spark.sql._
 ~~~
@@ -103,7 +103,7 @@ import org.apache.spark.sql._
 ##### Instantiate HiveContext
 
 
-~~~
+~~~scala
 val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 ~~~
 
@@ -129,7 +129,7 @@ There are three methods for creating a RDD:
 
 Use a simple show command to see the list of tables in Hive warehouse.
 
-~~~
+~~~scala
 hiveContext.sql("show tables").collect.foreach(println)
 ~~~
 
@@ -143,7 +143,7 @@ You will notice that geolocation table and driver mileage table that we created 
 
 We will do a simple select query to fetch data from geolocation and drivermileage tables to a spark variable. Getting data into Spark this way also allows to copy table schema to RDD.
 
-~~~
+~~~scala
 val geolocation_temp1 = hiveContext.sql("select * from geolocation")
 ~~~
 
@@ -151,7 +151,7 @@ val geolocation_temp1 = hiveContext.sql("select * from geolocation")
 ![Lab4_8](/assets/hello-hdp/query_tables_build_spark_rdd_hello_hdp_lab4.png)
 
 
-~~~
+~~~scala
 val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
 ~~~
 
@@ -161,7 +161,7 @@ val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
 
 Make sure that the RDD`s carry the exact data. You can verify through following   command
 
-~~~
+~~~scala
 geolocation_temp1.take(10) 
 drivermileage_temp1.take(10)
 ~~~
@@ -177,7 +177,7 @@ Both these commands will return 10 rows from respective RDD`s.
 
 Now let’s give this RDD a name, so that we can use it in Spark SQL statements
 
-~~~
+~~~scala
 geolocation_temp1.registerTempTable("geolocation_temp1")
 drivermileage_temp1.registerTempTable("drivermileage_temp1")
 ~~~
@@ -201,7 +201,7 @@ Now that our schema’s RDD with data has a name, we can use Spark SQL commands 
 
 *   Here we will try to perform iteration and filter operation. First, we need to filter drivers that have non- normal events associated to them and then count the number for non- normal events for each driver.
 
-~~~
+~~~scala
 val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from geolocation_temp1 where event!='normal' group by driverid")
 ~~~
 
@@ -214,7 +214,7 @@ val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occura
 *   The resulting table will have count of total non normal events associated to each driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
 
 
-~~~
+~~~scala
 geolocation_temp2.registerTempTable("geolocation_temp2")
 ~~~
 
@@ -224,7 +224,7 @@ geolocation_temp2.registerTempTable("geolocation_temp2")
 
 *   You can view the result by doing an action operation on RDD.
 
-~~~
+~~~scala
 geolocation_temp2.collect.foreach(println)
 ~~~
 
@@ -238,7 +238,7 @@ In this section we will perform a join operation geolocation_temp2 table has det
 
 *   We will join two tables on common column, which in our case is driverid.
 
-~~~
+~~~scala
 val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geolocation_temp2 a,drivermileage_temp1 b where a.driverid=b.driverid")
 ~~~
 
@@ -248,7 +248,7 @@ val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geol
 
 *   The resulting data set will give us total miles and total non normal events for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
 
-~~~
+~~~scala
 joined.registerTempTable("joined")
 ~~~
 
@@ -258,7 +258,7 @@ joined.registerTempTable("joined")
 
 *   You can view the result by doing an action operation on RDD.
 
-~~~
+~~~scala
 joined.collect.foreach(println)
 ~~~
 
@@ -270,7 +270,7 @@ joined.collect.foreach(println)
 
 In this section we will associate a driver risk factor with every driver. Driver risk factor will be calculated by dividing total miles travelled by non normal event occurrences.
 
-~~~
+~~~scala
 val risk_factor_spark=hiveContext.sql("select driverid, totmiles,occurance, totmiles/occurance riskfactor from joined")
 ~~~
 
@@ -280,13 +280,13 @@ val risk_factor_spark=hiveContext.sql("select driverid, totmiles,occurance, totm
 
 *   The resulting data set will give us total miles and total non normal events and what is a risk for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
 
-~~~
+~~~scala
 risk_factor_spark.registerTempTable("risk_factor_spark")
 ~~~
 
 *   View the results
 
-~~~
+~~~scala
 risk_factor_spark.collect.foreach(println)
 ~~~
 
@@ -304,7 +304,7 @@ Predicate pushdown uses those indexes to determine which stripes in a file need 
 
 Create a table and store it as ORC. Specifying as orc at the end of the SQL statement below ensures that the Hive table is stored in the ORC format.
 
-~~~
+~~~scala
 hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
 ~~~
 
@@ -317,13 +317,13 @@ hiveContext.sql("create table finalresults( driverid String, occurance bigint,to
 Before we load the data into hive table that we created above, we will have to convert our data file into orc format too.
 > **Note:** For Spark 1.3.1, use 
 
-~~~
+~~~scala
 risk_factor_spark.saveAsOrcFile("risk_factor_spark")
 ~~~
 
 > **Note:** For Spark 1.4.1 and higher, use
 
-~~~
+~~~scala
 risk_factor_spark.write.format("orc").save("risk_factor_spark")
 ~~~
 
@@ -333,7 +333,7 @@ risk_factor_spark.write.format("orc").save("risk_factor_spark")
 
 #### 4.5.3 Load the data into Hive table using load data command
 
-~~~
+~~~scala
 hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 ~~~
 
@@ -344,7 +344,7 @@ hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 
 Execute a select query to verify your table has been successfully stored.You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
 
-~~~
+~~~scala
 hiveContext.sql("select * from finalresults")
 ~~~
 
@@ -356,7 +356,7 @@ hiveContext.sql("select * from finalresults")
 
 ## Full Spark Code for Lab
 
-~~~
+~~~scala
 import org.apache.spark.sql.hive.orc._
 import org.apache.spark.sql._
 
