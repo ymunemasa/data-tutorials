@@ -21,9 +21,9 @@ Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) 
 
 ## Pre-Requisites
 
-- Downloaded and Installed the [Hortonworks Sandbox with HDP 2.3](http://hortonworks.com/hdp/downloads/)
+- Downloaded and Installed the [Hortonworks Sandbox with HDP](http://hortonworks.com/hdp/downloads/)
 - Downloaded the GZipped version of the [Hortonworks DataFlow](http://hortonworks.com/products/dataflow)
-- [Setup Hortonworks Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
+- [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 - Added `sandbox.hortonworks.com` to your `/etc/hosts` file (mac and linux users).
 - Added `sandbox.hortonworks.com` to your `%systemroot%\system32\drivers\etc\hosts` file (windows users)
 
@@ -228,7 +228,7 @@ You should now be able to access the NiFi user interface at [http://sandbox.hort
 
 ## Configure and Start Solr <a id="configure-and-start-solr"></a>
 
-Hortonworks Sandbox with HDP 2.3.2 has the **Lucidworks HDP Search** Pre-installed.
+Hortonworks Sandbox with HDP 2.4 has the **Lucidworks HDP Search** Pre-installed.
 
 We just need to make a few quick changes.
 

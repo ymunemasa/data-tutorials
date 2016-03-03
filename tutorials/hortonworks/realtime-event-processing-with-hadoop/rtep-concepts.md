@@ -1,4 +1,15 @@
-## Concepts: Apache kafka
+### Introduction
+
+In this tutorial, you will strengthen your foundation of technologies used in real-time event processing. You will learn in detail how Apache Kafka sends messages, the process Apache Storm undergoes to collect that data and the implementation involved for HBase to read that streaming data.
+
+## Outline
+- [1st Concepts: Apache kafka](#concepts-apache-kafka)
+- [2nd Concepts: Apache Storm](#concepts-apache-storm)
+- [3rd Concepts: Kafka on Storm](#concepts-kafka-on-storm)
+- [Further Reading](#further-reading)
+
+
+## 1st Concepts: Apache kafka
 
 ### Introduction:
 
@@ -50,7 +61,7 @@ Another factor contributing to Kafka’s performance and scalability is the fact
 For Kafka consumers, keeping track of which messages have been consumed (processed) is simply a matter of keeping track of an **Offset**, which is a sequential id number that uniquely identifies a message within a partition. Because Kafka retains all messages on disk (for a configurable amount of time), consumers can rewind or skip to any point in a partition simply by supplying an offset value. Finally, this design eliminates the potential for back-pressure when consumers process messages at different rates.
 
 
-## Concepts: Apache Storm
+## 2nd Concepts: Apache Storm
 
 ### Introduction:
  
@@ -152,7 +163,7 @@ Each node in a Storm topology executes in parallel. In your topology, you can sp
 
 A topology runs forever, or until you kill it. Storm will automatically reassign any failed tasks. Additionally, Storm guarantees that there will be no data loss, even if machines go down and messages are dropped.
 
-## Concepts: Kafka on Storm
+## 3rd Concepts: Kafka on Storm
 
 ### Introduction:
 
@@ -170,7 +181,7 @@ In this tutorial, we will focus on one of those data processing engines—[Apach
 An oil refinery takes crude oil, distills it, processes it and refines it into useful finished products such as the gas that we buy at the pump. We can think of Storm with Kafka as a similar refinery, but data is the input. A real-time data refinery converts raw streaming data into finished data products, enabling new use cases and innovative business models for the modern enterprise.
 
 Apache Storm is a distributed real-time computation engine that reliably processes unbounded streams of data. While Storm processes stream data at scale, Apache Kafka processes messages at scale. Kafka is a distributed pub-sub real-time messaging system that provides strong durability and fault tolerance guarantees.
-Storm and Kafka naturally complement each other, and their powerful cooperation enables real-time streaming analytics for fast-moving big data. HDP 2.3 contains the results of Hortonworks’ continuing focus on making the Storm-Kafka union even more powerful for stream processing.
+Storm and Kafka naturally complement each other, and their powerful cooperation enables real-time streaming analytics for fast-moving big data. HDP 2.4 contains the results of Hortonworks’ continuing focus on making the Storm-Kafka union even more powerful for stream processing.
 
 ![Img of Cluster Layout](/assets/realtime-event-processing/concepts/07_hadoop_cluster.png)
 
@@ -207,5 +218,7 @@ In summary, refinery style data processing architecture enables you to:
 - Tap into raw or refined data streams at any stage of the processing
 - Modularize your key cluster resources to most intense processing phase of the pipeline
 
-
-
+## Further Reading <a id="further-reading"></a>
+- [Apache Storm](http://storm.apache.org/)
+- [Apache Kafka](http://kafka.apache.org/)
+- [Storm Kafka Integration](http://storm.apache.org/documentation/storm-kafka.html)

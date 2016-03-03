@@ -10,11 +10,10 @@ For our tutorial we are looking at a use case where we have a truck fleet. Each 
 
 Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) to show you what you’ll be doing in this tutorial.
 
-## Prerequisites:
+## Pre-Requisites:
 
-*   Hortonworks Sandbox 2.4 (installed and running)
-
-[Download Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*  Before going through hello HDP labs, we highly recommend you go through [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 *   Data Set Used: [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
 *   _Optional_: Hortonworks ODBC driver installed and configured – see the tutorial on installing the ODBC driver for Windows or OS X. Refer to
@@ -58,9 +57,10 @@ The goal of this tutorial is that you get familiar with the basics of following:
 ## Outline
 
 1.  Introduction
-2.  Prerequisites
+2.  Pre-Requisites
     1.  Data Set Used: [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
-    2.  HDP version: 2.4
+    2.  Latest Hortonworks Sandbox Version
+    3.  Learning the Ropes of the Hortonworks Sandbox - Address any Sandbox Issues
 3.  Tutorial Overview
 4.  Goals of the Tutorial (outcomes)
 5.  Hadoop Data Platform Concepts (New to Hadoop or HDP- Refer following)
@@ -71,14 +71,14 @@ The goal of this tutorial is that you get familiar with the basics of following:
     5.  [Apache Hive](http://hortonworks.com/hadoop/hive/)
     6.  [Apache Pig](http://hortonworks.com/hadoop/pig/)
 6.  Get Started with HDP Labs
-    1.  [Lab 0: Start Sandbox VM and Open Ambari](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_3)
-    2.  [Lab 1: Loading Sensor Data into HDFS](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_4)
-    3.  [Lab 2: Data Manipulation with Hive](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_5) (Ambari User Views)
-    4.  [Lab 3: Use Pig to compute Driver Risk Factor](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_6)
-    5.  [Lab 4: Use Apache Spark to compute Driver Risk Factor](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_7)
-    6.  [Lab 5: Optional Visualization and Reporting with Excel](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_8)
+    
+    1.  [Lab 1: Loading Sensor Data into HDFS](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_4)
+    2.  [Lab 2: Data Manipulation with Hive](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_5) (Ambari User Views)
+    3.  [Lab 3: Use Pig to compute Driver Risk Factor](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_6)
+    4.  [Lab 4: Use Apache Spark to compute Driver Risk Factor](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_7)
+    5.  [Lab 5: Optional Visualization and Reporting with Excel](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_8)
         1.  [Configuring ODBC driver](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/)  (Mac and Windows)
-    7.  [Lab 6: Optional Visualization and Reporting with Zeppelin](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_9)   
+    6.  [Lab 6: Optional Visualization and Reporting with Zeppelin](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_9)   
 7.  Next Steps/Try These
     1.  Practitioner Journey-  As a Hadoop Practitioner you can adopt following learning paths
         *   Hadoop Developer - [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)

@@ -1,4 +1,24 @@
-### What is Pig?
+# Faster Pig With Tez
+
+### Introduction
+
+In this tutorial, you will explore the difference between running pig with execution engine of MapReduce and Tez. By the end of the tutorial, you will know advantage of using Tez over MapReduce.
+
+## Pre-Requisite
+*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+
+## Outline
+- [What is Pig?](#what-is-pig)
+- [What is Tez?](#what-is-tez)
+- [Our Data Processing Task](#our-data-processing-task)
+- [Step 1: Download the data](#download-the-data)
+- [Step 2: Upload Data into HDFS](#upload-data-into-hdfs)
+- [Step 3: Run Pig on MapReduce Using Ambari Pig UI](#use-ambari-pig-ui-run-pig-on-mapreduce)
+- [Step 4: Run Pig on Tez Using Ambari Pig UI](#run-pig-on-tez)
+- [Further Reading](#further-reading)
+
+## What is Pig? <a id="what-is-pig"></a>
 
 Pig is a high level scripting language that is used with Apache Hadoop. Pig excels at describing data analysis problems as data flows. Pig is complete in that you can do all the required data manipulations in Apache Hadoop with Pig. In addition through the User Defined Functions(UDF) facility in Pig you can have Pig invoke code in many languages like JRuby, Jython and Java. Conversely you can execute Pig scripts in other languages. The result is that you can use Pig as a component to build larger and more complex applications that tackle real business problems.
 
@@ -6,59 +26,50 @@ A good example of a Pig application is the ETL transaction model that describes 
 
 Pig scripts are translated into a series of MapReduce jobs or a Tez DAG that are run on the Apache Hadoop cluster. As part of the translation the Pig interpreter does perform optimizations to speed execution on Apache Hadoop. We are going to write a Pig script that will do our data analysis task.
 
-### What is Tez?
+## What is Tez? <a id="what-is-tez"></a>
 
 Tez – Hindi for “speed” provides a general-purpose, highly customizable framework that creates simplifies data-processing tasks across both small scale (low-latency) and large-scale (high throughput) workloads in Hadoop. It generalizes the [MapReduce paradigm](http://en.wikipedia.org/wiki/MapReduce) to a more powerful framework by providing the ability to execute a complex DAG ([directed acyclic graph](http://en.wikipedia.org/wiki/Directed_acyclic_graph)) of tasks for a single job so that projects in the Apache Hadoop ecosystem such as Apache Hive, Apache Pig and Cascading can meet requirements for human-interactive response times and extreme throughput at petabyte scale (clearly MapReduce has been a key driver in achieving this).
 
-### Our data processing task
+## Our data processing task <a id="our-data-processing-task"></a>
 
 We are going to read in a baseball statistics file. We are going to compute the highest runs by a player for each year. This file has all the statistics from 1871-2011 and it contains over 90,000 rows. Once we have the highest runs we will extend the script to translate a player id field into the first and last names of the players.
 
-### Downloading the data
+### Step 1: Download the data <a id="download-the-data"></a>
 
-The data file we are using comes from the site [www.seanlahman.com](http://www.seanlahman.com). We will SSH into the VM.
+Download the data file from [lahman591-csv.zip](http://www.seanlahman.com). After the file is downloaded, extract it.
 
-`ssh root@127.0.0.1  -p 2222;`
+### Step 2: Upload Data into HDFS <a id="upload-data-into-hdfs"></a>
 
-the password is `hadoop`
+Let's login to ambari under `maria_dev` using the following credentials: `maria_dev/maria_dev`. Once the ambari dasbhoard screen appears, go to **HDFS Files View** as shown below:
 
-In case you are not running the Sandbox using VirtualBox, you may have to replace the 127.0.0.1 IP address with the actual IP of the VM.
+![Ambari_HDFS_Files_View](/assets/faster-pig-with-tez/Ambari_HDFS_Files_View_pig_tez.png)
 
-You can download the data file in csv zip using the command below:
+Navigate to `/user/maria_dev` path. Then upload `Batting.csv` file using the upload button:
 
-`wget http://hortonassets.s3.amazonaws.com/pig/lahman591-csv.zip`
+![Upload_batting_csv_maria_dev_dir](/assets/faster-pig-with-tez/Upload_batting_csv_maria_dev_dir_pig_tez.png)
 
-![](/assets/faster-pig-with-tez/1.png)
 
-After the file gets downloaded, `unzip lahman591-csv.zip`
+The data file will appear in the maria_dev directory as shown below:
 
-![](/assets/faster-pig-with-tez/2.png)
+![maria_dev_batting_csv_uploaded](/assets/faster-pig-with-tez/maria_dev_batting_csv_uploaded_pig_tez.png)
 
-### Uploading into HDFS
 
-Let's change into the directory with `cd lahman591-csv` and use the list command `ls` to check all the files we downloaded:
+### Step 3: Run Pig on MapReduce Using Ambari Pig UI <a id="use-ambari-pig-ui-run-pig-on-mapreduce"></a>
 
-![](/assets/faster-pig-with-tez/3.png)
+We will first run Pig without Tez. Click on Pig Views:
 
-We are going to upload the `Batting.csv` file using the command `hadoop fs -put ./Batting.csv /user/guest/`:
+![pig_views](/assets/faster-pig-with-tez/pig_views_pig_tez.png)
 
-![](/assets/faster-pig-with-tez/4.png)
 
-Let's check if the files are on HDFS, with the command `hadoop fs -ls /user/guest/`:
+Click on **New Script** and name it `pig-mapreduce` or a name of your choice. Then press **Create**:
 
-![](/assets/faster-pig-with-tez/5.png)
+![created_new_script_pig_mapreduce](/assets/faster-pig-with-tez/created_new_script_pig_mapreduce_pig_tez.png)
 
-### Running Pig on MapReduce
 
-We will run first Pig without Tez.
+Let's create our first pig script. Copy the pig script below and paste it in Ambari's Pig Script editor:
 
-So, first let's create the pig script with the command `vi 1.pig`:
-
-![](/assets/faster-pig-with-tez/6.png)
-
-Press `i` in vi to enable the insert mode. Then copy the pig script below and paste it in vi:
-
-    batting = LOAD '/user/guest/Batting.csv' USING PigStorage(',');
+~~~
+    batting = LOAD '/user/maria_dev/Batting.csv' USING PigStorage(',');
     raw_runs = FILTER batting BY $1>0;
     runs = FOREACH raw_runs GENERATE $0 AS playerID, $1 AS year, $8 AS runs;
     grp_data = GROUP runs BY (year);
@@ -66,29 +77,41 @@ Press `i` in vi to enable the insert mode. Then copy the pig script below and pa
     join_max_runs = JOIN max_runs BY ($0, max_runs), runs BY (year, runs);
     join_data = FOREACH join_max_runs GENERATE $0 AS year, $2 AS playerID, $1 AS runs;
     DUMP join_data;
+~~~
 
-Then hit `esc` button and type `:wq` to save the file:
+Then hit the **Save** button on the left of the editor. 
 
-![](/assets/faster-pig-with-tez/7.png)
+![save_pig_mapreduce_script](/assets/faster-pig-with-tez/save_pig_mapreduce_script.png)
 
-Now we can execute the pig script using the MapReduce engine by simply typing `pig 1.pig`:
 
-![](/assets/faster-pig-with-tez/8.png)
+Now we can execute the pig script using the MapReduce engine by simply clicking the blue **Execute** button:
 
-It typically takes a little more than two minutes to finish on our single node pseudocluster. Note the time it took on our machine after it completes:
+![execute_pig_mapreduce_script](/assets/faster-pig-with-tez/execute_pig_mapreduce_script_pig_tez.png)
 
-![](/assets/faster-pig-with-tez/9.png)
 
-### Running Pig on Tez
+After the script executes, we can view **Results**, **Logs** and **Script Details**. 
 
-Let's run the same Pig script with Tez using the command `pig -x tez 1.pig`:
+![results_logs_pig_mapreduce_script](/assets/faster-pig-with-tez/results_logs_pig_mapreduce_script_pig_tez.png)
 
-![](/assets/faster-pig-with-tez/10.png)
+> Notice, in the **Logs**, the script typically takes a little more than one minutes to finish on our single node pseudocluster.
 
-This time note the time after the execution completes:
+### Step 4: Run Pig on Tez Using Ambari Pig UI <a id="run-pig-on-tez"></a>
 
-![](/assets/faster-pig-with-tez/11.png)
+Let's run the same Pig script with Tez by clicking on **Execute on Tez** button near the Execute button:
 
-On our machine it took around 58 seconds with Pig using the Tez engine. That is more than 2X faster than Pig using MapReduce even without any specific optimization in the script for Tez.
+![execute_on_tez_pig_tez_script](/assets/faster-pig-with-tez/execute_on_tez_pig_tez_script_pig_tez.png)
+
+
+Notice the time after the execution completes:
+
+![log_time_run_pig_script](/assets/faster-pig-with-tez/log_time_run_pig_script_pig_tez.png)
+
+On our machine it took around 24 seconds with Pig using the Tez engine. That is more than 2X faster than Pig using MapReduce even without any specific optimization in the script for Tez.
 
 Tez definitely lives up to it's name.
+
+## Further Reading <a id="further-reading"></a>
+- [Apache Pig](http://hortonworks.com/hadoop/pig/)
+- [Pig Latin Basics](https://pig.apache.org/docs/r0.12.0/basic.html#store)
+- [Apache Tez](http://hortonworks.com/hadoop/tez/)
+- [Apache MapReduce](http://hortonworks.com/hadoop/mapreduce/)

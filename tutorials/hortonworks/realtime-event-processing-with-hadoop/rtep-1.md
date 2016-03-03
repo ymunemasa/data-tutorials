@@ -1,24 +1,17 @@
-## Lab 1: Simulating and Transporting Real Time Event Stream with Apache Kafka
+# Lab 1: Simulating and Transporting Real Time Event Stream with Apache Kafka
 
-## <a id="h.z9rlh6c7n55s" name="h.z9rlh6c7n55s"></a>Introduction
+### Introduction
 
-[Apache Kafka](http://kafka.apache.org/&sa=D&ust=1452621795987000&usg=AFQjCNG3tOmWrSlgNP4VdKdBTW1D7y6CGQ) can be used on the Hortonworks Data Platform to capture these data real-time events. In coming tutorials, you will learn how to  persist stream of events  to different data stores/queue (HBase, HDFS, ActiveMQ) for further analysis.
+[Apache Kafka](http://kafka.apache.org/) can be used on the Hortonworks Data Platform to capture real-time events. We will begin with showing you how to configure Apache Kafka and Zookeeper. Next we will show you how to ingest the truckevent data into Kafka. We have also included code highlights at the end of this tutorial for your reference.
 
+## Prerequisites
+*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*  Since this tutorial requires admin privileges, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to reset your Ambari admin password
+*  Memory must be at least 8GB RAM, preferably 4 processor cores, else errors may occur in third tutorial
 
+## Outline
 
-We will begin with showing you the configuring settings of Apache Kafka and Zookeeper. Next a topic named ‘truckevent' will be created. Topic is a is a user-defined category to which messages are published. We will proceed ahead to create Producer and Consumer. Producers will publish random messages to the topic and Consumer will subscribe the messages related to a topic(In our case ‘truckevent’). We have also included code highlights at the end of this tutorial for your reference.
-
-## <a id="h.17ytp7764v6" name="h.17ytp7764v6"></a>Prerequisites
-
-A working Hadoop cluster: the easiest way to get a pre-configured and fully functional Hadoop cluster is to download the HDP 2.3 [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/&sa=D&ust=1452621795990000&usg=AFQjCNEWWm3hzbthl6QjURE5Sh18qmTldw). Make sure to increase the memory to at least 8GB RAM and preferably 4 processor cores, otherwise you may encounter errors in the third tutorial
-
-## <a id="h.ededh69jlm1t" name="h.ededh69jlm1t"></a>
-
-## <a id="h.8uov9lckzlh9" name="h.8uov9lckzlh9"></a>Outline
-
-*   Introduction
-*   Prerequisites
-*   Apache Kafka basics
+*   Apache Kafka
 *   Step 1: Login to Ambari User Views
 *   Step 2: Start Apache Kafka
 *   Step 3: Kafka Configs
@@ -27,9 +20,9 @@ A working Hadoop cluster: the easiest way to get a pre-configured and fully func
 *   Step 6: Creating Kafka Consumer
 *   Step 7: Code Review
 
-## <a id="h.nayl38c3pgxn" name="h.nayl38c3pgxn"></a>Apache Kafka:
+## Apache Kafka:
 
-[Apache Kafka](http://kafka.apache.org/&sa=D&ust=1452621795996000&usg=AFQjCNHjsrCE65J9D2pw5TtDMloTQCJX1w) is an open source messaging system designed for:
+[Apache Kafka](http://kafka.apache.org/) is an open source messaging system designed for:
 
 *   Persistent messaging
 *   High throughput
@@ -41,44 +34,38 @@ A working Hadoop cluster: the easiest way to get a pre-configured and fully func
 
 Kafka Producer-Broker-Consumer
 
-In this tutorial, you will learn the following topics:
+### Tutorial Overview
 
-1.  Install and Start Kafka on HDP 2.3 [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/).
+1.  Install and Start Kafka on latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/).
 2.  Review Kafka and ZooKeeper Configs
 3.  Create Kafka topics for Truck events.
 4.  Writing Kafka Producers for Truck events.
 
-## <a id="h.68ulz3p8zy98" name="h.68ulz3p8zy98"></a>
+### Step 1: Login to Ambari
 
-## <a id="h.yg4qjweybpow" name="h.yg4qjweybpow"></a>
+#### 1.1 Start the Hortonworks Sandbox
 
-## <a id="h.eg08kv7kscmh" name="h.eg08kv7kscmh"></a>
-
-### <a id="h.s0dfgg4mraa1" name="h.s0dfgg4mraa1"></a>Step 1: Login to Ambari
-
-**1. Start the Hortonworks Sandbox.**
-
-After downloading the Sandbox and running the VM, login to the Sandbox using the URL displayed in the console. For example, the URL in the screenshot below is `http://172.16.251.244:8000/`
+After downloading the Sandbox and running the VM, login to the Sandbox using the URL displayed in the console. For example, the URL in the screenshot below is `http://127.0.0.1:8888/`
 
 ![](/assets/realtime-event-processing/t1-update/image01.png)
 
-**2. Login to Ambari**
+#### 1.2 Login to Ambari
 
-Go to port 8080 of your Sandbox’s IP address to view the Ambari login page. For example, http://172.16.251.244:8080:
+After resetting your Ambari admin password setup with assistance from [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/), Go to port 8080 of your Sandbox’s IP address to view the Ambari login page. For example, `http://127.0.0.1:8080:`
 
 ![](/assets/realtime-event-processing/t1-update/image21.png)
 
-The username and password are both admin.
+The username is **admin** and the password will be what you reset it to.
 
-### <a id="h.maomtllyo1lt" name="h.maomtllyo1lt"></a>Step 2: Start Kafka
+### Step 2: Start Kafka
 
-**1.  View the Kafka Services page**
+#### 2.1  View the Kafka Services page
 
-From the Dashboard page of Ambari, click on Kafka from the list of installed services. (If Kafka is not installed, perform the steps in Appendix A first.):
+From the Dashboard page of Ambari, click on Kafka from the list of installed services. (If Kafka is not installed, perform the steps in [Appendix A](#appendix-a) first.):
 
 ![](/assets/realtime-event-processing/t1-update/image03.png)
 
-**2.Start Kafka**
+#### 2.2 Start Kafka
 
 From the Kafka page, click on Service Actions -> Start:
 
@@ -90,7 +77,7 @@ Check the box and click on Confirm Start:
 
 Wait for Kafka to start.
 
-### <a id="h.i1wsqsw9tufy" name="h.i1wsqsw9tufy"></a>Step 3: Configure Kafka with ZooKeeper
+### Step 3: Configure Kafka with ZooKeeper
 
 ZooKeeper serves as the coordination interface between the Kafka broker and consumers:
 
@@ -98,9 +85,9 @@ ZooKeeper serves as the coordination interface between the Kafka broker and cons
 
 The important Zookeeper properties can be checked in Ambari.
 
-**1.  Configure ZooKeeper**
+#### 3.1  Configure ZooKeeper
 
-Click on ZooKeeper in the list of services, then click on the Configs tab. Verify ZooKeeper is running on port 2181:
+Click on **ZooKeeper** in the list of services, then click on the Configs tab. Verify ZooKeeper is running on port 2181:
 
 ![](/assets/realtime-event-processing/t1-update/image00.png)
 
@@ -108,17 +95,17 @@ If this port 2181 is busy or is consumed by other processes, then you could chan
 
 ![](/assets/realtime-event-processing/t1-update/image16.png)
 
-**2\. Configure Kafka**
+#### 3.2 Configure Kafka
 
-From the Kafka page, click on the Configs tab. Verify the `zookeeper.connect` property points to your ZooKeeper server name and port:
+From the Kafka page, click on the **Configs** tab. Verify the `zookeeper.connect` property points to your ZooKeeper server name and port:
 
 ![](/assets/realtime-event-processing/t1-update/image18.png)
 
-### <a id="h.1gb1ug9kkdq7" name="h.1gb1ug9kkdq7"></a>Step 4: Define a Kafka Topic
+### Step 4: Define a Kafka Topic
 
-**1.  SSH into the Sandbox**
+#### 4.1 SSH into the Sandbox
 
-We will SSH in to the Sandbox to the perform the remaining tasks of this tutorial. To SSH in to the Sandbox on Windows, press **Alt+**F5 in the VM window. On a Mac, press **Command+Ctrl+Alt+F5**.
+We will SSH into the Sandbox to the perform the remaining tasks of this tutorial. To SSH in to the Sandbox on Windows, press **Alt+**F5 in the VM window. On a Mac, press **Fn+Alt+F5**.
 
 ![](/assets/realtime-event-processing/t1-update/image12.png)
 
