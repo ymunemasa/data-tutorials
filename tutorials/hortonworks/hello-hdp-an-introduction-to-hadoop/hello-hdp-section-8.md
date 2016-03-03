@@ -7,7 +7,7 @@
 In this tutorial you will be introduced to Apache Zeppelin. In the earlier section of lab, you learned how to perform data visualization 
 using Excel. This section will teach you to visualize data using Zeppelin.
 
-## Prerequisites
+## Pre-Requisites
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
