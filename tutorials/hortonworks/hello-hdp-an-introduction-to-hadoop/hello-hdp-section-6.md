@@ -28,6 +28,7 @@ The tutorial is a part of a series of hands on tutorials to get you started on H
 *   [Step 4.3: Create RDD from Hive Context](#step4.3)
 *   [Step 4.4: RDD transformations and actions](#step4.4)
 *   [Step 4.5: Load and save data into Hive as ORC](#step4.5)
+*   [Appendix A: Run Spark in the Spark Interactive Shell](#run-spark-in-shell)
 *   [Suggested Readings](#suggested-readings)
 
 ## Background in Apache Spark <a id="apache-spark-backdrop"></a>
@@ -47,41 +48,48 @@ You can run batch application such as MapReduce types jobs or iterative algorith
 Lets get started…!!
 
 
-### Step 4.1: Configuring Spark services using Ambari <a id="step4.1"></a>
+### Step 4.1: Configure Spark services using Ambari <a id="step4.1"></a>
 
-1)  Log on to Ambari Dashboard as maria_dev. At the bottom left corner of the services column, check that Spark and Zeppelin are running. 
-> **Note:** If these services are disabled, you will need to login in as an admin user to start all services. Explore HCC for further clarification.
-
-
-![Lab4_2](/assets/hello-hdp/Lab4_2.png)
-
-![Lab4_3](/assets/hello-hdp/Lab4_3.png)
+1)  Log on to Ambari Dashboard as **maria_dev**. At the bottom left corner of the services column, check that Spark and Zeppelin are running. 
+> **Note:** If these services are disabled, you will need to login in as an admin user to start all services. Refer to [Learning the Ropes of Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) for steps to gain admin privileges.
 
 
-2)  Close the Ambari browser and we will get running with some codes on Spark. ssh into the sandbox using root as login and hadoop as password.
+![Lab4_2](/assets/hello-hdp/configure_spark_service_hello_hdp_lab4.png)
+
+
+2) Open Zeppelin and we will begin running some codes on Spark. Open a new browser tab and type the following address to access Zeppelin:
+
 
 ~~~
-login: root
-password: hadoop
+_hostname_:9995
 ~~~
+> Refer to [Learning the Ropes of Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/). if you need assistance with finding your hostname.
 
-Optionally, if you don’t have an SSH client installed and configured you can use the built-in web client which can be accessed from here: **http://_host_:4200** (use the same username and password provided above)
-
-3)  Type the command spark-shell
-
-This will load the default Spark Scala API.
+You should see the Zeppelin Welcome Page:
 
 
-![Lab4_4](/assets/hello-hdp/spark_welcome.png)
+![zeppelin_welcome_page](/assets/hello-hdp/zeppelin_welcome_page_hello_hdp_lab4.png)
 
 
-> **Notice** it is already starting with Hive integration as we have preconfigured it on the Hortonworks Sandbox.
+Optionally, if you want to find out how to access the spark shell to run codes on spark refer to [Appendix A](#run-spark-in-shell)
+
+3)  Create a Zeppelin Notebook
+
+Click on the Notebook tab at the top left and hit **Create new note**. Name your notebook `Compute Riskfactor with Spark`. By the default, the notebook will load Spark Scala API.
+
+
+![create_new_notebook](/assets/hello-hdp/create_new_notebook_hello_hdp_lab4.png)
+
+![notebook_name](/assets/hello-hdp/notebook_name_hello_hdp_lab4.png)
+
 
 ### Step 4.2: Create a HiveContext <a id="step4.2"></a>
 
 For improved Hive integration, HDP 2.4 offers [ORC file](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/) support for Spark. This allows Spark to read data stored in ORC files. Spark can leverage ORC file’s more efficient columnar storage and predicate pushdown capability for even faster in-memory processing. HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
 
-**Import these sql libraries:**
+##### Import these sql libraries:
+
+Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code.
 
 ~~~
 import org.apache.spark.sql.hive.orc._
@@ -89,9 +97,10 @@ import org.apache.spark.sql._
 ~~~
 
 
-![Lab4_5](/assets/hello-hdp/Lab4_5.png)
+![import_sql_libraries](/assets/hello-hdp/import_sql_libraries_hello_hdp_lab4.png)
 
-**Instantiate HiveContext**
+
+##### Instantiate HiveContext
 
 
 ~~~
@@ -99,12 +108,12 @@ val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 ~~~
 
 
-![Lab4_6](/assets/hello-hdp/Lab4_6.png)
+![Lab4_6](/assets/hello-hdp/instantiate_hivecontext_hello_hdp_lab4.png)
 
 
 - `sc` stands for **Spark Context**. SparkContext is the main entry point to everything Spark. It can be used to create RDDs and shared variables on the cluster. When you start up the Spark Shell, the SparkContext is automatically initialized for you with the variable `sc`.
 
-### Step 4.3: Creating a RDD from HiveContext <a id="step4.3"></a>
+### Step 4.3: Create a RDD from HiveContext <a id="step4.3"></a>
 
 **What is RDD?**
 
@@ -125,7 +134,7 @@ hiveContext.sql("show tables").collect.foreach(println)
 ~~~
 
 
-![Lab4_7](/assets/hello-hdp/Lab4_7.png)
+![Lab4_7](/assets/hello-hdp/view_list_tables_hive_hello_hdp_lab4.png)
 
 
 You will notice that geolocation table and driver mileage table that we created in earlier tutorial are already listed in Hive metastore and can be directly queried upon.
@@ -139,7 +148,7 @@ val geolocation_temp1 = hiveContext.sql("select * from geolocation")
 ~~~
 
 
-![Lab4_8](/assets/hello-hdp/Lab4_8.png)
+![Lab4_8](/assets/hello-hdp/query_tables_build_spark_rdd_hello_hdp_lab4.png)
 
 
 ~~~
@@ -147,7 +156,7 @@ val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
 ~~~
 
 
-![Lab4_9](/assets/hello-hdp/Lab4_9.png)  
+![Lab4_9](/assets/hello-hdp/drivermileage_spark_rdd_hello_hdp_lab4.png)  
 
 
 Make sure that the RDD`s carry the exact data. You can verify through following   command
@@ -157,7 +166,12 @@ geolocation_temp1.take(10)
 drivermileage_temp1.take(10)
 ~~~
 
+
 Both these commands will return 10 rows from respective RDD`s.
+
+
+![verify_rdd_carry_data](/assets/hello-hdp/verify_rdd_carry_data_hello_hdp_lab4.png)
+
 
 #### 4.3.3 Registering a Temporary Table
 
@@ -167,6 +181,10 @@ Now let’s give this RDD a name, so that we can use it in Spark SQL statements
 geolocation_temp1.registerTempTable("geolocation_temp1")
 drivermileage_temp1.registerTempTable("drivermileage_temp1")
 ~~~
+
+
+![name_rdd](/assets/hello-hdp/name_rdd_hello_hdp_lab4.png)
+
 
 ### Step 4.4: RDD Transformations and Actions <a id="step4.4"></a>
 
@@ -184,8 +202,12 @@ Now that our schema’s RDD with data has a name, we can use Spark SQL commands 
 *   Here we will try to perform iteration and filter operation. First, we need to filter drivers that have non- normal events associated to them and then count the number for non- normal events for each driver.
 
 ~~~
-val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from             geolocation_temp1  where event!='normal' group by driverid")
+val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from geolocation_temp1 where event!='normal' group by driverid")
 ~~~
+
+
+![filter_drivers_nonnormal_events](/assets/hello-hdp/filter_drivers_nonnormal_events_hello_hdp_lab4.png)
+
 
 - As stated earlier about RDD transformations, select operation is a RDD transformation and therefore does not return anything.
 
@@ -196,6 +218,10 @@ val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occura
 geolocation_temp2.registerTempTable("geolocation_temp2")
 ~~~
 
+
+![register_table](/assets/hello-hdp/register_filtered_table_hello_hdp_lab4.png)
+
+
 *   You can view the result by doing an action operation on RDD.
 
 ~~~
@@ -203,7 +229,7 @@ geolocation_temp2.collect.foreach(println)
 ~~~
 
 
-![Lab4_11](/assets/hello-hdp/Lab4_11.png)
+![Lab4_11](/assets/hello-hdp/view_results_op_on_rdd_hello_hdp_lab4.png)
 
 
 #### 4.4.2  Perform join Operation
@@ -217,7 +243,7 @@ val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geol
 ~~~
 
 
-![Lab4_12](/assets/hello-hdp/Lab4_12.png)
+![Lab4_12](/assets/hello-hdp/join_op_column_hello_hdp_lab4.png)
 
 
 *   The resulting data set will give us total miles and total non normal events for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
@@ -226,6 +252,10 @@ val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geol
 joined.registerTempTable("joined")
 ~~~
 
+
+![register_join_table](/assets/hello-hdp/register_joined_table_hello_hdp_lab4.png)
+
+
 *   You can view the result by doing an action operation on RDD.
 
 ~~~
@@ -233,7 +263,7 @@ joined.collect.foreach(println)
 ~~~
 
 
-![Lab4_13](/assets/hello-hdp/Lab4_13.png)
+![Lab4_13](/assets/hello-hdp/show_results_joined_table_hello_hdp_lab4.png)
 
 
 #### 4.4.3  Compute Driver Risk Factor
@@ -245,7 +275,7 @@ val risk_factor_spark=hiveContext.sql("select driverid, totmiles,occurance, totm
 ~~~
 
 
-![Lab4_14](/assets/hello-hdp/Lab4_14.png)
+![Lab4_14](/assets/hello-hdp/calculate_riskfactor_hello_hdp_lab4.png)
 
 
 *   The resulting data set will give us total miles and total non normal events and what is a risk for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
@@ -261,7 +291,7 @@ risk_factor_spark.collect.foreach(println)
 ~~~
 
 
-![Lab4_15](/assets/hello-hdp/Lab4_15.png)
+![Lab4_15](/assets/hello-hdp/view_results_filtertable_hello_hdp_lab4.png)
 
 
 ### Step 4.5: Load and Save Data into Hive as ORC <a id="step4.5"></a>
@@ -278,7 +308,11 @@ Create a table and store it as ORC. Specifying as orc at the end of the SQL stat
 hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
 ~~~
 
-#### 4.5.2 Load data into ORC table
+
+![create_orc_table](/assets/hello-hdp/create_orc_table_hello_hdp_lab4.png)
+
+
+#### 4.5.2 Convert data into ORC table
 
 Before we load the data into hive table that we created above, we will have to convert our data file into orc format too.
 > **Note:** For Spark 1.3.1, use 
@@ -290,14 +324,21 @@ risk_factor_spark.saveAsOrcFile("risk_factor_spark")
 > **Note:** For Spark 1.4.1 and higher, use
 
 ~~~
-risk_factor_spark.write.format(“orc”).save(“risk_factor_spark”)
+risk_factor_spark.write.format("orc").save("risk_factor_spark")
 ~~~
+
+
+![risk_factor_orc](/assets/hello-hdp/convert_orc_table_hello_hdp_lab4.png)
+
 
 #### 4.5.3 Load the data into Hive table using load data command
 
 ~~~
 hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 ~~~
+
+
+![load_data_to_finalresults](/assets/hello-hdp/load_data_to_finalresults_hello_hdp_lab4.png)
 
 #### 4.5.4 Verify Data Successfully Populated Table
 
@@ -306,6 +347,12 @@ Execute a select query to verify your table has been successfully stored.You can
 ~~~
 hiveContext.sql("select * from finalresults")
 ~~~
+
+
+![verify_table_populated](/assets/hello-hdp/hive_finalresults_hello_hdp_lab4.png)
+
+> Hive finalresults table populated
+
 
 ## Full Spark Code for Lab
 
@@ -355,6 +402,36 @@ hiveContext.sql("select * from finalresults")
 
 ~~~
 
+## Appendix A: Run Spark Code in the Spark Interactive Shell <a id="run-spark-in-shell"></a>
+
+1) Open your terminal or putty.  SSH into the Sandbox using `root` as login and `hadoop` as password.
+
+~~~
+login: root
+password: hadoop
+~~~
+
+
+Optionally, if you don’t have an SSH client installed and configured you can use the built-in web client which can be accessed from here: http://host:4200 (use the same username and password provided above)
+
+
+2) Let's enter the Spark interactive shell (spark repl). Type the command
+
+~~~
+spark-shell
+~~~
+
+This will load the default Spark Scala API.
+
+
+![spark_shell_welcome_page](/assets/hello-hdp/spark_shell_hello_hdp_lab4.png)
+
+> **Notice** it is already starting with Hive integration as we have preconfigured it on the Hortonworks Sandbox.
+
+
+The coding exercise we just went through can also be done in the spark shell. Just we did in Zeppelin, you can copy and paste the code.
+
+Congratulations! You completed this exercise and established basic knowledge in programming on spark.
 
 ## Suggested Readings <a id="suggested-readings"></a>
 
