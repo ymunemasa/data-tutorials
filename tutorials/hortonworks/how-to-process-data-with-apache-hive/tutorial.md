@@ -16,7 +16,6 @@ In this tutorial, we will use the [Ambari](http://hortonworks.com/hadoop/ambari/
 - [Step 2: Upload The Data Files](#upload-the-data-files)
 - [Step 3: Start the Hive View](#start-the-hive-view)
 - [Further Reading](#further-reading)
-- [Resources](#resources)
 
 ## Hive <a id="hive"></a>
 
@@ -51,29 +50,29 @@ directory. We will be uploading just the `Master.csv` and `Batting.csv` files fr
 We start by selecting the HDFS Files view from the Off-canvas menu at the top. The `HDFS Files view` shows you the files in the HDP file
 store. In this case, the file store resides in the Hortonworks Sandbox VM.
 
-![HDFS File View Icon Image](/assets/hello-hdp/HDFS_file_view_icon.png)
+![HDFS File View Icon Image](/assets/hello-hdp/hdfs_files_view_hello_hdp_lab1.png)
 
-Navigate to `/user/admin` and click on the **Upload** button.
+Navigate to `/user/maria_dev` and click on the **Upload** button.
 
-![HDFS Admin Folder Image](/assets/how-to-process-data-with-apache-hive/hdfs_admin_folder.png)
+![HDFS_maria_dev_Folder_Image](/assets/how-to-process-data-with-apache-hive/user_maria_dev_hdfs_process_data_hive.png)
 
 Clicking on browse will open a dialog box. Navigate to where you stored theBatting.csv file on your local disk and select `Batting.csv.` 
 Do the same thing for `Master.csv.` When you are done you will see there are two files in your directory.
 
-![batting and master csv uploaded Image](/assets/how-to-process-data-with-apache-hive/batting_mastercsv_uploaded_hdfs.png)
+![batting and master csv uploaded Image](/assets/how-to-process-data-with-apache-hive/stored_two_files_process_data_hive.png)
 
 ### Step 3: Start the Hive View <a id="start-the-hive-view"></a>
 
 Lets open the `Hive View`by clicking on the Hive button in the top bar as previously when we selected the HDFS Files view. The Hive view provides a user interface to the Hive data warehouse system for Hadoop.
 
-![Hive View Icon from HDFS warehouse](/assets/how-to-process-data-with-apache-hive/hive_view_icon_hdfs_warehouse.png)
+![Hive View Icon from HDFS warehouse](/assets/hello-hdp/start_hive_view_process_data_hive.png)
 
 
 #### 3.1 Explore The Hive User Interface
 
 On right is a `query editor`. A query may span multiple lines. At the bottom, there are buttons to `Execute` the query, `Explain` the query, `Save` the query with a name and to open a new Worksheet window for another query.
 
-![hive ui](/assets/how-to-process-data-with-apache-hive/hive_user_interface.png)
+![hive ui](/assets/how-to-process-data-with-apache-hive/hive_user_interface_process_data_hive.png)
 
 
 ##### Hive and Pig Data Model Differences
@@ -84,11 +83,11 @@ Before we get started let’s take a look at how `Pig and Hive` data models diff
 
 The first task we will do is create a table to hold the data. We will type the query into the `composition area` on the right handside. Once you have typed in the query hit the `Execute` button at the bottom.
 
-~~~
+~~~sql
 create table temp_batting (col_value STRING);
 ~~~
 
-![temp_batting_query](/assets/how-to-process-data-with-apache-hive/temp_batting_query.png)
+![temp_batting_query](/assets/how-to-process-data-with-apache-hive/temp_batting_table_process_data_hive.png)
 
 > **Hint:** press `CTRL` + `Space` for autocompletion
 
@@ -96,88 +95,87 @@ The query does not return any results because at this point we just created an e
 
 Once the query has executed we can refresh the `Database Explorer` at the left of the composition area and when folding down the default database we will see we have a new table called `temp_batting`.
 
-![temp_batting_table_default_database](/assets/how-to-process-data-with-apache-hive/temp_batting_table_default_database.png)
+![temp_batting_table_default_database](/assets/how-to-process-data-with-apache-hive/database_explorer_tempbatting_process_data_hive.png)
 
 Clicking on the `icon` next to the table name a new Worksheets opens, which loads `sample data` from this table. We see the table is empty right now. This is a good example of the interactive feel you get with using Hive.
 
-![load_sample_data_temp_batting_empty](/assets/how-to-process-data-with-apache-hive/load_sample_data_temp_batting_empty.png)
+![load_sample_data_temp_batting_empty](/assets/how-to-process-data-with-apache-hive/.png)
 
 The next line of code will load the data file `Batting.csv` into the table `temp_batting`.
 
-![load_battingcsv_into_temp_batting](/assets/how-to-process-data-with-apache-hive/load_battingcsv_into_temp_batting.png)
+![load_battingcsv_into_temp_batting](/assets/how-to-process-data-with-apache-hive/icon_temp_batting_process_data_hive.png)
 
 
 #### 3.3 Create Query to Populate Hive Table temp_batting with Batting.csv Data
 
 The complete query looks like this.
 
-~~~
-LOAD DATA INPATH '/user/admin/Batting.csv' OVERWRITE INTO TABLE temp_batting;
+~~~sql
+LOAD DATA INPATH '/user/maria_dev/Batting.csv' OVERWRITE INTO TABLE temp_batting;
 ~~~
 
 After executing the query we can look at the Tables again and when we browse the data for `temp_batting` we see that the data has been read in. Note Hive consumed the data file `Batting.csv` during this step. If you look in the `File Browser` you will see Batting.csv is no longer there.
 
-![temp_batting_sample_data_has_data](/assets/how-to-process-data-with-apache-hive/temp_batting_sample_data_has_data.png)
+![temp_batting_sample_data_has_data](/assets/how-to-process-data-with-apache-hive/load_data_tempbatting_process_data_hive.png)
 
 
 #### 3.4 Create Table batting
 
 Now that we have read the data in we can start working with it. The next thing we want to do extract the data. So first we will type in a query to create a new table called `batting` to hold the data. That table will have three columns for `player_id, year and the number of runs`.
 
-~~~
+~~~sql
 create table batting (player_id STRING, year INT, runs INT);
 ~~~
 
-![batting_query](/assets/how-to-process-data-with-apache-hive/batting_query.png)
+![batting_query](/assets/how-to-process-data-with-apache-hive/create_batting_table_process_data_hive.png)
 
 
 #### 3.5 Create Query to Extract Data from temp_batting and Store It to batting
 
 Then we extract the data we want from `temp_batting` and copy it into `batting`. We will do this with a regexp pattern. To do this we are going to build up a multi-line query. The first line of the query create the table `batting`. The three regexp_extract calls are going to extract the `player_id, year and run` fields from the table temp_batting. When you are done typing the query it will look like this. Be careful as there are no spaces in the regular expression pattern.
 
-~~~
+~~~sql
 insert overwrite table batting  
 SELECT  
   regexp_extract(col_value, '^(?:([^,]*)\,?){1}', 1) player_id,  
   regexp_extract(col_value, '^(?:([^,]*)\,?){2}', 1) year,  
   regexp_extract(col_value, '^(?:([^,]*)\,?){9}', 1) run  
 from temp_batting;
-
 ~~~
 
-![filter_batting_player_year_run_query](/assets/how-to-process-data-with-apache-hive/filter_batting_player_year_run_query.png)
+![filter_batting_player_year_run_query](/assets/how-to-process-data-with-apache-hive/overwrite_batting_table_process_data_hive.png)
 
 Execute the query and look at the `batting table`. You should see data that looks like this.
 
-![load_sample_batting_table_data](/assets/how-to-process-data-with-apache-hive/load_sample_batting_table_data.png)
+![load_sample_batting_table_data](/assets/how-to-process-data-with-apache-hive/view_batting_table_data_process_data_hive.png)
 
 
 #### 3.6 Create Query to Filter The Data (year, runs)
 
 Now we have the data fields we want. The next step is to `group` the data by year so we can find the highest score for each `year`. This query first groups all the records by year and then selects the `player with the highest runs` from each year.
 
-~~~
+~~~sql
 SELECT year, max(runs) FROM batting GROUP BY year;
 ~~~
 
 The results of the query look like this.
 
-![group_year_highest_runs](/assets/how-to-process-data-with-apache-hive/group_year_highest_runs.png)
+![group_year_highest_runs](/assets/how-to-process-data-with-apache-hive/filter_data_years_runs_process_data_hive.png)
 
 
 #### 3.7 Create Query to Filter The Data (year, player, runs)
 
 Now we need to go back and get the `player_id(s)` so we know who the player(s) was. We know that for a given year we can use the runs to find the player(s) for that year. So we can take the previous query and join it with the `batting records` to get the final table.
 
-~~~
+~~~sql
 SELECT a.year, a.player_id, a.runs from batting a  
 JOIN (SELECT year, max(runs) runs FROM batting GROUP BY year ) b  
-ON (a.year = b.year AND a.runs = b.runs) ;
+ON (a.year = b.year AND a.runs = b.runs);
 ~~~
 
 The resulting data looks like:
 
-![year_playerid_runs_data_table](/assets/how-to-process-data-with-apache-hive/year_playerid_runs_data_table.png)
+![year_playerid_runs_data_table](/assets/how-to-process-data-with-apache-hive/filter_data_player_runs_year_process_data_hive.png)
 
 So now we have our results. As described earlier we solved this problem using Hive step by step. At any time we were free to look around at the data, decide we needed to do another task and come back. At all times the data is live and accessible to us.
 
@@ -185,5 +183,3 @@ So now we have our results. As described earlier we solved this problem using Hi
 - [Apache Hive](http://hortonworks.com/hadoop/hive/)
 - [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)
  
-## Resources <a id="resources"></a>
-- [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
