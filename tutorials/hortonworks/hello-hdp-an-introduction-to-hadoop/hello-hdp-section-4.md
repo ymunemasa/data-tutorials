@@ -6,7 +6,7 @@
 
 In this section of tutorial you will be introduced to Apache Hive. In the earlier section we covered how to load data into HDFS. So now you have ‘geolocation’ and ‘trucks’ files stored in HDFS as csv files. In order to use this data in Hive we will tell you how to create a table and how to move data into Hive warehouse, from where it can be queried upon. We will analyze this data using SQL queries in Hive User Views and store it as ORC. We will also walk through Apache Tez and how a DAG is created when you specify Tez as execution engine for Hive. Lets start..!!
 
-## Prerequisites
+## Pre-Requisites
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
