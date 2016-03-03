@@ -10,7 +10,7 @@ For our tutorial we are looking at a use case where we have a truck fleet. Each 
 
 Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) to show you what you’ll be doing in this tutorial.
 
-## Prerequisites:
+## Pre-Requisites:
 
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *  Before going through hello HDP labs, we highly recommend you go through [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
@@ -57,7 +57,7 @@ The goal of this tutorial is that you get familiar with the basics of following:
 ## Outline
 
 1.  Introduction
-2.  Prerequisites
+2.  Pre-Requisites
     1.  Data Set Used: [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
     2.  Latest Hortonworks Sandbox Version
     3.  Learning the Ropes of the Hortonworks Sandbox - Address any Sandbox Issues
