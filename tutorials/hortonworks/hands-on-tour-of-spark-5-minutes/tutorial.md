@@ -23,7 +23,13 @@ Let’s try it out.
 
 ### A Hands-On Example
 
-Once your Sandbox starts, go to [http://localhost:9995](http://localhost:9995) to use a Zeppelin Notebook from your browser.
+First, let's launch **Zeppelin** from your browser.
+
+Go to `http://<host IP>:9995`.
+
+For example, the default local **VirtualBox** address is [http://127.0.0.1:9995](http://127.0.0.1:9995) and the default local **VmWare** address is [http://172.16.148.128:9995](http://172.16.148.128:9995).
+
+**Note:** In local mode your `host IP` should be `127.0.0.1` for VirtualBox and `172.16.148.128` for VmWare, however if you are running your Sandbox in the cloud, review [Learning the Ropes](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to learn how to determine your `host IP` address.
 
 Next, select **Create new note** from **Notebook** dropdown menu:
 

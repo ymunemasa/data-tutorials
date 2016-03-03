@@ -19,7 +19,11 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713864304a50596931345456524c536c553f7261773d74727565.png)
 
-**Zeppelin** runs on port 9995: [http://localhost:9995](http://localhost:9995)
+To launch **Zeppelin** from your browser, go to `http://<host IP>:9995`.
+
+For example, the default local **VirtualBox** address is [http://127.0.0.1:9995](http://127.0.0.1:9995) and the default local **VmWare** address is [http://172.16.148.128:9995](http://172.16.148.128:9995).
+
+**Note:** In local mode your `host IP` should be `127.0.0.1` for VirtualBox and `172.16.148.128` for VmWare, however if you are running your Sandbox in the cloud, review [Learning the Ropes](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to learn how to determine your `host IP` address.
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138566b3556614731434f5756694e56553f7261773d74727565.png)
 
