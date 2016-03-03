@@ -39,13 +39,13 @@ To make it easy to interact with Hive we use a tool in the Hortonworks Sandbox c
 Let’s now open the Ambari Hive User View and get introduced to the environment, go to the Ambari User VIew icon and select Hive:
 
 
-![Screen Shot 2015-07-21 at 10.10.18 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.10.18-AM-300x208.png)
+![Screen Shot 2015-07-21 at 10.10.18 AM](/assets/hello-hdp/hive_user_view_hello_hdp_concepts.png)
 
 
 The Ambari Hive User View looks like the following:
 
 
-![Lab2_2](/assets/hello-hdp/Lab2_21.png)
+![Lab2_2](/assets/hello-hdp/ambari_hive_user_view_interface_hello_hdp_concepts.png)
 
 
 Now let’s take a closer look at the SQL editing capabilities in the User View:
@@ -101,7 +101,7 @@ TBLPROPERTIES ("skip.header.line.count"="1");
 Click the green **Execute** button to run the command. If successful, you should see the **Succeeded** status in the **Query Process Results** section:
 
 
-![Lab2_4](/assets/hello-hdp/Lab2_41.png)
+![Lab2_4](/assets/hello-hdp/create_geolocation_stage_table_hello_hdp_lab2.png)
 
 
 #### 2.2.3 Create New Worksheet
@@ -131,6 +131,10 @@ FIELDS TERMINATED BY ','
 STORED AS TEXTFILE
 TBLPROPERTIES ("skip.header.line.count"="1");
 ~~~
+
+
+![create_trucks_stage_table](/assets/hello-hdp/create_trucks_stage_hello_hdp_lab2.png)
+
 
 #### 2.2.6 Execute the Query and Verify it Runs Successfully
 
@@ -171,7 +175,7 @@ Click on the **Load sample data** icon to generate and execute a select SQL stat
  By default, when you create a table in Hive, a directory with the same name gets created in the /apps/hive/warehouse folder in HDFS.  Using the Ambari Files User View, navigate to the /apps/hive/warehouse folder. You should see both a geolocation_stage and trucks_stage directory:
 
 
-![Lab2_8](/assets/hello-hdp/Lab2_8.png)
+![Lab2_8](/assets/hello-hdp/geolocation_tables_created_hive_warehouse_hello_hdp_lab2.png)
 
 
 - The definition of a Hive table and its associated metadata (i.e., the directory the data is stored in, the file format, what Hive properties are set, etc.) are stored in the Hive metastore, which on the Sandbox is a MySQL database.
@@ -183,13 +187,13 @@ Click on the **Load sample data** icon to generate and execute a select SQL stat
 Let’s load some data into your two Hive tables. Populating a Hive table can be done in various ways. A simple way to populate a table is to put a file into the directory associated with the table. Using the Ambari Files User View, click on the **Move** icon next to the file /tmp/maria_dev/data/geolocation.csv. (Clicking on **Move** is similar to “cut” in cut-and-paste.)
 
 
-![Screen Shot 2015-07-27 at 9.45.11 PM](/assets/hello-hdp/Screen-Shot-2015-07-27-at-9.45.11-PM.png)
+![Screen Shot 2015-07-27 at 9.45.11 PM](/assets/hello-hdp/move_geolocation_csv_file_hello_hdp_lab2.png)
 
 
 ##### 2.3.1.1 After clicking on the Move arrow, your screen should look like the following:
 
 
-![Lab2_10](/assets/hello-hdp/Lab2_10.png)
+![Lab2_10](/assets/hello-hdp/cut_paste_geolocation_csv_file_hello_hdp_lab2.png)
 
 
 ##### 2.3.1.2 Notice two things have changed:
@@ -202,7 +206,7 @@ Let’s load some data into your two Hive tables. Populating a Hive table can be
 Now navigate to the destination path /apps/hive/warehouse/geolocation_stage.  You might notice that as you navigate through the directories that the file is pinned at the top.  Once you get to the appropriate directory click on the **Paste** icon to move the file:
 
 
-![Lab2_11](/assets/hello-hdp/Lab2_111.png)
+![Lab2_11](/assets/hello-hdp/paste_geolocation_to_warehouse_hello_hdp_lab2.png)
 
 
 ##### 2.3.1.4 Load Sample Data of geolocation_stage
@@ -297,9 +301,10 @@ Refresh the **Database Explorer** and view the contents of trucks:
 
 If you want to try running some of these commands from the Hive Shell, follow the following steps from your terminal shell (or putty if using Windows):
 
-i.  `ssh root@127.0.0.1 -p 2222` Root password is hadoop
-ii.  `su hive`
-iii.  `hive` Starts Hive shell and now you can enter commands and SQL
+
+i.  `ssh root@127.0.0.1 -p 2222` Root password is hadoop  
+ii.  `su hive`  
+iii.  `hive` Starts Hive shell and now you can enter commands and SQL  
 iv.  `quit;` Exits out of the Hive shell.
 
 
@@ -318,7 +323,7 @@ Open the Ambari Dashboard in another tab by right clicking on the Ambari icon:
 Go to the **Hive page** then select the **Configs tab** then click on **Settings tab**:
 
 
-![Lab2_18](/assets/hello-hdp/Lab2_18.png)
+![Lab2_18](/assets/hello-hdp/hive_settings_hello_hdp_lab2.png)
 
 
 Once you click on the Hive page you should see a page similar to above:
@@ -331,7 +336,7 @@ Once you click on the Hive page you should see a page similar to above:
 Scroll down to the Optimization Settings:
 
 
-![Lab2_19](/assets/hello-hdp/Lab2_19.png) 
+![Lab2_19](/assets/hello-hdp/hive_optimization_settings_hello_hdp_lab2.png) 
 
 
 In the above screenshot we can see:
@@ -387,7 +392,7 @@ CREATE TABLE truck_mileage STORED AS ORC AS SELECT truckid, driverid, rdate, mil
 ~~~
 
 
-![Lab2_22](/assets/hello-hdp/Lab2_22.png)  
+![Lab2_22](/assets/hello-hdp/create_truck_mileage_table_hello_hdp_lab2.png)  
 
 
 #### 2.6.2 Load Sample Data of truck_mileage
@@ -447,53 +452,47 @@ SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 ![Lab2_27](/assets/hello-hdp/Lab2_27.png)
 
 
-2) Verify this added the `EXPLAIN` command at the beginning of the query:
+2) Add the `EXPLAIN` command at the beginning of the query:
 
 
 ![Lab2_25](/assets/hello-hdp/Lab2_25.png)
 
 
-3) Execute the query. The results should look like the following:
+3) Execute the query. An alternative way to execute explain results is to press the `Explain` button. The results should look like the following:
 
 
 ![Lab2_29](/assets/hello-hdp/Lab2_29.png)
 
 
-4) Click on **STAGE PLANS:** to view its output, which displays the flow of the resulting Tez job:
+4) Click on **STAGE-0:** to view its output, which displays the flow of the resulting Tez job:
 
 
-![Lab2_30](/assets/hello-hdp/Lab2_30.png)
+![Lab2_30](/assets/hello-hdp/query_ results_from_explain_hello_hdp_lab2.png)
 
 
 5) To see the Visual Explain click on the Visual Explain icon on the right tabs. This is a much more readable summary of the explain plan:
 
 
-![Lab2_31](/assets/hello-hdp/Lab2_311.png)
+![Lab2_31](/assets/hello-hdp/stage_0_explain_command_hello_hdp_lab2.png)
 
 
 #### 2.6.5 Explore TEZ
 
-1) If you click on the **TEZ** tab on the right-hand column, you can see DAG details associated with the query.
+1) If you click on **TEZ View** from Ambari Views on at the top, you can see DAG details associated with the previous hive and pig jobs. 
+
+![tez_view](/assets/hello-hdp/tez_view_hello_hdp_lab2.png)
 
 
-![Lab2_32](/assets/hello-hdp/Lab2_32.png)
+2) Select the first DAG as it represents the last job that was executed.
 
 
-2) However, you can also view the DAG by going to the Ambari Tez User View. Select the “Tez View: Cluster Instance” User View from the list of User Views.
-
-![Screen Shot 2015-07-21 at 10.22.56 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.22.56-AM.png)  
+![all_dags](/assets/hello-hdp/last_hive_job_dags_hello_hdp_lab2.png)
 
 
-3) Select the first DAG as it represents the last job that was executed.
+3) There are six tabs at the top right please take a few minutes to explore the various tabs and then click on the **Graphical View** tab and hover over one of the nodes with your cursor to get more details on the processing in that node.
 
 
-![Lab2_34](/assets/hello-hdp/Lab2_34.png)
-
-
-4) There are six tabs at the top right please take a few minutes to explore the various tabs and then click on the Graphical View tab and hover over one of the nodes with your cursor to get more details on the processing in that node.
-
-
-![Lab2_35](/assets/hello-hdp/Lab2_35.png)
+![Lab2_35](/assets/hello-hdp/tez_graphical_view_hello_hdp_lab2.png)
 
 
 5) Go back to the Hive UV and save the query by
@@ -511,12 +510,14 @@ FROM truck_mileage
 GROUP BY truckid;
 ~~~
 
+![average_mile_table_query](/assets/hello-hdp/)
+
 #### 2.6.7 Load Sample Data of avg_mileage
 
 To view the data generated by the script, click **Load sample data** icon in the Database Explorer next to avg_mileage. You see our table is now a list of each trip made by a truck.
 
 
-![Lab2_36](/assets/hello-hdp/Lab2_36.png)
+![results_avg_mileage_table](/assets/hello-hdp/Lab2_36.png)
 
 
 ## Suggested Readings <a id="suggested-readings"></a>
