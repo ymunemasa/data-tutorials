@@ -467,9 +467,7 @@ SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 4) Click on **STAGE-0:** to view its output, which displays the flow of the resulting Tez job:
 
 
-
-![Lab2_30](stage_0_explain_command_hello_hdp_lab2.png)
-
+![Lab2_30](/assets/hello-hdp/stage_0_explain_command_hello_hdp_lab2.png)
 
 
 5) To see the Visual Explain click on the Visual Explain icon on the right tabs. This is a much more readable summary of the explain plan:
