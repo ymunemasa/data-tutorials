@@ -181,5 +181,6 @@ So now we have our results. As described earlier we solved this problem using Hi
 
 ## Further Reading <a id="further-reading"></a>
 - [Apache Hive](http://hortonworks.com/hadoop/hive/)
+- [Hive Tutorials](http://hortonworks.com/hadoop/hive/#tutorials)
 - [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)
  
