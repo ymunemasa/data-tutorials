@@ -55,7 +55,7 @@ Click on the browse button to open a dialog box. Navigate to where you stored th
 
 Now that we have our data files, we can start writing our `Pig script`. Click on the `Pig button` from the Off-canvas menu.
 
-![](/assets/hello-hdp/pig_view_icon_process_data_pig.png)
+![](/assets/how-to-process-data-with-apache-pig/pig_view_icon_process_data_pig.png)
 
 #### 3.1 Explore the Pig User Interface
 
