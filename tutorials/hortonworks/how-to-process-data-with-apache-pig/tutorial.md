@@ -161,6 +161,7 @@ If you scroll down to the “Logs…” and click on the link you can see the lo
 ![](/assets/how-to-process-data-with-apache-pig/results_logs_process_Data_pig.png)
 
 ##### Code Recap
+
 So we have created a simple `Pig script` that **reads in some comma separated data.**  
 Once we have that set of records in Pig we **pull out the `playerID, year and runs fields` from each row.**  
 We then **sort them by `year`** with one statement, `GROUP`.  
