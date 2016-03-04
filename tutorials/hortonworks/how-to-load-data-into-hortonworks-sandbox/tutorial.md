@@ -39,27 +39,31 @@ Save the sample data .zip file to your computer, then extract the files and unzi
 
 2.2) Navigate to `/tmp`, create an **maria_dev** folder
 
-![](/assets/how-to-load-data-into-sandbox/.png)
+![](/assets/how-to-load-data-into-sandbox/tmp_maria_dev_folder_data_sandbox.png)
 
 2.3) right click on **maria_dev** and select **Permissions**:
 
+![](/assets/how-to-load-data-into-sandbox/permissions_maria_dev_load_data_sandbox.png)
+
 2.4) Now we check the `Write buttons` and `modify recursively` and press save.
 
-![](/assets/how-to-load-data-into-sandbox/.png)
+![](/assets/how-to-load-data-into-sandbox/write_buttons_modify_recursive_load_data_sandbox.png)
 
 2.5) Verify that the permissions look now like the image below:
 
-![](/assets/how-to-load-data-into-sandbox/.png)
+![](/assets/how-to-load-data-into-sandbox/verify_permissions_load_data_sandbox.png)
 
 2.6) Now, we navigate to `/tmp/maria_dev`, click on upload and browse the `Omniture.0.tsv`.
 
 Repeat this procedure for `users.tsv` file and for `products.tsv`.
 
+![](/assets/how-to-load-data-into-sandbox/upload_refine_demo_data_load_data_sandbox.png)
+
 ### Step 3: Create Hive tables <a id="create-hive-tables"></a>
 
 3.1) Let’s open the `Hive  View` by clicking on the Hive button from the `views menu`.
 
-![](/assets/how-to-load-data-into-sandbox/.png)
+![](/assets/how-to-load-data-into-sandbox/hive_view_icon_load_data_sandbox.png)
 
 3.2) Create the tables users, products and omniturelogs.
 
@@ -69,7 +73,7 @@ FIELDS TERMINATED by '\t' stored as textfile
 tblproperties ("skip.header.line.count"="1");
 ~~~
 
-![](/assets/how-to-load-data-into-sandbox/.png)
+![](/assets/how-to-load-data-into-sandbox/create_table_users_load_data_sandbox.png)
 
 ~~~
 create table products (url STRING, category STRING) ROW FORMAT DELIMITED
@@ -77,15 +81,16 @@ FIELDS TERMINATED by '\t' stored as textfile
 tblproperties ("skip.header.line.count"="1");
 ~~~
 
-![](/assets/how-to-load-data-into-sandbox/.png)
+![](/assets/how-to-load-data-into-sandbox/create_table_products_load_data_sandbox.png)
 
 ~~~
-create table omniturelogs (col_1 STRING,col_2 STRING,col_3 STRING,col_4 STRING,col_5 STRING,col_6 STRING,col_7 STRING,col_8 STRING,col_9 STRING,col_10 STRING,col_11 STRING,col_12 STRING,col_13 STRING,col_14 STRING,col_15 STRING,col_16 STRING,col_17 STRING,col_18 STRING,col_19 STRING,col_20 STRING,col_21 STRING,col_22 STRING,col_23 STRING,col_24 STRING,col_25 STRING,col_26 STRING,col_27 STRING,col_28 STRING,col_29 STRING,col_30 STRING,col_31 STRING,col_32 STRING,col_33 STRING,col_34 STRING,col_35 STRING,col_36 STRING,col_37 STRING,col_38 STRING,col_39 STRING,col_40 STRING,col_41 STRING,col_42 STRING,col_43 STRING,col_44 STRING,col_45 STRING,col_46 STRING,col_47 STRING,col_48 STRING,col_49 STRING,col_50 STRING,col_51 STRING,col_52 STRING,col_53 STRING) ROW FORMAT DELIMITED
+create table omniturelogs (col_1 STRING,col_2 STRING,col_3 STRING,col_4 STRING,col_5 STRING,col_6 STRING,col_7 STRING,col_8 STRING,col_9 STRING,col_10 STRING,col_11 STRING,col_12 STRING,col_13 STRING,col_14 STRING,col_15 STRING,col_16 STRING,col_17 STRING,col_18 STRING,col_19 STRING,col_20 STRING,col_21 STRING,col_22 STRING,col_23 STRING,col_24 STRING,col_25 STRING,col_26 STRING,col_27 STRING,col_28 STRING,col_29 STRING,col_30 STRING,col_31 STRING,col_32 STRING,col_33 STRING,col_34 STRING,col_35 STRING,col_36 STRING,col_37 STRING,col_38 STRING,col_39 STRING,col_40 STRING,col_41 STRING,col_42 STRING,col_43 STRING,col_44 STRING,col_45 STRING,col_46 STRING,col_47 STRING,col_48 STRING,col_49 STRING,col_50 STRING,col_51 STRING,col_52 STRING,col_53 STRING) 
+ROW FORMAT DELIMITED
 FIELDS TERMINATED by '\t' stored as textfile 
 tblproperties ("skip.header.line.count"="1");
 ~~~
 
-![](/assets/how-to-load-data-into-sandbox/.png)
+![](/assets/how-to-load-data-into-sandbox/create_table_omniturelogs_load_data_sandbox.png)
 
 ### Step 4: Load data into new tables <a id="load-data-into-new-tables"></a>
 
@@ -97,7 +102,7 @@ LOAD DATA INPATH '/tmp/maria_dev/users.tsv' OVERWRITE INTO TABLE users;
 LOAD DATA INPATH '/tmp/maria_dev/Omniture.0.tsv' OVERWRITE INTO TABLE omniturelogs;
 ~~~
 
-![](/assets/how-to-load-data-into-sandbox/.png)
+![](/assets/how-to-load-data-into-sandbox/load_demo_data_load_data_sandbox.png)
 
 4.2) To check if the data was loaded, click on the icon next to the table name. It executes a sample query.
 
