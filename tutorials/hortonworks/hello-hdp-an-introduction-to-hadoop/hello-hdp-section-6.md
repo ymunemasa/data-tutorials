@@ -349,15 +349,12 @@ val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 
 hiveContext.sql("show tables").collect.foreach(println)
 
-val geolocation_temp1 = hiveContext.sql("select * from geolocation”)
+val geolocation_temp1 = hiveContext.sql("select * from geolocation")
 
 val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
 
-geolocation_temp1.take(10)
-drivermileage_temp1.take(10)
-
 geolocation_temp1.registerTempTable("geolocation_temp1")
-drivermileage_temp1.registerTempTable("drivermileage_temp1”)
+drivermileage_temp1.registerTempTable("drivermileage_temp1")
 
 val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from geolocation_temp1  where event!='normal' group by driverid")
 
