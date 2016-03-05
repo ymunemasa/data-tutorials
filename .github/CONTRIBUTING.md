@@ -3,9 +3,9 @@
 We're more than happy to accept community contributions to our tutorials. You can even write your own! We just ask that you please follow these guidelines:
 
 - [Questions and Assistance](#questions)
-- [Issues, Bugs, and Pull Requests][#issues-and-PRs]
+- [Issues, Bugs, and Pull Requests](#issues-and-PRs)
 - [Markdown Formatting](#markdown-formatting)
-- [Writing a new Tutorial](#writing-a-tutorial
+- [Writing a new Tutorial](#writing-a-tutorial)
 
 Please note that there is also much information which can be [found on the wiki](https://github.com/hortonworks/tutorials/wiki)!
 
