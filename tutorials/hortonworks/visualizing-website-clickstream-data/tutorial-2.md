@@ -148,7 +148,9 @@ Open up Ambari and make sure Zeppelin is running. If not, start the service. The
 
 ![Zeppelin View](/assets/clickstream/36_zeppelin_create_note.png)
 
-Once the Zeppelin view is open you can either create a new note and run the commands, or import the following notebook from this URL: [https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.4/data/zeppelin-notes/ClickstreamAnalytics.json]()
+Once the Zeppelin view is open you can either create a new note and run the commands, or import the following notebook from this URL: `
+
+`https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.4/data/zeppelin-notes/ClickstreamAnalytics.json`
 
 		%hive
 		select state from webloganalytics
