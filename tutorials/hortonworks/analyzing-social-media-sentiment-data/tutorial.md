@@ -1,6 +1,6 @@
 # Analyzing Twitter Data With Apache NiFi and HDP Search
 
-## Introduction
+### Introduction
 
 In this tutorial we will learn how to install Apache NiFi on your Hortonworks Sandbox if you do not have it pre-installed already. Using NiFi we will create a data flow that can pull tweets directly from the [Twitter API](https://dev.twitter.com/overview/documentation).
 
@@ -29,21 +29,21 @@ Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) 
 
 If you haven't added `sandbox.hortonworks.com` to your lists of hosts you can do so with the following command on a unix system:
 
-~~~
+~~~bash
 echo "127.0.0.1     sandbox.hortonworks.com >> /etc/hosts"
 ~~~
 
 Alernative approach in case above command doesn't work, write the commands:
 
-~~~
+~~~bash
 cd /private/etc
-sudo nano hosts
+sudo vi hosts
 ~~~
 
-We navigated to the etc directory, then opened our hosts file in the nano editor as a superuser using [sudo](https://www.linux.com/community/blogs/133-general-linux/801805-how-to-use-sudo-and-su-commands-in-linux-an-introduction). Now add the following text to your lists of hosts:
+We navigated to the etc directory, then opened our hosts file in the vi editor as a superuser using [sudo](https://www.linux.com/community/blogs/133-general-linux/801805-how-to-use-sudo-and-su-commands-in-linux-an-introduction). Now press `i` and add the following text to your lists of hosts:
 
 ~~~
-<ip address of your machine> sandbox.hortonworks.com
+<Host IP of your machine> sandbox.hortonworks.com
 ~~~
 
 > **Note:** For Azure users, your ip address is located on the sandbox dashboard.
@@ -51,7 +51,7 @@ For Virtualbox users, your ip address is located at the sandbox start screen.
 
 After inserting the above, the portion of the file should look similar to this:
 
-~~~
+~~~bash
 ##
 # Host Database
 #
@@ -64,7 +64,9 @@ After inserting the above, the portion of the file should look similar to this:
 40.117.36.165 sandbox.hortonworks.com
 ~~~
 
-Press ctrl-x, and type `y` to save and close the `hosts` file.
+![vi editor](/assets/nifi-sentiment-analytics/images/vi_editor_hosts_file_sentiment_analysis.png)
+
+Press `esc`, and type `:wq` to save and close the `hosts` file.
 
 ## Outline
 
@@ -96,10 +98,14 @@ Assuming that HDF has been downloaded to your `~/Downloads/` directory and that 
 
 **Note:** the `-P` argument is case sensitive.
 
+~~~bash
+# Virtualbox 
+	scp -P 2222 ~/Downloads/nifi-1.1.1.0-12-bin.tar.gz root@localhost:/root 
+# Azure
+	scp -P <port> ~/Downloads/nifi-1.1.1.0-12-bin.tar.gz <username>@<hostname>:/folder_destination
 ~~~
-Virtualbox | scp -P 2222 ~/Downloads/nifi-1.1.1.0-12-bin.tar.gz root@localhost:/root 
-Azure	   | scp -P <port> ~/Downloads/nifi-1.1.1.0-12-bin.tar.gz <username>@<hostname>:/folder_destination
-~~~
+
+![send nifi data to sandbox](/assets/nifi-sentiment-analytics/images/send_nifi_data_to_sandbox_sentiment_analysis.png)
 
 Once you've done that you'll need to SSH into the sandbox
 
@@ -107,10 +113,14 @@ Once you've done that you'll need to SSH into the sandbox
 
 There are two options to connecting to your sandbox to execute terminal commands. The first is by using the terminal emulator at [http://sandbox.hortonworks.com:4200](http://sandbox.hortonworks.com:4200). Or you can open a terminal on your computer and use the following command
 
+~~~bash
+# Virtualbox  
+	ssh root@sandbox.hortonworks.com -p 2222 
+# Azure       
+	ssh <username>@<hostname> -p <port>       
 ~~~
-Virtualbox | ssh root@sandbox.hortonworks.com -p 2222 
-Azure      | ssh <username>@<hostname> -p <port>       
-~~~
+
+![ssh into sandbox](/assets/nifi-sentiment-analytics/images/ssh_into_sandbox_sentiment_analysis.png)
 
 If you've already logged into your sandbox through SSH your password will be different than below.
 
@@ -124,50 +134,69 @@ First, use the `export` command to create a temporary variable to store the name
 
 For example if the filename is `nifi-1.1.1.0-12-bin.tar.gz`:
 
-~~~
+~~~bash
 export NIFI=nifi-1.1.1.0-12-bin.tar.gz
 ~~~
+
+![export create temp variable](/assets/nifi-sentiment-analytics/images/export_create_tempvariable_nifi_sentiment_analysis.png)
 
 Once you've successfully connected to the sandbox make sure that you're in the directory `/root/`. Then run the following commands.
 
 Make a new directory for NiFi
 
-~~~
+~~~bash
 mkdir nifi
 ~~~
 
+![make new directory nifi](/assets/nifi-sentiment-analytics/images/make_new_directory_nifi_sentiment_analysis.png)
+
 Move our file to the folder which we just created, then cd into the folder
 
-~~~
+~~~bash
 mv $NIFI ./nifi
 cd nifi
 ~~~
 
+![move file to new folder](/assets/nifi-sentiment-analytics/images/move_file_to_nifi_folder_sentiment_analysis.png)
+
 Unzip the file
 
-~~~
+~~~bash
 tar -xvf $NIFI
 ~~~
 
+![unzip file](/assets/nifi-sentiment-analytics/images/unzip_nifi_file_sentiment_analysis.png)
+
 Then let's head into the directory we just unzipped. It will be the same as the $NIFI variable, except without the -bin.tar.gz at the end. In this case the command is:
 
-~~~
+~~~bash
 cd nifi-1.1.1.0-12
 ~~~
+
+![change directory](/assets/nifi-sentiment-analytics/images/change_directory_nifi_unzipped_sentiment_analysis.png)
 
 Next we're going to need to change the port which nifi runs on from 8080 to 9090.
 
 Inside the `conf/nifi.properties` file, find the line which has `nifi.web.http.port`. Make sure it looks like the following:
 
-~~~
+~~~bash
 nifi.web.http.port=9090
 ~~~
+> **Note:** Open nifi.properties with vi editor to change the line of text as suggested above.
+
+![open nifi properties file](/assets/nifi-sentiment-analytics/images/open_nifi_properties_sentiment_analysis.png)
+
+![edit nifi properties file](/assets/nifi-sentiment-analytics/images/edit_nifi_properties_file_sentiment_analysis.png)
+
+> **Note:** Change Highlighted region. 
 
 You can now start NiFi! use the `nifi.sh` file to start the application.
 
-~~~
+~~~bash
 bash bin/nifi.sh start
 ~~~
+
+![export create temp variable](/assets/nifi-sentiment-analytics/images/start_nifi_application_sentiment_analysis.png)
 
 After a few short moments NiFi will start up on the Sandbox.
 
@@ -181,19 +210,19 @@ For VirtualBox you can forward the port **2** ways. Either through the GUI, or u
 
 First you'll need to run the following command:
 
-~~~
+~~~bash
 VBoxManage list vms
 ~~~
 
 Look for the Hortonworks Sandbox VM. Take note of it's ID. Once you've taken note of the ID, run the following command to forward the port:
 
-~~~
+~~~bash
 VBoxManage controlvm {INSERT_VM_ID_HERE} natpf1 nifi,tcp,,9090,,9090
 ~~~
 
 Example:
 
-~~~
+~~~bash
 HW11108:~ zblanco$ VBoxManage list vms
 "Hortonworks Sandbox with HDP 2.3.2" {2d299b17-3b10-412a-a895-0bf958f98788}
 
@@ -234,25 +263,31 @@ We just need to make a few quick changes.
 
 First, we need to modify some file permissions. Open your terminal shell and SSH back into the sandbox. Execute the following
 
-~~~
+~~~bash
 chown -R solr:solr /opt/lucidworks-hdpsearch/solr
 ~~~
 
+![modify solr permissions](/assets/nifi-sentiment-analytics/images/modify_permissions_solr_sentiment_analysis.png)
+
 We're going to need to run the following commands as the Solr user. run
 
-~~~
+~~~bash
 su solr
 ~~~
 
+![login as solr user](/assets/nifi-sentiment-analytics/images/login_as_solr_user_sentiment_analysis.png)
+
 Then we need to edit the following file to make sure that Solr can recognize a tweet's timestamp format. First we're going to copy the config set over to a different place:
 
-~~~
+~~~bash
 cp -r /opt/lucidworks-hdpsearch/solr/server/solr/configsets/data_driven_schema_configs /opt/lucidworks-hdpsearch/solr/server/solr/configsets/tweet_configs
 ~~~
 
-~~~
+~~~bash
 vi /opt/lucidworks-hdpsearch/solr/server/solr/configsets/tweet_configs/conf/solrconfig.xml
 ~~~
+
+![copy and edit solr configs file](/assets/nifi-sentiment-analytics/images/copy_config_set_to_tweet_configs_sentiment_analysis.png)
 
 Once the file is opened in `vi` type 
 
@@ -264,7 +299,7 @@ Once the file is opened in `vi` type
 
 This will bring you to the part of the config where we need to add the following:
 
-~~~
+~~~html
 <str>EEE MMM d HH:mm:ss Z yyyy</str>
 ~~~
 
@@ -274,7 +309,7 @@ Make sure this is inserted just above all of the other `<str>` tags.
 
 After inserting the above, the portion of the file should look something like this:
 
-~~~
+~~~html
 <processor class="solr.ParseLongFieldUpdateProcessorFactory"/>
   <processor class="solr.ParseDateFieldUpdateProcessorFactory">
     <arr name="format">
@@ -293,7 +328,7 @@ Finally press the **Escape key** on your keyboard and type `:wq` to save and clo
 
 Next we need to replace a JSON file. Use the following commands to move the original and download the replacement file:
 
-~~~
+~~~bash
 cd /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/banana/app/dashboards/
 
 mv default.json default.json.orig
@@ -301,22 +336,28 @@ mv default.json default.json.orig
 wget https://raw.githubusercontent.com/abajwa-hw/ambari-nifi-service/master/demofiles/default.json
 ~~~
 
+![replace json file](/assets/nifi-sentiment-analytics/images/replace_json_file_move_orig_download_sentiment_analysis.png)
+
 Now we're going to start Solr. Execute
 
-~~~
+~~~bash
 export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
 /opt/lucidworks-hdpsearch/solr/bin/solr start -c -z localhost:2181
 ~~~
 
+![start solr server](/assets/nifi-sentiment-analytics/images/start_solr_server_sentiment_analysis.png)
+
 Then we are going to add a collection called "tweets"
 
-~~~
+~~~bash
 /opt/lucidworks-hdpsearch/solr/bin/solr create -c tweets -d tweet_configs -s 1 -rf 1
 ~~~
 
-We can now go back to running commands as the root user. Run 
+![add collection tweets](/assets/nifi-sentiment-analytics/images/add_collection_tweets_sentiment_analysis.png)
 
-~~~
+We can now go back to running commands as the **root** user. Run 
+
+~~~bash
 exit
 ~~~
 
@@ -325,7 +366,7 @@ This will log you out of the `solr` user
 
 Lastly, we need to update the system time on the sandbox so that we will be able to process the tweets correctly in NiFi
 
-~~~
+~~~bash
 yum install -y ntp
 service ntpd stop
 ntpdate pool.ntp.org
@@ -439,19 +480,19 @@ This section is for anyone who didn't want to set up a Twitter app so they could
 
 First you'll need to SSH into the sandbox execute the following command
 
-~~~
-wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/twitter-gen.sh
+~~~bash
+wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/assets/twitter-gen.sh
 ~~~
 
 Then run the command with your specified number of tweets that you would like to generate.
 
-~~~
+~~~bash
 bash twitter-gen.sh {NUMBER_OF_TWEETS}
 ~~~
 
 Example:
 
-~~~
+~~~bash
 bash twitter-gen.sh 2000
 ~~~
 
@@ -538,24 +579,30 @@ Now that we've taken a look at some of our data and searched it with Solr, let's
 
 We're going to attempt to get the sentiment of each tweet by matching the words in the tweets with a sentiment dictionary. From this we can determine the sentiment of each tweet and analyze it from there.
 
-First off, if your Twitter flow on the NiFi instance is still running, you'll need to shut it off. Open up the NiFi dashboard at [sandbox.hortonworks.com:9090/nifi](sandbox.hortonworks.com:9090/nifi) and click red square at the top of the screen.
+First off, if your Twitter flow on the NiFi instance is still running, you'll need to shut it off. Open up the NiFi dashboard at [sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi) and click red square at the top of the screen.
 
 ![Turning off NiFi](/assets/nifi-sentiment-analytics/images/29_1_stopping_nifi.png)
 
 
 Next, you'll need to SSH into the sandbox again and run the following two commands
 
-~~~
-Virtualbox | sudo -u hdfs hadoop fs -chown -R admin /tmp/tweets_staging
-Azure	   | sudo -u hdfs hadoop fs -chown -R azure /tmp/tweets_staging
-sudo -u hdfs hadoop fs -chmod -R 777 /tmp/tweets_staging
+~~~bash
+# Virtualbox  
+	sudo -u hdfs hadoop fs -chown -R maria_dev /tmp/tweets_staging
+	sudo -u hdfs hadoop fs -chmod -R 777 /tmp/tweets_staging
+# Azure	    
+	sudo -u hdfs hadoop fs -chown -R azure /tmp/tweets_staging
+	sudo -u hdfs hadoop fs -chmod -R 777 /tmp/tweets_staging
 ~~~
 
-After the commands complete let's go to the Hive view. Head over to [http://sandbox.hortonworks.com:8080](http://sandbox.hortonworks.com:8080/). Login with credentials `admin/admin` (Virtualbox), else `azure/azure` (Azure). Use the dropdown menu at the top to get to the Hive view. 
+![change permission of tweets staging](/assets/nifi-sentiment-analytics/images/change_permissions_tweets_staging_sentiment_analysis.png)
+
+After the commands complete let's go to the Hive view. Head over to [http://sandbox.hortonworks.com:8080](http://sandbox.hortonworks.com:8080/). Login into Ambari. Refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) if you need assistance with logging into Ambari. 
+> **Note:** login credentials are `maria_dev/maria_dev` (Virtualbox), else `azure/azure` (Azure). Use the dropdown menu at the top to get to the Hive view. 
 
 Execute the following command to create a table for the tweets
 
-~~~
+~~~sql
 CREATE EXTERNAL TABLE IF NOT EXISTS tweets_text(
   tweet_id bigint, 
   created_unixtime bigint, 
@@ -570,7 +617,7 @@ FIELDS TERMINATED BY "|"
 LOCATION "/tmp/tweets_staging";
 ~~~
 
-![Hive Tweets Table](/assets/nifi-sentiment-analytics/images/30_hive_tweets_table.png)
+![Hive Tweets Table](/assets/nifi-sentiment-analytics/images/create_tweets_text_table_sentiment_analysis.png)
 
 Now we're going to need to do some data analysis.
 
@@ -578,19 +625,21 @@ First you're going to need to head to the **HDFS Files View** and create a new d
 
 Then create two new directories inside of `/tmp/data/tables`. One named **time_zone_map** and another named **dictionary**
 
-![Data Table Folders](/assets/nifi-sentiment-analytics/images/31_data_table_folders.png)
+![Data Table Folders](/assets/nifi-sentiment-analytics/images/two_new_tweet_dir_sentiment_analysis.png)
 
 In each of the folders respectively you'll need to upload the [`dictionary.tsv` file](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/dictionary.tsv), and the [`time_zone_map.tsv` file](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/time_zone_map.tsv) to each of their respective directories.
 
 After doing so, you'll need to run the following command on the Sandbox:
 
-~~~
+~~~bash
 sudo -u hdfs hadoop fs -chmod -R 777 /tmp/data/tables
 ~~~
 
+![modify permissions tables folder](/assets/nifi-sentiment-analytics/images/modify_permissions_tables_dir_sentiment_analysis.png)
+
 Finally, run the following two commands:
 
-~~~
+~~~sql
 CREATE EXTERNAL TABLE if not exists dictionary (
 	type string,
 	length int,
@@ -602,7 +651,11 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY '\t' 
 STORED AS TEXTFILE
 LOCATION '/tmp/data/tables/dictionary';
+~~~
 
+![create dictionary table](/assets/nifi-sentiment-analytics/images/create_dictionary_table_sentiment_analysis.png)
+
+~~~sql
 CREATE EXTERNAL TABLE if not exists time_zone_map (
     time_zone string,
     country string,
@@ -613,6 +666,8 @@ STORED AS TEXTFILE
 LOCATION '/tmp/data/tables/time_zone_map';
 ~~~
 
+![create time zone map table](/assets/nifi-sentiment-analytics/images/create_time_zone_map_table_sentiment_analysis.png)
+
 This will create two tables from that data which we will use to analyze the tweet sentiment. They should appear in the **database explorer** as shown below.
 
 > **Note** Refresh page if explorer doesn't appear automatically.
@@ -621,7 +676,7 @@ This will create two tables from that data which we will use to analyze the twee
 
 Next we'll need to create two table views from our tweets which will simplify the columns the data we have access to.
 
-~~~
+~~~sql
 CREATE VIEW IF NOT EXISTS tweets_simple AS
 SELECT
   tweet_id,
@@ -629,7 +684,11 @@ SELECT
   msg,
   time_zone 
 FROM tweets_text;
+~~~
 
+![create tweets simple view](/assets/nifi-sentiment-analytics/images/create_tweets_simple_view_sentiment_analysis.png)
+
+~~~sql
 CREATE VIEW IF NOT EXISTS tweets_clean AS
 SELECT
   t.tweet_id,
@@ -639,13 +698,15 @@ SELECT
  FROM tweets_simple t LEFT OUTER JOIN time_zone_map m ON t.time_zone = m.time_zone;
 ~~~
 
+![create tweets clean view](/assets/nifi-sentiment-analytics/images/create_tweets_clean_sentiment_analysis.png)
+
 After running the above commands you should be able run `SELECT * FROM tweets_clean LIMIT 100;` which should yield results:
 
-![Data Table Folders](/assets/nifi-sentiment-analytics/images/33_hive_tweets_clean.png)
+![Data Table Folders](/assets/nifi-sentiment-analytics/images/view_tweets_clean_data_sentiment_analysis.png)
 
 Now that we've cleaned our data we can get around to computing the sentiment. Use the following Hive commands to create some views that will allow us to do that.
 
-~~~
+~~~sql
 -- Compute sentiment
 create view IF NOT EXISTS l1 as select tweet_id, words from tweets_text lateral view explode(sentences(lower(msg))) dummy as words;
 
@@ -661,21 +722,25 @@ create view IF NOT EXISTS l3 as select
  from l2 left outer join dictionary d on l2.word = d.word;
 ~~~
 
+![compute sentiment](/assets/nifi-sentiment-analytics/images/compute_sentiment_sentiment_analysis.png)
+
 Now that we were able to compute some sentiment values we can assign whether a tweet was **positive**, **neutral**, or **negative**. Use this next Hive command to do that.
 
-~~~
- create table IF NOT EXISTS tweets_sentiment stored as orc as select 
+~~~sql
+create table IF NOT EXISTS tweets_sentiment stored as orc as select 
   tweet_id, 
   case 
     when sum( polarity ) > 0 then 'positive' 
     when sum( polarity ) < 0 then 'negative'  
     else 'neutral' end as sentiment 
- from l3 group by tweet_id;
+from l3 group by tweet_id;
 ~~~
+
+![compute sentiment values](/assets/nifi-sentiment-analytics/images/compute_sentiment_values_sentiment_analysis.png)
 
 Lastly, to make our analysis somewhat easier we are going to turn those 'positive', 'negative', and 'neutral' values into numerical values using the next Hive command
 
-~~~
+~~~sql
 CREATE TABLE IF NOT EXISTS tweetsbi 
 STORED AS ORC
 AS SELECT 
@@ -688,9 +753,11 @@ AS SELECT
 FROM tweets_clean t LEFT OUTER JOIN tweets_sentiment s on t.tweet_id = s.tweet_id;
 ~~~
 
+![Hive Sentiment Analysis Results](/assets/nifi-sentiment-analytics/images/transform_values_numerically_sentiment_analysis.png)
+
 This command should yield our final results table as shown below.
 
-![Hive Sentiment Analysis Results](/assets/nifi-sentiment-analytics/images/34_hive_sentiment_analysis_results.png)
+![Hive Sentiment Analysis Results](/assets/nifi-sentiment-analytics/images/view_tweetsbi_data_sentiment_analysis.png)
 
 **Try the new Hive Visualization tab!**
 
@@ -702,9 +769,9 @@ Now that we can access the sentiment data in our Hive table let's do some visual
 ## Visualizing Sentiment With Zeppelin <a id="visualizing-sentiment-with-zeppelin"></a>
 ------------------------------------------------
 
-Make sure your Zeppelin service is started in Ambari and head over to the Zeppelin View. Alternative way to access Zeppelin is to head over to [http://sandbox.hortonworks.com:9995](http://sandbox.hortonworks.com:9995/).
+Make sure your Zeppelin service is started in Ambari, then head over to the Zeppelin at [http://sandbox.hortonworks.com:9995](http://sandbox.hortonworks.com:9995/).
 
-![Hive Sentiment Analysis Results](/assets/nifi-sentiment-analytics/images/35_ambari_zeppelin_view.png)
+![Hive Sentiment Analysis Results](/assets/nifi-sentiment-analytics/images/zeppelin_welcome_screen_sentiment_analysis.png)
 
 Use the **Notebook** dropdown menu at the top of the screen and click **+ Create New Note**. After which, you can name the note **Sentiment Analysis**.
 
@@ -712,7 +779,7 @@ Use the **Notebook** dropdown menu at the top of the screen and click **+ Create
 
 After creating the note, open it up to the blank Notebook screen and type the following command.
 
-~~~
+~~~sql
 %hive
 select * from tweetsbi LIMIT 300
 ~~~
@@ -726,7 +793,7 @@ We're limiting our query to just `300` results because right now we won't need t
 
 Your results should look like the following:
 
-![First Zeppelin Query Results](/assets/nifi-sentiment-analytics/images/37_zeppelin_select_1.png)
+![First Zeppelin Query Results](/assets/nifi-sentiment-analytics/images/tweetsbi_bar_graph_sentiment_analysis.png)
 
 After looking at the results we see that if we group by country that many tweets are actually labeled as null. 
 
@@ -736,12 +803,12 @@ Scroll down to the next note and create run the following query, and set up the 
 
 > **Note** Before running Hive queries, restart the Spark Interpreter since Spark jobs take up cluster resources. Click the **Interpreter** tab located near Zeppelin logo at the top of the page, under **Spark** click on the button that says **restart**. 
 
-~~~
+~~~sql
 %hive
 select * from tweetsbi where country != "null" LIMIT 500
 ~~~
 
-![Non Null Countries in Results](/assets/nifi-sentiment-analytics/images/38_zeppelin_non_null.png)
+![Non Null Countries in Results](/assets/nifi-sentiment-analytics/images/eliminate_null_bargraph_sentiment_analysis.png)
 
 Great! Now given the data we have, we can at least have an idea of the distribution of users who's tweets come from certain countries!
 
@@ -756,7 +823,7 @@ Run the following query and make
 - **lang** as the **Key**
 - **COUNT** for **lang** in **values**
 
-~~~
+~~~sql
 %hive
 select lang, time_zone from tweets_text LIMIT 1000
 ~~~
@@ -771,7 +838,7 @@ If you have not seen from our earlier analysis in Hive
 
 Using this we can now look at individual countries and see the sentiment distributions of each.
 
-~~~
+~~~sql
 %hive
 select sentiment, count(country), country from tweetsbi group by sentiment, country having country != "null"
 ~~~
