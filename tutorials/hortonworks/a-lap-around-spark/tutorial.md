@@ -6,6 +6,7 @@ With YARN, Hadoop can now support many types of data and application workloads; 
 
 The tutorial describes how to:
 
+* Install Spark 1.6 Tech Preview on HDP 2.3.x
 * Run Spark on YARN and run the canonical Spark examples: SparkPi and Wordcount.
 * Run Spark 1.6 on HDP 2.4.
 * Use the Spark DataFrame API.
@@ -24,14 +25,79 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 *   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
+#### Installing Spark 1.6 on HDP 2.3.x
 
-### Set SPARK_HOME
+If you are running HDP 2.3.x you can install Spark 1.6 Technical Preview (TP).
+
+The Spark 1.6 TP is provided in RPM and DEB package formats. The following instructions assume RPM packaging:
+
+##### 1. Download the Spark 1.6 RPM repository:
+
+~~~ bash
+wget -nv http://private-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.3.4.1-10/hdp.repo -O /etc/yum.repos.d/HDP-TP.repo
+~~~
+
+For installing on Ubuntu use the following
+
+~~~ bash
+http://private-repo-1.hortonworks.com/HDP/ubuntu12/2.x/updates/2.3.4.1-10/hdp.list
+~~~
+
+##### 2. Install the Spark Package:
+
+Download the Spark 1.6 RPM (and pySpark, if desired) and set it up on your HDP 2.3 cluster:
+
+~~~ bash
+yum install spark_2_3_4_1_10-master -y
+~~~
+
+If you want to use pySpark, install it as follows and make sure that Python is installed on all nodes.
+
+~~~ bash
+yum install spark_2_3_4_1_10-python -y
+~~~
+
+The RPM installer will also download core Hadoop dependencies. It will create “spark” as an OS user, and it will create the `/user/spark directory` in HDFS.
+
+##### 3. Set JAVA_HOME and SPARK_HOME:
+
+Make sure that you set JAVA_HOME before you launch the Spark Shell or thrift server.
+
+~~~ bash
+export JAVA_HOME=<path to JDK 1.8>
+~~~
+
+The Spark install creates the directory where Spark binaries are unpacked to `/usr/hdp/2.3.4.1-10/spark`.
+Set the `SPARK_HOME` variable to this directory:
+
+~~~ bash
+export SPARK_HOME=/usr/hdp/2.3.4.1-10/spark/
+~~~
+
+##### 4. Create hive-site in the Spark conf directory:
+
+As user root, create the file `SPARK_HOME/conf/hive-site.xml`. Edit the file to contain only the following configuration setting:
+
+~~~ xml
+<configuration>
+  <property>
+    <name>hive.metastore.uris</name>
+    <!--Make sure that <value> points to the Hive Metastore URI in your cluster -->
+    <value>thrift://sandbox.hortonworks.com:9083</value>
+    <description>URI for client to contact metastore server</description>
+  </property>
+</configuration>
+~~~
+
+#### Set SPARK_HOME
+
+If you haven't already, make sure to set `SPARK_HOME` before proceeding:
 
 ~~~ bash
 export SPARK_HOME=/usr/hdp/current/spark-client
 ~~~
 
-### Run the Spark Pi Example
+#### Run the Spark Pi Example
 
 To test compute intensive tasks in Spark, the Pi example calculates pi by “throwing darts” at a circle. The example points in the unit square ((0,0) to (1,1)) and sees how many fall in the unit circle. The fraction should be pi/4, which is used to estimate Pi.
 
