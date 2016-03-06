@@ -170,7 +170,9 @@ Query window. When you are done with a query, click the **Execute**.
 
 To see tables that Hive knows about, in Query Editor type the query:
 
-`show tables`
+~~~
+show tables
+~~~
 
 and click on **Execute**.
 
@@ -180,7 +182,9 @@ Notice the tables that you previously created are in the list ("batting_data" an
 
 To see the records type:
 
-`select * from batting_data`
+~~~
+select * from batting_data
+~~~
 
 in Query Editor and click **Execute**.
 
@@ -188,7 +192,9 @@ in Query Editor and click **Execute**.
 
 You can see the columns in the table by executing:
 
-`describe batting_data` 
+~~~
+describe batting_data
+~~~
 
 ![](/assets/hcat-pig-and-hive-commands/13_describe_batting_data.png)
 
