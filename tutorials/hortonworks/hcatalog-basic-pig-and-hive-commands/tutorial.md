@@ -1,27 +1,28 @@
-## Tutorial 4: HCatalog, Basic Pig & Hive Commands
+# HCatalog, Basic Pig & Hive Commands
 
-**This tutorial is from the [Hortonworks Sandbox 2.0](http://hortonworks.com/products/sandbox) - a single-node Hadoop cluster running in a virtual machine. [Download](http://hortonworks.com/products/sandbox) the Hortonworks Sandbox to run this and other tutorials in the series.**
+### Introduction
+In this tutorial, we will learn to use Hive and Pig along with other tools to process, analyze and filter large datasets.
 
-This tutorial was derived from one of the lab problems in the
-Hortonworks Developer training class. The developer training class
-covers uses of the tools in the Hortonworks Data Platform and how to
-develop applications and projects using the Hortonworks Data Platform.
-You can find more information about the course at [Hadoop Training for
-Developers](http://hortonworks.com/hadoop-training/register-for-hadoop-training/)
+## Pre-Requisites
 
-We value your feedback. When you're done with this tutorial, please tell
-us what you think by filling out this
-[survey](https://www.surveymonkey.com/s/SandboxT4HcatPigHive) . We
-really do pay attention and read your comments!
+*  [Apache HCatalog (running time: about 9 minutes)](http://www.youtube.com/watch?v=_dVlNu4lqpE)
+*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
-### Hortonworks Hadoop Essentials Video
+## Outline
+- [Step 1: Download Example Data](#download-example-data)
+- [Step 2: Upload the data files Into HDFS](#upload-data-files)
+- [Step 3: Create tables for the Data With Hive and HCatalog](#create-tables-data-hive-hcatalog)
+- [Step 4: Explore Hive Queries to View and Structure that Table Data](#explore-hive-queries-view-structure-data)
+- [Step 5: Explore Pig Latin Data Transformation](#explore-pig-latin-data-transformation)
+- HDFS [Further Reading](#further-reading-hdfs)
+- HCatalog vs. Hive [Further Reading](#further-reading-hcatalog-hive)
+- Hive [Further Reading](#further-reading-hive-query)
+- Pig [Further Reading](#further-reading-pig-latin)
 
-[Apache HCatalog (running time: about 9
-minutes)](http://www.youtube.com/watch?v=_dVlNu4lqpE)
+### Step 1: Download Example Data <a id="download-example-data"></a>
 
-### Downloading Example Data
-
-For this tutorial, we will use a baseball statistics file. This file has
+We will use a baseball statistics file. This file has
 all the statistics for each American player by year from 1871-2011. The
 data set is fairly large (over 95,000 records), but to learn Big Data
 you don't need to use a massive dataset. You need only use tools that
@@ -33,9 +34,9 @@ extensive historical baseball database
 under a Creative Commons Attribution-ShareAlike license:
 [http://creativecommons.org/licenses/by-sa/3.0/](http://creativecommons.org/licenses/by-sa/3.0/)
 
-Download and unzip the data file from this URL:
+Download and unzip the data file below:
 
-[http://seanlahman.com/files/database/lahman591-csv.zip](http://seanlahman.com/files/database/lahman591-csv.zip)
+[lahman591-csv.zip](http://seanlahman.com/files/database/lahman591-csv.zip)
 
 If the above link doesn't work you can get the file from [this link](/assets/hcat-pig-and-hive-commands/assets/lahman591-csv.zip) as well.
 
@@ -45,11 +46,11 @@ following two files:
 -   Master.csv
 -   Batting.csv
 
-### Uploading the data files
+### Step 2: Upload the data files Into HDFS <a id="upload-data-files"></a>
 
 Start by using the **HDFS Files** view from the views dropdown menu in Ambari
 
-![](/assets/hcat-pig-and-hive-commands/01_hdfs_files_dropdown.png)
+![hdfs files view icon](/assets/hello-hdp/hdfs_files_view_hello_hdp_lab1.png)
 
 Navigate to the folder `/tmp` and create a new folder called **data**.
 
@@ -57,7 +58,7 @@ Navigate to the folder `/tmp` and create a new folder called **data**.
 
 Then use the menus to upload to upload the `master.csv` file and `batting.csv` file.
 
-![](/assets/hcat-pig-and-hive-commands/03_upload_files.png)
+![](/assets/hcat-pig-and-hive-commands/tmp_data_baseball_files_hcatalog_hive_pig.png)
 
 After uploading both files head back to the `data` folder we created. Right click on it's row and select **Permissions**. Make sure all boxes are checked (blue).
 
@@ -68,19 +69,25 @@ Look at the top bar above the files. Look for **Upload**. Then click the **Brows
 
 When you are done, you will see the two files in your directory.
 
-![](/assets/hcat-pig-and-hive-commands/04_files_finished_uploading.png)
+![](/assets/hcat-pig-and-hive-commands/2_files_directory_hcatalog_hive_pig.png)
 
-### Create tables for the Data With Hive and HCatalog
+
+## Further Reading <a id="further-reading-hdfs"></a>
+- [HDFS Tutorials](http://hortonworks.com/hadoop/hdfs/#tutorials)
+- [HDFS and Apache Hadoop](http://hortonworks.com/hadoop/hdfs/)
+- [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html)
+
+### Step 3: Create tables for the Data With Hive and HCatalog <a id="create-tables-data-hive-hcatalog"></a>
 
 HCatalog has been merged with Hive project. This means that your Hive queries will utilize HCatalog when using commands like `create table` and `drop table`.
 
 We are now going to utilize the _Hive_ view to create tables with our data. Use the same dropdown menu that you used to select the _HDFS Files_ view, and instead click **Hive**.
 
-![](/assets/hcat-pig-and-hive-commands/05_hive_view_dropdown.png)
+![](/assets/hello-hdp/hive_user_view_hello_hdp_concepts.png)
 
 Notice some of the basic items in the Hive view which are outlined in the image below.
 
-![](/assets/hcat-pig-and-hive-commands/06_hive_view_outline.png)
+![](/assets/hello-hdp/ambari_hive_user_view_interface_hello_hdp_concepts.png)
 
 We're now going to create a table from our CSV using a Hive query. Copy and paste the following query and click **Execute** to run the command and create the table.
 
@@ -95,7 +102,7 @@ STORED AS TEXTFILE
 TBLPROPERTIES("skip.header.line.count"="1")
 ~~~
 
-![](/assets/hcat-pig-and-hive-commands/07_hive_query_1.png)
+![](/assets/hcat-pig-and-hive-commands/batting_table_hcatalog_hive_pig.png)
 
 You'll now need to load the data file into the table. Use the following command to do so.
 
@@ -103,11 +110,11 @@ You'll now need to load the data file into the table. Use the following command 
 LOAD DATA INPATH '/tmp/data/Batting.csv' OVERWRITE INTO TABLE batting_data
 ~~~
 
-![](/assets/hcat-pig-and-hive-commands/08_hive_query_2.png)
+![](/assets/hcat-pig-and-hive-commands/load_batting_data_hcatalog_hive_pig.png)
 
 You will see a new table "batting_data" has been created and has all of the data contained within it.
 
-![](/assets/hcat-pig-and-hive-commands/09_hive_select_1.png)
+![](/assets/hcat-pig-and-hive-commands/batting_data_filled_hcatalog_hive_pig.png)
 
 
 Repeat above steps for the second data set (**master.csv**) using the following queries to create the `master_data` table.
@@ -138,15 +145,17 @@ You should now have two different tables inside the database explorer:
 
 ![](/assets/hcat-pig-and-hive-commands/10_db_explorer.png)
 
-### A Short Apache Hive Tutorial
+
+## Further Reading <a id="further-reading-hcatalog-hive"></a>
+- [Hive vs. HCatalog](http://hortonworks.com/blog/hivehcatalog-data-geeks-big-data-glue/)
+
+
+### Step 4: Explore Hive Queries to View and Structure that Table Data <a id="explore-hive-queries-view-structure-data"></a>
 
 In the previous sections you:
 
 -   Uploaded your data file into HDFS
 -   Used the Ambari Hive view to create tables
-
-In this tutorial, you will use Apache Hive queries to perform basic commands on
-the data.
 
 Apache Hive™ provides a data warehouse function to the Hadoop cluster.
 Through the use of HiveQL you can view your data as a table and create
@@ -202,16 +211,20 @@ When the job completes, you can see the results.
 
 ![](/assets/hcat-pig-and-hive-commands/14_advanced_join_query.png)
 
-* * * * *
+## Further Reading <a id="further-reading-hive-query"></a>
+- [Hive Tutorials](http://hortonworks.com/hadoop/hive/#tutorials)
+- [Apache Hive and Hadoop](http://hortonworks.com/hadoop/hive/)
+- [Getting Started with Hive](https://cwiki.apache.org/confluence/display/Hive/GettingStarted)
 
-#### Pig Basics Tutorial
+
+### Step 5: Explore Pig Latin Data Transformation <a id="explore-pig-latin-data-transformation"></a>
 -------------------
 
 In this tutorial, you will create and execute a Pig script.
 
 To access the Pig interface, use the dropdown menu for views in Ambari. Select **Pig**.
 
-![](/assets/hcat-pig-and-hive-commands/15_pig_dropdown.png)
+![](/assets/hello-hdp/pig_user_view_icon_hello_hdp_lab3.png)
 
 A special feature of the interface is the Pig helper. The Pig helper
 provides templates for the statements, functions, I/O statements,
@@ -227,7 +240,7 @@ In this section, you will load the data from the table that is stored in
 HCatalog/Hive. Then you will make a join between two data sets on the Player
 ID field in the same way that you did in the Hive section.
 
-### Step 1: Prepare to load the data
+#### 5.1 Prepare to load the data
 
 The data is already in HDFS through HCatalog. HCatalog stores schema and
 location information, so we can use the HCatLoader() function within the
@@ -271,7 +284,7 @@ aliases for our tables to hold the data (alias "a" for batting data and
 alias "b" for master data). Data is not loaded or transformed until we
 execute an operational command such as DUMP or STORE
 
-### Step 2: Join both the tables on Player ID
+#### 5.2 Join both the tables on Player ID
 
 Next, you will use the **JOIN** operator to join both tables on the Player
 ID. Master.data has the player's first name and last name and player ID
@@ -298,7 +311,7 @@ c = join a by playerid, b by playerid;
 
 Now you have joined all the records in both of the tables on Player ID.
 
-### Step 3: Execute the script and generate output
+#### 5.3 Execute the script and generate output
 
 To complete the Join operation, use the DUMP command to execute the
 results. This will show all of the records that have a common PlayerID.
@@ -319,7 +332,7 @@ dump c;
 
 ![](/assets/hcat-pig-and-hive-commands/20_pig_script_3.png)
 
-### Step 5: Save the script and execute it
+#### 5.4 Save the script and execute it
 
 First you need to add the `-useHCatalog` (Case Sensitive) argument using the box box in the bottom right hand corner
 
@@ -347,9 +360,6 @@ to view the entire log.)
 Congratulations! You have successfully completed HCatalog, Basic Pig &
 Hive Commands.
 
-**Feedback**
-
-We are eager to hear your feedback on this tutorial. Please let us know
-what you think. [Click
-here](https://www.surveymonkey.com/s/SandboxT4HcatPigHive) to take
-survey
+## Further Reading <a id="further-reading-pig-latin"></a>
+- [Pig Tutorials](http://hortonworks.com/hadoop/pig/#tutorials)
+- [Getting Started with Pig](http://pig.apache.org/#Getting+Started)
