@@ -172,7 +172,9 @@ The storm and storm.kafka version can be found under the **<properties>** tag si
 
 > **Note:** storm.version and storm.kafka.version both fall under storm.version. To find the version of storm, use the command `storm version`.
 
-Now that we have modified our pom.xml file, we can create our storm topology.
+Now that we have modified our pom.xml file, let's install maven and run a `mvn clean package` refer to Appendix A for details. 
+
+Now we can create our storm topology.
 
 4\. Create Storm Topology
 
@@ -213,11 +215,11 @@ The TruckEvents producer can now be executed as we did in Tutorial #1 from the s
 ~~~
 
 
-![Truck Events Producer](/assets/realtime-event-processing/t2-update/image24.png)
+![Truck Events Producer](/assets/realtime-event-processing/t2-update/generate_truckevents_iot.png)
 
 Truck Events Producer
 
-Go back to the Storm UI and click on **truck-event-processor** topology to drill into it.  Under Spouts you should see that numbers of emitted and transferred tuples is increasing which shows that the messages are processed in real time by Spout
+Go back to the Storm UI and click on **truck-event-processor** topology to drill into it.  Under Spouts, after 2 to 3 minutes, you should see that numbers of emitted and transferred tuples is increasing which shows that the messages are processed in real time by Spout
 
 ![](/assets/realtime-event-processing/t2-update/image08.png)
 
