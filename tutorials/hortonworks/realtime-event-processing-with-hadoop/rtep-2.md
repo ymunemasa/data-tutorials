@@ -34,7 +34,6 @@ In this tutorial, you will learn the following topics:
 *   [Appendix B: Setup Storm Topology as Eclipse Project](#appendix-b-setup-storm-topology-eclipse-project)
 
 
-
 ## Apache Storm <a id="apache-storm"></a>
 
 Apache Storm is an Open Source distributed, reliable, fault tolerant system for real time processing of data at high velocity.
@@ -193,6 +192,7 @@ Running a topology is straightforward. First, you package all your code and depe
 
 
 ![storm new topology](/assets/realtime-event-processing/t2-update/start_new_topology_truckevents_iot.png)
+
 storm new topology
 
 It should complete with "Finished submitting topology" as shown below.
@@ -206,7 +206,7 @@ Refresh the Storm UI browser window to see new Topology 'truck-event-processor' 
 ![truck event processor new topology](/assets/realtime-event-processing/t2-update/truck_event_processor_topology_iot.png)
 
 
-5\. Generate TruckEvents
+5\. Generate TruckEvents (Run Kafka Producer)
 
 The TruckEvents producer can now be executed as we did in Tutorial #1 from the same dir:
 
@@ -221,7 +221,7 @@ Truck Events Producer
 
 Go back to the Storm UI and click on **truck-event-processor** topology to drill into it.  Under Spouts, after 2 to 3 minutes, you should see that numbers of emitted and transferred tuples is increasing which shows that the messages are processed in real time by Spout
 
-![](/assets/realtime-event-processing/t2-update/image08.png)
+![](/assets/realtime-event-processing/t2-update/spouts_bolts_iot.png)
 
 kafkaSpout count
 
@@ -229,117 +229,120 @@ kafkaSpout count
 
 You can press Control-C to stop the Kafka producer (i.e keep Control key pressed and then press C)
 
-**Under Storm User view**: You should be able to see the topology created by you under storm user views.
+**Under Topology Visualization in the Storm UI**: You should be able to see the topology youcreated by clicking the **Show Visualization** button.
 
-![](/assets/realtime-event-processing/t2-update/image18.png)
+![](/assets/realtime-event-processing/t2-update/topology_visualization_iot.png)
 
-*   You can also keep track of several statistics of Spouts and Bolts.
+*   You can also keep track of several statistics of Spouts and Bolts. For instance, to find Spouts Statistics, click on kafkaSpout located in the Spouts section. You see the following screen:
 
-![](/assets/realtime-event-processing/t2-update/image09.png)
+![](/assets/realtime-event-processing/t2-update/spouts_statistics_iot.png)
+
+> Spouts Statistics
 
 
-![](/assets/realtime-event-processing/t2-update/image23.png)
+![](/assets/realtime-event-processing/t2-update/bolt_statistics_iot.png)
+
+> Bolts Statistics
+
 
 ## Step 3: Code description <a id="code-review"></a>
 
 Let us review the code used in this tutorial. The source files are under the `/opt/TruckEvents/Tutorials-master/src/main/java/com/hortonworks/tutorials/tutorial2/` folder.
 
-    [root@sandbox Tutorials-master]# ls -l src/main/java/com/hortonworks/tutorials/tutorial2/    
-    total 16    
-    -rw-r--r-- 1 root root  861 Jul 24 23:34 BaseTruckEventTopology.java    
-    -rw-r--r-- 1 root root 1205 Jul 24 23:34 LogTruckEventsBolt.java    
-    -rw-r--r-- 1 root root 2777 Jul 24 23:34 TruckEventProcessingTopology.java    
-    -rw-r--r-- 1 root root 2233 Jul 24 23:34 TruckScheme.java    
+~~~bash
+[root@sandbox Tutorials-master]# ls -l src/main/java/com/hortonworks/tutorials/tutorial2/    
+total 16    
+-rw-r--r-- 1 root root  861 Jul 24 23:34 BaseTruckEventTopology.java    
+-rw-r--r-- 1 root root 1205 Jul 24 23:34 LogTruckEventsBolt.java    
+-rw-r--r-- 1 root root 2777 Jul 24 23:34 TruckEventProcessingTopology.java    
+-rw-r--r-- 1 root root 2233 Jul 24 23:34 TruckScheme.java    
+~~~
 
+#### BaseTruckEventTopology.java
 
-#### <a id="h.tpesdsavbea0" name="h.tpesdsavbea0"></a>BaseTruckEventTopology.java
-
-    topologyConfig.load(ClassLoader.getSystemResourceAsStream(configFileLocation));  
-
+~~~java
+topologyConfig.load(ClassLoader.getSystemResourceAsStream(configFileLocation));  
+~~~
 
 Is the base class, where the topology configurations is initialized from the `/resource/truck_event_topology.properties` files.
 
-#### <a id="h.rfy8n4r012vv" name="h.rfy8n4r012vv"></a>TruckEventProcessingTopology.java
+#### TruckEventProcessingTopology.java
 
 This is the storm topology configuration class, where the Kafka spout and LogTruckevent Bolts are initialized. In the following method the Kafka spout is configured.
 
-    private SpoutConfig constructKafkaSpoutConf()    
-       {  
-    …    
+~~~java
+private SpoutConfig constructKafkaSpoutConf()    
+{  
+…    
     SpoutConfig spoutConfig = new SpoutConfig(hosts, topic, zkRoot, consumerGroupId);    
-    …  
-           spoutConfig.scheme = new SchemeAsMultiScheme(new TruckScheme());  
+…  
+        spoutConfig.scheme = new SchemeAsMultiScheme(new TruckScheme());  
 
     return spoutConfig;    
-       }  
+}  
+~~~
 
+A logging bolt prints the message from the Kafka spout. The logging bolt was created for debugging purposes just for this tutorial.
 
-A logging bolt that prints the message from the Kafka spout was created for debugging purpose just for this tutorial.
-
-
-    public void configureLogTruckEventBolt(TopologyBuilder builder)
-
-    {
-
+~~~java
+public void configureLogTruckEventBolt(TopologyBuilder builder)
+{
     LogTruckEventsBolt logBolt = new LogTruckEventsBolt();
 
     builder.setBolt(LOG_TRUCK_BOLT_ID, logBolt).globalGrouping(KAFKA_SPOUT_ID);
-
-    }
+}
+~~~
 
 The topology is built and submitted in the following method;
 
-    private void buildAndSubmit() throws Exception
-
-    {
-
+~~~java
+private void buildAndSubmit() throws Exception
+{
     ...
 
     StormSubmitter.submitTopology("truck-event-processor",
 
     conf, builder.createTopology());
+}
+~~~
 
-    }
-
-#### <a id="h.smpq065o7145" name="h.smpq065o7145"></a>TruckScheme.java
+#### TruckScheme.java
 
 Is the deserializer provided to the kafka spout to deserialize kafka byte message stream to Values objects.
 
-    public List<Object> deserialize(byte[] bytes)    
-           {  
-           try    
-                   {  
-               String truckEvent = new String(bytes, "UTF-8");    
-               String[] pieces = truckEvent.split("\\|");  
+~~~java
+public List<Object> deserialize(byte[] bytes)    
+{  
+        try    
+        {  
+            String truckEvent = new String(bytes, "UTF-8");    
+            String[] pieces = truckEvent.split("\\|");  
 
-               Timestamp eventTime = Timestamp.valueOf(pieces[0]);    
-               String truckId = pieces[1];    
-               String driverId = pieces[2];    
-               String eventType = pieces[3];    
-               String longitude= pieces[4];    
-               String latitude  = pieces[5];    
-               return new Values(cleanup(driverId), cleanup(truckId),    
-                                       eventTime, cleanup(eventType), cleanup(longitude), cleanup(latitude));  
-
-           }    
-                   catch (UnsupportedEncodingException e)    
-                   {  
+            Timestamp eventTime = Timestamp.valueOf(pieces[0]);    
+            String truckId = pieces[1];    
+            String driverId = pieces[2];    
+            String eventType = pieces[3];    
+            String longitude= pieces[4];    
+            String latitude  = pieces[5];    
+            return new Values(cleanup(driverId), cleanup(truckId),    
+                                    eventTime, cleanup(eventType), cleanup(longitude), cleanup(latitude));  
+        }
+        
+        catch (UnsupportedEncodingException e)    
+        {  
                        LOG.error(e);    
                        throw new RuntimeException(e);    
-           }  
+        }  
+}  
+~~~
 
-       }  
-
-
-#### <a id="h.79jytmoh7nt6" name="h.79jytmoh7nt6"></a>LogTruckEventsBolt.java
+#### LogTruckEventsBolt.java
 
 LogTruckEvent spout logs the kafka message received from the kafka spout to the log files under `/var/log/storm/worker-*.log`
 
-
-    public void execute(Tuple tuple)
-
-    {
-
+~~~java
+public void execute(Tuple tuple)
+{
     LOG.info(tuple.getStringByField(TruckScheme.FIELD_DRIVER_ID) + "," +
 
     tuple.getStringByField(TruckScheme.FIELD_TRUCK_ID) + "," +
@@ -351,9 +354,8 @@ LogTruckEvent spout logs the kafka message received from the kafka spout to the 
     tuple.getStringByField(TruckScheme.FIELD_LATITUDE) + "," +
 
     tuple.getStringByField(TruckScheme.FIELD_LONGITUDE));
-
-    }
-
+}
+~~~
 
 ## Conclusion
 
@@ -364,23 +366,24 @@ In this tutorial we have learned to capture data from Kafka Producer into Storm 
 - [Apache Storm in Hadoop](http://hortonworks.com/hadoop/storm/)
 - [Apache Storm](http://storm.apache.org/)
 
-### Appendix A: Compile Storm topology from command line
+### Appendix A: Compile Storm topology from command line <a id="appendix-a-compile-storm-topology"></a>
 
 
+Compile the code using Maven after downloading a new data file or on completing any changes to the code under `/opt/TruckEvents/Tutorials-master/src directory`.
 
-Compile the code using Maven after downloading a new data file or on completing any changes to the code under /opt/TruckEvents/Tutorials-master/src directory.
-
+~~~bash
     [root@sandbox ~]# cd /opt/TruckEvents/Tutorials-master/    
     [root@sandbox ~]# mvn clean package  
+~~~
 
 
-![mvn clean package](/assets/realtime-event-processing/t2-update/image15.png)
+![mvn clean package](/assets/realtime-event-processing/t1-update/maven_clean_package_iot.png)
 
-![mvn build success](/assets/realtime-event-processing/t2-update/image05.png)
+![mvn build success](/assets/realtime-event-processing/t1-update/build_success_maven_iot.png)
 
 We now have a successfully compiled the code.
 
-### Appendix B: Enabling remote desktop on sandbox and setting up Storm topology as Eclipse project
+### Appendix B: Enable remote desktop on sandbox and setting up Storm topology as Eclipse project <a id="appendix-b-setup-storm-topology-eclipse-project"></a>
 
 1.  Setup Ambari VNC service on the sandbox to enable remote desktop via VNC and install eclipse using steps here [https://github.com/hortonworks-gallery/ambari-vnc-service#setup-vnc-service](https://github.com/hortonworks-gallery/ambari-vnc-service%23setup-vnc-service)
 2\.  Import code as Eclipse project using steps here:
