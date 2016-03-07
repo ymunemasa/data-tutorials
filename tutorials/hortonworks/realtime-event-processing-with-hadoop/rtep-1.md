@@ -382,7 +382,7 @@ Download and install Apache Maven as shown in the commands below
       mvn -version  
 ~~~
 
-![Maven Version](/assets/realtime-event-processing/t1-update/image14.png)
+![Maven Version](/assets/realtime-event-processing/t1-update/maven_version_iot.png)
 Maven Version
 
 
@@ -393,17 +393,17 @@ Now lets compile and execute the code to generate Truck Events. (This may run fo
     mvn clean package  
 ~~~
 
-![mvn clean pacakge](/assets/realtime-event-processing/t1-update/image19.png)
+![mvn clean pacakge](/assets/realtime-event-processing/t1-update/maven_clean_package_iot.png)
+
+![mvn clean pacakge](/assets/realtime-event-processing/t1-update/build_success_maven_iot.png)
 
 ~~~bash
-    mvn clean pacakge
+    ls
 ~~~
 
 Once the code is successfully compiled we shall see a new target directory created in the current folder. The binaries for all the Tutorials are in this target directory and the source code in src.
 
-![](/assets/realtime-event-processing/t1-update/image10.png)
-
-![](/assets/realtime-event-processing/t1-update/image05.png)
+![](/assets/realtime-event-processing/t1-update/new_dir_maven_package_iot.png)
 
 
 ## Further Reading <a id="further-reading"></a>
