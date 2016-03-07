@@ -1,40 +1,38 @@
-# <a id="h.2pah3dpfsgzn" name="h.2pah3dpfsgzn"></a> Lab 2: Ingesting and processing Real-time events with Apache Storm
+# Lab 2: Ingesting and processing Real-time events with Apache Storm
 
-## <a id="h.6z4r712r5a4e" name="h.6z4r712r5a4e"></a> Introduction
+### Introduction
 
 The Trucking business is a high-risk business in which truck drivers venture into remote areas, often in  harsh weather conditions and chaotic traffic on a daily basis. Using this solution illustrating Modern Data Architecture with Hortonworks Data Platform, we have developed a centralized management system that can help reduce risk and lower the total cost of operations.
 
 This system can take into consideration adverse weather conditions, the driver's driving patterns, current traffic conditions and other criteria to alert and inform the management staff and the drivers themselves when risk factors run high.
 
-In the [previous tutorial](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/) you  learned to collect this data using Apache Kafka.
+In the [previous tutorial](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/), you  learned to collect this data using Apache Kafka.
 
-In this tutorial you  will use [**Apache Storm**](http://hortonworks.com/labs/storm/) on the Hortonworks Data Platform to capture these data events and process them in real time for further analysis.
+In this tutorial, you  will use [**Apache Storm**](http://hortonworks.com/labs/storm/) on the Hortonworks Data Platform to capture these data events and process them in real time for further analysis.
 
 In this tutorial, you will learn the following topics:
 
-*   Managing Storm on HDP.
-*   Creating a Storm spout to consume the Kafka `truckevents` generated in [Lab #1](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/).
+*   Manage Storm on HDP.
+*   Create a Storm spout to consume the Kafka `truckevents` generated in [Lab #1](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/).
 
-## <a id="h.cz0y1nkxwiwc" name="h.cz0y1nkxwiwc"></a>
 
-## <a id="h.ka78zzxsh4go" name="h.ka78zzxsh4go"></a>Prerequisites
+## Pre-Requisites
 
-*   ### <a id="h.pq5yzkslhhn6" name="h.pq5yzkslhhn6"></a>[Tutorial #1 should be completed successfully.](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/)
+- [Tutorial #1 should be completed successfully.](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/)
+- Downloaded and Installed the latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+- [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
-### <a id="h.mx2m2kee4cpd" name="h.mx2m2kee4cpd"></a>
 
-## <a id="h.8uov9lckzlh9" name="h.8uov9lckzlh9"></a>Outline
+## Outline
 
-*   Introduction
-*   Prerequisites
-*   Apache Storm basics
-*   Step 1: Apache Storm Configurations
-*   Step 2: Creating Storm Topology
-*   Step 3: Code Review
+*   [Apache Storm basics](#apache-storm)
+*   [Step 1: Apache Storm Configurations](#start-configure-storm)
+*   [Step 2: Create Storm Topology](#create-storm-topology)
+*   [Step 3: Code Review](#code-review)
 
-### <a id="h.d9xbripmln5n" name="h.d9xbripmln5n"></a>
 
-## <a id="h.4s903hvuuhrp" name="h.4s903hvuuhrp"></a>Apache Storm
+
+## Apache Storm <a id="apache-storm"></a>
 
 Apache Storm is an Open Source distributed, reliable, fault tolerant system for real time processing of data at high velocity.
 
@@ -53,9 +51,8 @@ Spout and Bolt are the two main components in Storm, which work together to proc
 
 For details on Storm, [click here](http://hortonworks.com/labs/storm/).
 
-### <a id="h.b6pea2grrkr0" name="h.b6pea2grrkr0"></a>
 
-### <a id="h.h4pgs5gwj6gh" name="h.h4pgs5gwj6gh"></a>Step 1: Start and Configure Storm.
+### Step 1: Start and Configure Storm <a id="start-configure-storm"></a>
 
 1.  View the Storm Services page
 
@@ -81,7 +78,7 @@ Wait for Storm to start.
 
 You can check the below configurations by pasting them into the Filter text box under the Service Actions dropdown
 
-#### <a id="h.xtzei077qxte" name="h.xtzei077qxte"></a>
+
 
 *   Check zookeeper configuration: ensure `storm.zookeeper.servers` is set to `sandbox.hortonworks.com`
 
@@ -124,9 +121,11 @@ Storm UI
 
 ![](/assets/realtime-event-processing/t2-update/image02.png)
 
-### <a id="h.lrawtro2firk" name="h.lrawtro2firk"></a>
 
-### <a id="h.umx6apxd059o" name="h.umx6apxd059o"></a>Step 2\. Creating a Storm Spout to consume the Kafka truck events generated in Tutorial #1.
+
+### Step 2\. Create a Storm Topology <a id="create-storm-topology"></a>
+
+Spout to consume the Kafka truck events generated in Tutorial #1.
 
 1. <a id="h.adfic7sals29" name="h.adfic7sals29"></a>Load data if required:
 
@@ -214,7 +213,7 @@ You can press Control-C to stop the Kafka producer (i.e keep Control key pressed
 
 ![](/assets/realtime-event-processing/t2-update/image23.png)
 
-## <a id="h.mi6wp3waqv75" name="h.mi6wp3waqv75"></a>Step 3: Code description
+## Step 3: Code description <a id="code-review"></a>
 
 Let us review the code used in this tutorial. The source files are under the `/opt/TruckEvents/Tutorials-master/src/main/java/com/hortonworks/tutorials/tutorial2/` folder.
 
