@@ -29,6 +29,9 @@ In this tutorial, you will learn the following topics:
 *   [Step 1: Apache Storm Configurations](#start-configure-storm)
 *   [Step 2: Create Storm Topology](#create-storm-topology)
 *   [Step 3: Code Review](#code-review)
+*   [Further Reading](#further-reading)
+*   [Appendix A: Compile Storm Topology](#appendix-a-compile-storm-topology)
+*   [Appendix B: Setup Storm Topology as Eclipse Project](#appendix-b-setup-storm-topology-eclipse-project)
 
 
 
@@ -54,17 +57,17 @@ For details on Storm, [click here](http://hortonworks.com/labs/storm/).
 
 ### Step 1: Start and Configure Storm <a id="start-configure-storm"></a>
 
-1.  View the Storm Services page
+#### 1.1  View the Storm Services page
 
-Started by logging into Ambari as admin/admin. From the Dashboard page of Ambari, click on Storm from the list of installed services. (If you do not see Storm listed under Services, please follow click on Action -> Add Service and select Storm and deploy it.)
+Start by logging into Ambari as admin user. Refer to [Learning the Ropes of the Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password) if you have not setup your Ambari admin password. From the Dashboard page of Ambari, click on Storm from the list of installed services. (If you do not see Storm listed under Services, please follow click on Action -> Add Service and select Storm and deploy it.)
 
-![Screen Shot 2015-06-04 at 4.23.34 PM.png](/assets/realtime-event-processing/t2-update/image11.png)
+![Screen Shot 2015-06-04 at 4.23.34 PM.png](/assets/realtime-event-processing/t2-update/storm_action_services_left_column_iot.png)
 
-2\. Start Storm
+#### 1.2  Start Storm
 
 From the Storm page, click on Service Actions -> Start
 
-![Screen Shot 2015-06-04 at 4.26.41 PM.png](/assets/realtime-event-processing/t2-update/image20.png)
+![Screen Shot 2015-06-04 at 4.26.41 PM.png](/assets/realtime-event-processing/t2-update/start_storm_service_iot.png)
 
 Check the box and click on Confirm Start:
 
@@ -72,84 +75,106 @@ Check the box and click on Confirm Start:
 
 Wait for Storm to start.
 
-![Screen Shot 2015-06-04 at 4.35.57 PM.png](/assets/realtime-event-processing/t2-update/image17.png)
+![Screen Shot 2015-06-04 at 4.35.57 PM.png](/assets/realtime-event-processing/t2-update/started_storm_service_iot.png)
 
-3\. Configure Storm
+#### 1.3  Configure Storm
 
-You can check the below configurations by pasting them into the Filter text box under the Service Actions dropdown
-
-
-
-*   Check zookeeper configuration: ensure `storm.zookeeper.servers` is set to `sandbox.hortonworks.com`
-
-![Screen Shot 2015-06-04 at 4.38.57 PM.png](/assets/realtime-event-processing/t2-update/image21.png)
-
-*   Check the local directory configuration: ensure `storm.local.dir` is set to `/hadoop/storm`
-
-![Screen Shot 2015-06-04 at 4.39.45 PM.png](/assets/realtime-event-processing/t2-update/image00.png)
-
-*   Check the nimbus host configuration: ensure `nimbus.host` is set to `sandbox.hortonworks.com`
-
-![Screen Shot 2015-06-04 at 4.41.09 PM.png](/assets/realtime-event-processing/t2-update/image07.png)
-
-*   Check the slots allocated: ensure `supervisor.slots.ports` is set to `[6700, 6701]`
-
-![Screen Shot 2015-06-04 at 4.41.58 PM.png](/assets/realtime-event-processing/t2-update/image13.png)
-
-*   Check the UI configuration port: Ensure `ui.port` is set to `8744`
-
-![Screen Shot 2015-06-04 at 4.54.16 PM.png](/assets/realtime-event-processing/t2-update/image04.png)
+You can check the **configurations** below by pasting them into the Filter text box under the Service Actions dropdown.
 
 
-*  <a id="h.for70ptijz3u" name="h.for70ptijz3u"></a>Check the Storm UI from the Quick Links
+
+1\.   Check **zookeeper configuration**: ensure `storm.zookeeper.servers` is set to `sandbox.hortonworks.com`
+
+![Screen Shot 2015-06-04 at 4.38.57 PM.png](/assets/realtime-event-processing/t2-update/zookeeper_configuration_iot.png)
+
+2\.   Check the local directory configuration: ensure `storm.local.dir` is set to `/hadoop/storm`
+
+![Screen Shot 2015-06-04 at 4.39.45 PM.png](/assets/realtime-event-processing/t2-update/local_dir_config_iot.png)
+
+3\.   Check the **nimbus host configuration**: ensure `nimbus host` is set to `sandbox.hortonworks.com`
+
+![Screen Shot 2015-06-04 at 4.41.09 PM.png](/assets/realtime-event-processing/t2-update/nimbus_host_config_iot.png)
+
+4\.   Check the **slots allocated**: ensure `supervisor.slots.ports` is set to `[6700, 6701]`
+
+![Screen Shot 2015-06-04 at 4.41.58 PM.png](/assets/realtime-event-processing/t2-update/slots_allocated_iot.png)
+
+5\.   Check the **UI configuration port**: Ensure `ui.port` is set to `8744`
+
+![Screen Shot 2015-06-04 at 4.54.16 PM.png](/assets/realtime-event-processing/t2-update/ui_config_port_iot.png)
+
+
+6\.  Check the **Storm UI** from the Quick Links
 
 ![Screen Shot 2015-06-04 at 4.56.25 PM.png](/assets/realtime-event-processing/t2-update/image03.png)
 
 Now you can see the UI:
 
-![Storm UI](/assets/realtime-event-processing/t2-update/image14.png)
-
-Storm UI
-
-4\. **Storm User View:** You can alternatively use Storm USer View as well to view the topologies created by you.
-
-*   Go to the Ambari User VIew icon and select Storm :
-
-![](/assets/realtime-event-processing/t2-update/image01.png)
-
-*    The Storm user view gives you the summary of topologies created by you. As of now we do not have any topologies created hence none are listed in the summary.
-
-![](/assets/realtime-event-processing/t2-update/image02.png)
+![Storm UI](/assets/realtime-event-processing/t2-update/storm_user_interface_iot.png)
 
 
 
 ### Step 2\. Create a Storm Topology <a id="create-storm-topology"></a>
 
-Spout to consume the Kafka truck events generated in Tutorial #1.
+#### 2.1 Create a Storm Spout to consume the Kafka truck events generated in Tutorial #1.
 
-1. <a id="h.adfic7sals29" name="h.adfic7sals29"></a>Load data if required:
+1\. Load data if required:
 
 From Lab #1 you already have the required [New York City truck routes](http://www.nyc.gov/html/dot/downloads/misc/all_truck_routes_nyc.kml) KML. If required, you can download the latest copy of the file with the following command.
 
-    [root@sandbox ~]# wget http://www.nyc.gov/html/dot/downloads/misc/all_truck_routes_nyc.kml --directory-prefix=/opt/TruckEvents/Tutorials-master/src/main/resources/  
+~~~bash
+[root@sandbox ~]# wget http://www.nyc.gov/html/dot/downloads/misc/all_truck_routes_nyc.kml --directory-prefix=/opt/TruckEvents/Tutorials-master/src/main/resources/  
+~~~
 
+Recall that the source code is under the directory path
 
-Recall that the source code is under `/opt/TruckEvents/Tutorials-master/src` directory and pre-compiled jars are under the `/opt/TruckEvents/Tutorials-master/target` directory
+~~~
+/opt/TruckEvents/Tutorials-master/src
+~~~
+
+The pre-compiled jars are under the directory path
+
+~~~
+/opt/TruckEvents/Tutorials-master/target
+~~~
 
 **(Optional)** If you would like to modify/run the code:
 
-*   refer to Appendix A at the end of the tutorial for the steps to run maven to compile the jars to the target subdir from terminal command line
-*   refer to Appendix B at the end of the tutorial  for the steps to enable VNC (i.e. 'remote desktop') access on your sandbox and open/compile the code using Eclipse
+*   refer to [Appendix A](#appendix-a-compile-storm-topology) at the end of the tutorial for the steps to run maven to compile the jars to the target subdir from terminal command line
+*   refer to [Appendix B](#appendix-b-setup-storm-topology-eclipse-project) at the end of the tutorial  for the steps to enable VNC (i.e. 'remote desktop') access on your sandbox and open/compile the code using Eclipse
 
-#### <a id="h.pp6wuugwnmwz" name="h.pp6wuugwnmwz"></a>
 
-2\. <a id="h.kv3d77654wj5" name="h.kv3d77654wj5"></a>Verify that Kafka process is running
+2\. Verify that Kafka process is running
 
-Verify that Kafka is running using Ambari dashboard. If not, following the steps in tutorial #1
+Verify that Kafka is running using Ambari dashboard. If not, start the Kafka service as we did in tutorial #1.
 
-![Screen Shot 2015-06-04 at 5.10.27 PM.png](/assets/realtime-event-processing/t2-update/image10.png)
+![Screen Shot 2015-06-04 at 5.10.27 PM.png](/assets/realtime-event-processing/t2-update/verify_kafka_service_running_iot.png)
 
-3\. <a id="h.joxfaniynzxv" name="h.joxfaniynzxv"></a> Creating Storm Topology
+3\. Modify pom.xml File to Prepare for Creating Storm Topology
+
+Before we create a Storm Topology, we need to modify our pom.xml file with the latest `storm.version` and `storm.kafka.version` from our current Sandbox, so our Topology will function correctly.
+
+Navigate to the following directory
+
+~~~bash
+[root@sandbox ~]# cd /opt/TruckEvents/Tutorials-master/
+~~~
+
+Open pom.xml file with vi editor
+
+~~~bash
+[root@sandbox Tutorials-master]# vi pom.xml
+~~~
+
+The storm and storm.kafka version can be found under the **<properties>** tag similar to the image below:
+
+![Screen Shot 2015-06-04 at 5.10.27 PM.png](/assets/realtime-event-processing/t2-update/pom_xml_file_version_modify_iot.png)
+
+> **Note:** storm.version and storm.kafka.version both fall under storm.version. To find the version of storm, use the command `storm version`.
+
+Now that we have modified our pom.xml file, we can create our storm topology.
+
+4\. Create Storm Topology
 
 We now have 'supervisor' daemon and Kafka processes running.
 
@@ -158,34 +183,34 @@ To do real-time computation on Storm, you create what are called "topologies". A
 Running a topology is straightforward. First, you package all your code and dependencies into a single jar. Then, you run a command like the following: The command below will start a new Storm Topology for TruckEvents.
 
 
+~~~bash
+[root@sandbox ~]# cd /opt/TruckEvents/Tutorials-master/
 
-    [root@sandbox ~]# cd /opt/TruckEvents/Tutorials-master/
+[root@sandbox ~]# storm jar target/Tutorial-1.0-SNAPSHOT.jar com.hortonworks.tutorials.tutorial2.TruckEventProcessingTopology  
+~~~
 
-    [root@sandbox ~]# storm jar target/Tutorial-1.0-SNAPSHOT.jar com.hortonworks.tutorials.tutorial2.TruckEventProcessingTopology  
 
-
-![storm new topology](/assets/realtime-event-processing/t2-update/image16.png)
+![storm new topology](/assets/realtime-event-processing/t2-update/start_new_topology_truckevents_iot.png)
 storm new topology
 
 It should complete with "Finished submitting topology" as shown below.
 
-![Screen Shot 2015-06-04 at 5.20.31 PM.png](/assets/realtime-event-processing/t2-update/image06.png)
+![Screen Shot 2015-06-04 at 5.20.31 PM.png](/assets/realtime-event-processing/t2-update/finished_submitting_topology_iot.png)
 
 This runs the class `TruckEventProcessingTopology` .The main function of the class defines the topology and submits it to Nimbus. The storm jar part takes care of connecting to Nimbus and uploading the jar.
 
 Refresh the Storm UI browser window to see new Topology 'truck-event-processor' in the browser.
 
-![truck event processor new topology](/assets/realtime-event-processing/t2-update/image12.png)
+![truck event processor new topology](/assets/realtime-event-processing/t2-update/truck_event_processor_topology_iot.png)
 
-*   Storm User View will now show a topology formed and running.
 
-![](/assets/realtime-event-processing/t2-update/image22.png)
-
-4\. <a id="h.z4kv482ba0ad" name="h.z4kv482ba0ad"></a>Generating TruckEvents
+5\. Generate TruckEvents
 
 The TruckEvents producer can now be executed as we did in Tutorial #1 from the same dir:
 
-    root@sandbox Tutorials-master]java -cp target/Tutorial-1.0-SNAPSHOT.jar com.hortonworks.tutorials.tutorial1.TruckEventsProducer sandbox.hortonworks.com:6667 sandbox.hortonworks.com:2181  
+~~~
+[root@sandbox Tutorials-master]# java -cp target/Tutorial-1.0-SNAPSHOT.jar com.hortonworks.tutorials.tutorial1.TruckEventsProducer sandbox.hortonworks.com:6667 sandbox.hortonworks.com:2181  
+~~~
 
 
 ![Truck Events Producer](/assets/realtime-event-processing/t2-update/image24.png)
@@ -333,6 +358,9 @@ LogTruckEvent spout logs the kafka message received from the kafka spout to the 
 In this tutorial we have learned to capture data from Kafka Producer into Storm Spout. This data can now be processed in real time. In our next Tutorial, using Storm Bolt, you will see how to store data into multiple sources for persistence.
 
 
+## Further Reading <a id="further-reading"></a>
+- [Apache Storm in Hadoop](http://hortonworks.com/hadoop/storm/)
+- [Apache Storm](http://storm.apache.org/)
 
 ### Appendix A: Compile Storm topology from command line
 
