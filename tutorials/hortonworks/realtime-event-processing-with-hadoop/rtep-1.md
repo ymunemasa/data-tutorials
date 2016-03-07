@@ -393,9 +393,9 @@ Now lets compile and execute the code to generate Truck Events. (This may run fo
     mvn clean package  
 ~~~
 
-![mvn clean pacakge](/assets/realtime-event-processing/t1-update/maven_clean_package_iot.png)
+![mvn clean package](/assets/realtime-event-processing/t1-update/maven_clean_package_iot.png)
 
-![mvn clean pacakge](/assets/realtime-event-processing/t1-update/build_success_maven_iot.png)
+![mvn clean package](/assets/realtime-event-processing/t1-update/build_success_maven_iot.png)
 
 ~~~bash
     ls
