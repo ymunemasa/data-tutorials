@@ -22,17 +22,22 @@ cp -r ../assets ./build/assets
 # Copy over the tutorials
 cp -r ../tutorials ./build/tutorials
 
-for f in $(find ./build/tutorials -name "*.md")
-do
-  if [[ $f == *.md ]]
-  then
-    echo '' | cat - $f > temp && mv temp $f
-    echo '---' | cat - $f > temp && mv temp $f
-    echo 'title: abc' | cat - $f > temp && mv temp $f
-    echo 'layout: page' | cat - $f > temp && mv temp $f
-    echo '---' | cat - $f > temp && mv temp $f
-  fi
-done
+
+# Commenting out because now that all tutorials have metadata jekyll should pick
+# up all tutorials and convert without adding via `cat`
+#######################################################
+#for f in $(find ./build/tutorials -name "*.md")
+#do
+#  if [[ $f == *.md ]]
+#  then
+#    echo '' | cat - $f > temp && mv temp $f
+#    echo '---' | cat - $f > temp && mv temp $f
+#    echo 'title: abc' | cat - $f > temp && mv temp $f
+#    echo 'layout: page' | cat - $f > temp && mv temp $f
+#    echo '---' | cat - $f > temp && mv temp $f
+#  fi
+#done
+#######################################################
 
 #Build the tutorials
 jekyll build -s ./build -d ./build/_site
