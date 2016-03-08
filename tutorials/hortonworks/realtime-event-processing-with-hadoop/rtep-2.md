@@ -32,6 +32,7 @@ In this tutorial, you will learn the following topics:
 *   [Further Reading](#further-reading)
 *   [Appendix A: Compile Storm Topology](#appendix-a-compile-storm-topology)
 *   [Appendix B: Setup Storm Topology as Eclipse Project](#appendix-b-setup-storm-topology-eclipse-project)
+*   [Further Reading](#further-reading-tutorial2)
 
 
 ## Apache Storm <a id="apache-storm"></a>
@@ -390,3 +391,8 @@ We now have a successfully compiled the code.
 
 [https://github.com/hortonworks-gallery/ambari-vnc-service#getting-started-with-storm-and-maven-in-eclipse-environment](https://github.com/hortonworks-gallery/ambari-vnc-service%23getting-started-with-storm-and-maven-in-eclipse-environment)
 
+
+## Further Reading <a id="further-reading-tutorial2"></a>
+- [Storm Tutorials](http://hortonworks.com/hadoop/storm/#tutorials)
+- [Getting Started with Apache Storm](http://storm.apache.org/documentation.html)
+- [Apache Storm](http://hortonworks.com/hadoop/storm/)
