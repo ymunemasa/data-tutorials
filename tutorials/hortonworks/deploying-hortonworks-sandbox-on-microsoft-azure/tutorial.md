@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Deploy Hortonworks Sandbox on Microsoft Azure
 tutorial-id: 
 tutorial-series: Azure

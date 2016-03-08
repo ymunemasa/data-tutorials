@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: How to Use Basic Pig Command
 tutorial-id: 140
 tutorial-series: Basic Development

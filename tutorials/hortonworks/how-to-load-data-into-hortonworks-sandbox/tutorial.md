@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: How to Load Data into the Hortonworks Sandbox
 tutorial-id: 230
 tutorial-series: Introduction

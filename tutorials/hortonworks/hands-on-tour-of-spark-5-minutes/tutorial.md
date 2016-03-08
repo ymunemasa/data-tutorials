@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: A Hnds-On Tour of Apache Spark in 5 Minutes
 tutorial-id: 360
 tutorial-series: Spark

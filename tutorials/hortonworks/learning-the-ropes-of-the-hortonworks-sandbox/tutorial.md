@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Learning the Ropes of the Hortonworks Sandbox
 tutorial-id: 160
 tutorial-series: Introduction

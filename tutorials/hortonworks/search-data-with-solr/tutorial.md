@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Searching Data with Solr
 tutorial-id: 300
 tutorial-series: Search

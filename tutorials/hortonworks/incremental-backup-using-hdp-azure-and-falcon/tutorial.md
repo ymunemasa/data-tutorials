@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Incremental Backup of Data from HDP to Azure using Falcon for Disaster Recovery
 tutorial-id: 340
 tutorial-series: Governance

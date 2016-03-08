@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Simulating and Transporting Real Time Event Streams with Apache Kafka
 tutorial-id: 170
 tutorial-series: Streaming

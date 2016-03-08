@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Processing Streaming Data in Hadoop with Storm
 tutorial-id: 240
 tutorial-series: Streaming

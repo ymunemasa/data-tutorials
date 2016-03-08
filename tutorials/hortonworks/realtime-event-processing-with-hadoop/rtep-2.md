@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Ingesting and Processing Realtime Events with Apache Storm
 tutorial-id: 220
 tutorial-series: Streaming

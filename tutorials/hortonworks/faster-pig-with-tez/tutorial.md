@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Faster Pig with Tez
 tutorial-id: 280
 tutorial-series: Basic Development

@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Using APache Ambari to Add new Nodes to your Existing Cluster
 tutorial-id: 430
 tutorial-series: Ambari

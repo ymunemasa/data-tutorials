@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Define and Process Data Pipelines in Hadoop Using Apache Falcon
 tutorial-id: 330
 tutorial-series: Governance

@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Indexing and Searching Text within Images with Solr
 tutorial-id: 510
 tutorial-series: Search

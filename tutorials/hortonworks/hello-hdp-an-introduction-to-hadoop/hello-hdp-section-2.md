@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Hello HDP An Introduction to Hadoop with Hive and Pig
 tutorial-id: 100
 tutorial-series: Basic Development

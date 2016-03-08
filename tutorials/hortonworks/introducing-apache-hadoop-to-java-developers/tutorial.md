@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Introducing Apache Hadoop to Developers
 tutorial-id: 130
 tutorial-series: Introduction

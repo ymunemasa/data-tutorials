@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Real Time Data Processing in Hadoop
 tutorial-id:
 tutorial-series: Streaming

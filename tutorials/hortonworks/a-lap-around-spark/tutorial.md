@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: A Lap Around Apache Spark
 tutorial-id: 390
 tutorial-series: Spark

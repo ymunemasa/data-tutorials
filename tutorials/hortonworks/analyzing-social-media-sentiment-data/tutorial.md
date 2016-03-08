@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: How to Refine and Visualize Social Media Sentiment Data
 tutorial-id: 210
 tutorial-series: Real-World End to End Examples

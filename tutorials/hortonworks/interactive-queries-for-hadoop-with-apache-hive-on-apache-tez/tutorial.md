@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Interactive Query for Hadoop with Apache Hive on Apache Tez
 tutorial-id: 290
 tutorial-series: Basic Development

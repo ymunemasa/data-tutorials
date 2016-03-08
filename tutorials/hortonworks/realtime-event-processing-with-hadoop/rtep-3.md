@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Real time Data Ingestion in HBase & Hive using Storm Bolt
 tutorial-id: 180
 tutorial-series: Streaming

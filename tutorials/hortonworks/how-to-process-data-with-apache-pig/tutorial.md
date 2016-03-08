@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: How to Process Data with Apache Pig
 tutorial-id: 150
 tutorial-series: Basic Development

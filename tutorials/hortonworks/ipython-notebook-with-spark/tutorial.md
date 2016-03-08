@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Using IPython Notebook with Apache Spark
 tutorial-id: 380
 tutorial-series: Spark

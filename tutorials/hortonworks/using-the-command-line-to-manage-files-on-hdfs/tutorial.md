@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Using the Command Line to Manage Files on HDFS
 tutorial-id: 120
 tutorial-series: Operations

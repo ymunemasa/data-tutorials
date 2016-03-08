@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Securing Your Hadoop Cluster with Apache Knox
 tutorial-id: 420
 tutorial-series: Security

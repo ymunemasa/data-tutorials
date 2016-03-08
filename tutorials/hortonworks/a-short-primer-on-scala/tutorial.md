@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: A Short Primer on Scala
 tutorial-id:
 tutorial-series: spark

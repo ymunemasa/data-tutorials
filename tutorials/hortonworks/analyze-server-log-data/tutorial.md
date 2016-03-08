@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: How to Refine and Visualize Server Log Data
 tutorial-id: 200
 tutorial-series: Real-World End to End Examples

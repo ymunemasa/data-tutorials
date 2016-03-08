@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: How to Visualize Website Clickstream Data
 tutorial-id: 250
 tutorial-series: Real-World End to End Examples

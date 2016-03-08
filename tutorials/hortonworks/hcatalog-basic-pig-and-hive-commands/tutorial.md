@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Using HCatalog, Pig, and Hive Commands
 tutorial-id: 260
 tutorial-series: Basic Development

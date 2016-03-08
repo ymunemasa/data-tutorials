@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Configuring YARN Capacity Scheduler with Ambari
 tutorial-id: 440
 tutorial-series: Ambari

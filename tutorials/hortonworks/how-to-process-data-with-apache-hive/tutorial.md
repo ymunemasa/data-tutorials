@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: How to Process Data with Apache Hive
 tutorial-id: 110
 tutorial-series: Basic Development

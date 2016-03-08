@@ -1,4 +1,5 @@
 ---
+layout: tutorial
 title: Manage Scurity Policy for Hive and HBase with Knox and Ranger
 tutorial-id: 410
 tutorial-series: Security
