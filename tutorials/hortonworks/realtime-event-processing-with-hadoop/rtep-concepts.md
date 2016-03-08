@@ -1,25 +1,29 @@
 ### Introduction
 
-In this tutorial, you will strengthen your foundation of technologies used in real-time event processing. You will learn in detail how Apache Kafka sends messages, the process Apache Storm undergoes to collect that data and the implementation involved for HBase to read that streaming data.
+In this tutorial, you will strengthen your foundation of technologies used in real-time event processing. You will learn in detail how Apache Kafka sends messages, the process Apache Storm undergoes to collect that data and the process involved for HBase to read that streaming data.
+
+## Pre-Requisites
+- Downloaded and Installed the latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+- [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ## Outline
-- [1st Concepts: Apache kafka](#concepts-apache-kafka)
-- [2nd Concepts: Apache Storm](#concepts-apache-storm)
-- [3rd Concepts: Kafka on Storm](#concepts-kafka-on-storm)
+- [1st Concept: Apache kafka](#concepts-apache-kafka)
+- [2nd Concept: Apache Storm](#concepts-apache-storm)
+- [3rd Concept: Kafka on Storm](#concepts-kafka-on-storm)
 - [Further Reading](#further-reading)
 
 
-## 1st Concepts: Apache kafka
+## 1st Concept: Apache kafka <a id="concepts-apache-kafka"></a>
 
 ### Introduction:
 
-In a modern data architecture built on YARN-enabled Apache Hadoop, Kafka works in combination with Apache Storm, Apache HBase and Apache Spark for real-time  distributed messaging of streaming data. Kafka is an excellent low latency messaging platform for real-time streaming data sources such as the internet of things, sensors, and transactional systems.  Whatever the industry or use case, Kafka brokers massive message streams for low-latency analysis in Enterprise Apache Hadoop.
+In a modern data architecture built on YARN-enabled Apache Hadoop, Kafka works in combination with Apache Storm, Apache HBase and Apache Spark for real-time  distributed messaging of streaming data. Kafka is an excellent low latency messaging platform for real-time streaming data sources, such as the internet of things, sensors, and transactional systems.  Whatever the industry or use case, Kafka brokers massive message streams for low-latency analysis in Enterprise Apache Hadoop.
 Kafka is fully supported and included in HDP today.
 
 ## Goals of this module:
 
-- Understanding Apache Kafka architecture
-- Understanding how Apache Kafka works
+- Understand Apache Kafka Architecture
+- Understand how Apache Kafka works
 
 ## What Kafka Does
 
@@ -49,19 +53,19 @@ Kafka’s system design can be thought of as that of a distributed commit log, w
 
 ![Image of Kafka Flow](/assets/realtime-event-processing/concepts/01_kafka_cluster.png)
 
-In Kafka, a **Topic** is a user-defined category to which messages are published. Kafka Producers publish messages to one or more topics and **Consumers** subscribe to topics and process the published messages. So, at a high level, producers send messages over the network to the Kafka cluster which in turn serves them up to consumers. Finally, a Kafka cluster consists of one or more servers, called **Brokers** that manage the persistence and replication of message data (i.e. the commit log).
+In Kafka, a **Topic** is a user-defined category to which messages are published. Kafka Producers publish messages to one or more topics and **Consumers** subscribe to topics and process the published messages. So, at a high level, producers send messages over the network to the Kafka cluster, which in turn serves them up to consumers. Finally, a Kafka cluster consists of one or more servers, called **Brokers** that manage the persistence and replication of message data (i.e. the commit log).
 
 ![Image of Kafka Partitions](/assets/realtime-event-processing/concepts/02_kafka_partitions.png)
 
 One of the keys to Kafka’s high performance is the simplicity of the brokers’ responsibilities. In Kafka, topics consist of one or more Partitions that are ordered, immutable sequences of messages. Since writes to a partition are sequential, this design greatly reduces the number of hard disk seeks (with their resulting latency).
-Another factor contributing to Kafka’s performance and scalability is the fact that Kafka brokers are not responsible for keeping track of what messages have been consumed – that responsibility falls on the consumer. In traditional messaging systems such as JMS, the broker bore this responsibility, severely limiting the system’s ability to scale as the number of consumers increased.
+Another factor contributing to Kafka’s performance and scalability is the fact that Kafka brokers are not responsible for keeping track of what messages have been consumed – that responsibility falls on the consumer. In traditional messaging systems, such as JMS, the broker bore this responsibility, severely limiting the system’s ability to scale as the number of consumers increased.
 
 ![Image of Brokers w/ Zookeeper](/assets/realtime-event-processing/concepts/03_kafka_zookeeper.png)
 
 For Kafka consumers, keeping track of which messages have been consumed (processed) is simply a matter of keeping track of an **Offset**, which is a sequential id number that uniquely identifies a message within a partition. Because Kafka retains all messages on disk (for a configurable amount of time), consumers can rewind or skip to any point in a partition simply by supplying an offset value. Finally, this design eliminates the potential for back-pressure when consumers process messages at different rates.
 
 
-## 2nd Concepts: Apache Storm
+## 2nd Concept: Apache Storm <a id="concepts-apache-storm"></a>
 
 ### Introduction:
  
@@ -163,7 +167,7 @@ Each node in a Storm topology executes in parallel. In your topology, you can sp
 
 A topology runs forever, or until you kill it. Storm will automatically reassign any failed tasks. Additionally, Storm guarantees that there will be no data loss, even if machines go down and messages are dropped.
 
-## 3rd Concepts: Kafka on Storm
+## 3rd Concept: Kafka on Storm <a id="concepts-kafka-on-storm"></a>
 
 ### Introduction:
 
@@ -173,8 +177,8 @@ In this tutorial, we will focus on one of those data processing engines—[Apach
 
 ## Goals of this tutorial:
 
-- Understanding Relationship between Apache Kafka and Apache Storm
-- Understanding Storm topologies
+- Understand Relationship between Apache Kafka and Apache Storm
+- Understand Storm topologies
 
 ## Kafka on Storm:
 
