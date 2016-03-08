@@ -1,3 +1,12 @@
+---
+title: How to Analyze Machine and Sensor Data
+tutorial-id: 310
+tutorial-series: Real-World End to End Examples
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ hive, zeppelin, ambari ]
+---
+
 ## Lab 1 - Load Data Into Hive <a name="lab-1"></a>
 
 

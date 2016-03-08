@@ -1,3 +1,13 @@
+---
+title: Deploy Hortonworks Sandbox on Microsoft Azure
+tutorial-id: 
+tutorial-series: Azure
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: []
+---
+
+
 ## Overview
 
 The Azure cloud infrastructure has become a commonplace for users to deploy virtual machines on the cloud due to its’ flexibility, ease of deployment, and cost benefits.  In addition, Microsoft has expanded Azure to include a marketplace with thousands of certified, open source, and community software applications, developer services, and data—pre-configured for Microsoft Azure.  This tutorial covers deploying the HDP Sandbox offering from the Azure Marketplace.  

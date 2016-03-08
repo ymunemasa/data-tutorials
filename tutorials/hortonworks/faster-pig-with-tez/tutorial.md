@@ -1,3 +1,13 @@
+---
+title: Faster Pig with Tez
+tutorial-id: 280
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ pig, tez, ambari ]
+---
+
+
 # Faster Pig With Tez
 
 ### Introduction

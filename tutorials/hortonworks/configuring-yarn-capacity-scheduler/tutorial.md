@@ -1,3 +1,13 @@
+---
+title: Configuring YARN Capacity Scheduler with Ambari
+tutorial-id: 440
+tutorial-series: Ambari
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ambari, yarn]
+---
+
+
 In this tutorial we are going to explore how we can configure YARN CapacityScheduler from Ambari.
 
 ### What is the YARN's CapacityScheduler?

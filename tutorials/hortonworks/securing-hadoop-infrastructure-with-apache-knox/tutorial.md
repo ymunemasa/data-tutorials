@@ -1,3 +1,12 @@
+---
+title: Securing Your Hadoop Cluster with Apache Knox
+tutorial-id: 420
+tutorial-series: Security
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ knox]
+---
+
 ## Securing Your Hadoop Cluster with Apache Knox
 
 ---

@@ -1,3 +1,13 @@
+---
+title: A Short Primer on Scala
+tutorial-id:
+tutorial-series: spark
+tutorial-version: hdp-2.3.0
+intro-page: true
+components: [ spark ]
+---
+
+
 ## Deprecated
 
 ***This tutorial will no longer be available starting May 1st, 2016.***

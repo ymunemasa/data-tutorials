@@ -1,3 +1,12 @@
+---
+title: Incremental Backup of Data from HDP to Azure using Falcon for Disaster Recovery
+tutorial-id: 340
+tutorial-series: Governance
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [falcon, ambari]
+---
+
 ## Introduction
 
 Apache Falcon simplifies the configuration of data motion with: replication; lifecycle management; lineage and traceability. This provides data governance consistency across Hadoop components.

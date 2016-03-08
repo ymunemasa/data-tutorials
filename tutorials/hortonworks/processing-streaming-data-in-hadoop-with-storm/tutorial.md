@@ -1,3 +1,11 @@
+---
+title: Processing Streaming Data in Hadoop with Storm
+tutorial-id: 240
+tutorial-series: Streaming
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ ambari, storm, ]
+---
 
 In this tutorial we will walk through the process of
 

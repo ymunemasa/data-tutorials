@@ -1,3 +1,12 @@
+---
+title: How to Visualize Website Clickstream Data
+tutorial-id: 250
+tutorial-series: Real-World End to End Examples
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ ambari, hive, flume ]
+---
+
 ## Lab 1: Loading Data into HDFS and Hive
 
 ### Prerequisites:

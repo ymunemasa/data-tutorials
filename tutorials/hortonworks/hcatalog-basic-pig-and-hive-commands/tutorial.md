@@ -1,6 +1,16 @@
+---
+title: Using HCatalog, Pig, and Hive Commands
+tutorial-id: 260
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ hcatalog, hive, pig, ambari ]
+---
+
+
 ## Tutorial 4: HCatalog, Basic Pig & Hive Commands
 
-**This tutorial is from the [Hortonworks Sandbox 2.0](http://hortonworks.com/products/sandbox) - a single-node Hadoop cluster running in a virtual machine. [Download](http://hortonworks.com/products/sandbox) the Hortonworks Sandbox to run this and other tutorials in the series.**
+**This tutorial is from the [Hortonworks Sandbox 2.4](http://hortonworks.com/products/sandbox) - a single-node Hadoop cluster running in a virtual machine. [Download](http://hortonworks.com/products/sandbox) the Hortonworks Sandbox to run this and other tutorials in the series.**
 
 This tutorial was derived from one of the lab problems in the
 Hortonworks Developer training class. The developer training class

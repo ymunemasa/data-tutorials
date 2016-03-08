@@ -1,3 +1,13 @@
+---
+title: Define and Process Data Pipelines in Hadoop Using Apache Falcon
+tutorial-id: 330
+tutorial-series: Governance
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ falcon, ambari ]
+---
+
+
 Apache Falcon is a framework to simplify data pipeline processing and management on Hadoop clusters.
 
 It makes it much simpler to onboard new workflows/pipelines, with support for late data handling and retry policies. It allows you to easily define relationship between various data and processing elements and integrate with metastore/catalog such as Hive/HCatalog. Finally it also lets you capture lineage information for feeds and processes.In this tutorial we are going walk the process of:

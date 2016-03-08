@@ -1,3 +1,13 @@
+---
+title: How to Process Data with Apache Pig
+tutorial-id: 150
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ ambari, pig ]
+---
+
+
 # How To Process Data with Apache Pig
 
 ### Introduction

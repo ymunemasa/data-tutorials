@@ -1,3 +1,13 @@
+---
+title: Introducing Apache Hadoop to Developers
+tutorial-id: 130
+tutorial-series: Introduction
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ hadoop ]
+---
+
+
 Apache Hadoop is a community driven open-source project goverened by the [Apache Software Foundation](http://apache.org).
 
 It was originally implemented at Yahoo based on papers published by Google in 2003 and 2004\. Hadoop committers today work at several different organizations like Hortonworks, Microsoft, Facebook, Cloudera and many others around the world.

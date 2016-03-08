@@ -1,3 +1,12 @@
+---
+title: Ingesting and Processing Realtime Events with Apache Storm
+tutorial-id: 220
+tutorial-series: Streaming
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ storm ]
+---
+
 # <a id="h.2pah3dpfsgzn" name="h.2pah3dpfsgzn"></a> Lab 2: Ingesting and processing Real-time events with Apache Storm
 
 ## <a id="h.6z4r712r5a4e" name="h.6z4r712r5a4e"></a> Introduction

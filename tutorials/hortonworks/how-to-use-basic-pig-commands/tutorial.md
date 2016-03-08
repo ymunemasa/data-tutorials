@@ -1,3 +1,13 @@
+---
+title: How to Use Basic Pig Command
+tutorial-id: 140
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ ambari, pig ]
+---
+
+
 # Transform New York Stock Exchange Data With Apache Pig
 
 ### Introduction

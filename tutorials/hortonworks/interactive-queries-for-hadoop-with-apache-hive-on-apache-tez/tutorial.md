@@ -1,3 +1,12 @@
+---
+title: Interactive Query for Hadoop with Apache Hive on Apache Tez
+tutorial-id: 290
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ hive, tez, ambari ]
+---
+
 # Interactive Query for Hadoop with Apache Hive on Apache Tez
 
 ### Introduction

@@ -1,3 +1,13 @@
+---
+title: How to Analyze Machine and Sensor Data
+tutorial-id: 310
+tutorial-series: Real-World End to End Examples
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ hive, zeppelin, ambari ]
+---
+
+
 ## Lab 2 - Analyze Data with Excel or Apache Zeppelin <a name="lab-2"></a>
 
 In this tutorial you can choose to report with

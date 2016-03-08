@@ -1,3 +1,13 @@
+---
+title: How to Refine and Visualize Social Media Sentiment Data
+tutorial-id: 210
+tutorial-series: Real-World End to End Examples
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ solr, nifi, hive, ambari, zeppelin ]
+---
+
+
 # Analyzing Twitter Data With Apache NiFi and HDP Search
 
 ### Introduction
