@@ -1,29 +1,29 @@
-# Lab 1: Simulating and Transporting Real Time Event Stream with Apache Kafka
+# Lab 1: Simulate and Transport Real Time Event Stream with Apache Kafka
 
 ### Introduction
 
 [Apache Kafka](http://kafka.apache.org/) can be used on the Hortonworks Data Platform to capture real-time events. We will begin with showing you how to configure Apache Kafka and Zookeeper. Next we will show you how to ingest the truckevent data into Kafka. We have also included code highlights at the end of this tutorial for your reference.
 
-## Prerequisites
+## Pre-Requisites
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *  Since this tutorial requires admin privileges, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to reset your Ambari admin password
 *  Memory must be at least 8GB RAM, preferably 4 processor cores, else errors may occur in third tutorial
 
 ## Outline
 
-*   [Apache Kafka](#apache-kafka)
-*   [Step 1: Navigate to Ambari User Views](#navigate-ambari-user-views)
-*   [Step 2: Start Apache Kafka](#start-kafka)
-*   [Step 3: Configure Kafka with Zookeeper](#configure-kafka-with-zookeeper)
-*   [Step 4: Create Kafka Producer](#define-kafka-topic)
-*   [Step 5: Load the data](#download-data)
-*   [Step 6: Run Kafka Producer](#run-kafka-producer)
-*   [Step 7: Code Review](#code-review)
-*   [Appendix A: Install Kafka](#install-kafka)
-*   [Appendix B: Install Maven and Compile](#install-maven-compile)
-*   [Further Reading](#further-reading)
+*   [Apache Kafka](#apache-kafka-lab1)
+*   [Step 1: Navigate to Ambari User Views](#navigate-ambari-user-views-lab1)
+*   [Step 2: Start Apache Kafka](#start-kafka-lab1)
+*   [Step 3: Configure Kafka with Zookeeper](#configure-kafka-with-zookeeper-lab1)
+*   [Step 4: Create Kafka Producer](#define-kafka-topic-lab1)
+*   [Step 5: Load the data](#download-data-lab1)
+*   [Step 6: Run Kafka Producer](#run-kafka-producer-lab1)
+*   [Step 7: Code Review](#code-review-lab1)
+*   [Appendix A: Install Kafka](#install-kafka-lab1)
+*   [Appendix B: Install Maven and Compile](#install-maven-compile-lab1)
+*   [Further Reading](#further-reading-lab1)
 
-## Apache Kafka <a id="apache-kafka"></a>
+## Apache Kafka <a id="apache-kafka-lab1"></a>
 
 [Apache Kafka](http://kafka.apache.org/) is an open source messaging system designed for:
 
@@ -44,7 +44,7 @@ Kafka Producer-Broker-Consumer
 3.  Create Kafka topics for Truck events.
 4.  Write Kafka Producers for Truck events.
 
-### Step 1: Navigate to Ambari <a id="navigate-ambari-user-views"></a>
+### Step 1: Navigate to Ambari <a id="navigate-ambari-user-views-lab1"></a>
 
 #### 1.1 Start the Hortonworks Sandbox
 
@@ -59,7 +59,7 @@ After resetting your Ambari admin password with assistance from [Learning the Ro
 ![](/assets/realtime-event-processing/t1-update/image21.png)
 
 
-### Step 2: Start Apache Kafka <a id="start-kafka"></a>
+### Step 2: Start Apache Kafka <a id="start-kafka-lab1"></a>
 
 #### 2.1  View the Kafka Services page
 
@@ -79,7 +79,7 @@ Check the box and click on Confirm Start:
 
 Wait for Kafka to start.
 
-### Step 3: Configure Kafka with ZooKeeper <a id="configure-kafka-with-zookeeper"></a>
+### Step 3: Configure Kafka with ZooKeeper <a id="configure-kafka-with-zookeeper-lab1"></a>
 
 ZooKeeper serves as the coordination interface between the Kafka broker and consumers:
 
@@ -103,7 +103,7 @@ From the Kafka page, click on the **Configs** tab. Verify the `zookeeper.connect
 
 ![](/assets/realtime-event-processing/t1-update/kafka_configs_zookeeper_connect_iot.png)
 
-### Step 4: Define a Kafka Topic <a id="define-kafka-topic"></a>
+### Step 4: Define a Kafka Topic <a id="define-kafka-topic-lab1"></a>
 
 #### 4.1 SSH into the Sandbox
 
@@ -190,7 +190,7 @@ This Java Truck events producer code uses [New York City Truck Routes (kml)](htt
 
 
 
-### Step 5: Download the Data <a id="download-data"></a>
+### Step 5: Download the Data <a id="download-data-lab1"></a>
 
 1.  Download the New York City Truck Routes
 
@@ -209,7 +209,7 @@ Run the following commands to download the TruckEventsProducer Java code and the
 Note: The source code for all the tutorials is located in "src" subdirectory and the pre-compiled binaries for all the tutorials are in the "target" subdirectory. If you would like to modify/run the code, refer to Appendix B for the steps to install and run maven.
 
 
-### Step 6: Run Kafka Producer <a id="run-kafka-producer"></a>
+### Step 6: Run Kafka Producer <a id="run-kafka-producer-lab1"></a>
 
 To start the Kafka Producer we execute the following command to see the output as shown in the screenshot below.
 
@@ -234,17 +234,17 @@ To verify, execute the following command to start a consumer to see the produced
 
 You can press Control-C to stop the console consumer (i.e keep Control key pressed and then press C)
 
-## Code description <a id="code-review"></a>
+## Code description <a id="code-review-lab1"></a>
 
 ## Producer:
 
 We use the TruckEventsProducer.java file under the src/main/java/tutorial1/ directory to generate the Kafka TruckEvents. This uses the all_truck_routes_nyc.kml data file available from [NYC DOT](http://www.nyc.gov/html/dot/html/motorist/trucks.shtml). We use Java API’s to produce Truck Events.
 
-    [root@sandbox ~]# ls /opt/TruckEvents/Tutorials-master/src/main/java/com/hortonworks/tutorials/tutorial1/TruckEventsProducer.java
+~~~bash
+[root@sandbox ~]# ls /opt/TruckEvents/Tutorials-master/src/main/java/com/hortonworks/tutorials/tutorial1/TruckEventsProducer.java
 
-   
-    [root@sandbox ~]# ls /opt/TruckEvents/Tutorials-master/src/main/resources/all_truck_routes_nyc.kml  
-
+[root@sandbox ~]# ls /opt/TruckEvents/Tutorials-master/src/main/resources/all_truck_routes_nyc.kml  
+~~~
 
 The java file contains 3 functions
 
@@ -339,13 +339,12 @@ Which will parse this file by running through each node (Node.ELEMENT_NODE) in l
 This tutorial gave you brief glimpse of how to use Apache Kafka to transport real-time events data. In our next tutorial, you will see how to capture data from Kafka Producer into Storm for processing
 
 
-## Appendix A: Install Kafka <a id="install-kafka"></a>
+## Appendix A: Install Kafka <a id="install-kafka-lab1"></a>
 
 Follow these steps if your version of the Sandbox does not have Kafka installed:
 
 
-
-1.  From the Ambari Dashboard, select Actions -> Add Service:
+1\.  From the Ambari Dashboard, select Actions -> Add Service:
 
 ![](/assets/realtime-event-processing/t1-update/add_service_kafka_iot.png)
 
@@ -369,17 +368,17 @@ Follow these steps if your version of the Sandbox does not have Kafka installed:
 ![](/assets/realtime-event-processing/t1-update/install_start_test_kafka_iot.png)
 
 
-
 7\.  After Kafka is installed, you may be asked to restart some dependent Services. Please select the appropriate Services and click Restart.
 
-## Appendix B: Install Maven and compile <a id="install-maven-compile"></a>
+
+## Appendix B: Install Maven and compile <a id="install-maven-compile-lab1"></a>
 
 Download and install Apache Maven as shown in the commands below
 
 ~~~bash
     curl -o /etc/yum.repos.d/epel-apache-maven.repo https://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo
-      yum -y install apache-maven
-      mvn -version  
+    yum -y install apache-maven
+    mvn -version  
 ~~~
 
 ![Maven Version](/assets/realtime-event-processing/t1-update/maven_version_iot.png)
@@ -406,6 +405,6 @@ Once the code is successfully compiled we shall see a new target directory creat
 ![](/assets/realtime-event-processing/t1-update/new_dir_maven_package_iot.png)
 
 
-## Further Reading <a id="further-reading"></a>
+## Further Reading <a id="further-reading-lab1"></a>
 - [Apache Kafka](http://kafka.apache.org/)
 - [Kafka Overview](http://hortonworks.com/hadoop/kafka/)
