@@ -17,14 +17,19 @@ Since then Apache Hadoop has matured and developed to become a data platform for
 
 ![](/assetsintroducing-hadoop-to-java-developers/5-boxes.png)
 
-For this introductory tutorial for Hadoop Developers we are going to focus on the basics, like:
+## Pre-Requisite
+*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
-*   The core concepts of Apache Hadoop
-*   Writing a MapReduce program
+
+## Outline
+
+*   [Build a Solid Foundation of The Core Concepts of Apache Hadoop](#core-apache-hadoop)
+*   [Write a MapReduce program](#write-a-mapreduce-program)
+  *   Mapper, Reducer, and driver code.
 
 We have many [tutorials](http://hortonworks.com/tutorials) which you can use with the Hortonworks Sandbox to learn about a rich and diverse set of components of the Hadoop platform.
 
-### Core of Apache Hadoop
+### Build a Solid Foundation of The Core of Apache Hadoop <a id="core-apache-hadoop"></a>
 
 *   The Hadoop Distributed File System (HDFS)
 *   MapReduce
@@ -74,9 +79,9 @@ The intermediate keys, and their value lists, are passed to the Reducer in sorte
 
 It is possible for some Map tasks to take more time to complete than the others, often due to faulty hardware, or underpowered machines. This might cause a bottleneck as all mappers need to finish before any reducers can kick-off. Hadoop uses speculative execution to mitigate against such situations. If a Mapper appears to be running sluggishly than the others, a new instance of the Mapper will be started on another machine, operating on the same data. The results of the first Mapper to finish will be used. Hadoop will kill off the Mapper which is still running.
 
-### Writing a MapReduce Program
+### Write a MapReduce Program <a id="write-a-mapreduce-program"></a>
 
-In this section you will learn how to use the Hadoop API to write a MapReduce program in Java
+In this section you will learn how to use the Hadoop API to write a MapReduce program in Java.
 
 Each of the portions (RecordReader, Mapper, Partitioner, Reducer, etc.) can be created by the developer. The developer is expected to atleast write the Mapper, Reducer, and driver code.
 
