@@ -18,7 +18,7 @@ In this tutorial, you will learn the following topics:
 
 ## Pre-Requisites
 
-- [Tutorial #1 should be completed successfully.](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/)
+- [Tutorial #1 Simulate and Transport Real Time Event Stream with Kafka.](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/)
 - Downloaded and Installed the latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 - [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
