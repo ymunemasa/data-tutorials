@@ -246,15 +246,17 @@ Drill down into `/truck-events-v4/staging` dir in HDFS
 
 ![](/assets/realtime-event-processing/t3-update/image00.png)
 
-Click on one of the txt files and confirm that it contains the events:
+Press Control-C in the terminal to stop the Kafka producer. Now go back to the staging directory, click on one of the txt files and confirm that it contains the events:
 
 ![Screen Shot 2015-06-04 at 9.20.24 PM.png](/assets/realtime-event-processing/t3-update/image05.png)
+
+> **Note:** It may take a 5-10 minutes, before you can access the txt files to see the data.
 
 *   Verify data in Hive by navigating to the Hive view, expanding the default database and clicking the List icon next to truck_events_text_partition table
 
 ![Screen Shot 2015-06-04 at 9.13.23 PM.png](/assets/realtime-event-processing/t3-update/verify_data_hive_truckevents_iot_t3.png)
 
-*   You can press Control-C to stop the Kafka producer (i.e keep Control key pressed and then press C)
+*   If you haven't done so, you can press Control-C to stop the Kafka producer (i.e keep Control key pressed and then press C)
 *   Verify that the data is in HBase by executing the following commands in HBase shell:
 
 ~~~
