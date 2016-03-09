@@ -1,4 +1,4 @@
-### Introduction
+## Introduction
 
 In this tutorial for Hadoop Developers, we will explore the core concepts of Apache Hadoop and examine the process of writing a MapReduce Program.
 
@@ -12,18 +12,18 @@ In this tutorial for Hadoop Developers, we will explore the core concepts of Apa
 
 *   [Hadoop](#hadoop-concept)
 *   [Step 1: Explore the Core Concepts of Apache Hadoop](#core-apache-hadoop)
-  *   [1.1 What is MapReduce?](#what-is-mapreduce)
-  *   [1.2 The MapReduce Concepts and Terminology](#mapreduce-concepts-terminology)
-  *   [1.3 MapReduce: The Mapper](#mapreduce-the-mapper)
-  *   [1.4 MapReduce: The Reducer](#mapreduce-the-reducer)
+     *   [1.1 What is MapReduce?](#what-is-mapreduce)
+     *   [1.2 The MapReduce Concepts and Terminology](#mapreduce-concepts-terminology)
+     *   [1.3 MapReduce: The Mapper](#mapreduce-the-mapper)
+     *   [1.4 MapReduce: The Reducer](#mapreduce-the-reducer)
 *   [Step 2: Write a MapReduce program](#write-a-mapreduce-program)
-  *   [2.1 Examine The MapReduce Example](#examine-the-mapreduce-example)
-  *   [2.2 Mapper reading data from HDFS](#mapper-reading-data-hdfs)
-  *   [2.3 How Streaming Works](#how-streaming-works)
-  *   [2.4 Repositories](#repositories-hortonworks)
-  *   [2.5 Source & Javadoc](#source-javadoc)
-  *   [2.6 SBT Setup](#sbt-setup)
-  *   [2.7 Gradle Setup](#gradle-setup)
+     *   [2.1 Examine The MapReduce Example](#examine-the-mapreduce-example)
+     *   [2.2 Mapper reading data from HDFS](#mapper-reading-data-hdfs)
+     *   [2.3 Streaming API](#streaming-api)
+     *   [2.4 Repositories](#repositories-hortonworks)
+     *   [2.5 Source & Javadoc](#source-javadoc)
+     *   [2.6 SBT Setup](#sbt-setup)
+     *   [2.7 Gradle Setup](#gradle-setup)
 *   [Step 3: Hive and Pig: Motivation](#hive-and-pig-motivation)
 *   [Further Reading](#further-reading-java-dev)
 
@@ -41,14 +41,14 @@ Since then Apache Hadoop has matured and developed to become a data platform for
 > Hortonworks Data Platform
 
 
-## Step 1: Explore the Core Concepts of Apache Hadoop <a id="core-apache-hadoop"></a>
+### Step 1: Explore the Core Concepts of Apache Hadoop <a id="core-apache-hadoop"></a>
 
 *   The Hadoop Distributed File System (HDFS)
 *   MapReduce
 
 A Hadoop Cluster is a set of machines that run HDFS and MapReduce. Nodes are individual machines. A cluster can have as few as one node to several thousands of nodes. For most application scenarios, Hadoop is linearly scalable, which means you can expect better performance by simply adding more nodes.
 
-### 1.1 What is MapReduce? <a id="what-is-mapreduce"></a>
+#### 1.1 What is MapReduce? <a id="what-is-mapreduce"></a>
 
 MapReduce is a method for distributing a task across multiple nodes. Each node processes data stored on that node to the extent possible.
 
@@ -233,7 +233,7 @@ Note that despite their names, all Hadoop box classes implement both Writable an
 
 The driver code runs on the client machine. It configures the job, then submits it to the cluster.
 
-### 2.6 Streaming API <a id="streaming-api"></a>
+#### 2.3 Streaming API <a id="streaming-api"></a>
 
 Many organizations have developers skilled in languages other than Java, such as
 
@@ -246,7 +246,7 @@ The Streaming API allows developers to use any language they wish to write Mappe
 
 The advantages of the Streaming API are that there is no need for non-Java coders to learn Java. So it results in faster development time and the ability to use existing code libraries.
 
-#### 2.3 How Streaming Works <a id="how-streaming-works"></a>
+#### How Streaming Works
 
 To implement streaming, write separate Mapper and Reducer programs in the language of your choice. They will receive input via stdin. They should write their output to stdout.
 
@@ -263,11 +263,11 @@ hadoop jar $HADOOP_HOME/contrib/streaming/hadoop-streaming*.jar \
 -reducer myReduce.py \ -file myMap.py \ -file myReduce.py
 ~~~
 
-### 2.4 Repositories <a id="repositories-hortonworks"></a>
+#### 2.4 Repositories <a id="repositories-hortonworks"></a>
 
 At Hortonworks, we store all of our artifacts in a public Sonatype Nexus repository. That repository can be easily accessed and searched for commonly used library, source code, and javadoc archives simply by navigating to [http://repo.hortonworks.com](http://repo.hortonworks.com).
 
-### Artifacts
+#### Artifacts
 
 Jar files containing compiled classes, source, and javadocs are all available in our public repository, and finding the right artifact with right version is as easy as searching the repository for classes you need to resolve.
 
@@ -283,7 +283,7 @@ As you’re looking for the right artifact, it’s important to use the artifact
 
 Once the right artifact has been found with the version that corresponds to your target HDP environment, it’s time to configure your build tool to both resolve our repository and include the artifact as a dependency. The following section outlines how to do both with commonly used with build tools such as Maven, SBT, and Gradle.
 
-### Maven Setup
+#### Maven Setup
 
 Apache Maven, is an incredibly flexible build tool used by many Hadoop ecosystem projects. In this section, we will outline what updates to your project’s pom.xml file are required to start resolving HDP artifacts.
 
@@ -322,7 +322,7 @@ Dependencies are added to Maven using the tag within the section of the pom.xml.
 
 Once both the repository has been added to the repositories section, and the artifacts have been added to the dependencies section, a simple `mvn compile` can be issued from the base directory of your project to ensure that proper syntax has been used and the appropriate dependencies are downloaded.
 
-### 2.5 Source & Javadoc <a id="source-javadoc"></a>
+#### 2.5 Source & Javadoc <a id="source-javadoc"></a>
 
 When using Maven with an IDE, it is often helpful to have the accompanying JavaDoc and source code. To obtain both from our repository for the artifacts that you have defined in your pom.xml, run the following commands from the base directory of your project:
 
@@ -332,7 +332,7 @@ mvn dependency:sources
 mvn dependency:resolve -Dclassifier=javadoc
 ~~~
 
-### 2.6 SBT Setup <a id="sbt-setup"></a>
+#### 2.6 SBT Setup <a id="sbt-setup"></a>
 
 The Scala Build Tool is commonly used with Scala based projects, and provide simple configuration, and many flexible options for dependency and build management.
 
