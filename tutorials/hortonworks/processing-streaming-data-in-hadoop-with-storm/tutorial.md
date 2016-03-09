@@ -2,7 +2,7 @@
 
 In this tutorial we will
 
-*   Review the pre-installed Apache Storm infrastructure
+*   Review Apache Storm Infrastructure
 *   Download Storm jar file
 *   Setup Storm
 *   Deploy a WordCount Topology
