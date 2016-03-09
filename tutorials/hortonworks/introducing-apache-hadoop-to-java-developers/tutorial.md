@@ -456,6 +456,7 @@ So we needed a higher-level abstraction on top of MapReduce providing the abilit
 
 See the following tutorial for more on Hive and Pig:
 
+*   Explore [MapReduce Tutorial](https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html#MapReduce_Tutorial)
 *   [Process Data with Apache Hive](http://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-hive/)
 *   [Process Data with Apache Pig](http://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-pig/)
 *   [Get Started with Cascading on Hortonworks Data Platform](http://hortonworks.com/hadoop-tutorial/cascading-log-parsing/)
