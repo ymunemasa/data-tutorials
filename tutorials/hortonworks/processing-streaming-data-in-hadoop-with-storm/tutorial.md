@@ -1,11 +1,6 @@
 ### Introduction
 
-In this tutorial we will
-
-*   Review Apache Storm Infrastructure
-*   Download Storm jar file
-*   Setup Storm
-*   Deploy a WordCount Topology
+In this tutorial, we will review Apache Storm Infrastructure, download a storm jar file and deploy a WordCount Topology. After we run the topology, we will view storm log files because it is helpful for debugging.
 
 ## Pre-Requisites
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
