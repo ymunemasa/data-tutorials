@@ -312,11 +312,13 @@ The pom.xml file enables flexible definition of project dependencies and build p
 
 Dependencies are added to Maven using the tag within the section of the pom.xml. To add a dependency such as hadoop-common, add this fragment:
 
+~~~html
     <dependency>
        <groupId>org.apache.hadoop</groupId>
        <artifactId>hadoop-common</artifactId>
        <version>2.7.1.2.4.0.0-169</version>
     </dependency>
+~~~
 
 Once both the repository has been added to the repositories section, and the artifacts have been added to the dependencies section, a simple `mvn compile` can be issued from the base directory of your project to ensure that proper syntax has been used and the appropriate dependencies are downloaded.
 
