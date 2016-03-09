@@ -1,6 +1,6 @@
 ### Introduction
 
-In this tutorial for Hadoop Developers, we will explore the core concepts of Apache Hadoop and write a MapReduce Program.
+In this tutorial for Hadoop Developers, we will explore the core concepts of Apache Hadoop and examine the process of writing a MapReduce Program.
 
 
 ## Pre-Requisite
