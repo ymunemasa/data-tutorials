@@ -368,7 +368,7 @@ joined.registerTempTable("joined")
 
 joined.collect.foreach(println)
 
-val risk_factor_spark=hiveContext.sql("select driverid, totmiles,occurance, totmiles/occurance riskfactor from joined")
+val risk_factor_spark=hiveContext.sql("select driverid, occurance, totmiles, totmiles/occurance riskfactor from joined")
 
 risk_factor_spark.registerTempTable("risk_factor_spark")
 
