@@ -1,6 +1,6 @@
 # Concepts
 
-### Introduction
+## Introduction
 
 In this tutorial, we will explore important concepts that will strengthen your foundation in the Hortonworks Data Platform (HDP). Apache Hadoop is a layered structure to process and store massive amounts of data. In our case, Apache Hadoop will be recognized as an enterprise solution in the form of HDP. At the base of HDP exists our data storage environment known as the hadoop distributed file system. When data files are accessed by Hive, Pig or another coding language, YARN is the Data Operating System that enables them to analyze, manipulate or process that data. HDP includes various components that open new opportunities and efficiencies in healthcare, finance, insurance and other industries that impact people.
 
@@ -10,13 +10,13 @@ In this tutorial, we will explore important concepts that will strengthen your f
 
 ## Outline
 
-1. [Concepts: Hadoop & HDP](#concepts-hadoop-hdp)
-2. [Concepts: HDFS](#concepts-hdfs)
-3. [Concepts: MapReduce & YARN](#concepts-mapreduce-yarn)
-4. [Concepts: Hive and Pig](#concepts-hive-pig)
+1. [Concept: Hadoop & HDP](#concepts-hadoop-hdp)
+2. [Concept: HDFS](#concepts-hdfs)
+3. [Concept: MapReduce & YARN](#concepts-mapreduce-yarn)
+4. [Concept: Hive and Pig](#concepts-hive-pig)
 
 
-## 1st Concepts: Hadoop & HDP <a id="concepts-hadoop-hdp"></a>
+## 1st Concept: Hadoop & HDP <a id="concepts-hadoop-hdp"></a>
 
 ### 1.1 Introduction
 
@@ -102,7 +102,7 @@ The Hortonworks **Sandbox** is a single node implementation of the Hortonworks D
 - [Understanding Hadoop 2.0](http://hortonworks.com/blog/understanding-hadoop-2-0/)
 
 
-## 2nd Concepts: HDFS <a id="concepts-hdfs"></a>
+## 2nd Concept: HDFS <a id="concepts-hdfs"></a>
 
 ### 2.1 Introduction
 
@@ -174,7 +174,7 @@ Ambari Files User View provides a user friendly interface to upload, store and m
 - [NameNode High Availability in HDP 2.0](http://hortonworks.com/blog/namenode-high-availability-in-hdp-2-0/)  
 - [Introducing… Tez: Accelerating processing of data stored in HDFS](http://hortonworks.com/blog/introducing-tez-faster-hadoop-processing/)
 
-## 3rd Concepts: MapReduce & YARN <a id="concepts-mapreduce-yarn"></a>
+## 3rd Concept: MapReduce & YARN <a id="concepts-mapreduce-yarn"></a>
 
 ### 3.1 Introduction
 
@@ -263,7 +263,7 @@ One of the crucial implementation details for MapReduce within the new YARN **sy
 [Better SLAs via Resource-preemption in YARN’s Capacity Scheduler](http://hortonworks.com/blog/better-slas-via-resource-preemption-in-yarns-capacityscheduler/)
 
 
-## 4th Concepts: Hive and Pig <a id="concepts-hive-pig"></a>
+## 4th Concept: Hive and Pig <a id="concepts-hive-pig"></a>
 
 ### 4.1a Introduction: Apache Hive
 
@@ -455,7 +455,7 @@ The following screenshot shows and describes the various components and features
 - [Apache Ambari](https://ambari.apache.org/) is an open source and open community based web based tool for Hadoop operations which has been extended via [Ambari User Views](https://cwiki.apache.org/confluence/display/AMBARI/Views) to provide a growing list of developer tools as User Views.
 - Follow this link to learn more about the [Ambari User VIews included in HDP](http://hortonworks.com/hadoop/ambari/).
 
-**Hive Blogs**: 
+**Hive Blogs**:
 
 - [Cost-Based Optimizer Makes Apache Hive 0.14 More Than 2.5X Faster](http://hortonworks.com/blog/cost-based-optimizer-makes-apache-hive-0-14-more-than-2-5x-faster/)  
 - [Discover HDP 2.2: Even Faster SQL Queries with Apache Hive and Stinger.next](http://www.slideshare.net/hortonworks/discoverhdp22faster-sql-queries-with-hive)  
@@ -471,4 +471,3 @@ The following screenshot shows and describes the various components and features
 - [Data Processing API in Apache Tez](http://hortonworks.com/blog/expressing-data-processing-in-apache-tez)**ORC Blogs:**  
 - [Apache ORC Launches as a Top-Level Project](http://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/)  
 - [ORCFile in HDP 2: Better Compression, Better Performance](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/)
-
