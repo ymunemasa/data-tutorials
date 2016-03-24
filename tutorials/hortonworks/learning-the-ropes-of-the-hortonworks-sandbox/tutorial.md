@@ -35,7 +35,7 @@ The Sandbox is a straightforward, pre-configured, learning environment that cont
 
 ### 1.1 Install the Sandbox <a id="install-sandbox"></a>
 
-Start the HDP Sandbox following the [Installation Steps](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM.
+Start the Hortonworks Sandbox following the [Installation Steps](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM.
 
 ![Lab0_1](/assets/learning-the-ropes-of-the-hortonworks-sandbox/install_hortonworks_sandbox_learning_ropes.png)
 
