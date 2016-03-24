@@ -6,7 +6,7 @@ In this tutorial for Hadoop Developers, we will explore the core concepts of Apa
 ## Pre-Requisite
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-
+*  Allow yourself around 1 to 2 hours to complete this tutorial
 
 ## Outline
 
