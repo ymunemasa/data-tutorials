@@ -8,6 +8,7 @@
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *  Since this tutorial requires admin privileges, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to reset your Ambari admin password
 *  Memory must be at least 8GB RAM, preferably 4 processor cores, else errors may occur in third tutorial
+*  Allow yourself around one hour to complete this tutorial
 
 ## Outline
 
