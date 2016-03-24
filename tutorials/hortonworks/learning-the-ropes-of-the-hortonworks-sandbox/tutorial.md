@@ -8,6 +8,7 @@ Let's begin our Hadoop journey.
 
 ## Pre-Requisites
 - Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+- Allow yourself around one hour to complete this tutorial
 
 ## Outline
 - [What is the Sandbox?](#what-is-the-sandbox)
