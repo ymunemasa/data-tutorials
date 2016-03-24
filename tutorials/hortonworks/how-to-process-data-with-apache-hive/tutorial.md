@@ -7,6 +7,7 @@ In this tutorial, we will use the [Ambari](http://hortonworks.com/hadoop/ambari/
 ## Pre-Requisites
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  Allow yourself around one hour to complete this tutorial
 
 ## Outline
 - [Hive](#hive)
