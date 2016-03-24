@@ -17,6 +17,7 @@ In this tutorial, we will use the [Ambari](http://hortonworks.com/hadoop/ambari/
 - [Step 2: Upload The Data Files](#upload-the-data-files)
 - [Step 3: Start the Hive View](#start-the-hive-view)
 - [Further Reading](#further-reading)
+- [summary](#summary)
 
 ## Hive <a id="hive"></a>
 
@@ -179,6 +180,10 @@ The resulting data looks like:
 ![year_playerid_runs_data_table](/assets/how-to-process-data-with-apache-hive/filter_data_player_runs_year_process_data_hive.png)
 
 So now we have our results. As described earlier we solved this problem using Hive step by step. At any time we were free to look around at the data, decide we needed to do another task and come back. At all times the data is live and accessible to us.
+
+## Summary <a id="summary"></a>
+
+Congratulations on completing this tutorial! We just learned how to upload data into HDFS Files View and create hive queries to manipulate data. Let's review all the queries that were utilized in this tutorial: **create**, **load**, **insert**, **select**, **from**, **group by**, **join** and **on**. With these queries, we created a table _temp_batting_ to store the data. We created another table _batting_, so we can overwrite that table with extracted data from the _temp_batting_ table we created earlier. Finally, created queries to filter the data to have the result show the best player runs each year.
 
 ## Further Reading <a id="further-reading"></a>
 - [Apache Hive](http://hortonworks.com/hadoop/hive/)
