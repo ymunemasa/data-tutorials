@@ -5,7 +5,7 @@ In this tutorial, we will review Apache Storm Infrastructure, download a storm j
 ## Pre-Requisites
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-
+*  Allow yourself around one hour to complete this tutorial
 
 ## Outline
 - [What is Apache Storm?](#what-is-apache-storm)
