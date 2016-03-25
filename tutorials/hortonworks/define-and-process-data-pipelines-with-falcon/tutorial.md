@@ -25,6 +25,7 @@ Once you have download the Hortonworks sandbox and run the VM, navigate to the A
 - [Define the rawEmailFeed entity](#define-the-rawEmailFeed-entity)
 - [Define the rawEmailIngestProcess entity](#define-the-rawEmailIngestProcess-entity)
 - [Define the cleansedEmailFeed](#define-the-cleansedEmailFeed)
+- [Define the cleanseEmailProcess](#define-the-cleansedEmailProcess)
 - [Run the feeds](#run-the-feeds)
 - [Run the processes](#run-the-processes)
 - [Input and Output of the pipeline](#input-and-output-of-the-pipeline)
@@ -348,7 +349,7 @@ Save the feed
 ![](/assets/falcon-processing-pipelines/Screenshot%202015-08-11%2015.16.01.png?dl=1)  
 
 
-## Define the rawEmailIngestProcess entity <a id="efine-the-rawEmailIngestProcess-entity"></a>
+## Define the rawEmailIngestProcess entity <a id="define-the-rawEmailIngestProcess-entity"></a>
 
 Now lets define the `rawEmailIngestProcess`.
 
@@ -480,7 +481,7 @@ Accept the default values and click Save
 ![](/assets/falcon-processing-pipelines/Screenshot%202015-08-11%2015.37.21.png?dl=1)  
 
 
-## Define the cleanseEmailProcess <a id=""></a>
+## Define the cleanseEmailProcess <a id="define-the-cleansedEmailProcess"></a>
 
 Now lets define the `cleanseEmailProcess`.
 Again, to create a process entity click on the `Process` button on the top of the main page on the Falcon Web UI.
