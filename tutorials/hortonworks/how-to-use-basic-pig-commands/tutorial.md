@@ -27,6 +27,7 @@ We will first read in two data files that contain New York Stock Exchange divide
 ## Pre-Requisites
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  Allow yourself around one hour to complete this tutorial
 
 ## Outline
 - [What is Pig?](#what-is-pig)

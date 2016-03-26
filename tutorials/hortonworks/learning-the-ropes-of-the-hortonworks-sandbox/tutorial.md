@@ -10,22 +10,24 @@ components: [ ambari ]
 
 # Learning the Ropes of the Hortonworks Sandbox
 
-### Introduction
+## Introduction
 
-This tutorial is aimed for users who do not have much experience in using the Sandbox. 
+This tutorial is aimed for users who do not have much experience in using the Sandbox.
 We will install and explore the Sandbox on virtual machine and cloud environments. We will also navigate the Ambari user interface.
 Let's begin our Hadoop journey.
 
 ## Pre-Requisites
 - Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+- Allow yourself around one hour to complete this tutorial
 
 ## Outline
 - [What is the Sandbox?](#what-is-the-sandbox)
 - [Step 1: Explore the Sandbox in a VM](#explore-sandbox-vm)
       - [1.1 Install the Sandbox](#install-sandbox)
-      - [1.2 Learn the Host Address of Your Environment](#learn-host-address-environment)
-      - [1.3 Connect to the Welcome Screen](#connect-to-welcome-screen)
-      - [1.4 Multiple Ways to Execute Terminal Commands(SSH, Web Shell, VM Shell)](#ways-execute-terminal-command)
+      - [1.2 Learn Your Sandbox Version](#learn-sandbox-version)
+      - [1.3 Learn the Host Address of Your Environment](#learn-host-address-environment)
+      - [1.4 Connect to the Welcome Screen](#connect-to-welcome-screen)
+      - [1.5 Multiple Ways to Execute Terminal Commands(SSH, Web Shell, VM Shell)](#ways-execute-terminal-command)
 - [Step 2: Explore Ambari](#explore-ambari)
       - [2.1 Use Terminal to Find the Host IP Sandbox Runs On](#find-host-ip-sandbox-runs-on)
       - [Services Provided By the Sandbox](#services-provided-by-sandbox)
@@ -40,17 +42,25 @@ Let's begin our Hadoop journey.
 
 The Sandbox is a straightforward, pre-configured, learning environment that contains the latest developments from Apache Hadoop Enterprise, specifically Hortonworks Data Platform (HDP) Distribution. The Sandbox comes packaged in a virtual environment that can run in the cloud or on your personal machine. The Sandbox allows you to learn and explore HDP on your own.
 
-### Step 1: Explore the Sandbox in a VM <a id="explore-sandbox-vm"></a>
+## Step 1: Explore the Sandbox in a VM <a id="explore-sandbox-vm"></a>
 
-#### 1.1 Install the Sandbox <a id="install-sandbox"></a>
+### 1.1 Install the Sandbox <a id="install-sandbox"></a>
 
-Start the HDP Sandbox following the [Installation Steps](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM.
+Start the Hortonworks Sandbox following the [Installation Steps](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM.
 
 ![Lab0_1](/assets/learning-the-ropes-of-the-hortonworks-sandbox/install_hortonworks_sandbox_learning_ropes.png)
 
 > **Note:** The Sandbox [system requirements](http://hortonworks.com/products/hortonworks-sandbox/#install) include that you have a 64 bit OS with at least 8 GB of RAM and enabled BIOS for virtualization. Find out about the newest features, known and resolved issues along with other updates on HDP 2.4 from the [release notes](http://hortonworks.com/wp-content/uploads/2015/10/ReleaseNotes_10_27_2015.pdf). The Sandbox on Azure is under construction and will update to HDP2.4 soon.
 
-#### 1.2 Learn the Host Address of Your Environment <a id="learn-host-address-environment"></a>
+### 1.2 Learn Your Sandbox Version <a id="learn-sandbox-version"></a>
+
+To find information about your sandbox, execute the command:
+
+~~~bash
+sandbox-version
+~~~
+
+### 1.3 Learn the Host Address of Your Environment <a id="learn-host-address-environment"></a>
 
 Once you have installed the Sandbox VM, it resolves to the host on your environment, the address of which varies depending upon the Virtual Machine you are using(Vmware, VirtualBox etc). As, a general thumb rule, wait for the installation to complete and confirmation screen will tell you the host your sandbox resolves to. For example:
 
@@ -62,19 +72,19 @@ In case of VirtualBox: `host` would be `127.0.0.1`
 
 If you are using a private cluster or a cloud to run sandbox. Please find the host your sandbox resolves to.
 
-#### 1.3 Connect to the Welcome Screen <a id="connect-to-welcome-screen"></a>
+### 1.4 Connect to the Welcome Screen <a id="connect-to-welcome-screen"></a>
 
 Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
 
 ![Sandbox Welcome Screen](/assets/learning-the-ropes-of-the-hortonworks-sandbox/sandbox_welcome_page_learning_the_ropes_sandbox.png)
 
-#### 1.4 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command"></a>
+### 1.5 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command"></a>
 
 > **Note:** For all methods below, the login credential instructions will be the same to access the Sandbox through the terminal.
-- Login using username as **root** and password as **hadoop**. 
-- After first time login, you will be prompted to retype your current password, then change your password. 
+- Login using username as **root** and password as **hadoop**.
+- After first time login, you will be prompted to retype your current password, then change your password.
 
-##### Secure Shell (SSH) Method:
+#### Secure Shell (SSH) Method:
 
 Open your terminal (mac and linux) or putty (windows). Type the following command to access the Sandbox through SSH:
 
@@ -89,7 +99,7 @@ Open your terminal (mac and linux) or putty (windows). Type the following comman
 
 > Mac OS Terminal
 
-##### Shell Web Client Method: 
+#### Shell Web Client Method:
 
 Open your web browser. Type the following text into your browser to access the Sandbox through the shell:
 
@@ -104,7 +114,7 @@ Example:
 
 > Appearance of Web Shell
 
-##### VM Terminal Method: 
+#### VM Terminal Method:
 
 Open the Sandbox through Virtualbox or VMware. The Sandbox VM Welcome Screen will appear. For Linux/Windows users, press `Alt+F5` and for Mac, press `Fn+Alt+F5` to login into the Sandbox VM Terminal.
 
@@ -112,13 +122,13 @@ Open the Sandbox through Virtualbox or VMware. The Sandbox VM Welcome Screen wil
 
 > VirtualBox VM Terminal
 
-### Step 2: Explore Ambari <a id="explore-ambari"></a>
+## Step 2: Explore Ambari <a id="explore-ambari"></a>
 
 Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 
 > **Note:** Both the username and password to login are **maria_dev**.
 
-#### 2.1 Use Terminal to Find the Host IP Sandbox Runs On <a id="find-host-ip-sandbox-runs-on"></a>
+### 2.1 Use Terminal to Find the Host IP Sandbox Runs On <a id="find-host-ip-sandbox-runs-on"></a>
 
 If you want to search for the host address your sandbox is running on, ssh into the sandbox terminal upon successful installation and follow subsequent steps:
 
@@ -130,9 +140,9 @@ If you want to search for the host address your sandbox is running on, ssh into 
 ![Host_Address_Sandbox_Runs_On](/assets/learning-the-ropes-of-the-hortonworks-sandbox/find_host_sandbox_runs_on_learning_the_ropes_sandbox.png)
 
 
-##### Services Provided By the Sandbox <a id="services-provided-by-sandbox"></a>
+#### Services Provided By the Sandbox <a id="services-provided-by-sandbox"></a>
 
-| Service | URL | 
+| Service | URL |
 |---------|-----|
 | Sandbox Welcome Page | [http://_host_:8888]()|
 | Ambari Dashboard | [http://_host_:8080]()|
@@ -144,7 +154,7 @@ If you want to search for the host address your sandbox is running on, ssh into 
 | Hadoop Configuration | [http://_host_:50070/dfshealth.html]()   [http://_host_:50070/explorer.html]() |
 
 
-##### The following Table Contains Login Credentials:
+#### The following Table Contains Login Credentials:
 
 
 | Service | User | Password |
@@ -153,7 +163,7 @@ If you want to search for the host address your sandbox is running on, ssh into 
 | Ambari | admin | refer to [section 2.2](#setup-ambari-admin-password) |
 | Linux OS | root | hadoop |
 
-#### 2.2 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password"></a>
+### 2.2 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password"></a>
 
 1. Start your sandbox and open a terminal (mac or linux) or putty (windows)
 2. SSH into the sandbox as root using `ssh root@127.0.0.1 -p 2222`. For Azure and VMware users, your `_host_` and `_port_` will be different.
@@ -170,7 +180,7 @@ ambari-agent restart
 
 ![Terminal Update Ambari admin password](/assets/learning-the-ropes-of-the-hortonworks-sandbox/terminal_update_ambari_password_learning_the_ropes_sandbox.png)
 
-#### 2.3 Explore Ambari Welcome Screen 5 Key Capabilities <a id="explore-ambari-welcome-screen"></a>
+### 2.3 Explore Ambari Welcome Screen 5 Key Capabilities <a id="explore-ambari-welcome-screen"></a>
 
 Enter the **Ambari Welcome URL** and then you should see a similar screen:
 
@@ -182,7 +192,7 @@ Enter the **Ambari Welcome URL** and then you should see a similar screen:
 4.  “**Ambari User Views**” list the set of Ambari Users views that are part of the cluster
 5.  “**Deploy Views**” provides administration for adding and removing Ambari User Views
 
-#### 2.4 Explore Ambari Dashboard Links <a id="explore-ambari-dashboard"></a>
+### 2.4 Explore Ambari Dashboard Links <a id="explore-ambari-dashboard"></a>
 
 Enter the **Ambari Dashboard URL** and you should see a similar screen:
 
@@ -197,13 +207,13 @@ and then the
 
 2.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
 
-### Step 3: Troubleshoot Problems <a id="troubleshoot-problems"></a>
+## Step 3: Troubleshoot Problems <a id="troubleshoot-problems"></a>
 
 Check [Hortonworks Community Connection](http://hortonworks.com/community/forums/)(HCC) for answers to problems you may come across during your hadoop journey.
 
 ![Hortonworks Community Connection Main Page](/assets/learning-the-ropes-of-the-hortonworks-sandbox/hcc_page_learning_the_ropes_sandbox.png)
 
-#### 3.1 Technique for Finding Answers in HCC <a id="technique-for-finding-answers-hcc"></a>
+### 3.1 Technique for Finding Answers in HCC <a id="technique-for-finding-answers-hcc"></a>
 - Insert quotes around your tutorial related problem
 - Be specific by including keywords (error, tutorial name, etc.)
 

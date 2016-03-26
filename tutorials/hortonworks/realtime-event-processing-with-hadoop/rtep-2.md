@@ -8,7 +8,7 @@ intro-page: false
 components: [ storm ]
 ---
 
-# Lab 2: Ingesting and processing Real-time events with Apache Storm
+# Lab 2: Ingest and Process Real-time Events with Apache Storm
 
 ### Introduction
 
@@ -28,24 +28,23 @@ In this tutorial, you will learn the following topics:
 
 ## Pre-Requisites
 
-- [Tutorial #1 should be completed successfully.](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/)
+- [Tutorial #1 Simulate and Transport Real Time Event Stream with Kafka.](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/)
 - Downloaded and Installed the latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 - [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 
 ## Outline
 
-*   [Apache Storm basics](#apache-storm)
-*   [Step 1: Apache Storm Configurations](#start-configure-storm)
-*   [Step 2: Create Storm Topology](#create-storm-topology)
-*   [Step 3: Code Review](#code-review)
-*   [Further Reading](#further-reading)
-*   [Appendix A: Compile Storm Topology](#appendix-a-compile-storm-topology)
-*   [Appendix B: Setup Storm Topology as Eclipse Project](#appendix-b-setup-storm-topology-eclipse-project)
-*   [Further Reading](#further-reading-tutorial2)
+*   [Apache Storm basics](#apache-storm-lab2)
+*   [Step 1: Apache Storm Configurations](#start-configure-storm-lab2)
+*   [Step 2: Create Storm Topology](#create-storm-topology-lab2)
+*   [Step 3: Code Review](#code-review-lab2)
+*   [Appendix A: Compile Storm Topology](#appendix-a-compile-storm-topology-lab2)
+*   [Appendix B: Setup Storm Topology as Eclipse Project](#appendix-b-setup-storm-topology-eclipse-project-lab2)
+*   [Further Reading](#further-reading-lab2)
 
 
-## Apache Storm <a id="apache-storm"></a>
+## Apache Storm <a id="apache-storm-lab2"></a>
 
 Apache Storm is an Open Source distributed, reliable, fault tolerant system for real time processing of data at high velocity.
 
@@ -65,7 +64,7 @@ Spout and Bolt are the two main components in Storm, which work together to proc
 For details on Storm, [click here](http://hortonworks.com/labs/storm/).
 
 
-### Step 1: Start and Configure Storm <a id="start-configure-storm"></a>
+### Step 1: Start and Configure Storm <a id="start-configure-storm-lab2"></a>
 
 #### 1.1  View the Storm Services page
 
@@ -124,7 +123,7 @@ Now you can see the UI:
 
 
 
-### Step 2\. Create a Storm Topology <a id="create-storm-topology"></a>
+### Step 2: Create a Storm Topology <a id="create-storm-topology-lab2"></a>
 
 #### 2.1 Create a Storm Spout to consume the Kafka truck events generated in Tutorial #1.
 
@@ -256,7 +255,7 @@ You can press Control-C to stop the Kafka producer (i.e keep Control key pressed
 > Bolts Statistics
 
 
-## Step 3: Code description <a id="code-review"></a>
+## Step 3: Code description <a id="code-review-lab2"></a>
 
 Let us review the code used in this tutorial. The source files are under the `/opt/TruckEvents/Tutorials-master/src/main/java/com/hortonworks/tutorials/tutorial2/` folder.
 
@@ -373,11 +372,7 @@ public void execute(Tuple tuple)
 In this tutorial we have learned to capture data from Kafka Producer into Storm Spout. This data can now be processed in real time. In our next Tutorial, using Storm Bolt, you will see how to store data into multiple sources for persistence.
 
 
-## Further Reading <a id="further-reading"></a>
-- [Apache Storm in Hadoop](http://hortonworks.com/hadoop/storm/)
-- [Apache Storm](http://storm.apache.org/)
-
-### Appendix A: Compile Storm topology from command line <a id="appendix-a-compile-storm-topology"></a>
+### Appendix A: Compile Storm topology from command line <a id="appendix-a-compile-storm-topology-lab2"></a>
 
 
 Compile the code using Maven after downloading a new data file or on completing any changes to the code under `/opt/TruckEvents/Tutorials-master/src directory`.
@@ -394,7 +389,7 @@ Compile the code using Maven after downloading a new data file or on completing 
 
 We now have a successfully compiled the code.
 
-### Appendix B: Enable remote desktop on sandbox and setting up Storm topology as Eclipse project <a id="appendix-b-setup-storm-topology-eclipse-project"></a>
+### Appendix B: Enable remote desktop on sandbox and setting up Storm topology as Eclipse project <a id="appendix-b-setup-storm-topology-eclipse-project-lab2"></a>
 
 1.  Setup Ambari VNC service on the sandbox to enable remote desktop via VNC and install eclipse using steps here [https://github.com/hortonworks-gallery/ambari-vnc-service#setup-vnc-service](https://github.com/hortonworks-gallery/ambari-vnc-service%23setup-vnc-service)
 2\.  Import code as Eclipse project using steps here:
@@ -402,7 +397,7 @@ We now have a successfully compiled the code.
 [https://github.com/hortonworks-gallery/ambari-vnc-service#getting-started-with-storm-and-maven-in-eclipse-environment](https://github.com/hortonworks-gallery/ambari-vnc-service%23getting-started-with-storm-and-maven-in-eclipse-environment)
 
 
-## Further Reading <a id="further-reading-tutorial2"></a>
+## Further Reading <a id="further-reading-lab2"></a>
 - [Storm Tutorials](http://hortonworks.com/hadoop/storm/#tutorials)
 - [Getting Started with Apache Storm](http://storm.apache.org/documentation.html)
 - [Apache Storm](http://hortonworks.com/hadoop/storm/)

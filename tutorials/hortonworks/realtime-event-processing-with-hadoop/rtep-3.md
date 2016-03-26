@@ -27,24 +27,24 @@ In previous tutorial we have explored generating and processing streaming data w
 
 ## Outline
 
-*   [Hbase](#hbase-concept)
-*   [Apache Storm](#apache-storm-concept)
-*   [Step 1: Start Hbase](#step-1-start-hbase)
-*   [Step 2: Create tables in HDFS and Hbase](#step2-create-tables-hdfs-hbase)
-*   [Step 3: Launch new Storm topology](#step3-launch-new-storm-topology)
-*   [Step 4: Generate events and verify data in HDFS and HBase](#step4-generate-events-verify-data-hdfs-hbase)
-*   [Step 5: Code description](#step5-code-description)
-*   [Appendix A: Update Tutorials Master Project](#update-tutorials-master-project)
-*   [Appendix B: Enable Remote Desktop and Set up Storm Topology as an Eclipse Project](#enable-remote-desktop-setup-topology)
-*   [Further Reading](#further-reading-tutorial3)
+*   [Hbase](#hbase-concept-lab3)
+*   [Apache Storm](#apache-storm-concept-lab3)
+*   [Step 1: Start Hbase](#step-1-start-hbase-lab3)
+*   [Step 2: Create tables in HDFS and Hbase](#step2-create-tables-hdfs-hbase-lab3)
+*   [Step 3: Launch new Storm topology](#step3-launch-new-storm-topology-lab3)
+*   [Step 4: Generate events and verify data in HDFS and HBase](#step4-generate-events-verify-data-hdfs-hbase-lab3)
+*   [Step 5: Code description](#step5-code-description-lab3)
+*   [Appendix A: Update Tutorials Master Project](#update-tutorials-master-project-lab3)
+*   [Appendix B: Enable Remote Desktop and Set up Storm Topology as an Eclipse Project](#enable-remote-desktop-setup-topology-lab3)
+*   [Further Reading](#further-reading-lab3)
 
-## HBase <a id="hbase-concept"></a>
+## HBase <a id="hbase-concept-lab3"></a>
 
 HBase provides near real-time, random read and write access to tables (or to be more accurate 'maps') storing billions of rows and millions of columns.
 
 In this case, once we store this rapidly and continuously growing dataset from Internet of Things (IoT), we will be able to perform a swift lookup for analytics regardless of the data size.
 
-## Apache Storm <a id="apache-storm-concept"></a>
+## Apache Storm <a id="apache-storm-concept-lab3"></a>
 
 Apache Storm is an Open Source distributed, reliable, fault–tolerant system for real time processing of large volume of data. Spout and Bolt are the two main components in Storm, which work together to process streams of data.
 
@@ -58,7 +58,7 @@ In this tutorial, you will learn the following topics:
 *   Verify the data in HDFS and HBase.
 
 
-### Step 1: Start HBase <a id="step-1-start-hbase"></a>
+### Step 1: Start HBase <a id="step-1-start-hbase-lab3"></a>
 
 
 1\.  **View the HBase Services page**
@@ -83,7 +83,7 @@ Wait for HBase to start (It may take a few minutes to turn green)
 
 You can use the Ambari dashboard to check status of other components too. If **HDFS, Hive, YARN, Kafka, Storm or HBase** are down, you can start them in the same way: by selecting the service and then using the Service Actions to start it. The remaining components do not have to be up. (Oozie can be stopped to save memory, as it is not needed for this tutorial)
 
-### Step 2: Create tables in HDFS & HBase <a id="step2-create-tables-hdfs-hbase"></a>
+### Step 2: Create tables in HDFS & HBase <a id="step2-create-tables-hdfs-hbase-lab3"></a>
 
 *   Create HBase tables
 
@@ -175,7 +175,7 @@ The data in 'truck_events_text_partition_orc' table can be stored with ZLIB, Sna
 
     `chmod -R 777 /tmp/hive/`
 
-### Step 3: Launch new Storm topology <a id="step3-launch-new-storm-topology"></a>
+### Step 3: Launch new Storm topology <a id="step3-launch-new-storm-topology-lab3"></a>
 
 
 Recall that the source code is under `/opt/TruckEvents/Tutorials-master/src` directory. The pre-compiled jars are under the `/opt/TruckEvents/Tutorials-master/target` directory.
@@ -232,7 +232,7 @@ Under Topology Visualization: You shall see here that Kafka Spout has started wr
 
 ![](/assets/realtime-event-processing/t3-update/bolts_section_hbase_hdfs_iot_t3.png)
 
-### Step 4: Generate Events and Verify Data in HDFS and HBase <a id="step4-generate-events-verify-data-hdfs-hbase"></a>
+### Step 4: Generate Events and Verify Data in HDFS and HBase <a id="step4-generate-events-verify-data-hdfs-hbase-lab3"></a>
 
 *   Start the 'TruckEventsProducer' Kafka Producer and verify that the data has been persisted by using the Storm Topology view.
 
@@ -319,7 +319,7 @@ This completes the tutorial #3\. You have seen how to store streaming data into 
 
 
 
-### Code Description <a id="step5-code-description"></a>
+### Step 5: Code Description <a id="step5-code-description-lab3"></a>
 
 1\.BaseTruckEventTopology.java
 
@@ -342,7 +342,7 @@ public FileTimeRotationPolicy(float count, Units units) {
 }
 
 @Override 
-    
+
 public boolean mark(Tuple tuple, long offset) {    
     // The offsett is not used here as we are rotating based on time    
     long diff = (new Date()).getTime() - this.lastCheckpoint;    
@@ -408,10 +408,10 @@ public void loadData(String path, String datePartitionName, String hourPartition
 
     StringBuilder ddl = new StringBuilder();    
     ddl.append(" load data inpath ")    
-        .append(" '").append(path).append("' ")    
-        .append(" into table ")    
-        .append(tableName)    
-        .append(" partition ").append(" (date='").append(partitionValue).append("')");  
+       .append(" '").append(path).append("' ")    
+       .append(" into table ")    
+       .append(tableName)    
+       .append(" partition ").append(" (date='").append(partitionValue).append("')");  
 
     startSessionState(sourceMetastoreUrl);  
 ~~~
@@ -441,14 +441,13 @@ This creates a connection to HBase tables and access data within the `prepare()`
 ~~~java
 public void prepare(Map stormConf, TopologyContext context, OutputCollector collector)    
 {  
-    ...    
+    ...  
     this.connection = HConnectionManager.createConnection(constructConfiguration());    
     this.eventsCountTable = connection.getTable(EVENTS_COUNT_TABLE_NAME);    
-
     this.eventsTable = connection.getTable(EVENTS_TABLE_NAME);    
 }  
 
-    ...    
+    ...  
 }  
 ~~~
 
@@ -458,13 +457,11 @@ Data to be stored is prepared in the `constructRow()` function using `put.add()`
 private Put constructRow(String columnFamily, String driverId, String truckId,    
 Timestamp eventTime, String eventType, String latitude, String longitude)    
 {  
-
     String rowKey = consructKey(driverId, truckId, eventTime);    
-    ...    
+    ...   
     put.add(CF_EVENTS_TABLE, COL_DRIVER_ID, Bytes.toBytes(driverId));    
     put.add(CF_EVENTS_TABLE, COL_TRUCK_ID, Bytes.toBytes(truckId));  
-
-    ...    
+    ...   
 }  
 ~~~
 
@@ -475,16 +472,13 @@ public void execute(Tuple tuple)  
 {  
     ...    
     long incidentTotalCount = getInfractionCountForDriver(driverId);  
-
     ...  
-
         Put put = constructRow(EVENTS_TABLE_NAME, driverId, truckId, eventTime, eventType,    
                             latitude, longitude);    
         this.eventsTable.put(put);  
-
     ...    
             incidentTotalCount = this.eventsCountTable.incrementColumnValue(Bytes.toBytes(driverId), CF_EVENTS_COUNT_TABLE,    
-                                                                                              ...    
+    ...    
 }  
 ~~~
 
@@ -495,7 +489,6 @@ HDFS and HBase Bolt configurations created within configureHDFSBolt() and config
 ~~~java
 public void configureHDFSBolt(TopologyBuilder builder)    
 {  
-
     HdfsBolt hdfsBolt = new HdfsBolt()    
                     .withFsUrl(fsUrl)    
             .withFileNameFormat(fileNameFormat)    
@@ -512,7 +505,7 @@ public void configureHBaseBolt(TopologyBuilder builder)  
 }  
 ~~~
 
-### Appendix A: Update Tutorials-master Project <a id="update-tutorials-master-project"></a>
+### Appendix A: Update Tutorials-master Project <a id="update-tutorials-master-project-lab3"></a>
 
 *   Copy /etc/hbase/conf/hbase-site.xml to src/main/resources/ directory
 
@@ -563,14 +556,14 @@ public void configureHBaseBolt(TopologyBuilder builder)  
 The maven build should succeed
 
 
-### Appendix B: Enable remote desktop on sandbox and set up Storm topology as Eclipse project <a id="enable-remote-desktop-setup-topology"></a>
+### Appendix B: Enable remote desktop on sandbox and set up Storm topology as Eclipse project <a id="enable-remote-desktop-setup-topology-lab3"></a>
 
 1.  Setup Ambari VNC service on the sandbox to enable remote desktop via VNC and install eclipse using steps here [https://github.com/hortonworks-gallery/ambari-vnc-service#setup-vnc-service](https://github.com/hortonworks-gallery/ambari-vnc-service%23setup-vnc-service)
 2.  Import code as Eclipse project using steps here:
 
 [https://github.com/hortonworks-gallery/ambari-vnc-service#getting-started-with-storm-and-maven-in-eclipse-environment](https://github.com/hortonworks-gallery/ambari-vnc-service%23getting-started-with-storm-and-maven-in-eclipse-environment)
 
-## Further Reading <a id="further-reading-tutorial3"></a>
+## Further Reading <a id="further-reading-lab3"></a>
 - [Apache HBase](http://hortonworks.com/hadoop/hbase/)
 - [Getting Started with HBase](https://hbase.apache.org/book.html#quickstart)
 - [Storm Hive Integration](http://storm.apache.org/documentation/storm-hive.html)

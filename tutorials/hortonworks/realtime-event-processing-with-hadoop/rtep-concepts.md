@@ -20,7 +20,7 @@ In this tutorial, you will strengthen your foundation of technologies used in re
 - [1st Concept: Apache kafka](#concepts-apache-kafka)
 - [2nd Concept: Apache Storm](#concepts-apache-storm)
 - [3rd Concept: Kafka on Storm](#concepts-kafka-on-storm)
-- [Further Reading](#further-reading)
+- [Further Reading](#further-reading-concepts)
 
 
 ## 1st Concept: Apache kafka <a id="concepts-apache-kafka"></a>
@@ -232,7 +232,7 @@ In summary, refinery style data processing architecture enables you to:
 - Tap into raw or refined data streams at any stage of the processing
 - Modularize your key cluster resources to most intense processing phase of the pipeline
 
-## Further Reading <a id="further-reading"></a>
+## Further Reading <a id="further-reading-concepts"></a>
 - [Apache Storm](http://storm.apache.org/)
 - [Apache Kafka](http://kafka.apache.org/)
 - [Storm Kafka Integration](http://storm.apache.org/documentation/storm-kafka.html)

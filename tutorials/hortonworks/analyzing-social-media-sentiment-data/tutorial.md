@@ -37,6 +37,7 @@ Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) 
 - [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 - Added `sandbox.hortonworks.com` to your `/etc/hosts` file (mac and linux users).
 - Added `sandbox.hortonworks.com` to your `%systemroot%\system32\drivers\etc\hosts` file (windows users)
+- Allow yourself around 1 to 2 hours to complete this tutorial
 
 If you haven't added `sandbox.hortonworks.com` to your lists of hosts you can do so with the following command on a unix system:
 
