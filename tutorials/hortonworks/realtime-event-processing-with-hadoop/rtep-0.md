@@ -1,3 +1,14 @@
+---
+layout: tutorial
+title: Real Time Data Processing in Hadoop
+tutorial-id:
+tutorial-series: Streaming
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ storm, kafka ]
+---
+
+
 # Real-time Data transportation and Ingestion
 
 ### Introduction

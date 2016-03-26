@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Manage Scurity Policy for Hive and HBase with Knox and Ranger
+tutorial-id: 410
+tutorial-series: Security
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ knox, ranger ]
+---
+
 ##  Introduction
 
 Apache Ranger delivers a comprehensive approach to security for a Hadoop cluster. It provides a central security policy administration across the core enterprise security requirements of authorization, accounting and data protection.

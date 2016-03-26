@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Using the Command Line to Manage Files on HDFS
+tutorial-id: 120
+tutorial-series: Operations
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ hdfs ]
+---
+
 # Using the Command Line to Manage Files on HDFS
 
 ### Introduction

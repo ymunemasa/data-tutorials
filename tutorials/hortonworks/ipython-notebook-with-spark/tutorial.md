@@ -1,3 +1,14 @@
+---
+layout: tutorial
+title: Using IPython Notebook with Apache Spark
+tutorial-id: 380
+tutorial-series: Spark
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ spark ]
+---
+
+
 ### Introduction
 
 In this tutorial, we are going to configure IPython notebook with Apache Spark on YARN in a few steps.

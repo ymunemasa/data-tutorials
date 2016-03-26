@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Real time Data Ingestion in HBase & Hive using Storm Bolt
+tutorial-id: 180
+tutorial-series: Streaming
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ hbase, hive, storm ]
+---
+
 ## Lab 3: Real Time data Ingestion in Hbase and Hive using Storm
 
 ### Introduction

@@ -1,3 +1,14 @@
+---
+layout: tutorial
+title: Searching Data with Solr
+tutorial-id: 300
+tutorial-series: Search
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ solr ]
+---
+
+
 In this tutorial, we will learn to:
 
 *   Configure Solr to store indexes in HDFS

@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Hello HDP An Introduction to Hadoop with Hive and Pig
+tutorial-id: 100
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ ambari, hive, pig, spark, zeppelin ]
+---
+
 ## Introduction
 
 This tutorial describes how to refine data for a Trucking IoT  [Data Discovery](http://hortonworks.com/solutions/advanced-analytic-apps/#data-discovery) (aka IoT Discovery) use case using the Hortonworks Data Platform. The IoT Discovery use cases involves vehicles, devices and people moving across a map or similar surface. Your analysis is interested in tying together location information with your analytic data.

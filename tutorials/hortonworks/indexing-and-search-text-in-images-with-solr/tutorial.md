@@ -1,3 +1,14 @@
+---
+layout: tutorial
+title: Indexing and Searching Text within Images with Solr
+tutorial-id: 510
+tutorial-series: Search
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ solr ]
+---
+
+
 A very common request from many customers is to be able to index text in image files; for example, text in scanned PNG files. In this tutorial we are going to walkthrough how to do this with SOLR.
 
 ### [](#prerequisite)Prerequisite

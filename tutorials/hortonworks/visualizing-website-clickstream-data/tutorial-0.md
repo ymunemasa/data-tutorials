@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: How to Visualize Website Clickstream Data
+tutorial-id: 250
+tutorial-series: Real-World End to End Examples
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ ambari, hive, flume ]
+---
+
 # How to Visualize and Analyze Website Clickstream Data
 
 Your home page looks great. But how do you move customers on to bigger things—like submitting a form or completing a purchase? Get more granular with customer segmentation. Hadoop makes it easier to analyze, visualize and ultimately change how visitors behave on your website.

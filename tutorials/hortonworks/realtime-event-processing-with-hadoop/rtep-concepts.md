@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Real Time Data Processing in Hadoop
+tutorial-id:
+tutorial-series: Streaming
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ storm, kafka ]
+---
+
 ### Introduction
 
 In this tutorial, you will strengthen your foundation of technologies used in real-time event processing. You will learn in detail how Apache Kafka sends messages, the process Apache Storm undergoes to collect that data and the process involved for HBase to read that streaming data.

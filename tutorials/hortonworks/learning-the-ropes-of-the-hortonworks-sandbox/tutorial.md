@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Learning the Ropes of the Hortonworks Sandbox
+tutorial-id: 160
+tutorial-series: Introduction
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ ambari ]
+---
+
 # Learning the Ropes of the Hortonworks Sandbox
 
 ## Introduction

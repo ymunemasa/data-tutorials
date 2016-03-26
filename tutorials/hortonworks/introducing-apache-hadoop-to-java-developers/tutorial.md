@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Introducing Apache Hadoop to Developers
+tutorial-id: 130
+tutorial-series: Introduction
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ hadoop ]
+---
+
 ## Introduction
 
 In this tutorial for Hadoop Developers, we will explore the core concepts of Apache Hadoop and examine the process of writing a MapReduce Program.

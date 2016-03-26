@@ -1,3 +1,14 @@
+---
+layout: tutorial
+title: How to Process Data with Apache Hive
+tutorial-id: 110
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ ambari, hive ]
+---
+
+
 # How to Process Data with Apache Hive
 
 ### Introduction

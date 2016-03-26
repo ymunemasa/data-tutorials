@@ -1,3 +1,14 @@
+---
+layout: tutorial
+title: How to Load Data into the Hortonworks Sandbox
+tutorial-id: 230
+tutorial-series: Introduction
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ ambari, hive ]
+---
+
+
 # How to Load Data Into the Hortonworks Sandbox
 
 ### Introduction

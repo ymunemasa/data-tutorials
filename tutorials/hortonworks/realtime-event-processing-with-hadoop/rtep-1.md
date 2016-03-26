@@ -1,4 +1,18 @@
+<<<<<<< HEAD
+---
+layout: tutorial
+title: Simulating and Transporting Real Time Event Streams with Apache Kafka
+tutorial-id: 170
+tutorial-series: Streaming
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ kafka ]
+---
+
+# Lab 1: Simulating and Transporting Real Time Event Stream with Apache Kafka
+=======
 # Lab 1: Simulate and Transport Real Time Event Stream with Apache Kafka
+>>>>>>> hdp
 
 ### Introduction
 

@@ -1,7 +1,18 @@
+---
+layout: tutorial
+title: Using HCatalog, Pig, and Hive Commands
+tutorial-id: 260
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ hcatalog, hive, pig, ambari ]
+---
+
 # HCatalog, Basic Pig & Hive Commands
 
 ### Introduction
 In this tutorial, we will learn to use Hive and Pig along with other tools to process, analyze and filter large datasets.
+>>>>>>> hdp
 
 ## Pre-Requisites
 
