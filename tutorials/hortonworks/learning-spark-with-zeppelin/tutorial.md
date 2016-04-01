@@ -8,12 +8,11 @@ intro-page: true
 components: [ spark, zeppelin ]
 ---
 
-
 ### Introduction
 
-In this tutorial, we will introduce the basic concepts of Apache Spark DataFrames in a hands-on lab in Apache Zeppelin notebook.
+In this tutorial, we will introduce the basic concepts of Apache Spark DataFrames in a hands-on lab.
 
-We will also introduce the first necessary steps to get up and running with Zeppelin on a Hortonworks Data Platform (HDP) Sandbox.
+We will also introduce the necessary steps to get up and running with Apache Zeppelin on a Hortonworks Data Platform (HDP) Sandbox.
 
 ### Prerequisites
 
@@ -21,7 +20,7 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 
 *   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 
-**Note**: if you are attending a Meetup/Crash Course your speaker/instructor might have additional instructions regarding the Sandbox VM image.
+**Note**: if you are attending a Meetup/Crash Course your speaker/instructor may have additional instructions regarding the Sandbox VM image.
 
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
@@ -33,13 +32,13 @@ The core concepts of Spark DataFrames will be introduced in the lab itself. In t
 
 #### 1. Start your Sandbox
 
-First, start your Sandbox Virtual Machine (VM) in either a VirtualBox/VMware environment and note your VM IP address.
+First, start your Sandbox Virtual Machine (VM) in either a VirtualBox or VMware environment and note your VM IP address.
 
 We will refer to your VM IP address as `<HOST IP>` throughout this tutorial.
 
 If you need help finding your `<HOST IP>` checkout [Learning the Ropes](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#learn-host-address-environment).
 
-#### 2. Launch "Shell in a Box"
+#### 2. Launch a "Shell in a Box"
 
 Now that your Sandbox is running, open a web browser and go to: `http://<HOST IP>:4200`
 
@@ -47,11 +46,11 @@ Where `<HOST IP>` is the IP address of your Sandbox machine.
 
 For example, the default address for **VirtualBox** is http://127.0.0.1:4200
 
-Next, log into "Shell in a Box" using the following *default* credentials: <br>
+Next, log into the "Shell in a Box" using the following *default* credentials: <br>
 **User**: `root`<br>
 **Pass**: `hadoop`
 
-**Note**: if you’re logging for the first time you will be required to change your password.
+If you’re logging for the first time you will be required to change your password.
 
 #### 3. Download Latest Zeppelin Notebooks
 
@@ -71,7 +70,7 @@ Where `<HOST IP>` is the IP address of your Sandbox machine.
 
 For example, the default address for **VirtualBox** is http://127.0.0.1:9995
 
-#### 5. Open a Zeppelin Lab Notebook
+#### 5. Open Zeppelin Lab Notebook
 
 At this point you should see the following Zeppelin interface:
 
@@ -79,10 +78,10 @@ At this point you should see the following Zeppelin interface:
 
 Click on "Lab 102: Intro to Spark with Scala" to open the notebook.
 
-Once the notebook is open, follow the step-by-step instructions.
+![](/assets/learning-spark-with-zeppelin/2-selecting-notebook.png)
+
+Once the notebook is open, follow the step-by-step instructions within the notebook to complete the lab.
 
 ### Further Resources
 
-Now that you're done with this lab, make sure to checkout other Zeppelin demo & lab notebooks in the main directory.
-
-We also have an extensive list of Spark tutorials [here](http://hortonworks.com/hadoop/spark/#tutorials).
+Once you're done with the lab, make sure to checkout other Zeppelin Labs and [Spark Tutorials](http://hortonworks.com/hadoop/spark/#tutorials).
