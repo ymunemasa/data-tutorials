@@ -25,8 +25,6 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 
 ### Concepts
 
-#### Overview
-
 Spark Streaming is an extension of the core Spark API that enables scalable, high-throughput, fault-tolerant stream processing of live data streams. Data can be ingested from many sources like Kafka, Flume, Twitter, ZeroMQ, Kinesis, or TCP sockets, and can be processed using complex algorithms expressed with high-level functions like map, reduce, join and window. Finally, processed data can be pushed out to filesystems, databases, and live dashboards.
 
 ![Spark Streaming](http://spark.apache.org/docs/1.6.0/img/streaming-arch.png)
@@ -55,11 +53,14 @@ Now that your Sandbox is running, open a web browser and go to: `http://<HOST IP
 
 Where `<HOST IP>` is the IP address of your Sandbox machine.
 
-For example, the default address for **VirtualBox** is http://127.0.0.1:4200
+For example, the default address for **VirtualBox** is [http://127.0.0.1:4200](http://127.0.0.1:4200)
 
 Next, log into the "Shell in a Box" using the following *default* credentials: <br>
-**User**: `root`<br>
-**Pass**: `hadoop`
+
+~~~
+User: root
+Pass: hadoop
+~~~
 
 If you’re logging for the first time you will be required to change your password.
 
@@ -69,11 +70,15 @@ Now let's download a Spark Streaming demo code to your sandbox from GitHub.
 
 In your "Shell in a Box" execute the following two commands:
 
-`cd /tmp`
+~~~
+cd /tmp
+~~~
 
 and
 
-`wget https://raw.githubusercontent.com/roberthryniewicz/sample-code/master/spark-streaming-demo.py`
+~~~
+wget https://raw.githubusercontent.com/roberthryniewicz/sample-code/master/spark-streaming-demo.py
+~~~
 
 **Note**: `wget <url>` downloads Spark Streaming code that computes a simple Word Count. Words (i.e. strings) will be coming in via a network socket connection from a simple Netcat tool introduced later.
 
@@ -133,7 +138,11 @@ In your browser, open a second tab or window, and open another "Shell in a Box" 
 
 For example, [http://127.0.0.1:4200](http://127.0.0.1:4200) if you're running a **VirtualBox**.
 
-Login to your *shell* and run the following command to launch Netcat: `nc -l localhost 3333`
+Login to your *shell* and run the following command to launch Netcat:
+
+~~~
+ nc -l localhost 3333
+~~~
 
 At this point you should be connected and you may start typing or pasting any text.
 
@@ -155,7 +164,11 @@ When you're done experimenting, press `Ctrl + C` in your  shell tab or window to
 
 If you want to remove annoying INFO messages from the Spark streaming terminal window, do the following:
 
-Open `conf/log4j.properties`, for example: `vi /usr/hdp/current/spark-client/conf/log4j.properties`
+Open `conf/log4j.properties`, for example:
+
+~~~
+vi /usr/hdp/current/spark-client/conf/log4j.properties
+~~~
 
 and Edit log4j.properties:
 
@@ -175,9 +188,16 @@ log4j.logger.org.apache.spark.repl.SparkILoop$SparkILoopInterpreter=INFO
 ~~~
 
 Replace the first line:
-`log4j.rootCategory=INFO, console`
+
+~~~
+log4j.rootCategory=INFO, console
+~~~
+
   with
-`log4j.rootCategory=WARN, console`
+
+~~~
+log4j.rootCategory=WARN, console
+~~~
 
 Save log4j.properties and restart your spark-submit job. Now you should see only **WARN** messages.
 
