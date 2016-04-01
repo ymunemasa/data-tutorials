@@ -44,11 +44,14 @@ Now that your Sandbox is running, open a web browser and go to: `http://<HOST IP
 
 Where `<HOST IP>` is the IP address of your Sandbox machine.
 
-For example, the default address for **VirtualBox** is http://127.0.0.1:4200
+For example, the default address for **VirtualBox** is [http://127.0.0.1:4200](http://127.0.0.1:4200)
 
-Next, log into the "Shell in a Box" using the following *default* credentials: <br>
-**User**: `root`<br>
-**Pass**: `hadoop`
+Next, log into the "Shell in a Box" using the following *default* credentials:
+
+~~~
+User: root
+Pass: hadoop
+~~~
 
 If you’re logging for the first time you will be required to change your password.
 
@@ -68,7 +71,7 @@ In your web browser, open another tab and go to: `http://<HOST IP>:9995`
 
 Where `<HOST IP>` is the IP address of your Sandbox machine.
 
-For example, the default address for **VirtualBox** is http://127.0.0.1:9995
+For example, the default address for **VirtualBox** is [http://127.0.0.1:9995](http://127.0.0.1:9995)
 
 #### 5. Open Zeppelin Lab Notebook
 
