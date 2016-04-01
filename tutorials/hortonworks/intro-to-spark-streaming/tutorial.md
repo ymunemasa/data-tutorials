@@ -1,6 +1,6 @@
 ---
 layout: tutorial
-title: Spark Streaming in 10 Minutes
+title: Intro to Spark Streaming
 tutorial-id: 366
 tutorial-series: Spark
 tutorial-version: hdp-2.4.0
