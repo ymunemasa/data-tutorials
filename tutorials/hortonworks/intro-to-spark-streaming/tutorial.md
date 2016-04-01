@@ -114,8 +114,6 @@ ssc.awaitTermination()  # Wait for the computation to terminate
 
 #### 4. Submit a Spark Streaming Job
 
-#### Second, Submit a Spark Streaming Job
-
 Now you're ready to submit a Spark job. In your terminal window copy and paste the following and hit `Enter`:
 
 ~~~
