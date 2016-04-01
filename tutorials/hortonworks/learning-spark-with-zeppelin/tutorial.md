@@ -11,7 +11,7 @@ components: [ spark, zeppelin ]
 
 ### Introduction
 
-In this tutorial, we will introduce the basic concepts of Apache Spark RDDs, DataFrames, and Spark Streaming in a hands-on lab in Apache Zeppelin notebook.
+In this tutorial, we will introduce the basic concepts of Apache Spark DataFrames in a hands-on lab in Apache Zeppelin notebook.
 
 We will also introduce the first necessary steps to get up and running with Zeppelin on a Hortonworks Data Platform (HDP) Sandbox.
 
@@ -27,7 +27,7 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 
 ### Concepts
 
-The core concepts on RDDs, DataFrames, and Spark Streaming are introduced in the lab itself. In this tutorial we will focus instead on how to get you started with Sandbox and explore basics of Apache Ambari and Apache Zeppelin to get you quickly up and running with the lab.
+The core concepts of Spark DataFrames will be introduced in the lab itself. In this tutorial we will focus instead on how to get you started with Sandbox and explore basics of Apache Zeppelin to get you quickly up and running with the lab.
 
 ### Setup
 
@@ -75,8 +75,14 @@ For example, the default address for **VirtualBox** is http://127.0.0.1:9995
 
 At this point you should see the following Zeppelin interface:
 
-TODO: Add Zeppelin Main List Screenshot
+![](/assets/learning-spark-with-zeppelin/1-main-zeppelin-screen.png)
 
-Click on the "Lab 102: Apache Spark with Zeppelin (Scala)" to open the notebook.
+Click on "Lab 102: Intro to Spark with Scala" to open the notebook.
 
-Once the notebook is open you are ready to proceed with the lab.
+Once the notebook is open, follow the step-by-step instructions.
+
+### Further Resources
+
+Now that you're done with this lab, make sure to checkout other Zeppelin demo & lab notebooks in the main directory.
+
+We also have an extensive list of Spark tutorials [here](http://hortonworks.com/hadoop/spark/#tutorials).
