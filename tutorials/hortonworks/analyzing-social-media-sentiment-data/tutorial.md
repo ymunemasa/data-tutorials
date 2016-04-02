@@ -42,7 +42,7 @@ Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) 
 If you haven't added `sandbox.hortonworks.com` to your lists of hosts you can do so with the following command on a unix system:
 
 ~~~bash
-echo "127.0.0.1     sandbox.hortonworks.com >> /etc/hosts"
+echo "127.0.0.1     sandbox.hortonworks.com" >> /etc/hosts
 ~~~
 
 Alernative approach in case above command doesn't work, write the commands:
@@ -55,7 +55,7 @@ sudo vi hosts
 We navigated to the etc directory, then opened our hosts file in the vi editor as a superuser using [sudo](https://www.linux.com/community/blogs/133-general-linux/801805-how-to-use-sudo-and-su-commands-in-linux-an-introduction). Now press `i` and add the following text to your lists of hosts:
 
 ~~~
-<Host IP of your machine> sandbox.hortonworks.com
+< Host IP of your machine> sandbox.hortonworks.com
 ~~~
 
 > **Note:** For Azure users, your ip address is located on the sandbox dashboard.
@@ -106,15 +106,15 @@ If you haven't already you will need to [download the GZipped versions of Horton
 
 First we're going to need to send the HDF file that was just downloaded to the Sandbox via SCP.
 
-Assuming that HDF has been downloaded to your `~/Downloads/` directory and that the file has a name `nifi-1.1.1.0-12-bin.tar.gz` Open up the your terminal and type the following command:
+Assuming that HDF has been downloaded to your `~/Downloads/` directory and that the file has a name `HDF-1.2.0.0-91.tar.gz` Open up the your terminal and type the following command:
 
 **Note:** the `-P` argument is case sensitive.
 
 ~~~bash
 # Virtualbox 
-	scp -P 2222 ~/Downloads/nifi-1.1.1.0-12-bin.tar.gz root@localhost:/root 
+	scp -P 2222 ~/Downloads/HDF-1.2.0.0-91.tar.gz root@localhost:/root 
 # Azure
-	scp -P <port> ~/Downloads/nifi-1.1.1.0-12-bin.tar.gz <username>@<hostname>:/folder_destination
+	scp -P <port> ~/Downloads/HDF-1.2.0.0-91.tar.gz <username>@<hostname>:/folder_destination
 ~~~
 
 ![send nifi data to sandbox](/assets/nifi-sentiment-analytics/images/send_nifi_data_to_sandbox_sentiment_analysis.png)
@@ -136,76 +136,40 @@ There are two options to connecting to your sandbox to execute terminal commands
 
 If you've already logged into your sandbox through SSH your password will be different than below.
 
+</>
+
 | username | password |
 |:--------:|:--------:|
 |  _root_  | _hadoop_ |
 
 > **Note** Virtualbox users will be prompted to change the `root` user's password once you login to the sandbox. **Do NOT forget this!** Azure users will have to manually enter a password to access root. This step is covered in the Azure tutorial in the prerequisites section.
 
-First, use the `export` command to create a temporary variable to store the name of the nifi file which you just downloaded.
-
-For example if the filename is `nifi-1.1.1.0-12-bin.tar.gz`:
+Now that we're SSH'd into the sandbox execute the following to create an HDF directory under `/root`
 
 ~~~bash
-export NIFI=nifi-1.1.1.0-12-bin.tar.gz
+mkdir hdf
 ~~~
 
-![export create temp variable](/assets/nifi-sentiment-analytics/images/export_create_tempvariable_nifi_sentiment_analysis.png)
-
-Once you've successfully connected to the sandbox make sure that you're in the directory `/root/`. Then run the following commands.
-
-Make a new directory for NiFi
+Next, move the zipped HDF file into the HDF folder, traverse into the `hdf` directory then unzip the file.
 
 ~~~bash
-mkdir nifi
+mv HDF-1.2.0.0-91.tar.gz hdf
+cd hdf
+tar -xvf HDF-1.2.0.0-91.tar.gz
 ~~~
 
-![make new directory nifi](/assets/nifi-sentiment-analytics/images/make_new_directory_nifi_sentiment_analysis.png)
+![](/assets/nifi-sentiment-analytics/images/move-and-unzip-hdf.png)
 
-Move our file to the folder which we just created, then cd into the folder
+Now we just need to update a NiFi setting to set the port through which we can access the NiFi web interface. We are setting the NiFi port to 9090. Make sure you're in the `/root/hdf` directory and run the following command to update the necessary `nifi.properties` file:
 
 ~~~bash
-mv $NIFI ./nifi
-cd nifi
+sed -i s/nifi.web.http.port=8080/nifi.web.http.port=9090/g HDF-1.2.0.0/nifi/conf/nifi.properties
 ~~~
-
-![move file to new folder](/assets/nifi-sentiment-analytics/images/move_file_to_nifi_folder_sentiment_analysis.png)
-
-Unzip the file
-
-~~~bash
-tar -xvf $NIFI
-~~~
-
-![unzip file](/assets/nifi-sentiment-analytics/images/unzip_nifi_file_sentiment_analysis.png)
-
-Then let's head into the directory we just unzipped. It will be the same as the $NIFI variable, except without the -bin.tar.gz at the end. In this case the command is:
-
-~~~bash
-cd nifi-1.1.1.0-12
-~~~
-
-![change directory](/assets/nifi-sentiment-analytics/images/change_directory_nifi_unzipped_sentiment_analysis.png)
-
-Next we're going to need to change the port which nifi runs on from 8080 to 9090.
-
-Inside the `conf/nifi.properties` file, find the line which has `nifi.web.http.port`. Make sure it looks like the following:
-
-~~~bash
-nifi.web.http.port=9090
-~~~
-> **Note:** Open nifi.properties with vi editor to change the line of text as suggested above.
-
-![open nifi properties file](/assets/nifi-sentiment-analytics/images/open_nifi_properties_sentiment_analysis.png)
-
-![edit nifi properties file](/assets/nifi-sentiment-analytics/images/edit_nifi_properties_file_sentiment_analysis.png)
-
-> **Note:** Change Highlighted region. 
 
 You can now start NiFi! use the `nifi.sh` file to start the application.
 
 ~~~bash
-bash bin/nifi.sh start
+bash HDF-1.2.0.0/nifi/bin/nifi.sh start
 ~~~
 
 ![export create temp variable](/assets/nifi-sentiment-analytics/images/start_nifi_application_sentiment_analysis.png)
