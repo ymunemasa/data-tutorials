@@ -160,10 +160,10 @@ tar -xvf HDF-1.2.0.0-91.tar.gz
 
 ![](/assets/nifi-sentiment-analytics/images/move-and-unzip-hdf.png)
 
-Now we just need to update a NiFi setting to set the port through which we can access the NiFi web interface. We are setting the NiFi port to 9090. Make sure you're in the `/root/hdf` directory and run the following command to update the necessary `nifi.properties` file:
+Now we just need to update a NiFi setting to set the port through which we can access the NiFi web interface. We are setting the NiFi port to 6434. Make sure you're in the `/root/hdf` directory and run the following command to update the necessary `nifi.properties` file:
 
 ~~~bash
-sed -i s/nifi.web.http.port=8080/nifi.web.http.port=9090/g HDF-1.2.0.0/nifi/conf/nifi.properties
+sed -i s/nifi.web.http.port=8080/nifi.web.http.port=6434/g HDF-1.2.0.0/nifi/conf/nifi.properties
 ~~~
 
 You can now start NiFi! use the `nifi.sh` file to start the application.
@@ -176,9 +176,9 @@ bash HDF-1.2.0.0/nifi/bin/nifi.sh start
 
 After a few short moments NiFi will start up on the Sandbox.
 
-Make sure you can reach the NiFi user interface at [http://sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi).
+Make sure you can reach the NiFi user interface at [http://sandbox.hortonworks.com:6434/nifi](http://sandbox.hortonworks.com:6434/nifi).
 
-If you can't access it, first wait approximately 10-15 seconds after executing the command. If you still can't connect after that then you might need to forward port `9090` on your virtual machine.
+If you can't access it, first wait approximately 10-15 seconds after executing the command. If you still can't connect after that then you might need to forward port `6434` on your virtual machine.
 
 For VirtualBox you can forward the port **2** ways. Either through the GUI, or using the command line on the Host machine. For Azure you can forward the port **1** way, which involves the GUI.
 
@@ -193,7 +193,7 @@ VBoxManage list vms
 Look for the Hortonworks Sandbox VM. Take note of it's ID. Once you've taken note of the ID, run the following command to forward the port:
 
 ~~~bash
-VBoxManage controlvm {INSERT_VM_ID_HERE} natpf1 nifi,tcp,,9090,,9090
+VBoxManage controlvm {INSERT_VM_ID_HERE} natpf1 nifi,tcp,,6434,,6434
 ~~~
 
 Example:
@@ -202,10 +202,10 @@ Example:
 HW11108:~ zblanco$ VBoxManage list vms
 "Hortonworks Sandbox with HDP 2.3.2" {2d299b17-3b10-412a-a895-0bf958f98788}
 
-HW11108:~ zblanco$ VBoxManage controlvm 2d299b17-3b10-412a-a895-0bf958f98788 natpf1 nifi,tcp,,9090,,9090
+HW11108:~ zblanco$ VBoxManage controlvm 2d299b17-3b10-412a-a895-0bf958f98788 natpf1 nifi,tcp,,6434,,6434
 ~~~
 
-Port 9090 should now be forwarded! You may skip the GUI section of port forwarding.
+Port 6434 should now be forwarded! You may skip the GUI section of port forwarding.
 
 ### Forwarding a Port with the GUI
 
@@ -216,7 +216,7 @@ Port 9090 should now be forwarded! You may skip the GUI section of port forwardi
 
 | Name | Protocol| Host IP | Host Port | Guest IP | Guest Port |
 |------|---------|---------|-----------|----------|------------|
-| NiFi |   TCP   |127.0.0.1|    9090   |          |    9090    |
+| NiFi |   TCP   |127.0.0.1|    6434   |          |    6434    |
 
 ![Port Forward NiFi](/assets/nifi-sentiment-analytics/images/06_port_forward_nifi.png)
 
@@ -225,7 +225,7 @@ Port 9090 should now be forwarded! You may skip the GUI section of port forwardi
 3. Go to the **Endpoints** row under *Manage*
 4. Click the button that says **Add**. Add an entry with the values in the table above.
 
-You should now be able to access the NiFi user interface at [http://sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi).
+You should now be able to access the NiFi user interface at [http://sandbox.hortonworks.com:6434/nifi](http://sandbox.hortonworks.com:6434/nifi).
 
 
 ![NiFi Interface](/assets/nifi-sentiment-analytics/images/07_nifi_interface.png)
@@ -395,7 +395,7 @@ The first thing you'll need to do here is download the NiFi data flow template f
 
 Make note of where you download this file. You'll need it in the next step.
 
-Open up the NiFi user interface found at [http://sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi). Then you'll need to import the template you just downloaded into NiFi. 
+Open up the NiFi user interface found at [http://sandbox.hortonworks.com:6434/nifi](http://sandbox.hortonworks.com:6434/nifi). Then you'll need to import the template you just downloaded into NiFi. 
 
 Import the template by clicking **Templates** icon on the top right corner of the screen (Third from the right).
 
@@ -555,7 +555,7 @@ Now that we've taken a look at some of our data and searched it with Solr, let's
 
 We're going to attempt to get the sentiment of each tweet by matching the words in the tweets with a sentiment dictionary. From this we can determine the sentiment of each tweet and analyze it from there.
 
-First off, if your Twitter flow on the NiFi instance is still running, you'll need to shut it off. Open up the NiFi dashboard at [sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi) and click red square at the top of the screen.
+First off, if your Twitter flow on the NiFi instance is still running, you'll need to shut it off. Open up the NiFi dashboard at [sandbox.hortonworks.com:6434/nifi](http://sandbox.hortonworks.com:6434/nifi) and click red square at the top of the screen.
 
 ![Turning off NiFi](/assets/nifi-sentiment-analytics/images/29_1_stopping_nifi.png)
 
