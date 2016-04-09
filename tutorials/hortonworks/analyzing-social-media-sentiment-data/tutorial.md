@@ -136,8 +136,6 @@ There are two options to connecting to your sandbox to execute terminal commands
 
 If you've already logged into your sandbox through SSH your password will be different than below.
 
-</>
-
 | username | password |
 |:--------:|:--------:|
 |  _root_  | _hadoop_ |
