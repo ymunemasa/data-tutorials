@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ---
 layout: tutorial
 title: Define and Process Data Pipelines in Hadoop Using Apache Falcon
@@ -9,9 +8,7 @@ intro-page: true
 components: [ falcon, ambari ]
 ---
 
-=======
 ## Introduction
->>>>>>> hdp
 
 Apache Falcon is a framework to simplify data pipeline processing and management on Hadoop clusters.
 
