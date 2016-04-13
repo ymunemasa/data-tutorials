@@ -88,3 +88,4 @@ Congratulations! Let’s summarize the skills and knowledge we acquired from thi
 - [HDFS](http://hortonworks.com/hadoop/hdfs/)
 - [HDFS User Guide](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html)
 - Build your HDFS Architecture Knowledge [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.0.4/hdfs_design.html)
+- [HDP OPERATIONS: HADOOP ADMINISTRATION](http://hortonworks.com/training/class/hdp-operations-hadoop-administration-fundamentals/)

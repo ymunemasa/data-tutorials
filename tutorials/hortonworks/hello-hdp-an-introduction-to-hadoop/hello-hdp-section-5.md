@@ -337,3 +337,4 @@ Strengthen your foundation of pig latin and reinforce why this scripting platfor
 * [Apache Pig](http://hortonworks.com/hadoop/pig/)
 * [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645/ref=sr_1_2?ie=UTF8&qid=1455994738&sr=8-2&keywords=pig+latin&refinements=p_72%3A2661618011)
 * To learn more about the various Pig operators, refer to[Pig Latin Basics](http://pig.apache.org/docs/r0.14.0/basic.html)
+* [HDP DEVELOPER: APACHE PIG AND HIVE](http://hortonworks.com/training/class/hadoop-2-data-analysis-pig-hive/)

@@ -435,3 +435,5 @@ To learn more about Spark, checkout these resources:
 - [Spark Programming Guide](http://spark.apache.org/docs/latest/programming-guide.html#passing-functions-to-spark)
 - [Learning Spark](http://www.amazon.com/Learning-Spark-Lightning-Fast-Data-Analysis/dp/1449358624/ref=sr_1_1?ie=UTF8&qid=1456010684&sr=8-1&keywords=apache+spark)
 - [Advanced Analytics with Spark](http://www.amazon.com/Advanced-Analytics-Spark-Patterns-Learning/dp/1491912766/ref=pd_bxgy_14_img_2?ie=UTF8&refRID=19EGG68CJ0NTNE9RQ2VX)
+- [HDP DEVELOPER: APACHE SPARK USING SCALA](http://hortonworks.com/training/class/hdp-developer-apache-spark-using-scala/)
+- [HDP DEVELOPER: APACHE SPARK USING PYTHON](http://hortonworks.com/training/class/hdp-developer-apache-spark-using-python/)
