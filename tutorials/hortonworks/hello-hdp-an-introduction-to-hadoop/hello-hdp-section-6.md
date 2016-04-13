@@ -21,7 +21,7 @@ In this tutorial we will introduce Apache Spark. In the earlier section of the l
 
 ## Pre-Requisites
 
-This tutorial is a part of a series of hands on tutorials to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
+This tutorial is a part of a series of hands on tutorials to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
@@ -39,6 +39,7 @@ This tutorial is a part of a series of hands on tutorials to get you started on 
 *   [Step 4.4: RDD transformations and actions](#step4.4)
 *   [Step 4.5: Load and save data into Hive as ORC](#step4.5)
 *   [Appendix A: Run Spark in the Spark Interactive Shell](#run-spark-in-shell)
+*   [Summary](#summary-lab4)
 *   [Suggested Readings](#suggested-readings)
 
 ## Background <a id="apache-spark-backdrop"></a>
@@ -98,7 +99,7 @@ Click on a Notebook tab at the top left and hit **Create new note**. Name your n
 
 For improved Hive integration, HDP 2.4 offers [ORC file](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/) support for Spark. This allows Spark to read data stored in ORC files. Spark can leverage ORC file’s more efficient columnar storage and predicate pushdown capability for even faster in-memory processing. HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
 
-##### Import sql libraries:
+#### Import sql libraries:
 
 Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code.
 
@@ -111,7 +112,7 @@ import org.apache.spark.sql._
 ![import_sql_libraries](/assets/hello-hdp/import_sql_libraries_hello_hdp_lab4.png)
 
 
-##### Instantiate HiveContext
+#### Instantiate HiveContext
 
 
 ~~~scala
@@ -159,7 +160,7 @@ hiveContext.sql("show tables").collect.foreach(println)
 ![Lab4_7](/assets/hello-hdp/view_list_tables_hive_hello_hdp_lab4.png)
 
 
-You will notice that the geolocation table and the driver mileage table that we created earlier in the tutorial are already listed in Hive metastore and can be directly queried upon.
+You will notice that the geolocation table and the driver mileage table that we created earlier in an tutorial are already listed in Hive metastore and can be directly queried upon.
 
 #### 4.3.2 Query Tables To Build Spark RDD
 
@@ -421,9 +422,10 @@ This will load the default Spark Scala API.
 > **Note:** Hive comes preconfigured with HDP Sandbox.
 
 
-The coding exercise we just went through can be also completed using a Spark shell. You can copy and paste the code we have used in the Zeppelin notebook to get the same results.
+The coding exercise we just went through can be also completed using a Spark shell. Just as we did in Zeppelin, you can copy and paste the code.
 
-Congratulations! You now have learned basics of Spark programming.
+## Summary <a id="summary-lab4"></a>
+Congratulations! Let’s summarize the spark coding skills and knowledge we acquired to compute risk factor associated with every driver. Apache Spark is efficient for computation because of its **in-memory data processing engine**. We learned how to integrate hive with spark by creating a **Hive Context**. We used our existing data from Hive to create an **RDD**. We learned to perform **RDD transformations and actions** to create new datasets from existing RDDs. These new datasets include filtered, manipulated and processed data. After we computed **risk factor**, we learned to load and save data into Hive as **ORC**.
 
 ## Suggested Readings <a id="suggested-readings"></a>
 

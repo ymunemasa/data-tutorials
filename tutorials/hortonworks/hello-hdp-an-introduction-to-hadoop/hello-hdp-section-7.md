@@ -35,6 +35,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 
 *   [Step 5.b.1: Access Data in Microsoft Excel](#step5.b.1)
 *   [Step 5.b.2: Visualize data with Excel](#step5.b.2)
+*   [Summary](#summary-lab5)
 *   [Suggested readings](#suggested-reading)
 
 ## Step 5.b.1: Access the Refined Data with Microsoft Excel <a id="step5.b.1"></a>
@@ -161,6 +162,9 @@ SELECT driverid, city, state FROM geolocation;
 
 We’ve shown how the Hortonworks Data Platform (HDP) can store and analyze geolocation data. In addition I have shown you a few techniques on building your own queries. You can easily plot risk factor and miles per gallon as bar charts. I showed you the basics of creating maps. A good next step is to only plot certain types of events. Using the pattern I gave you it is pretty straightforward to extract the data and visualize it in Excel.
 
+## Summary <a id="summary-lab5"></a>
+Let's summarize what we did to create data visualization using Excel. We learned to access our Hive data in excel. We utilized excel’s power view to visualize the trucking data.
+
 ## Next Steps: Try These
 
 Congratulations on finishing a comprehensive series on Hadoop and HDP. By now you should have a good understanding on fundamentals of Hadoop and its related ecosystem such as Map Reduce, YARN, HDFS, Hive, Pig and Spark. As a Hadoop practitioner you can choose three basic personas to build upon your skill:
@@ -176,6 +180,8 @@ Learn more about Hadoop through these case studies:
 *   Analytics- [New types of data and new opportunities](http://hortonworks.com/solutions/advanced-analytic-apps/)
 *   Data Architecture Optimization: [Reduce cost by moving data and processing to Hadoop](http://hortonworks.com/solutions/data-architecture-optimization/)
 *   Industry specific: [Examples of Hadoop across Industries](http://hortonworks.com/industry/)
+
+
 
 ## Suggested Readings <a id="suggested-reading"></a>
 
