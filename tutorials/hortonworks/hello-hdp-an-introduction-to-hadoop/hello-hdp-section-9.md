@@ -20,6 +20,7 @@ settings and access refined data.
 - [Step 7.1: Install Zoomdata](#install-zoomdata)
 - [Step 7.2: Configure Zoomdata](#configure-zoomdata)
 - [Step 7.3: Access Refined Data with Zoomdata](#access-refined-data-zoomdata)
+- [Summary](#summary-lab7)
 - [Further Reading](#further-reading-lab7)
 
 ## Step 7.1: Install Zoomdata via Docker <a id="install-zoomdata"></a>
@@ -174,6 +175,7 @@ Let's come back to the **connection** page on zoomdata and enter our **credentia
 
 ![saved_dashboard_hamburger](/assets/hello-hdp/saved_dashboard_home_screen.png)
 
+## Summary <a id="summary-lab7"></a>
 
 We've shown how the Hortonworks Data Platform (HDP) can store and analyze geolocation data. We’ve also reviewed some basic techniques for connecting, visualizing, and navigating the HDP data using Zoomdata.
 
