@@ -159,6 +159,7 @@ hiveContext.sql("show tables").collect.foreach(println)
 
 ![Lab4_7](/assets/hello-hdp/view_list_tables_hive_hello_hdp_lab4.png)
 
+> Note: false indicates whether the column requires data.
 
 You will notice that the geolocation table and the driver mileage table that we created earlier in an tutorial are already listed in Hive metastore and can be directly queried upon.
 
@@ -303,6 +304,8 @@ Create a table and store it as ORC. Specifying as *orc* at the end of the SQL st
 ~~~scala
 hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
 ~~~
+
+> Note: toDF() creates a DataFrame with columns driverid String, occurance bigin, etc.
 
 
 ![create_orc_table](/assets/hello-hdp/create_orc_table_hello_hdp_lab4.png)

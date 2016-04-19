@@ -32,7 +32,7 @@ The tutorial is a part of a series of hands on tutorials to get you started on H
 *   [Step 2.2: Define a Hive Table](#define-a-hive-table)
 *   [Step 2.3: Load Data into Hive Table](#load-data-hive-table)
 *   [Step 2.4: Define an ORC table in Hive](#define-orc-table-hive)
-*   [Step 2.5: Review Hive Settings](#review-hive-settings)
+*   [Step 2.5: Explore Hive Settings](#explore-hive-settings)
 *   [Step 2.6: Analyze Truck Data](#analyze-truck-data)
 *   [Summary](#summary-lab2)
 *   [Suggested readings](#suggested-readings-lab2)
@@ -321,7 +321,7 @@ iii.  `hive` Starts Hive shell and now you can enter commands and SQL
 iv.  `quit;` Exits out of the Hive shell.
 
 
-## Step 2.5: Review Hive Settings <a id="review-hive-settings"></a>
+## Step 2.5: Explore Hive Settings <a id="explore-hive-settings"></a>
 
 ### 2.5.1 Open Ambari Dashboard in New Tab
 
@@ -331,7 +331,7 @@ Open the Ambari Dashboard in another tab by right clicking on the Ambari icon:
 ![Lab2_17](/assets/hello-hdp/Lab2_17.png)
 
 
-### 2.5.2 Open Hive Settings
+### 2.5.2 Become Familiar with Hive Settings
 
 Go to the **Hive page** then select the **Configs tab** then click on **Settings tab**:
 
@@ -370,7 +370,7 @@ By default the key configurations are displayed on the first page.  If the sett
 ![Lab2_20](/assets/hello-hdp/hive_advanced_settings.png)
 
 
-For example, what if we wanted to **improve SQL performance** by using the new **Hive vectorization features**, where would we find the setting and how would we turn it on?   You would need to do the following steps:
+For example, if we wanted to **improve SQL performance**, we can use the new **Hive vectorization features**. These settings can be found and enabled by following these steps:
 
 1.  Click on the **Advanced** tab and scroll to find the **property**
 2.  Or, start typing in the property into the property search field and then this would filter the setting you scroll for.
@@ -394,7 +394,7 @@ Next we will be using Hive, Pig and Excel to analyze derived data from the geolo
 ![Lab2_21](/assets/hello-hdp/Lab2_211.png)
 
 
-Let’s get started with the first transformation.   We want to **calculate the miles per gallon for each truck**. We will start with our _truck data table_.  We need to _sum up all the miles and gas columns on a per truck basis_. Hive has a series of functions that can be used to reformat a table. The keyword [LATERAL VIEW](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+LateralView) is how we invoke things. The **stack function** allows us to _restructure the data into 3 columns_ labeled rdate, gas and mile with 54 rows. We pick truckid, driverid, rdate, miles, gas from our original table and add a calculated column for mpg (miles/gas).  And then we will **calculate average mileage**.
+Let’s get started with the first transformation.   We want to **calculate the miles per gallon for each truck**. We will start with our _truck data table_.  We need to _sum up all the miles and gas columns on a per truck basis_. Hive has a series of functions that can be used to reformat a table. The keyword [LATERAL VIEW](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+LateralView) is how we invoke things. The **stack function** allows us to _restructure the data into 3 columns_ labeled rdate, gas and mile (ex: 'june13', june13_miles, june13_gas) that make up a maximum of 54 rows. We pick truckid, driverid, rdate, miles, gas from our original table and add a calculated column for mpg (miles/gas).  And then we will **calculate average mileage**.
 
 ### 2.6.1 Create Table truck_mileage From Existing Trucking Data
 
