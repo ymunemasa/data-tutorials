@@ -119,8 +119,8 @@ Assuming that HDF was downloaded to your `~/Downloads/` directory and the file h
 ~~~
 
 > Note: 22 is the azure port number used for this tutorial. The port on your azure sandbox may be different. Check the port in Settings -> Endpoints, then scroll to row, SSH.
-<username> is under virtual network/subnet in Azure virtual machine, the username we used is james.
-<hostname> is sandbox.hortonworks.com
+`<username>` is under virtual network/subnet in Azure virtual machine, the username we used is james.
+`<hostname>` is sandbox.hortonworks.com
 folder_destination should not be root folder since we don't have writing permissions.
 
 ![send nifi data to sandbox](/assets/nifi-sentiment-analytics/images/send_nifi_data_to_sandbox_sentiment_analysis.png)
