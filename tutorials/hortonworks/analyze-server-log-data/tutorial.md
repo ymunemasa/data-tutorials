@@ -178,7 +178,17 @@ It should look something like below:
 
 ## Step 3: Import the Flow
 
-We're going to import a pre-made data flow from a template which you can [download here](TEMPLATE DOWNLOAD)
+We're going to import a pre-made data flow from a template which you can [**download here**](/assets/server-logs/ServerLogGenerator.xml).
+
+Use the NiFi inteface to upload the flow, and then drag it onto your workspace.
+
+![Upload NiFi Template](../../../assets/server-logs/upload-template-1.png)
+
+![Upload NiFi Template](../../../assets/server-logs/upload-template-2.png)
+
+Once you've uploaded the template into NiFi you can instantiate it by dragging the template icon onto the screen. It will ask you to select your template's name and the flow will appear as in the image below.
+
+![Instantiate NiFi Template](../../../assets/server-logs/instantiate-template.png)
 
 * * *
 
@@ -186,43 +196,39 @@ We're going to import a pre-made data flow from a template which you can [downlo
 
 Now that you've imported the data flow and everything it set up, simply click the **Run** at the top of the screen. (Make you you haven't selected a specific processor, or  else only one of the processors will start)
 
-Now that everything is running we can check in the places where we see the data being deposited. Namely in the filesystem and in HDFS.
+![Instantiate NiFi Template](../../../assets/server-logs/start-flow.png)
 
+Now that everything is running we can check in the places where we see the data being deposited in HDFS.
 
+Log into the Ambari interface which can be found at [http://localhost:8080](http://localhost:8080)
 
-Now that Flume is running, we will use a Python script to generate the server log data, and then create an HCatalog table from the data.
+Open up the **HDFS Files** view, and then navigate to `/tmp/server-logs/`. Files should start appearing a few seconds after you start the flow. You can click on them to view the content.
 
-From the Sandbox's command line or your SSH sessions type the following
-    
-    python generate_logs.py
-
-When the log file has been generated, a timestamp will appear, and the command prompt will return to normal (`[root@Sandbox \~]\#`). It may take several seconds to generate the log file.
-
-![](../../../assets/server-logs/py_generate_logs.png)
+![Explore Output](../../../assets/server-logs/explore-output-files.png)
 
 *   Next we will create an Hive table from the log file.
 
 Open the Ambari UI and head to the views dropdown list. Select **Hive** and then past the following query.
 
 
-	CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, status STRING)
+	CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, success BOOLEAN)
 	ROW FORMAT DELIMITED
 	FIELDS TERMINATED BY '|' 
-	LOCATION '/flume/events';
+	LOCATION '/tmp/server-logs';
 
 
 **Note** if the query doesn't run successfully due to a permissions error you then you might need to update the permission on the directory. Run the following commands over SSH on the Sandbox
 
 
-    sudo -u hdfs hadoop fs -chmod -R 777 /flume
-    sudo -u hdfs hadoop fs -chown -R admin /flume
+    sudo -u hdfs hadoop fs -chmod -R 777 /tmp
+    sudo -u hdfs hadoop fs -chown -R admin /tmp
 
 
 When the table has been created you should now be able to query the data table for data using a query like 
 
     Select * from FIREWALL_LOGS LIMIT 100;
 
-![Image of table query](../../../assets/server-logs/hive_table_view.png)
+![](../../../assets/server-logs/test-query-results.png)
 
 * * *
 
@@ -260,9 +266,7 @@ In this section, we will use Excel Professional Plus 2013 to access the generate
 
 ![](../../../assets/server-logs/23_import_data.jpg)
 
-*   The imported query data appears in the Excel workbook.
-
-![](../../../assets/server-logs/24_data_imported.jpg)
+*   The imported query data should then appear in the Excel workbook.
 
 Now that we have successfully imported Hortonworks Sandbox data into Microsoft Excel, we can use the Excel Power View feature to analyze and visualize the data.
 
