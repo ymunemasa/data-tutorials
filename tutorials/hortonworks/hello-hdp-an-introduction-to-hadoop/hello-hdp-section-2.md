@@ -224,7 +224,7 @@ The Apache Hadoop projects provide a series of tools designed to solve big data 
 ![MapR_2](/assets/hello-hdp/MapR_2.png)
 
 
-### [3.4 Apache YARN](http://hortonworks.com/blog/apache-hadoop-yarn-background-and-an-overview/)(Yet Another Resource Negotiator)
+### [3.4 Apache YARN](http://hortonworks.com/blog/apache-hadoop-yarn-background-and-an-overview/) (Yet Another Resource Negotiator)
 
 Hadoop HDFS is the data storage layer for Hadoop and MapReduce was the data-processing layer in Hadoop 1x. However, the MapReduce algorithm, by itself, isn’t sufficient for the very wide variety of use-cases we see Hadoop being employed to solve. Hadoop 2.0 presents YARN, as a generic resource-management and distributed application framework, whereby, one can implement multiple data processing applications customized for the task at hand. The fundamental idea of YARN is to split up the two major responsibilities of the JobTracker i.e. resource management and job scheduling/monitoring, into separate daemons: a global **ResourceManager** and per-application **ApplicationMaster** (AM).
 
