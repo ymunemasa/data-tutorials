@@ -13,7 +13,7 @@ The tutorials that are currently working with HDP 2.4:
 - [A Hands on Tour of Spark in 5 minutes](hortonworks/hands-on-tour-of-spark-5-minutes/)
 - [Basic Pig and Hive Commands](hortonworks/hcatalog-basic-pig-and-hive-commands/)
 - [Hello HDP: An Introduction to Hadoop](hortonworks/hello-hdp-an-introduction-to-hadoop/)
-- [How to Analye Machine and Sensor Data in Hadoop](hortonworks/how-to-analyze-machine-and-sensor-data/)
+- [How to Analyze Machine and Sensor Data in Hadoop](hortonworks/how-to-analyze-machine-and-sensor-data/)
 - [How to Load data into the Hortonworks Sandbox](hortonworks/how-to-load-data-into-hortonworks-sandbox/)
 - [How to Process Data with Apache Hive](hortonworks/how-to-process-data-with-apache-hive/)
 - [How to Process Data with Apache Pig](hortonworks/how-to-process-data-with-apache-pig/)
