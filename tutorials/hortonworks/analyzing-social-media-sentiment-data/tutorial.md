@@ -73,7 +73,7 @@ After inserting the above, the portion of the file should look similar to this:
 127.0.0.1       localhost
 255.255.255.255 broadcasthost
 ::1             localhost
-40.117.36.165 sandbox.hortonworks.com
+127.0.0.1 sandbox.hortonworks.com
 ~~~
 
 
