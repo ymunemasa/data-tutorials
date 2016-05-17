@@ -56,7 +56,7 @@ sudo vi hosts
 We navigated to the etc directory, then opened our hosts file in the vi editor as a superuser using [sudo](https://www.linux.com/community/blogs/133-general-linux/801805-how-to-use-sudo-and-su-commands-in-linux-an-introduction). Now press `i` and add the following text to your lists of hosts:
 
 ~~~
-<Host IP of your machine> sandbox.hortonworks.com
+< Host IP of your machine> sandbox.hortonworks.com
 ~~~
 
 > Note: to find the IP address (ex: 40.117.36.165) for your sandbox in azure, go to "Properties" under the "Settings" tab. By appending this information in your hosts file, you can use sandbox.hortonworks.com in the place of the <hostname>.
@@ -107,15 +107,16 @@ If you haven't already, you will need to [download the GZipped versions of Horto
 
 First we're going to need to send the HDF file that was just downloaded to the Sandbox via SCP.
 
-Assuming that HDF was downloaded to your `~/Downloads/` directory and the file has a name `nifi-1.1.1.0-12-bin.tar.gz`, open your terminal and type the following command:
+Assuming that HDF has been downloaded to your `~/Downloads/` directory and that the file has a name `HDF-1.2.0.0-91.tar.gz` Open up the your terminal and type the following command:
 
 **Note:** the `-P` argument is case sensitive.
 
 ~~~bash
-# Virtualbox
-	scp -P 2222 ~/Downloads/nifi-1.1.1.0-12-bin.tar.gz root@localhost:/root
+# Virtualbox 
+	scp -P 2222 ~/Downloads/HDF-1.2.0.0-91.tar.gz root@localhost:/root 
+
 # Azure
-	scp -P <port> ~/Downloads/nifi-1.1.1.0-12-bin.tar.gz <username>@<hostname>:/folder_destination
+	scp -P <port> ~/Downloads/HDF-1.2.0.0-91.tar.gz <username>@<hostname>:/folder_destination
 ~~~
 
 > Note: 22 is the azure port number used for this tutorial. The port on your azure sandbox may be different. Check the port in Settings -> Endpoints, then scroll to row, SSH.
@@ -148,79 +149,41 @@ If you've already logged into your sandbox through SSH, your password will be wh
 
 > **Note** Virtualbox users will be prompted to change the `root` user's password once you login to the sandbox. **Do NOT forget this!** Azure users will have to manually enter a password to access root. For steps to create a new password, visit [Deploying Hortonworks Sandbox on Microsoft Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
 
-First, use the `export` command to create a temporary variable to store the name of the nifi file which you just downloaded.
-
-For example if the filename is `nifi-1.1.1.0-12-bin.tar.gz`:
+Now that we're SSH'd into the sandbox execute the following to create an HDF directory under `/root`
 
 ~~~bash
-export NIFI=nifi-1.1.1.0-12-bin.tar.gz
+mkdir hdf
 ~~~
 
-![export create temp variable](/assets/nifi-sentiment-analytics/images/export_create_tempvariable_nifi_sentiment_analysis.png)
-
-Once you've successfully connected to the sandbox, make sure that you're in the destination folder where the tar file is located. Then run the following commands.
-
-Make a new directory for NiFi
+Next, move the zipped HDF file into the HDF folder, traverse into the `hdf` directory then unzip the file.
 
 ~~~bash
-mkdir nifi
+mv HDF-1.2.0.0-91.tar.gz hdf
+cd hdf
+tar -xvf HDF-1.2.0.0-91.tar.gz
 ~~~
 
-![make new directory nifi](/assets/nifi-sentiment-analytics/images/make_new_directory_nifi_sentiment_analysis.png)
+![](/assets/nifi-sentiment-analytics/images/move-and-unzip-hdf.png)
 
-Move our file to the folder which we just created, then cd into the folder
+Now we just need to update a NiFi setting to set the port through which we can access the NiFi web interface. We are setting the NiFi port to 6434. Make sure you're in the `/root/hdf` directory and run the following command to update the necessary `nifi.properties` file:
 
 ~~~bash
-mv $NIFI ./nifi
-cd nifi
+sed -i s/nifi.web.http.port=8080/nifi.web.http.port=6434/g HDF-1.2.0.0/nifi/conf/nifi.properties
 ~~~
-
-![move file to new folder](/assets/nifi-sentiment-analytics/images/move_file_to_nifi_folder_sentiment_analysis.png)
-
-Unzip the file
-
-~~~bash
-tar -xvf $NIFI
-~~~
-
-![unzip file](/assets/nifi-sentiment-analytics/images/unzip_nifi_file_sentiment_analysis.png)
-
-Then let's head into the directory we just unzipped. It will be the same as the $NIFI variable, except without the -bin.tar.gz at the end. In this case the command is:
-
-~~~bash
-cd nifi-1.1.1.0-12
-~~~
-
-![change directory](/assets/nifi-sentiment-analytics/images/change_directory_nifi_unzipped_sentiment_analysis.png)
-
-Next we're going to need to change the port which nifi runs on from 8080 to 9090.
-
-Inside the `conf/nifi.properties` file, find the line which has `nifi.web.http.port`. Make sure it looks like the following:
-
-~~~bash
-nifi.web.http.port=9090
-~~~
-> **Note:** Open nifi.properties with vi editor to change the line of text as suggested above.
-
-![open nifi properties file](/assets/nifi-sentiment-analytics/images/open_nifi_properties_sentiment_analysis.png)
-
-![edit nifi properties file](/assets/nifi-sentiment-analytics/images/edit_nifi_properties_file_sentiment_analysis.png)
-
-> **Note:** Change Highlighted region.
 
 You can now start NiFi! use the `nifi.sh` file to start the application.
 
 ~~~bash
-bash bin/nifi.sh start
+bash HDF-1.2.0.0/nifi/bin/nifi.sh start
 ~~~
 
 ![export create temp variable](/assets/nifi-sentiment-analytics/images/start_nifi_application_sentiment_analysis.png)
 
 After a few short moments NiFi will start up on the Sandbox.
 
-Make sure you can reach the NiFi user interface at [http://sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi).
+Make sure you can reach the NiFi user interface at [http://sandbox.hortonworks.com:6434/nifi](http://sandbox.hortonworks.com:6434/nifi).
 
-If you can't access it, first wait approximately 10-15 seconds after executing the command. If you still can't connect after that then you might need to forward port `9090` on your virtual machine.
+If you can't access it, first wait approximately 10-15 seconds after executing the command. If you still can't connect after that then you might need to forward port `6434` on your virtual machine.
 
 For VirtualBox you can forward the port **2** ways. Either through the GUI, or using the command line on the Host machine. For Azure you can forward the port **1** way, which involves the GUI.
 
@@ -235,7 +198,7 @@ VBoxManage list vms
 Look for the Hortonworks Sandbox VM. Take note of it's ID. Once you've taken note of the ID, run the following command to forward the port:
 
 ~~~bash
-VBoxManage controlvm {INSERT_VM_ID_HERE} natpf1 nifi,tcp,,9090,,9090
+VBoxManage controlvm {INSERT_VM_ID_HERE} natpf1 nifi,tcp,,6434,,6434
 ~~~
 
 Example:
@@ -244,10 +207,10 @@ Example:
 HW11108:~ zblanco$ VBoxManage list vms
 "Hortonworks Sandbox with HDP 2.3.2" {2d299b17-3b10-412a-a895-0bf958f98788}
 
-HW11108:~ zblanco$ VBoxManage controlvm 2d299b17-3b10-412a-a895-0bf958f98788 natpf1 nifi,tcp,,9090,,9090
+HW11108:~ zblanco$ VBoxManage controlvm 2d299b17-3b10-412a-a895-0bf958f98788 natpf1 nifi,tcp,,6434,,6434
 ~~~
 
-Port 9090 should now be forwarded! You may skip the GUI section of port forwarding.
+Port 6434 should now be forwarded! You may skip the GUI section of port forwarding.
 
 ### Forwarding a Port with the GUI
 
@@ -258,7 +221,7 @@ Port 9090 should now be forwarded! You may skip the GUI section of port forwardi
 
 | Name | Protocol| Host IP | Host Port | Guest IP | Guest Port |
 |------|---------|---------|-----------|----------|------------|
-| NiFi |   TCP   |127.0.0.1|    9090   |          |    9090    |
+| NiFi |   TCP   |127.0.0.1|    6434   |          |    6434    |
 
 ![Port Forward NiFi](/assets/nifi-sentiment-analytics/images/06_port_forward_nifi.png)
 
@@ -267,7 +230,7 @@ Port 9090 should now be forwarded! You may skip the GUI section of port forwardi
 3. Go to the **Endpoints** row under *Manage*
 4. Click the button that says **Add**. Add an entry with the values in the table above.
 
-You should now be able to access the NiFi user interface at [http://sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi).
+You should now be able to access the NiFi user interface at [http://sandbox.hortonworks.com:6434/nifi](http://sandbox.hortonworks.com:6434/nifi).
 
 
 ![NiFi Interface](/assets/nifi-sentiment-analytics/images/07_nifi_interface.png)
@@ -446,7 +409,7 @@ The first thing you'll need to do here is download the NiFi data flow template f
 
 Make note of where you download this file. You'll need it in the next step.
 
-Open up the NiFi user interface found at [http://sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi). Then you'll need to import the template you just downloaded into NiFi.
+Open up the NiFi user interface found at [http://sandbox.hortonworks.com:6434/nifi](http://sandbox.hortonworks.com:6434/nifi). Then you'll need to import the template you just downloaded into NiFi. 
 
 Import the template by clicking **Templates** icon on the top right corner of the screen (Third from the right).
 
@@ -606,7 +569,7 @@ Now that we've taken a look at some of our data and searched it with Solr, let's
 
 We're going to attempt to get the sentiment of each tweet by matching the words in the tweets with a sentiment dictionary. From this we can determine the sentiment of each tweet and analyze it from there.
 
-First off, if your Twitter flow on the NiFi instance is still running, you'll need to shut it off. Open up the NiFi dashboard at [sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi) and click red square at the top of the screen.
+First off, if your Twitter flow on the NiFi instance is still running, you'll need to shut it off. Open up the NiFi dashboard at [sandbox.hortonworks.com:6434/nifi](http://sandbox.hortonworks.com:6434/nifi) and click red square at the top of the screen.
 
 ![Turning off NiFi](/assets/nifi-sentiment-analytics/images/29_1_stopping_nifi.png)
 
