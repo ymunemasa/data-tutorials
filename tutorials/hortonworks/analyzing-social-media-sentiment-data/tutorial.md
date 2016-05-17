@@ -9,17 +9,17 @@ components: [ solr, nifi, hive, ambari, zeppelin ]
 ---
 
 
-# Analyzing Twitter Data With Apache NiFi and HDP Search
+# Analyze Twitter Data With Apache NiFi and HDP Search
 
 ### Introduction
 
-In this tutorial we will learn how to install Apache NiFi on your Hortonworks Sandbox if you do not have it pre-installed already. Using NiFi we will create a data flow that can pull tweets directly from the [Twitter API](https://dev.twitter.com/overview/documentation).
+In this tutorial, we will learn to install Apache NiFi on your Hortonworks Sandbox if you do not have it pre-installed already. Using NiFi, we create a data flow to pull tweets directly from the [Twitter API](https://dev.twitter.com/overview/documentation).
 
-We will then use [Solr](http://hortonworks.com/hadoop/solr/) and the [LucidWorks HDP Search](http://hortonworks.com/press-releases/hortonworks-partners-lucidworks-bring-search-big-data/) to view our streamed data in realtime to gather insights as the data arrives in our Hadoop cluster.
+We will use [Solr](http://hortonworks.com/hadoop/solr/) and the [LucidWorks HDP Search](http://hortonworks.com/press-releases/hortonworks-partners-lucidworks-bring-search-big-data/) to view our streamed data in realtime to gather insights as the data arrives in our Hadoop cluster.
 
-Next, we will be using Hive to analyze the social sentiment after we have finished collecting our data from NiFi.
+Next, we will use Hive to analyze the social sentiment after we have finished collecting our data from NiFi.
 
-Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) to create charts so that we can visualize our data directly inside of our Hadoop cluster.
+Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) to create charts, so we can visualize our data directly inside of our Hadoop cluster.
 
 ### List of technologies in this tutorial:
 
@@ -35,14 +35,15 @@ Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) 
 - Downloaded and Installed the [Hortonworks Sandbox with HDP](http://hortonworks.com/hdp/downloads/)
 - Downloaded the GZipped version of the [Hortonworks DataFlow](http://hortonworks.com/products/dataflow)
 - [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-- Added `sandbox.hortonworks.com` to your `/etc/hosts` file (mac and linux users).
+- [Deploying Hortonworks Sandbox on Microsoft Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
+- Added `sandbox.hortonworks.com` to your `/private/etc/hosts` file (mac and linux users).
 - Added `sandbox.hortonworks.com` to your `%systemroot%\system32\drivers\etc\hosts` file (windows users)
 - Allow yourself around 1 to 2 hours to complete this tutorial
 
-If you haven't added `sandbox.hortonworks.com` to your lists of hosts you can do so with the following command on a unix system:
+If you haven't added `sandbox.hortonworks.com` to your list of hosts, you can do so with the following command on a unix system:
 
 ~~~bash
-echo "127.0.0.1     sandbox.hortonworks.com" >> /etc/hosts
+echo '127.0.0.1     sandbox.hortonworks.com' | sudo tee -a /private/etc/hosts
 ~~~
 
 Alernative approach in case above command doesn't work, write the commands:
@@ -58,8 +59,7 @@ We navigated to the etc directory, then opened our hosts file in the vi editor a
 < Host IP of your machine> sandbox.hortonworks.com
 ~~~
 
-> **Note:** For Azure users, your ip address is located on the sandbox dashboard.
-For Virtualbox users, your ip address is located at the sandbox start screen.
+> Note: to find the IP address (ex: 40.117.36.165) for your sandbox in azure, go to "Properties" under the "Settings" tab. By appending this information in your hosts file, you can use sandbox.hortonworks.com in the place of the <hostname>.
 
 After inserting the above, the portion of the file should look similar to this:
 
@@ -76,6 +76,7 @@ After inserting the above, the portion of the file should look similar to this:
 40.117.36.165 sandbox.hortonworks.com
 ~~~
 
+
 ![vi editor](/assets/nifi-sentiment-analytics/images/vi_editor_hosts_file_sentiment_analysis.png)
 
 Press `esc`, and type `:wq` to save and close the `hosts` file.
@@ -84,12 +85,12 @@ Press `esc`, and type `:wq` to save and close the `hosts` file.
 
 1. [Install Apache NiFi](#install-apache-nifi)
 2. [Configure and Start Solr](#configure-and-start-solr)
-3. [Creating a Twitter Application](#creating-a-twitter-application)
+3. [Create a Twitter Application](#creating-a-twitter-application)
 4. [Create a Data Flow with Nifi](#creating-a-data-flow-with-nifi)
 5. [(Optional) Generating Random Twitter Data](#generating-random-tweet-data-for-hive-and-solr)
 6. [Analyze and Search Data with Solr](#analyze-and-search-data-with-solr)
-7. [Analyzing Tweet Data in Hive](#analyzing-tweet-data-in-hive)
-8. [Visualizing Sentiment with Zeppelin](#visualizing-sentiment-with-zeppelin)
+7. [Analyze Tweet Data in Hive](#analyzing-tweet-data-in-hive)
+8. [Visualize Sentiment with Zeppelin](#visualizing-sentiment-with-zeppelin)
 
 -----------------
 
@@ -100,7 +101,7 @@ The first thing you're going to need if you haven't done it already is install t
 
 ### Download Apache NiFi
 
-If you haven't already you will need to [download the GZipped versions of Hortonworks DataFlow from the website](http://hortonworks.com/hdp/downloads/#hdf).
+If you haven't already, you will need to [download the GZipped versions of Hortonworks DataFlow from the website](http://hortonworks.com/hdp/downloads/#hdf).
 
 #### Send NiFi to the Sandbox
 
@@ -113,9 +114,15 @@ Assuming that HDF has been downloaded to your `~/Downloads/` directory and that 
 ~~~bash
 # Virtualbox 
 	scp -P 2222 ~/Downloads/HDF-1.2.0.0-91.tar.gz root@localhost:/root 
+
 # Azure
 	scp -P <port> ~/Downloads/HDF-1.2.0.0-91.tar.gz <username>@<hostname>:/folder_destination
 ~~~
+
+> Note: 22 is the azure port number used for this tutorial. The port on your azure sandbox may be different. Check the port in Settings -> Endpoints, then scroll to row, SSH.
+`<username>` is under virtual network/subnet in Azure virtual machine, the username we used is james.
+`<hostname>` is sandbox.hortonworks.com
+folder_destination should not be root folder since we don't have writing permissions.
 
 ![send nifi data to sandbox](/assets/nifi-sentiment-analytics/images/send_nifi_data_to_sandbox_sentiment_analysis.png)
 
@@ -123,24 +130,24 @@ Once you've done that you'll need to SSH into the sandbox
 
 ### SSH into the Sandbox
 
-There are two options to connecting to your sandbox to execute terminal commands. The first is by using the terminal emulator at [http://sandbox.hortonworks.com:4200](http://sandbox.hortonworks.com:4200). Or you can open a terminal on your computer and use the following command
+There are two options to connect to your sandbox. We can use the terminal emulator at [http://sandbox.hortonworks.com:4200](http://sandbox.hortonworks.com:4200) or use the terminal on your computer. Let's run the following command:
 
 ~~~bash
 # Virtualbox  
-	ssh root@sandbox.hortonworks.com -p 2222 
+	ssh root@sandbox.hortonworks.com -p 2222
 # Azure       
 	ssh <username>@<hostname> -p <port>       
 ~~~
 
 ![ssh into sandbox](/assets/nifi-sentiment-analytics/images/ssh_into_sandbox_sentiment_analysis.png)
 
-If you've already logged into your sandbox through SSH your password will be different than below.
+If you've already logged into your sandbox through SSH, your password will be what you set it to.
 
 | username | password |
 |:--------:|:--------:|
 |  _root_  | _hadoop_ |
 
-> **Note** Virtualbox users will be prompted to change the `root` user's password once you login to the sandbox. **Do NOT forget this!** Azure users will have to manually enter a password to access root. This step is covered in the Azure tutorial in the prerequisites section.
+> **Note** Virtualbox users will be prompted to change the `root` user's password once you login to the sandbox. **Do NOT forget this!** Azure users will have to manually enter a password to access root. For steps to create a new password, visit [Deploying Hortonworks Sandbox on Microsoft Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
 
 Now that we're SSH'd into the sandbox execute the following to create an HDF directory under `/root`
 
@@ -238,7 +245,7 @@ We just need to make a few quick changes.
 First, we need to modify some file permissions. Open your terminal shell and SSH back into the sandbox. Execute the following
 
 ~~~bash
-chown -R solr:solr /opt/lucidworks-hdpsearch/solr
+sudo chown -R solr:solr /opt/lucidworks-hdpsearch/solr
 ~~~
 
 ![modify solr permissions](/assets/nifi-sentiment-analytics/images/modify_permissions_solr_sentiment_analysis.png)
@@ -246,12 +253,12 @@ chown -R solr:solr /opt/lucidworks-hdpsearch/solr
 We're going to need to run the following commands as the Solr user. run
 
 ~~~bash
-su solr
+sudo su solr
 ~~~
 
 ![login as solr user](/assets/nifi-sentiment-analytics/images/login_as_solr_user_sentiment_analysis.png)
 
-Then we need to edit the following file to make sure that Solr can recognize a tweet's timestamp format. First we're going to copy the config set over to a different place:
+Then we need to edit the following file path to make sure that Solr can recognize a tweet's timestamp format. First we're going to copy the config set over to twitter's tweet_configs folder:
 
 ~~~bash
 cp -r /opt/lucidworks-hdpsearch/solr/server/solr/configsets/data_driven_schema_configs /opt/lucidworks-hdpsearch/solr/server/solr/configsets/tweet_configs
@@ -263,7 +270,7 @@ vi /opt/lucidworks-hdpsearch/solr/server/solr/configsets/tweet_configs/conf/solr
 
 ![copy and edit solr configs file](/assets/nifi-sentiment-analytics/images/copy_config_set_to_tweet_configs_sentiment_analysis.png)
 
-Once the file is opened in `vi` type 
+Once the file is opened in `vi` type
 
 **Note** In **vi** the command below should not be run in **INSERT** mode.  `/` will do a find for the text that you type after it.
 
@@ -319,6 +326,10 @@ export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
 /opt/lucidworks-hdpsearch/solr/bin/solr start -c -z localhost:2181
 ~~~
 
+> Note: -c or -cloud Start Solr in SolrCloud mode.
+-z is a ZooKeeper connection string; only used when running in SolrCloud mode using -c.
+To launch an embedded ZooKeeper instance, don't pass this parameter.
+
 ![start solr server](/assets/nifi-sentiment-analytics/images/start_solr_server_sentiment_analysis.png)
 
 Then we are going to add a collection called "tweets"
@@ -327,9 +338,14 @@ Then we are going to add a collection called "tweets"
 /opt/lucidworks-hdpsearch/solr/bin/solr create -c tweets -d tweet_configs -s 1 -rf 1
 ~~~
 
+> Note: Here -c indicates the name
+-d is the config directory
+-s is the number of shards
+-rf is the replication factor
+
 ![add collection tweets](/assets/nifi-sentiment-analytics/images/add_collection_tweets_sentiment_analysis.png)
 
-We can now go back to running commands as the **root** user. Run 
+We can now go back to running commands as the **root** user. Run
 
 ~~~bash
 exit
@@ -353,7 +369,7 @@ Ensure that you can access the Solr UI by navigating to [http://sandbox.hortonwo
 
 ![Solr UI](/assets/nifi-sentiment-analytics/images/08_solr_ui.png)
 
-## Creating a Twitter Application <a id="creating-a-twitter-application"></a>
+## Create a Twitter Application <a id="creating-a-twitter-application"></a>
 
 If you would rather not register your own Twitter application and use previous data, please head to the [next section](#analyze-and-search-data-with-solr) where you can download the sample dataset.
 
@@ -546,7 +562,7 @@ Let's try one last query. This time you can omit the **sort** field and chooses 
 - For more information on Solr you can [go here](http://hortonworks.com/hadoop/solr/)
 - You can also visit the [Apache project Page](http://lucene.apache.org/solr/)
 
-## Analyzing Tweet Data in Hive <a id="analyzing-tweet-data-in-hive"></a>
+## Analyze Tweet Data in Hive <a id="analyzing-tweet-data-in-hive"></a>
 --------------------------------
 
 Now that we've taken a look at some of our data and searched it with Solr, let's see if we can refine it a bit more.
@@ -571,22 +587,22 @@ Next, you'll need to SSH into the sandbox again and run the following two comman
 
 ![change permission of tweets staging](/assets/nifi-sentiment-analytics/images/change_permissions_tweets_staging_sentiment_analysis.png)
 
-After the commands complete let's go to the Hive view. Head over to [http://sandbox.hortonworks.com:8080](http://sandbox.hortonworks.com:8080/). Login into Ambari. Refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) if you need assistance with logging into Ambari. 
-> **Note:** login credentials are `maria_dev/maria_dev` (Virtualbox), else `azure/azure` (Azure). Use the dropdown menu at the top to get to the Hive view. 
+After the commands complete let's go to the Hive view. Head over to [http://sandbox.hortonworks.com:8080](http://sandbox.hortonworks.com:8080/). Login into Ambari. Refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) if you need assistance with logging into Ambari.
+> **Note:** login credentials are `maria_dev/maria_dev` (Virtualbox), else `azure/azure` (Azure). Use the dropdown menu at the top to get to the Hive view.
 
 Execute the following command to create a table for the tweets
 
 ~~~sql
 CREATE EXTERNAL TABLE IF NOT EXISTS tweets_text(
-  tweet_id bigint, 
-  created_unixtime bigint, 
+  tweet_id bigint,
+  created_unixtime bigint,
   created_time string,
   lang string,
-  displayname string, 
+  displayname string,
   time_zone string,
   msg string,
   fulltext string)
-ROW FORMAT DELIMITED 
+ROW FORMAT DELIMITED
 FIELDS TERMINATED BY "|"
 LOCATION "/tmp/tweets_staging";
 ~~~
@@ -618,11 +634,11 @@ CREATE EXTERNAL TABLE if not exists dictionary (
 	type string,
 	length int,
 	word string,
-	pos string, 
-	stemmed string, 
+	pos string,
+	stemmed string,
 	polarity string )
-ROW FORMAT DELIMITED 
-FIELDS TERMINATED BY '\t' 
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t'
 STORED AS TEXTFILE
 LOCATION '/tmp/data/tables/dictionary';
 ~~~
@@ -634,8 +650,8 @@ CREATE EXTERNAL TABLE if not exists time_zone_map (
     time_zone string,
     country string,
     notes string )
-ROW FORMAT DELIMITED 
-FIELDS TERMINATED BY '\t' 
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t'
 STORED AS TEXTFILE
 LOCATION '/tmp/data/tables/time_zone_map';
 ~~~
@@ -656,7 +672,7 @@ SELECT
   tweet_id,
   cast ( from_unixtime( unix_timestamp(concat( '2015 ', substring(created_time,5,15)), 'yyyy MMM dd hh:mm:ss')) as timestamp) ts,
   msg,
-  time_zone 
+  time_zone
 FROM tweets_text;
 ~~~
 
@@ -668,7 +684,7 @@ SELECT
   t.tweet_id,
   t.ts,
   t.msg,
-  m.country 
+  m.country
  FROM tweets_simple t LEFT OUTER JOIN time_zone_map m ON t.time_zone = m.time_zone;
 ~~~
 
@@ -686,13 +702,13 @@ create view IF NOT EXISTS l1 as select tweet_id, words from tweets_text lateral 
 
 create view IF NOT EXISTS l2 as select tweet_id, word from l1 lateral view explode( words ) dummy as word;
 
-create view IF NOT EXISTS l3 as select 
-    tweet_id, 
-    l2.word, 
-    case d.polarity 
+create view IF NOT EXISTS l3 as select
+    tweet_id,
+    l2.word,
+    case d.polarity
       when  'negative' then -1
-      when 'positive' then 1 
-      else 0 end as polarity 
+      when 'positive' then 1
+      else 0 end as polarity
  from l2 left outer join dictionary d on l2.word = d.word;
 ~~~
 
@@ -701,12 +717,12 @@ create view IF NOT EXISTS l3 as select
 Now that we were able to compute some sentiment values we can assign whether a tweet was **positive**, **neutral**, or **negative**. Use this next Hive command to do that.
 
 ~~~sql
-create table IF NOT EXISTS tweets_sentiment stored as orc as select 
-  tweet_id, 
-  case 
-    when sum( polarity ) > 0 then 'positive' 
+create table IF NOT EXISTS tweets_sentiment stored as orc as select
+  tweet_id,
+  case
+    when sum( polarity ) > 0 then 'positive'
     when sum( polarity ) < 0 then 'negative'  
-    else 'neutral' end as sentiment 
+    else 'neutral' end as sentiment
 from l3 group by tweet_id;
 ~~~
 
@@ -715,14 +731,14 @@ from l3 group by tweet_id;
 Lastly, to make our analysis somewhat easier we are going to turn those 'positive', 'negative', and 'neutral' values into numerical values using the next Hive command
 
 ~~~sql
-CREATE TABLE IF NOT EXISTS tweetsbi 
+CREATE TABLE IF NOT EXISTS tweetsbi
 STORED AS ORC
-AS SELECT 
+AS SELECT
   t.*,
-  case s.sentiment 
-    when 'positive' then 2 
-    when 'neutral' then 1 
-    when 'negative' then 0 
+  case s.sentiment
+    when 'positive' then 2
+    when 'neutral' then 1
+    when 'negative' then 0
   end as sentiment  
 FROM tweets_clean t LEFT OUTER JOIN tweets_sentiment s on t.tweet_id = s.tweet_id;
 ~~~
@@ -740,7 +756,7 @@ This command should yield our final results table as shown below.
 
 Now that we can access the sentiment data in our Hive table let's do some visualization on the analysis using Apache Zeppelin.
 
-## Visualizing Sentiment With Zeppelin <a id="visualizing-sentiment-with-zeppelin"></a>
+## Visualize Sentiment With Zeppelin <a id="visualizing-sentiment-with-zeppelin"></a>
 ------------------------------------------------
 
 Make sure your Zeppelin service is started in Ambari, then head over to the Zeppelin at [http://sandbox.hortonworks.com:9995](http://sandbox.hortonworks.com:9995/).
@@ -769,13 +785,13 @@ Your results should look like the following:
 
 ![First Zeppelin Query Results](/assets/nifi-sentiment-analytics/images/tweetsbi_bar_graph_sentiment_analysis.png)
 
-After looking at the results we see that if we group by country that many tweets are actually labeled as null. 
+After looking at the results we see that if we group by country that many tweets are actually labeled as null.
 
 For the sake of visualization let's remove any tweets that might appear in our select statement that have a country value of "null", as well as increase our result limit to 500.
 
 Scroll down to the next note and create run the following query, and set up the results the same way as above.
 
-> **Note** Before running Hive queries, restart the Spark Interpreter since Spark jobs take up cluster resources. Click the **Interpreter** tab located near Zeppelin logo at the top of the page, under **Spark** click on the button that says **restart**. 
+> **Note** Before running Hive queries, restart the Spark Interpreter since Spark jobs take up cluster resources. Click the **Interpreter** tab located near Zeppelin logo at the top of the page, under **Spark** click on the button that says **restart**.
 
 ~~~sql
 %hive
@@ -792,7 +808,7 @@ You can also experiment with this and try a pie chart as well.
 
 In our original raw tweet data from NiFi we also collected the language from our users as well. So we can also get an idea of the distribution of languages!
 
-Run the following query and make 
+Run the following query and make
 
 - **lang** as the **Key**
 - **COUNT** for **lang** in **values**
@@ -822,15 +838,10 @@ select sentiment, count(country), country from tweetsbi group by sentiment, coun
 </br>
 Using this data you can determine how you might want to market your products to different countries!
 
-## Further Reading 
+## Further Reading
 
 - [NiFi blogs](http://hortonworks.com/blog/category/nifi/)
 - [Indexing and Searching Documents with Apache Solr](http://hortonworks.com/hadoop-tutorial/searching-data-solr/)
 - [Introduction to Data Science with Apache Zeppelin](http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/)
 - [Hortonworks Community Connection](http://hortonworks.com/community/)
 - [HDP Sandbox & Learning Forum](https://community.hortonworks.com/spaces/81/index.html)
-
-
-
-
-

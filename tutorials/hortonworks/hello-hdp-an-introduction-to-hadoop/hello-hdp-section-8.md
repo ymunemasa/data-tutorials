@@ -19,7 +19,7 @@ using Excel. This section will teach you to visualize data using Zeppelin.
 
 ## Pre-Requisites
 
-The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
+The tutorial is a part of series of hands on tutorial to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
 *   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
@@ -27,7 +27,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   Lab 2: Data Manipulation with Apache Hive
 *   Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor
 *   Working Zeppelin installation
-*   Allow yourself around one hour to complete this tutorial.
+*   Allow yourself approximately one hour to complete this tutorial.
 
 ## Outline
 
@@ -35,8 +35,8 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   [Step 6.1: Create a Zeppelin Notebook](#step6.1)
 *   [Step 6.2: Execute a Hive Query](#step6.2)
 *   [Step 6.3: Build Charts Using Zeppelin](#step6.3)
-*   [Outro](#outro)
-*   [Suggested Readings](#suggested-readings)
+*   [Summary](#summary-lab6)
+*   [Suggested Readings](#suggested-readings-lab6)
 
 ## Apache Zeppelin <a id="apache-zeppelin"></a>
 
@@ -159,13 +159,13 @@ The chart should look similar to the following.
 
 The graph shows that driver id number A39 has a high risk factor of 652417 and drives in Santa Maria.  
 
-## Outro <a id="outro"></a>
+## Summary <a id="summary-lab6"></a>
 
 Now that we know how to use Apache Zeppelin to obtain and visualize our data, we can use the skills
 we've learned from our Hive, Pig, and Spark labs, as well and apply them to new kinds of data to
 try to make better sense and meaning from the numbers!
 
-## Suggested Readings <a id="suggested-readings"></a>
+## Suggested Readings <a id="suggested-readings-lab6"></a>
 
 - [Zeppelin on HDP](http://hortonworks.com/hadoop/zeppelin/)
 - [Apache Zeppelin Docs](https://zeppelin.incubator.apache.org/docs/)
