@@ -61,7 +61,7 @@ The offering is a single Virtual Machine which has similar functionality as the 
 
 7\. After entering values for the fields click OK.  The following sections are then presented:
 
-![06](/assets/deploying-on-ms-azure/6_select_machine.png)
+![06](/assets/deploying-on-ms-azure/6_select_machine_type.png)
 
 8\. Here you can select the machine to run the Sandbox.  The suggestion is to use a machine equivalent or higher than an A4 spec’d machine.  After selecting the machine, click on the select button.   
 
@@ -85,7 +85,7 @@ After some time, you see
 
 Once the virtual machine is deployed the following screen is displayed in the portal.
 
-![12](/assets/deploying-on-ms-azure/011_sandbox_ip_address.png)
+![12](/assets/deploying-on-ms-azure/011_sandox_ip_address.png)
 
 12\. Take note of the IP address.  In this example, it is 22.99.9.32 and highlighted in a green box.  Your machine will have a different IP.  Open up a new browser tab and enter in your IP address followed by the port 8888.  
 
