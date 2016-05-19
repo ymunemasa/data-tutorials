@@ -87,7 +87,7 @@ Once the virtual machine is deployed the following screen is displayed in the po
 
 ![12](/assets/deploying-on-ms-azure/011_sandox_ip_address.png)
 
-12\. Take note of the IP address.  In this example, it is 22.99.9.32 and highlighted in a green box.  Your machine will have a different IP.  Open up a new browser tab and enter in your IP address followed by the port 8888.  
+12\. Take note of the IP address.  In this example, it is 22.99.9.232 and highlighted in a green box.  Your machine will have a different IP.  Open up a new browser tab and enter in your IP address followed by the port 8888.  
 
 13\. Hit enter and you should be welcomed with the following registration page.
 
