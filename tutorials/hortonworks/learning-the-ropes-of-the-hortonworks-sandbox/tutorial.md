@@ -218,7 +218,7 @@ and then the
 
 2.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
 
-## Step 3: Explore the Sandbox in Azure <a id="explore-sandbox-vm-azure"></a>
+## Step 3: Explore the Sandbox in Azure <a id="explore-sandbox-azure"></a>
 
 ### 3.1 Deploy the Sandbox in Azure <a id="deploy-sandbox-azure"></a>
 
@@ -226,8 +226,8 @@ Follow the tutorial [here](http://hortonworks.com/hadoop-tutorial/deploying-hort
 
 ### 3.2 Connect to the Welcome Screen <a id="connect-to-welcome-screen-azure"></a>
 
-Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://23.99.9.232:8888/.`
-Take note of the IP address. In this example, it is 22.99.9.232. Your machine will have a different IP.
+Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
+Here, `host` is your public IP address that is generated when you deployed the HDP Sandbox in Azure. Take note of the IP address. In this example, it is 22.99.9.232. Your machine will have a different IP.
 
 ![Sandbox Welcome Screen Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_welcome_page_learning_ropes_sandbox.png)
 
@@ -235,13 +235,11 @@ Take note of the IP address. In this example, it is 22.99.9.232. Your machine wi
 
 #### Secure Shell (SSH) Method:
 
-Open your terminal (mac and linux) or putty (windows). Provide the username and password of that you gave while deploying the sandbox on Azure. Type the following command to access the Sandbox through SSH:
+Open your terminal (mac and linux) or putty (windows). Here again, `host` is the public IP address provided by Azure. Give the username and password that you provided while deploying the sandbox on Azure. Use the following command to access the Sandbox through SSH:
 
 ~~~
 # Usage:
-      ssh <username>@<hostname> -p <port>;
-# Example:
-      ssh azure@23.99.9.232 -p 22;
+      ssh <username>@<host> -p 22;
 ~~~
 
 ![Mac Terminal SSH Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_secure_shell_learning_ropes_sandbox.png)
@@ -250,14 +248,12 @@ Open your terminal (mac and linux) or putty (windows). Provide the username and 
 
 #### Shell Web Client Method:
 
-Open your web browser. Type the following text into your browser to access the Sandbox through the shell. Provide the same username and password that you gave while deploying the sandbox on Azure.
+Open your web browser. Replace the following text by your `host` into your browser to access the Sandbox through the shell. Provide the same username and password that you gave while deploying the sandbox on Azure.
 
 
 ~~~
 # Usage:
     #  _host_:4200
-Example:
-      23.99.9.232:4200
 ~~~
 
 ![Shell in the Browser Sandbox Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_browser_shell_learning_ropes_sandbox.png)
@@ -295,8 +291,13 @@ Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 ### 4.1 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password-azure"></a>
 
 1. Open a terminal (mac or linux) or putty (windows)
-2. SSH into the sandbox using your username and password that you provided at the time of creating the sandbox on Azure. Your sudo password is a Sandbox password. Example -
-`ssh azure@23.99.9.232 -p 22`.
+2. SSH into the sandbox using your username and password that you provided at the time of creating the sandbox on Azure. Your `host` is a public IP address given by Azur and sudo password is a Sandbox password.
+
+~~~
+# Usage:
+      ssh <username>@<host> -p 22;
+~~~
+
 3. Type the following commands:
 
 ~~~
