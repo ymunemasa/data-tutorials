@@ -242,7 +242,7 @@ Open your terminal (mac and linux) or putty (windows). Here again, `host` is the
       ssh <username>@<host> -p 22;
 ~~~
 
-![Mac Terminal SSH Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_secure_shell_learning_ropes_sandbox.png)
+![Mac Terminal SSH Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_secure_shell_learning_ropes_sandbox1.png)
 
 > Mac OS Terminal
 
@@ -291,7 +291,7 @@ Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 ### 4.1 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password-azure"></a>
 
 1. Open a terminal (mac or linux) or putty (windows)
-2. SSH into the sandbox using your username and password that you provided at the time of creating the sandbox on Azure. Your `host` is a public IP address given by Azur and sudo password is a Sandbox password.
+2. SSH into the sandbox using your username and password that you provided at the time of creating the sandbox on Azure. Your `host` is a public IP address given by Azure and sudo password is a Sandbox password.
 
 ~~~
 # Usage:

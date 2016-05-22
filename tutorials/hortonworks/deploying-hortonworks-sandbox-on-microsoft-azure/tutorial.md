@@ -97,7 +97,9 @@ Once the virtual machine is deployed the following screen is displayed in the po
 
 ![14](/assets/deploying-on-ms-azure/013_sandbox_get_started.png)
 
-15\. If you are new to HDP, start your journey by clicking on the link to the HDP Hello World Tutorial.  
+15\. Follow the tutorial  [here](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to explore more about the Sandbox.
+
+16\. If you are new to HDP, start your journey by clicking on the link to the Hello HDP!.  
 
 ## Next Steps...
 Now that you have the Sandbox up and running, feel free to try our list of tutorials.  By clicking on the try tab on the splash page.  The page below will be displayed allowing you to explore our tutorials.
