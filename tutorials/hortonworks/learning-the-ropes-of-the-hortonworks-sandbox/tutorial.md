@@ -242,7 +242,7 @@ Open your terminal (mac and linux) or putty (windows). Here again, `host` is the
       ssh <username>@<host> -p 22;
 ~~~
 
-![Mac Terminal SSH Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_secure_shell_learning_ropes_sandbox1.png)
+![Mac Terminal SSH Azure 1](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_secure_shell_learning_ropes_sandbox_1.png)
 
 > Mac OS Terminal
 
