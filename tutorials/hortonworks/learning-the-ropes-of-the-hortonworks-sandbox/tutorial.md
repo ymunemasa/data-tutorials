@@ -159,7 +159,7 @@ If you want to search for the host address your sandbox is running on, ssh into 
 #### Services Provided By the Sandbox <a id="services-provided-by-sandbox"></a>
 
 | Service | URL |
-|---------|-----|
+|---------|-----:|
 | Sandbox Welcome Page | [http://_host_:8888]()|
 | Ambari Dashboard | [http://_host_:8080]()|
 | Ambari Welcome | [http://_host_:8080/views/ADMIN_VIEW/2.2.1.0/INSTANCE/#/]()|
@@ -173,7 +173,7 @@ If you want to search for the host address your sandbox is running on, ssh into 
 #### The following Table Contains Login Credentials:
 
 | Service | User | Password |
-|---------|------|----------|
+|---------|:------:|----------:|
 | Ambari | maria_dev | maria_dev |
 | Ambari | admin | refer to [step 2.2](#setup-ambari-admin-password) |
 | Linux OS | root | hadoop |
@@ -275,7 +275,7 @@ Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 #### Services Provided By the Sandbox in Azure<a id="services-provided-by-sandbox-azure"></a>
 
 | Service | URL |
-|---------|-----|
+|---------|-----:|
 | Sandbox Welcome Page | [http://_host_:8888]()|
 | Ambari Dashboard | [http://_host_:8080]()|
 | Ambari Welcome | [http://_host_:8080/views/ADMIN_VIEW/2.2.1.0/INSTANCE/#/]()|
@@ -291,7 +291,7 @@ Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 
 
 | Service | User | Password |
-|---------|------|----------|
+|---------|:------:|----------:|
 | Ambari | maria_dev | maria_dev |
 | Ambari | admin | refer to [step 2.1](#setup-ambari-admin-password-azure) |
 
@@ -345,7 +345,7 @@ and then the
 
 2.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
 
-## Section 3: Troubleshoot <a id="section3>"</a>
+## Section 3: Troubleshoot <a id="section3"></a>
 
 ## Step 1: Troubleshoot Problems <a id="troubleshoot-problems"></a>
 
