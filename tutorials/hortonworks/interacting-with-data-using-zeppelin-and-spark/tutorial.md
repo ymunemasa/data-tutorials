@@ -47,10 +47,18 @@ You can use the Shell Interpreter by adding `%sh` at the beginning.
 
 Next, let’s save `littlelog.csv` in our local sandbox `/tmp` directory and upload it to the HFDS `/tmp` directory
 
+~~~ bash
+%sh
 
+# Save csv file in /tmp directory
+wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=0BzhlOywnOpq8OWFzQjJObUtlck0' -O /tmp/littlelog.csv
 
-%sh #Save csv file in /tmp directory wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=0BzhlOywnOpq8OWFzQjJObUtlck0'  -O /tmp/littlelog.csv # CLEANUP HDFS directory hadoop fs -rm /tmp/littlelog.csv #Copy to HDFS directory /tmp hadoop fs -put /tmp/littlelog.csv /tmp/
+# Cleanup HDFS directory
+hadoop fs -rm /tmp/littlelog.csv
 
+# Copy to HDFS directory /tmp
+hadoop fs -put /tmp/littlelog.csv /tmp/
+~~~
 
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138596c5a6f613039705a306c56626a673f7261773d74727565.png)
@@ -64,7 +72,7 @@ In Spark, datasets are represented as a list of entries, where the list is broke
 So let’s create a RDD from our littlelog.csv:
 
 ~~~ java
-val  file  = sc.textFile("hdfs://sandbox.hortonworks.com:8020/tmp/littlelog.csv")
+val file  = sc.textFile("hdfs://sandbox.hortonworks.com:8020/tmp/littlelog.csv")
 ~~~
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138513142794e5652336254524851556b3f7261773d74727565.png)
@@ -72,7 +80,7 @@ val  file  = sc.textFile("hdfs://sandbox.hortonworks.com:8020/tmp/littlelog.csv"
 Now we have a freshly created RDD. We have to use an action operation like collect() to gather up the data into the driver's memory and then to print out the contents of the file:
 
 ~~~ java
-file.collect().foreach(println)
+file.collect().foreach( println )
 ~~~
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a32354c4c546c4f59305131616c453f7261773d74727565.png)
@@ -82,7 +90,7 @@ Remember doing a `collect()` action operation on a very large distributed RDD ca
 Another way to print the content of the RDD is
 
 ~~~ java
-file.toArray.foreach(println)
+file.toArray.foreach( println )
 ~~~
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a3170754d48466b4d546c4c55306b3f7261773d74727565.png)
@@ -104,7 +112,7 @@ By using the Spark API operator `map`, we have created or transformed our origin
 So let’s do it step by step. First let’s filter out the blank lines.
 
 ~~~ java
-val  fltr  = file.filter(_.length >  0)
+val fltr  = file.filter( _.length >  0 )
 ~~~
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a32354c4c546c4f59305131616c453f7261773d74727565.png)
@@ -116,7 +124,7 @@ WAIT!* What is that doing there? *
 You can also write:
 
 ~~~ java
-val  fltr  = file.filter(x => x.length >  0)
+val fltr = file.filter( x => x.length >  0 )
 ~~~
 
 So, in the above code the `_` or the `x` stands **for each row of our file** RDD: if the row length > 0 is, hence not empty, then assign it to fltr which is a new RDD.
@@ -130,7 +138,7 @@ This pattern of constructing a function within the argument to a method is one o
 Then let’s split the line into individual columns separated by `,` and then let’s grab the 6th columns, which means the column with index 5.
 
 ~~~ java
-val  keys  = fltr.map(_.split(",")).map(a => a(5))
+val keys  = fltr.map( _.split(",") ).map( a => a(5) )
 ~~~
 
 ##### Let’s illustrate the query above with an example:
@@ -173,7 +181,7 @@ Then we extract the 6th element from it, which ends up being added to the named 
 Then let’s print out the values of the key.
 
 ~~~ java
-keys.collect().foreach(println)
+keys.collect().foreach( println )
 ~~~
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384f565a505a5331306344566a4f474d3f7261773d74727565.png)
@@ -181,7 +189,7 @@ keys.collect().foreach(println)
 Notice that some of the states are not unique and repeat. We need to count how many times each key (state) appears in the log.
 
 ~~~ java
-val  stateCnt  = keys.map(key =>  (key,1))  //print stateCnt stateCnt.toArray.foreach(println)
+val stateCnt = keys.map( key =>  (key,1) )  //print stateCnt stateCnt.toArray.foreach(println)
 ~~~
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138626c4253536a6469654655794c566b3f7261773d74727565.png)
@@ -192,7 +200,7 @@ The String is our key and the Integer is 1\.
 Next, we will iterate through each row of the stateCnt RDD and pass their contents to a utility method available to our RDD that counts the distinct number of rows containing each key
 
 ~~~ java
-val  lastMap  = stateCnt.countByKey
+val lastMap = stateCnt.countByKey
 ~~~
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713856556c594d306431656e684d4c574d3f7261773d74727565.png)
@@ -200,7 +208,7 @@ val  lastMap  = stateCnt.countByKey
 Now, let’s print out the result.
 
 ~~~ java
-lastMap.foreach(println)
+lastMap.foreach( println )
 ~~~
 
 Result: a listing of state abbreviations and the count of how many times visitors from that state hit our website.
@@ -210,7 +218,7 @@ Result: a listing of state abbreviations and the count of how many times visitor
 Note that at this point you still have access to all the RDDs you have created during this session. You can reprocess any one of them, for instance, again printing out the values contained in the keys RDD:
 
 ~~~ java
-keys.collect().foreach(println)
+keys.collect().foreach( println )
 ~~~
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138626d6456566e4e754d5559334e484d3f7261773d74727565.png)
