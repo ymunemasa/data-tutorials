@@ -436,8 +436,29 @@ SE
 
 Notice content assist shows you some options that start with an “SE”. These shortcuts will be great for when you write a lot of custom query code.
 
+4\. If you have created your Sandbox in Microsoft Azure, you have to make two changes in configuration.
 
-4\.  Type in the following query, using **Ctrl+space** throughout your typing so that you can get an idea of what content assist can do and how it works:
+Go to the Services–>Hive page, click on "Configs" tab, and make the following changes:
+
+i) Scroll down to Optimization section, change Tez Container Size, increasing from 200 to 682(As recommended by Ambari) Param: "hive.tez.container.size" Value: 682
+
+![config_change1](/assets/hello-hdp/config_change1.png)
+
+ii) Click on "Advanced" tab to show extra settings, scroll down to find parameter "hive.tez.java.opts", and change Hive-Tez Java Opts by increasing Java Heap Max size from 200MB to 512MB: Param: "hive.tez.java.opts" Value: "-server -Xmx512m -Djava.net.preferIPv4Stack=true"
+
+![config_change2](/assets/hello-hdp/config_change2.png)
+
+Click on Save after making changes and add a note on prompt.
+
+![config_change3](/assets/hello-hdp/config_change3.png)
+
+You will be prompted to restart some service components. Click on Restart drop down menu and select Restart All.
+
+![config_change4](/assets/hello-hdp/config_change4.png)
+
+Restart other services as well.
+
+5\.  Type in the following query, using **Ctrl+space** throughout your typing so that you can get an idea of what content assist can do and how it works:
 
 ~~~
 SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
@@ -446,16 +467,16 @@ SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 ![Lab2_28](/assets/hello-hdp/Lab2_28.png)  
 
 
-5\.  Click the “**Save as …**” button to save the query as “**average mpg**”:  
+6\.  Click the “**Save as …**” button to save the query as “**average mpg**”:  
 
 
 ![Lab2_26](/assets/hello-hdp/Lab2_26.png)
 
 
-6\.  Notice your query now shows up in the list of “**Saved Queries**”, which is one of the tabs at the top of the Hive User View.
+7\.  Notice your query now shows up in the list of “**Saved Queries**”, which is one of the tabs at the top of the Hive User View.
 
 
-7\.  Execute the “**average mpg**” query and view its results.
+8\.  Execute the “**average mpg**” query and view its results.
 
 ### 2.6.4 Explore Explain Features of the Hive Query Editor
 
