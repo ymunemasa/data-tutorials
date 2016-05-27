@@ -436,7 +436,7 @@ SE
 
 Notice content assist shows you some options that start with an “SE”. These shortcuts will be great for when you write a lot of custom query code.
 
-4\. If you have created your Sandbox in Microsoft Azure, you have to make two changes in configuration.
+4\. If you have created your Sandbox in Microsoft Azure, you have to make two changes in configuration. Otherwise, skip this step and move on to next one.
 
 Go to the Services–>Hive page, click on "Configs" tab, and make the following changes:
 
