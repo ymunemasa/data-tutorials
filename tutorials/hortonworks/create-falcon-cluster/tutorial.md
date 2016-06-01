@@ -50,7 +50,7 @@ Then click on `Start`:
 ![falconStartProgress](/assets/create-falcon-cluster/falconStartProgress.png)
 
 
-Once, Falcon starts, Ambari should clearly indicate as below that the service has started:
+Once Falcon starts, Ambari should clearly indicate as below that the service has started:
 
 ![falconStarted](/assets/create-falcon-cluster/falconStarted.png)
 
@@ -176,7 +176,7 @@ Next, we enter the URI for the various resources Falcon requires to manage data 
 
 ~~~
 Readonly hftp://sandbox.hortonworks.com:50070
-Write hdfs://sandbox.hortonworks.com:8020"
+Write hdfs://sandbox.hortonworks.com:8020
 Execute sandbox.hortonworks.com:8050         
 Workflow http://sandbox.hortonworks.com:11000/oozie/
 Messaging tcp://sandbox.hortonworks.com:61616?daemon=true
