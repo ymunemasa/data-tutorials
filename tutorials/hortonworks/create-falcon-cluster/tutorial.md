@@ -27,13 +27,17 @@ Once you have downloaded the Hortonworks Sandbox and run the VM, navigate to the
 ![ambariHomePage](/assets/create-falcon-cluster/ambariHomePage.png)
 
 ## Outline
-- [Starting Falcon](#starting-falcon)
-- [Preparing HDFS Directories](#preparing-hdfs-directories)
-- [Creating Cluster Entities](#creating-cluster-entities)
-- [Summary](#summary)
-- [Where do I go next?](#where-do-I-go-next)
+- [1: Starting Falcon](#starting-falcon)
+- [2: Preparing HDFS Directories](#preparing-hdfs-directories)
+- [3: Creating Cluster Entities](#creating-cluster-entities)
+      - [3.1: Creating primaryCluster Entity using Wizard](#creating-primaryCluster-wizard)
+      - [3.2: Creating primaryCluster Entity using XML](#creating-primaryCluster-XML)
+      - [3.3: Creating backupCluster Entity using Wizard](#creating-backupCluster-wizard)
+      - [3.4: Creating backupCluster Entity using XML](#creating-backupCluster-XML)
+- [4: Summary](#summary)
+- [5: Where do I go next?](#where-do-I-go-next)
 
-## Starting Falcon <a id="starting-falcon"></a>
+## 1. Starting Falcon <a id="starting-falcon"></a>
 
 By default, Falcon is not started on the Sandbox. You can start the Falcon service from Ambari by clicking on the Falcon icon in the left hand pane:
 
@@ -54,7 +58,7 @@ Once Falcon starts, Ambari should clearly indicate as below that the service has
 
 ![falconStarted](/assets/create-falcon-cluster/falconStarted.png)
 
-## Preparing HDFS Directories <a id="preparing-hdfs-directories"></a>
+## 2. Preparing HDFS Directories <a id="preparing-hdfs-directories"></a>
 
 First SSH into the Hortonworks Sandbox with the command:
 
@@ -123,7 +127,7 @@ hadoop fs -chmod 777 /apps/falcon/backupCluster/staging
 hadoop fs -chmod 755 /apps/falcon/backupCluster/working
 ~~~
 
-## Creating Cluster Entities <a id="creating-cluster-entities"></a>
+## 3. Creating Cluster Entities <a id="creating-cluster-entities"></a>
 
 Let’s open the Falcon Web UI. You can easily launch the Falcon Web UI from Ambari:
 Navigate to the Falcon Summary page and click `Quick Links>Falcon Web UI`.
@@ -143,6 +147,7 @@ Let’s first create a couple of cluster entities. To create a cluster entity cl
 
 **NOTE : If you want to create it from XML, skip the wizard section, and move on to the next one.**
 
+### 3.1 Creating primaryCluster Entity using Wizard <a id="creating-primaryCluster-wizard"></a>
 
 A cluster entity defines the default access points for various resources on the cluster as well as default working directories to be used by Falcon jobs.
 
@@ -207,7 +212,7 @@ Click `Save` to persist the entity.
 
 ![cluster3](/assets/create-falcon-cluster/cluster3.png)
 
-#### Create primaryCluster Entity using XML
+### 3.2 Creating primaryCluster Entity using XML <a id="creating-primaryCluster-XML"></a>
 
 After clicking on the `Cluster` button at the top, click on the `Edit XML` button over XML Preview area. Replace the XML content with the XML document below:
 
@@ -252,6 +257,8 @@ Falcon jobs require a source cluster and a destination, or target, cluster. For 
 
 **NOTE : If you want to create it from XML, skip the wizard section, and move on to the next one.**
 
+### 3.3 Creating backupCluster Entity using Wizard <a id="creating-backupCluster-wizard"></a>
+
 Let’s go ahead and create a second cluster by creating a cluster with the name:
 
 ~~~
@@ -274,7 +281,7 @@ Click `Save` to persist the `backupCluster` entity.
 
 ![cluster6](/assets/create-falcon-cluster/cluster6.png)
 
-#### Creating backupCluster Entity using XML
+### 3.4 Creating backupCluster Entity using XML <a id="creating-backupCluster-XML"></a>
 
 Click on `Cluster` button on the top to open up the form to create the cluster entity.
 
@@ -315,11 +322,11 @@ Click `Save` to persist the `backupCluster` entity.
 
 ![clusterXML6](/assets/create-falcon-cluster/clusterXML6.png)
 
-## Summary <a id="summary"></a>
+## 4. Summary <a id="summary"></a>
 
 In this tutorial we learned how to create cluster entities in Apache Falcon using the Falcon UI. Now go ahead and start creating feeds and processes by exploring more Falcon tutorials.
 
-## Where do I go next? <a id="where-do-I-go-next"></a>
+## 5. Where do I go next? <a id="where-do-I-go-next"></a>
 
 You can go to following links to explore other Falcon tutorials:
 
