@@ -141,6 +141,9 @@ You can also search for existing entities and then edit, change state, etc.
 
 Let’s first create a couple of cluster entities. To create a cluster entity click on the `Cluster` button on the top.
 
+**NOTE : If you want to create it from XML, skip the wizard section, and move on to the next one.**
+
+
 A cluster entity defines the default access points for various resources on the cluster as well as default working directories to be used by Falcon jobs.
 
 To define a cluster entity, we must specify a unique name by which we can identify the cluster. In this tutorial, we use:
@@ -204,7 +207,50 @@ Click `Save` to persist the entity.
 
 ![cluster3](/assets/create-falcon-cluster/cluster3.png)
 
+#### Create primaryCluster Entity using XML
+
+After clicking on the `Cluster` button at the top, click on the `Edit XML` button over XML Preview area. Replace the XML content with the XML document below:
+
+~~~
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cluster name="primaryCluster" description="this is primary cluster" colo="primaryColo" xmlns="uri:falcon:cluster:0.1">
+    <tags>primaryKey=primaryValue</tags>
+    <interfaces>
+        <interface type="readonly" endpoint="hftp://sandbox.hortonworks.com:50070" version="2.2.0"/>
+        <interface type="write" endpoint="hdfs://sandbox.hortonworks.com:8020" version="2.2.0"/>
+        <interface type="execute" endpoint="sandbox.hortonworks.com:8050" version="2.2.0"/>
+        <interface type="workflow" endpoint="http://sandbox.hortonworks.com:11000/oozie/" version="4.0.0"/>
+        <interface type="messaging" endpoint="tcp://sandbox.hortonworks.com:61616?daemon=true" version="5.1.6"/>
+    </interfaces>
+    <locations>
+        <location name="staging" path="/apps/falcon/primaryCluster/staging"/>
+        <location name="temp" path="/tmp"/>
+        <location name="working" path="/apps/falcon/primaryCluster/working"/>
+    </locations>
+    <ACL owner="ambari-qa" group="users" permission="0x755"/>
+    <properties>
+        <property name="test" value="value1"/>
+    </properties>
+</cluster>
+~~~
+
+Click `Finish` on top of the XML Preview area to save the XML.
+
+![clusterXML1](/assets/create-falcon-cluster/clusterXML1.png)
+
+Falcon UI should have automatically parsed out the values from the XML and populated in the right fields. Once you have verified that these are the correct values press `Next`.
+
+![clusterXML2](/assets/create-falcon-cluster/clusterXML2.png)
+
+Click `Save` to persist the entity.
+
+![clusterXML3](/assets/create-falcon-cluster/clusterXML3.png)
+
+You should receive a notification that the operation was successful.
+
 Falcon jobs require a source cluster and a destination, or target, cluster. For some jobs, this may be the same cluster, for others, such as Mirroring and Disaster Recovery, the source and target clusters will be different.
+
+**NOTE : If you want to create it from XML, skip the wizard section, and move on to the next one.**
 
 Let’s go ahead and create a second cluster by creating a cluster with the name:
 
@@ -227,6 +273,47 @@ Working /apps/falcon/backupCluster/working
 Click `Save` to persist the `backupCluster` entity.
 
 ![cluster6](/assets/create-falcon-cluster/cluster6.png)
+
+#### Creating backupCluster Entity using XML
+
+Click on `Cluster` button on the top to open up the form to create the cluster entity.
+
+After clicking on the `Cluster` button at the top, click on the `Edit XML` button over XML Preview area. Replace the XML content with the XML document below:
+
+~~~
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cluster name="backupCluster" description="this is backup colo" colo="backupColo" xmlns="uri:falcon:cluster:0.1">
+    <tags>backupKey=backupValue</tags>
+    <interfaces>
+        <interface type="readonly" endpoint="hftp://sandbox.hortonworks.com:50070" version="2.2.0"/>
+        <interface type="write" endpoint="hdfs://sandbox.hortonworks.com:8020" version="2.2.0"/>
+        <interface type="execute" endpoint="sandbox.hortonworks.com:8050" version="2.2.0"/>
+        <interface type="workflow" endpoint="http://sandbox.hortonworks.com:11000/oozie/" version="4.0.0"/>
+        <interface type="messaging" endpoint="tcp://sandbox.hortonworks.com:61616?daemon=true" version="5.1.6"/>
+    </interfaces>
+    <locations>
+        <location name="staging" path="/apps/falcon/backupCluster/staging"/>
+        <location name="temp" path="/tmp"/>
+        <location name="working" path="/apps/falcon/backupCluster/working"/>
+    </locations>
+    <ACL owner="ambari-qa" group="users" permission="0x755"/>
+    <properties>
+        <property name="test2" value="value2"/>
+    </properties>
+</cluster>
+~~~
+
+Click `Finish` on top of the XML Preview area to save the XML and then the Next button to verify the values.
+
+![clusterXML4](/assets/create-falcon-cluster/clusterXML4.png)
+
+Once you have verified that these are the correct values press `Next`.
+
+![clusterXML5](/assets/create-falcon-cluster/clusterXML5.png)
+
+Click `Save` to persist the `backupCluster` entity.
+
+![clusterXML6](/assets/create-falcon-cluster/clusterXML6.png)
 
 ## Summary <a id="summary"></a>
 
