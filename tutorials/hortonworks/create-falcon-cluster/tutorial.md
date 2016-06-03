@@ -232,7 +232,7 @@ After clicking on the `Cluster` button at the top, click on the `Edit XML` butto
         <location name="temp" path="/tmp"/>
         <location name="working" path="/apps/falcon/primaryCluster/working"/>
     </locations>
-    <ACL owner="ambari-qa" group="users" permission="0x755"/>
+    <ACL owner="ambari-qa" group="users" permission="755"/>
     <properties>
         <property name="test" value="value1"/>
     </properties>
@@ -303,7 +303,7 @@ After clicking on the `Cluster` button at the top, click on the `Edit XML` butto
         <location name="temp" path="/tmp"/>
         <location name="working" path="/apps/falcon/backupCluster/working"/>
     </locations>
-    <ACL owner="ambari-qa" group="users" permission="0x755"/>
+    <ACL owner="ambari-qa" group="users" permission="755"/>
     <properties>
         <property name="test2" value="value2"/>
     </properties>
