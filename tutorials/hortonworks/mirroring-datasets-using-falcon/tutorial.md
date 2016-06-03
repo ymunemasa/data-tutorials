@@ -122,4 +122,4 @@ After a few minutes, use the HDFS View in the Ambari console to check the `/user
 
 ## 4. Summary <a id="summary"></a>
 
-In this tutorial we walked through the process of mirroring the datasets between two cluster entities. In the next tutorial we will work through defining various data feeds and processing them to refine the data.
+In this tutorial we walked through the process of mirroring the datasets between two cluster entities. In the next [tutorial](http://hortonworks.com/hadoop-tutorial/defining-processing-data-end-end-data-pipeline-apache-falcon/) we will work through defining various data feeds and processing them to refine the data.
