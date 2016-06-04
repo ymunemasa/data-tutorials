@@ -1,4 +1,4 @@
-# Lab 2: Ingest and Process Real-time Events with Apache Storm
+# Lab 3: Ingest and Process Real-time Events with Apache Storm
 
 ### Introduction
 
@@ -171,7 +171,7 @@ The storm and storm.kafka version can be found under the **<properties>** tag si
 
 > **Note:** storm.version and storm.kafka.version both fall under storm.version. To find the version of storm, use the command `storm version`.
 
-Now that we have modified our pom.xml file, let's install maven and run a `mvn clean package` refer to Appendix A for details. 
+Now that we have modified our pom.xml file, let's install maven and run a `mvn clean package` refer to Appendix A for details.
 
 Now we can create our storm topology.
 
@@ -327,7 +327,7 @@ public List<Object> deserialize(byte[] bytes)  
             return new Values(cleanup(driverId), cleanup(truckId),    
                                     eventTime, cleanup(eventType), cleanup(longitude), cleanup(latitude));  
         }
-        
+
         catch (UnsupportedEncodingException e)    
         {  
                        LOG.error(e);    
