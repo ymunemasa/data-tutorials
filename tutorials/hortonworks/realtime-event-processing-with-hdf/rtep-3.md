@@ -13,6 +13,7 @@ In previous tutorial, we have explored generating and capturing streaming data w
 - [Lab #1](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/) Capture Real Time Events with Apache Kafka
 - Downloaded and Installed the latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 - [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+- [Hive Quick Start](https://hbase.apache.org/book.html#quickstart)
 
 
 ## Outline
