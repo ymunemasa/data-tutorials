@@ -249,7 +249,7 @@ By the end of the IoT Lab Series, you will have built the following dataflow:
 
 **Figure 1:** This [IoT_Lab_Series_DataFlow.xml](https://raw.githubusercontent.com/james94/tutorials/hdp/assets/realtime-event-processing-with-hdf/IoT_Lab_Series_DataFlow.xml) dataflow performs System Interaction, Splitting and Aggregation, Attribute Extraction, Routing and Mediation and Data Egress/Sending Data.
 
-To open the template xml in NiFi, hover over to the management toolbar and click on the template icon [template_icon_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/template_icon_nifi_iot.png). Click on the Browse button and find the dataflow xml file that you downloaded and click open. The template should appear in your NiFi Flow Templates spreadsheet.
+To open the template xml in NiFi, hover over to the management toolbar and click on the template icon ![template_icon_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/template_icon_nifi_iot.png). Click on the Browse button and find the dataflow xml file that you downloaded and click open. The template should appear in your NiFi Flow Templates spreadsheet.
 
 To display your dataflow template xml onto the screen, drag the template icon from the components toolbar onto the graph. The dataflow should appear as in the dataflow image above, except this dataflow will be missing the PutKafka processor. We will add it in the next lab.
 
@@ -289,7 +289,7 @@ Follow the step above to add these processors. You should obtain a similar image
 
 ### 5.2 Troubleshoot Common Processor Issues
 
-Notice the nine processors in the image above have warning symbols [warning_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/warning_symbol_nifi_iot.png) in the upper left corner of the processor face. These warning symbols indicate the processors are invalid.
+Notice the nine processors in the image above have warning symbols ![warning_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/warning_symbol_nifi_iot.png) in the upper left corner of the processor face. These warning symbols indicate the processors are invalid.
 
 1\. To troubleshoot, hover over one of the processors, for instance the ExecuteProcess processor and a warning symbol will appear. This message informs us of the requirements to make this processor valid.
 
@@ -304,7 +304,7 @@ We will configure our processors in the **Configure Processor** window, which co
 
 ### 5.3.1 Configure ExecuteProcess Processor
 
-1\. Right click on the **ExecuteProcess** processor and click **configure** from dropown menu [configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png)
+1\. Right click on the **ExecuteProcess** processor and click **configure** from dropown menu ![configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png)
 
 2\. Click on the **Properties** tab.
 
@@ -316,17 +316,17 @@ We will configure our processors in the **Configure Processor** window, which co
 
 5\. Set the Batch Direction **value** to `10 sec`.
 
-[executeProcess_properties_config](/assets/realtime-event-processing-with-hdf/lab0-nifi/executeProcess_properties_config.png)
+![executeProcess_properties_config](/assets/realtime-event-processing-with-hdf/lab0-nifi/executeProcess_properties_config.png)
 
 > Note: Configure ExecuteProcess processor Attributes. The properties in bold indicate they are required and must have a value to run. Optional: click the comments tab and enter a brief description: runs the stream simulator and reads the live truck event data feed
 
 6\. Let’s navigate to the **Scheduling** tab. We will modify the **Run Schedule** field and insert `1 sec`, so the processor runs every 1 second. Let’s click the **Apply** button.
 
-[executeprocess_scheduling_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/executeprocess_scheduling_nifi_iot.png)
+![executeprocess_scheduling_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/executeprocess_scheduling_nifi_iot.png)
 
 ### 5.3.2 Configure SplitText Processor
 
-1\. Right click on the **SplitText** processor and click **configure** from dropown menu [configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png)
+1\. Right click on the **SplitText** processor and click **configure** from dropown menu ![configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png)
 
 2\. Click on the **Properties** tab.
 
@@ -334,33 +334,33 @@ We will configure our processors in the **Configure Processor** window, which co
 
 4\. For **Remove Trailing Newlines** property, set the value field as **false**. This configuration does not remove newlines at the end of each split file, so when the FlowFiles are merged into a single FlowFile, each FlowFile will be on its own line.
 
-[splittext_property_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/splittext_property_config_nifi_iot.png)
+![splittext_property_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/splittext_property_config_nifi_iot.png)
 
 5\. Navigate to the **Settings** tab. Check the **failure** and **original** checkbox under **Auto terminate relationships**. Click the **Apply** button.
 
-[splitText_configuration_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/splitText_configuration_nifi_iot.png)
+![splitText_configuration_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/splitText_configuration_nifi_iot.png)
 
 > Note: The Auto Terminate Relationships tell NiFi the relationship that the files in our flow will be labeled as when we’re done working on them.
 
-The SplitText Processor will still have a warning symbol [warning_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/warning_symbol_nifi_iot.png) because we need to connect it to another component. Before we start connecting the processors, let’s configure our **UpdateAttribute** processor.
+The SplitText Processor will still have a warning symbol ![warning_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/warning_symbol_nifi_iot.png) because we need to connect it to another component. Before we start connecting the processors, let’s configure our **UpdateAttribute** processor.
 
 ### 5.3.3 Configure UpdateAttribute Processor
 
-1\. Right click on the **UpdateAttribute** processor and click **configure** from dropown menu [configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png)
+1\. Right click on the **UpdateAttribute** processor and click **configure** from dropown menu ![configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png)
 
 2\. Click on the **Properties** tab.
 
-3\. Add [add_new_property_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/add_new_property_config_nifi_iot.png) and name it `filename`. Insert NiFi Expression Language `${UUID()}` to give each FlowFile that transfers through this processor a unique name. Click **OK** and then **Apply**.
+3\. Add ![add_new_property_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/add_new_property_config_nifi_iot.png) and name it `filename`. Insert NiFi Expression Language `${UUID()}` to give each FlowFile that transfers through this processor a unique name. Click **OK** and then **Apply**.
 
 ### 5.3.4 Configure RouteOnContent Processor
 
-1\. Right click on the **RouteOnContent** processor and click **configure** from dropown menu [configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png)
+1\. Right click on the **RouteOnContent** processor and click **configure** from dropown menu ![configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png)
 
 2\. Click on the **Properties** tab.
 
 3\. Change **Match Requirement** property value to `content must contain match`.
 
-4\. Add [add_new_property_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/add_new_property_config_nifi_iot.png) and name it `search_for_truck_event_data`. Insert Regex Expression Language:
+4\. Add ![add_new_property_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/add_new_property_config_nifi_iot.png) and name it `search_for_truck_event_data`. Insert Regex Expression Language:
 
 ~~~
 (Normal)|(Overspeed)|(Lane Departure)|(Unsafe tail distance)|(Unsafe following distance)
@@ -368,17 +368,17 @@ The SplitText Processor will still have a warning symbol [warning_symbol_nifi_io
 
 to search the content of each FlowFile to see if it contains any of these driving event keywords; if so, we found truck_event data. Click **OK** and then **Apply**.
 
-[routeOnContent_filter_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/routeOnContent_filter_nifi_iot.png)
+![routeOnContent_filter_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/routeOnContent_filter_nifi_iot.png)
 
 ### 5.3.5 Configure MergeContent(truck_events) Processor
 
-1\. Right click on the **MergeContent** processor and click **configure** from dropown menu [configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png)
+1\. Right click on the **MergeContent** processor and click **configure** from dropown menu ![configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png)
 
 2\. Click on the **Properties** tab.
 
 3\. Add `50` to the value field for the **Minimum Number of Entries** property. Add `70` to the value field for **Maximum Number of Entries property**.
 
-[mergeContent_property_configs](/assets/realtime-event-processing-with-hdf/lab0-nifi/mergeContent_property_configs.png)
+![mergeContent_property_configs](/assets/realtime-event-processing-with-hdf/lab0-nifi/mergeContent_property_configs.png)
 
 4\. Navigate to the **Settings** tab.
 
@@ -386,19 +386,19 @@ to search the content of each FlowFile to see if it contains any of these drivin
 
 ### 5.3.6 Configure MergeContent(logs) Processor
 
-1\. Right click the MergeContent processor created in the previous step and copy it [copy_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/copy_processor_nifi_iot.png). Move the mouse slightly to the right of MergeContent(truck_events) processor and paste it [paste_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/paste_processor_nifi_iot.png)
+1\. Right click the MergeContent processor created in the previous step and copy it ![copy_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/copy_processor_nifi_iot.png). Move the mouse slightly to the right of MergeContent(truck_events) processor and paste it ![paste_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/paste_processor_nifi_iot.png)
 
 2\. Open configure **settings** tab, and rename the processor `MergeContent(logs)`.
 
 ### 5.3.7 Configure PutFile(truck_events) Processor
 
-1\. Right click on the **PutFile** processor below MergeContent(truck_events) and click **configure** from dropown menu [configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png)
+1\. Right click on the **PutFile** processor below MergeContent(truck_events) and click **configure** from dropown menu ![configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png)
 
 2\. Click on the **Properties** tab.
 
 3\. The warning message tells us that the directory is invalid and that it is required. So, let’s add a value for the **directory** property: `/root/nifi_output/truck_events` as in the image. We will keep the other values default.
 
-[putfile_properties_truck_events_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_properties_truck_events_config_nifi_iot.png)
+![putfile_properties_truck_events_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_properties_truck_events_config_nifi_iot.png)
 
 4\. Navigate to the **Settings** tab.
 
@@ -406,25 +406,25 @@ to search the content of each FlowFile to see if it contains any of these drivin
 
 6\. The warning message informs us that the processor’s relationship is invalid since it is not auto-terminated as `success`. So, let’s check the **failure** and **success** checkbox below the **Auto terminated relationships**. Click the **Apply** button.
 
-[putfile_truck_events_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_truck_events_nifi_iot.png)
+![putfile_truck_events_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_truck_events_nifi_iot.png)
 
 ### 5.3.8 Configure PutFile(logs) Processor
 
-1\. Right click the PutFile(truck_events) processor created in the previous step and copy it [copy_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/copy_processor_nifi_iot.png). Move the mouse slightly above MergeContent(logs) processor and paste it [paste_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/paste_processor_nifi_iot.png).
+1\. Right click the PutFile(truck_events) processor created in the previous step and copy it ![copy_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/copy_processor_nifi_iot.png). Move the mouse slightly above MergeContent(logs) processor and paste it ![paste_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/paste_processor_nifi_iot.png).
 
-2\.Right click on the **PutFile** processor located above MergeContent(logs) and click **configure** from dropown menu [configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png).
+2\.Right click on the **PutFile** processor located above MergeContent(logs) and click **configure** from dropown menu ![configure_processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/configure_processor_nifi_iot.png).
 
 3\. Click on the **Properties** tab.
 
 4\. Change a value for the **directory** property: `/root/nifi_output/log_data` as in the image. We will keep the other values default.
 
-[putfile_properties_config_logs_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_properties_config_logs_nifi_iot.png)
+![putfile_properties_config_logs_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_properties_config_logs_nifi_iot.png)
 
 5\. Navigate to the **Settings** tab.
 
 6\. Rename the processor: `PutFile(logs)`. Click the **Apply** button.
 
-[putfile_logs_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_logs_nifi_iot.png)
+![putfile_logs_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_logs_nifi_iot.png)
 
 ### 5.4 Connect All Processors
 
@@ -434,7 +434,7 @@ A common warning message among all processors is that there needs to be a relati
 
 1\. Connect the **ExecuteProcess** processor to the **SplitText** processor by hovering over the center of it and dragging the **circle** to the SplitText. Then we will repeat the same process to connect the all the processors to our flow of data.
 
-[connect_processors_execute_splittext_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/connect_processors_execute_splittext_nifi_iot.png)
+![connect_processors_execute_splittext_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/connect_processors_execute_splittext_nifi_iot.png)
 
 > Note: Make sure in the Create Connection window both relationships for the processor are set to success.
 
@@ -462,21 +462,21 @@ A common warning message among all processors is that there needs to be a relati
 
 Once all processors are connected, your dataflow should look as below:
 
-[dataflow_lab0_complete_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/dataflow_lab0_complete_nifi_iot.png)
+![dataflow_lab0_complete_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/dataflow_lab0_complete_nifi_iot.png)
 
 ### 5.5 Run NiFi DataFlow
 
-1\. The processors are valid since the warning symbols disappeared. Notice that the processors have a red stop symbol [stop_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/stop_symbol_nifi_iot.png) in the upper left corner and are ready to run. To select all processors, hold down the shift-key and drag your mouse across the entire data flow.
+1\. The processors are valid since the warning symbols disappeared. Notice that the processors have a red stop symbol ![stop_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/stop_symbol_nifi_iot.png) in the upper left corner and are ready to run. To select all processors, hold down the shift-key and drag your mouse across the entire data flow.
 
-[dataflow_selected_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/dataflow_selected_nifi_iot.png)
+![dataflow_selected_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/dataflow_selected_nifi_iot.png)
 
-2\. Now that all processors are selected, go to the actions toolbar and click the start button [start_button_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/start_button_nifi_iot.png). Your screen should look like the following:
+2\. Now that all processors are selected, go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/start_button_nifi_iot.png). Your screen should look like the following:
 
-[run_dataflow_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/run_dataflow_nifi_iot.png)
+![run_dataflow_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/run_dataflow_nifi_iot.png)
 
-3\. To quickly see what the processors are doing and the information on their faces, right click on the graph, click the **refresh status** button [refresh_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/refresh_nifi_iot.png)
+3\. To quickly see what the processors are doing and the information on their faces, right click on the graph, click the **refresh status** button ![refresh_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/refresh_nifi_iot.png)
 
-[refresh_dataflow_data_increase_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/refresh_dataflow_data_increase_nifi_iot.png)
+![refresh_dataflow_data_increase_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/refresh_dataflow_data_increase_nifi_iot.png)
 
 > Note: On each processor face, the In, Read/Write and Out all have data increasing.
 
@@ -506,7 +506,7 @@ vi 28863080789498
 
 Once the file is opened, you should obtain similar output as below:
 
-[logs_stream_simulator_nifi_output](/assets/realtime-event-processing-with-hdf/lab0-nifi/logs_stream_simulator_nifi_output.png)
+![logs_stream_simulator_nifi_output](/assets/realtime-event-processing-with-hdf/lab0-nifi/logs_stream_simulator_nifi_output.png)
 
 > Note: to exit the vi editor, press `esc` and then type `:q`.
 
@@ -522,7 +522,7 @@ vi 28918091050702
 
 Once the file is opened, you should obtain similar output as below:
 
-[truck_events_file_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/truck_events_file_nifi_iot.png)
+![truck_events_file_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/truck_events_file_nifi_iot.png)
 
 > Note: to exit the vi editor, press `esc` and then type `:q`.
 
