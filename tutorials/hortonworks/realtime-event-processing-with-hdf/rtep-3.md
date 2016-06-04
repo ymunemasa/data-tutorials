@@ -565,3 +565,6 @@ The maven build should succeed
 - [Apache HBase](http://hortonworks.com/hadoop/hbase/)
 - [Getting Started with HBase](https://hbase.apache.org/book.html#quickstart)
 - [Storm Hive Integration](http://storm.apache.org/documentation/storm-hive.html)
+- [Storm Tutorials](http://hortonworks.com/hadoop/storm/#tutorials)
+- [Getting Started with Apache Storm](http://storm.apache.org/documentation.html)
+- [Apache Storm](http://hortonworks.com/hadoop/storm/)
