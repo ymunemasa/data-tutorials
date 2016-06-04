@@ -209,7 +209,7 @@ FIELDS TERMINATED BY ',';
 
 This hive query creates hive table to persist all information regarding the driver.
 
-[drivers_table_hbase_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/drivers_table_hbase_iot.png)
+![drivers_table_hbase_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/drivers_table_hbase_iot.png)
 
 
 ~~~sql
@@ -225,7 +225,7 @@ FIELDS TERMINATED BY ',';
 This hive query creates a hive table to persist data regarding the driver’s total time, distance and days driving.
 
 
-[timesheet_table_hbase_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/timesheet_table_hbase_iot.png)
+![timesheet_table_hbase_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/timesheet_table_hbase_iot.png)
 
 
 Set permissions on `/tmp/hive`
@@ -234,7 +234,7 @@ Set permissions on `/tmp/hive`
 chmod -R 777 /tmp/hive/
 ~~~
 
-[set_permissions_hive_iot_hbase](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/set_permissions_hive_iot_hbase.png)
+![set_permissions_hive_iot_hbase](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/set_permissions_hive_iot_hbase.png)
 
 
 ### Step 3: Run the Automation script: Setup Demo Modules
@@ -249,7 +249,7 @@ vi ~/iot-truck-streaming/user-env.sh/
 
 The file will open as in the image below:
 
-[user_env_sh_setup_auto_script_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/user_env_sh_setup_auto_script_iot.png)
+![user_env_sh_setup_auto_script_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/user_env_sh_setup_auto_script_iot.png)
 
 For the ambari configuration credentials: user='admin', pass=what you set it up as manually. For example, after setting up my password, I would enter user='admin', pass='h@d0op.
 
@@ -323,7 +323,7 @@ Under Topology Visualization: You shall see here that Kafka Spout has started wr
 
 Note: You can also keep track of several statistics of Spouts and Bolts. For instance, to find Spouts Statistics, click on **kafkaSpout** located in the Spouts section.
 
-[spout_statistics_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/spout_statistics_iot.png)
+![spout_statistics_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/spout_statistics_iot.png)
 
 ### Step 5: Verify Data in HDFS and HBase <a id="step5-verify-data-hdfs-hbase-lab3"></a>
 
@@ -393,7 +393,7 @@ The Storm topology can be deactivated/killed from the Storm UI or shell
 storm kill TruckEventProcessorKafkaTopology
 ~~~
 
-[storm_topology_actions_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_topology_actions_iot.png)
+![storm_topology_actions_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_topology_actions_iot.png)
 
 
 ## Conclusion <a id="conclusion-lab3"></a>
@@ -430,21 +430,21 @@ If you receive the message, **"This site can't be reached"**, you will need to p
 
 Once connected to Jetty Server, the following login page appears, user and password are given by default, so press the **sign in** button:
 
-[trucking_demo_sign_in](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/trucking_demo_sign_in.png)
+![trucking_demo_sign_in](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/trucking_demo_sign_in.png)
 
 The HDP Storm Demo Dashboard will appear:
 
-[storm_demo_dashboard](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_demo_dashboard.png)
+![storm_demo_dashboard](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_demo_dashboard.png)
 
 ### Run NiFi DataFlow & Topology Tuples Increase
 
 Before entering one of these applications on the dashboard as in the image above, make sure your NiFi DataFlow is running and that your storm topology spout/bolt tuples are increasing. You should have images similar to as below:
 
-[dataflow_withKafka_running_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_withKafka_running_iot.png)
+![dataflow_withKafka_running_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_withKafka_running_iot.png)
 
 > DataFlow is running and sending events to Kafka. If you notice events stop being sent to kafka, stop and start the DataFlow.
 
-[storm_topology_tuples_increasing](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_topology_tuples_increasing.png)
+![storm_topology_tuples_increasing](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_topology_tuples_increasing.png)
 
 > Storm Topology Spout/Bolt tuples increasing
 
@@ -485,20 +485,20 @@ If you can see your NiFi DataFlow sending truck event data to Kafka and Storm tu
 
 Real-Time Driver Monitoring Application
 
-[driver_monitoring_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_monitoring_app_map.png)
-[driver_monitoring_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_monitoring_app_map.png)
+![driver_monitoring_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_monitoring_app_map.png)
+![driver_monitoring_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_monitoring_app_map.png)
 
 
 Real-Time Driver Behavior Predictions Application
 
-[driver_behavior_predictions_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_behavior_predictions_app_map.png)
-[driver_behavior_predictions_app_table](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_behavior_predictions_app_table.png)
+![driver_behavior_predictions_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_behavior_predictions_app_map.png)
+![driver_behavior_predictions_app_table](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_behavior_predictions_app_table.png)
 
 
 Real-Time Drools Driven Monitoring Application
 
-[drools_driven_driver_alerts_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/drools_driven_driver_alerts_app_map.png)
-[drools_driven_driver_alerts_app_table](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/drools_driven_driver_alerts_app_table.png)
+![drools_driven_driver_alerts_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/drools_driven_driver_alerts_app_map.png)
+![drools_driven_driver_alerts_app_table](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/drools_driven_driver_alerts_app_table.png)
 
 Congratulations, you just incorporated NiFi into the trucking demo. Notice that each time the rows in the table turn red, it indicates a prediction that the driver committed a violation while driving. On the map, the green dots indicate probability that the driver will not commit a violation while red dots indicate the opposite.
 
