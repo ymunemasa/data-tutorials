@@ -32,7 +32,7 @@
 *   Multi-client support
 *   Real time
 
-![Kafka Producer-Broker-Consumer](/assets/realtime-event-processing/t1-update/image13.png)
+![Kafka Producer-Broker-Consumer](/assets/realtime-event-processing-with-hdf/lab1-kafka/Kafka-Broker-Diagram.png)
 
 Kafka Producer-Broker-Consumer
 
@@ -82,7 +82,7 @@ Wait for Kafka to start.
 
 ZooKeeper serves as the coordination interface between the Kafka broker and consumers:
 
-![Single Broker based Kakfa cluster](/assets/realtime-event-processing/t1-update/image02.png)
+![Single Broker based Kakfa cluster](/assets/realtime-event-processing-with-hdf/lab1-kafka/zookeeper-kafka-producer-broker-consumer.jpg)
 
 The important Zookeeper properties can be checked in Ambari.
 
@@ -90,17 +90,17 @@ The important Zookeeper properties can be checked in Ambari.
 
 Click on **ZooKeeper** in the list of services, then click on the Configs tab. Verify ZooKeeper is running on port 2181:
 
-![](/assets/realtime-event-processing/t1-update/zookeeper_config_iot.png)
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/zookeeper_port_config.png)
 
 If this port 2181 is busy or is consumed by other processes, then you could change the default port number of ZooKeeper to any other valid port number. If ZooKeeper is not running, you can start the Zookeeper service from Ambari:
 
-![](/assets/realtime-event-processing/t1-update/start_zookeeper_service_iot.png)
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/zookeeper_start_service_iot.png)
 
 ### 3.2 Configure Kafka
 
 From the Kafka page, click on the **Configs** tab. Verify the `zookeeper.connect` property points to your ZooKeeper server name and port:
 
-![](/assets/realtime-event-processing/t1-update/kafka_configs_zookeeper_connect_iot.png)
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/verify_zookeeper_connect_pts_zoo_server_kafka.png)
 
 ### Step 4: Define a Kafka Topic <a id="define-kafka-topic-lab1"></a>
 
@@ -234,26 +234,27 @@ Follow these steps if your version of the Sandbox does not have Kafka installed:
 
 1\.  From the Ambari Dashboard, select Actions -> Add Service:
 
-![](/assets/realtime-event-processing/t1-update/add_service_kafka_iot.png)
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/add_service_kafka.png)
 
 2\.  Select Kafka from the list of Services and click Next:
 
-![](/assets/realtime-event-processing/t1-update/select_kafka_iot.png)
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/addServiceWizard_kafka_service_iot.png)
 
 3\.  Keep clicking Next with the selected defaults until you reach the following screen:
 
-![](/assets/realtime-event-processing/t1-update/kafka_log_dirs_iot.png)
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/log_dirs_kafka_broker_iot.png)
 
 4\.  Set the value of logs.dir to  /tmp/kafka-logs
 
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/change_kafka_broker_log_dirs_iot.png)
 
 5\.  Click the Deploy button:
 
-![](/assets/realtime-event-processing/t1-update/deploy_kafka_service_iot.png)
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/deploy_kafka_service_iot.png)
 
 6\.  Wait for Kafka to install:
 
-![](/assets/realtime-event-processing/t1-update/install_start_test_kafka_iot.png)
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/wait_kafka_service_install_iot.png)
 
 
 7\.  After Kafka is installed, you may be asked to restart some dependent Services. Please select the appropriate Services and click Restart.

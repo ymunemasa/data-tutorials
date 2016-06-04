@@ -85,11 +85,11 @@ Wait for HBase to start (It may take a few minutes to turn green)
 
 3\. Start Storm the same way we started HBase in the previous steps. We will need it later for streaming real-time event data.
 
-![storm_service_on_off_iot](/assets/realtime-event-processing-with-hdf/lab3-storm/storm_service_on_off_iot.png)
+![storm_service_on_off_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_service_on_off_iot.png)
 
 4\. After starting storm, a green check symbol will be present:
 
-![storm_service_started_iot](/assets/realtime-event-processing-with-hdf/lab3-storm/storm_service_started_iot.png)
+![storm_service_started_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_service_started_iot.png)
 
 
 You can use the Ambari dashboard to check status of other components too. If **HDFS, Hive, YARN, Kafka, Storm or HBase** are down, you can start them in the same way: by selecting the service and then using the Service Actions to start it. The remaining components do not have to be up. (Oozie can be stopped to save memory, as it is not needed for this tutorial)
@@ -155,7 +155,7 @@ This hive query creates the Hive table to persist all events generated. The tabl
 
 Verify that the table has been properly created by refreshing the Database Explorer. Under Databases, click default to expand this table and the new table should appear. Clicking on the List icon next to truck_events_text_partition shows that the table was created but empty.
 
-![verify_truck_events_text_partition_created](/assets/realtime-event-processing/t3-update/verify_truck_events_text_partition_created_iot_t3.png)
+![verify_truck_events_text_partition_created](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/verify_truck_text_partition_created_iot.png)
 
 *   Create ORC 'truck_events' Hive tables
 
@@ -275,8 +275,8 @@ The pre-compiled jars are under the directory path
 
 **(Optional)** If you would like to modify/run the code:
 
-*   refer to [Appendix A](#update-iot-truck-streaming-project-lab3) for the steps to run maven to compile the jars to the target subdir from terminal command line
-*   refer to [Appendix B](#enable-remote-desktop-setup-topology) for the steps to enable VNC (i.e. 'remote desktop') access on your sandbox and open/compile the code using Eclipse
+*   refer to [Appendix B](#update-iot-truck-streaming-project-lab3) for the steps to run maven to compile the jars to the target subdir from terminal command line
+*   refer to [Appendix C](#enable-remote-desktop-setup-topology) for the steps to enable VNC (i.e. 'remote desktop') access on your sandbox and open/compile the code using Eclipse
 
 ### Verify Kafka Service is Running
 
@@ -338,7 +338,7 @@ With the default settings for HDFS, users will see the data written to HDFS once
 
 Drill down into `/truck-events-v4/staging` dir in HDFS
 
-![](/assets/realtime-event-processing/t3-update/image00.png)
+![](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_loads_txt_files_events_lab2_iot.png)
 
 Stop the NiFi DataFlow to no longer send messages to Kafka. Now go back to the staging directory, click on one of the txt files and confirm that it contains the events:
 
@@ -549,9 +549,7 @@ Congratulations, you just incorporated NiFi into the trucking demo. Notice that 
 ~~~
 
 
-![update project](/assets/realtime-event-processing/t3-update/image15.png)
-
-The maven build should succeed
+The maven build should succeed.
 
 
 ### Appendix C: Enable remote desktop on sandbox and set up Storm topology as Eclipse project <a id="enable-remote-desktop-setup-topology-lab3"></a>
