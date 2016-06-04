@@ -434,7 +434,7 @@ Once connected to Jetty Server, the following login page appears, user and passw
 
 The HDP Storm Demo Dashboard will appear:
 
-![storm_demo_dashboard](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_demo_dashboard.png)
+![hdp_storm_demo_dashboard_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hdp_storm_demo_dashboard_iot.png)
 
 ### Run NiFi DataFlow & Topology Tuples Increase
 
@@ -486,7 +486,7 @@ If you can see your NiFi DataFlow sending truck event data to Kafka and Storm tu
 Real-Time Driver Monitoring Application
 
 ![driver_monitoring_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_monitoring_app_map.png)
-![driver_monitoring_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_monitoring_app_map.png)
+![driver_monitoring_app_table](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_monitoring_app_table.png)
 
 
 Real-Time Driver Behavior Predictions Application
