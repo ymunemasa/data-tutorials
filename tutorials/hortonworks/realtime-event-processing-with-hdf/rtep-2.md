@@ -163,7 +163,7 @@ In the previous tutorial, we stored the truck event data into a file. Now we can
 
 1\. If not already open, navigate to the NiFi Web Interface at `http://127.0.0.1:6434/nifi/`. For vmware and azure, the host and port may be different.
 
-2\. If your data flow is still running, click on the stop button [stop_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/stop_symbol_nifi_iot.png) in the **actions** toolbar to stop the flow.
+2\. If your data flow is still running, click on the stop button ![stop_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/stop_symbol_nifi_iot.png) in the **actions** toolbar to stop the flow.
 
 ### 5.1 Add PutKafka Processor
 
@@ -181,7 +181,7 @@ Message Delimiter = press “Shift+enter”
 Client Name = truck_events_client
 ~~~
 
-[putkafka_processor_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/putkafka_processor_config_nifi_iot.png)
+![putkafka_processor_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/putkafka_processor_config_nifi_iot.png)
 
 > Note: Every property above is required except **Message Delimiter**, but this property is helpful with splitting apart the contents of the FlowFile.
 
@@ -197,13 +197,13 @@ Client Name = truck_events_client
 
 You should obtain a similar dataflow as the following:
 
-[dataflow_final_withkafka_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_final_withkafka_iot.png)
+![dataflow_final_withkafka_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_final_withkafka_iot.png)
 
 > Note: If there is a warning symbol after updating the PutKafka, verify that the property values are correct. Check **3**. in case you need to review the values changed.
 
 6\. Let’s start our Hortonworks DataFlow to see a real live stream of truck event data be read from NiFi and written to a Kafka cluster. In the **actions** toolbar, hit the **start** button.
 
-[dataflow_withKafka_running_iot](dataflow_withKafka_running_iot.png)
+![dataflow_withKafka_running_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_withKafka_running_iot.png)
 
 > Dataflow generates data, filtering truck events from the dataflow and sending those events to kafka.
 
@@ -219,7 +219,7 @@ To verify that the PutKafka processor successfully published messages to the Kaf
 
 Your terminal should show that messages successfully published to Kafka:
 
-[messages_published_toKafka](/assets/realtime-event-processing-with-hdf/lab1-kafka/messages_published_toKafka.png)
+![messages_published_toKafka](/assets/realtime-event-processing-with-hdf/lab1-kafka/messages_published_toKafka.png)
 
 
 ## Summary <a id="summary-lab1"></a>
