@@ -342,13 +342,13 @@ Drill down into `/truck-events-v4/staging` dir in HDFS
 
 Stop the NiFi DataFlow to no longer send messages to Kafka. Now go back to the staging directory, click on one of the txt files and confirm that it contains the events:
 
-![Screen Shot 2015-06-04 at 9.20.24 PM.png](/assets/realtime-event-processing/t3-update/image05.png)
+![Screen Shot 2015-06-04 at 9.20.24 PM.png](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/verify_hdfs_files_contain_data_iot.png)
 
 > **Note:** It may take a 5-10 minutes, before you can access the txt files to see the data.
 
 *   Verify data in Hive by navigating to the Hive view, expanding the default database and clicking the List icon next to **truck_events_text_partition table**
 
-![Screen Shot 2015-06-04 at 9.13.23 PM.png](/assets/realtime-event-processing/t3-update/verify_data_hive_truckevents_iot_t3.png)
+![Screen Shot 2015-06-04 at 9.13.23 PM.png](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/truck_text_partition_table_load_sample_iot.png)
 
 *   If you haven't done so, you can you can stop the NiFi DataFlow. Press the stop symbol.
 *   Verify that the data is in HBase by executing the following commands in HBase shell:
