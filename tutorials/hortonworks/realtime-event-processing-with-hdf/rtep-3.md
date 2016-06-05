@@ -42,7 +42,7 @@ In this case, once we store this rapidly and continuously growing dataset from I
 Apache Storm is an Open Source distributed, reliable, fault–tolerant system for real time processing of large volume of data.
 It's used for:
 *   Real time analytics
-*   Online machine learning
+*   Scoring machine learning modeles
 *   Continuous statics computations
 *   Operational Analytics
 *   And, to enforce Extract, Transform, and Load (ETL) paradigms.
