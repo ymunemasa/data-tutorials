@@ -21,12 +21,12 @@ It makes it much simpler to onboard new workflows/pipelines, with support for la
 
 - [Download Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 - Complete the [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) tutorial, you will need it for logging into ambari as an administrator user.
-- You need the root user login credentials
-    - The default credentials are root/hadoop, but you are required to change the password on initial login as root. Be sure to have the new password available.
+- Complete the [Creating Falcon Cluster tutorial](http://hortonworks.com/hadoop-tutorial/create-falcon-cluster/) to start the falcon service, prepare HDFS directories for Falcon cluster and to create Falcon cluster entities.
+
 
 Once you have downloaded the Hortonworks sandbox and run the VM, navigate to the Ambari interface on port `8080` of the host IP address of your Sandbox VM. Login with the username of `admin` and the password as what you set it to when you changed it. You should have a similar image as below:
 
-![](/assets/falcon-processing-pipelines/Screenshot%202015-08-19%2016.28.48.png?dl=1)  -->
+![](/assets/falcon-processing-pipelines/Screenshot%202015-08-19%2016.28.48.png?dl=1)  
 
 ## Outline
 - [Scenario](#scenario)
@@ -55,14 +55,9 @@ In this tutorial, we will walk through a scenario where email data lands hourly 
 
 The goal is to clean the raw data to remove sensitive information like credit card numbers and make it available to our marketing data science team for customer churn analysis.
 
-<<<<<<< HEAD
-To simulate this scenario, we have a Pig script grabbing the freely available Enron emails from the internet and feeding it into the pipeline.
-=======
 To simulate this scenario, we have a Pig script grabbing the freely available Enron Corpus emails from the internet and feeding it into the pipeline.
->>>>>>> hortonworks/hdp
 
 ![](/assets/falcon-processing-pipelines/arch.png)  
-
 
 <!---## Start Falcon <a id="start-falcon"></a>
 
@@ -324,11 +319,7 @@ and
 Raw customer email feed.
 ~~~
 
-<<<<<<< HEAD
-Let’s also enter a tag key and value so we can easily locate this Feed later:
-=======
 Let’s also enter a tag key and value, so we can easily locate this Feed later:
->>>>>>> hortonworks/hdp
 
 ~~~
 externalSystem=USWestEmailServers
@@ -348,7 +339,6 @@ Group:  users
 Permissions: 755
 ~~~
 
-<<<<<<< HEAD
 For the Schema Location and Provider, enter “/none”, then click Next.
 
 ![feed1](/assets/falcon-processing-pipelines/feed1.png)
@@ -457,13 +447,11 @@ Now lets define the `rawEmailIngestProcess`.
 
 To create a process entity click on the `Process` button on the top of the main page on the Falcon Web UI.
 
-<<<<<<< HEAD
 **NOTE : If you want to create it from XML, skip this section, and move on to the next one.**
 
 Use the information below to create the process:
-=======
+
 This job will run on the primaryCluster. Use the information below to create the process:
->>>>>>> hortonworks/hdp
 
 ~~~
 process name rawEmailIngestProcess
@@ -472,7 +460,6 @@ With the value: testemail
 ~~~
 
 And assign the workflow the name:
-<<<<<<< HEAD
 
 ~~~
 emailIngestWorkflow
