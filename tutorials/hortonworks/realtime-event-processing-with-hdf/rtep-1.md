@@ -236,13 +236,13 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 ### Step 4: Explore NiFi Web Interface <a id="step4-explore-nifi-interface-lab0"></a>
 
-NiFi’s web interface consists of 5 components to build data flows: The **components** toolbar, the **actions** toolbar, the **management** toolbar, the **search** bar and the **help** button. View the image below for a visualization of these tools.
+NiFi’s web interface consists of 5 components to build data flows: The **components** toolbar, the **actions** toolbar, the **management** toolbar, the **search** bar and the **help** button. View the image below for a visualization of the user interface for orchestrating a dataflow. Near the top of the UI are multiple toolbars essential for building dataflows.
 
 ![nifi_dataflow_html_interface](/assets/realtime-event-processing-with-hdf/lab0-nifi/nifi_dataflow_html_interface.png)
 
 ### Step 5: Create a NiFi DataFlow <a id="step5-create-nifi-dataflow-lab0"></a>
 
-We will walkthrough the process to build a data flow by adding, configuring and connecting the processors. We will also troubleshoot common problems that occur when creating data flows.
+We can begin to build a data flow by adding, configuring and connecting the processors. We will also troubleshoot common problems that occur when creating data flows.
 By the end of the IoT Lab Series, you will have built the following dataflow:
 
 ![dataflow_withKafka_running_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_withKafka_running_iot.png)
@@ -300,7 +300,7 @@ Each Processor will have its own alert message. Let’s configure and connect ea
 
 ### 5.3 Configure Processors
 
-We will configure our processors in the **Configure Processor** window, which contains 4 tabs: **Settings**, **Scheduling**, **Properties** and **Comments**. We will spend most of our time in the properties tab since it is the main place to configure specific information that the processor needs to run properly.
+Now that we added some processors, we will configure our processors in the **Configure Processor** window, which contains 4 tabs: **Settings**, **Scheduling**, **Properties** and **Comments**. We will spend most of our time in the properties tab since it is the main place to configure specific information that the processor needs to run properly. The properties that are in bold are required for the processor to be valid. If you want more information on a particular property, hover over the help icon ![question_mark_symbol_properties_config_iot.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/question_mark_symbol_properties_config_iot.png) located next to the Property Name with the mouse to read a description of the property.
 
 ### 5.3.1 Configure ExecuteProcess Processor
 
@@ -376,7 +376,7 @@ to search the content of each FlowFile to see if it contains any of these drivin
 
 2\. Click on the **Properties** tab.
 
-3\. Add `50` to the value field for the **Minimum Number of Entries** property. Add `70` to the value field for **Maximum Number of Entries property**.
+3\. Add `50` to the value field for the **Minimum Number of Entries** property. Add `70` to the value field for **Maximum Number of Entries property**. This min and max value will instruct the processor to merge the FlowFiles together once at least 50 FlowFiles are loaded into the queue, but will not merge more than 70. Feel free to change the min and max values.
 
 ![mergeContent_property_configs](/assets/realtime-event-processing-with-hdf/lab0-nifi/mergeContent_property_configs.png)
 
@@ -428,7 +428,7 @@ to search the content of each FlowFile to see if it contains any of these drivin
 
 ### 5.4 Connect All Processors
 
-A common warning message among all processors is that there needs to be a relationship or connection between each processor. Once we connect all processors and establish their appropriate relationship, the warnings will disappear.
+A common warning message among all processors is that there needs to be a relationship or connection between each processor. The relationship tells NiFi what to do with the data that the processor transferred. For instance, you will see these two common relationships: success and failure. These two relationship affect the way data is routed through the flow. Once we connect all processors and establish their appropriate relationship, the warnings will disappear.
 
 ### 5.4.1 Connect ExecuteProcess to SplitText
 
@@ -482,7 +482,7 @@ Once all processors are connected, your dataflow should look as below:
 
 ### 5.6 Check Data Stored In Correct Directory
 
-To check that the log and truck event data were written to the correct directory, open your terminal. Make sure to SSH into your sandbox.
+To check that the log and truck event data were written to the correct directory, wait 20 seconds, then open your terminal and navigate to their appropriate directories. Make sure to SSH into your sandbox.
 
 ### 5.7 Verify Logs Stored In log_data Directory
 

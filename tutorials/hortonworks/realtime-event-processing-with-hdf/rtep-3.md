@@ -1,11 +1,26 @@
+---
+layout: tutorial
+title: Ingesting and Processing Realtime Events with Apache Storm
+tutorial-id: 220
+tutorial-series: Streaming
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ storm, hbase, hive, kafka, nifi ]
+---
+
 # Lab 2: Real Time Data Ingestion in Hbase and Hive using Storm
 
 ## Introduction
 
-In this tutorial, we will build a solution to ingest real time streaming data into HBase and HDFS using Storm.
+The Trucking business is a high-risk business in which truck drivers venture into remote areas, often in  harsh weather conditions and chaotic traffic on a daily basis. Using this solution illustrating Modern Data Architecture with Hortonworks Data Platform, we have developed a centralized management system that can help reduce risk and lower the total cost of operations.
 
-In previous tutorial, we have explored generating and capturing streaming data with [Apache NiFi](#rtep-1.md) and [Apache Kafka](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/) and [Apache Storm](http://hortonworks.com/hadoop-tutorial/ingesting-processing-real-time-events-apache-storm/). In this tutorial, we will create HDFS Bolt & HBase Bolt to read the streaming data from the Kafka Spout and persist it in Hive & HBase tables.
+This system can take into consideration adverse weather conditions, the driver's driving patterns, current traffic conditions and other criteria to alert and inform the management staff and the drivers themselves when risk factors run high.
 
+In previous tutorial, we have explored generating and capturing streaming data with [Apache NiFi](#rtep-1.md) and [Apache Kafka](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/).
+
+In this tutorial, you  will use [**Apache Storm**](http://hortonworks.com/labs/storm/) on the Hortonworks Data Platform to capture these data events and process them in real time for further analysis.
+
+In this tutorial, we will build a solution to ingest real time streaming data into HBase and HDFS using [Storm](http://hortonworks.com/hadoop-tutorial/ingesting-processing-real-time-events-apache-storm/). Storm has a spout that reads truck_events data from Kafka and passes it to bolts, which process and persist the data into Hive & HBase tables.
 
 ## Pre-Requisites
 
@@ -56,9 +71,11 @@ Learn more about Apache Storm at the [Storm Documentation page](http://storm.apa
 
 ## Tutorial Overview
 
-*   Configure Storm Bolt.
+*   Create HBase & Hive Tables
+*   Create Storm Topology
+*   Configure a Storm Spout and Bolts.
 *   Store Persisting data in HBase and Hive.
-*   Verify the data in HDFS and HBase.
+*   Verify Data Stored in HDFS and HBase.
 
 ### Step 1: Start HBase & Storm <a id="step-1-start-hbase-storm-lab3"></a>
 
