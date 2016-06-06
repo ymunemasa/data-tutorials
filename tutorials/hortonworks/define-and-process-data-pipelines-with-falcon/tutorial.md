@@ -29,9 +29,7 @@ It makes it much simpler to onboard new workflows/pipelines, with support for la
 
 ## Outline
 - [Scenario](#scenario)
-<!--- - [Start Falcon](#start-falcon)-->
 - [Download and stage the dataset](#download-and-stage-the-dataset)
-<!--- - [Create the cluster entities](#create-the-cluster-entities) -->
 - [Define the rawEmailFeed entity using Wizard](#define-the-rawEmailFeed-entity-wizard)
 - [Define the rawEmailFeed entity using XML](#define-the-rawEmailFeed-entity-XML)
 - [Define the rawEmailIngestProcess entity using Wizard](#define-the-rawEmailIngestProcess-entity-wizard)

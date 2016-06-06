@@ -1,6 +1,6 @@
 ---
 layout: tutorial
-title: Create Falcon Cluster
+title: Create a Falcon Cluster
 tutorial-id: 640
 tutorial-series: Governance
 tutorial-version: hdp-2.4.0
@@ -27,17 +27,22 @@ Once you have downloaded the Hortonworks Sandbox and run the VM, navigate to the
 ![ambariHomePage](/assets/create-falcon-cluster/ambariHomePage.png)
 
 ## Outline
-- [1: Starting Falcon](#starting-falcon)
-- [2: Preparing HDFS Directories](#preparing-hdfs-directories)
-- [3: Creating Cluster Entities](#creating-cluster-entities)
-      - [3.1: Creating primaryCluster Entity using Wizard](#creating-primaryCluster-wizard)
-      - [3.2: Creating primaryCluster Entity using XML](#creating-primaryCluster-XML)
-      - [3.3: Creating backupCluster Entity using Wizard](#creating-backupCluster-wizard)
-      - [3.4: Creating backupCluster Entity using XML](#creating-backupCluster-XML)
-- [4: Summary](#summary)
-- [5: Where do I go next?](#where-do-I-go-next)
+- [1: Scenario](#scenario)
+- [2: Starting Falcon](#starting-falcon)
+- [3: Preparing HDFS Directories](#preparing-hdfs-directories)
+- [4: Creating Cluster Entities](#creating-cluster-entities)
+      - [4.1: Creating primaryCluster Entity using Wizard](#creating-primaryCluster-wizard)
+      - [4.2: Creating primaryCluster Entity using XML](#creating-primaryCluster-XML)
+      - [4.3: Creating backupCluster Entity using Wizard](#creating-backupCluster-wizard)
+      - [4.4: Creating backupCluster Entity using XML](#creating-backupCluster-XML)
+- [5: Summary](#summary)
+- [6: Where do I go next?](#where-do-I-go-next)
 
-## 1. Starting Falcon <a id="starting-falcon"></a>
+## 1. Scenario <a id="scenario"></a>
+
+In this tutorial, we are going to create a Falcon cluster so that we can configure data pipelines and then perform the feed management services such as feed retention, data replication across clusters and archival. This tutorial is the starting point of all Falcon tutorials where we create two cluster entities which define where the data and the processes for your data pipeline are stored. Allow yourself 1 quality hour to complete this tutorial.
+
+## 2. Starting Falcon <a id="starting-falcon"></a>
 
 By default, Falcon is not started on the Sandbox. You can start the Falcon service from Ambari by clicking on the Falcon icon in the left hand pane:
 
@@ -58,7 +63,7 @@ Once Falcon starts, Ambari should clearly indicate as below that the service has
 
 ![falconStarted](/assets/create-falcon-cluster/falconStarted.png)
 
-## 2. Preparing HDFS Directories <a id="preparing-hdfs-directories"></a>
+## 3. Preparing HDFS Directories <a id="preparing-hdfs-directories"></a>
 
 First SSH into the Hortonworks Sandbox with the command:
 
@@ -127,7 +132,7 @@ hadoop fs -chmod 777 /apps/falcon/backupCluster/staging
 hadoop fs -chmod 755 /apps/falcon/backupCluster/working
 ~~~
 
-## 3. Creating Cluster Entities <a id="creating-cluster-entities"></a>
+## 4. Creating Cluster Entities <a id="creating-cluster-entities"></a>
 
 Let’s open the Falcon Web UI. You can easily launch the Falcon Web UI from Ambari:
 Navigate to the Falcon Summary page and click `Quick Links>Falcon Web UI`.
@@ -147,7 +152,7 @@ Let’s first create a couple of cluster entities. To create a cluster entity cl
 
 **NOTE : If you want to create it from XML, skip the wizard section, and move on to the next one.**
 
-### 3.1 Creating primaryCluster Entity using Wizard <a id="creating-primaryCluster-wizard"></a>
+### 4.1 Creating primaryCluster Entity using Wizard <a id="creating-primaryCluster-wizard"></a>
 
 A cluster entity defines the default access points for various resources on the cluster as well as default working directories to be used by Falcon jobs.
 
@@ -212,7 +217,7 @@ Click `Save` to persist the entity.
 
 ![cluster3](/assets/create-falcon-cluster/cluster3.png)
 
-### 3.2 Creating primaryCluster Entity using XML <a id="creating-primaryCluster-XML"></a>
+### 4.2 Creating primaryCluster Entity using XML <a id="creating-primaryCluster-XML"></a>
 
 After clicking on the `Cluster` button at the top, click on the `Edit XML` button over XML Preview area. Replace the XML content with the XML document below:
 
@@ -257,7 +262,7 @@ Falcon jobs require a source cluster and a destination, or target, cluster. For 
 
 **NOTE : If you want to create it from XML, skip the wizard section, and move on to the next one.**
 
-### 3.3 Creating backupCluster Entity using Wizard <a id="creating-backupCluster-wizard"></a>
+### 4.3 Creating backupCluster Entity using Wizard <a id="creating-backupCluster-wizard"></a>
 
 Let’s go ahead and create a second cluster by creating a cluster with the name:
 
@@ -281,7 +286,7 @@ Click `Save` to persist the `backupCluster` entity.
 
 ![cluster6](/assets/create-falcon-cluster/cluster6.png)
 
-### 3.4 Creating backupCluster Entity using XML <a id="creating-backupCluster-XML"></a>
+### 4.4 Creating backupCluster Entity using XML <a id="creating-backupCluster-XML"></a>
 
 Click on `Cluster` button on the top to open up the form to create the cluster entity.
 
@@ -322,15 +327,15 @@ Click `Save` to persist the `backupCluster` entity.
 
 ![clusterXML6](/assets/create-falcon-cluster/clusterXML6.png)
 
-## 4. Summary <a id="summary"></a>
+## 5. Summary <a id="summary"></a>
 
 In this tutorial we learned how to create cluster entities in Apache Falcon using the Falcon UI. Now go ahead and start creating feeds and processes by exploring more Falcon tutorials.
 
-## 5. Where do I go next? <a id="where-do-I-go-next"></a>
+## 6. Where do I go next? <a id="where-do-I-go-next"></a>
 
 You can go to following links to explore other Falcon tutorials:
 
 1. [Mirroring Datasets between Hadoop Clusters with Apache Falcon](http://hortonworks.com/hadoop-tutorial/mirroring-datasets-between-hadoop-clusters-with-apache-falcon/)
 2. [Define and Process Data Pipelines in Hadoop with Apache Falcon](http://hortonworks.com/hadoop-tutorial/defining-processing-data-end-end-data-pipeline-apache-falcon/)
-3. [Incremental Backup of data from HDP to Azure using Falcon for Disaster Recovery and Burst Capacity](http://hortonworks.com/hadoop-tutorial/incremental-backup-data-hdp-azure-disaster-recovery-burst-capacity/) 
+3. [Incremental Backup of data from HDP to Azure using Falcon for Disaster Recovery and Burst Capacity](http://hortonworks.com/hadoop-tutorial/incremental-backup-data-hdp-azure-disaster-recovery-burst-capacity/)
 4. [Processing Data Pipeline using Apache Falcon](http://hortonworks.com/hadoop-tutorial/defining-processing-data-end-end-data-pipeline-apache-falcon/)
