@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Introducing Apache Hadoop to Developers
+tutorial-id: 130
+tutorial-series: Introduction
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ hadoop ]
+---
+
 ## Introduction
 
 In this tutorial for Hadoop Developers, we will explore the core concepts of Apache Hadoop and examine the process of writing a MapReduce Program.
@@ -6,7 +16,7 @@ In this tutorial for Hadoop Developers, we will explore the core concepts of Apa
 ## Pre-Requisite
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-
+*  Allow yourself around 1 to 2 hours to complete this tutorial
 
 ## Outline
 

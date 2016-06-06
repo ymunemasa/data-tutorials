@@ -1,3 +1,14 @@
+---
+layout: tutorial
+title: How to Refine and Visualize Server Log Data
+tutorial-id: 200
+tutorial-series: Real-World End to End Examples
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ flume, ambari ]
+---
+
+
 ## Refine and Visualize Server Log Data
 
 Security breaches happen. And when they do, your server logs may be your best line of defense. Hadoop takes server-log analysis to the next level by speeding and improving security forensics and providing a low cost platform to show compliance.

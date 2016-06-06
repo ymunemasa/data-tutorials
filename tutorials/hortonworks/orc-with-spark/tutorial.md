@@ -1,3 +1,14 @@
+---
+layout: tutorial
+title: Using Hive with ORC from Apache Spark
+tutorial-id: 400
+tutorial-series: Spark
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ spark, hive, orc ]
+---
+
+
 ### Introduction
 
 In this tutorial, we will explore how you can access and analyze data on Hive from Spark. In particular, you will learn:

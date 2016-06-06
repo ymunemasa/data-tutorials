@@ -1,3 +1,14 @@
+---
+layout: tutorial
+title: How to Analyze Machine and Sensor Data
+tutorial-id: 310
+tutorial-series: Real-World End to End Examples
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ hive, zeppelin, ambari ]
+---
+
+
 ## How to Analyze Machine and Sensor Data
 
 **This tutorial is for HDP version 2.4 of the [Hortonworks Sandbox](http://hortonworks.com/products/sandbox) - a single-node Hadoop cluster running in a virtual machine. [Download](http://hortonworks.com/products/sandbox) the Hortonworks Sandbox to run this and other tutorials in the series.**

@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Using the Command Line to Manage Files on HDFS
+tutorial-id: 120
+tutorial-series: Operations
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ hdfs ]
+---
+
 # Using the Command Line to Manage Files on HDFS
 
 ### Introduction
@@ -8,6 +18,7 @@ In this tutorial, we will walk through some of the basic Hadoop Distributed File
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Create popularNames.txt file and save it on your local file system
+*  Allow yourself around **1 hour** to complete this tutorial.
 
 1.) Open your vi editor with the following command:
 
@@ -45,6 +56,7 @@ Rank    Male            Female
 - [Step 3: Download Files From HDFS to Local File System](#download-files-hdfs-to-local-file-system)
 - [Step 4: Explore Two Advanced Features](#explore-two-advanced-features)
 - [Step 5: Use Help Command to access Hadoop Command Manual](#use-help-command-access-hadoop-command-manual)
+- [Summary](#summary)
 - [Further Reading](#further-reading)
 
 ### Step 1: Create a directory in HDFS, Upload a file and List Contents <a id="create-a-directory-in-hdfs-upload-a-file-and-list-contents"></a>
@@ -56,8 +68,8 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 *   Takes the path uri's as an argument and creates a directory or multiple directories.
 
 ~~~
-# Usage: 
-        # hadoop fs -mkdir <paths> 
+# Usage:
+        # hadoop fs -mkdir <paths>
 # Example:
         hadoop fs -mkdir /user/hadoop
         hadoop fs -mkdir /user/hadoop/dir1 /user/hadoop/dir2 /user/hadoop/dir3
@@ -69,9 +81,9 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 #### hadoop fs -put:
 
 *   Copies single src file or multiple src files from local file system to the Hadoop Distributed File System.
-  
+
 ~~~
-# Usage: 
+# Usage:
         # hadoop fs -put <local-src> ... <HDFS_dest_path>
 # Example:
         hadoop fs -put popularNames.txt /user/hadoop/dir1/popularNames.txt
@@ -120,8 +132,8 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 *   Copies/Downloads files from HDFS to the local file system
 
 ~~~
-# Usage: 
-        # hadoop fs -get <hdfs_src> <localdst> 
+# Usage:
+        # hadoop fs -get <hdfs_src> <localdst>
 # Example:
         hadoop fs -get /user/hadoop/dir1/popularNames.txt /home/
 ~~~
@@ -136,7 +148,7 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 *   Takes a source directory file or files as input and concatenates files in src into the local destination file.
 
 ~~~
-# Usage: 
+# Usage:
         # hadoop fs -getmerge <src> <localdst> [addnl]
 # Option:
         # addnl: can be set to enable adding a newline on end of each file
@@ -156,7 +168,7 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 *   It uses MapReduce to effect its distribution copy, error handling and recovery, and reporting
 
 ~~~
-# Usage: 
+# Usage:
         # hadoop distcp <src-url> <dest-url>
 # Example:
         hadoop distcp /user/hadoop/dir1/ /user/hadoop/dir3/
@@ -185,6 +197,9 @@ Help command opens the list of commands supported by Hadoop Data File System (HD
 ![hadoop_help_command_manual](/assets/using-the-command-line-to-manage-hdfs/step5_help_commandLineManageFiles_hdfs.png)
 
 Hope this short tutorial was useful to get the basics of file management.
+
+##Summary <a id="summary">
+Congratulations! We just learned to use commands to manage our files in HDFS. We know how to create, upload and list the the contents in our directories. We also acquired the skills to download files from HDFS to our local file system and explored a few advanced features of the command line.
 
 ## Further Reading <a id="further-reading"></a>
 - [HDFS Overview](http://hortonworks.com/hadoop/hdfs/)

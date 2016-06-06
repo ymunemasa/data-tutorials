@@ -1,8 +1,18 @@
+---
+layout: tutorial
+title: Hello HDP An Introduction to Hadoop with Hive and Pig
+tutorial-id: 100
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ ambari, hive, pig, spark, zeppelin ]
+---
+
 # Lab 5: Reporting
 
 ## Data Visualization using Microsoft Excel
 
-### Introduction
+## Introduction
 
 This step is optional as it requires you to have Excel and Power View, however feel free to connect from any reporting tool to do a similar exercise.   In this section, we will use Microsoft Excel Professional Plus 2013 to access the refined data. We will be using the ODBC connection.
 
@@ -25,9 +35,10 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 
 *   [Step 5.b.1: Access Data in Microsoft Excel](#step5.b.1)
 *   [Step 5.b.2: Visualize data with Excel](#step5.b.2)
+*   [Summary](#summary-lab5)
 *   [Suggested readings](#suggested-reading)
 
-### Step 5.b.1: Access the Refined Data with Microsoft Excel <a id="step5.b.1"></a>
+## Step 5.b.1: Access the Refined Data with Microsoft Excel <a id="step5.b.1"></a>
 
 The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions and these are the [Mac ODBC driver setup](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/) instructions.   Open the ODBC connection manager and open the connection you setup up. It should look like this. Click on the test button and it should report success. If the test fails you will need to troubleshoot the connection before you can go on.
 
@@ -82,7 +93,7 @@ The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the H
 ![Lab5_7](/assets/hello-hdp/Lab5_7.jpg)
 
 
-### Step 5.b.2: Visualize Data with Microsoft Excel <a id="step5.b.2"></a>
+## Step 5.b.2: Visualize Data with Microsoft Excel <a id="step5.b.2"></a>
 
 1)  So now we are going to insert a Power View report. We do this by selecting the “Insert” tab at the top and select “Power View Reports” button in the middle. This will create a new tab in your workbook with the data inserted in the Power View page.”
 
@@ -116,7 +127,7 @@ select driverid, city, state from geolocation;
 ![Lab5_11](/assets/hello-hdp/Lab5_11.png)
 
 
-7)  Since my results look fine I now need to capture the result in a table. So I will use the select statement as part of my CTAS (create table select as) pattern. I will call the table events and the query now looks like this. 
+7)  Since my results look fine I now need to capture the result in a table. So I will use the select statement as part of my CTAS (create table select as) pattern. I will call the table events and the query now looks like this.
 
 **Create table avg_mileage from existing trucks_mileage data**
 
@@ -151,6 +162,9 @@ SELECT driverid, city, state FROM geolocation;
 
 We’ve shown how the Hortonworks Data Platform (HDP) can store and analyze geolocation data. In addition I have shown you a few techniques on building your own queries. You can easily plot risk factor and miles per gallon as bar charts. I showed you the basics of creating maps. A good next step is to only plot certain types of events. Using the pattern I gave you it is pretty straightforward to extract the data and visualize it in Excel.
 
+## Summary <a id="summary-lab5"></a>
+Let's summarize what we did to create data visualization using Excel. We learned to access our Hive data in excel. We utilized excel’s power view to visualize the trucking data.
+
 ## Next Steps: Try These
 
 Congratulations on finishing a comprehensive series on Hadoop and HDP. By now you should have a good understanding on fundamentals of Hadoop and its related ecosystem such as Map Reduce, YARN, HDFS, Hive, Pig and Spark. As a Hadoop practitioner you can choose three basic personas to build upon your skill:
@@ -159,7 +173,7 @@ Congratulations on finishing a comprehensive series on Hadoop and HDP. By now yo
 *   Hadoop Administrator-[Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-admins)
 *   Data Scientist- [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-analysts)
 
-### Case Studies:
+## Case Studies:
 
 Learn more about Hadoop through these case studies:
 
@@ -167,8 +181,9 @@ Learn more about Hadoop through these case studies:
 *   Data Architecture Optimization: [Reduce cost by moving data and processing to Hadoop](http://hortonworks.com/solutions/data-architecture-optimization/)
 *   Industry specific: [Examples of Hadoop across Industries](http://hortonworks.com/industry/)
 
+
+
 ## Suggested Readings <a id="suggested-reading"></a>
 
 *   [The Definitive Guide by O`Reilly](http://hadoopbook.com/)
 *   [Hadoop for Dummies](http://www.wiley.com/WileyCDA/WileyTitle/productCd-1118607554.html)
-

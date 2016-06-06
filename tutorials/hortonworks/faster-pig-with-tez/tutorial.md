@@ -1,3 +1,14 @@
+---
+layout: tutorial
+title: Faster Pig with Tez
+tutorial-id: 280
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ pig, tez, ambari ]
+---
+
+
 # Faster Pig With Tez
 
 ### Introduction
@@ -7,6 +18,7 @@ In this tutorial, you will explore the difference between running pig with execu
 ## Pre-Requisite
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  Allow yourself around one hour to complete this tutorial
 
 ## Outline
 - [What is Pig?](#what-is-pig)

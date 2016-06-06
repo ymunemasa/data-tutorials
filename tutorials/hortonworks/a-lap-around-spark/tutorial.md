@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: A Lap Around Apache Spark
+tutorial-id: 390
+tutorial-series: Spark
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ spark ]
+---
+
 ### Introduction
 
 This tutorial walks you through many of the newer features of Spark 1.6 on YARN.
@@ -59,19 +69,12 @@ yum install spark_2_3_4_1_10-python -y
 
 The RPM installer will also download core Hadoop dependencies. It will create “spark” as an OS user, and it will create the `/user/spark directory` in HDFS.
 
-##### 3. Set JAVA_HOME and SPARK_HOME:
+##### 3. Set JAVA_HOME:
 
 Make sure that you set JAVA_HOME before you launch the Spark Shell or thrift server.
 
 ~~~ bash
 export JAVA_HOME=<path to JDK 1.8>
-~~~
-
-The Spark install creates the directory where Spark binaries are unpacked to `/usr/hdp/2.3.4.1-10/spark`.
-Set the `SPARK_HOME` variable to this directory:
-
-~~~ bash
-export SPARK_HOME=/usr/hdp/2.3.4.1-10/spark/
 ~~~
 
 ##### 4. Create hive-site in the Spark conf directory:
@@ -89,7 +92,7 @@ As user root, create the file `SPARK_HOME/conf/hive-site.xml`. Edit the file to 
 </configuration>
 ~~~
 
-#### Set SPARK_HOME
+##### 5. Set SPARK_HOME
 
 If you haven't already, make sure to set `SPARK_HOME` before proceeding:
 

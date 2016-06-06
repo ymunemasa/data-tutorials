@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Using APache Ambari to Add new Nodes to your Existing Cluster
+tutorial-id: 430
+tutorial-series: Ambari
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ ambari ]
+---
+
 Apache Hadoop clusters grow and change with use. Maybe you used [Apache Ambari](http://hortonworks.com/hadoop/ambari/ "Apache Ambari") to build your initial cluster with a base set of Hadoop services targeting known use cases and now you want to add other services for new use cases. Or you may just need to expand the storage and processing capacity of the cluster.
 
 Ambari can help in both scenarios. In this blog, we’ll cover a few different ways that Ambari can help you expand your cluster.

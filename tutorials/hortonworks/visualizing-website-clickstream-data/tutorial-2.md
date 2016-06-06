@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: How to Visualize Website Clickstream Data
+tutorial-id: 250
+tutorial-series: Real-World End to End Examples
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ ambari, hive, flume ]
+---
+
 ## Lab 2: Visualizing Clickstream Logs with Excel
 
 In this section, You can choose to use  Excel Professional Plus 2013  or Apache Zeppelin (built in to the sandbox) to access the refined clickstream data.
