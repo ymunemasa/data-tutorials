@@ -12,7 +12,7 @@ components: [ falcon, ambari ]
 
 Apache Falcon is a framework to simplify data pipeline processing and management on Hadoop clusters.
 
-It makes it much simpler to onboard new workflows/pipelines, with support for late data handling and retry policies. It allows you to easily define relationships between various data and processing elements and integrate with metastore/catalog such as Hive/HCatalog. Finally it also lets you capture lineage information for feeds and processes. In this tutorial we are going to walkthrough the process of:
+It makes it much simpler to onboard new workflows/pipelines, with support for late data handling and retry policies. It allows you to easily define relationships between various data and processing elements and integrate with metastore/catalog such as Apache Hive/HCatalog. Finally it also lets you capture lineage information for feeds and processes. In this tutorial we are going to walkthrough the process of:
 
 *   Defining the feeds and processes
 *   Defining and executing a data pipeline to ingest, process and persist data continuously
@@ -24,12 +24,13 @@ It makes it much simpler to onboard new workflows/pipelines, with support for la
 - Complete the [Creating Falcon Cluster tutorial](http://hortonworks.com/hadoop-tutorial/create-falcon-cluster/) to start the falcon service, prepare HDFS directories for Falcon cluster and to create Falcon cluster entities.
 
 
-Once you have downloaded the Hortonworks sandbox and run the VM, navigate to the Ambari interface on port `8080` of the host IP address of your Sandbox VM. Login with the username of `admin` and the password as what you set it to when you changed it. You should have a similar image as below:
+Once you have downloaded the Hortonworks sandbox and run the VM, navigate to the Ambari interface on port `8080` of the host IP address of your Sandbox VM. Login with the username of `admin` and password that you set for the Ambari admin user as part of the `Learning the Ropes of the Hortonworks Sandbox` tutorial:
 
 ![](/assets/falcon-processing-pipelines/Screenshot%202015-08-19%2016.28.48.png?dl=1)  
 
 ## Outline
 - [Scenario](#scenario)
+- [Starting Falcon](#starting-falcon)
 - [Download and stage the dataset](#download-and-stage-the-dataset)
 - [Define the rawEmailFeed entity using Wizard](#define-the-rawEmailFeed-entity-wizard)
 - [Define the rawEmailFeed entity using XML](#define-the-rawEmailFeed-entity-XML)
@@ -59,37 +60,26 @@ To simulate this scenario, we have a Pig script grabbing the freely available En
 
 ![](/assets/falcon-processing-pipelines/arch.png)  
 
-<!---## Start Falcon <a id="start-falcon"></a>
+## Starting Falcon <a id="starting-falcon"></a>
 
-By default, Falcon is not started on the sandbox. You must be logged in as administrator to enable the Falcon service.
+By default, Falcon is not started on the sandbox, but you should have started the service while completing the `Creating a Falcon Cluster` tutorial. Do the following to verify that the Falcon service is started, or to start it if it was disabled.
 
-To enable the service, log into Ambari as administrator. If you haven't created an administrator role, you can do it now. In a browser, enter the URI `http://127.0.0.1:4200` to access the built-in web client shell. Enter the root user credentials and then execute the command `ambari-admin-password-reset`. Follow the prompts to set a password for the username admin.
+In the Ambari UI,  click on the Falcon icon in the left hand pane.
 
-Once you're logged into Ambari, click on the Falcon icon in the left-hand pane:
+Then click on the Service Actions button on the top right.
 
-![](/assets/falcon-processing-pipelines/Screenshot%202015-08-19%2016.29.22.png?dl=1)  
+Then, if the service is disabled, click on `Start`.
 
+Once Falcon starts, Ambari should clearly indicate as below that the service has started:
 
-Then click on the `Service  Actions` button on the top right:
-
-![](/assets/falcon-processing-pipelines/Screenshot%202015-08-19%2016.29.44.png?dl=1)  
-
-
-Then click on `Start`:
-
-![](/assets/falcon-processing-pipelines/Screenshot%202015-08-19%2016.30.07.png?dl=1)  
-
-
-Once, Falcon starts, Ambari should clearly indicate as below that the service has started:
-
-![](/assets/falcon-processing-pipelines/Screenshot%202015-08-19%2016.34.32.png?dl=1)  -->
+![](/assets/falcon-processing-pipelines/Screenshot%202015-08-19%2016.34.32.png?dl=1)  
 
 
 ## Download and stage the dataset <a id="download-and-stage-the-dataset"></a>
 
-Now let’s stage the dataset using the command line. Although we perform many of these file operations below using the command line, you can also do the same with the `HDFS Files  View` in Ambari.
+Now let’s stage the dataset you will use for this tutorial. Although we perform many of these file operations below using the command line, you can also do the same with the `HDFS Files  View` in Ambari.
 
-> Tip: You can copy and paste the commands from this tutorial into the built-in web client.
+> Tip: You can copy and paste the commands from this tutorial.
 
 First, enter the shell with your preferred shell client. For this tutorial, we will SSH into Hortonworks Sandbox with the command:
 
@@ -101,19 +91,19 @@ ssh root@127.0.0.1 -p 2222;
 
 The default password is `hadoop`.
 
-Then login as user `hdfs`.
+Then login as user `hdfs`:
 
 ~~~bash
 su - hdfs
 ~~~
 
-Then download the file falcon.zip with the following command"
+Then download the file falcon.zip with the following command:
 
 ~~~bash
 wget http://hortonassets.s3.amazonaws.com/tutorial/falcon/falcon.zip
 ~~~
 
-and then unzip with the command
+and then unzip with the command:
 
 ~~~bash
 unzip falcon.zip
@@ -122,13 +112,13 @@ unzip falcon.zip
 ![unzippingFalconFiles](/assets/falcon-processing-pipelines/unzippingFalconFiles.png)  
 
 
-Now let’s give ourselves permission to upload files
+Now let’s give ourselves permission to upload files:
 
 ~~~bash
 hadoop fs -chmod -R 777 /user/ambari-qa
 ~~~
 
-then let’s create a folder `falcon` under `ambari-qa` with the command
+Then let’s create a folder `falcon` under `ambari-qa` with the command:
 
 ~~~bash
 hadoop fs -mkdir /user/ambari-qa/falcon
@@ -580,7 +570,7 @@ Save the process.
 
 ## Define the cleansedEmailFeed using Wizard <a id="define-the-cleansedEmailFeed-wizard"></a>
 
-Again, to create a feed entity click on the `Feed` button on the top of the main page on the Falcon Web UI.
+As the name suggests, the raw feeds which you have created earlier get cleansed in the Process and the feed which comes out from that Process is the cleansed feed. So, to create a cleansed feed entity click on the `Feed` button on the top of the main page on the Falcon Web UI.
 
 **NOTE : If you want to create it from XML, skip this section, and move on to the next one.**
 
