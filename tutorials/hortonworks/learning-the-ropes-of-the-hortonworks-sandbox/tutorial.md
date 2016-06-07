@@ -233,7 +233,7 @@ Follow the tutorial [here](http://hortonworks.com/hadoop-tutorial/deploying-hort
 ### 1.2 Connect to the Welcome Screen <a id="connect-to-welcome-screen-azure"></a>
 
 Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
-Here, `host` is your public IP address that is generated when you deployed the HDP Sandbox in Azure. Take note of the IP address. In this example, it is 22.99.9.232. Your machine will have a different IP.
+Here, `host` is your public IP address that is generated when you deployed the HDP Sandbox in Azure. Take note of the IP address. In this example, it is 23.99.9.232. Your machine will have a different IP.
 
 ![Sandbox Welcome Screen Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_welcome_page_learning_ropes_sandbox.png)
 
