@@ -9,6 +9,7 @@ Apache NiFi can collect and transport data from numerous sources and provide int
 - If you are new to the sandbox shell, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 - Memory must be at least 8GB RAM, preferably 4 processor cores, else errors may occur in third tutorial
 - For windows users, to run linux terminal commands in these tutorials, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
+- Read Table 1 to figure out some basic details about your sandbox
 
 **Table 1: Virtual Machine Information** <a id="table1-virtual-machine-information"></a>
 
@@ -20,6 +21,19 @@ Apache NiFi can collect and transport data from numerous sources and provide int
 | Terminal Password  | hadoop  | hadoop  | {password-of-azure}  |
 
 > Note: **Host Name** values are unique for VMware & Azure Sandbox compared to the table. For VMware and VirtualBox, **Host Name** is located on welcome screen. For Azure, **Host Name** is located under **Public IP Address** on Sandbox Dashboard. For Azure users, the terminal **username** and **password** is one you created while deploying the sandbox on azure. For VMware and VirtualBox users, terminal password changes after first login.
+
+- Added `sandbox.hortonworks.com` to your `/private/etc/hosts` file (mac and linux users, windows users will need Git Bash)
+
+The following terminal commands in the tutorial instructions are performed in VirtualBox Sandbox and Mac machine. For windows users, to run the following terminal commands, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
+
+To add `sandbox.hortonworks.com` to your list of hosts, open the terminal or git bash, enter the following command:
+
+~~~bash
+echo '{Host-Name} sandbox.hortonworks.com' | sudo tee -a /private/etc/hosts
+~~~
+
+![changing-hosts-file.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/changing-hosts-file.png)
+
 
 ## Outline
 - [Stream simulator](#stream-simulator-lab0)
@@ -46,7 +60,7 @@ The simulator uses **[Akka](http://akka.io/)** to simplify concurrency, messagin
 
 ### Step 1: Run the Simulator By shell <a id="step1-run-simulator-shell-lab0"></a>
 
-Before we run the simulator, we need to perform some shell operations to install and download the stream simulator. The following terminal commands were performed in VirtualBox Sandbox and Mac machine. For VMware and Azure users, refer to [Table 1](#table1-virtual-machine-information) in the pre-requisites section to run ssh command. For windows users, to run the following terminal commands, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
+Before we run the simulator, we need to perform some shell operations to install and download the stream simulator. The following terminal commands were performed in VirtualBox Sandbox and Mac machine. For VMware and Azure users, refer to [Table 1](#table1-virtual-machine-information) in the pre-requisites section to run ssh command. For windows users, to run the following terminal commands, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash). The other terminal commands should be the same for VirtualBox, VMware and Azure.
 
 ### 1.1 Download & Setup The Simulator
 
