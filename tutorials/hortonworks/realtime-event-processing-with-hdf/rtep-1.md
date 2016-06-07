@@ -503,6 +503,8 @@ Once all processors are connected, your dataflow should look as below:
 
 ![run_dataflow_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/run_dataflow_nifi_iot.png)
 
+Note: To run the DataFlow again, you will need to copy & paste the ExecuteProcess processor onto the graph, then delete the old one, and connect the new one to the splittext procesor. You will need to repeat this process each time you want to run the DataFlow. This step will ensure dataflow flows through each processor. Currently,the ExecuteProcess processor is getting a patch to fix this problem. 
+
 3\. To quickly see what the processors are doing and the information on their faces, right click on the graph, click the **refresh status** button ![refresh_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/refresh_nifi_iot.png)
 
 ![refresh_dataflow_data_increase_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/refresh_dataflow_data_increase_nifi_iot.png)
