@@ -105,6 +105,7 @@ ssh root@localhost -p 2222
 **Default Sandbox Login**
 
 | username | password |
+|----------|----------|
 | root | hadoop |
 
 Or you can choose to use the Sandbox's built-in Web-based SSH terminal **Shell-In-A-Box** which can be accessed at [http://sandbox.hortonworks.com:4200](http://sandbox.hortonworks.com:4200)
@@ -143,7 +144,7 @@ After sending the HDF file to the Sandbox make sure you SSH into the Sandbox **u
 
 Now that we have SSH'd into the sandbox we can run the following set of commands to set up and install HDF.
 
-You can copy and paste these commands below, just make sure to first set the correct `HDF_FILE` and `HDF_VERSION` environment variables for the version of HDF that you downloaded.
+You can copy and paste these commands below, just make sure to **first set the correct `HDF_FILE` and `HDF_VERSION` environment variables** for the version of HDF that you downloaded.
 
 ~~~
 export HDF_FILE=HDF-1.2.0.0-91.tar.gz
@@ -168,9 +169,9 @@ service nifi start
 
 First, we'll need to open up the NiFi interface in our web browser. During installation we set the port that NiFi listens on to `6434`. You'll need to forward this port in the virtual machine settings.
 
-For a guide on forwarding a port on your VM please [see the guide in this tutorial])(http://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-sentiment-data/)
+For a guide on forwarding a port on your VM please [see the guide in this tutorial](http://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-sentiment-data/)
 
-After forwarding port `6434` for NiFi you can access the interface at [https://localhost:6434/nifi](https://localhost:6434/nifi)
+After forwarding port `6434` for NiFi you should be able to access the interface at [https://localhost:6434/nifi](https://localhost:6434/nifi)
 
 It should look something like below:
 
