@@ -14,12 +14,12 @@ Apache NiFi can collect and transport data from numerous sources and provide int
 
 | Parameter  | Value (VirtualBox)  | Value(VMware)  | Value(MS Azure)  |
 |---|---|---|---|
-| Host Name  | 127.0.0.1  | 172.16.110.129  | Public IP Address  |
+| Host Name  | 127.0.0.1  | 172.16.110.129  | 23.99.9.233  |
 | Port  | 2222  | 2222  | 22  |
-| Terminal Username  | root  | root  | root  |
-| Terminal Password  | hadoop  | hadoop  | hadoop  |
+| Terminal Username  | root  | root  | {username-of-azure}  |
+| Terminal Password  | hadoop  | hadoop  | {password-of-azure}  |
 
-> Note: Parameter values for host name are unique for VMware & Azure Sandbox compared in table. Host Name is located on welcome screen. Terminal password changes after first login.
+> Note: **Host Name** values are unique for VMware & Azure Sandbox compared to the table. For VMware and VirtualBox, **Host Name** is located on welcome screen. For Azure, **Host Name** is located under **Public IP Address** on Sandbox Dashboard. For Azure users, the terminal **username** and **password** is one you created while deploying the sandbox on azure. For VMware and VirtualBox users, terminal password changes after first login.
 
 ## Outline
 - [Stream simulator](#stream-simulator-lab0)
