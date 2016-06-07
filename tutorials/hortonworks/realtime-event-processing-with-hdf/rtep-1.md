@@ -8,14 +8,15 @@ Apache NiFi can collect and transport data from numerous sources and provide int
 - Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 - If you are new to the sandbox shell, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 - Memory must be at least 8GB RAM, preferably 4 processor cores, else errors may occur in third tutorial
+- For windows users, to run linux terminal commands in these tutorials, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
 
-**Table 1: Virtual Machine Information**
+**Table 1: Virtual Machine Information** <a id="table1-virtual-machine-information"></a>
 
 | Parameter  | Value (VirtualBox)  | Value(VMware)  | Value(MS Azure)  |
 |---|---|---|---|
 | Host Name  | 127.0.0.1  | 172.16.110.129  | Public IP Address  |
-| Port  | 2222  | 2222  | 2222  |
-| Terminal Username  | root  | root  | username of azure  |
+| Port  | 2222  | 2222  | 22  |
+| Terminal Username  | root  | root  | root  |
 | Terminal Password  | hadoop  | hadoop  | hadoop  |
 
 > Note: Parameter values for host name are unique for VMware & Azure Sandbox compared in table. Host Name is located on welcome screen. Terminal password changes after first login.
@@ -45,7 +46,7 @@ The simulator uses **[Akka](http://akka.io/)** to simplify concurrency, messagin
 
 ### Step 1: Run the Simulator By shell <a id="step1-run-simulator-shell-lab0"></a>
 
-Before we run the simulator, we need to perform some shell operations to install and download the stream simulator.
+Before we run the simulator, we need to perform some shell operations to install and download the stream simulator. The following terminal commands were performed in VirtualBox Sandbox and Mac machine. For VMware and Azure users, refer to [Table 1](#table1-virtual-machine-information) in the pre-requisites section to run ssh command. For windows users, to run the following terminal commands, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
 
 ### 1.1 Download & Setup The Simulator
 
@@ -55,13 +56,13 @@ Before we run the simulator, we need to perform some shell operations to install
 ssh root@127.0.0.1 -p 2222
 ~~~
 
-For VMware and Azure users, insert the appropriate values into the SSH Definition:
+For VMware and Azure users, insert the appropriate values for username, hostname and port into the SSH Definition:
 
 ~~~
 ssh <username>@<hostname> -p <port>
 ~~~
 
-> Note: For VMware and Azure, the hostname is different than VirtualBox. Username and port are unique for Azure users. Username for VMware is same as VirtualBox. If you need help, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/).
+> Note: For VMware and Azure users, the hostname is different than VirtualBox and the **hostname** can be found on the welcome screen. Refer to Table 1 for **port** number. Username for VMware and Azure is same as VirtualBox. If you need help, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/).
 
 2\. Clone the github repo to download the truck event simulator.
 
@@ -126,7 +127,7 @@ You should see message data generated as in the image. The data includes logs as
 
 > Note: generate.sh runs java source code located at `iot-truck-streaming/stream-simulator/src/main/java/com/hortonworks/streaming/impl/collectors/StdOutEventCollector.java`. If you would like to see modify/run the code.
 
-## Apache NiFi
+## Apache NiFi <a id="apache-nifi-lab0"></a>
 
 [Apache NiFi](https://nifi.apache.org/docs/nifi-docs/html/overview.html#what-is-apache-nifi) is an open source tool for automating and managing the flow of data between systems. To create an effective dataflow, users must understand the various types of processors ![nifi_processor_mini](/assets/realtime-event-processing-with-hdf/lab0-nifi/processor_grey_background_iot.png). This tool is the most important building block available to NiFi because it enables NiFi to perform:
 
@@ -149,9 +150,10 @@ NiFi will be installed on the Hortonworks Sandbox VirtualBox image because the s
 
 The following instructions will guide you through the NiFi installation process. All the steps throughout the tutorial will be done using the latest Hortonworks Sandbox 2.4 on VirtualBox.
 
-1\. Make sure to exit from sandbox shell. Type `exit`. Open a terminal on local machine. Download the install-nifi.sh file from the github repo. Copy & paste the following commands:
+1\. Make sure to exit from sandbox shell. Type `exit`. Open a terminal on **local machine**. Download the **install-nifi.sh** file from the github repo. Copy & paste the following commands:
 
 ~~~
+cd ~
 curl -o install-nifi.sh https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-event-processing/install-nifi.sh
 ~~~
 
@@ -162,8 +164,10 @@ curl -o install-nifi.sh https://raw.githubusercontent.com/hortonworks/tutorials/
 3\. Run the install-nifi.sh script. Below is a definition of how the install nifi command works:
 
 ~~~
-install-nifi.sh {location of HDF download} {sandbox-host} {ssh-port} {hdf-version}
+install-nifi.sh {location-of-HDF-download} {sandbox-host} {ssh-port} {hdf-version}
 ~~~
+
+> Note: For VMware and Azure users, sandbox-host can be found at the welcome screen after starting your sandbox and ssh-port can be found in Table 1. hdf-version is the digits in the tar.gz name you downloaded, for example the numbers in bold HDF-**1.2.0.1-1**.tar.gz.
 
 After you provide the file path location to HDF Gzip file, sandbox hostname, ssh port number and HDF version, your command should look similar as follows:
 
@@ -215,13 +219,16 @@ nifi.web.http.port=6434
 ~~~
 
 To exit the vi editor, press `esc` and then enter `:wq` to save the file.
-Now that the configuration in the nifi.properties file has been updated, we need to port forward a new port for NiFi through the Port Forward GUI because the virtual machine is not listening for the port **6434**, so NiFi will not load on the browser.
+Now that the configuration in the nifi.properties file has been updated, we need to port forward a new port for NiFi through the Port Forward GUI because the virtual machine is not listening for the port **6434**, so NiFi will not load on the browser. If your using VirtualBox Sandbox, refer to section 3.1. For Azure Sandbox users, refer to section 3.2.
 
-### 3.1 Forward Port with guide
+### 3.1 Forward Port with VirtualBox GUI
 
 1\. Open VirtualBox Manager
+
 2\. Right click your running Hortonworks Sandbox, click **settings**
+
 3\. Go to the **Network** Tab
+
 Click the button that says **Port Forwarding**. Overwrite NiFi entry with the following values:
 
 | Name  | Protocol  | Host IP  | Host Port  | Guest IP  | Guest Port  |
@@ -230,9 +237,31 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 ![port_forward_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/port_forward_nifi_iot.png)
 
-> Note: Host IP for azure and vmware will be different than virtualbox.
 
 4\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. You should be able to access it now. Wait 1 to 2 minutes for NiFi to load.
+
+
+### 3.2 Forward Port with Azure GUI
+
+1\. Open Azure Sandbox.
+
+2\. Click the sandbox with the **shield icon**.
+
+![shield-icon-security-inbound.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/shield-icon-security-inbound.png)
+
+3\. Under **Settings**, in the **General** section, click **Inbound Security Rules**.
+
+![inbound-security-rule.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/inbound-security-rule.png)
+
+4\. Scroll to **NiFi**, click on the row.
+
+![list-nifi-port.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/list-nifi-port.png)
+
+5\. Change the **Destination Port Range** value from 9090 to 6434.
+
+![change-nifi-port.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/change-nifi-port.png)
+
+6\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. You should be able to access it now. Wait 1 to 2 minutes for NiFi to load.
 
 ### Step 4: Explore NiFi Web Interface <a id="step4-explore-nifi-interface-lab0"></a>
 
