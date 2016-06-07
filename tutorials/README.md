@@ -25,7 +25,7 @@ The tutorials that are currently working with HDP 2.4:
 - [Introducing Apache Hadoop to Java Developers](hortonworks/introducing-apache-hadoop-to-java-developers/)
 - [IPython Notebook with Spark](hortonworks/ipython-notebook-with-spark/)
 - [Learning the Ropes of the Hortonworks Sandbox](hortonworks/learning-the-ropes-of-the-hortonworks-sandbox/)
-- [Using Apache ORC Files with Saprk](hortonworks/orc-with-spark/)
+- [Using Apache ORC Files with Spark](hortonworks/orc-with-spark/)
 - [Processing Streaming Data in Hadoop with Storm](hortonworks/processing-streaming-data-in-hadoop-with-storm/)
 - [Realtime Event Processing with Hadoop](hortonworks/realtime-event-processing-with-hadoop/)
 - [How to Search Data with Solr](hortonworks/search-data-with-solr/)

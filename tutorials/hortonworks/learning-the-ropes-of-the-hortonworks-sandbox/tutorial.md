@@ -22,6 +22,7 @@ Let's begin our Hadoop journey.
 
 ## Outline
 - [What is the Sandbox?](#what-is-the-sandbox)
+- [Section 1: Sandbox in VM](#section1)
 - [Step 1: Explore the Sandbox in a VM](#explore-sandbox-vm)
       - [1.1 Install the Sandbox](#install-sandbox)
       - [1.2 Learn Your Sandbox Version](#learn-sandbox-version)
@@ -34,13 +35,28 @@ Let's begin our Hadoop journey.
       - [2.2 Setup Ambari admin Password Manually](#setup-ambari-admin-password)
       - [2.3 Explore Ambari Welcome Screen 5 Key Capabilities](#explore-ambari-welcome-screen)
       - [2.4 Explore Ambari Dashboard Links](#explore-ambari-dashboard)
-- [Step 3: Troubleshoot Problems](#troubleshoot-problems)
-      - [3.1 Technique for Finding Answers in HCC](#technique-for-finding-answers-hcc)
+- [Section 2: Sandbox in Microsoft Azure](#section2)      
+- [Step 1: Explore the Sandbox in Azure](#explore-sandbox-azure)
+      - [1.1 Deploy the Sandbox in Azure](#deploy-sandbox-azure)
+      - [1.2 Connect to the Welcome Screen](#connect-to-welcome-screen-azure)
+      - [1.3 Multiple Ways to Execute Terminal Commands(SSH, Web Shell)](#ways-execute-terminal-command-azure)
+- [Step 2: Explore Ambari in Azure](#explore-ambari-azure)
+      - [Services Provided By the Sandbox in Azure](#services-provided-by-sandbox-azure)
+      - [2.1 Setup Ambari admin Password Manually](#setup-ambari-admin-password-azure)
+      - [2.2 Explore Ambari Welcome Screen 5 Key Capabilities](#explore-ambari-welcome-screen-azure)
+      - [2.3 Explore Ambari Dashboard Links](#explore-ambari-dashboard-azure)
+- [Section 3: Troubleshoot](#section3)      
+- [Step 1: Troubleshoot Problems](#troubleshoot-problems)
+      - [1.1 Technique for Finding Answers in HCC](#technique-for-finding-answers-hcc)
 - [Further Reading](#further-reading)
 
 ## What is the Sandbox? <a id="what-is-the-sandbox"></a>
 
 The Sandbox is a straightforward, pre-configured, learning environment that contains the latest developments from Apache Hadoop Enterprise, specifically Hortonworks Data Platform (HDP) Distribution. The Sandbox comes packaged in a virtual environment that can run in the cloud or on your personal machine. The Sandbox allows you to learn and explore HDP on your own.
+
+If you want to explore Hortonworks Sandbox in Microsoft Azure, please skip to `Section 2`.
+
+## Section 1: Sandbox in VM <a id="section1"></a>
 
 ## Step 1: Explore the Sandbox in a VM <a id="explore-sandbox-vm"></a>
 
@@ -132,7 +148,7 @@ Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 
 If you want to search for the host address your sandbox is running on, ssh into the sandbox terminal upon successful installation and follow subsequent steps:
 
-1.  login using username as **root** and password as **hadoop**.
+1.  Login using username as **root** and password as **hadoop**.
 2.  Type `ifconfig` and look for **inet addr:** under eth0.
 3.  Use the inet addr, append **:8080** and open it into a browser. It shall direct you to Ambari login page.
 4.  This inet address is randomly generated for every session and therefore differs from session to session.
@@ -143,11 +159,11 @@ If you want to search for the host address your sandbox is running on, ssh into 
 #### Services Provided By the Sandbox <a id="services-provided-by-sandbox"></a>
 
 | Service | URL |
-|---------|-----|
+|---------|-----:|
 | Sandbox Welcome Page | [http://_host_:8888]()|
 | Ambari Dashboard | [http://_host_:8080]()|
 | Ambari Welcome | [http://_host_:8080/views/ADMIN_VIEW/2.2.1.0/INSTANCE/#/]()|
-| Hive User View | [http://_host_/#/main/views/HIVE/1.0.0/AUTO_HIVE_INSTANCE]()|
+| Hive User View | [http://_host_:8080/#/main/views/HIVE/1.0.0/AUTO_HIVE_INSTANCE]()|
 | Pig User View | [http://_host_:8080/#/main/views/PIG/1.0.0/Pig]()|
 | File User View | [http://_host_:8080/#/main/views/FILES/1.0.0/Files]()|
 | SSH Web Client | [http://_host_:4200]()|
@@ -156,11 +172,10 @@ If you want to search for the host address your sandbox is running on, ssh into 
 
 #### The following Table Contains Login Credentials:
 
-
 | Service | User | Password |
-|---------|------|----------|
+|---------|:------:|----------:|
 | Ambari | maria_dev | maria_dev |
-| Ambari | admin | refer to [section 2.2](#setup-ambari-admin-password) |
+| Ambari | admin | refer to [step 2.2](#setup-ambari-admin-password) |
 | Linux OS | root | hadoop |
 
 ### 2.2 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password"></a>
@@ -207,13 +222,138 @@ and then the
 
 2.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
 
-## Step 3: Troubleshoot Problems <a id="troubleshoot-problems"></a>
+## Section 2: Sandbox in Microsoft Azure <a id="section2"></a>
+
+## Step 1: Explore the Sandbox in Azure <a id="explore-sandbox-azure"></a>
+
+### 1.1 Deploy the Sandbox in Azure <a id="deploy-sandbox-azure"></a>
+
+Follow the tutorial [here](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/) to deploy the latest HDP Sandbox on Azure.
+
+### 1.2 Connect to the Welcome Screen <a id="connect-to-welcome-screen-azure"></a>
+
+Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
+Here, `host` is your public IP address that is generated when you deployed the HDP Sandbox in Azure. Take note of the IP address. In this example, it is 22.99.9.232. Your machine will have a different IP.
+
+![Sandbox Welcome Screen Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_welcome_page_learning_ropes_sandbox.png)
+
+### 1.3 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command-azure"></a>
+
+#### Secure Shell (SSH) Method:
+
+Open your terminal (mac and linux) or putty (windows). Here again, `host` is the public IP address provided by Azure. Give the username and password that you provided while deploying the sandbox on Azure. Use the following command to access the Sandbox through SSH:
+
+~~~
+# Usage:
+      ssh <username>@<host> -p 22;
+~~~
+
+![Mac Terminal SSH Azure 1](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_secure_shell_learning_ropes_sandbox_1.png)
+
+> Mac OS Terminal
+
+#### Shell Web Client Method:
+
+Open your web browser. Replace the following text by your `host` into your browser to access the Sandbox through the shell. Provide the same username and password that you gave while deploying the sandbox on Azure.
+
+
+~~~
+# Usage:
+    #  _host_:4200
+~~~
+
+![Shell in the Browser Sandbox Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_browser_shell_learning_ropes_sandbox.png)
+
+> Appearance of Web Shell
+
+## Step 2: Explore Ambari in Azure<a id="explore-ambari-azure"></a>
+
+Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
+
+> **Note:** Both the username and password to login are **maria_dev**.
+
+#### Services Provided By the Sandbox in Azure<a id="services-provided-by-sandbox-azure"></a>
+
+| Service | URL |
+|---------|-----:|
+| Sandbox Welcome Page | [http://_host_:8888]()|
+| Ambari Dashboard | [http://_host_:8080]()|
+| Ambari Welcome | [http://_host_:8080/views/ADMIN_VIEW/2.2.1.0/INSTANCE/#/]()|
+| Hive User View | [http://_host_:8080/#/main/views/HIVE/1.0.0/AUTO_HIVE_INSTANCE]()|
+| Pig User View | [http://_host_:8080/#/main/views/PIG/1.0.0/Pig]()|
+| File User View | [http://_host_:8080/#/main/views/FILES/1.0.0/Files]()|
+| SSH Web Client | [http://_host_:4200]()|
+| Hadoop Configuration | [http://_host_:50070/dfshealth.html]()   [http://_host_:50070/explorer.html]() |
+
+
+
+#### The following Table Contains Login Credentials:
+
+
+| Service | User | Password |
+|---------|:------:|----------:|
+| Ambari | maria_dev | maria_dev |
+| Ambari | admin | refer to [step 2.1](#setup-ambari-admin-password-azure) |
+
+### 2.1 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password-azure"></a>
+
+1. Open a terminal (mac or linux) or putty (windows)
+2. SSH into the sandbox using your username and password that you provided at the time of creating the sandbox on Azure. Your `host` is a public IP address given by Azure and sudo password is a Sandbox password.
+
+~~~
+# Usage:
+      ssh <username>@<host> -p 22;
+~~~
+
+3. Type the following commands:
+
+~~~
+# Updates password
+sudo ambari-admin-password-reset
+# If Ambari doesn't restart automatically, restart ambari service
+ambari-agent restart
+~~~
+
+> **Note:** Now you can login to ambari as an admin user to perform operations, such as starting and stopping services.
+
+![Terminal Update Ambari admin password Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_update_admin_password_learning_ropes_sandbox.png)
+
+### 2.2 Explore Ambari Welcome Screen 5 Key Capabilities <a id="explore-ambari-welcome-screen-azure"></a>
+
+Enter the **Ambari Welcome URL** and then you should see a similar screen:
+
+![Lab0_3](/assets/learning-the-ropes-of-the-hortonworks-sandbox/ambari_welcome_learning_the_ropes_sandbox.png)
+
+1.  “**Operate Your Cluster**” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators
+2.  “**Manage Users + Groups**” allows you to add & remove Ambari users and groups
+3.  “**Clusters**” allows you to grant permission to Ambari users and groups
+4.  “**Ambari User Views**” list the set of Ambari Users views that are part of the cluster
+5.  “**Deploy Views**” provides administration for adding and removing Ambari User Views
+
+### 2.3 Explore Ambari Dashboard Links <a id="explore-ambari-dashboard-azure"></a>
+
+Enter the **Ambari Dashboard URL** and you should see a similar screen:
+
+![Lab0_4](/assets/hello-hdp/Lab0_4.png)
+
+
+Click on
+
+1.  **Metrics**, **Heatmap** and **Configuration**
+
+and then the
+
+2.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
+
+## Section 3: Troubleshoot <a id="section3"></a>
+
+## Step 1: Troubleshoot Problems <a id="troubleshoot-problems"></a>
 
 Check [Hortonworks Community Connection](http://hortonworks.com/community/forums/)(HCC) for answers to problems you may come across during your hadoop journey.
 
 ![Hortonworks Community Connection Main Page](/assets/learning-the-ropes-of-the-hortonworks-sandbox/hcc_page_learning_the_ropes_sandbox.png)
 
-### 3.1 Technique for Finding Answers in HCC <a id="technique-for-finding-answers-hcc"></a>
+### 1.1 Technique for Finding Answers in HCC <a id="technique-for-finding-answers-hcc"></a>
 - Insert quotes around your tutorial related problem
 - Be specific by including keywords (error, tutorial name, etc.)
 
