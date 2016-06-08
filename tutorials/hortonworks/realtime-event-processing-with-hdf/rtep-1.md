@@ -27,13 +27,13 @@ Apache NiFi can collect and transport data from numerous sources and provide int
 
 The following terminal commands in the tutorial instructions are performed in VirtualBox Sandbox and Mac machine. For windows users, to run the following terminal commands, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
 
-If on mac or linux, to add `sandbox.hortonworks.com` to your list of hosts, open the terminal, enter the following command:
+If on mac or linux, to add `sandbox.hortonworks.com` to your list of hosts, open the terminal, enter the following command, replace {Host-Name} with the appropriate host for your sandbox:
 
 ~~~bash
 echo '{Host-Name} sandbox.hortonworks.com' | sudo tee -a /private/etc/hosts
 ~~~
 
-If on windows 7, to add `sandbox.hortonworks.com` to your list of hosts, open git bash, enter the following command:
+If on windows 7, to add `sandbox.hortonworks.com` to your list of hosts, open git bash, enter the following command, replace {Host-Name} with the appropriate host for your sandbox:
 
 ~~~bash
 echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/etc/hosts
