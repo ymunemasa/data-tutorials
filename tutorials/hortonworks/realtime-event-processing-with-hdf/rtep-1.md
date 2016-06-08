@@ -36,7 +36,7 @@ echo '{Host-Name} sandbox.hortonworks.com' | sudo tee -a /private/etc/hosts
 If on windows 7, to add `sandbox.hortonworks.com` to your list of hosts, open git bash, enter the following command:
 
 ~~~bash
-echo '{Host-Name} sandbox.hortonworks.com' | sudo tee -a /c/Windows/System32/Drivers/etc/hosts
+echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/etc/hosts
 ~~~
 
 ![changing-hosts-file.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/changing-hosts-file.png)
