@@ -22,14 +22,21 @@ Apache NiFi can collect and transport data from numerous sources and provide int
 
 > Note: **Host Name** values are unique for VMware & Azure Sandbox compared to the table. For VMware and VirtualBox, **Host Name** is located on welcome screen. For Azure, **Host Name** is located under **Public IP Address** on Sandbox Dashboard. For Azure users, the terminal **username** and **password** is one you created while deploying the sandbox on azure. For VMware and VirtualBox users, terminal password changes after first login.
 
-- Added `sandbox.hortonworks.com` to your `/private/etc/hosts` file (mac and linux users, windows users will need Git Bash)
+- Added `sandbox.hortonworks.com` to your `/private/etc/hosts` file (mac and linux users)
+- Added `sandbox.hortonworks.com` to your `/c/Windows/System32/Drivers/etc/hosts` file (windows 7 users)
 
 The following terminal commands in the tutorial instructions are performed in VirtualBox Sandbox and Mac machine. For windows users, to run the following terminal commands, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
 
-To add `sandbox.hortonworks.com` to your list of hosts, open the terminal or git bash, enter the following command:
+If on mac or linux, to add `sandbox.hortonworks.com` to your list of hosts, open the terminal, enter the following command:
 
 ~~~bash
 echo '{Host-Name} sandbox.hortonworks.com' | sudo tee -a /private/etc/hosts
+~~~
+
+If on windows 7, to add `sandbox.hortonworks.com` to your list of hosts, open git bash, enter the following command:
+
+~~~bash
+echo '{Host-Name} sandbox.hortonworks.com' | sudo tee -a /c/Windows/System32/Drivers/etc/hosts
 ~~~
 
 ![changing-hosts-file.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/changing-hosts-file.png)
