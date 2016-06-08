@@ -80,7 +80,7 @@ A FlowFile can originate from a processor in NiFi. Processors can also receive t
 - In this tutorial, the Hortonworks Sandbox is installed on an Oracle VirtualBox virtual machine (VM).
 - Install the ODBC driver that matches the version of Excel you are using (32-bit or 64-bit).
 - In this tutorial, we will use the Power View feature in Excel 2013 to visualize the server log data. Power View is currently only available in Microsoft Office Professional Plus and Microsoft Office 365 Professional Plus.
-- We're going to install Hortonworks DataFlow on the Sandbox, so you'll need to download the latest release on the 
+- We're going to install Hortonworks DataFlow (HDF) on the Sandbox, so you'll need to download the latest HDF release 
 
 ### Overview
 
