@@ -5,11 +5,11 @@ tutorial-id: 200
 tutorial-series: Real-World End to End Examples
 tutorial-version: hdp-2.4.0
 intro-page: true
-components: [ flume, ambari ]
+components: [ nifi, ambari ]
 ---
 
 
-## Refine and Visualize Server Log Data
+# Refine and Visualize Server Log Data
 
 Security breaches happen. And when they do, your server logs may be your best line of defense. Hadoop takes server-log analysis to the next level by speeding and improving security forensics and providing a low cost platform to show compliance.
 
@@ -19,13 +19,14 @@ In this demo, we demonstrate how an enterprise security breach analysis and resp
 
 ### In this tutorial, learn how to:
 
-*   Stream server logs into Hadoop with [Flume](http://hortonworks.com/hadoop/flume)
-*   Use [HCatalog](http://hortonworks.com/hadoop/hcatalog) to build a relational view of the data
+*   Stream server logs into Hadoop with [Hortonworks Dataflow](http://hortonworks.com/hdf/) powered by **Apache NiFi**
+*   Use [Hive](http://hortonworks.com/hadoop/hive) to build a relational view of the data
 *   Use [Pig](http://hortonworks.com/hadoop/pig) to query and refine the data
 *   Use Elastic Search for high-level visualization
 *   Import the data into Microsoft Excel with the [ODBC connector](http://hortonworks.com/products/hdp-2/#add_ons)
 *   Visualize data with Powerview
 *   Use [Oozie](http://hortonworks.com/hadoop/oozie) to automatically update a firewall
+*   Visualize the data with [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin)
 
 This Hadoop tutorial can be performed with the [Hortonworks Sandbox](http://hortonworks.com/products/sandbox) – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series. The tutorial presented here is for Sandbox v2.0
 
@@ -44,236 +45,191 @@ IT organizations use server log analysis to answer questions about:
 
 In this tutorial, we will focus on a network security use case. Specifically, we will look at how Apache Hadoop can help the administrator of a large enterprise network diagnose and respond to a distributed denial-of-service attack.
 
-### What Is Apache Flume?
+### What Is Hortonworks Dataflow and Apache NiFi?
 
-**A service for streaming logs into Hadoop**. Apache Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of streaming data into the Hadoop Distributed File System (HDFS). It has a simple and flexible architecture based on streaming data flows; and is robust and fault tolerant with tunable reliability mechanisms for failover and recovery.
+**Apache NiFi** is a secure integrated platform for real time data collection, simple event processing, transport and delivery from source to storage. It is useful for moving distributed data to and from your Hadoop cluster. NiFi has lots of distributed processing capability to help reduce processing cost and get real-time insights from many different data sources across many large systems and can help aggregate that data into a single, or many different places.
 
-**What Flume Does**. Flume lets Hadoop users make the most of valuable log data. Specifically, Flume allows users to:
+**NiFi** lets users get the most value from their data. Specifically NiFi allows users to:
 
-*   **Stream data from multiple sources** into Hadoop for analysis
-*   **Collect high-volume Web logs**in real time
-*   **Insulate** themselves from transient spikes when the rate of incoming data exceeds the rate at which data can be written to the destination
-*   **Guarantee data delivery**
-*   **Scale horizontally** to handle additional data volume
+- Stream data from multiple source
+- Collect high volumes of data in real time
+- Guarantee delivery of data
+- Scale horizontally across many machines
 
-**How Flume Works**. Flume's high-level architecture is focused on delivering a streamlined codebase that is easy-to-use and easy-to-extend. The project team has designed Flume with the following components:
+**How NiFi Works**. NiFi's high-level architecture is focused on delivering a streamlined interface that is easy to use and easy to set up. There is a little bit of terminology that are an integral part to understanding how NiFi works.
 
-*   **Event** – a singular unit of data that is transported by Flume (typically a single log entry)
-*   **Source** – the entity through which data enters into Flume. Sources either actively poll for data or passively wait for data to be delivered to them. A variety of sources allow data to be collected, such as log4j logs and syslogs.
-*   **Sink** – the entity that delivers the data to the destination. A variety of sinks allow data to be streamed to a range of destinations. One example is the HDFS sink that writes events to HDFS.
-*   **Channel** – the conduit between the Source and the Sink. Sources ingest events into the channel and the sinks drain the channel.
-*   **Agent** – any physical Java virtual machine running Flume. It is a collection of sources, sinks and channels.
-*   **Client** – produces and transmits the Event to the Source operating within the Agent
+- **Processor**: Processors in NiFi are what makes the data move. Processors can help generate data, run commands, move data, convert data, and many many more. NiFi's architecture and feature set is designed to be extended these processors. They are at the very core of NiFi's functionality.
+- **Processing Group**: When data flows get very complex, it can be very useful to group different parts together which perform certain functions. NiFi abstracts this concept and calls them processing groups.
+- **FlowFile**: A FlowFile in NiFi represents just a single piece of data. It is made of different parts. **Attributes** and **Contents**. Attributes help give the data context which are made of key-value pairs. Typically there are 3 attributes which are present on all FlowFiles: **uuid**, **filename**, and **path**
+- **Connections** and **Relationships**: NiFi allows users to simply drag and drop connections between processors which controls how the data will flow. Each connection will be assigned to different types of relationships for the FlowFiles (such as successful processing, or a failure to process)
 
-A flow in Flume starts from the Client. The Client transmits the event to a Source operating within the Agent. The Source receiving this event then delivers it to one or more Channels. These Channels are drained by one or more Sinks operating within the same Agent. Channels allow decoupling of ingestion rate from drain rate using the familiar producer-consumer model of data exchange. When spikes in client side activity cause data to be generated faster than what the provisioned capacity on the destination can handle, the channel size increases. This allows sources to continue normal operation for the duration of the spike. Flume agents can be chained together by connecting the sink of one agent to the source of another agent. This enables the creation of complex dataflow topologies.
-
-**Reliability & Scaling**. Flume is designed to be highly reliable, thereby no data is lost during normal operation. Flume also supports dynamic reconfiguration without the need for a restart, which allows for reduction in the downtime for flume agents. Flume is architected to be fully distributed with no central coordination point. Each agent runs independent of others with no inherent single point of failure. Flume also features built-in support for load balancing and failover. Flume's fully decentralized architecture also plays a key role in its ability to scale. Since each agent runs independently, Flume can be scaled horizontally with ease.
-
-**Note:** For more in-depth information about Flume, see **Appendix A: Collecting Data in the Events Log.**
+A FlowFile can originate from a processor in NiFi. Processors can also receive the flowfiles and transmit them to many other processors. These processors can then drop the data in the flowfile into various places depending on the function of the processor.
 
 ### Prerequisites:
 
-*   Hortonworks Sandbox (installed and running)
-*   Hortonworks ODBC driver installed and configured – See Tutorials 7 and 11 – Installing and Configuring the Hortonworks ODBC Driver
-*   Microsoft Excel 2013 Professional Plus
-*   Note, Excel 2013 is not available on a Mac. However, you can still connect the Sandbox to your version of Excel via the ODBC driver, and you can explore the data through the standard charting capabilities of Excel.
-*   If you'd like to use Tableau to explore the data, please see this HOWTO on the Hortonworks website: [HOWTO: Connect Tableau to the Hortonworks Sandbox](http://hortonworks.com/kb/how-to-connect-tableau-to-hortonworks-sandbox/)
-*   Server log tutorial files (included in this tutorial)
+- Hortonworks Sandbox (installed and running)
+- A copy of Hortonworks DataFlow - [Download here](http://hortonworks.com)
+- Hortonworks ODBC driver installed and configured – See Tutorial "Installing and Configuring the Hortonworks ODBC Driver"
+- Microsoft Excel 2013 Professional Plus (optional)
+  - Note, Excel 2013 is not available on a Mac. However, you can still connect the Sandbox to your version of Excel via the ODBC driver, and you can explore the data through the standard charting capabilities of Excel.
+- If you'd like to use Tableau to explore the data, please see this HOWTO on the Hortonworks website: [HOWTO: Connect Tableau to the Hortonworks Sandbox](http://hortonworks.com/kb/how-to-connect-tableau-to-hortonworks-sandbox/)
+- Server log tutorial files (included in this tutorial)
 
 **Notes:**
 
-*   In this tutorial, the Hortonworks Sandbox is installed on an Oracle VirtualBox virtual machine (VM).
-*   Install the ODBC driver that matches the version of Excel you are using (32-bit or 64-bit).
-*   In this tutorial, we will use the Power View feature in Excel 2013 to visualize the server log data. Power View is currently only available in Microsoft Office Professional Plus and Microsoft Office 365 Professional Plus.
+- In this tutorial, the Hortonworks Sandbox is installed on an Oracle VirtualBox virtual machine (VM).
+- Install the ODBC driver that matches the version of Excel you are using (32-bit or 64-bit).
+- In this tutorial, we will use the Power View feature in Excel 2013 to visualize the server log data. Power View is currently only available in Microsoft Office Professional Plus and Microsoft Office 365 Professional Plus.
+- We're going to install Hortonworks DataFlow (HDF) on the Sandbox, so you'll need to download the latest HDF release 
 
 ### Overview
 
 To refine and visualize server log data, we will:
 
-*   Download and extract the server log tutorial files.
-*   Install, configure, and start Flume.
-*   Generate the server log data.
-*   Import the server log data into Excel.
-*   Visualize the server log data using Excel Power View.
+- Download and configure the script which will generate our server log data
+- Install, configure, and start Hortonworks DataFlow
+- Generate the server log data.
+- Import the server log data into Excel.
+- Visualize the server log data using Excel Power View and Apache Zeppelin.
 
 * * *
 
-## Step 1: Download and Extract the Server Log Tutorial Files
+## Step 1: Download and the Script to Generate Log Data
 
-*   The files needed for this tutorial are contained in a compressed (.zip) folder that you can download here:
+We'll be using a python script to generate the server log data. SSH into the sandbox with the command
 
-- [Download ServerLogFiles.zip](http://s3.amazonaws.com/hw-sandbox/tutorial12/serverfiles.zip)
+~~~
+ssh root@localhost -p 2222
+~~~
 
-You can save and explore the `ServerLogFiles.zip` archive on your computer.
+**Default Sandbox Login**
 
-With the Hortonworks Sandbox virtual machine (VM) command prompt window active, press the Alt and F5 keys, then log in to the Sandbox using the following user name and password:
-
-	login: root
-	Password: hadoop
-
-If you wish to use SSH you can use your favorite terminal program and execute the command
-
-
-	ssh root@localhost -p 2222
+| username | password |
+|----------|----------|
+| root | hadoop |
 
 Or you can choose to use the Sandbox's built-in Web-based SSH terminal **Shell-In-A-Box** which can be accessed at [http://sandbox.hortonworks.com:4200](http://sandbox.hortonworks.com:4200)
 
-remember the username is `root` and the password is `hadoop`.
+Remember the username is `root` and the password is `hadoop`.
 
 After you log in, the command prompt will appear with the prefix `[root@Sandbox \~]\#:`
 
+Then execute:
 
-	wget http://s3.amazonaws.com/hw-sandbox/tutorial12/serverfiles.zip
+~~~
+wget https://raw.githubusercontent.com/hortonworks/tutorials/%2370-revamp-refine-analyze-server-log-data/assets/server-logs/scripts/generate_logs.py
+~~~
 
+An exmaple for the output of these commands is below
 
-Then you'll need to execute
-
-	unzip serverfiles.zip
-
-Lastly, we need to make create a few directories for flume. Run the following set of commands
-
-	mkdir /var/flume/
-	mkdir /var/flume/checkpoint/
-	mkdir /var/flume/data/
-	chmod 777 -R /var/flume
-
+![Example Output](../../../assets/server-logs/script-download.png)
 
 * * *
 
-## Step 2 – Configure and Start Apache Flume
+## Step 2 – Configure and Install Hortonworks DataFlow
 
-First we're going to need to update our flume agent config. Make sure you are SSH'd into your sandbox and run the following commands on the terminal:
+First thing's you'll need to do is to make sure you've [downloaded the gzipped version of Hortonworks DataFlow](http://hortonworks.com/hdp/downloads/#hdf)
 
-	cd /etc/flume/conf
-	mv flume.conf flume.conf.bak
+Once you've downloaded HDF let's get it on the sandbox. If you're on a Mac or Unix system with the scp command available on your terminal you can simply run
 
+~~~
+scp -P 2222 $HDF_DOWNLOAD root@localhost:/root/
+~~~
 
-Next, we're going to need to set up a flume agent. Copy the following agent config into a new file called `flume.conf` under `/etc/flume/conf`
+If you're on a windows system you can use the program [WinSCP](https://winscp.net/eng/index.php) to transfer files to the Sandbox.
 
-Run `vi flume.conf` then hit the **I** key to enter insert mode in `vi`. Then copy the following config into your terminal:
+After sending the HDF file to the Sandbox make sure you SSH into the Sandbox **using the instructions from step 1**.
 
+![](../../../assets/server-logs/scp-hdf-sandbox.png)
 
-	# Flume agent config
-	sandbox.sources = eventlog
-	sandbox.channels = file_channel
-	sandbox.sinks = sink_to_hdfs
+Now that we have SSH'd into the sandbox we can run the following set of commands to set up and install HDF.
 
-	# Define / Configure source
-	sandbox.sources.eventlog.type = exec
-	sandbox.sources.eventlog.command = tail -F /var/log/eventlog-demo.log
-	sandbox.sources.eventlog.restart = true
-	sandbox.sources.eventlog.batchSize = 1000
-	#sandbox.sources.eventlog.type = seq
+You can copy and paste these commands below, just make sure to **first set the correct `HDF_FILE` and `HDF_VERSION` environment variables** for the version of HDF that you downloaded.
 
-	# HDFS sinks
-	sandbox.sinks.sink_to_hdfs.type = hdfs
-	sandbox.sinks.sink_to_hdfs.hdfs.fileType = DataStream
-	sandbox.sinks.sink_to_hdfs.hdfs.path = /flume/events
-	sandbox.sinks.sink_to_hdfs.hdfs.filePrefix = eventlog
-	sandbox.sinks.sink_to_hdfs.hdfs.fileSuffix = .log
-	sandbox.sinks.sink_to_hdfs.hdfs.batchSize = 1000
+~~~
+export HDF_FILE=HDF-1.2.0.0-91.tar.gz
+export HDF_VERSION=HDF-1.2.0.0
+cd /root
+mkdir hdf
+mv $HDF_FILE ./hdf
+cd hdf
+tar -xvf $HDF_FILE
+cd $HDF_VERSION/nifi
+sed -i s/nifi.web.http.port=8080/nifi.web.http.port=6434/g conf/nifi.properties
+cd bin/
+sh nifi.sh install
+cd ~
+~~~
 
-	# Use a channel which buffers events in memory
-	sandbox.channels.file_channel.type = file
-	sandbox.channels.file_channel.checkpointDir = /var/flume/checkpoint
-	sandbox.channels.file_channel.dataDirs = /var/flume/data
+Great! HDF is now set up for our needs. You can now start NiFi with the following command:
 
-	# Bind the source and sink to the channel
-	sandbox.sources.eventlog.channels = file_channel
-	sandbox.sinks.sink_to_hdfs.channel = file_channel
+~~~
+service nifi start
+~~~
 
+First, we'll need to open up the NiFi interface in our web browser. During installation we set the port that NiFi listens on to `6434`. You'll need to forward this port in the virtual machine settings.
 
-Your screen should look like the following:
+For a guide on forwarding a port on your VM please [see the guide in this tutorial](http://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-sentiment-data/)
 
-![custom-flume-agent-ambari](/assets/server-logs/custom-flume-agent.png)
+After forwarding port `6434` for NiFi you should be able to access the interface at [https://localhost:6434/nifi](https://localhost:6434/nifi)
 
-Then exit insert mode by hitting **Esc**. Finally exit `vi` by typing `:wq`
+It should look something like below:
 
+![Nifi Interface](../../../assets/server-logs/nifi-interface.png)
 
-Next we're going to need to edit a flume configuration file.
+## Step 3: Import the Flow
 
-    vi /etc/flume/conf/log4j.properties`
+We're going to import a pre-made data flow from a template which you can [**download here**](/assets/server-logs/ServerLogGenerator.xml).
 
-*   This command opens the log4j.properties file with the vi command line text editor.
+Use the NiFi inteface to upload the flow, and then drag it onto your workspace.
 
-![](/assets/server-logs/05_vi_open.png)
+![Upload NiFi Template](../../../assets/server-logs/upload-template-1.png)
 
-* Press the "i" key to switch to Insert mode. "–INSERT–" will appear at the bottom of the command prompt window. Use the down-arrow key to scroll down until you find the following lines of text:
+![Upload NiFi Template](../../../assets/server-logs/upload-template-2.png)
 
+Once you've uploaded the template into NiFi you can instantiate it by dragging the template icon onto the screen. It will ask you to select your template's name and the flow will appear as in the image below.
 
-		flume.root.logger=INFO,LOGFILE
-		flume.log.dir=./logs
-		flume.log.file=flume.log
-
-
-* Use the arrow keys to position the cursor at the end of the second line. Use the Delete (Mac) or Backspace (Windows) key to delete "./logs", then type in "/var/log/flume". When you are finished, the text should be as follows:
-
-
-		flume.root.logger=INFO,LOGFILE
-		flume.log.dir=/var/log/flume
-		flume.log.file=flume.log
-
-
-![](/assets/server-logs/06_vi_edit.png)
-
-*   **Press the Escape key to exit Insert mode** and return to Command mode. "–INSERT–" will no longer appear at the bottom of the command prompt window. Type in the following command, then press the **Enter**:
-
-
-		:wq
-
-
-*   This command saves your changes and exits the vi text editor.
-
-![](/assets/server-logs/07_vi_save.png)
-
-* * *
-
-## Step 3: Start Flume
-
-While still at your terminal we'll need to restart flume. Type the following command to start the flume agent which will begin collecting data for us.
-
-	flume-ng -n sandbox --conf /etc/flume/conf -f /etc/flume/conf/flume.conf
-
-Click on the Flume service and click **Service Actions** and select **Start** (if it is not already started) or **Restart**
-
+![Instantiate NiFi Template](../../../assets/server-logs/instantiate-template.png)
 
 * * *
 
 ## Step 4: Generate the Server Log Data
 
-Now that Flume is running, we will use a Python script to generate the server log data, and then create an HCatalog table from the data.
+Now that you've imported the data flow and everything it set up, simply click the **Run** at the top of the screen. (Make you you haven't selected a specific processor, or  else only one of the processors will start)
 
-From the Sandbox's command line or your SSH sessions type the following
-    
-    python generate_logs.py
+![Instantiate NiFi Template](../../../assets/server-logs/start-flow.png)
 
-When the log file has been generated, a timestamp will appear, and the command prompt will return to normal (`[root@Sandbox \~]\#`). It may take several seconds to generate the log file.
+Now that everything is running we can check in the places where we see the data being deposited in HDFS.
 
-![](/assets/server-logs/py_generate_logs.png)
+Log into the Ambari interface which can be found at [http://localhost:8080](http://localhost:8080)
+
+Open up the **HDFS Files** view, and then navigate to `/tmp/server-logs/`. Files should start appearing a few seconds after you start the flow. You can click on them to view the content.
+
+![Explore Output](../../../assets/server-logs/explore-output-files.png)
 
 *   Next we will create an Hive table from the log file.
 
 Open the Ambari UI and head to the views dropdown list. Select **Hive** and then past the following query.
 
 
-	CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, status STRING)
+	CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, success BOOLEAN)
 	ROW FORMAT DELIMITED
 	FIELDS TERMINATED BY '|' 
-	LOCATION '/flume/events';
+	LOCATION '/tmp/server-logs';
 
 
 **Note** if the query doesn't run successfully due to a permissions error you then you might need to update the permission on the directory. Run the following commands over SSH on the Sandbox
 
 
-    sudo -u hdfs hadoop fs -chmod -R 777 /flume
-    sudo -u hdfs hadoop fs -chown -R admin /flume
+    sudo -u hdfs hadoop fs -chmod -R 777 /tmp
+    sudo -u hdfs hadoop fs -chown -R admin /tmp
 
 
 When the table has been created you should now be able to query the data table for data using a query like 
 
     Select * from FIREWALL_LOGS LIMIT 100;
 
-![Image of table query](/assets/server-logs/hive_table_view.png)
+![](../../../assets/server-logs/test-query-results.png)
 
 * * *
 
@@ -283,37 +239,35 @@ In this section, we will use Excel Professional Plus 2013 to access the generate
 
 *   In Windows, open a new Excel workbook, then select **Data > From Other Sources > From Microsoft Query**.
 
-![](/assets/server-logs/17_open_query.jpg)
+![](../../../assets/server-logs/17_open_query.jpg)
 
 *   On the Choose Data Source pop-up, select the Hortonworks ODBC data source you installed previously, then click **OK**.
 
     The Hortonworks ODBC driver enables you to access Hortonworks data with Excel and other Business Intelligence (BI) applications that support ODBC.
 
-![](/assets/server-logs/18_choose_data_source.jpg)
+![](../../../assets/server-logs/18_choose_data_source.jpg)
 
 *   After the connection to the Sandbox is established, the Query Wizard appears. Select the "firewall_logs" table in the Available tables and columns box, then click the right arrow button to add the entire "firewall_logs" table to the query. Click **Next** to continue.
 
-![](/assets/server-logs/19_query_wizard1.jpg)
+![](../../../assets/server-logs/19_query_wizard1.jpg)
 
 *   On the Filter Data screen, click **Next** to continue without filtering the data.
 
-![](/assets/server-logs/20_query_wizard2.jpg)
+![](../../../assets/server-logs/20_query_wizard2.jpg)
 
 *   On the Sort Order screen, click **Next** to continue without setting a sort order.
 
-![](/assets/server-logs/21_query_wizard3.jpg)
+![](../../../assets/server-logs/21_query_wizard3.jpg)
 
 *   Click **Finish** on the Query Wizard Finish screen to retrieve the query data from the Sandbox and import it into Excel.
 
-![](/assets/server-logs/22_query_wizard4.jpg)
+![](../../../assets/server-logs/22_query_wizard4.jpg)
 
 *   On the Import Data dialog box, click **OK** to accept the default settings and import the data as a table.
 
-![](/assets/server-logs/23_import_data.jpg)
+![](../../../assets/server-logs/23_import_data.jpg)
 
-*   The imported query data appears in the Excel workbook.
-
-![](/assets/server-logs/24_data_imported.jpg)
+*   The imported query data should then appear in the Excel workbook.
 
 Now that we have successfully imported Hortonworks Sandbox data into Microsoft Excel, we can use the Excel Power View feature to analyze and visualize the data.
 
@@ -331,29 +285,29 @@ We'll start by reviewing the network traffic by country.
 
 *   In the Excel worksheet with the imported "<firewall_logs>" table, select **Insert > Power View** to open a new Power View report. (note: if this is your first time running PowerView it will prompt you to [install Silverlight](#Excel%20configuration%20for%20PowerView).
 
-![](/assets/server-logs/25_open_powerview_firewall_logs.jpg)
+![](../../../assets/server-logs/25_open_powerview_firewall_logs.jpg)
 
 *   The Power View Fields area appears on the right side of the window, with the data table displayed on the left.
 
     Drag the handles or click the Pop Out icon to maximize the size of the data table, and close the Filters area.
 
-![](/assets/server-logs/26_powerview_firewall_logs.jpg)
+![](../../../assets/server-logs/26_powerview_firewall_logs.jpg)
 
 *   In the Power View Fields area, clear checkboxes next to the **ip** and **time** fields, then click **Map** on the Design tab in the top menu. (**Note:** If you do not get data plotted on your map look at [Geolocation of data using Bing](#Geolocation%20of%20data%20using%20Bing))
 
-![](/assets/server-logs/27_open_map.jpg)
+![](../../../assets/server-logs/27_open_map.jpg)
 
 *   Drag the **status** field into the **SIZE** box.
 
-![](/assets/server-logs/28_status_to_size.jpg)
+![](../../../assets/server-logs/28_status_to_size.jpg)
 
 *   The map view displays a global view of the network traffic by country. The color orange represents successful, authorized network connections. Blue represents connections from unauthorized sources.
 
-![](/assets/server-logs/29_network_traffic_by_country.jpg)
+![](../../../assets/server-logs/29_network_traffic_by_country.jpg)
 
 *   Let's assume that recent denial-of-service attacks have originated in Pakistan. We can use the map controls to zoom in and take a closer look at traffic from that country.
 
-![](/assets/server-logs/30_network_traffic_pakistan.jpg)
+![](../../../assets/server-logs/30_network_traffic_pakistan.jpg)
 
     It's obvious that this is a coordinated attack, originating from many countries. Now we can use Excel to generate a list of the unauthorized IP addresses.
 
@@ -361,7 +315,7 @@ We'll start by reviewing the network traffic by country.
 
     Click the arrow next to the **status** column header. Clear the **Select all** check box, select the **ERROR** check box, then click **OK**.
 
-![](/assets/server-logs/31_excel_error_list.jpg)
+![](../../../assets/server-logs/31_excel_error_list.jpg)
 
 *   Now that we have a list of the unauthorized IP addresses, we can update the network firewall to deny requests from those attacking IP addresses.
 
@@ -377,7 +331,7 @@ First, make sure that the Apache Zeppelin service is started in Ambari. Then use
 
 You should be greeted by the following screen where you can choose to view notes, or create a new one.
 
-![](/assets/server-logs/zeppelin_create_note.png)
+![](../../../assets/server-logs/zeppelin_create_note.png)
 
 You can choose to import the note from this tutorial using the following URL:
 
@@ -395,73 +349,4 @@ and
 
 
 
-![](/assets/server-logs/sample_zeppelin_charts.png)
-
-
-* * *
-
-## Appendix A: Collecting Data in the Events Log
-
-This appendix contains further discussion regarding how the server log data was generated and transferred into HDFS in this tutorial. This information is of interest when you set up your own Flume source.
-
-### Basic Flume architecture:
-
-The Apache Flume project is a robust and reliable set of code that captures, aggregates and transfers high volumes of log data into Apache Hadoop. The major components of Flume are:
-
-*   Sources – event input
-*   Sinks – event output
-*   Channels – connections between the sources and sinks.
-
-More details about these Flume components can be found at:
-
-[http://www.drdobbs.com/database/acquiring-big-data-using-apache-flume/240155029](http://www.drdobbs.com/database/acquiring-big-data-using-apache-flume/240155029)
-
-### Collecting data in the Events Log
-
-The  event log uses a very simple model consisting of one source, one sink and a channel to interconnect the two.
-
-Our source is a file that Flume will watch using a tail command to collect the deltas. If you look at the flume.conf file you will see:
-
-`# Define/Configure sourcesandbox Sandbox.sources.eventlog.type = execsandbox Sandbox.sources.eventlog.command = tail -F /var/log/eventlog-demo.logsandboxSandbox.sources.eventlog.restart = true sandboxSandbox.sources.eventlog.batchSize = 1000 sandboxSandbox.sources.eventlog.type = seq ```Define / Configure sourcesandboxSandbox.sources.eventlog.type = execsandboxSandbox.sources.eventlog.command = tail -F /var/log/eventlog-demo.logsandboxSandbox.sources.eventlog.restart = truesandboxSandbox.sources.eventlog.batchSize = 1000 #sandboxSandbox.sources.eventlog.type = seq ~~~~`
-
-So for each collection cycle Flume will run the tail command on the eventlog-demo.log file. It will collect the deltas and pass them to the channel as defined by this section of the flume.conf file:
-
-`~~~~  Use a channel which buffers events in memorysandbox.channels.file_channel.type = filesandbox.channels.file_channel.checkpointDir =  /var/flume/checkpointsandbox.channels.file_channel.dataDirs =  /var/flume/data` `# Bind the source and sink to the channelsandbox.sources.eventlog.channels = file_channelsandbox.sinks.sink_to_hdfs.channel = file_channel`
-
-On the other end of the channel is a sink that writes into HDFS, as defined here:
-
-`# HDFS sinkssandbox.sinks.sink_to_hdfs.type = hdfssandbox.sinks.sink_to_hdfs.hdfs.fileType = DataStreamsandbox.sinks.sink_to_hdfs.hdfs.path = /flume/eventssandbox.sinks.sink_to_hdfs.hdfs.filePrefix = eventlogsandbox.sinks.sink_to_hdfs.hdfs.fileSuffix = .logsandbox.sinks.sink_to_hdfs.hdfs.batchSize = 1000`
-
-The thing to note here is that the path in Sandbox. sinks_to_hdfs.hdfs.path is in the HDFS file system, not the Linux file system. So you can use the file browser in the Sandbox to look at the /flume/events directory to see the data collected.
-
-Once we have the data in /flume/events, we can define a table using hcat using this command:
-
-`CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, status STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|' LOCATION '/flume/events';`
-
-We end up with a table named FIREWALL_LOGS and we project a structure that has the fields time, ip, country, and status. If you browse FIREWALL_LOGS in the HCat tab in the Sandbox, you will see the table.
-
-Once we have the FIREWALL_LOGS table, we can treat it like any other table and run Hive queries or PIG scripts on it. It looks like any other data in HDFS.
-
-Now that we have set up the flow to capture the data, we need to produce some data to feed in the pipe. For the purposes of the tutorial, we just use a data generation Python script (generate_logs.py).
-
-If we look at the Python code there are a few key lines. The first is where the eventlog-demo.log file is defined:
-
-`parser.add_option("-f",  "--logfile", dest="logfile", help="Specify a log file. Default=/var/log/eventlog-demo.log",  default="/var/log/eventlog-demo.log", type="string")`
-
-If you recall, this is the file that Flume is watching to collect data from the source.
-
-The routing generate_log is called from the main() routine to write out the log file entries.
-
-`def generate_log(timestamp,users,status,logfile): logging.basicConfig(filename=logfile, format='%(message)s', level=logging.DEBUG)if status ==  'SUCCESS': countries = weight\_good\_country(users)else  : countries = weight\_bad\_country(users)for country, concurrent_user in countries.iteritems(): i =  0  while i < concurrent_user : logging.info('%s|%s|%s|%s'%(timestamp, random_ip(), country, status)) i +=  1`
-
-So we have our full pipeline:
-
-*   Flume watches eventlog-demo.log for data.
-*   Data is captured and written to /flume/event in HDFS.
-*   Running generate_logs.py creates the data and writes it to eventlog-demo.log for capture.
-
-If you would like to customize the tutorial for your own data, you can start off with this very simple example. Just collect your data into a rotating log file. Have Flume watch the primary file and collect data using the same tail command we use here. The data should be accumulated into HDFS where you can process it.
-
-**Feedback**
-
-We are eager to hear your feedback on this tutorial. Please let us know what you think. [Click here to take survey](https://www.surveymonkey.com/s/SandboxT12ServerLog)
+![](../../../assets/server-logs/sample_zeppelin_charts.png)
