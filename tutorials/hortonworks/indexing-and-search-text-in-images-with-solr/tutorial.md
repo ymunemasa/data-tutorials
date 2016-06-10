@@ -39,21 +39,24 @@ yum install zlib-devel
 wget http://www.leptonica.org/source/leptonica-1.69.tar.gz
 ~~~
 
+
 *   **Download Tesseract, an Optical Character Recognition engine**
 
 ~~~
 wget http://tesseract-ocr.googlecode.com/files/tesseract-ocr-3.02.02.tar.gz
 ~~~
 
-*   **Ensure proper variables and pathing are set – This is necessary so that when building leptonica, the build can find the dependencies that you installed earlier. If the path is not correct, you will get Unsupported image type errors when running tesseract command line client.
 
-Also, when installing tesseract, you will place language data at TESSDATA_PREFIX dir.**
+*   **Ensure proper variables and pathing are set**– This is necessary so that when building leptonica, the build can find the dependencies that you installed earlier. If the path is not correct, you will get Unsupported image type errors when running tesseract command line client.
+
+Also, when installing tesseract, you will place language data at TESSDATA_PREFIX dir.
 
 ~~~
 cat ~/.bashrc
 export TESSDATA_PREFIX='/usr/local/share/'
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib64
 ~~~
+
 
 *   **Build Leptonica**
 
@@ -70,6 +73,7 @@ Change the working directory to ~.
 ~~~
 cd ~
 ~~~
+
 
 *   **Build Tesseract**
 
@@ -89,6 +93,7 @@ Change the working directory to ~.
 cd ~
 ~~~
 
+
 *   **Download tesseract language(s) and place them in TESSDATA_PREFIX dir, defined above**
 
 ~~~
@@ -99,7 +104,7 @@ cp tesseract-ocr/tessdata/Make* /usr/local/share/tessdata
 ~~~
 
 
-*   **Test Tesseract – Use the image in this blog post. You’ll notice that this is where I started. The ‘hard’ part of this was getting the builds correct for leptonica. And the problem there was ensuring that I had the correct dependencies installed and that they were available on the path defined above. If this doesn’t work, there’s no sense moving on to SOLR.**
+*   **Test Tesseract** – Use the image in this blog post. You’ll notice that this is where I started. The ‘hard’ part of this was getting the builds correct for leptonica. And the problem there was ensuring that I had the correct dependencies installed and that they were available on the path defined above. If this doesn’t work, there’s no sense moving on to SOLR.
 
 [http://blog.thedigitalgroup.com/vijaym/2015/07/17/using-solr-and-tikaocr-to-search-text-inside-an-image/](http://blog.thedigitalgroup.com/vijaym/2015/07/17/using-solr-and-tikaocr-to-search-text-inside-an-image/)
 
@@ -115,20 +120,23 @@ Coming back to the sandbox terminal, now do:
 /usr/local/bin/tesseract ~/OM_1.jpg ~/OM_out
 ~~~
 
-Tesseract Open Source OCR Engine v3.02.02 with Leptonica
+**Tesseract Open Source OCR Engine v3.02.02 with Leptonica**
 
 ~~~
-cat ~/OM_out.txt ‘  '"I“ " "'  ./ lrast.  
+cat ~/OM_out.txt   
+
+‘  '"I“ " "'  ./
+lrast. Shortly before the classes started I was visiting a.
+certain public school, a school set  in a typically English
+countryside, which on the June clay of my visit was wonder-
+fully beauliful.  The  Head  Master—-no less typical than his
+school and the country-side—pointed out the charms of
+both,  and his pride came out  in the ?nal remark which he made
+beforehe left me.  He explained that he had a class to take
+in'I'heocritus.  Then  (with a. buoyant gesture);  “  Can you
+, conceive anything more delightful than a class  in  Theocritus,
+on such a day and  in such a place?"`
 ~~~
-
-    `Shortly before the classes started I was visiting a. certain public school, a school set  in a typically English countryside, which on the June clay of my visit was wonder- fully beauliful.  The  Head  Master—-no less typical than his
-
-    school and the country-side—pointed out the charms of
-
-    both,  and his pride came out  in the ?nal remark which he made
-
-    beforehe left me.  He explained that he had a class to take in'I'heocritus.  Then  (with a. buoyant gesture);  “  Can you , conceive anything more delightful than a class  in  Theocritus, on such a day and  in such a place?"`
-
 
 
 If you have text in your out file, then you’ve done it correctly!
@@ -140,6 +148,7 @@ If you have text in your out file, then you’ve done it correctly!
 ~~~
 cd  /opt/lucidworks-hdpsearch/solr/bin/  ./solr -e dih
 ~~~
+
 
 *   **Use SOLR Admin to upload the image**
 
