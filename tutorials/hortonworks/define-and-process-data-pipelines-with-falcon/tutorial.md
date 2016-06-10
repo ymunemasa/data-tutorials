@@ -418,7 +418,7 @@ Then click on the `Edit` button over XML Preview area on the right hand side of 
         <location type="stats" path="/"/>
         <location type="meta" path="/"/>
     </locations>
-    <ACL owner="ambari-qa" group="users" permission="755"/>
+    <ACL owner="ambari-qa" group="users" permission="0755"/>
     <schema location="/none" provider="/none"/>
 </feed>
 ~~~
@@ -554,7 +554,7 @@ Click on the `Edit` button over XML Preview area on the right hand side of the s
     </outputs>
     <workflow name="emailIngestWorkflow" version="4.0.1" engine="oozie" path="/user/ambari-qa/falcon/demo/apps/ingest/fs"/>
     <retry policy="exp-backoff" delay="minutes(3)" attempts="3"/>
-    <ACL owner="ambari-qa" group="users" permission="755"/>
+    <ACL owner="ambari-qa" group="users" permission="0755"/>
 </process>
 ~~~
 
@@ -675,7 +675,7 @@ Click on the `Edit` button over XML Preview area on the right hand side of the s
         <location type="stats" path="/"/>
         <location type="meta" path="/"/>
     </locations>
-    <ACL owner="ambari-qa" group="users" permission="755"/>
+    <ACL owner="ambari-qa" group="users" permission="0755"/>
     <schema location="/none" provider="/none"/>
 </feed>
 ~~~
@@ -896,7 +896,7 @@ Click on the `Edit` button over XML Preview area on the right hand side of the s
     </outputs>
     <workflow name="emailCleanseWorkflow" version="pig-0.13.0" engine="pig" path="/user/ambari-qa/falcon/demo/apps/pig/id.pig"/>
     <retry policy="exp-backoff" delay="minutes(3)" attempts="3"/>
-    <ACL owner="ambari-qa" group="users" permission="755"/>
+    <ACL owner="ambari-qa" group="users" permission="0755"/>
 </process>
 ~~~
 
