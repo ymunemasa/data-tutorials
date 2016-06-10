@@ -18,7 +18,7 @@ A very common request from many customers is to be able to index text in image f
 
 ### [](#step-by-step-guide)Step-by-step guide
 
-*   **Install dependencies – **this will provide you support for processing pngs, jpegs, and tiffs**
+*   **Install dependencies – this will provide you support for processing pngs, jpegs, and tiffs**
 
 ~~~
 yum install autoconf automake libtool
@@ -45,7 +45,7 @@ wget http://www.leptonica.org/source/leptonica-1.69.tar.gz
 wget http://tesseract-ocr.googlecode.com/files/tesseract-ocr-3.02.02.tar.gz
 ~~~
 
-*   **Ensure proper variables and pathing are set **– This is necessary so that when building leptonica, the build can find the dependencies that you installed earlier. If the path is not correct, you will get Unsupported image type errors when running tesseract command line client.
+*   **Ensure proper variables and pathing are set – This is necessary so that when building leptonica, the build can find the dependencies that you installed earlier. If the path is not correct, you will get Unsupported image type errors when running tesseract command line client.
 
 Also, when installing tesseract, you will place language data at TESSDATA_PREFIX dir.**
 
@@ -55,7 +55,7 @@ export TESSDATA_PREFIX='/usr/local/share/'
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib64
 ~~~
 
-*   **Build leptonica**
+*   **Build Leptonica**
 
 ~~~
 tar xvf leptonica-1.69.tar.gz 
@@ -99,7 +99,7 @@ cp tesseract-ocr/tessdata/Make* /usr/local/share/tessdata
 ~~~
 
 
-*   **Test Tesseract – **Use the image in this blog post. You’ll notice that this is where I started. The ‘hard’ part of this was getting the builds correct for leptonica. And the problem there was ensuring that I had the correct dependencies installed and that they were available on the path defined above. If this doesn’t work, there’s no sense moving on to SOLR.**
+*   **Test Tesseract – Use the image in this blog post. You’ll notice that this is where I started. The ‘hard’ part of this was getting the builds correct for leptonica. And the problem there was ensuring that I had the correct dependencies installed and that they were available on the path defined above. If this doesn’t work, there’s no sense moving on to SOLR.**
 
 [http://blog.thedigitalgroup.com/vijaym/2015/07/17/using-solr-and-tikaocr-to-search-text-inside-an-image/](http://blog.thedigitalgroup.com/vijaym/2015/07/17/using-solr-and-tikaocr-to-search-text-inside-an-image/)
 
@@ -133,7 +133,7 @@ cat ~/OM_out.txt ‘  '"I“ " "'  ./ lrast.
 
 If you have text in your out file, then you’ve done it correctly!
 
-1.  **Start Solr Sample – **This sample contains the Proper Extracting Request Handler for processing with tika**
+1.  **Start Solr Sample – This sample contains the Proper Extracting Request Handler for processing with tika**
 
 [https://wiki.apache.org/solr/ExtractingRequestHandler](https://wiki.apache.org/solr/ExtractingRequestHandler)
 
@@ -149,7 +149,7 @@ Go back to the blog post or to the RequestHandler page for the proper update/ext
 2. Click Documents
 3. In the Request-Handler (qt) field, enter /update/extract
 4. In the Document Type drop down, select File Upload
-5. Choose the png file
+5. Choose the jpg file
 6. In the Extracting Req. Handler Params box, type the following:
 
 `literal.id=d1&uprefix=attr_&fmap.content=attr_content&commit=true`
