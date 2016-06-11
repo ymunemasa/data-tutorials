@@ -13,37 +13,34 @@ components: [ ranger ]
 
 In this tutorial we will explore how you can use policies in Apache Ranger to protect your enterprise data lake and audit access by users to resources on HDFS, Hive and HBase from a centralized Ranger Administration Console.
 
-### Prerequisite
+### Prerequisites
 
-*   VirtualBox
 *   Download [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*   Complete the [Learning the Ropes of the HDP Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) tutorial.
 
-After you download the VM, import the .ova file to VirtualBox and run the VM.
-
-You can also choose to get running
 
 ### Login to the Ranger Administration Console
 
-Once the VM is running in VirtualBox, login to the Ranger Administration console at [http://localhost:6080/](http://localhost:6080/) from your host machine. The username is `admin` and the password is `admin`
+Once the VM is running in VirtualBox, login to the Ranger Administration console at [http://localhost:6080/](http://localhost:6080/) from your host machine. The username is `admin` and the password is `admin`.
 
-![](../../../assets/securing-data-lake-with-ranger/ranger-login.png)
+![](/assets/securing-data-lake-with-ranger/ranger-login.png)
 
 
 As soon as you login, you should see list of repositories as shown below:  
 
-![](../../../assets/securing-data-lake-with-ranger/main-policies.png)
+![](/assets/securing-data-lake-with-ranger/main-policies.png)
 
 ### Review existing HDFS policies
 
 Please click on `Sandbox_hadoop` link under HDFS section
 
-![](../../../assets/securing-data-lake-with-ranger/hdfs-policies.png)
+![](/assets/securing-data-lake-with-ranger/hdfs-policies.png)
 
 User can review policy details by a single click on the policy. The policy details will appear on the right.
 
 Click on the **HDFS Global Allow** policy. Click the slider so it is in **disable** position. Then click **Save**.
 
-![](../../../assets/securing-data-lake-with-ranger/disable-hdfs-policy.png)
+![](/assets/securing-data-lake-with-ranger/disable-hdfs-policy.png)
 
 ### Exercise HDFS access scenarios
 
@@ -64,9 +61,9 @@ Try running the following commands:
 	su it1
 	id
 	hdfs dfs -cat /demo/data/Customer/acct.txt
-	
+
 You should get a result similar to the following
-	
+
 	[root@sandbox ~]# su - it1
 	[it1@sandbox ~]$ id uid=1018(it1)  gid=1018(IT)  groups=1018(IT)
 	[it1@sandbox ~]$ hdfs dfs -cat /demo/data/Customer/acct.txt
@@ -76,11 +73,11 @@ You should get a result similar to the following
 
 Go to the Auditing Tab and check that its access (denied) being audited. You can filter
 
-![](../../../assets/securing-data-lake-with-ranger/audit-deny-1.png)
+![](/assets/securing-data-lake-with-ranger/audit-deny-1.png)
 
 Now, go back to the HDFS Global Allow Policy. Click the switch to enable it and try running the command again
 
-![](../../../assets/securing-data-lake-with-ranger/enable-hdfs-global-allow.png)
+![](/assets/securing-data-lake-with-ranger/enable-hdfs-global-allow.png)
 
 	hdfs dfs -cat /demo/data/Customer/acct.txt
 
@@ -88,14 +85,14 @@ You should be greeted with many rows of data after running the command with the 
 
 Now head back to the audit tab in Ranger and search by user: `it1`. Here you can see that the request was Allowed through
 
-![](../../../assets/securing-data-lake-with-ranger/audit-it1.png)
+![](/assets/securing-data-lake-with-ranger/audit-it1.png)
 
 
 ### Review Hive Policies
 
 Click on PolicyManager section on the top menu, then click on `Sandbox_hive` link under HIVE section to view list of Hive Policies
 
-![](../../../assets/securing-data-lake-with-ranger/hive-policies.png)
+![](/assets/securing-data-lake-with-ranger/hive-policies.png)
 
 
 User can review policy details by a single click on the policy. The policy details will appear on the right.
@@ -112,7 +109,7 @@ Make sure you first run `exit` to log out of the `it1` user, then run the follow
 
 	su mktg1
 	beeline -u "jdbc:hive2://localhost:10000/default" -n mktg1 -p mktg1 -d org.apache.hive.jdbc.HiveDriver
-	
+
 Then once beeline is started run:
 
 	select * from xademo.customer_details
@@ -124,20 +121,20 @@ You should get an error like:
 
 Go to Policy Administrator tool and see its access (denied) being audited. You can do this the same way that we checked for the `it1` user. Just search the audit log by user to see.
 
-![](../../../assets/securing-data-lake-with-ranger/hive-audit-1.png)
+![](/assets/securing-data-lake-with-ranger/hive-audit-1.png)
 
 Re-Enable the **Global Hive Tables Allow** policy. Then try running the same beeline command again.
 
 Go to Policy Administrator tool and see its access (granted) being audited.
 
-![](../../../assets/securing-data-lake-with-ranger/hive-audit-1.png)
+![](/assets/securing-data-lake-with-ranger/hive-audit-2.png)
 
 
 ### Review HBase Policies
 
-Click on PolicyManager section on the top menu, then click on the `Sandbox_hbase` link under **HBASE** section to view list of hbase Policies
+Click on PolicyManager section on the top menu, then click on the `Sandbox_hbase` link under **HBASE** section to view list of hbase Policies.
 
-![](../../../assets/securing-data-lake-with-ranger/hbase-policies.png)
+![](assets/securing-data-lake-with-ranger/hbase-policies.png)
 
 User can review policy details by a single click on the policy. The policy details will appear on the right.
 
@@ -145,10 +142,13 @@ Disable the **HBase Global Allow** Policy in the same manner that we did before.
 
 ### Exercise HBase access scenarios
 
-Log out of user `mktg1` by typing `exit` into the terminal. Make sure that the prompt shows `[root@sandbox ~]#`. Run the following command to start HBasew
+Log out of user `mktg1` by typing `exit` into the terminal. Make sure that the prompt shows
+`[root@sandbox ~]#`.
+
+Run the following command to start HBase
 
 	./start_hbase.sh
-	
+
 You will get something like:
 
 	[root@sandbox ~]# ./start_hbase.sh
@@ -170,10 +170,10 @@ You will get something like:
 
 
 Run the hbase shell command to validate access for `it1` user-id, who belongs to `IT` group to see if he can view table data from the `iemployee` table:
-w
+
 	su it1
 	hbase shell
-	
+
 Once at the HBase Shell, run:
 
 	get 'iemployee', '1'
@@ -236,13 +236,13 @@ You should get a message similar to:
 	  hbase> t.get 'r1', ['c1', 'c2']
 	  hbase> t.get 'r1', {CONSISTENCY => 'TIMELINE'}
 	  hbase> t.get 'r1', {CONSISTENCY => 'TIMELINE', REGION_REPLICA_ID => 1}
-	  
-	  
-	  
+
+
+
 Now go ahead and re-enable the **HBASE Global Allow** policy. Run the same command at the hbase shell
 
 	get 'iemployee', '1'
-	
+
 Then you should get an output like:
 
 	hbase(main):016:0> get 'iemployee', '1'
