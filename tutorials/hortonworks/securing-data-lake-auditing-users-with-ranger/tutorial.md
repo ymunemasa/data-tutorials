@@ -134,7 +134,7 @@ Go to Policy Administrator tool and see its access (granted) being audited.
 
 Click on PolicyManager section on the top menu, then click on the `Sandbox_hbase` link under **HBASE** section to view list of hbase Policies.
 
-![](assets/securing-data-lake-with-ranger/hbase-policies.png)
+![](/assets/securing-data-lake-with-ranger/hbase-policies.png)
 
 User can review policy details by a single click on the policy. The policy details will appear on the right.
 
