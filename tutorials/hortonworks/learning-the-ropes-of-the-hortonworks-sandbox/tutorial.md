@@ -29,7 +29,7 @@ Let's begin our Hadoop journey.
       - [1.3 Connect to the Welcome Screen](#connect-to-welcome-screen)
       - [1.4 Multiple Ways to Execute Terminal Commands(SSH, Web Shell, VM Shell)](#ways-execute-terminal-command)
       - [1.5 Learn Your Sandbox Version](#learn-sandbox-version)
-      - [1.6 Send Data between Sandbox & Local Machine](#send-data-btwn-sandbox-local-machine)
+      - [1.6 Send Data Between Sandbox & Local Machine](#send-data-btwn-sandbox-local-machine)
 - [Step 2: Explore Ambari](#explore-ambari)
       - [2.1 Use Terminal to Find the Host IP Sandbox Runs On](#find-host-ip-sandbox-runs-on)
       - [Services Provided By the Sandbox](#services-provided-by-sandbox)
@@ -41,7 +41,7 @@ Let's begin our Hadoop journey.
       - [1.1 Deploy the Sandbox in Azure](#deploy-sandbox-azure)
       - [1.2 Connect to the Welcome Screen](#connect-to-welcome-screen-azure)
       - [1.3 Multiple Ways to Execute Terminal Commands(SSH, Web Shell)](#ways-execute-terminal-command-azure)
-      - [1.4 Send Data between Azure Sandbox & Local Machine](#send-data-btwn-sandbox-local-machine-azure)
+      - [1.4 Send Data Between Azure Sandbox & Local Machine](#send-data-btwn-sandbox-local-machine-azure)
 - [Step 2: Explore Ambari in Azure](#explore-ambari-azure)
       - [Services Provided By the Sandbox in Azure](#services-provided-by-sandbox-azure)
       - [2.1 Setup Ambari admin Password Manually](#setup-ambari-admin-password-azure)
@@ -82,7 +82,7 @@ In case of VirtualBox: `host` would be `127.0.0.1`
 
 If you are using a private cluster or a cloud to run sandbox. Please find the host your sandbox resolves to.
 
-### 1.4 Connect to the Welcome Screen <a id="connect-to-welcome-screen"></a>
+### 1.3 Connect to the Welcome Screen <a id="connect-to-welcome-screen"></a>
 
 Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
 
@@ -140,7 +140,7 @@ To find information about your sandbox, execute the command:
 sandbox-version
 ~~~
 
-### 1.6 Send Data between Sandbox & Local Machine <a id="send-data-btwn-sandbox-local-machine"></a>
+### 1.6 Send Data Between Sandbox & Local Machine <a id="send-data-btwn-sandbox-local-machine"></a>
 
 Open your terminal (linux or mac) or git bash (windows). To send data, in our example HDF .tar.gz file, from your local machine to the azure sandbox, you would input the the following command. If you want to try this command, replace the HDF filename with another filename from your Downloads folder. Modify the command and execute:
 
@@ -292,7 +292,7 @@ Open your web browser. Replace the following text by your `host` into your brows
 
 > Appearance of Web Shell
 
-### 1.4 Send Data between Azure Sandbox & Local Machine <a id="send-data-btwn-sandbox-local-machine-azure"></a>
+### 1.4 Send Data Between Azure Sandbox & Local Machine <a id="send-data-btwn-sandbox-local-machine-azure"></a>
 
 Open your terminal (linux or mac) or git bash (windows). To send data, in our example HDF .tar.gz file, from your local machine to the azure sandbox, you would input the the following command. If you want to try this command, replace the HDF filename with another filename from your Downloads folder. Also replace james94 with your azure username you provided while deploying the sandbox. Lastly, replace the 2nd james94 folder_name with your azure username, which is the folder of your sandbox. Modify the command and execute:
 
