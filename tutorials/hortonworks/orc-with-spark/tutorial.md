@@ -8,7 +8,6 @@ intro-page: true
 components: [ spark, hive, orc ]
 ---
 
-
 ### Introduction
 
 In this tutorial, we will explore how you can access and analyze data on Hive from Spark. In particular, you will learn:
@@ -16,8 +15,8 @@ In this tutorial, we will explore how you can access and analyze data on Hive fr
 *   How to interact with Apache Spark through an interactive Spark shell
 *   How to read a text file from HDFS and create a RDD
 *   How to interactively analyze a data set through a rich set of Spark API operations
-*   How to create an Hive table in ORC File format
-*   How to query an Hive table using Spark SQL
+*   How to create a Hive table in ORC File format
+*   How to query a Hive table using Spark SQL
 *   How to persist data in ORC file format
 
 Spark SQL uses the Spark engine to execute SQL queries either on data sets persisted in HDFS or on existing RDDs. It allows you to manipulate data with SQL statements within a Spark program.
