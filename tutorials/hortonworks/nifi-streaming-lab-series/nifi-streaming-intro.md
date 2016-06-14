@@ -10,14 +10,14 @@ A city planning board is evaluating the need for a new highway.  This decision i
 
 **Solution Roadmap:**
 
-1. Connect to Stream Simulator Traffic Data
+1\. Connect to Stream Simulator Traffic Data
 
-2. Add Geographic Location Enrichment to Data
+2\. Add Geographic Location Enrichment to Data
 
 <!-- Compute and Extract Average speed for 2 transits -->
 <!-- Visualize Data with Solr and Banana -->
 
-3. Ingest Live Stream of Transit Locations
+3\. Ingest Live Stream of Transit Locations
 
 Apache NiFi, one of the technologies that powers HDF, automates the flow of data between systems. The significance of dataflow is to automate and manage the flow of information between systems. This problem space has been around ever since enterprises had more than one system, where some of the systems created data and some of the systems consumed data.
 

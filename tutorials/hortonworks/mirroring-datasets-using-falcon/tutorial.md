@@ -8,7 +8,7 @@ intro-page: true
 components: [ falcon, ambari ]
 ---
 
-##Introduction
+## Introduction
 
 Apache Falcon is a framework to simplify data pipeline processing and management on Hadoop clusters.
 
