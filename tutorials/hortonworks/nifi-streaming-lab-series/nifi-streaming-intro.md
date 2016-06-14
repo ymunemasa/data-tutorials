@@ -8,11 +8,15 @@ Capturing live data is one of the principal challenges facing any organization. 
 
 A city planning board is evaluating the need for a new highway.  This decision is highly dependant on current traffic patterns, particularly as other roadwork initiatives are under way.  Integrating live data poses a problem because traffic Analysis has traditionally been done using historical aggregated traffic counts.  In order to improve the traffic analysis, the city planner wants to also leverage real time data to get a deeper understanding of traffic patterns.  In order to ensure ongoing flexibility, HDF was selected for its many integration points and low barrier to entry.
 
-Solution Roadmap:
+**Solution Roadmap:**
+
 1. Connect to Stream Simulator Traffic Data
+
 2. Add Geographic Location Enrichment to Data
+
 <!-- Compute and Extract Average speed for 2 transits -->
 <!-- Visualize Data with Solr and Banana -->
+
 3. Ingest Live Stream of Transit Locations
 
 Apache NiFi, one of the technologies that powers HDF, automates the flow of data between systems. The significance of dataflow is to automate and manage the flow of information between systems. This problem space has been around ever since enterprises had more than one system, where some of the systems created data and some of the systems consumed data.
