@@ -262,7 +262,7 @@ Since this tutorial series is based on part of the trucking demo, there are many
 1\. Update ambari admin login variables defined at the top in user-env.sh file, so the automation script can have the privileges to setup the demo modules. Enter the username and password you use to login into to ambari as an admin. Open a terminal, type:
 
 ~~~
-vi ~/iot-truck-streaming/user-env.sh/
+vi ~/iot-truck-streaming/user-env.sh
 ~~~
 
 The file will open as in the image below:
