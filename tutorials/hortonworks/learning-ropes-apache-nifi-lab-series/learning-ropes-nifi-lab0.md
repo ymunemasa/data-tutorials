@@ -37,6 +37,19 @@ If you plan to install HDF on Hortonworks Sandbox, review the table, then procee
 
 > Note: **Host Name** values are unique for VMware & Azure Sandbox compared to the table. For VMware and VirtualBox, **Host Name** is located on welcome screen. For Azure, **Host Name** is located under **Public IP Address** on Sandbox Dashboard. For Azure users, the terminal **username** and **password** is one you created while deploying the sandbox on azure. For VMware and VirtualBox users, terminal password changes after first login.
 
+If it is your first time SSH'ing into the sandbox VM, it may prompt you to change the default 'hadoop' password. Please run this command and provide a stronger password:
+```
+ssh -p 2222 root@localhost
+root@localhost's password:
+You are required to change your password immediately (root enforced)
+Last login: Wed Jun 15 19:47:44 2016 from 10.0.2.2
+Changing password for root.
+(current) UNIX password:
+New password:
+Retype new password:
+[root@sandbox ~]#
+```
+
 ### 1.2 Plan to Install HDF 1.2 on Local Machine
 
 This section is important to read through if you want to install NiFi on your local machine. Refer to step 3 if you read this section.
@@ -79,8 +92,9 @@ The following instructions will guide you through the NiFi installation process.
 1\. Open a terminal window (Mac and Linux) or git bash (Windows) on **local machine**. Download the **install-nifi.sh** file from the github repo. Copy & paste the following commands:
 
 ~~~
-cd ~
+cd
 curl -o install-nifi.sh https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-event-processing/install-nifi.sh
+chmod +x ./install-nifi.sh
 ~~~
 
 2\. Open a browser. NiFi can be downloaded from [HDF Downloads Page](http://hortonworks.com/downloads/). There are two package options one for HDF TAR.GZ file tailored to Linux and ZIP file more compatible with Windows. Mac can use either option. For the tutorial, let's download the latest HDF TAR.GZ:
@@ -98,7 +112,7 @@ install-nifi.sh {location-of-HDF-download} {sandbox-host} {ssh-port} {hdf-versio
 After you provide the file path location to HDF TAR.GZ file, sandbox hostname, ssh port number and HDF version, your command should look similar as follows:
 
 ~~~
-bash install-nifi.sh ~/Downloads/HDF-1.2.0.1-1.tar.gz localhost 2222 1.2.0.1-1
+./install-nifi.sh ~/Downloads/HDF-1.2.0.1-1.tar.gz localhost 2222 1.2.0.1-1
 ~~~
 
 > Note: You will be asked if you want to continue the download, type `yes`. You will also be asked twice for your ssh password to install NiFi on your Hortonworks Sandbox.
@@ -174,6 +188,7 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 4\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. You should be able to access it now. Wait 1 to 2 minutes for NiFi to load.
 
+> Note: if you haven't configured the `sandbox.hortonworks.com` alias in `/etc/hosts`, try the `http://localhost:6434/nifi` URL as well.
 
 ### 4.2 Forward Port with Azure GUI
 
