@@ -371,7 +371,7 @@ A common warning message among all processors is that there needs to be a relati
 ~~~
 cd /home/nifi/output/filtered_transitLoc_data
 ls
-vi 171228778202845
+vi 22169558941607
 ~~~
 
 ![commands_enter_sandbox_shell_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/commands_enter_sandbox_shell_lab1.png)
