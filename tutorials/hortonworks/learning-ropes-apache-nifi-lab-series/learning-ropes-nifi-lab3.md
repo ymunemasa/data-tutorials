@@ -27,7 +27,7 @@ In this tutorial, You will replace the section of our dataflow that generates th
 | Property  | Value  |
 |---|---|
 | URL  | `http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=sf-muni&r=M&t=0` |
-| Filename  | vehicleLoc_SF_OceanView.json  |
+| Filename  | vehicleLoc_SF_OceanView.xml  |
 
 ![getHTTP_liveStream_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/getHTTP_liveStream_config_property_tab_window.png)
 
