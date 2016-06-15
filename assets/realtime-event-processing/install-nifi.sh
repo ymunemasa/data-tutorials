@@ -35,5 +35,5 @@ cd \$HDF2/nifi
 echo 'Updating Run Configs'
 sed -i s/nifi.web.http.port=8080/nifi.web.http.port=6434/g conf/nifi.properties
 echo "NiFi is now installed on Sandbox at /root/hdf/\$HDF2/nifi"
-echo "Run NiFi on the sandbox with the command \"/root/hdf/\$HDF2/nifi/bin/nifi.sh run\""
+echo "Run NiFi on the sandbox with the command \"/root/hdf/\$HDF2/nifi/bin/nifi.sh start\""
 ENDSSH
