@@ -56,7 +56,7 @@ The building blocks of every dataflow consists of processors. These tools perfor
 - **SplitXml** splits the XML file into separate FlowFiles, each comprised of children of the parent element
 - **UpdateAttribute** assigns each FlowFile a unique name
 - **RouteOnAttribute** makes the filtering decisions on the vehicle location data
-- **AttributesToJSON** represents the attributes in JSON format
+- **AttributesToJSON** represents the filtered attributes in JSON format
 - **MergeContent** merges the FlowFiles into one FlowFile by concatenating their JSON content together
 - **PutFile** writes filtered vehicle location data content to a directory on the local file system
 
@@ -86,8 +86,8 @@ After the filtering and JSON conversion, your new file, which contains transit l
 
 | Parameter  | Value  |
 |---|---|
-| Input Directory  | /tmp/nifi-output/filtered-data  |
-| Output File  | filtered_transitLoc_data.json  |
+| Input Directory  | /home/nifi/input  |
+| Output Directory  | /home/nifi/output/filtered_transitLoc_data  |
 | File Format  | JSON  |
 | Filter For  | id, time, lat, lon, speedKmHr, dirTag  |
 
@@ -171,14 +171,14 @@ Now that we added some processors, we will configure our processors in the **Con
 If NiFi is on Sandbox, send the zip file to the sandbox with the command:
 
 ~~~bash
-scp -P 2222 ~/Downloads/trafficLocs_data_for_simulator.zip root@localhost:/home/nifi
+scp -P 2222 ~/Downloads/trafficLocs_data_for_simulator.zip root@localhost:/home/nifi/input
 ~~~
 
-If NiFi is on local machine, create a new folder named `/home/nifi` in the `/` directory with the command:
+If NiFi is on local machine, create a new folder named `/home/nifi/input` in the `/` directory with the command:
 
 ~~~bash
 mkdir /home/nifi
-mv ~/Downloads/trafficLocs_data_for_simulator.zip /home/nifi
+mv ~/Downloads/trafficLocs_data_for_simulator.zip /home/nifi/input
 ~~~  
 
 Right click on the **GetFile** processor and click **configure** from dropown menu
@@ -187,7 +187,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 2\. Click on the **Properties** tab.
 
-3\. In the **value** field next to property **Input Directory**, insert `/home/nifi`. Click the **OK** button.
+3\. In the **value** field next to property **Input Directory**, insert `/home/nifi/input`. Click the **OK** button.
 
 4\. In the **value** field next to property **Keep Source File**, change false to `true`. Click **OK** and then leave other configurations as default and click **Apply**.
 
