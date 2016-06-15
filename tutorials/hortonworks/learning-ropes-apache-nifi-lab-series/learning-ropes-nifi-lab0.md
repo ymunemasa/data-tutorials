@@ -98,7 +98,7 @@ install-nifi.sh {location-of-HDF-download} {sandbox-host} {ssh-port} {hdf-versio
 After you provide the file path location to HDF TAR.GZ file, sandbox hostname, ssh port number and HDF version, your command should look similar as follows:
 
 ~~~
-bash install-nifi.sh ~/Downloads/HDF-1.2.0.1-1.tar.gz localhost 2222 1.2.0.1-1
+./install-nifi.sh ~/Downloads/HDF-1.2.0.1-1.tar.gz localhost 2222 1.2.0.1-1
 ~~~
 
 > Note: You will be asked if you want to continue the download, type `yes`. You will also be asked twice for your ssh password to install NiFi on your Hortonworks Sandbox.
