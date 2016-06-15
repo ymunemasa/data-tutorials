@@ -320,7 +320,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 1\. Open the processor configuration **properties** tab. Insert `/home/nifi/output/filtered_transitLoc_data` into the **Directory** value field.
 
-![putFile_config_property_tab_window](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/putFile_config_property_tab_window.png)
+![putFile_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/putFile_config_property_tab_window.png)
 
 3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **success** checkboxes. Click **Apply**.
 
