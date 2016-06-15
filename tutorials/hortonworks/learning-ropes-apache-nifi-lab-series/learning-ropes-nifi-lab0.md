@@ -129,7 +129,7 @@ The script automatically installs NiFi onto your virtual machine. After successf
 
 ### Step 4: Start NiFi on Sandbox <a id="step3-start-nifi"></a>
 
-If you downloaded and installed NiFi on Hortonworks Sandbox, refer to this step, else go to step 5. We will start NiFi to run in the foreground.
+If you downloaded and installed NiFi on Hortonworks Sandbox, refer to this step, else go to step 5. We will launch NiFi in the background.
 
 1\. Open a terminal (Mac and Linux) or git bash (Windows). SSH into the Hortonworks Sandbox
 
