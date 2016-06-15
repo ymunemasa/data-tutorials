@@ -36,7 +36,7 @@ In this tutorial, You will replace the section of our dataflow that generates th
 
 Now that we added NextBus San Francisco Muni Live Stream Ingestion to our dataflow , let's run the dataflow and verify if we receive the expected results in our output directory.
 
-1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). Your screen should look like the following:
+1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). Your screen should look like the following:
 
 ![complete_dataflow_lab3_live_stream_ingestion](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/complete_dataflow_lab3_live_stream_ingestion.png)
 
@@ -50,7 +50,7 @@ vi 58849126478211
 
 Did you receive neighborhoods similar to the image below?
 
-![nextbus_liveStream_output_lab3](assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/nextbus_liveStream_output_lab3.png)
+![nextbus_liveStream_output_lab3](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/nextbus_liveStream_output_lab3.png)
 
 ## Summary
 
