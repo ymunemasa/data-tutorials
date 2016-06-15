@@ -204,6 +204,8 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 **Figure 4:** UnpackContent Configuration Property Tab Window
 
+2\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **original** checkboxes. Click **Apply**.
+
 ### 3.3 Configure ControlRate Processor
 
 1\. Open the processor configuration **properties** tab. Change the **value** next to property **Rate Control Criteria** from data rate to `flowfile count`.
@@ -214,6 +216,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 **Figure 5:** ControlRate Configuration Property Tab Window
 
+3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** checkbox. Click **Apply**.
 
 ### Step 4: Build Key Attribute Extraction DataFlow Section
 
@@ -230,6 +233,8 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 ![evaluateXPath_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/evaluateXPath_config_property_tab_window.png)
 
 **Figure 6:** EvaluateXPath Configuration Property Tab Window
+
+3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **unmatched** checkboxes. Click **Apply**.
 
 ### 4.2 Configure SplitXML Processor
 
@@ -265,6 +270,8 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 **Figure 8:** EvaluateXPath Configuration Property Tab Window
 
+3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **unmatched** checkboxes. Click **Apply**.
+
 ### Step 5: Build Filter and JSON Conversion DataFlow Section
 
 ### 5.1 Configure RouteOnAttribute
@@ -279,6 +286,8 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 **Figure 9:** RouteOnAttribute Configuration Property Tab Window
 
+2\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **unmatched** checkbox. Click **Apply**.
+
 ### 5.2 Configure AttributesToJSON
 
 1\. Open the processor configuration **properties** tab. In the **value** field next property **Attributes List**, enter `Vehicle_ID, Direction_of_Travel, Latitude, Longitude, Vehicle_Speed, Last_Time`.
@@ -289,21 +298,31 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 **Figure 10:** AttributesToJSON Configuration Property Tab Window
 
+3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** checkbox. Click **Apply**.
+
 ### 5.3 Configure MergeContent
 
 1\. Open the processor configuration **properties** tab. Insert `10` records into the **value** for the property **Minimum Number of Entries**. Insert `15` records into the **Maximum Number of Entries** value.
 
 ![mergeContent_firstHalf_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/mergeContent_firstHalf_config_property_tab_window.png)
 
+**Figure 11b:** MergeContent First Half of Configuration Property Tab Window
+
 2\. Scroll down, change the value for Delimiter Strategy from Filename to `Text`. Insert `[` into Header value. Insert `]` into the Footer value. Type, then press `, shift+enter` into the Demarcator value.
 
 ![mergeContent_secondHalf_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/mergeContent_secondHalf_config_property_tab_window.png)
+
+**Figure 11b:** MergeContent Second Half of Configuration Property Tab Window
+
+3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **original** checkboxes. Click **Apply**.
 
 ### 5.4 Configure PutFile
 
 1\. Open the processor configuration **properties** tab. Insert `/home/nifi/output/filtered_transitLoc_data` into the **Directory** value field.
 
 ![putFile_config_property_tab_window](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/putFile_config_property_tab_window.png)
+
+3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **success** checkboxes. Click **Apply**.
 
 ### Connect All processors
 
