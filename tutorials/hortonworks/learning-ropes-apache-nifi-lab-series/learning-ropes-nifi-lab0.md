@@ -79,7 +79,7 @@ The following instructions will guide you through the NiFi installation process.
 1\. Open a terminal window (Mac and Linux) or git bash (Windows) on **local machine**. Download the **install-nifi.sh** file from the github repo. Copy & paste the following commands:
 
 ~~~
-cd ~
+cd
 curl -o install-nifi.sh https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-event-processing/install-nifi.sh
 ~~~
 
