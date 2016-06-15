@@ -1,3 +1,4 @@
+#!/bin/bash
 export HDF_ZIP=$1
 export HOST=$2
 export PORT=$3
