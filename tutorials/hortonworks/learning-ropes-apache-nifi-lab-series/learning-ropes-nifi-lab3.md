@@ -20,7 +20,7 @@ In this tutorial, You will replace the section of our dataflow that generates th
 
 1\. Delete GetFile, UnpackContent and ControlRate processors. We will replace them with the GetHTTP processor.
 
-2\. Add the GetHTTP processor and drag it to the place where the previous three processors were located.
+2\. Add the **GetHTTP** processor and drag it to the place where the previous three processors were located. Connect GetHTTP to EvaluateXPath processor located above SplitXML. When the Create Connection window appears, select **success** checkbox. Click Apply.
 
 3\. Open GetHTTP Config Property Tab window. We will need to copy and paste Nextbus XML Live Feed URL into the property value. Add the property listed in Table 1.
 
@@ -30,7 +30,7 @@ In this tutorial, You will replace the section of our dataflow that generates th
 
 ![getHTTP_liveStream_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/getHTTP_liveStream_config_property_tab_window.png)
 
-4\. Click **Apply** button.
+4\. Open the processor config **Settings** tab, change the processor's Name from GetHTTP to `IngestVehicleLoc_SF_OceanView`. Click **Apply** button.
 
 ### Step 2: Run the NiFi DataFlow
 
