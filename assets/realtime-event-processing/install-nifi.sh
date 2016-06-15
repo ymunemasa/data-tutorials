@@ -29,9 +29,11 @@ mv $HDF_FILE ./hdf
 cd hdf
 echo 'Extracting Archive'
 tar -xvf $HDF_FILE > /dev/null
+chown -R root:root \$HDF2
 cd \$HDF2/nifi
+
 echo 'Updating Run Configs'
 sed -i s/nifi.web.http.port=8080/nifi.web.http.port=6434/g conf/nifi.properties
-echo "NiFi now installed on Sandbox at /root/hdf/\$HDF2/nifi"
-echo "Run NiFi on the sandbox with the command \"bash /root/hdf/\$HDF2/nifi/bin/nifi.sh run\""
+echo "NiFi is now installed on Sandbox at /root/hdf/\$HDF2/nifi"
+echo "Run NiFi on the sandbox with the command \"/root/hdf/\$HDF2/nifi/bin/nifi.sh run\""
 ENDSSH
