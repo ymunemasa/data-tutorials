@@ -188,6 +188,7 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 4\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. You should be able to access it now. Wait 1 to 2 minutes for NiFi to load.
 
+> Note: if you haven't configured the `sandbox.hortonworks.com` alias in `/etc/hosts`, try the `http://localhost:6434/nifi` URL as well.
 
 ### 4.2 Forward Port with Azure GUI
 
