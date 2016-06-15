@@ -37,6 +37,19 @@ If you plan to install HDF on Hortonworks Sandbox, review the table, then procee
 
 > Note: **Host Name** values are unique for VMware & Azure Sandbox compared to the table. For VMware and VirtualBox, **Host Name** is located on welcome screen. For Azure, **Host Name** is located under **Public IP Address** on Sandbox Dashboard. For Azure users, the terminal **username** and **password** is one you created while deploying the sandbox on azure. For VMware and VirtualBox users, terminal password changes after first login.
 
+If it is your first time SSH'ing into the sandbox VM, it may prompt you to change the default 'hadoop' password. Please run this command and provide a stronger password:
+```
+ssh -p 2222 root@localhost
+root@localhost's password:
+You are required to change your password immediately (root enforced)
+Last login: Wed Jun 15 19:47:44 2016 from 10.0.2.2
+Changing password for root.
+(current) UNIX password:
+New password:
+Retype new password:
+[root@sandbox ~]#
+```
+
 ### 1.2 Plan to Install HDF 1.2 on Local Machine
 
 This section is important to read through if you want to install NiFi on your local machine. Refer to step 3 if you read this section.
