@@ -65,7 +65,7 @@ Lab 2 - Add geographic location enrichment to the dataflow; incorporate Google P
 
 Lab 3 - Ingest NextBus's live stream data for San Francisco Muni agency.
 
-![Completed-dataflow-for-lab3]()
+![Completed-dataflow-for-lab3](assets/learning-ropes-nifi-lab-series/lab-intro-nifi-learning-ropes/completed-dataflow-rd1-lab3.png)
 
 The dataflow in the image above is what you will learn to build in lab 3. In the introduction of each lab, you are provided a template file of the completed dataflow built for that lab section. The labs are also step by step in which you can build the dataflows from scratch, so we highly encourage the templates be used for verification. Each lab builds on the previous. Feel free to experiment in any way you like, if you get stuck, you can still go onto the next lab with everything in place by selecting the appropriate template.
 

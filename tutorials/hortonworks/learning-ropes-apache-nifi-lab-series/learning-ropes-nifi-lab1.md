@@ -6,9 +6,9 @@ In this tutorial, we will build a NiFi DataFlow to fetch vehicle location, speed
 
 In this lab, you will build the following dataflow:
 
-![completed-data-flow-lab1]()
+![completed-data-flow-lab1](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/completed-data-flow-lab1.png)
 
-Figure 1: The completed dataflow contains three sections: ingest data from vehicle location XML Simulator, extract vehicle location detail attributes from FlowFiles and route these detail attributes to a JSON file as long as they are not empty strings. You will learn more in depth about each processors particular responsibility in each section of the dataflow.
+**Figure 1:** The completed dataflow contains three sections: ingest data from vehicle location XML Simulator, extract vehicle location detail attributes from FlowFiles and route these detail attributes to a JSON file as long as they are not empty strings. You will learn more in depth about each processors particular responsibility in each section of the dataflow.
 
 Feel free to download the NiFi-DataFlow-Lab1.xml template file.
 
@@ -41,9 +41,9 @@ Let’s take a brief tour of NiFi’s HTML interface and explore some of its fea
 
 NiFi’s HTML interface contains 5 main sections: The components toolbar, the actions toolbar, the management toolbar, the search bar and the help button. The canvas is the area in which the data flow is built. View the image below for a visualization of these key areas.
 
-![nifi_dataflow_html_interface](/assets/realtime-event-processing-with-hdf/lab0-nifi/nifi_dataflow_html_interface.png)
+![nifi_dataflow_html_interface](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/nifi_dataflow_html_interface.png)
 
-**Figure 3:** NiFi HTML interface contains four toolbars to build a dataflow or multiple dataflows.
+**Figure 2:** NiFi HTML interface contains four toolbars to build a dataflow or multiple dataflows.
 
 ### Step 2: Create a NiFi DataFlow
 
@@ -93,13 +93,12 @@ After the filtering and JSON conversion, your new file, which contains transit l
 
 Let's build our dataflow to fetch, filter and store transit sensor data from San Francisco Muni, M-Ocean View route. Here is a visulization, courtesy of nextbus and google, of the data NiFi generates using our traffic XML simulator:
 
-![sf_ocean_view_route_nifi_streaming]()
+![sf_ocean_view_route_nifi_streaming](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/live_stream_sf_muni_nifi_learning_ropes.png)
 
 ### 2.2 Add processors
 
-1\. Go to the **components** toolbar, drag and drop the processor icon ![processor_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/processor_nifi_iot.png) onto the graph.
+1\. Go to the **components** toolbar, drag and drop the processor icon ![processor_nifi_iot](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/processor_nifi_iot.png) onto the graph.
 
-![drag_processor_to_graph]()
 
 An **Add Processor** window will appear with 3 ways to find our desired processor: **processor list**, **tag cloud**, or **filter bar**
 
@@ -107,7 +106,7 @@ An **Add Processor** window will appear with 3 ways to find our desired processo
 - tag cloud: reduces list by category
 - filter bar: search for desired processor
 
-![add_processor_window](/assets/realtime-event-processing-with-hdf/lab0-nifi/add_processor_window.png)
+![add_processor_window](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/add_processor_window.png)
 
 
 2\. Select the **GetFile** processor and a short description of the processor's function will appear.
@@ -116,7 +115,7 @@ An **Add Processor** window will appear with 3 ways to find our desired processo
 
 Click the **Add** button to the processor to the graph.
 
-![processor_getFile_description]()
+![add_processor_getfile_nifi-learn-ropes](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/add_processor_getfile_nifi-learn-ropes.png)
 
 3\. Add the **UnpackContent, ControlRate, EvaluateXPath, SplitXML, UpdateAttribute, EvaluateXPath, RouteOnAttribute, AttributesToJSON, MergeContent** and **PutFile** processors using the processor icon.
 
@@ -142,7 +141,7 @@ Overview of Each Processor's Role in our DataFlow:
 
 Follow the step above to add these processors. You should obtain the image below:
 
-![added_processors_nifi_part1]()
+![added_processors_nifi_part1](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/added_processors_nifi_part1.png)
 
 > Note: To find more information on the processor, right click ExecuteProcess and click **usage**. An in app window will appear with that processor’s documentation.
 

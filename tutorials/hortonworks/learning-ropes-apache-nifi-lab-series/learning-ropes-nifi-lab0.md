@@ -85,7 +85,7 @@ curl -o install-nifi.sh https://raw.githubusercontent.com/hortonworks/tutorials/
 
 2\. Open a browser. NiFi can be downloaded from [HDF Downloads Page](http://hortonworks.com/downloads/). There are two package options one for HDF TAR.GZ file tailored to Linux and ZIP file more compatible with Windows. Mac can use either option. For the tutorial, let's download the latest HDF TAR.GZ:
 
-![download_hdf_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/download_hdf_iot.png)
+![download_hdf_iot](assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
 
 3\. Run the install-nifi.sh script. Below is a definition of how the install nifi command works:
 
@@ -109,7 +109,7 @@ The script automatically installs NiFi onto your virtual machine. After successf
 
 1\. Open a browser. NiFi can be downloaded from [HDF Downloads Page](http://hortonworks.com/downloads/). There are two package options one for HDF TAR.GZ file tailored to Linux and zip file more compatible with Windows. Mac can use either option. In this tutorial section, we will download the zip on mac:
 
-![download_hdf_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/download_hdf_iot.png)
+![download_hdf_iot](assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
 
 2\. To install NiFi, extract the files to the location from which you want to run the application. For the tutorial, we moved the extracted HDF folder to the Applications folder.
 
@@ -169,7 +169,7 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 |---|---|---|---|---|---|
 | NiFi  | TCP  | 127.0.0.1  | 6434  |   | 6434  |
 
-![port_forward_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/port_forward_nifi_iot.png)
+![port_forward_nifi_iot](assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/port_forward_nifi_iot.png)
 
 
 4\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. You should be able to access it now. Wait 1 to 2 minutes for NiFi to load.
@@ -181,19 +181,19 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 2\. Click the sandbox with the **shield icon**.
 
-![shield-icon-security-inbound.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/shield-icon-security-inbound.png)
+![shield-icon-security-inbound.png](assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/shield-icon-security-inbound.png)
 
 3\. Under **Settings**, in the **General** section, click **Inbound Security Rules**.
 
-![inbound-security-rule.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/inbound-security-rule.png)
+![inbound-security-rule.png](assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/inbound-security-rule.png)
 
 4\. Scroll to **NiFi**, click on the row.
 
-![list-nifi-port.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/list-nifi-port.png)
+![list-nifi-port.png](assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/list-nifi-port.png)
 
 5\. Change the **Destination Port Range** value from 9090 to 6434.
 
-![change-nifi-port.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/change-nifi-port.png)
+![change-nifi-port.png](assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/change-nifi-port.png)
 
 6\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. You should be able to access it now. Wait 1 to 2 minutes for NiFi to load.
 
