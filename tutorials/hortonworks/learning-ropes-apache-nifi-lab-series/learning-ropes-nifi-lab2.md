@@ -96,6 +96,8 @@ Table 1: Update InvokeHTTP Property Value(s)
 |---|---|
 | Remote URL  | `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Latitude},${Longitude}&radius=500&type=neighborhood&key=AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug` |
 
+![invokeHTTP_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/invokeHTTP_config_property_tab_window.png)
+
 2\. Navigate to the **Settings** tab, change the name from InvokeHTTP to `GoogleNearbySearchAPI`. Under Auto terminate relationships check the **Failure**, **No Retry**, **Original** and **Retry** checkboxes. Click **Apply** button.
 
 ### EvaluateJsonPath
@@ -113,6 +115,8 @@ Table 2: Update and Add New EvaluateJsonPath Property Values
 | city  | `$.results[0].vicinity`  |
 | Destination  | `$.results[*].name`  |
 
+![evaluateJsonPath_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/evaluateJsonPath_config_property_tab_window.png)
+
 3\. Navigate to the **Settings** tab. Under Auto terminate relationships check the **unmatched** checkbox. Click **Apply** button. Hover over the processor, the circle with a plus symbol appears, create a connection of the processor to itself. When the Create Connection window opens, check **failure** relationship.
 
 ### RouteOnAttribute
@@ -127,6 +131,8 @@ Table 3: Add New RouteOnAttribute Property Value
 |---|---|
 | RouteNearbyNeighborhoods  | `${city:isEmpty():not():and(${neighborhoods_nearby:isEmpty():not()})}`  |
 
+![routeOnAttribute_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/routeOnAttribute_geoEnrich_config_property_tab_window.png)
+
 3\. Navigate to the **Settings** tab, change the name from RouteOnAttribute to `RouteNearbyNeighborhoods`. Under Auto terminate relationships check the **unmatched** checkbox. Click **Apply** button.
 
 ### AttributesToJSON
@@ -139,6 +145,8 @@ Table 3: Add New RouteOnAttribute Property Value
 |---|---|
 | Attributes List  | Vehicle_ID, city, Latitude, Longitude, neighborhoods_nearby, Last_Time  |
 | Destination  | flowfile-content  |
+
+![attributesToJSON_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/attributesToJSON_geoEnrich_config_property_tab_window.png)
 
 3\. Navigate  to the **Settings** tab, under Auto terminate relationships check the **failure** checkbox. Click **Apply** button.
 
@@ -157,6 +165,8 @@ Table 3: Add New RouteOnAttribute Property Value
 | Footer  | ]  |
 | Demarcator  | ,{press-shift+enter}  |
 
+![mergeContent_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/mergeContent_geoEnrich_config_property_tab_window.png)
+
 3\. Navigate  to the **Settings** tab, under Auto terminate relationships check the **failure** and **original** checkbox. Click **Apply** button.
 
 ### PutFile
@@ -169,23 +179,28 @@ Table 3: Add New RouteOnAttribute Property Value
 |---|---|
 | Directory  | /home/nifi/output/nearby_neighborhoods_search  |
 
+![putFile_geoEnrich_config_property_tab_window](assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/putFile_geoEnrich_config_property_tab_window.png)
+
 3\. Navigate  to the **Settings** tab, under Auto terminate relationships check the **success** checkbox. Click **Apply** button. Connect the processor to itself and when the Create Connection window appears, select **failure** checkbox.
+
 
 ### Step 3: Run NiFi DataFlow
 
 Now that we added geographic location enrichment dataflow section to our previous dataflow, let's run the dataflow and verify if we receive the expected results in our output directory.
 
-1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/start_button_nifi_iot.png). Your screen should look like the following:
+1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). Your screen should look like the following:
 
-![dataflow_image_lab2]()
+![complete_dataflow_lab2_geoEnrich](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/complete_dataflow_lab2_geoEnrich.png)
 
 2\. Let's check the data was written to our expected directory, open your terminal. Make sure to SSH into your sandbox if on sandbox, else navigate to the output directory on your local machine. Navigate to the directory you wrote for the PutFile processor. List the files and open one of the newly created files to view geographic neighborhoods nearby transit location enrichment data output. In the tutorial our directory path is: `/home/nifi/output/nearby_neighborhoods_search`.
 
 ~~~
 cd /home/nifi/output/nearby_neighborhoods_search
 ls
-vi 171228778202845
+vi 38997303004413
 ~~~
+
+![output_geoEnrich_nearby_neighborhoods_data](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/output_geoEnrich_nearby_neighborhoods_data.png)
 
 
 ## Summary
