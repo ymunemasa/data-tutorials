@@ -179,7 +179,7 @@ Table 3: Add New RouteOnAttribute Property Value
 |---|---|
 | Directory  | /home/nifi/output/nearby_neighborhoods_search  |
 
-![putFile_geoEnrich_config_property_tab_window](assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/putFile_geoEnrich_config_property_tab_window.png)
+![putFile_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/putFile_geoEnrich_config_property_tab_window.png)
 
 3\. Navigate  to the **Settings** tab, under Auto terminate relationships check the **success** checkbox. Click **Apply** button. Connect the processor to itself and when the Create Connection window appears, select **failure** checkbox.
 
@@ -188,7 +188,7 @@ Table 3: Add New RouteOnAttribute Property Value
 
 Now that we added geographic location enrichment dataflow section to our previous dataflow, let's run the dataflow and verify if we receive the expected results in our output directory.
 
-1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). Your screen should look like the following:
+1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). Your screen should look like the following:
 
 ![complete_dataflow_lab2_geoEnrich](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/complete_dataflow_lab2_geoEnrich.png)
 
