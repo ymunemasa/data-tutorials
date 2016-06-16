@@ -20,7 +20,7 @@ In this tutorial, You will replace the section of our dataflow that generates th
 
 1\. Delete GetFile, UnpackContent and ControlRate processors. We will replace them with the GetHTTP processor.
 
-2\. Add the **GetHTTP** processor and drag it to the place where the previous three processors were located. Connect GetHTTP to EvaluateXPath processor located above SplitXML. When the Create Connection window appears, select **success** checkbox. Click **Apply**.
+2\. Add the **GetHTTP** processor and drag it to the place where the previous three processors were located. Connect GetHTTP to EvaluateXPath processor located above SplitXML. When the Create Connection window appears, select **success** checkbox. Click Apply.
 
 3\. Open GetHTTP Config Property Tab window. We will need to copy and paste Nextbus XML Live Feed URL into the property value. Add the property listed in Table 1.
 
