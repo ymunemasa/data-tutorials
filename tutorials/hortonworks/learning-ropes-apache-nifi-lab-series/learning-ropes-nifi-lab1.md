@@ -6,7 +6,7 @@ In this tutorial, we will build a NiFi DataFlow to fetch vehicle location, speed
 
 In this lab, you will build the following dataflow:
 
-![completed-data-flow-lab1](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/completed-data-flow-lab1.png)
+![completed-data-flow-lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/completed-data-flow-lab1.png)
 
 **Figure 1:** The completed dataflow contains three sections: ingest data from vehicle location XML Simulator, extract vehicle location detail attributes from FlowFiles and route these detail attributes to a JSON file as long as they are not empty strings. You will learn more in depth about each processors particular responsibility in each section of the dataflow.
 
@@ -41,7 +41,7 @@ Let’s take a brief tour of NiFi’s HTML interface and explore some of its fea
 
 NiFi’s HTML interface contains 5 main sections: The **Components** toolbar, the **Actions** toolbar, the **Management** toolbar, the **Search** bar and the help button. The canvas is the area in which the data flow is built. View the image below for a visualization of these key areas.
 
-![nifi_dataflow_html_interface](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/nifi_dataflow_html_interface.png)
+![nifi_dataflow_html_interface](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/nifi_dataflow_html_interface.png)
 
 **Figure 2:** NiFi HTML interface contains four toolbars to build a dataflow or multiple dataflows.
 
@@ -94,11 +94,11 @@ After extracting, filtering and converting the data, your new file, which contai
 
 Let's build our dataflow to fetch, filter, convert and store transit sensor data from San Francisco Muni, M-Ocean View route. Here is a visualization, courtesy of NextBus and Google, of the data NiFi generates using our Traffic XML Simulator:
 
-![sf_ocean_view_route_nifi_streaming](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/live_stream_sf_muni_nifi_learning_ropes.png)
+![sf_ocean_view_route_nifi_streaming](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/live_stream_sf_muni_nifi_learning_ropes.png)
 
 ### 2.2 Add processors
 
-1\. Go to the **components** toolbar, drag and drop the processor icon ![processor_nifi_iot](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/processor_nifi_iot.png) onto the graph.
+1\. Go to the **components** toolbar, drag and drop the processor icon ![processor_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/processor_nifi_iot.png) onto the graph.
 
 
 An **Add Processor** window will appear with 3 ways to find our desired processor: **processor list**, **tag cloud**, or **filter bar**
@@ -107,7 +107,7 @@ An **Add Processor** window will appear with 3 ways to find our desired processo
 - tag cloud: reduces list by category
 - filter bar: search for desired processor
 
-![add_processor_window](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/add_processor_window.png)
+![add_processor_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/add_processor_window.png)
 
 
 2\. Select the **GetFile** processor and a short description of the processor's function will appear.
@@ -116,7 +116,7 @@ An **Add Processor** window will appear with 3 ways to find our desired processo
 
 Click the **Add** button to add the processor to the graph.
 
-![add_processor_getfile_nifi-learn-ropes](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/add_processor_getfile_nifi-learn-ropes.png)
+![add_processor_getfile_nifi-learn-ropes](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/add_processor_getfile_nifi-learn-ropes.png)
 
 3\. Add the **UnpackContent, ControlRate, EvaluateXPath, SplitXML, UpdateAttribute, EvaluateXPath, RouteOnAttribute, AttributesToJSON, MergeContent** and **PutFile** processors using the processor icon.
 
@@ -142,7 +142,7 @@ Overview of Each Processor's Role in our DataFlow:
 
 Follow the step above to add these processors. You should obtain the image below:
 
-![added_processors_nifi_part1](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/added_processors_nifi_part1.png)
+![added_processors_nifi_part1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/added_processors_nifi_part1.png)
 
 > Note: To find more information on the processor, right click ExecuteProcess and click **usage**. An in app window will appear with that processor’s documentation.
 
@@ -246,7 +246,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 ### Step 4: Build Key Attribute Extraction DataFlow Section
 
-### 4.1 Processor
+### 4.1 EvaluateXPath
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 6 and if the original properties already have values, update them. For the second property in Table 6, add a new dynamic property for XPath expression, select the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
 
@@ -374,6 +374,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **original** checkboxes. Click **Apply**.
 
+
 4\. Connect **MergeContent** to **PutFile** processor. When the Create Connection window appears, verify **merged** checkbox is checked, if not check it. Click Add.
 
 ### 5.4 PutFile
@@ -394,7 +395,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 ### Step 6: Run the NiFi DataFlow
 
-1\. The processors are valid since the warning symbols disappeared. Notice that the processors have a red stop symbol ![stop_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/stop_symbol_nifi_iot.png) in the upper left corner and are ready to run. To select all processors, hold down the **shift-key** and drag your mouse across the entire data flow.
+1\. The processors are valid since the warning symbols disappeared. Notice that the processors have a red stop symbol ![stop_symbol_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/stop_symbol_nifi_iot.png) in the upper left corner and are ready to run. To select all processors, hold down the **shift-key** and drag your mouse across the entire data flow.
 
 2\. Now that all processors are selected, go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). Your screen should look like the following:
 
