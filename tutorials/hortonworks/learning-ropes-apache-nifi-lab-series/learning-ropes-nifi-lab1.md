@@ -387,7 +387,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 |---|---|
 | Directory  | `/home/nifi/output/filtered_transitLoc_data`  |
 
-![putFile_config_property_tab_window](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/putFile_config_property_tab_window.png)
+![putFile_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/putFile_config_property_tab_window.png)
 
 **Figure 12:** PutFile Configuration Property Tab Window
 
