@@ -88,9 +88,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 ### InvokeHTTP
 
-1\. Add the InvokeHTTP processor onto the NiFi graph. Connect **RouteOnAttribute** from lab1 to **InvokeHTTP** processor. When the Create Connection window appears, verify **Filter Attributes** checkbox is checked, if not check it. Click **Add**.
-
-2\. Open InvokeHTTP configure properties tab and add the property listed in Table 1.
+1\. Add the InvokeHTTP processor onto the NiFi graph. Open InvokeHTTP configure properties tab and add the property listed in Table 1.
 
 Table 1: Update InvokeHTTP Property Value(s)
 
@@ -100,7 +98,7 @@ Table 1: Update InvokeHTTP Property Value(s)
 
 ![invokeHTTP_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/invokeHTTP_config_property_tab_window.png)
 
-3\. Navigate to the **Settings** tab, change the name from InvokeHTTP to `GoogleNearbySearchAPI`. Under Auto terminate relationships check the **Failure**, **No Retry**, **Original** and **Retry** checkboxes. Click **Apply** button.
+2\. Navigate to the **Settings** tab, change the name from InvokeHTTP to `GoogleNearbySearchAPI`. Under Auto terminate relationships check the **Failure**, **No Retry**, **Original** and **Retry** checkboxes. Click **Apply** button.
 
 ### EvaluateJsonPath
 
