@@ -1,4 +1,4 @@
-# NiFi Learning the Ropes Lab Series
+# Learning the Ropes of Apache NiFi
 
 Version 1 for HDP 2.4 updated June 13, 2016
 

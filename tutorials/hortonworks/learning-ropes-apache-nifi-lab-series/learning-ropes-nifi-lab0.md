@@ -5,6 +5,7 @@
 In this tutorial, we will learn about our lab environment, how to install NiFi onto Hortonworks Sandbox or on a local machine and start NiFi.
 
 ## Pre-Requisites
+- Completed Learning the Ropes of Apache NiFi
 - Downloaded and Installed Hortonworks Sandbox (Needed for Step 2 if you go with Option 1 for NiFi installation)
 - For windows users, to run linux terminal commands in these tutorials, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
 
@@ -207,6 +208,8 @@ If you downloaded and installed NiFi on your local machine, refer to this step. 
 ~~~bash
 ./HDF-1.2.0.1-1/nifi/bin/nifi.sh start
 ~~~
+
+2\. Open NiFi at `http://sandbox.hortonworks.com:8080/nifi/`. Wait 1 to 2 minutes for NiFi to load.
 
 ## Conclusion
 
