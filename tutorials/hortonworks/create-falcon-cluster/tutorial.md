@@ -67,7 +67,7 @@ Once Falcon starts, Ambari should clearly indicate as below that the service has
 
 First SSH into the Hortonworks Sandbox with the command:
 
-~~~bash
+~~~
 ssh root@127.0.0.1 -p 2222
 ~~~
 
@@ -80,25 +80,25 @@ We need to create the directories on HDFS representing the two clusters that we 
 First, from the command line, check whether the Falcon server is running or not.
 Switch the user to Falcon using:
 
-~~~bash
+~~~
 su - falcon
 ~~~
 
 Change the directory to your HDP version:
 
-~~~bash
+~~~
 cd /usr/hdp/2.4.2.0.0-258/falcon
 ~~~
 
 And run the below script to find the status of Falcon server:
 
-~~~bash
+~~~
 ./bin/falcon-status
 ~~~
 
  Next, use `hadoop fs -mkdir` commands to create the directories `/apps/falcon/primaryCluster` and `/apps/falcon/backupCluster` on HDFS.
 
- ~~~bash
+ ~~~
  hadoop fs -mkdir /apps/falcon/primaryCluster
  hadoop fs -mkdir /apps/falcon/backupCluster
  ~~~
@@ -107,7 +107,7 @@ And run the below script to find the status of Falcon server:
 
  Further create directories called `staging` inside each of the directories we created above:
 
- ~~~bash
+ ~~~
  hadoop fs -mkdir /apps/falcon/primaryCluster/staging
  hadoop fs -mkdir /apps/falcon/backupCluster/staging
  ~~~
@@ -116,7 +116,7 @@ And run the below script to find the status of Falcon server:
 
  Next, create the `working` directories for `primaryCluster` and `backupCluster`:
 
- ~~~bash
+ ~~~
  hadoop fs -mkdir /apps/falcon/primaryCluster/working
  hadoop fs -mkdir /apps/falcon/backupCluster/working
  ~~~
@@ -125,7 +125,7 @@ And run the below script to find the status of Falcon server:
 
 Finally you need to set the proper permissions on the staging/working directories:
 
-~~~bash
+~~~
 hadoop fs -chmod 777 /apps/falcon/primaryCluster/staging
 hadoop fs -chmod 755 /apps/falcon/primaryCluster/working
 hadoop fs -chmod 777 /apps/falcon/backupCluster/staging
@@ -337,5 +337,5 @@ You can go to following links to explore other Falcon tutorials:
 
 1. [Mirroring Datasets between Hadoop Clusters with Apache Falcon](http://hortonworks.com/hadoop-tutorial/mirroring-datasets-between-hadoop-clusters-with-apache-falcon/)
 2. [Define and Process Data Pipelines in Hadoop with Apache Falcon](http://hortonworks.com/hadoop-tutorial/defining-processing-data-end-end-data-pipeline-apache-falcon/)
-3. [Incremental Backup of data from HDP to Azure using Falcon for Disaster Recovery and Burst Capacity](http://hortonworks.com/hadoop-tutorial/incremental-backup-data-hdp-azure-disaster-recovery-burst-capacity/) 
+3. [Incremental Backup of data from HDP to Azure using Falcon for Disaster Recovery and Burst Capacity](http://hortonworks.com/hadoop-tutorial/incremental-backup-data-hdp-azure-disaster-recovery-burst-capacity/)
 4. [Processing Data Pipeline using Apache Falcon](http://hortonworks.com/hadoop-tutorial/defining-processing-data-end-end-data-pipeline-apache-falcon/)
