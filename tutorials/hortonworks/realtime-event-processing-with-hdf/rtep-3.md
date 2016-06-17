@@ -63,7 +63,7 @@ It's used for:
 *   And, to enforce Extract, Transform, and Load (ETL) paradigms.
 
 
-Spout and Bolt are the two main components in Storm, which work together to process streams of data.
+A Storm Topology is network of Spouts and Bolts. The Spouts generate streams, which contain sequences of tuples (data) while the Bolts process input streams and produce output streams. Hence, the Storm Toplogy can talk to databases, run functions, filter, merge or join data.
 *   **Spout**: Works on the source of data streams. In the "Truck Events" use case, Spout will read data from Kafka topics.
 *   **Bolt**: Spout passes streams of data to Bolt which processes and persists  it to a data store or sends it downstream to another Bolt.
 
@@ -283,7 +283,7 @@ cd iot-truck-streaming/
 Once we build and install the necessary modules for the demo, we are ready to deploy our storm topology.
 
 
-### Step 4: Launch Storm topology <a id="step4-launch-new-storm-topology-lab3"></a>
+### Step 4: Launch Storm Topology <a id="step4-launch-new-storm-topology-lab3"></a>
 
 
 Recall that the source code is under directory path
@@ -297,7 +297,7 @@ The pre-compiled jars are under the directory path
 *   refer to [Appendix B](#update-iot-truck-streaming-project-lab3) for the steps to run maven to compile the jars to the target subdir from terminal command line
 *   refer to [Appendix C](#enable-remote-desktop-setup-topology) for the steps to enable VNC (i.e. 'remote desktop') access on your sandbox and open/compile the code using Eclipse
 
-### Verify Kafka Service is Running
+### 4.1 Verify Kafka is Running & Create Topology
 
 1\. Verify that Kafka service is running using Ambari dashboard. If not, start the Kafka service as we did in lab 1.
 
@@ -305,7 +305,7 @@ The pre-compiled jars are under the directory path
 2\. Create Storm Topology
 
 We now have 'supervisor' daemon and Kafka processes running.
-To do real-time computation on Storm, you create what are called "topologies". A topology is a graph of computation. Each node in a topology contains processing logic, and links between nodes indicate how data should be passed around between nodes.
+To do real-time computation on Storm, you create what are called "topologies". A topology is a Directed Acyclic Graph (DAG) of spouts and bolts with streams of tuples representing the edges. Each node in a topology contains processing logic, and links between nodes indicate how data should be passed around between nodes.
 
 Running a topology is straightforward. First, you package all your code and dependencies into a single jar like we did in the lab0 with mvn clean package. Then, you run a command like the following: The command below will start a new Storm Topology for Truck Events.
 
@@ -423,7 +423,7 @@ Congratulations, you built your first Hortonworks DataFlow Application. When NiF
 
 The trucking demo shows realtime monitoring of alerts and predictions of driving violations by fleets of trucks. The demo visually illustrates these events on a map. Let's start the demo to observe these realtime events in action.
 
-### Start the Trucking Demo
+### A.1 Start the Trucking Demo
 
 1\. Navigate to the base of the trucking demo project folder, make sh files executable, then execute the rundemo.sh script. Starting the demo may take 15 - 20 minutes:
 
@@ -445,7 +445,7 @@ If on virtualbox, the hostname will be: http://127.0.0.1:8081/storm-demo-web-app
 
 If you receive the message, **"This site can't be reached"**, you will need to port forward `8081` onto your virtual machine. Refer to [lab 0 step 3](#step3-start-nifi) where we port forward NiFi port number if you need to review.
 
-### Login to Trucking Demo Dashboard
+### A.2 Login to Trucking Demo Dashboard
 
 Once connected to Jetty Server, the following login page appears, user and password are given by default, so press the **sign in** button:
 
@@ -455,7 +455,7 @@ The HDP Storm Demo Dashboard will appear:
 
 ![hdp_storm_demo_dashboard_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hdp_storm_demo_dashboard_iot.png)
 
-### Run NiFi DataFlow & Topology Tuples Increase
+### A.3 Run NiFi DataFlow & Topology Tuples Increase
 
 Before entering one of these applications on the dashboard as in the image above, make sure your NiFi DataFlow is running and that your storm topology spout/bolt tuples are increasing. You should have images similar to as below:
 
@@ -467,7 +467,7 @@ Before entering one of these applications on the dashboard as in the image above
 
 > Storm Topology Spout/Bolt tuples increasing
 
-### Troubleshooting Section
+### A.4 Troubleshooting Section
 
 If storm shows an internal server error, refer to the **troubleshooting section below**, else skip to the next section:
 
@@ -497,7 +497,7 @@ Now let's start the Storm service. We'll need to redeploy our topology:
 
 We also need to run our NiFi DataFlow. Now we can we can explore the different applications within the demo.
 
-### Explore Trucking Demo Applications
+### A.5 Explore Trucking Demo Applications
 
 If you can see your NiFi DataFlow sending truck event data to Kafka and Storm tuples increasing, enter the applications and you shall the see the following maps and tables:
 
