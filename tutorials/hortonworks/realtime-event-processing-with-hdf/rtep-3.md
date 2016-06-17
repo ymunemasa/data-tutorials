@@ -259,7 +259,7 @@ chmod -R 777 /tmp/hive/
 
 Since this tutorial series is based on part of the trucking demo, there are many modules that need to be setup for the demo outside the scope of the tutorial. We manually setup NiFi, Kafka, HBase and Hive for the demo. Since there are other particular modules in the demo irrelevant from what we are learning in the lab series, we will run an automation script to setup the other modules that way we will be able to use storm for ingesting data in HBase and HDFS with no issues.
 
-1\. Update ambari admin login variables defined at the top in user-env.sh file, so the automation script can have the privileges to setup the demo modules. Enter the username and password you use to login into to ambari as an admin. Open a terminal, type:
+1\. Update ambari admin login variables defined at the top in **user-env.sh** file, so the automation script can have the privileges to setup the demo modules. Enter the **username and password** you use to login into to Ambari as an admin. Open a terminal, type:
 
 ~~~
 vi ~/iot-truck-streaming/user-env.sh
@@ -273,7 +273,24 @@ For the ambari configuration credentials: user='admin', pass=what you set it up 
 
 Press `esc` and then type `:wq` to exit the editor.
 
-2\. Now we can run the installdemo.sh script to automatically setup the background services for the trucking demo. Type the following command:
+2\. After you update the **user-env.sh** file, we will also need to verify whether the hostnames in the **config.properties** file match the appropriate hostnames for services on HDP. If they do not match, then update the hostname. For example, let's check the **kafka.brokers** host, open Ambari dashboard. Hover to the left side bar, click on **Kafka**. At the top next to the `Summary` tab, click on the `Configs` tab. Under **Kafka Broker** Section, examine **Kafka Broker host** and **listeners** field. You should see the following image:
+
+![kafka_broker_hostname_verify](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/kafka_broker_hostname_verify.png)
+
+Notice Kafka Broker host = sandbox.hortonworks.com
+Listeners = localhost:6667
+
+Thus, our **Kafka Broker and Listenrs host** = `sandbox.hortonworks.com:6667`
+
+In our **config.properties** file, under Stream Simulator Config, it shows:
+
+![config_properties_file_verify_hosts_match](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/config_properties_file_verify_hosts_match.png)
+
+> Note: In the config.properties file Kafka.brokers=sandbox.hortonworks.com:6667
+
+Since the **kafka.brokers** hostname in the **config.properties** file matches kafka brokers hostname on HDP, we verified that hostname is up to date. Now let’s verify the other hostnames in the config.properties file match the ones on HDP. If there is a mismatch, update the config.properties file.
+
+3\. Now we can run the installdemo.sh script to automatically setup the background services for the trucking demo. Type the following command:
 
 ~~~
 cd iot-truck-streaming/
