@@ -351,7 +351,7 @@ On the Clusters page select the cluster you created, then enter today’s date a
 
 **DO NOT forget to provide the validity time in the timezone you have selected.**
 
-Specify the retention period of 90 days, then click `Next`.
+Specify the retention period of 90 hours, then click `Next`.
 
 ![feed4](/assets/falcon-processing-pipelines/feed4.png)
 
@@ -410,7 +410,7 @@ Then click on the `Edit` button over XML Preview area on the right hand side of 
     <clusters>
         <cluster name="primaryCluster" type="source">
             <validity start="2016-06-05T05:00Z" end="2016-06-05T06:00Z"/>
-            <retention limit="days(90)" action="delete"/>
+            <retention limit="hours(90)" action="delete"/>
         </cluster>
     </clusters>
     <locations>
@@ -418,7 +418,7 @@ Then click on the `Edit` button over XML Preview area on the right hand side of 
         <location type="stats" path="/"/>
         <location type="meta" path="/"/>
     </locations>
-    <ACL owner="ambari-qa" group="users" permission="0x755"/>
+    <ACL owner="ambari-qa" group="users" permission="0755"/>
     <schema location="/none" provider="/none"/>
 </feed>
 ~~~
@@ -476,6 +476,8 @@ On the Clusters page, select primaryCluster again. As you did previously, modify
 ![process3](/assets/falcon-processing-pipelines/process3.png)
 
 On the Inputs & Outputs page, ignore the Inputs section. For the output, enter a name and select the `rawEmailFeed` we created in the previous step and specify now(0,0) for the instance.
+
+`now(hours,minutes)`: now refer to the instance start time. Hours and minutes given are in reference with the start time of instance.  For example now(-2,40) corresponds to feed instance at -2 hr and +40 minutes i.e. feed instance 80 mins before the instance start time. now(0,0) corresponds to feed instance at current time.
 
 ![process4](/assets/falcon-processing-pipelines/process4.png)
 
@@ -554,7 +556,7 @@ Click on the `Edit` button over XML Preview area on the right hand side of the s
     </outputs>
     <workflow name="emailIngestWorkflow" version="4.0.1" engine="oozie" path="/user/ambari-qa/falcon/demo/apps/ingest/fs"/>
     <retry policy="exp-backoff" delay="minutes(3)" attempts="3"/>
-    <ACL owner="ambari-qa" group="users" permission="0x755"/>
+    <ACL owner="ambari-qa" group="users" permission="0755"/>
 </process>
 ~~~
 
@@ -675,7 +677,7 @@ Click on the `Edit` button over XML Preview area on the right hand side of the s
         <location type="stats" path="/"/>
         <location type="meta" path="/"/>
     </locations>
-    <ACL owner="ambari-qa" group="users" permission="0x755"/>
+    <ACL owner="ambari-qa" group="users" permission="0755"/>
     <schema location="/none" provider="/none"/>
 </feed>
 ~~~
@@ -896,7 +898,7 @@ Click on the `Edit` button over XML Preview area on the right hand side of the s
     </outputs>
     <workflow name="emailCleanseWorkflow" version="pig-0.13.0" engine="pig" path="/user/ambari-qa/falcon/demo/apps/pig/id.pig"/>
     <retry policy="exp-backoff" delay="minutes(3)" attempts="3"/>
-    <ACL owner="ambari-qa" group="users" permission="0x755"/>
+    <ACL owner="ambari-qa" group="users" permission="0755"/>
 </process>
 ~~~
 
@@ -974,4 +976,4 @@ and here is the data being egressed from the pipeline
 
 ## Summary <a id="summary"></a>
 
-In this tutorial we walked through a scenario to clean the raw data to remove sensitive information like credit card numbers and make it available to our marketing data science team for customer churn analysis by defining a data pipeline with Apache Falcon.
+In this tutorial we walked through a scenario to clean the raw data to remove sensitive information like credit card numbers and make it available to our marketing data science team for customer churn analysis by defining a data pipeline with Apache Falcon. You may suspend the running feeds or processes if no longer required.

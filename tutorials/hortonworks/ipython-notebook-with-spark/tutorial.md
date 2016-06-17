@@ -33,7 +33,7 @@ To begin, login in to Hortonworks Sandbox through SSH:The default password is `h
 Now let’s configure the dependencies by typing in the following command:
 
 ~~~ bash
-yum install nano centos-release-SCL zlib-devel
+yum install nano centos-release-scl zlib-devel
 
 yum install bzip2-devel openssl-devel ncurses-devel
 
@@ -71,7 +71,7 @@ source /opt/rh/python27/enable
 Then we will download `easy_install` which we will use to configure `pip`, a Python package installer.
 
 ~~~ bash
-wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+wget https://bootstrap.pypa.io/ez_setup.py
 ~~~
 
 Now let’s configure `easy_install` with the following command:

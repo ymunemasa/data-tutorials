@@ -25,10 +25,11 @@ Let's begin our Hadoop journey.
 - [Section 1: Sandbox in VM](#section1)
 - [Step 1: Explore the Sandbox in a VM](#explore-sandbox-vm)
       - [1.1 Install the Sandbox](#install-sandbox)
-      - [1.2 Learn Your Sandbox Version](#learn-sandbox-version)
-      - [1.3 Learn the Host Address of Your Environment](#learn-host-address-environment)
-      - [1.4 Connect to the Welcome Screen](#connect-to-welcome-screen)
-      - [1.5 Multiple Ways to Execute Terminal Commands(SSH, Web Shell, VM Shell)](#ways-execute-terminal-command)
+      - [1.2 Learn the Host Address of Your Environment](#learn-host-address-environment)
+      - [1.3 Connect to the Welcome Screen](#connect-to-welcome-screen)
+      - [1.4 Multiple Ways to Execute Terminal Commands(SSH, Web Shell, VM Shell)](#ways-execute-terminal-command)
+      - [1.5 Learn Your Sandbox Version](#learn-sandbox-version)
+      - [1.6 Send Data Between Sandbox & Local Machine](#send-data-btwn-sandbox-local-machine)
 - [Step 2: Explore Ambari](#explore-ambari)
       - [2.1 Use Terminal to Find the Host IP Sandbox Runs On](#find-host-ip-sandbox-runs-on)
       - [Services Provided By the Sandbox](#services-provided-by-sandbox)
@@ -40,6 +41,7 @@ Let's begin our Hadoop journey.
       - [1.1 Deploy the Sandbox in Azure](#deploy-sandbox-azure)
       - [1.2 Connect to the Welcome Screen](#connect-to-welcome-screen-azure)
       - [1.3 Multiple Ways to Execute Terminal Commands(SSH, Web Shell)](#ways-execute-terminal-command-azure)
+      - [1.4 Send Data Between Azure Sandbox & Local Machine](#send-data-btwn-sandbox-local-machine-azure)
 - [Step 2: Explore Ambari in Azure](#explore-ambari-azure)
       - [Services Provided By the Sandbox in Azure](#services-provided-by-sandbox-azure)
       - [2.1 Setup Ambari admin Password Manually](#setup-ambari-admin-password-azure)
@@ -68,15 +70,7 @@ Start the Hortonworks Sandbox following the [Installation Steps](http://hortonwo
 
 > **Note:** The Sandbox [system requirements](http://hortonworks.com/products/hortonworks-sandbox/#install) include that you have a 64 bit OS with at least 8 GB of RAM and enabled BIOS for virtualization. Find out about the newest features, known and resolved issues along with other updates on HDP 2.4 from the [release notes](http://hortonworks.com/wp-content/uploads/2015/10/ReleaseNotes_10_27_2015.pdf). The Sandbox on Azure is under construction and will update to HDP2.4 soon.
 
-### 1.2 Learn Your Sandbox Version <a id="learn-sandbox-version"></a>
-
-To find information about your sandbox, execute the command:
-
-~~~bash
-sandbox-version
-~~~
-
-### 1.3 Learn the Host Address of Your Environment <a id="learn-host-address-environment"></a>
+### 1.2 Learn the Host Address of Your Environment <a id="learn-host-address-environment"></a>
 
 Once you have installed the Sandbox VM, it resolves to the host on your environment, the address of which varies depending upon the Virtual Machine you are using(Vmware, VirtualBox etc). As, a general thumb rule, wait for the installation to complete and confirmation screen will tell you the host your sandbox resolves to. For example:
 
@@ -88,13 +82,13 @@ In case of VirtualBox: `host` would be `127.0.0.1`
 
 If you are using a private cluster or a cloud to run sandbox. Please find the host your sandbox resolves to.
 
-### 1.4 Connect to the Welcome Screen <a id="connect-to-welcome-screen"></a>
+### 1.3 Connect to the Welcome Screen <a id="connect-to-welcome-screen"></a>
 
 Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
 
 ![Sandbox Welcome Screen](/assets/learning-the-ropes-of-the-hortonworks-sandbox/sandbox_welcome_page_learning_the_ropes_sandbox.png)
 
-### 1.5 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command"></a>
+### 1.4 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command"></a>
 
 > **Note:** For all methods below, the login credential instructions will be the same to access the Sandbox through the terminal.
 - Login using username as **root** and password as **hadoop**.
@@ -138,6 +132,39 @@ Open the Sandbox through Virtualbox or VMware. The Sandbox VM Welcome Screen wil
 
 > VirtualBox VM Terminal
 
+### 1.5 Learn Your Sandbox Version <a id="learn-sandbox-version"></a>
+
+To find information about your sandbox, execute the command:
+
+~~~bash
+sandbox-version
+~~~
+
+### 1.6 Send Data Between Sandbox & Local Machine <a id="send-data-btwn-sandbox-local-machine"></a>
+
+Open your terminal (linux or mac) or git bash (windows). To send data, in our example HDF .tar.gz file, from your local machine to the azure sandbox, you would input the the following command. If you want to try this command, replace the HDF filename with another filename from your Downloads folder. Modify the command and execute:
+
+~~~bash
+scp -P 2222 ~/Downloads/HDF-1.2.0.1-1.tar.gz root@localhost:/root
+~~~
+
+This command sends HDF from your local machine's Downloads folder to the Sandbox's root directory. We can send any file, directory we want, we just need to specify the path. We can also choose any sandbox directory or path that we want the data to land into.
+
+Here is the definition of the command that we used above:
+
+~~~bash
+scp -P <input-port> </input-directory-path-local-mach> <input-username@hostname-:/sandbox-dir-path>
+~~~
+
+We can also send data from sandbox to our local machine, refer to the modified command definition below:
+
+~~~bash
+scp -P <input-port> <input-username@hostname-:/sandbox-dir-path> </input-directory-path-local-mach>
+~~~
+
+What is the difference between the two command definitions above?
+To send data from local machine to sandbox, the local machine directory path comes before sandbox directory. To transfer data from sandbox to local machine, the command arguments are reversed.
+
 ## Step 2: Explore Ambari <a id="explore-ambari"></a>
 
 Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
@@ -176,7 +203,6 @@ If you want to search for the host address your sandbox is running on, ssh into 
 |---------|:------:|----------:|
 | Ambari | maria_dev | maria_dev |
 | Ambari | admin | refer to [step 2.2](#setup-ambari-admin-password) |
-| Linux OS | root | hadoop |
 
 ### 2.2 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password"></a>
 
@@ -265,6 +291,31 @@ Open your web browser. Replace the following text by your `host` into your brows
 ![Shell in the Browser Sandbox Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_browser_shell_learning_ropes_sandbox.png)
 
 > Appearance of Web Shell
+
+### 1.4 Send Data Between Azure Sandbox & Local Machine <a id="send-data-btwn-sandbox-local-machine-azure"></a>
+
+Open your terminal (linux or mac) or git bash (windows). To send data, in our example HDF .tar.gz file, from your local machine to the azure sandbox, you would input the the following command. If you want to try this command, replace the HDF filename with another filename from your Downloads folder. Also replace james94 with your azure username you provided while deploying the sandbox. Lastly, replace the 2nd james94 folder_name with your azure username, which is the folder of your sandbox. Modify the command and execute:
+
+~~~bash
+scp -P 2222 ~/Downloads/HDF-1.2.0.1-1.tar.gz james94@localhost:/james94
+~~~
+
+This command sends HDF from your local machine's Downloads folder to the Sandbox's root directory. We can send any file, directory we want, we just need to specify the path. We can also choose any sandbox directory or path that we want the data to land into.
+
+Here is the definition of the command that we used above:
+
+~~~bash
+scp -P <input-port> </input-directory-path-local-mach> <input-username@hostname-:/sandbox-dir-path>
+~~~
+
+We can also send data from sandbox to our local machine, refer to the modified command definition below:
+
+~~~bash
+scp -P <input-port> <input-username@hostname-:/sandbox-dir-path> </input-directory-path-local-mach>
+~~~
+
+What is the difference between the two command definitions above?
+To send data from local machine to sandbox, the local machine directory path comes before sandbox directory. To transfer data from sandbox to local machine, the command arguments are reversed.
 
 ## Step 2: Explore Ambari in Azure<a id="explore-ambari-azure"></a>
 
