@@ -276,6 +276,7 @@ Press `esc` and then type `:wq` to exit the editor.
 2\. Now we can run the installdemo.sh script to automatically setup the background services for the trucking demo. Type the following command:
 
 ~~~
+cd iot-truck-streaming/
 ./installdemo.sh
 ~~~
 

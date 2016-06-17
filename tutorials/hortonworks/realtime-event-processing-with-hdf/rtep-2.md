@@ -187,9 +187,11 @@ Client Name = truck_events_client
 
 **Known Brokers** can be found in **Kafka** configs under listeners
 
-  **Topic Name** is the name you created earlier for Kafka. Type the following command to see your topic name: ./kafka-topics.sh --list --zookeeper localhost:2181.
-  The **Message Delimiter** set as "Shift+enter" in the value field makes each line of incoming FlowFile a single message, so kafka does not receive an enormous flowfile as a single message.
-  **Client Name** can be named to your liking, it is the name that is used when communicating with kafka.
+**Topic Name** is the name you created earlier for Kafka. Type the following command to see your topic name: ./kafka-topics.sh --list --zookeeper localhost:2181.
+
+**Message Delimiter** set as "Shift+enter" in the value field makes each line of incoming FlowFile a single message, so kafka does not receive an enormous flowfile as a single message.
+
+**Client Name** can be named to your liking, it is the name that is used when communicating with kafka.
 
 4\. Open the Configure Processor window again, navigate to the **Settings** tab. Set the **Auto termination relationship** to `success` and `failure`. Click **apply**.
 
