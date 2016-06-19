@@ -1,3 +1,6 @@
+<<<<<<< HEAD:tutorials/hortonworks/realtime-event-processing-with-hdf/rtep-concepts.md
+## Introduction
+=======
 ---
 layout: tutorial
 title: Real Time Data Processing in Hadoop
@@ -9,6 +12,7 @@ components: [ storm, kafka ]
 ---
 
 ### Introduction
+>>>>>>> hortonworks/hdp:tutorials/hortonworks/realtime-event-processing-with-hadoop/rtep-concepts.md
 
 In this tutorial, you will strengthen your foundation of technologies used in real-time event processing. You will learn in detail how Apache Kafka sends messages, the process Apache Storm undergoes to collect that data and the process involved for HBase to read that streaming data.
 
@@ -25,7 +29,7 @@ In this tutorial, you will strengthen your foundation of technologies used in re
 
 ## 1st Concept: Apache kafka <a id="concepts-apache-kafka"></a>
 
-### Introduction:
+## Introduction:
 
 In a modern data architecture built on YARN-enabled Apache Hadoop, Kafka works in combination with Apache Storm, Apache HBase and Apache Spark for real-time  distributed messaging of streaming data. Kafka is an excellent low latency messaging platform for real-time streaming data sources, such as the internet of things, sensors, and transactional systems.  Whatever the industry or use case, Kafka brokers massive message streams for low-latency analysis in Enterprise Apache Hadoop.
 Kafka is fully supported and included in HDP today.
@@ -77,15 +81,15 @@ For Kafka consumers, keeping track of which messages have been consumed (process
 
 ## 2nd Concept: Apache Storm <a id="concepts-apache-storm"></a>
 
-### Introduction:
- 
-Apache Storm is a distributed real-time computation system for processing large volumes of high-velocity data in parallel and at scale. Storm is to realtime data processing as Apache Hadoop and MapReduce are to batch data processing. With its simple programming interface, Storm allows application developers to write applications that analyze streams of tuples of data; a tuple may can contain object of any type. 
+## Introduction:
 
-At the core of Storm’s data stream processing is a computational topology, which is discussed below. This topology of nodes dictates how tuples are processed, transformed,aggregated, stored, or re-emitted to other nodes in the topology for further processing. 
+Apache Storm is a distributed real-time computation system for processing large volumes of high-velocity data in parallel and at scale. Storm is to realtime data processing as Apache Hadoop and MapReduce are to batch data processing. With its simple programming interface, Storm allows application developers to write applications that analyze streams of tuples of data; a tuple may can contain object of any type.
+
+At the core of Storm’s data stream processing is a computational topology, which is discussed below. This topology of nodes dictates how tuples are processed, transformed,aggregated, stored, or re-emitted to other nodes in the topology for further processing.
 
 ## Storm on Apache Hadoop YARN
 
-Storm on YARN is powerful for scenarios requiring  continuous analytics, real-time predictions, and continuous monitoring of operations. Eliminating a need to have dedicated silos, enterprises using Storm on YARN benefit on cost savings (by accessing the same datasets as other engines and applications on the same cluster) and on security, data governance, and operations (by employing the same compute resources managed by YARN. 
+Storm on YARN is powerful for scenarios requiring  continuous analytics, real-time predictions, and continuous monitoring of operations. Eliminating a need to have dedicated silos, enterprises using Storm on YARN benefit on cost savings (by accessing the same datasets as other engines and applications on the same cluster) and on security, data governance, and operations (by employing the same compute resources managed by YARN.
 
 ~~~[show an image how Storm integrates with YARN, the pluggable markitecture YARN as Data OS slide :)]~~~
 
@@ -147,7 +151,7 @@ Storm users define topologies for how to process the data when it comes streamin
 
 Learn more about how the community is working to [integrate Storm with Hadoop](http://hortonworks.com/labs/storm) and improve its readiness for the enterprise.
 
-## Storm Topologies 
+## Storm Topologies
 
 A Storm cluster is similar to a Hadoop cluster. Whereas on Hadoop you run "MapReduce jobs," on Storm you run "topologies." "Jobs" and "topologies" are different -- one key difference is that a MapReduce job eventually finishes, whereas a topology processes messages forever (or until you kill it).
 
@@ -157,7 +161,7 @@ Each worker node runs a daemon called the "Supervisor." It  listens for work ass
 
 All coordination between Nimbus and the Supervisors is done through a [Zookeeper](http://zookeeper.apache.org/) cluster. Additionally, the Nimbus daemon and Supervisor daemons are fail-fast and stateless; all state is kept in Zookeeper or on local disk. This means you can kill -9 Nimbus or the Supervisors and they'll start back up like nothing happened. Hence, Storm clusters are stable and fault-tolerant
 
-### Streams Within Storm Topologies
+## Streams Within Storm Topologies
 
 The core abstraction in Storm is the "stream." It is  an unbounded sequence of tuples. Storm provides the primitives for transforming a stream into a new stream in a distributed and reliable way. For example, you may transform a stream of tweets into a stream of trending topics.
 
@@ -179,7 +183,7 @@ A topology runs forever, or until you kill it. Storm will automatically reassign
 
 ## 3rd Concept: Kafka on Storm <a id="concepts-kafka-on-storm"></a>
 
-### Introduction:
+## Introduction:
 
 Hortonworks Data Platform’s YARN-based architecture enables multiple applications to share a common cluster and data set while ensuring consistent levels of response made possible by a centralized architecture. Hortonworks led the efforts to on-board open source data processing engines, such as [Apache Hive](http://hortonworks.com/hadoop/hive), [HBase](http://hortonworks.com/hadoop/hbase), [Accumulo](http://hortonworks.com/hadoop/accumulo), [Spark](http://hortonworks.com/hadoop/spark),[Storm](http://hortonworks.com/hadoop/storm) and others, on [Apache Hadoop YARN](http://hortonworks.com/hadoop/yarn/).
 
@@ -219,7 +223,7 @@ Here are some typical uses for this event processing pipeline:
 - d. Predictive Analytics
 - e. Actions and Decisions
 
-### Build the Data Refinery with Topologies
+## Build the Data Refinery with Topologies
 
 To perform real-time computation on Storm, we create “topologies.” A topology is a graph of a computation, containing a network of nodes called “Spouts” and “Bolts.” In a Storm topology, a Spout is the source of data streams and a Bolt holds the business logic for analyzing and processing those streams.
 
