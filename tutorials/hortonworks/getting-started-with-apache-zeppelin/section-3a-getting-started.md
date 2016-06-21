@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Getting Started with Apache Zeppelin
+tutorial-id: 368
+tutorial-series: Zeppelin
+tutorial-version: hdp-2.5.0
+intro-page: true
+components: [ Zeppelin, Spark, Hive, LDAP, Livy ]
+---
+
 ### **Creating a Notebook**
 
 To create a notebook:

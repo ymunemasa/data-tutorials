@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Getting Started with Apache Zeppelin
+tutorial-id: 368
+tutorial-series: Zeppelin
+tutorial-version: hdp-2.5.0
+intro-page: true
+components: [ Zeppelin, Spark, Hive, LDAP, Livy ]
+---
+
 ### **Configuring Zeppelin Spark and Hive Interpreters**
 
 Before you run a notebook to access Spark and Hive, you need to create and configure interpreters for the two components. To create the Spark interpreter, go to the Zeppelin Web UI. Switch to the “Interpreter” tab and create a new interpreter:
