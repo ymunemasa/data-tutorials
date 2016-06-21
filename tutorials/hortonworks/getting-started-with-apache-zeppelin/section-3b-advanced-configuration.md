@@ -171,10 +171,10 @@ This section describes how to configure Zeppelin to authenticate an end user. (Z
 
 10.  Run Notebooks with the Livy Interpreter. Livy supports Spark, SparkSQL, PySpark, and SparkR.To run notes with Livy, use the corresponding "magic string" at the top of your note. For example, specify %lspark to run Scala code via Livy, or %lspark.sql to run against SparkSQL via Livy.To use SQLContext with Livy, do not create SQLContext explicitly. Zeppelin creates SQLContext by default. If necessary, remove the following lines from your SparkSQL note:
 
-    ~~~
-    //val sqlContext = new org.apache.spark.sql.SQLContext(sc)
-    //import sqlContext.implicits._
-    ~~~
+~~~
+//val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+//import sqlContext.implicits._
+~~~
 
 **(Optional) Enable access control on Zeppelin notebook**
 
