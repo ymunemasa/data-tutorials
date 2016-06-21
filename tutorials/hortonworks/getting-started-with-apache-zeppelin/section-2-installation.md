@@ -27,14 +27,17 @@ To install Zeppelin using Ambari, complete the following steps:
 
 1\.  Download the Zeppelin Ambari Stack Definition. On the node running Ambari server, run the following:
 
-    <pre>
-    VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
-    sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN
-    </pre>
+~~~
+VERSION=`hdp-select status hadoop-client | sed 's/hadoop-client - \([0-9]\.[0-9]\).*/\1/'`
+
+sudo git clone https://github.com/hortonworks-gallery/ambari-zeppelin-service.git /var/lib/ambari-server/resources/stacks/HDP/$VERSION/services/ZEPPELIN
+~~~
 
 2\.  Restart the Ambari Server:
 
-    <pre>sudo service ambari-server restart</pre>
+~~~
+sudo service ambari-server restart
+~~~
 
 3\.  After Ambari restarts and service indicators turn green, add the Zeppelin service.
 
