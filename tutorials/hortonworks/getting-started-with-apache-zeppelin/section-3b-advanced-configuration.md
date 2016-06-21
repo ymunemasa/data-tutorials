@@ -147,7 +147,8 @@ This section describes how to configure Zeppelin to authenticate an end user. (Z
 
 6.  Grant user livy the ability to proxy users in the Hadoop core-site.xml file. Use Ambari to add the following lines to the /etc/hadoop/conf/core-site.xml file. Then restart HDFS using Ambari.
 
-    <pre><property>
+    ~~~
+    <property>
         <name>hadoop.proxyuser.**livy**.groups</name>
         <value>*</value>
     </property>
@@ -155,7 +156,8 @@ This section describes how to configure Zeppelin to authenticate an end user. (Z
     <property>
         <name>hadoop.proxyuser.**livy**.hosts</name>
         <value>*</value>
-    </property></pre>
+    </property>
+    ~~~
 
 7.  Start the Livy server as user livy:
 
@@ -169,8 +171,10 @@ This section describes how to configure Zeppelin to authenticate an end user. (Z
 
 10.  Run Notebooks with the Livy Interpreter. Livy supports Spark, SparkSQL, PySpark, and SparkR.To run notes with Livy, use the corresponding "magic string" at the top of your note. For example, specify %lspark to run Scala code via Livy, or %lspark.sql to run against SparkSQL via Livy.To use SQLContext with Livy, do not create SQLContext explicitly. Zeppelin creates SQLContext by default. If necessary, remove the following lines from your SparkSQL note:
 
-    <pre>//val sqlContext = new org.apache.spark.sql.SQLContext(sc)
-    //import sqlContext.implicits._</pre>
+    ~~~
+    //val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+    //import sqlContext.implicits._
+    ~~~
 
 **(Optional) Enable access control on Zeppelin notebook**
 
@@ -202,7 +206,7 @@ Alternatively for LDAP integration, enable the section [main]
 
 </pre>
 
-For more information on Shiro please refer http://shiro.apache.org/authentication-features.html
+For more information on Shiro please refer to [Apache Shiro Authentication Features](http://shiro.apache.org/authentication-features.html).
 
 ### **Stopping Zeppelin or the Livy Server**
 

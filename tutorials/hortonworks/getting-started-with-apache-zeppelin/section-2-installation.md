@@ -8,18 +8,18 @@ intro-page: true
 components: [ Zeppelin, Spark, Hive, LDAP, Livy ]
 ---
 
-Apache Zeppelin GA requires the following software:
+Apache Zeppelin requires the following software:
 
-*   HDP 2.5+
-*   Spark 1.6+
+*   HDP 2.5 TP
+*   Spark 1.6.1
 *   Git installed on the node that is running Ambari Server. (If you need to install git, run sudo yum install git.)
 *   Java 8 installed on the node where Zeppelin is installed
 
-**Note:** If you're running an **HDP 2.5+ Sandbox**, then you already have the latest Apache Zeppelin pre-installed with most of the features pre-configured. The features, however, may have to be enabled.
+**Note:** If you're running an **HDP 2.5 TP Sandbox**, then you already have the latest Apache Zeppelin pre-installed with most of the features pre-configured. The features, however, may have to be enabled.
 
 **HDP Cluster Requirements**
 
-Zeppelin can be installed on any HDP 2.5+ cluster. The following instructions assume that Spark version 1.6+ is already installed on the HDP cluster.
+Zeppelin can be installed on any HDP 2.5 TP cluster. The following instructions assume that Spark version 1.6.1 is already installed on the HDP cluster.
 
 ### **Installing Zeppelin on an Ambari-Managed Cluster**
 

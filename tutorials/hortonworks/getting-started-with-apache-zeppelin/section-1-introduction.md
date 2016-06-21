@@ -19,11 +19,16 @@ With a focus on Enterprise, Zeppelin has the following important features:
   * Zeppelin authentication against LDAP
   * Notebook authorization
 
+### **Prerequisites**
+
+*   HDP 2.5 TP
+*   Spark 1.6.1
+
 ### **Overview**
 
 This tutorial of Apache Zeppelin covers:
 
-*   Instructions for setting up Zeppelin on HDP 2.5+ with Spark 1.6.1+ using Ambari
+*   Instructions for setting up Zeppelin on HDP 2.5 TP with Spark 1.6.1 using Ambari
 *   Configuration for running Zeppelin against Spark on YARN and Hive
 *   Configuration for running Zeppelin against Spark on YARN with Livy interpreter
 *   Access Control on Notebooks
