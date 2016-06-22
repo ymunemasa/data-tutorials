@@ -8,7 +8,7 @@ intro-page: true
 components: [ storm, kafka, nifi ]
 ---
 
-### Introduction
+## Introduction
 
 In this tutorial, you will strengthen your foundation of technologies used in real-time event processing. You will learn in detail how Apache Kafka sends messages, the process Apache Storm undergoes to collect that data and the process involved for HBase to read that streaming data.
 
