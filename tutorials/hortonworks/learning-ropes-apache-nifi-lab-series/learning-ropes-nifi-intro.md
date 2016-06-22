@@ -39,21 +39,16 @@ The learning objectives of this lab are to:
 
 ## Lab Series Overview
 
-The lab series is based on transit location data gathered from NextBus XML Live Feed. In this lab, we work with San Francisco MUNI Transit agency data handling vehicle locations, speeds, and other variables.
+In this lab, we work with San Francisco MUNI Transit agency data, gathered from NextBus XML Live Feed, handling vehicle locations, speeds, and other variables.
 
 The lab consists of four sections:
 
 **Lab 0** - Learn about your lab environment. Get NiFi up and running on Hortonworks Sandbox or your local machine.
 
-**Lab 1** - Become familiar with NiFi HTML interface. Open NiFi interface; explore its features. Create an agile dataflow project by creating and configuring eleven processors. You will learn to ingest data from transit location xml simulator, extract transit location detail attributes from flowfiles, route those desired attributes to a converted JSON file. Run the dataflow and verify the results in a terminal.
+**Lab 1** - Open NiFi UI and explore its features. Create a dataflow by adding and configuring eleven processors. Ingest data from a transit location XML simulator, extract transit location detail attributes from flowfiles, and route attributes to a converted JSON file. Run the dataflow and verify the results in a terminal.
 
-**Lab 2** - Add geographic location enrichment to the dataflow; incorporate Google Places Nearby API into the dataflow to retrieve places nearby the vehicle's location(latitude and longitude). Learn how easy external API integration is with NiFi.
+**Lab 2** - Add geographic location enrichment to the dataflow; incorporate Google Places Nearby API into the dataflow to retrieve places near the vehicle's location. 
 
-**Lab 3** - Ingest NextBus's live stream data for San Francisco Muni agency.
+**Lab 3** - Ingest NextBus's live stream data for San Francisco MUNI agency.
 
-![Completed-dataflow-for-lab3](/assets/learning-ropes-nifi-lab-series/lab-intro-nifi-learning-ropes/completed-dataflow-rd1-lab3.png)
-
-The dataflow in the image above is what you will learn to build in lab 3. In the introduction of each lab, you are provided a template file of the completed dataflow built for that lab section. The labs are also step by step in which you can build the dataflows from scratch, so we highly encourage the templates be used for verification. Each lab builds on the previous. Feel free to experiment in any way you like, if you get stuck, you can still go onto the next lab with everything in place by selecting the appropriate template.
-
-
-> Note: **Word about lab instructions**: each section in this guide begins with a description of what you will learn or accomplish in your NiFi training. The essence of these sections is to give you background of what you will do in the lab section. The labs will always be followed by step-by-step instructions.
+Each lab provides step by step instructions, so that you can complete the learning objectives and tasks associate with it. You are also provided with a dataflow template for each lab that you can use for verification. Each lab builds on the previous. 
