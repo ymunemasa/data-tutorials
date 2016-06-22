@@ -20,11 +20,11 @@ For the purposes of this tutorial, assume that a city planning board is evaluati
 
 ## Goals and Objectives
 
-The goal of this tutorial is to provide you with an opportunity to interact with Apache NiFi features while building a dataflow. This lab requires no direct programming and does not dwell on syntax and other features of flow-based programming.
+The goal of this tutorial is to provide you with an opportunity to interact with Apache NiFi features while building a dataflow. You do not need programming experience or flow-based programming syntax and feature knowledge to successfully complete this lab. 
 
 The learning objectives of this lab are to:
-- Understand the fundamental concepts of Apache NiFi
-- Introduce NiFi’s HTML interface: navigate the UI; design, control, transform, and monitor dataflow
+- Understand Apache NiFi fundamentals
+- Introduce NiFi’s HTML user interface
 - Introduce NiFi processor configuration, relationships, data provenance, and documentation
 - Create dataflows
 - Incorporate APIs into a NiFi dataflow
