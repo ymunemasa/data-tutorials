@@ -328,8 +328,6 @@ Running a topology is straightforward. First, you package all your code and depe
 
 
 ~~~bash
-[root@sandbox ~]# cd /iot-truck-streaming/
-
 [root@sandbox iot-truck-streaming]# storm jar storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar com.hortonworks.streaming.impl.topologies.TruckEventProcessorKafkaTopology /etc/storm_demo/config.properties
 ~~~
 
