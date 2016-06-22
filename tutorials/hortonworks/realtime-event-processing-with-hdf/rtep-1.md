@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Real Time Data Processing in Hadoop with Storm, Kafka and NiFi
+tutorial-id: 640
+tutorial-series: Streaming
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ nifi ]
+---
+
 # Lab0: Ingest, Route and Land Real Time Events with Apache NiFi
 
 ## Introduction
