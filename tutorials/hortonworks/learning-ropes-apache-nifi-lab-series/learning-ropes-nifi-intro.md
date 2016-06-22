@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Introduction
+tutorial-id: 640
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: true
+components: [ nifi ]
+---
+
 # Learning the Ropes of Apache NiFi
 
 Version 1 for HDP 2.4 updated June 13, 2016
