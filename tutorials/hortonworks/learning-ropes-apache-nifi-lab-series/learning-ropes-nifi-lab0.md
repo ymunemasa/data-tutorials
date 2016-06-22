@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Lab0: Download, Install and Start NiFi
+tutorial-id: 640
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ nifi ]
+---
+
 # Lab0: Download, Install and Start NiFi
 
 ## Introduction
