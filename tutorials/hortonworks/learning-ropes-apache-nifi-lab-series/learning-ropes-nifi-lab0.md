@@ -132,9 +132,11 @@ The script automatically installs NiFi onto your virtual machine. After successf
 
 ### Step 4: Start NiFi on Sandbox <a id="step3-start-nifi"></a>
 
-If you downloaded and installed NiFi on Hortonworks Sandbox, refer to this step, else go to step 5. We will launch NiFi in the background.
+Use the following steps to start NiFi if you downloaded and installed it on Hortonworks Sandbox. For informaiton about how to start NiFi on your local machine, go to step 5. 
 
-1\. Open a terminal (Mac and Linux) or git bash (Windows). SSH into the Hortonworks Sandbox
+In this tutorial, launch NiFi in the background.
+
+1\. Open a terminal (Mac and Linux) or git bash (Windows). SSH into the Hortonworks Sandbox:
 
 ~~~
 ssh root@127.0.0.1 -p 2222
@@ -152,9 +154,9 @@ cd hdf/HDF-1.2.0.1-1/nifi/bin
 ./nifi.sh start
 ~~~
 
-> Note: to stop NiFi, type `./nifi.sh stop`
+> Note: To stop NiFi, type `./nifi.sh stop`
 
-Open the NiFi DataFlow at `http://sandbox.hortonworks.com:6434/nifi/` to verify NiFi started. Wait 1 minute for NiFi to load. If NiFi HTML interface doesn't load, verify the value in the nifi.properties file matches **nifi.web.http.port=6434**.
+Open the NiFi DataFlow at `http://sandbox.hortonworks.com:6434/nifi/` to verify NiFi started. Wait 1 minute for NiFi to load. If NiFi HTML interface does not load, verify the value in the nifi.properties file matches **nifi.web.http.port=6434**.
 
 4\. Navigate to the **conf** folder and open nifi.properties in the vi editor.
 
@@ -170,13 +172,13 @@ nifi.web.http.port=6434
 ~~~
 
 To exit the vi editor, press `esc` and then enter `:wq` to save the file.
-Now that the configuration in the nifi.properties file has been updated, we need to port forward a new port for NiFi through the Port Forward GUI because the virtual machine is not listening for the port **6434**, so NiFi will not load on the browser. If your using VirtualBox Sandbox, refer to section 4.1. For Azure Sandbox users, refer to section 4.2.
+Now that the configuration in the nifi.properties file is updated, port forward a new NiFi port because the VM is not listening for the port **6434**, so NiFi does not load on the browser. If you are using VirtualBox Sandbox, refer to section 4.1. For Azure Sandbox users, refer to section 4.2.
 
 ### 4.1 Forward Port with VirtualBox GUI
 
 1\. Open VirtualBox Manager
 
-2\. Right click your running Hortonworks Sandbox, click **settings**
+2\. Right-click your running Hortonworks Sandbox, and select **settings**.
 
 3\. Go to the **Network** Tab
 
@@ -189,15 +191,15 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 ![port_forward_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/port_forward_nifi_iot.png)
 
 
-4\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. You should be able to access it now. Wait 1 to 2 minutes for NiFi to load.
+4\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. Wait 1 to 2 minutes for NiFi to load.
 
-> Note: if you haven't configured the `sandbox.hortonworks.com` alias in `/etc/hosts`, try the `http://localhost:6434/nifi` URL as well.
+> Note: If you have not configured the `sandbox.hortonworks.com` alias in `/etc/hosts`, try the `http://localhost:6434/nifi` URL as well.
 
 ### 4.2 Forward Port with Azure GUI
 
 1\. Open Azure Sandbox.
 
-2\. Click the sandbox with the **shield icon**.
+2\. Click the Sandbox with the **shield icon**.
 
 ![shield-icon-security-inbound.png](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/shield-icon-security-inbound.png)
 
@@ -205,7 +207,7 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 ![inbound-security-rule.png](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/inbound-security-rule.png)
 
-4\. Scroll to **NiFi**, click on the row.
+4\. Scroll to **NiFi**, and click on the row.
 
 ![list-nifi-port.png](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/list-nifi-port.png)
 
@@ -213,7 +215,7 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 ![change-nifi-port.png](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/change-nifi-port.png)
 
-6\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. You should be able to access it now. Wait 1 to 2 minutes for NiFi to load.
+6\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. Wait 1 to 2 minutes for NiFi to load.
 
 
 ### Step 5: Start NiFi on Local Machine
