@@ -5,7 +5,7 @@ tutorial-id:
 tutorial-series: Streaming
 tutorial-version: hdp-2.4.0
 intro-page: true
-components: [ storm, kafka ]
+components: [ nifi, storm, kafka ]
 ---
 
 
