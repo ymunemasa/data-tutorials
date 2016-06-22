@@ -8,16 +8,16 @@ intro-page: false
 components: [ nifi ]
 ---
 
-# Lab0: Download, Install and Start NiFi
+# Lab0: Download, Install, and Start NiFi
 
 ## Introduction
 
 In this tutorial, you learn about the lab environment, how to install NiFi onto Hortonworks Sandbox or on a local machine, and how to start NiFi.
 
 ## Pre-Requisites
-- Completed Learning the Ropes of Apache NiFi
-- Downloaded and Installed Hortonworks Sandbox (Needed for Step 2 if you go with Option 1 for NiFi installation)
-- For windows users, to run linux terminal commands in these tutorials, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
+- Completed Learning the Ropes of Apache NiFi.
+- Downloaded and installed Hortonworks Sandbox. (Required for Step 2, Option 1 for NiFi installation.)
+- For Windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run Linux terminal commands in these tutorials.
 
 ## Outline
 - Step 1: Explore Lab Environment Before NiFi Installation
