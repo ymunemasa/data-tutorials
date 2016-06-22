@@ -28,15 +28,15 @@ In this tutorial, you learn about the lab environment, how to install NiFi onto 
 
 ### Step 1: Explore Lab Environment Before NiFi Installation
 
-The lab environment (NiFi) can run inside a single virtual machine or on your local computer. This version of the lab instructions are based on [Hortonworks DataFlow 1.2 GZipped](http://hortonworks.com/downloads/). There are 2 ways to download and install HDF 1.2: Option 1 on a Hortonworks Sandbox 2.4 Virtual Image or Option 2 on your local machine. HDF comes in 2 versions with only NiFi or with NiFi, Kafka and Storm, Zookeeper; however, for this lab series, we will download HDF that comes with only NiFi. The necessary components for this lab series:
+You can run NiFi inside a single virtual machine or on your local computer. This version of the lab instructions are based on [Hortonworks DataFlow 1.2 GZipped](http://hortonworks.com/downloads/). There are 2 ways to download and install HDF 1.2: Option 1 on a Hortonworks Sandbox 2.4 Virtual Image or Option 2 on your local machine. HDF comes in 2 versions with only NiFi or with NiFi, Kafka, Storm, and Zookeeper. For this lab series, you should download HDF with NiFi only. The necessary components for this lab series are:
 - HDF 1.2 (NiFi only)
 - Internet Access
 
 ### 1.1 Plan to Install HDF 1.2 on Sandbox
 
-If you plan to install HDF on Hortonworks Sandbox, review the table, then proceed to step 2.
+If you plan to install HDF on Hortonworks Sandbox, review the table, and proceed to step 2.
 
-**Table 1: Hortonworks Sandbox Virtual Machine Information**
+**Table 1: Hortonworks Sandbox VM Information**
 
 | Parameter  | Value (VirtualBox)  | Value(VMware)  | Value(MS Azure)  |
 |---|---|---|---|
@@ -46,9 +46,9 @@ If you plan to install HDF on Hortonworks Sandbox, review the table, then procee
 | Terminal Password  | hadoop  | hadoop  | {password-of-azure}  |
 
 
-> Note: **Host Name** values are unique for VMware & Azure Sandbox compared to the table. For VMware and VirtualBox, **Host Name** is located on welcome screen. For Azure, **Host Name** is located under **Public IP Address** on Sandbox Dashboard. For Azure users, the terminal **username** and **password** is one you created while deploying the sandbox on azure. For VMware and VirtualBox users, terminal password changes after first login.
+> Note: **Host Name** values are unique for VMware & Azure Sandbox compared to the table. For VMware and VirtualBox, **Host Name** is located on the Welcome screen. For Azure, **Host Name** is located under **Public IP Address** on the Sandbox Dashboard. For Azure users, you created the terminal **username** and **password** while deploying the Sandbox on Azure. For VMware and VirtualBox users, you change the terminal password after first login.
 
-If it is your first time SSH'ing into the sandbox VM, it may prompt you to change the default 'hadoop' password. Please run this command and provide a stronger password:
+If it is your first time using the Sandbox VM, you might be prompted to change the default 'hadoop' password. Run the following command and provide a stronger password:
 ```
 ssh -p 2222 root@localhost
 root@localhost's password:
@@ -63,7 +63,7 @@ Retype new password:
 
 ### 1.2 Plan to Install HDF 1.2 on Local Machine
 
-This section is important to read through if you want to install NiFi on your local machine. Refer to step 3 if you read this section.
+You should read this section if you plan to install NiFi on your local machine. Once you have verified that your machine meets system requirements, proceed to Step 3.
 
 Does your system meet HDF's installation requirements?
 
@@ -74,7 +74,10 @@ Supported OS for HDF Installation:
 - SUSE Enterprise 11-SP3
 
 Supported Browsers:
-- Mozilla Firefox latest, Google Chrome latest, MS Edge, Safari 8
+- Mozilla Firefox latest
+- Google Chrome latest
+- MS Edge
+- Safari 8
 
 Supported JDKS:
 - Open JDK7 or JDK8
@@ -83,16 +86,6 @@ Supported JDKS:
 Supported HDP Versions that Interoperate with HDF:
 - HDP 2.3.x
 - HDP 2.4.x
-
-Apache Tools Included in HDF:
-- NiFi 0.6.0
-- Kafka 0.9.0.1
-- Storm 0.10.0
-- Zookeeper 3.4.6
-
-For Hardware Sizing Recommendations, refer to HDF [Hardware Sizing Recommendations Documentation](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_HDF_InstallSetup/content/hdf_isg_hardware.html). However, for the lab series, we won't have to worry about these specs.
-
-If you plan to install and download HDF on your local machine, refer to step 3.
 
 ### Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)
 
