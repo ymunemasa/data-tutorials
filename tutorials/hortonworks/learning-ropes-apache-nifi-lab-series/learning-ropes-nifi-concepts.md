@@ -10,6 +10,10 @@ components: [ nifi ]
 
 # Introduction to DataFlow Automation with Apache NiFi Concepts
 
+## Introduction
+
+The concepts section is tailored toward enriching your hands-on experience in the labs. By the end of this section, you will be able to define NiFi, know how to create dataflows for specific use cases, acquire knowledge on how to build a NiFi DataFlow and become familiar with the core concepts of NiFi. The goal of this section is to help NiFi practitioners know how to use the NiFi documentation for their advantage.
+
 ## Outline
 - 1\. What is Apache NiFi?
 - 2\. Who Uses NiFi, and for what?
