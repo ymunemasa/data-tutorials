@@ -108,9 +108,7 @@ git clone https://github.com/james94/iot-truck-streaming
 3\. Install Apache Maven, so we can compile the stream simulator code and run the simulator. Run the following commands:
 
 ~~~
-wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
-
-yum install apache-maven
+./iot-truck-streaming/setup/bin/install-maven.sh
 ~~~
 
 > Note: You will be prompted to allow maven to install, type 'y' for yes
@@ -136,7 +134,7 @@ sudo cp -R storm-demo-webapp/routes/ /etc/storm_demo
 ~~~
 mv -f storm-streaming/pom24.xml storm-streaming/pom.xml
 
-mvn clean package
+/root/maven/bin/mvn clean package
 ~~~
 
 Apache Maven command: mvn clean deletes everying in the target folder. The storm-streaming contains a target folder that is impacted. The package phase of the command compiles the code and packages it into jar files according to the pom file.
