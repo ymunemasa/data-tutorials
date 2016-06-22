@@ -1,6 +1,3 @@
-<<<<<<< HEAD:tutorials/hortonworks/realtime-event-processing-with-hdf/rtep-concepts.md
-## Introduction
-=======
 ---
 layout: tutorial
 title: Real Time Data Processing in Hadoop
@@ -8,11 +5,10 @@ tutorial-id:
 tutorial-series: Streaming
 tutorial-version: hdp-2.4.0
 intro-page: true
-components: [ storm, kafka ]
+components: [ storm, kafka, nifi ]
 ---
 
 ### Introduction
->>>>>>> hortonworks/hdp:tutorials/hortonworks/realtime-event-processing-with-hadoop/rtep-concepts.md
 
 In this tutorial, you will strengthen your foundation of technologies used in real-time event processing. You will learn in detail how Apache Kafka sends messages, the process Apache Storm undergoes to collect that data and the process involved for HBase to read that streaming data.
 
@@ -21,17 +17,41 @@ In this tutorial, you will strengthen your foundation of technologies used in re
 - [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ## Outline
-- [1st Concept: Apache kafka](#concepts-apache-kafka)
-- [2nd Concept: Apache Storm](#concepts-apache-storm)
-- [3rd Concept: Kafka on Storm](#concepts-kafka-on-storm)
+- [1st Concept: Apache NiFi](#concepts-apache-nifi)
+- [2nd Concept: Apache Kafka](#concepts-apache-kafka)
+- [3rd Concept: Apache Storm](#concepts-apache-storm)
+- [5th Concept: Kafka on Storm](#concepts-kafka-on-storm)
 - [Further Reading](#further-reading-concepts)
 
-
-## 1st Concept: Apache kafka <a id="concepts-apache-kafka"></a>
+## 1st Concept: Apache NiFi <a id="concepts-apache-nifi"></a>
 
 ## Introduction:
 
-In a modern data architecture built on YARN-enabled Apache Hadoop, Kafka works in combination with Apache Storm, Apache HBase and Apache Spark for real-time  distributed messaging of streaming data. Kafka is an excellent low latency messaging platform for real-time streaming data sources, such as the internet of things, sensors, and transactional systems.  Whatever the industry or use case, Kafka brokers massive message streams for low-latency analysis in Enterprise Apache Hadoop.
+NiFi works with Apache Kafka, Apache Storm, Apache HBase and Spark for real-time distributed messaging of streaming data. NiFi is an excellent platform for ingesting real-time streaming data sources, such as the internet of things, sensors and transactional systems. If the data that comes in is garbage data, NiFi offers tools to filter out the undesired data. Additionally, NiFi can also act as a messenger and send data to the desired location.
+
+## Goals of this module:
+
+- Understand how Apache NiFi works
+
+## How NiFi Works
+
+NiFi’s system design can be thought of as an Automated Teller Machine, where incoming data is securely processed and written sequentially to disk. There are four main components involved in moving data in and out of NiFi:
+
+- FlowFile
+- Processor
+- Connections
+- Flow Controller
+
+![Image of NiFi Flow](/assets/realtime-event-processing-with-hdf/concepts/image_of_nifi_flow.png)
+
+In NiFi, a **FlowFile** is data brought into the flow from any data source and moves through the dataflow. **Connections** are linkages between components that enable FlowFiles to move throughout the dataflow. A **Flow Controller** regulates the exchange of FlowFiles between processors. **Processors** are actions taken on the FlowFiles to process their content and attributes to ensure desired data moves throughout the dataflow to eventually be stored at a secure location. Therefore, NiFi acts as a Producer to publish messages to one or more topics. So, at a high level, producers send messages over the network to the Kafka cluster.
+
+
+## 2nd Concept: Apache kafka <a id="concepts-apache-kafka"></a>
+
+## Introduction:
+
+In a modern data architecture built on YARN-enabled Apache Hadoop, Kafka works in combination with Apache Storm, Apache HBase and Apache Spark for real-time distributed messaging of streaming data. Kafka is an excellent low latency messaging platform for real-time streaming data sources, such as the internet of things, sensors, and transactional systems.  Whatever the industry or use case, Kafka brokers massive message streams for low-latency analysis in Enterprise Apache Hadoop.
 Kafka is fully supported and included in HDP today.
 
 ## Goals of this module:
@@ -67,7 +87,7 @@ Kafka’s system design can be thought of as that of a distributed commit log, w
 
 ![Image of Kafka Flow](/assets/realtime-event-processing/concepts/01_kafka_cluster.png)
 
-In Kafka, a **Topic** is a user-defined category to which messages are published. Kafka Producers publish messages to one or more topics and **Consumers** subscribe to topics and process the published messages. So, at a high level, producers send messages over the network to the Kafka cluster, which in turn serves them up to consumers. Finally, a Kafka cluster consists of one or more servers, called **Brokers** that manage the persistence and replication of message data (i.e. the commit log).
+In Kafka, a **Topic** is a user-defined category to which messages are published. NiFi will act in the role of Producers to publish messages to one or more topics and **Consumers** subscribe to topics and process the published messages. At a high level, producers send messages over the network to the Kafka cluster, which in turn serves them up to consumers. Finally, a Kafka cluster consists of one or more servers, called **Brokers** that manage the persistence and replication of message data (i.e. the commit log).
 
 ![Image of Kafka Partitions](/assets/realtime-event-processing/concepts/02_kafka_partitions.png)
 
@@ -90,8 +110,6 @@ At the core of Storm’s data stream processing is a computational topology, whi
 ## Storm on Apache Hadoop YARN
 
 Storm on YARN is powerful for scenarios requiring  continuous analytics, real-time predictions, and continuous monitoring of operations. Eliminating a need to have dedicated silos, enterprises using Storm on YARN benefit on cost savings (by accessing the same datasets as other engines and applications on the same cluster) and on security, data governance, and operations (by employing the same compute resources managed by YARN.
-
-~~~[show an image how Storm integrates with YARN, the pluggable markitecture YARN as Data OS slide :)]~~~
 
 
 ## Storm in the Enterprise
@@ -237,6 +255,7 @@ In summary, refinery style data processing architecture enables you to:
 - Modularize your key cluster resources to most intense processing phase of the pipeline
 
 ## Further Reading <a id="further-reading-concepts"></a>
+- [Apache NiFi](https://nifi.apache.org/docs/nifi-docs/)
 - [Apache Storm](http://storm.apache.org/)
 - [Apache Kafka](http://kafka.apache.org/)
 - [Storm Kafka Integration](http://storm.apache.org/documentation/storm-kafka.html)
