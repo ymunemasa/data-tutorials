@@ -12,7 +12,7 @@ components: [ nifi ]
 
 ## Introduction
 
-In this tutorial, we will learn about our lab environment, how to install NiFi onto Hortonworks Sandbox or on a local machine and start NiFi.
+In this tutorial, you learn about the lab environment, how to install NiFi onto Hortonworks Sandbox or on a local machine, and how to start NiFi.
 
 ## Pre-Requisites
 - Completed Learning the Ropes of Apache NiFi
