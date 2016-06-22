@@ -1,4 +1,14 @@
-# Introduction to DataFlow Automation with Apache NiFi
+---
+layout: tutorial
+title: Introduction to DataFlow Automation with Apache NiFi Concepts
+tutorial-id: 640
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ nifi ]
+---
+
+# Introduction to DataFlow Automation with Apache NiFi Concepts
 
 ## Outline
 - 1\. What is Apache NiFi?
