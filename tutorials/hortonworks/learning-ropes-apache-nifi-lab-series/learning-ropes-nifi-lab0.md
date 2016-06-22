@@ -220,9 +220,11 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 ### Step 5: Start NiFi on Local Machine
 
-If you downloaded and installed NiFi on your local machine, refer to this step. Now let's start NiFi. There are 3 methods to start NiFi: launch NiFi in foreground, in the background or as a service. Refer to [Starting NiFi Documentation](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_HDF_InstallSetup/content/starting-nifi.html) to learn more.
+If you downloaded and installed NiFi on your local machine, use this step to start NiFi. 
 
-1\. We will start NiFi in the background: open a terminal window or git bash, navigate to NiFi installation directory and enter:
+There are 3 methods to start NiFi: launch NiFi in foreground, in the background or as a service. See the [HDF Install and Setup Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_HDF_InstallSetup/content/starting-nifi.html) to learn more.
+
+1\. To start NiFi in the background, open a terminal window or git bash, navigate to NiFi installation directory, and enter:
 
 ~~~bash
 ./HDF-1.2.0.1-1/nifi/bin/nifi.sh start
@@ -232,8 +234,7 @@ If you downloaded and installed NiFi on your local machine, refer to this step. 
 
 ## Conclusion
 
-Congratulations! You learned that NiFi can be installed on virtual machine or directly on your computer. You also learned to download, install and start NiFi. Now that NiFi is up and running, we are ready to build our dataflow.
+Congratulations! You learned that NiFi can be installed on a VM or directly on your computer. You also learned to download, install, and start NiFi. Now that you have NiFi is up and running, you are ready to build a dataflow.
 
 ## Further Reading
-
-- For more information on NiFi Configuration, view [System Administrator's Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_AdminGuide/content/index.html)
+For more information on NiFi Configuration, see the [System Administrator's Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_AdminGuide/content/index.html)
