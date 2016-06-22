@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Lab 2 Enhance the DataFlow with Geo Location Enrichment
+tutorial-id: 640
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ nifi ]
+---
+
 # Lab 2: Enhance the DataFlow with Geo Location Enrichment
 
 ## Introduction
