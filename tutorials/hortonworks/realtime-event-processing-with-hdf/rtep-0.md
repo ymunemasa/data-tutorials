@@ -1,6 +1,6 @@
 ---
 layout: tutorial
-title: Real Time Data Processing in Hadoop
+title: Real Time Data Transportation and Ingestion
 tutorial-id: 220
 tutorial-series: Streaming
 tutorial-version: hdp-2.4.0
