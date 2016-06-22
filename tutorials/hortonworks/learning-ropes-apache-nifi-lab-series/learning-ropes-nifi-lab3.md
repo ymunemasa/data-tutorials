@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Lab 3 Ingest NextBus Live Stream Routes to the DataFlow
+tutorial-id: 640
+tutorial-series: Basic Development
+tutorial-version: hdp-2.4.0
+intro-page: false
+components: [ nifi ]
+---
+
 # Lab 3: Ingest NextBus Live Stream Routes to the DataFlow
 
 ## Introduction
