@@ -181,7 +181,7 @@ If you would like to read more about configuring and connecting processors, refe
 
 ### 3.1 GetFile
 
-1\. Download [Traffic Simulator Data XML zip file](/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip).
+1\. Download [trafficLocs_data_for_simulator.zip](/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip).
 
 If NiFi is on Sandbox, send the zip file to the sandbox with the command:
 
