@@ -193,7 +193,7 @@ If NiFi is on local machine, create a new folder named `Documents/nifi/input` in
 
 ~~~bash
 mkdir -p Documents/nifi/input
-mv ~/Downloads/trafficLocs_data_for_simulator.zip /home/nifi/input
+mv ~/Downloads/trafficLocs_data_for_simulator.zip Documents/nifi/input
 ~~~  
 
 Right click on the **GetFile** processor and click **configure** from dropown menu
