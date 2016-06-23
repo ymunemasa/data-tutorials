@@ -108,7 +108,7 @@ git clone https://github.com/james94/iot-truck-streaming
 3\. Install Apache Maven, so we can compile the stream simulator code and run the simulator. Run the following commands:
 
 ~~~
-./iot-truck-streaming/setup/bin/install-maven.sh
+./iot-truck-streaming/setup/bin/install_maven.sh
 ~~~
 
 > Note: You will be prompted to allow maven to install, type 'y' for yes
