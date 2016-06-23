@@ -189,10 +189,10 @@ If NiFi is on Sandbox, send the zip file to the sandbox with the command:
 scp -P 2222 ~/Downloads/trafficLocs_data_for_simulator.zip root@localhost:/home/nifi/input
 ~~~
 
-If NiFi is on local machine, create a new folder named `/home/nifi/input` in the `/` directory with the command:
+If NiFi is on local machine, create a new folder named `Documents/nifi/input` in the `/` directory with the command:
 
 ~~~bash
-mkdir /home/nifi/input
+mkdir -p Documents/nifi/input
 mv ~/Downloads/trafficLocs_data_for_simulator.zip /home/nifi/input
 ~~~  
 
