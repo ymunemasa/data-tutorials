@@ -150,6 +150,9 @@ Overview of Each Processor's Role in our DataFlow:
 
 - **MergeContent** merges a group of JSON FlowFiles together based on a number of FlowFiles and packages them into a single FlowFile.
 
+- **PutFile** writes the contents of the FlowFile to a desired directory on the local filesystem. 
+
+
 Follow the step above to add these processors. You should obtain the image below:
 
 ![added_processors_nifi_part1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/added_processors_nifi_part1.png)
