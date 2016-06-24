@@ -97,8 +97,8 @@ After extracting, filtering and converting the data, your new file, which contai
 
 | Parameter  | Value  |
 |---|---|
-| Input Directory  | /home/nifi/input  |
-| Output Directory  | /home/nifi/output/filtered_transitLoc_data  |
+| Input Directory  | /tmp/nifi/input  |
+| Output Directory  | /tmp/nifi/output/filtered_transitLoc_data  |
 | File Format  | JSON  |
 | Filter For  | id, time, lat, lon, speedKmHr, dirTag  |
 
@@ -150,7 +150,7 @@ Overview of Each Processor's Role in our DataFlow:
 
 - **MergeContent** merges a group of JSON FlowFiles together based on a number of FlowFiles and packages them into a single FlowFile.
 
-- **PutFile** writes the contents of the FlowFile to a desired directory on the local filesystem. 
+- **PutFile** writes the contents of the FlowFile to a desired directory on the local filesystem.
 
 
 Follow the step above to add these processors. You should obtain the image below:
@@ -183,17 +183,29 @@ If you would like to read more about configuring and connecting processors, refe
 
 1\. Download [trafficLocs_data_for_simulator.zip](/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip).
 
-If NiFi is on Sandbox, send the zip file to the sandbox with the command:
+### NiFi on Sandbox (Option 1)
+
+If **NiFi is on Sandbox**, SSH into the shell. Else move to the next section:
 
 ~~~bash
-scp -P 2222 ~/Downloads/trafficLocs_data_for_simulator.zip root@localhost:/home/nifi/input
+ssh root@127.0.0.1 -p 2222
 ~~~
 
-If NiFi is on local machine, create a new folder named `Documents/nifi/input` in the `/` directory with the command:
+Let's create a new `/tmp/nifi/input` directory, then send the zip file to the sandbox with the command:
 
 ~~~bash
-mkdir -p Documents/nifi/input
-mv ~/Downloads/trafficLocs_data_for_simulator.zip Documents/nifi/input
+mkdir -p /tmp/nifi/input
+exit
+scp -P 2222 ~/Downloads/trafficLocs_data_for_simulator.zip root@localhost:/tmp/nifi/input
+~~~
+
+### NiFi on Local Machine (Option 2)
+
+If **NiFi is on local machine**, create a new folder named `/tmp/nifi/input` in the `/` directory with the command:
+
+~~~bash
+mkdir -p /tmp/nifi/input
+cp ~/Downloads/trafficLocs_data_for_simulator.zip /tmp/nifi/input
 ~~~  
 
 Right click on the **GetFile** processor and click **configure** from dropown menu
@@ -206,7 +218,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |---|---|
-| Input Directory  | `/home/nifi/input`  |
+| Input Directory  | `/tmp/nifi/input`  |
 | Keep Source File  | `true`  |
 
 ![getFile_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/getFile_config_property_tab_window.png)
@@ -334,7 +346,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |---|---|
-| Filter_Attributes  | `${Direction_of_Travel:isEmpty():not():and(${Last_Time:isEmpty()not()}):and(${Latitude:isEmpty():not()}):and(${Longitude:isEmpty():not()}):and(${Vehicle_ID:isEmpty():not()}):and(${Vehicle_Speed:equals('0'):not()})}`  |
+| Filter_Attributes  | `${Direction_of_Travel:isEmpty():not():and(${Last_Time:isEmpty():not()}):and(${Latitude:isEmpty():not()}):and(${Longitude:isEmpty():not()}):and(${Vehicle_ID:isEmpty():not()}):and(${Vehicle_Speed:equals('0'):not()})}`  |
 
 ![routeOnAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/routeOnAttribute_config_property_tab_window.png)
 
@@ -373,9 +385,10 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 |---|---|
 | Minimum Number of Entries  | 10  |
 | Maximum Number of Entries  | 15  |
-| Filename  | `Text`  |
+| Delimiter Strategy  | `Text`  |
 | Header  | `[`  |
 | Footer  | `]`  |
+| Demarcator | `,` |
 
 ![mergeContent_firstHalf_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/mergeContent_firstHalf_config_property_tab_window.png)
 
@@ -398,7 +411,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |---|---|
-| Directory  | `/home/nifi/output/filtered_transitLoc_data`  |
+| Directory  | `/tmp/nifi/output/filtered_transitLoc_data`  |
 
 ![putFile_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/putFile_config_property_tab_window.png)
 
@@ -416,10 +429,10 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. To quickly see what the processors are doing and the information on their faces, right click on the graph, click the **refresh status** button ![refresh_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/refresh_nifi_iot.png)
 
-4\. To check that the data was written to a file, open your terminal. Make sure to SSH into your sandbox. Navigate to the directory you wrote for the PutFile processor. List the files and open one of the newly created files to view filtered transit output. In the tutorial our directory path is: `/home/nifi/output/filtered_transitLoc_data`.
+4\. To check that the data was written to a file, open your terminal. Make sure to SSH into your sandbox. Navigate to the directory you wrote for the PutFile processor. List the files and open one of the newly created files to view filtered transit output. In the tutorial our directory path is: `/tmp/nifi/output/filtered_transitLoc_data`.
 
 ~~~
-cd /home/nifi/output/filtered_transitLoc_data
+cd /tmp/nifi/output/filtered_transitLoc_data
 ls
 vi 22169558941607
 ~~~
