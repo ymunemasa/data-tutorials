@@ -44,7 +44,7 @@ Feel free to download the [NiFi-DataFlow-Lab1.xml](https://github.com/hortonwork
 - Further Reading
 
 
-### Step 2: Create a NiFi DataFlow
+### Step 1: Create a NiFi DataFlow
 
 The building blocks of every dataflow consist of processors. These tools perform actions on data to ingest, route, extract, split, aggregate or store it. Our dataflow will contain these processors, each processor includes a high level description of their role in the lab:
 
@@ -61,7 +61,7 @@ The building blocks of every dataflow consist of processors. These tools perform
 
 Refer to [NiFi's Documentation](https://nifi.apache.org/docs.html) to learn more about each processor described above.
 
-### 2.1 Learning Objectives: Overview of DataFlow Build Process
+### 1.1 Learning Objectives: Overview of DataFlow Build Process
 - Build a NiFi DataFlow to ingest, filter, convert and store moving data
 - Establish relationships or connections for each processors
 - Troubleshoot problems that may occur
@@ -95,7 +95,7 @@ Let's build our dataflow to fetch, filter, convert and store transit sensor data
 
 ![sf_ocean_view_route_nifi_streaming](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/live_stream_sf_muni_nifi_learning_ropes.png)
 
-### 2.2 Add processors
+### 1.2 Add processors
 
 1\. Go to the **components** toolbar, drag and drop the processor icon ![processor_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/processor_nifi_iot.png) onto the graph.
 
@@ -148,7 +148,7 @@ Follow the step above to add these processors. You should obtain the image below
 
 > Note: To find more information on the processor, right click ExecuteProcess and click **usage**. An in app window will appear with that processor’s documentation.
 
-### 2.3 Troubleshoot Common Processor Issues
+### 1.3 Troubleshoot Common Processor Issues
 
 Notice the nine processors in the image above have warning symbols ![warning_symbol_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/warning_symbol_nifi_iot.png) in the upper left corner of the processor face. These warning symbols indicate the processors are invalid.
 
@@ -160,15 +160,15 @@ The warning message indicates: we need to specify a directory path to tell the p
 Each Processor will have its own alert message. Let’s configure and connect each processor to remove all the warning messages, so we can have a live data flow.
 
 
-### 2.4 Configure & Connect processors
+### 1.4 Configure & Connect processors
 
 Now that we added some processors, we will configure our processors in the **Configure Processor** window, which contains 4 tabs: **Settings**, **Scheduling**, **Properties** and **Comments**. We will spend most of our time in the properties tab since it is the main place to configure specific information that the processor needs to run properly. The properties that are in bold are required for the processor to be valid. If you want more information on a particular property, hover over the help icon ![question_mark_symbol_properties_config_iot.png](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/question_mark_symbol_properties_config_iot.png) located next to the Property Name with the mouse to read a description of the property. While we configure each processor, we will also connect each processor together and establish a relationship for them to make the dataflow complete.
 
 If you would like to read more about configuring and connecting processors, refer to [Hortonworks Apache NiFi User Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/ch_UserGuide.html), Building a DataFlow: section 6.2 and 6.5.
 
-### Step 3: Build XML Simulator DataFlow Section
+### Step 2: Build XML Simulator DataFlow Section
 
-### 3.1 GetFile
+### 2.1 GetFile
 
 1\. Download [trafficLocs_data_for_simulator.zip](/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip).
 
@@ -216,7 +216,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Now that each property is updated. Click **Apply**. Connect **GetFile** to **UnpackPack** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
-### 3.2 UnpackContent
+### 2.2 UnpackContent
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 4 and if their original properties already have values, update them.
 
@@ -234,7 +234,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Connect **UnpackPack** to **ControlRate** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
-### 3.3 ControlRate
+### 2.3 ControlRate
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 5 and if their original properties already have values, update them.
 
@@ -243,8 +243,8 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 | Property  | Value  |
 |---|---|
 | Rate Control Criteria  | flowfile count  |
-| Maximum Rate  | 1  |
-| Time Duration  | 6 second  |
+| Maximum Rate  | `1`  |
+| Time Duration  | `6 second`  |
 
 **Rate Control Criteria** instructs the processor to count the number of FlowFile before a transfer takes place
 **Maximum Rate** instructs the processor to transfer 1 FlowFile at a time
@@ -258,9 +258,9 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Connect **ControlRate** to **EvaluateXPath** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
-### Step 4: Build Key Attribute Extraction DataFlow Section
+### Step 3: Build Key Attribute Extraction DataFlow Section
 
-### 4.1 EvaluateXPath
+### 3.1 EvaluateXPath
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 6 and if the original properties already have values, update them. For the second property in Table 6, add a new dynamic property for XPath expression, select the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
 
@@ -269,7 +269,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 | Property  | Value  |
 |---|---|
 | Destination  | flowfile-attribute  |
-| Last_Time  | //body/lastTime/@time  |
+| Last_Time  | `//body/lastTime/@time`  |
 
 ![evaluateXPath_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/evaluateXPath_config_property_tab_window.png)
 
@@ -279,13 +279,15 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 4\. Connect **EvaluateXPath** to **SplitXML** processor. When the Create Connection window appears, verify **matched** checkbox is checked, if not check it. Click Add.
 
-### 4.2 SplitXML
+### 3.2 SplitXML
 
 1\. Keep SplitXML configuration **properties** as default.
 
-2\. Connect **SplitXML** to **UpdateAttribute** processor. When the Create Connection window appears, verify **split** checkbox is checked, if not check it. Click Add.
+2\.  Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **original** checkboxes. Click Apply.
 
-### 4.3 UpdateAttribute
+3\. Connect **SplitXML** to **UpdateAttribute** processor. When the Create Connection window appears, verify **split** checkbox is checked, if not check it. Click Add.
+
+### 3.3 UpdateAttribute
 
 1\. Add a new dynamic property for NiFi expression, click on the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
 
@@ -293,7 +295,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |---|---|
-| filename  | ${UUID()}  |
+| filename  | `${UUID()}``  |
 
 ![updateAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/updateAttribute_config_property_tab_window.png)
 
@@ -301,7 +303,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 2\. Connect **UpdateAttribute** to **EvaluateXPath** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
-### 4.4 EvaluateXPath
+### 3.4 EvaluateXPath
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 8 and if their original properties already have values, update them. For the remaining properties in Table 8, add new dynamic properties for XPath expressions, click on the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
 
@@ -310,11 +312,11 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 | Property  | Value  |
 |---|---|
 | Destination  | flowfile-attribute  |
-| Direction_of_Travel  | //vehicle/@dirTag  |
-| Latitude  | //vehicle/@lat  |
-| Longitude  | //vehicle/@lon  |
-| Vehicle ID  | //vehicle/@id  |
-| Vehicle_Speed  | //vehicle/@speedKmHr  |
+| Direction_of_Travel  | `//vehicle/@dirTag`  |
+| Latitude  | `//vehicle/@lat`  |
+| Longitude  | `//vehicle/@lon`  |
+| Vehicle ID  | `//vehicle/@id`  |
+| Vehicle_Speed  | `//vehicle/@speedKmHr`  |
 
 ![evaluateXPath_extract_splitFlowFiles_config_property_tab](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/evaluateXPath_extract_splitFlowFiles_config_property_tab.png)
 
@@ -325,9 +327,9 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 3\. Connect **EvaluateXPath** to **RouteOnAttribute** processor. When the Create Connection window appears, verify **matched** checkbox is checked, if not check it. Click Add.
 
 
-### Step 5: Build Filter and JSON Conversion DataFlow Section
+### Step 4: Build Filter and JSON Conversion DataFlow Section
 
-### 5.1 RouteOnAttribute
+### 4.1 RouteOnAttribute
 
 1\. Open the processor configuration **properties** tab. Add a new dynamic property for NiFi expression, select the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
 
@@ -335,7 +337,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |---|---|
-| Filter_Attributes  | `${Direction_of_Travel:isEmpty():not():and( ${Last_Time:isEmpty():not()} ):and( ${Latitude:isEmpty():not()} ):and( ${Longitude:isEmpty():not()} ):and( ${Vehicle_ID:isEmpty():not()} ):and( ${Vehicle_Speed:equals('0'):not()} )}`  |
+| Filter_Attributes  | `${Direction_of_Travel:isEmpty():not():and(${Last_Time:isEmpty():not()}):and(${Latitude:isEmpty():not()}):and(${Longitude:isEmpty():not()}):and(${Vehicle_ID:isEmpty():not()}):and(${Vehicle_Speed:equals('0'):not()})}`  |
 
 ![routeOnAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/routeOnAttribute_config_property_tab_window.png)
 
@@ -345,7 +347,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Connect **RouteOnAttribute** to **AttributesToJSON** processor. When the Create Connection window appears, verify **Filter_Attributes** checkbox is checked, if not check it. Click Add.
 
-### 5.2 AttributesToJSON
+### 4.2 AttributesToJSON
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 10 and if their original properties already have values, update them.
 
@@ -364,7 +366,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 4\. Connect **AttributesToJSON** to **MergeContent** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
-### 5.3 MergeContent
+### 4.3 MergeContent
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 11 and if their original properties already have values, update them.
 
@@ -372,12 +374,12 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |---|---|
-| Minimum Number of Entries  | 10  |
-| Maximum Number of Entries  | 15  |
+| Minimum Number of Entries  | `10`  |
+| Maximum Number of Entries  | `15`  |
 | Delimiter Strategy  | `Text`  |
 | Header  | `[`  |
 | Footer  | `]`  |
-| Demarcator | `,` |
+| Demarcator | `, {press-shift-enter}` |
 
 ![mergeContent_firstHalf_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/mergeContent_firstHalf_config_property_tab_window.png)
 
@@ -392,7 +394,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 4\. Connect **MergeContent** to **PutFile** processor. When the Create Connection window appears, verify **merged** checkbox is checked, if not check it. Click Add.
 
-### 5.4 PutFile
+### 4.4 PutFile
 
 1\. Open the processor configuration **properties** tab. Add the property listed in Table 12 and if their original property already has a value, update it.
 
@@ -408,7 +410,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **success** checkboxes. Click **Apply**.
 
-### Step 6: Run the NiFi DataFlow
+### Step 5: Run the NiFi DataFlow
 
 1\. The processors are valid since the warning symbols disappeared. Notice that the processors have a red stop symbol ![stop_symbol_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/stop_symbol_nifi_iot.png) in the upper left corner and are ready to run. To select all processors, hold down the **shift-key** and drag your mouse across the entire data flow.
 
