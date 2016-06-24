@@ -376,10 +376,10 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 |---|---|
 | Minimum Number of Entries  | `10`  |
 | Maximum Number of Entries  | `15`  |
-| Delimiter Strategy  | `Text`  |
+| Delimiter Strategy  | Text  |
 | Header  | `[`  |
 | Footer  | `]`  |
-| Demarcator | `, {press-shift-enter}` |
+| Demarcator | `,` {insert-then-press-shift-enter} |
 
 ![mergeContent_firstHalf_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/mergeContent_firstHalf_config_property_tab_window.png)
 

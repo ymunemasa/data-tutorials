@@ -162,7 +162,7 @@ Table 3: Add New RouteOnAttribute Property Value
 
 | Property  | Value  |
 |---|---|
-| Attributes List  | Vehicle_ID, city, Latitude, Longitude, neighborhoods_nearby, Last_Time  |
+| Attributes List  | `Vehicle_ID, city, Latitude, Longitude, neighborhoods_nearby, Last_Time`  |
 | Destination  | flowfile-content  |
 
 ![attributesToJSON_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/attributesToJSON_geoEnrich_config_property_tab_window.png)
@@ -177,12 +177,12 @@ Table 3: Add New RouteOnAttribute Property Value
 
 | Property  | Value  |
 |---|---|
-| Minimum Number of Entries  | 20  |
-| Maximum Number of Entries  | 25  |
+| Minimum Number of Entries  | `20`  |
+| Maximum Number of Entries  | `25`  |
 | Delimiter Strategy  | Text  |
-| Header  | [  |
-| Footer  | ]  |
-| Demarcator  | ,{press-shift+enter}  |
+| Header  | `[`  |
+| Footer  | `]`  |
+| Demarcator  | `,` {press-shift+enter}  |
 
 ![mergeContent_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/mergeContent_geoEnrich_config_property_tab_window.png)
 
@@ -196,7 +196,7 @@ Table 3: Add New RouteOnAttribute Property Value
 
 | Property  | Value  |
 |---|---|
-| Directory  | /home/nifi/output/nearby_neighborhoods_search  |
+| Directory  | /tmp/nifi/output/nearby_neighborhoods_search  |
 
 ![putFile_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/putFile_geoEnrich_config_property_tab_window.png)
 
@@ -211,10 +211,10 @@ Now that we added geographic location enrichment dataflow section to our previou
 
 ![complete_dataflow_lab2_geoEnrich](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/complete_dataflow_lab2_geoEnrich.png)
 
-2\. Let's check the data was written to our expected directory, open your terminal. Make sure to SSH into your sandbox if on sandbox, else navigate to the output directory on your local machine. Navigate to the directory you wrote for the PutFile processor. List the files and open one of the newly created files to view geographic neighborhoods nearby transit location enrichment data output. In the tutorial our directory path is: `/home/nifi/output/nearby_neighborhoods_search`.
+2\. Let's check the data was written to our expected directory, open your terminal. Make sure to SSH into your sandbox if on sandbox, else navigate to the output directory on your local machine. Navigate to the directory you wrote for the PutFile processor. List the files and open one of the newly created files to view geographic neighborhoods nearby transit location enrichment data output. In the tutorial our directory path is: `/tmp/nifi/output/nearby_neighborhoods_search`.
 
 ~~~
-cd /home/nifi/output/nearby_neighborhoods_search
+cd /tmp/nifi/output/nearby_neighborhoods_search
 ls
 vi 38997303004413
 ~~~
