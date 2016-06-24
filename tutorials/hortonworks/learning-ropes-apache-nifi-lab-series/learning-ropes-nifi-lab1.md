@@ -35,25 +35,14 @@ Feel free to download the [NiFi-DataFlow-Lab1.xml](https://github.com/hortonwork
 - Completed Lab 0: Download, Install and Start NiFi
 
 ## Outline
-- Step 1: Explore NiFi HTML Interface
-- Step 2: Create a NiFi DataFlow
-- Step 3: Build XML Simulator DataFlow Section
-- Step 4: Build Key Attribute Extraction DataFlow Section
-- Step 5: Build Filter and JSON Conversion DataFlow Section
-- Step 6: Run the NiFi DataFlow
+- Step 1: Create a NiFi DataFlow
+- Step 2: Build XML Simulator DataFlow Section
+- Step 3: Build Key Attribute Extraction DataFlow Section
+- Step 4: Build Filter and JSON Conversion DataFlow Section
+- Step 5: Run the NiFi DataFlow
 - Summary
 - Further Reading
 
-
-### Step 1: Explore NiFi HTML Interface
-
-Let’s take a brief tour of NiFi’s HTML interface and explore some of its features that enable users to build data flows.
-
-NiFi’s HTML interface contains 5 main sections: The **Components** toolbar, the **Actions** toolbar, the **Management** toolbar, the **Search** bar and the help button. The canvas is the area in which the data flow is built. View the image below for a visualization of these key areas.
-
-![nifi_dataflow_html_interface](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/nifi_dataflow_html_interface.png)
-
-**Figure 2:** NiFi HTML interface contains four toolbars to build a dataflow or multiple dataflows.
 
 ### Step 2: Create a NiFi DataFlow
 
@@ -346,7 +335,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |---|---|
-| Filter_Attributes  | `${Direction_of_Travel:isEmpty():not():and(${Last_Time:isEmpty():not()}):and(${Latitude:isEmpty():not()}):and(${Longitude:isEmpty():not()}):and(${Vehicle_ID:isEmpty():not()}):and(${Vehicle_Speed:equals('0'):not()})}`  |
+| Filter_Attributes  | `${Direction_of_Travel:isEmpty():not():and( ${Last_Time:isEmpty():not()} ):and( ${Latitude:isEmpty():not()} ):and( ${Longitude:isEmpty():not()} ):and( ${Vehicle_ID:isEmpty():not()} ):and( ${Vehicle_Speed:equals('0'):not()} )}`  |
 
 ![routeOnAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/routeOnAttribute_config_property_tab_window.png)
 
