@@ -196,7 +196,7 @@ Table 3: Add New RouteOnAttribute Property Value
 
 | Property  | Value  |
 |---|---|
-| Directory  | /tmp/nifi/output/nearby_neighborhoods_search  |
+| Directory  | `/tmp/nifi/output/nearby_neighborhoods_search`  |
 
 ![putFile_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/putFile_geoEnrich_config_property_tab_window.png)
 
