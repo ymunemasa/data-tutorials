@@ -73,7 +73,7 @@ Now that we added NextBus San Francisco Muni Live Stream Ingestion to our datafl
 2\. Let's verify the data in output directory is correct. Navigate to the following directories and open a random one to check the data.
 
 ~~~
-cd /tmp/nifi/output/nearby_neighborhoods_search
+cd /tmp/nifi/output/nearby_neighborhoods_liveStream
 ls
 vi 58849126478211
 ~~~
