@@ -14,6 +14,13 @@ components: [ nifi ]
 
 In this section, you will build a geographic location enrichment for the vehicle filtering dataflow. You will obtain a deep understanding of the automated and managed flow of information between multiple systems and the facilities in NiFi for monitoring and examining the dataflow. To add this enhancement, we will incorporate Google Places Nearby API with NiFi, which will show the neighborhoods nearby the vehicle's location as it moves. This incorporation of external API's is a feasible design pattern because NiFi makes it easy to bring in other technologies to process the data.
 
+In this lab, you will build the Geo Location Enrichment section of the dataflow:
+
+![complete_dataflow_lab2_geoEnrich](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/complete_dataflow_lab2_geoEnrich.png)
+
+Feel free to download the [Lab2-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab2-template/Lab2-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to the lab.
+
+
 ## Pre-Requisites
 - Completed Lab 0: Download, Install and Start NiFi
 - Completed Lab 1: Build A Simple NiFi DataFlow

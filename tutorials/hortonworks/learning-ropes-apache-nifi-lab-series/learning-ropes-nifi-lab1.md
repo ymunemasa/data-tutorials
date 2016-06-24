@@ -20,7 +20,7 @@ In this lab, you will build the following dataflow:
 
 **Figure 1:** The completed dataflow contains three sections: ingest data from vehicle location XML Simulator, extract vehicle location detail attributes from FlowFiles and route these detail attributes to a JSON file as long as they are not empty strings. You will learn more in depth about each processors particular responsibility in each section of the dataflow.
 
-Feel free to download the [NiFi-DataFlow-Lab1.xml](https://github.com/hortonworks/tutorials/blob/hdp/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip?raw=true) template file or if you prefer to build the dataflow from scratch, continue on to **Step 1**.
+Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab1-template/Lab1-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to **Step 1**.
 
 1\. Click on the template icon ![nifi_template_icon](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/nifi_template_icon.png) located in the upper right corner of the NiFi HTML interface.
 

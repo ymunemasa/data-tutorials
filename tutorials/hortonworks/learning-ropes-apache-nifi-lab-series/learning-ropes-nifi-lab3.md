@@ -13,6 +13,12 @@ components: [ nifi ]
 ## Introduction
 In this tutorial, You will replace the section of our dataflow that generates the simulation of vehicle location XML data with a new section that ingests a live stream of data from NextBus San Francisco Muni Agency on route OceanView into our NiFi DataFlow.
 
+In this lab, you will build the Ingest NextBus SF Muni Live Stream section of the dataflow:
+
+![](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/complete_dataflow_lab3_live_stream_ingestion.png)
+
+Feel free to download the [Lab3-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab3-template/Lab3-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to the lab.
+
 ## Pre-Requisites
 - Completed Lab 0: Download, Install and Start NiFi
 - Completed Lab 1: Build A Simple NiFi DataFlow
