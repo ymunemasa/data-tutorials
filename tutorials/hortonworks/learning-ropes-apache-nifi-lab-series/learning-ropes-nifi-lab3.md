@@ -34,14 +34,33 @@ In this tutorial, You will replace the section of our dataflow that generates th
 
 3\. Open GetHTTP Config Property Tab window. We will need to copy and paste Nextbus XML Live Feed URL into the property value. Add the property listed in Table 1.
 
+**Table 1:** Update GetHTTP Properties Tab
+
 | Property  | Value  |
 |---|---|
 | URL  | `http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=sf-muni&r=M&t=0` |
-| Filename  | vehicleLoc_SF_OceanView.xml  |
+| Filename  | `vehicleLoc_SF_OceanView.xml` |
 
 ![getHTTP_liveStream_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/getHTTP_liveStream_config_property_tab_window.png)
 
 4\. Open the processor config **Settings** tab, change the processor's Name from GetHTTP to `IngestVehicleLoc_SF_OceanView`. Click **Apply** button.
+
+### Modify PutFile in Geo Enrich Section
+
+1\. Open PutFile Configure **Properties Tab**. Change the Directory property value from the previous value to the value shown in Table 2:
+
+**Table 2:** Update PutFile Properties Tab
+
+| Property  | Value  |
+|---|---|
+| Directory  | `/tmp/nifi/output/nearby_neighborhoods_liveStream`  |
+
+**Directory** is changed to a new location for the real-time data coming in from NextBus live stream.
+
+![modify_putFile_in_geo_enrich_section](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/modify_putFile_in_geo_enrich_section.png)
+
+2\. Click **Apply**.
+
 
 ### Step 2: Run the NiFi DataFlow
 
