@@ -1,0 +1,94 @@
+
+
+<div class="tutorial-content">
+  <h1 id="lab-3-ingest-nextbus-live-stream-routes-to-the-dataflow">Lab 3: Ingest NextBus Live Stream Routes to the DataFlow</h1>
+
+<h2 id="introduction">Introduction</h2>
+<p>In this tutorial, You will replace the section of our dataflow that generates the simulation of vehicle location XML data with a new section that ingests a live stream of data from NextBus San Francisco Muni Agency on route OceanView into our NiFi DataFlow.</p>
+
+<h2 id="pre-requisites">Pre-Requisites</h2>
+<ul>
+  <li>Completed Lab 0: Download, Install and Start NiFi</li>
+  <li>Completed Lab 1: Build A Simple NiFi DataFlow</li>
+  <li>Completed Lab 2: Enhance the DataFlow with Geo Location Enrichment</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li>Step 1: Attach NextBus Live Stream to the DataFlow</li>
+  <li>Step 2: Run the NiFi DataFlow</li>
+  <li>Summary</li>
+  <li>Further Reading</li>
+</ul>
+
+<h3 id="step-1-attach-nextbus-live-stream-to-the-dataflow">Step 1: Attach NextBus Live Stream to the DataFlow</h3>
+
+<h3 id="gethttp">GetHTTP</h3>
+
+<p>1. Delete GetFile, UnpackContent and ControlRate processors. We will replace them with the GetHTTP processor.</p>
+
+<p>2. Add the <strong>GetHTTP</strong> processor and drag it to the place where the previous three processors were located. Connect GetHTTP to EvaluateXPath processor located above SplitXML. When the Create Connection window appears, select <strong>success</strong> checkbox. Click <strong>Apply</strong>.</p>
+
+<p>3. Open GetHTTP Config Property Tab window. We will need to copy and paste Nextbus XML Live Feed URL into the property value. Add the property listed in Table 1.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>URL</td>
+      <td><code class="highlighter-rouge">http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&amp;a=sf-muni&amp;r=M&amp;t=0</code></td>
+    </tr>
+    <tr>
+      <td>Filename</td>
+      <td>vehicleLoc_SF_OceanView.xml</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/getHTTP_liveStream_config_property_tab_window.png" alt="getHTTP_liveStream_config_property_tab_window" /></p>
+
+<p>4. Open the processor config <strong>Settings</strong> tab, change the processor’s Name from GetHTTP to <code class="highlighter-rouge">IngestVehicleLoc_SF_OceanView</code>. Click <strong>Apply</strong> button.</p>
+
+<h3 id="step-2-run-the-nifi-dataflow">Step 2: Run the NiFi DataFlow</h3>
+
+<p>Now that we added NextBus San Francisco Muni Live Stream Ingestion to our dataflow , let’s run the dataflow and verify if we receive the expected results in our output directory.</p>
+
+<p>1. Go to the actions toolbar and click the start button <img src="/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png" alt="start_button_nifi_iot" />. Your screen should look like the following:</p>
+
+<p><img src="/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/complete_dataflow_lab3_live_stream_ingestion.png" alt="complete_dataflow_lab3_live_stream_ingestion" /></p>
+
+<p>2. Let’s verify the data in output directory is correct. Navigate to the following directories and open a random one to check the data.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /home/nifi/output/nearby_neighborhoods_search
+ls
+vi 58849126478211
+</code></pre>
+</div>
+
+<p>Did you receive neighborhoods similar to the image below?</p>
+
+<p><img src="/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/nextbus_liveStream_output_lab3.png" alt="nextbus_liveStream_output_lab3" /></p>
+
+<h2 id="summary">Summary</h2>
+
+<p>Congratulations! You learned how to use the GetHTTP processor to ingest a live stream from NextBus San Francisco Muni!</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-640.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-640&topics=hdp-2.4.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Lab 3 Ingest NextBus Live Stream Routes to the DataFlow</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-640</strong> and <strong>hdp-2.4.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

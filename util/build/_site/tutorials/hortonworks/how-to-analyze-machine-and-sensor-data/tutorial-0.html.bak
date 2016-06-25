@@ -1,0 +1,108 @@
+
+
+<div class="tutorial-content">
+  <h2 id="how-to-analyze-machine-and-sensor-data">How to Analyze Machine and Sensor Data</h2>
+
+<p><strong>This tutorial is for HDP version 2.4 of the <a href="http://hortonworks.com/products/sandbox">Hortonworks Sandbox</a> - a single-node Hadoop cluster running in a virtual machine. <a href="http://hortonworks.com/products/sandbox">Download</a> the Hortonworks Sandbox to run this and other tutorials in the series.</strong></p>
+
+<h3 id="introduction">Introduction</h3>
+
+<p>This tutorial describes how to refine data from heating, ventilation,
+and air conditioning (HVAC) systems using the Hortonworks Data Platform,
+and how to analyze the refined sensor data to maintain optimal building
+temperatures.</p>
+
+<p>Demo: Here is the video of <a href="http://www.youtube.com/watch?v=Op_5MmG7hIw">Enable Predictive Analytics with Hadoop</a> as a demo of what you’ll be doing in this tutorial.</p>
+
+<h3 id="sensor-data">Sensor Data</h3>
+
+<p>A sensor is a device that measures a physical quantity and transforms it into a digital signal. Sensors are always on, capturing data at a low cost, and powering the “Internet of Things.”</p>
+
+<h3 id="potential-uses-of-sensor-data">Potential Uses of Sensor Data</h3>
+
+<p>Sensors can be used to collect data from many sources, such as:</p>
+
+<ul>
+  <li>To monitor machines or infrastructure such as ventilation equipment, bridges, energy meters, or airplane engines. This data can be used for predictive analytics, to repair or replace these items before they break.</li>
+  <li>To monitor natural phenomena such as meteorological patterns, underground pressure during oil extraction, or patient vital statistics during recovery from a medical procedure.</li>
+</ul>
+
+<p>In this tutorial, we will focus on sensor data from building operations. Specifically, we will refine and analyze the data from Heating, Ventilation, Air Conditioning (HVAC) systems in 20 large buildings around the world.</p>
+
+<h3 id="prerequisites">Prerequisites:</h3>
+
+<ul>
+  <li>Hortonworks Sandbox (installed and running)</li>
+  <li>Hortonworks ODBC driver installed and configured (if using Microsoft Excel for reporting analysis)</li>
+</ul>
+
+<p>Refer to</p>
+
+<ul>
+  <li><a href="http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/">Installing and Configuring the Hortonworks ODBC driver on Windows 7</a></li>
+  <li><a href="http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/">Installing and Configuring the Hortonworks ODBC driver on Mac OS X</a></li>
+  <li>Microsoft Excel 2013 Professional Plus (optional)</li>
+</ul>
+
+<p><strong>Notes:</strong></p>
+
+<ul>
+  <li>In this tutorial, the Hortonworks Sandbox is installed on an Oracle VirtualBox virtual machine (VM) – your screens may be different.</li>
+  <li>If you plan on using the Microsoft Excel for the analysis and reporting section install the ODBC driver that matches the version of Excel you are using (32-bit or 64-bit).</li>
+  <li>If choosing to use Excelm you will use the Power View feature in Microsoft Excel 2013 to visualize the sensor data. Power View is currently only available in Microsoft Office Professional Plus and Microsoft Office 365 Professional Plus.</li>
+  <li>Note, other versions of Excel will work, but the visualizations will be limited to charts. You can connect to any other visualization tool you like.</li>
+  <li>If not using Excel, you will be able to use Apache Zeppelin to analyze and report on the data from this tutorial.</li>
+</ul>
+
+<h3 id="overview">Overview</h3>
+
+<p>To refine and analyze HVAC sensor data, we will:</p>
+
+<ul>
+  <li>Download and extract the sensor data files.</li>
+  <li>Load the sensor data into the Hortonworks Sandbox.</li>
+  <li>Run two Hive scripts to refine the sensor data.</li>
+  <li>Access the refined sensor data with Microsoft Excel or Apache Zeppelin.</li>
+  <li>Visualize the sensor data using Excel Power View or Apache Zeppelin.</li>
+</ul>
+
+<h3 id="download-and-extract-the-sensor-data-files">Download and Extract the Sensor Data Files</h3>
+
+<ul>
+  <li>You can download the sample sensor data contained in a compressed (.zip) folder here:</li>
+  <li>
+    <p><a href="http://s3.amazonaws.com/hw-sandbox/tutorial14/SensorFiles.zip">SensorFiles.zip</a></p>
+  </li>
+  <li>
+    <p>Save the <code class="highlighter-rouge">SensorFiles.zip</code> file to your computer, then extract the files. You should see a SensorFiles folder that contains the following files:</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">HVAC.csv</code> – contains the targeted building temperatures, along with the actual (measured) building temperatures. The building temperature data was obtained using Apache Flume. Flume can be usedas a log aggregator, collecting log data from many diverse sources and moving it to a centralized data store. In this case, Flume was used to capture the sensor log data, which we can now load into the Hadoop Distributed File System (HFDS).  For more details on Flume, refer to Tutorial 13: Refining and Visualizing Sentiment Data</p>
+  </li>
+  <li><code class="highlighter-rouge">building.csv</code> – contains the “building” database table. Apache Sqoop can be used to transfer this type of data from a structured database into HFDS.</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ol>
+  <li><a href="#lab-1">Lab 1 - Load Data Into Hive</a></li>
+  <li><a href="#lab-2">Lab 2 - Reporting</a>
+    <ul>
+      <li><a href="#report-with-excel">Reporting with Excel</a></li>
+      <li><a href="#report-with-zeppelin">Reporting with Zeppelin</a></li>
+    </ul>
+  </li>
+</ol>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-310.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-310&topics=hdp-2.4.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>How to Analyze Machine and Sensor Data</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-310</strong> and <strong>hdp-2.4.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

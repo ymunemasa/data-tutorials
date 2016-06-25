@@ -1,0 +1,343 @@
+
+
+<div class="tutorial-content">
+  <h2 id="introduction">Introduction</h2>
+
+<p>Apache Ranger delivers a comprehensive approach to security for a Hadoop cluster. It provides a central security policy administration across the core enterprise security requirements of authorization, accounting and data protection.</p>
+
+<p>Apache Ranger already extends baseline features for coordinated enforcement across Hadoop workloads from batch, interactive SQL and real–time in Hadoop.</p>
+
+<p>In this tutorial, we cover using Apache Ranger for HDP 2.4 to secure your Hadoop environment. We will walkthrough the following topics:</p>
+
+<ol>
+  <li>Support for Knox authorization and auditing</li>
+  <li>Command line policies in Hive</li>
+  <li>Command line policies in HBase</li>
+  <li>REST APIs for policy manager</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>The only prerequisite for this tutorial is that you have a running instance of the <a href="http://hortonworks.com/sandbox">Hortonworks Sandbox</a> via <a href="http://hortonworks.com/sandbox">Virtualbox</a> or <a href="http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/">Azure</a>.</p>
+
+<h2 id="background">Background</h2>
+
+<p>Ranger is a great tool to secure your data in Hadoop and HDP. It offers a simple centralized way to manage users' access to data in your cluster. Cluster administrators can easily manage policies for access to files folder, databases, tables, and more! In this tutorial we'll explore how we can use Ranger to manage access to these types of resources in the <a href="http://hortonworks.com/sandbox">Hortonworks Sandbox</a></p>
+
+<p>In this tutorial we will also utilize Apache Knox which is a REST API gateway for Hadoop services like HDFS and Hive! It allows a user to plug-and-play with already existing LDAP and Microsoft AD infrastructure to manage access to Hadoop services. Not to mention it supports Kerberized clusters as well as utilizes HTTPS protocol for its communications.</p>
+
+<h2 id="procedure">Procedure</h2>
+
+<p>First you're going to need to log in to your Sandbox via SSH.</p>
+
+<p>If you're using Virtualbox you can log in with the command</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh root@127.0.0.1 -p 2222
+</code></pre>
+</div>
+
+<p>If you're on Azure, change <code class="highlighter-rouge">127.0.0.1</code> to the IP address of your Azure machine.</p>
+
+<p><strong>The password to log in is</strong>: <code class="highlighter-rouge">hadoop</code></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-02 14.59.03.png" alt="" /></p>
+
+<h3 id="starting-knox-service-and-demo-ldap-service">Starting Knox Service and Demo LDAP Service</h3>
+
+<p>Open up the Ambari user interface by using the URL <code class="highlighter-rouge">http://_host_:8080</code></p>
+
+<p>Using Virtualbox it might look like <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a>. If you're using Azure make sure to replace <code class="highlighter-rouge">127.0.0.1</code> with you host machine's IP address.</p>
+
+<p>Login to Ambari using the following:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Username</th>
+      <th style="text-align: center">Password</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">admin</td>
+      <td style="text-align: center">4o12t0n</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>After logging in to Ambari, select <strong>Knox</strong> from the list of <code class="highlighter-rouge">Services</code> on the left-hand side of the page.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.17.05.png" alt="" /></p>
+
+<p>Then click on <code class="highlighter-rouge">Service Actions</code> from the top right hand side of the page click on <code class="highlighter-rouge">Start</code>. If you want to see</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.27.06.png" alt="" /></p>
+
+<p>From the following you can track the start of the Knox service to completion:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.20.01.png" alt="" /></p>
+
+<p>Then go back to the <code class="highlighter-rouge">Service Actions</code> button on the <code class="highlighter-rouge">Knox</code> service and click on <code class="highlighter-rouge">Start  Demo LDAP</code>. This LDAP server is when authenticating users against Knox in the Sandbox because there is no other LDAP server running on the Sandbox.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.37.09.png" alt="" /></p>
+
+<p>You can track the start of the <code class="highlighter-rouge">Demo LDAP Service</code> from the following screen:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.39.01.png" alt="" /></p>
+
+<h3 id="knox-access-scenarios">Knox Access Scenarios</h3>
+
+<p>Check if Ranger Admin console is running, at <a href="http://localhost:6080/">http://localhost:6080/</a>from your host machine. The username is <code class="highlighter-rouge">admin</code> and the password is <code class="highlighter-rouge">admin</code></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.11.01.png" alt="" /></p>
+
+<!--
+If it is not running you can start from the command line using the command
+
+~~~
+sudo service ranger-admin start
+~~~
+
+![](/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-02 15.06.00.png)
+-->
+
+<p>Click on sandbox_knox link under Knox section in the main screen of Ranger Administration Portal</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.30.58.png" alt="" /></p>
+
+<p>You can review policy details by a clicking on the policy name.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.31.31.png" alt="" /></p>
+
+<p>To start testing Knox policies, we would need to turn off the "global knox allow" policy.  Edit the policy using the button on the right hand side and use the first slider to <strong>disable</strong> the policy.</p>
+
+<p>Then, click <strong>Save</strong></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.33.53.png" alt="" /></p>
+
+<p>Locate <code class="highlighter-rouge">Sandbox for Guest</code> policy on the Ranger Admin console and edit the policy</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.45.17.png" alt="" /></p>
+
+<p>and use the slider to enable the policy named "Sandbox for Guest". Click <strong>Save</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.47.28.png" alt="" /></p>
+
+<p>From your local SSHd terminal (not directly on the Sandbox), run this CURL command to access WebHDFS</p>
+
+<p><code class="highlighter-rouge">curl -k -u admin:admin-password 'https://127.0.0.1:8443/gateway/knox_sample/webhdfs/v1?op=LISTSTATUS'</code></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.50.43.png" alt="" /></p>
+
+<p>Go to Ranger Policy Manager tool →  Audit screen and check the knox access (denied) being audited.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.53.47.png" alt="" /></p>
+
+<p>Now let us try the same CURL command using "guest" user credentials from the terminal</p>
+
+<p><code class="highlighter-rouge">curl -k -u guest:guest-password 'https://127.0.0.1:8443/gateway/knox_sample/webhdfs/v1?op=LISTSTATUS'</code></p>
+
+<p>The result which should return is a set of JSON data from WebHDFS which lists the status of the files in the root of HDFS</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.55.29.png" alt="" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="nt">"FileStatuses"</span><span class="p">:{</span><span class="nt">"FileStatus"</span><span class="p">:[{</span><span class="nt">"accessTime"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"blockSize"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"childrenNum"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"fileId"</span><span class="p">:</span><span class="mi">16393</span><span class="p">,</span><span class="nt">"group"</span><span class="p">:</span><span class="s2">"hadoop"</span><span class="p">,</span><span class="nt">"length"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"modificationTime"</span><span class="p">:</span><span class="mi">1439987528048</span><span class="p">,</span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"yarn"</span><span class="p">,</span><span class="nt">"pathSuffix"</span><span class="p">:</span><span class="s2">"app-logs"</span><span class="p">,</span><span class="nt">"permission"</span><span class="p">:</span><span class="s2">"777"</span><span class="p">,</span><span class="nt">"replication"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"storagePolicy"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"DIRECTORY"</span><span class="p">},{</span><span class="nt">"accessTime"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"blockSize"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"childrenNum"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="nt">"fileId"</span><span class="p">:</span><span class="mi">16389</span><span class="p">,</span><span class="nt">"group"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"length"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"modificationTime"</span><span class="p">:</span><span class="mi">1439987809562</span><span class="p">,</span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"pathSuffix"</span><span class="p">:</span><span class="s2">"apps"</span><span class="p">,</span><span class="nt">"permission"</span><span class="p">:</span><span class="s2">"755"</span><span class="p">,</span><span class="nt">"replication"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"storagePolicy"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"DIRECTORY"</span><span class="p">},{</span><span class="nt">"accessTime"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"blockSize"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"childrenNum"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"fileId"</span><span class="p">:</span><span class="mi">17000</span><span class="p">,</span><span class="nt">"group"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"length"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"modificationTime"</span><span class="p">:</span><span class="mi">1439989173392</span><span class="p">,</span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"pathSuffix"</span><span class="p">:</span><span class="s2">"demo"</span><span class="p">,</span><span class="nt">"permission"</span><span class="p">:</span><span class="s2">"755"</span><span class="p">,</span><span class="nt">"replication"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"storagePolicy"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"DIRECTORY"</span><span class="p">},{</span><span class="nt">"accessTime"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"blockSize"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"childrenNum"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"fileId"</span><span class="p">:</span><span class="mi">16398</span><span class="p">,</span><span class="nt">"group"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"length"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"modificationTime"</span><span class="p">:</span><span class="mi">1439987529660</span><span class="p">,</span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"pathSuffix"</span><span class="p">:</span><span class="s2">"hdp"</span><span class="p">,</span><span class="nt">"permission"</span><span class="p">:</span><span class="s2">"755"</span><span class="p">,</span><span class="nt">"replication"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"storagePolicy"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"DIRECTORY"</span><span class="p">},{</span><span class="nt">"accessTime"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"blockSize"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"childrenNum"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"fileId"</span><span class="p">:</span><span class="mi">16394</span><span class="p">,</span><span class="nt">"group"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"length"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"modificationTime"</span><span class="p">:</span><span class="mi">1439987528532</span><span class="p">,</span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"mapred"</span><span class="p">,</span><span class="nt">"pathSuffix"</span><span class="p">:</span><span class="s2">"mapred"</span><span class="p">,</span><span class="nt">"permission"</span><span class="p">:</span><span class="s2">"755"</span><span class="p">,</span><span class="nt">"replication"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"storagePolicy"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"DIRECTORY"</span><span class="p">},{</span><span class="nt">"accessTime"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"blockSize"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"childrenNum"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nt">"fileId"</span><span class="p">:</span><span class="mi">16396</span><span class="p">,</span><span class="nt">"group"</span><span class="p">:</span><span class="s2">"hadoop"</span><span class="p">,</span><span class="nt">"length"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"modificationTime"</span><span class="p">:</span><span class="mi">1439987538099</span><span class="p">,</span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"mapred"</span><span class="p">,</span><span class="nt">"pathSuffix"</span><span class="p">:</span><span class="s2">"mr-history"</span><span class="p">,</span><span class="nt">"permission"</span><span class="p">:</span><span class="s2">"777"</span><span class="p">,</span><span class="nt">"replication"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"storagePolicy"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"DIRECTORY"</span><span class="p">},{</span><span class="nt">"accessTime"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"blockSize"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"childrenNum"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"fileId"</span><span class="p">:</span><span class="mi">16954</span><span class="p">,</span><span class="nt">"group"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"length"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"modificationTime"</span><span class="p">:</span><span class="mi">1439988741413</span><span class="p">,</span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"pathSuffix"</span><span class="p">:</span><span class="s2">"ranger"</span><span class="p">,</span><span class="nt">"permission"</span><span class="p">:</span><span class="s2">"755"</span><span class="p">,</span><span class="nt">"replication"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"storagePolicy"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"DIRECTORY"</span><span class="p">},{</span><span class="nt">"accessTime"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"blockSize"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"childrenNum"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="nt">"fileId"</span><span class="p">:</span><span class="mi">16386</span><span class="p">,</span><span class="nt">"group"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"length"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"modificationTime"</span><span class="p">:</span><span class="mi">1440165443820</span><span class="p">,</span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"pathSuffix"</span><span class="p">:</span><span class="s2">"tmp"</span><span class="p">,</span><span class="nt">"permission"</span><span class="p">:</span><span class="s2">"777"</span><span class="p">,</span><span class="nt">"replication"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"storagePolicy"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"DIRECTORY"</span><span class="p">},{</span><span class="nt">"accessTime"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"blockSize"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"childrenNum"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="nt">"fileId"</span><span class="p">:</span><span class="mi">16387</span><span class="p">,</span><span class="nt">"group"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"length"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"modificationTime"</span><span class="p">:</span><span class="mi">1439988397561</span><span class="p">,</span><span class="nt">"owner"</span><span class="p">:</span><span class="s2">"hdfs"</span><span class="p">,</span><span class="nt">"pathSuffix"</span><span class="p">:</span><span class="s2">"user"</span><span class="p">,</span><span class="nt">"permission"</span><span class="p">:</span><span class="s2">"755"</span><span class="p">,</span><span class="nt">"replication"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"storagePolicy"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"DIRECTORY"</span><span class="p">}]}}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>We can check the auditing in the Ranger Policy Manager → Audit screen</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.56.45.png" alt="" /></p>
+
+<p>Ranger plugin for Knox intercepts any request made to Knox and enforces policies which are retrieved from the Ranger Administration Portal</p>
+
+<p>You can configure the Knox policies in Ranger to restrict to a specific service (WebHDFS, WebHCAT etc) and to a specific user or a group and you can even bind user/group to an ip address</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 10.59.43.png" alt="" /></p>
+
+<h3 id="hive-grantrevoke-permission-scenarios">Hive grant/revoke permission scenarios</h3>
+
+<p>Ranger supports the import of grant/revoke policies set through command line for Hive.</p>
+
+<p>Ranger can store these policies centrally along with policies created in the administration portal and enforce it in Hive using its plugin.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 11.01.23.png" alt="" /></p>
+
+<p>As a first step, disable the global access policy for Hive in Ranger Administration Portal</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 11.03.30.png" alt="" /></p>
+
+<p>Let us try running a Grant operation using user Hive from the command line. Login into beeline tool using the following command</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>beeline -u "jdbc:hive2://sandbox.hortonworks.com:10000/default"  -n it1 -p it1-d org.apache.hive.jdbc.HiveDriver`
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 11.05.44.png" alt="" /></p>
+
+<p>Then issue the <code class="highlighter-rouge">GRANT</code> command</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>grant select, update on table xademo.customer_details to user network1;
+</code></pre>
+</div>
+
+<p>If you correctly disabled the Hive policies which allowed this command you should see the following error:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 11.07.14.png" alt="" /></p>
+
+<p>If you don't see the error, make sure you've disabled the correct Hive policies.</p>
+
+<p>Let's check the audit log in the Ranger Administration Portal → Audit</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 11.08.52.png" alt="" /></p>
+
+<p>You can see that access was denied for an admin operation for user it1.</p>
+
+<p>We can create a policy in Ranger for user 'it1' to be an admin. Create a new policy from the Ranger Admin console and ensure the configuration matches the illustration below</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/hive-grant-revoke-1.png" alt="" /></p>
+
+<p>We can try the beeline command again, once the policy has been saved.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>GRANT select, update on table xademo.customer_details to user network1;
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 13.00.35.png" alt="" /></p>
+
+<p>If the command goes through successfully, you will see the policy created/updated in Ranger Admin Portal → Policy Manager. It checks if there is an existing relevant policy to update, else it creates a new one. </p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/hive-policy-view.png" alt="" /></p>
+
+<p>What happened here?</p>
+
+<p>Ranger plugin intercepts GRANT/REVOKE commands in Hive and creates corresponding policies in Admin portal. The plugin then uses these policies for enforcing Hive authorization (Hiveserver2)</p>
+
+<p>Users can run further GRANT commands to update permissions and REVOKE commands to take away permissions.</p>
+
+<h3 id="hbase-grantrevoke-permission-scenarios">HBase grant/revoke permission scenarios</h3>
+
+<p>Ranger can support import of grant/revoke policies set through command line in Hbase. Similar to Hive, Ranger can store these policies as part of the Policy Manager and enforce it in Hbase using its plugin.</p>
+
+<p>Before you go further, ensure HBase is running from Ambari – <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> (username is <code class="highlighter-rouge">admin</code> and password is <code class="highlighter-rouge">4o12t0n</code>).</p>
+
+<p>If it is not go to <code class="highlighter-rouge">Service  Actions</code> button on top right and <code class="highlighter-rouge">Start</code> the service</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 13.10.32.png" alt="" /></p>
+
+<p>As a first step, let us try running a Grant operation using user Hbase.</p>
+
+<p>Disable the public access policy "HBase Global Allow" in Ranger Administration Portal – policy manager</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 13.13.08.png" alt="" /></p>
+
+<p>Login into HBase shell as 'it1' user</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>su it1
+
+[it1@sandbox ~]$ hbase shell
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 13.14.33.png" alt="" /></p>
+
+<p>Run a grant command to give "Read", "Write", "Create" access to user mktg1 in table 'iemployee'</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>grant 'mktg1',  'RWC',  'iemployee'
+
+hbase(main):001:0&gt; grant 'mktg1',  'RWC',  'iemployee'
+</code></pre>
+</div>
+
+<p>you should get a Acess Denied as below:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 14.10.21.png" alt="" /></p>
+
+<p>Go to Ranger Administration Portal → Policy Manager and create a new policy to assign "admin" rights to user it1</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 14.13.46.png" alt="" /></p>
+
+<p>Save the policy and rerun the HBase command again</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>hbase(main):006:0&gt; grant 'mktg1', 'RWC', 'iemployee'
+
+0 row(s) in 0.8670 seconds
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 14.14.27.png" alt="" /></p>
+
+<p>Check HBase policies in the Ranger Policy Administration portal. The grant permissions were added to an existing policy for table 'iemployee' that we created in previous step</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 14.15.44.png" alt="" /></p>
+
+<p>You can revoke the same permissions and the permissions will be removed from Ranger admin. Try this in the same HBase shell</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>hbase(main):007:0&gt; revoke 'mktg1', 'iemployee'
+
+0 row(s) in 0.4330 seconds
+</code></pre>
+</div>
+
+<p>You can check the existing policy and see if it has been changed</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 14.16.34.png" alt="" /></p>
+
+<p>What happened here?</p>
+
+<p>Ranger plugin intercepts GRANT/REVOKE commands in Hbase and creates corresponding policies in the Admin portal. The plugin then uses these policies for enforcing authorization</p>
+
+<p>Users can run further GRANT commands to update permissions and REVOKE commands to take away permissions.</p>
+
+<h3 id="rest-apis-for-policy-administration">REST APIs for Policy Administration</h3>
+
+<p>Ranger policies administration can be managed through REST APIs. Users can use the APIs to create or update policies, instead of going into the Administration Portal.</p>
+
+<h3 id="running-rest-apis-from-command-line">Running REST APIs from command line</h3>
+
+<p>From your local command line shell, run this CURL command. This API will create a policy with the name "hadoopdev-testing-policy2" within the HDFS repository "sandbox_hdfs"</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl -i --header "Accept:application/json" -H "Content-Type: application/json" -u admin:4o12t0n -X POST http://127.0.0.1:6080/service/public/api/policy -d '{ "policyName":"hadoopdev-testing-policy2","resourceName":"/demo/data","description":"Testing policy for /demo/data","repositoryName":"sandbox_hadoop","repositoryType":"HDFS","permMapList":[{"userList":["mktg1"],"permList":["Read"]},{"groupList":["IT"],"permList":["Read"]}],"isEnabled":true,"isRecursive":true,"isAuditEnabled":true,"version":"0.1.0","replacePerm":false}'
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 14.18.43.png" alt="" /></p>
+
+<p>the policy manager and see the new policy named "hadoopdev-testing-policy2"</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/Screenshot 2015-09-08 14.21.07.png" alt="" /></p>
+
+<p>Click on the policy and check the permissions that has been created</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/policy-id-ranger-1.png" alt="" /></p>
+
+<p>The policy id is part of the URL of this policy detail page <a href="http://127.0.0.1:6080/index.html#!/hdfs/1/policy/21">http://127.0.0.1:6080/index.html#!/hdfs/1/policy/21</a></p>
+
+<p>We can use the policy id to retrieve or change the policy.</p>
+
+<p>Run the below CURL command to get policy details using API</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl -i -u admin:4o12t0n -X GET http://127.0.0.1:6080/service/public/api/policy/21
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/securing-hdfs-hive-hbase-with-knox-ranger/policy-rest-api-get.png" alt="" /></p>
+
+<p>What happened here?</p>
+
+<p>We created a policy and retrieved policy details using REST APIs. Users can now manage their policies using API tools or applications integrated with the Ranger REST APIs</p>
+
+<p>Hopefully, through this whirlwind tour of Ranger, you were introduced to the simplicity and power of Ranger for security administration.</p>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-410.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-410&topics=hdp-2.4.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Manage Scurity Policy for Hive and HBase with Knox and Ranger</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-410</strong> and <strong>hdp-2.4.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

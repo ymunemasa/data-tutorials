@@ -1,0 +1,276 @@
+
+
+<div class="tutorial-content">
+  <h3 id="configuring-zeppelin-spark-and-hive-interpreters"><strong>Configuring Zeppelin Spark and Hive Interpreters</strong></h3>
+
+<p>Before you run a notebook to access Spark and Hive, you need to create and configure interpreters for the two components. To create the Spark interpreter, go to the Zeppelin Web UI. Switch to the "Interpreter" tab and create a new interpreter:</p>
+
+<ol>
+  <li>
+    <p>Click on the <strong>+Create</strong> button to the right.</p>
+  </li>
+  <li>
+    <p>Name the interpreter spark-yarn-client.</p>
+  </li>
+  <li>
+    <p>Select <strong>spark</strong> as the interpreter type.</p>
+  </li>
+  <li>
+    <p>The next section of this page contains a form-based list of spark interpreter settings for editing. The remainder of the page contains lists of properties for all supported interpreters.</p>
+
+    <ul>
+      <li>
+        <p>In the first list of properties, specify the following values (if they are not already set). To add a property, enter the name and value into the form at the end of the list, and click <strong>+</strong>.</p>
+
+        <pre>
+ master           yarn-client
+ spark.home       /usr/hdp/current/spark-client
+ spark.yarn.jar   /usr/hdp/current/spark-client/lib/spark-assembly-1.6.0.2.4.0.0-169-hadoop2.7.1.2.4.0.0-169.jar
+ </pre>
+      </li>
+      <li>
+        <p>Add the following properties and settings (HDP version may vary; specify the appropriate version for your cluster):</p>
+
+        <pre>spark.driver.extraJavaOptions -Dhdp.version=2.4.0.0-169
+ spark.yarn.am.extraJavaOptions -Dhdp.version=2.4.0.0-169</pre>
+      </li>
+      <li>
+        <p>When finished, click <strong>Save</strong>.</p>
+      </li>
+    </ul>
+
+    <p><strong>Note:</strong> Make sure that you save all property settings. Without <code class="highlighter-rouge">spark.driver.extraJavaOptions</code> and <code class="highlighter-rouge">spark.yarn.am.extraJavaOptions</code>, the Spark job will fail with a message related to bad substitution.</p>
+  </li>
+</ol>
+
+<p>To configure the Hive interpreter:</p>
+
+<ol>
+  <li>
+    <p>From the "Interpreter" tab, find the hive interpreter.</p>
+  </li>
+  <li>
+    <p>Check that the following property references your Hive server node. If not, edit the property value.</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>hive.hiveserver2.url
+jdbc:hive2://&lt;hive_server_host&gt;:10000
+</code></pre>
+    </div>
+
+    <p><strong>Note</strong>: the default interpreter setting uses the default Hive Server port of 10000. If you use a different Hive Server port, change this to match the setting in your environment.</p>
+  </li>
+  <li>
+    <p>If you changed the property setting, click Save to save the new setting and restart the interpreter.</p>
+  </li>
+</ol>
+
+<h4 id="adding-and-referencing-a-sparkfiles-property">Adding and Referencing a spark.files Property</h4>
+
+<p>When you have a jar on the node where Zeppelin is running, the following approach can be useful: Add the spark.files property at SPARK_HOME/conf/spark-defaults.conf. For example:</p>
+
+<pre>spark.files  /path/to/my.jar</pre>
+
+<h4 id="adding-and-referencing-sparksubmitoptions">Adding and Referencing SPARK_SUBMIT_OPTIONS</h4>
+
+<p>When you have a jar on the node where Zeppelin is running, this approach can also be useful: Add the SPARK_SUBMIT_OPTIONS environment variable to the ZEPPELIN_HOME/conf/zeppelin-env.sh file. For example:</p>
+
+<pre>export SPARK_SUBMIT_OPTIONS="--packages group:artifact:version"</pre>
+
+<h3 id="optional-enabling-zeppelin-for-security"><strong>(Optional) Enabling Zeppelin for Security</strong></h3>
+
+<p>This section describes how to configure Zeppelin to authenticate an end user. (Zeppelin uses Livy to execute jobs, with Spark on YARN as the end user.) Here are the high-level steps to enable Zeppelin Security:</p>
+
+<ol>
+  <li>
+    <p>Configure Zeppelin for Authentication</p>
+  </li>
+  <li>
+    <p>Install the Livy Server and Configure Livy for Zeppelin</p>
+  </li>
+  <li>
+    <p>(Optional) Enable access control on Zeppelin notebook</p>
+  </li>
+</ol>
+
+<p><strong>Configure Zeppelin for Authentication</strong></p>
+
+<ol>
+  <li>
+    <p>Create a Zeppelin User Account. When Zeppelin is authenticating end users and Livy propagates the end-user identity to Hadoop, the end user must exist on all nodes. In production you can leverage sssd or pam for this process. In this tech preview, manually add "user1" to all hosts in your cluster. For example, to run Zeppelin as user "user1", issue the following commands as the OS root equivalent on all worker nodes:</p>
+
+    <pre>useradd user1 -g hadoop</pre>
+  </li>
+  <li>
+    <p>As hdfs user, create an HDFS home directory for user1:</p>
+
+    <pre>su hdfs
+hdfs dfs -mkdir /user/user1
+hdfs dfs -chown user1 /user/user1</pre>
+
+    <p><strong>Note:</strong> if you configure Zeppelin to run as another user, you must add that user to the OS and create an HDFS home directory for that user.</p>
+  </li>
+  <li>
+    <p>Edit the Zeppelin shiro configuration. On the node where the Zeppelin server is installed, edit /usr/hdp/current/zeppelin-server/lib/conf/shiro.ini. Make sure that the following lines are in the URL section:</p>
+
+    <pre>[urls]
+/api/version = anon
+#/** = anon
+/** = authcBasic</pre>
+
+    <p>You can use user accounts defined in shiro for authentication. For example, to enable the section to authenticate as user1/password2:</p>
+
+    <pre>[users]
+admin = password1
+user1 = password2
+user2 = password3</pre>
+
+    <p>Alternately, to use LDAP as the identity store, configure the section for your LDAP settings. For example:</p>
+
+    <pre>[main]
+#ldapRealm = org.apache.shiro.realm.ldap.JndiLdapRealm
+#ldapRealm.userDnTemplate = cn={0},cn=engg,ou=testdomain,dc=testdomain,dc=com
+#ldapRealm.contextFactory.url = ldap://ldaphost:389
+#ldapRealm.contextFactory.authenticationMechanism = SIMPLE</pre>
+  </li>
+  <li>
+    <p>Use Ambari to restart the Zeppelin server. (Ignore the error in Ambari when Zeppelin restarts.)</p>
+  </li>
+  <li>
+    <p>Access Zeppelin-Tutorial. Login as user1/password2 (or any user defined in your LDAP).</p>
+  </li>
+</ol>
+
+<p><strong>Note:</strong> Logout functionality is not available in this technical preview, but is being added.</p>
+
+<p><strong>Install the Livy Server and Configure Livy for Zeppelin</strong></p>
+
+<ol>
+  <li>
+    <p>On the Zeppelin node, install Livy:</p>
+
+    <pre>sudo yum install livy</pre>
+  </li>
+  <li>
+    <p>Configure the Livy Server:Create /etc/livy/conf/livy-env.sh with the following values. Make sure that the path to Java is accurate for the node.</p>
+
+    <pre>export SPARK_HOME=/usr/hdp/current/spark-client
+export JAVA_HOME=/usr/jdk64/jdk1.8.0_60
+export PATH=/usr/jdk64/jdk1.8.0_60/bin:$PATH
+export HADOOP_CONF_DIR=/etc/hadoop/conf
+export LIVY_SERVER_JAVA_OPTS="-Xmx2g"</pre>
+
+    <p>Create /etc/livy/conf/livy-defaults.conf with the following content:</p>
+
+    <pre>livy.impersonation.enabled = true</pre>
+  </li>
+  <li>
+    <p>On the node where Livy is installed, create a "livy" user. The Livy process will run as user livy.</p>
+
+    <pre>useradd livy -g hadoop</pre>
+  </li>
+  <li>
+    <p>Create a logs directory for Livy, and grant user livy permissions to write to it:</p>
+
+    <pre>mkdir /usr/hdp/current/livy-server/logs
+chmod 777 logs</pre>
+  </li>
+  <li>
+    <p>On the Livy node, edit /etc/spark/conf/spark-defaults.conf to add the following:</p>
+
+    <pre>spark.master yarn-client</pre>
+  </li>
+  <li>
+    <p>Grant user livy the ability to proxy users in the Hadoop core-site.xml file. Use Ambari to add the following lines to the /etc/hadoop/conf/core-site.xml file. Then restart HDFS using Ambari.</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>&lt;property&gt;
+    &lt;name&gt;hadoop.proxyuser.**livy**.groups&lt;/name&gt;
+    &lt;value&gt;*&lt;/value&gt;
+&lt;/property&gt;
+
+&lt;property&gt;
+    &lt;name&gt;hadoop.proxyuser.**livy**.hosts&lt;/name&gt;
+    &lt;value&gt;*&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Start the Livy server as user livy:</p>
+
+    <pre>cd /usr/hdp/current/livy-server
+su livy
+./bin/livy-server start</pre>
+  </li>
+  <li>
+    <p>Configure Zeppelin to use Livy. In Zeppelin, notebooks are run against configured interpreters. Go to your notebook and click on "interpreter binding."<br /><br /> <img src="http://hortonworks.com/wp-content/uploads/2016/05/interp-binding.png" alt="interp-binding" /> <br /><br /> On the next page, select the interpreters you want to use. (To select an interpreter, click on the interpreter in a toggle manner. An un-selected interpreter appears in white text.)You can reorder the interpreters available to your notebook by dragging and dropping them. For example, in the following screenshot the Livy Spark interpreter is selected ahead of Spark. It will be launched with %lspark.<br /><br /> <img src="http://hortonworks.com/wp-content/uploads/2016/05/livy-interp-268x300.png" alt="livy-interp" /><br /></p>
+  </li>
+  <li>
+    <p>Confirm Livy Interpreter settings. If you have Livy installed on another node, replace localhost in the Livy URL with your Livy host.If you made any changes to the Livy interpreter setting, re-start the Livy interpreter.<br /><br /> <img src="http://hortonworks.com/wp-content/uploads/2016/05/livy-interp-setting-300x99.png" alt="livy-interp-setting" /><br /><br /></p>
+  </li>
+  <li>
+    <p>Run Notebooks with the Livy Interpreter. Livy supports Spark, SparkSQL, PySpark, and SparkR.To run notes with Livy, use the corresponding "magic string" at the top of your note. For example, specify %lspark to run Scala code via Livy, or %lspark.sql to run against SparkSQL via Livy.To use SQLContext with Livy, do not create SQLContext explicitly. Zeppelin creates SQLContext by default. If necessary, remove the following lines from your SparkSQL note:</p>
+  </li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+//import sqlContext.implicits._
+</code></pre>
+</div>
+
+<p><strong>(Optional) Enable access control on Zeppelin notebook</strong></p>
+
+<p>Zeppelin supports access control on each notebook. The following instructions configure Zeppelin to authorize end users to access Zeppelin notebooks.</p>
+
+<ol>
+  <li>
+    <p>Click the lock icon on the notebook to configure access to that notebook:<br /><br /> <img src="http://hortonworks.com/wp-content/uploads/2016/05/default-button.png" alt="default-button" /><br /><br /></p>
+  </li>
+  <li>
+    <p>On the next popup menu, add users who should have access to the policy:<br /><br /><img src="http://hortonworks.com/wp-content/uploads/2016/05/add-users-300x112.png" alt="add-users" /> <br /><br /><strong>Note:</strong> with identity propagation enabled via Livy, data access is controlled by the data source being accessed. For example, when you access HDFS as user1, data access is controlled by HDFS permissions.</p>
+  </li>
+</ol>
+
+<h3 id="ldap-authentication-configuration"><strong>LDAP Authentication Configuration</strong></h3>
+
+<p>Zeppelin with LDAP authentication allows users to authenticate users and provide separation of notebooks.</p>
+
+<p><strong>Note:</strong> By default Zeppelin is enabled to receive requests over HTTP &amp; not HTTPS. When you enable LDAP Authentication for Zeppelin, it will send username/password over HTTP. For better security, you should enable Zeppelin to listen in HTTPS by enabling SSL. You can use SSL properties specified in <a href="https://zeppelin.incubator.apache.org/docs/0.5.6-incubating/install/install.html">this</a> doc.</p>
+
+<p>To enable authentication, in /usr/hdp/current/zeppelin-server/conf/shiro.ini file edit the section and enable authentication [urls]</p>
+
+<pre>#/** = anon
+/** = authcBasic
+For local user configuration, enable the section [users]
+admin = password1
+user1 = password2
+user2 = password3
+Alternatively for LDAP integration, enable the section [main]
+#ldapRealm = org.apache.shiro.realm.ldap.JndiLdapRealm
+#ldapRealm.userDnTemplate = cn={0},cn=engg,ou=testdomain,dc=testdomain,dc=com
+#ldapRealm.contextFactory.url = ldap://ldaphost:389
+#ldapRealm.contextFactory.authenticationMechanism = SIMPLE
+
+</pre>
+
+<p>For more information on Shiro please refer to <a href="http://shiro.apache.org/authentication-features.html">Apache Shiro Authentication Features</a>.</p>
+
+<h3 id="stopping-zeppelin-or-the-livy-server"><strong>Stopping Zeppelin or the Livy Server</strong></h3>
+
+<p>To stop the Zeppelin server, use Ambari.</p>
+
+<p>To stop the Livy server:</p>
+
+<pre>su livy; cd /usr/hdp/current/livy-server; ./bin/livy-server stop</pre>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-368.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-368&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Getting Started with Apache Zeppelin</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-368</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

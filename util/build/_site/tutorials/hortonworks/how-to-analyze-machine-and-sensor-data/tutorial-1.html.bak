@@ -1,0 +1,157 @@
+
+
+<div class="tutorial-content">
+  <h2 id="lab-1---load-data-into-hive-a-namelab-1a">Lab 1 - Load Data Into Hive <a name="lab-1"></a></h2>
+
+<h3 id="step-2-load-the-sensor-data-into-the-hortonworks-sandbox">Step 2: Load the Sensor Data into the Hortonworks Sandbox</h3>
+
+<ul>
+  <li>Navigate to the ambari login by going to the web address <a href="http://localhost:8080"><code class="highlighter-rouge">http://localhost:8080</code></a></li>
+  <li>Login with the username <code class="highlighter-rouge">maria_dev</code> and password <code class="highlighter-rouge">maria_dev</code>.</li>
+</ul>
+
+<p>Head on over to the Hive view using the dropdown menu in the top-right corner.</p>
+
+<p><img src="/assets/analyzing-machine-and-sensor-data/01_hive_view_dropdown.png" alt="" /></p>
+
+<p>Then use the <strong>Upload Table</strong> tab to upload the two csv files contained within <code class="highlighter-rouge">SensorFiles.zip</code></p>
+
+<p><img src="/assets/analyzing-machine-and-sensor-data/02_upload_table_hive.png" alt="" /></p>
+
+<p>When uploading the two tables we’ll need to change a few things.</p>
+
+<p>For <code class="highlighter-rouge">HVAC.csv</code></p>
+
+<ol>
+  <li>Change the table name to <code class="highlighter-rouge">hvac_raw</code></li>
+  <li>Change the name of the <code class="highlighter-rouge">Date</code> column to <code class="highlighter-rouge">date_str</code></li>
+  <li>Change the type of the <code class="highlighter-rouge">date_str</code> column from <code class="highlighter-rouge">DATE</code> to <code class="highlighter-rouge">STRING</code></li>
+</ol>
+
+<p><img src="/assets/analyzing-machine-and-sensor-data/03_upload_hvac_raw.png" alt="" /></p>
+
+<p>For <code class="highlighter-rouge">buildings.csv</code></p>
+
+<ol>
+  <li>Change the table name to <code class="highlighter-rouge">building_raw</code></li>
+</ol>
+
+<p><img src="/assets/analyzing-machine-and-sensor-data/04_upload_building_raw.png" alt="" /></p>
+
+<ul>
+  <li>Now that we have both tables loaded in, we want to get better performance in Hive, so we’re going to create new tables that utilize the highly efficient <a href="http://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/"><strong>ORC</strong> file format</a>. This will allow for faster queries when our datasets are much much larger.</li>
+  <li>
+    <p>Execute the following query to create a new table <code class="highlighter-rouge">hvac</code> that is stored as an ORC file.</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>CREATE TABLE hvac STORED AS ORC AS SELECT * FROM hvac_raw;
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<p><img src="/assets/analyzing-machine-and-sensor-data/11_hive_orc_1.png" alt="" /></p>
+
+<ul>
+  <li>
+    <p>Repeat the previous step, except this time we will make a table for <code class="highlighter-rouge">buildings</code>.</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>CREATE TABLE buildings STORED AS ORC AS SELECT * FROM building_raw;
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<p><img src="/assets/analyzing-machine-and-sensor-data/12_hive_orc_2.png" alt="" /></p>
+
+<h3 id="step-3-run-two-hive-scripts-to-refine-the-sensor-data">Step 3: Run Two Hive Scripts to Refine the Sensor Data</h3>
+
+<p>We will now use two Hive scripts to refine the sensor data. We hope to accomplish three goals with this data:</p>
+
+<ul>
+  <li>Reduce heating and cooling expenses.</li>
+  <li>Keep indoor temperatures in a comfortable range between 65-70 degrees.</li>
+  <li>
+    <p>Identify which HVAC products are reliable, and replace unreliable equipment with those models.</p>
+  </li>
+  <li>
+    <p>First, we will identify whether the actual temperature was more than five degrees different from the target temperature.</p>
+  </li>
+  <li>
+    <p>Create a new worksheet in the Hive view and paste the following Hive query into your window.</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>CREATE TABLE hvac_temperatures as 
+select *, targettemp - actualtemp as temp_diff, 
+IF((targettemp - actualtemp) &gt; 5, 'COLD', 
+IF((targettemp - actualtemp) &lt; -5, 'HOT', 'NORMAL')) 
+AS temprange, 
+IF((targettemp - actualtemp) &gt; 5, '1', 
+IF((targettemp - actualtemp) &lt; -5, '1', 0)) 
+AS extremetemp from hvac;
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>This query creates a new table <code class="highlighter-rouge">hvac_temperatures</code> and copies data from the <code class="highlighter-rouge">hvac</code> table</p>
+  </li>
+  <li>After you paste the query use <strong>Execute</strong> to create the new table.</li>
+</ul>
+
+<p><img src="/assets/analyzing-machine-and-sensor-data/13_hive_hvac_temperatures.png" alt="" /></p>
+
+<ul>
+  <li>On the Query Results page, use the slider to scroll to the right. You will notice that two new attributes appear in the <code class="highlighter-rouge">hvac_temperatures</code> table.</li>
+</ul>
+
+<p>The data in the <strong>temprange</strong> column indicates whether the actual temperature was:</p>
+
+<ul>
+  <li><strong>NORMAL</strong> <strong>–</strong> within 5 degrees of the target temperature.</li>
+  <li><strong>COLD</strong> <strong>–</strong> more than five degrees colder than the target temperature.</li>
+  <li><strong>HOT</strong> <strong>–</strong> more than 5 degrees warmer than the target temperature.</li>
+</ul>
+
+<p>If the temperature is outside of the normal range, <code class="highlighter-rouge">extremetemp</code> is assigned a value of 1; otherwise its value is 0.</p>
+
+<p><img src="/assets/analyzing-machine-and-sensor-data/14_hive_hvac_temps_example.png" alt="" /></p>
+
+<ul>
+  <li>Next we will combine the <strong>hvac</strong> and <strong>hvac_temperatures</strong> data sets.</li>
+</ul>
+
+<p>Create a new worksheet in the hive view and use the following query to create a new table <code class="highlighter-rouge">hvac_building</code> that contains data from the <code class="highlighter-rouge">hvac_temperatures</code> table and the <code class="highlighter-rouge">buildings</code> table.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>create table if not exists hvac_building 
+as select h.*, b.country, b.hvacproduct, b.buildingage, b.buildingmgr 
+from buildings b join hvac_temperatures h on b.buildingid = h.buildingid;
+</code></pre>
+</div>
+
+<ul>
+  <li>
+    <p>Use <strong>Execute</strong> to run the query that will produce the table with the intended data.</p>
+
+    <p><img src="/assets/analyzing-machine-and-sensor-data/15_hive_hvac_building_query.png" alt="" /></p>
+  </li>
+  <li>
+    <p>After you’ve successfully executed the query, use the database explorer to load a sample of the data from the new <code class="highlighter-rouge">hvac_building</code> table.</p>
+
+    <p><img src="/assets/analyzing-machine-and-sensor-data/16_hive_examine_hvac_building.png" alt="" /></p>
+  </li>
+</ul>
+
+<p>Now that we’ve constructued the data into a useful format, we can use different reporting tools to analyze the results.</p>
+
+<hr />
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-310.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-310&topics=hdp-2.4.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>How to Analyze Machine and Sensor Data</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-310</strong> and <strong>hdp-2.4.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

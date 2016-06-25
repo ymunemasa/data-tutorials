@@ -1,0 +1,135 @@
+
+
+<div class="tutorial-content">
+  <h2 id="introduction">Introduction</h2>
+
+<p>Apache Falcon is a framework to simplify data pipeline processing and management on Hadoop clusters.</p>
+
+<p>It provides data management services such as retention, replications across clusters, archival etc. It makes it much simpler to onboard new workflows/pipelines, with support for late data handling and retry policies. It allows you to easily define relationship between various data and processing elements and integrate with metastore/catalog such as Hive/HCatalog. Finally it also lets you capture lineage information for feeds and processes.</p>
+
+<p>In this tutorial we are going walk the process of mirroring the datasets between Hadoop clusters.</p>
+
+<h2 id="prerequisite">Prerequisite</h2>
+
+<ul>
+  <li><a href="http://hortonworks.com/products/hortonworks-sandbox/#install">Download Hortonworks Sandbox</a></li>
+  <li>Complete the <a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox tutorial,</a> you will need it for logging into Ambari as an administrator user.</li>
+  <li>Complete the <a href="http://hortonworks.com/hadoop-tutorial/create-falcon-cluster/">Creating Falcon Cluster tutorial</a> to start the falcon service, prepare HDFS directories for Falcon cluster and to create Falcon cluster entities.</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li><a href="#preparing-hdfs-directories">1: Preparing HDFS Directories</a></li>
+  <li><a href="#setting-up-mirroring-job">2: Setting up the Mirroring Job</a></li>
+  <li><a href="#running-job">3: Running the Job</a></li>
+  <li><a href="#summary">4: Summary</a></li>
+</ul>
+
+<h2 id="preparing-hdfs-directories-a-idpreparing-hdfs-directoriesa">1. Preparing HDFS Directories <a id="preparing-hdfs-directories"></a></h2>
+
+<p>After creating cluster entities, let's go back to the SSH terminal, switch the user to <code class="highlighter-rouge">root</code> and then to <code class="highlighter-rouge">ambari-qa</code>:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>su - root
+su - ambari-qa
+</code></pre>
+</div>
+
+<p>Now create the directory <code class="highlighter-rouge">/user/ambari-qa/falcon</code> on HDFS, and then create the directories <code class="highlighter-rouge">mirrorSrc</code> and <code class="highlighter-rouge">mirrorTgt</code> as the source and target of the mirroring job we are about to create.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>hadoop fs -mkdir /user/ambari-qa/falcon
+hadoop fs -mkdir /user/ambari-qa/falcon/mirrorSrc
+hadoop fs -mkdir /user/ambari-qa/falcon/mirrorTgt
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/creatingMirrorDirectories.png" alt="creatingMirrorDirectories" /></p>
+
+<p>Now we need to set permissions to allow access. You must be logged in as the owner of the directory <code class="highlighter-rouge">/user/ambari-qa/falcon/</code></p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>hadoop fs -chmod -R 777 /user/ambari-qa/falcon
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/givingPermission.png" alt="givingPermission" /></p>
+
+<h2 id="setting-up-the-mirroring-job-a-idsetting-up-mirroring-joba">2. Setting up the Mirroring Job <a id="setting-up-mirroring-job"></a></h2>
+
+<p>To create the mirroring job, go back to the Falcon UI on your browser and click on the <code class="highlighter-rouge">Mirror</code> button on the top.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/mirrorHomePage.png" alt="mirrorHomePage" /></p>
+
+<p>Provide a name of your choice. The name must be unique to the system. We named the Mirror Job <code class="highlighter-rouge">MirrorTest</code>.</p>
+
+<p>Ensure the File System mirror type is selected, then select the appropriate Source and Target and type in the appropriate paths. In our case the source cluster is <code class="highlighter-rouge">primaryCluster</code> and that HDFS path on the cluster is <code class="highlighter-rouge">/user/ambari-qa/falcon/mirrorSrc</code>.</p>
+
+<p>The target cluster is <code class="highlighter-rouge">backupCluster</code> and that HDFS path on the cluster is <code class="highlighter-rouge">/user/ambari-qa/falcon/mirrorTgt</code>.
+Also set the validity of the job to your current time, so that when you attempt to run the job in a few minutes, the job is still within the validity period. Click <code class="highlighter-rouge">Next</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/mirror1.png" alt="mirror1" /></p>
+
+<p>Verify the summary information, then click <code class="highlighter-rouge">Save</code></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/mirror2.png" alt="mirror2" /></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/mirror3.png" alt="mirror3" /></p>
+
+<h2 id="running-the-job-a-idrunning-joba">3. Running the Job <a id="running-job"></a></h2>
+
+<p>Before we can run the job we need some data to test on HDFS. Let's give us permission to upload some data using the HDFS View in Ambari.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>hadoop fs -chmod -R 775 /user/ambari-qa
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/givingPermissionToAmbariQa.png" alt="givingPermissionToAmbariQa" /></p>
+
+<p>Open Ambari from your browser at port 8080.
+Then launch the HDFS view from the top right hand corner.
+From the view on the Ambari console navigate to the directory:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/user/ambari-qa/falcon/mirrorSrc
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/mirrorSrcDirectory.png" alt="mirrorSrcDirectory" /></p>
+
+<p>Click <code class="highlighter-rouge">Upload</code> button and upload any file you want to use.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/uploadingFile.png" alt="uploadingFile" /></p>
+
+<p>Once uploaded the file should appear in the directory.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/uploadedFile.png" alt="uploadedFile" /></p>
+
+<p>Now navigate to the Falcon UI and search for the job we created. The name of the Mirror job we had created was <code class="highlighter-rouge">MirrorTest</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/searchMirror.png" alt="searchMirror" /></p>
+
+<p>Select the <code class="highlighter-rouge">MirrorTest</code> job by clicking the checkbox and then click on <code class="highlighter-rouge">Schedule</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/scheduleMirror.png" alt="scheduleMirror" /></p>
+
+<p>The state of the job should change from <code class="highlighter-rouge">SUBMITTED</code> to <code class="highlighter-rouge">RUNNING</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/runningMirror.png" alt="runningMirror" /></p>
+
+<p>After a few minutes, use the HDFS View in the Ambari console to check the <code class="highlighter-rouge">/user/ambari-qa/falcon/mirrorTgt</code> directory and you should see that  your data is mirrored.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/mirroring-datasets-using-falcon/targetDirectory.png" alt="targetDirectory" /></p>
+
+<h2 id="summary-a-idsummarya">4. Summary <a id="summary"></a></h2>
+
+<p>In this tutorial we walked through the process of mirroring the datasets between two cluster entities. In the next <a href="http://hortonworks.com/hadoop-tutorial/defining-processing-data-end-end-data-pipeline-apache-falcon/">tutorial</a> we will work through defining various data feeds and processing them to refine the data.</p>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-650.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-650&topics=hdp-2.4.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Mirroring Datasets Between Hadoop Clusters with Apache Falcon</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-650</strong> and <strong>hdp-2.4.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

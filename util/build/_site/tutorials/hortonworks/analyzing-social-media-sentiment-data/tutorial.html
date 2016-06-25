@@ -1,0 +1,917 @@
+
+
+<div class="tutorial-content">
+  <h1 id="analyze-twitter-data-with-apache-nifi-and-hdp-search">Analyze Twitter Data With Apache NiFi and HDP Search</h1>
+
+<h3 id="introduction">Introduction</h3>
+
+<p>In this tutorial, we will learn to install Apache NiFi on your Hortonworks Sandbox if you do not have it pre-installed already. Using NiFi, we create a data flow to pull tweets directly from the <a href="https://dev.twitter.com/overview/documentation">Twitter API</a>.</p>
+
+<p>We will use <a href="http://hortonworks.com/hadoop/solr/">Solr</a> and the <a href="http://hortonworks.com/press-releases/hortonworks-partners-lucidworks-bring-search-big-data/">LucidWorks HDP Search</a> to view our streamed data in realtime to gather insights as the data arrives in our Hadoop cluster.</p>
+
+<p>Next, we will use Hive to analyze the social sentiment after we have finished collecting our data from NiFi.</p>
+
+<p>Finally, we will use <a href="http://hortonworks.com/hadoop/zeppelin/">Apache Zeppelin</a> to create charts, so we can visualize our data directly inside of our Hadoop cluster.</p>
+
+<h3 id="list-of-technologies-in-this-tutorial">List of technologies in this tutorial:</h3>
+
+<ul>
+  <li><a href="http://hortonworks.com/products/hortonworks-sandbox/">Hortonworks Sandbox</a></li>
+  <li><a href="http://hortonworks.com/products/dataflow/">Apache NiFi</a></li>
+  <li><a href="http://hortonworks.com/press-releases/hortonworks-partners-lucidworks-bring-search-big-data/">Solr + LucidWorks HDP Search</a></li>
+  <li><a href="http://hortonworks.com/hadoop/hive/">Hive and Ambari Views</a></li>
+  <li><a href="http://hortonworks.com/hadoop/zeppelin/">Apache Zeppelin</a></li>
+  <li><a href="https://dev.twitter.com/">Twitter API</a></li>
+</ul>
+
+<h2 id="pre-requisites">Pre-Requisites</h2>
+
+<ul>
+  <li>Downloaded and Installed the <a href="http://hortonworks.com/hdp/downloads/">Hortonworks Sandbox with HDP</a></li>
+  <li>Downloaded the GZipped version of the <a href="http://hortonworks.com/products/dataflow">Hortonworks DataFlow</a></li>
+  <li><a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox</a></li>
+  <li><a href="http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/">Deploying Hortonworks Sandbox on Microsoft Azure</a></li>
+  <li>Added <code class="highlighter-rouge">sandbox.hortonworks.com</code> to your <code class="highlighter-rouge">/private/etc/hosts</code> file (mac and linux users).</li>
+  <li>Added <code class="highlighter-rouge">sandbox.hortonworks.com</code> to your <code class="highlighter-rouge">%systemroot%\system32\drivers\etc\hosts</code> file (windows users)</li>
+  <li>Allow yourself around 1 to 2 hours to complete this tutorial</li>
+</ul>
+
+<p>If you haven't added <code class="highlighter-rouge">sandbox.hortonworks.com</code> to your list of hosts, you can do so with the following command on a unix system:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'127.0.0.1     sandbox.hortonworks.com'</span> | sudo tee -a /private/etc/hosts
+</code></pre>
+</div>
+
+<p>Alernative approach in case above command doesn't work, write the commands:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /private/etc
+sudo vi hosts
+</code></pre>
+</div>
+
+<p>We navigated to the etc directory, then opened our hosts file in the vi editor as a superuser using <a href="https://www.linux.com/community/blogs/133-general-linux/801805-how-to-use-sudo-and-su-commands-in-linux-an-introduction">sudo</a>. Now press <code class="highlighter-rouge">i</code> and add the following text to your lists of hosts:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt; Host IP of your machine&gt; sandbox.hortonworks.com
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Note: to find the IP address (ex: 40.117.36.165) for your sandbox in azure, go to "Properties" under the "Settings" tab. By appending this information in your hosts file, you can use sandbox.hortonworks.com in the place of the <hostname>.</hostname></p>
+</blockquote>
+
+<p>After inserting the above, the portion of the file should look similar to this:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">##</span>
+<span class="c"># Host Database</span>
+<span class="c">#</span>
+<span class="c"># localhost is used to configure the loopback interface</span>
+<span class="c"># when the system is booting.  Do not change this entry.</span>
+<span class="c">##</span>
+127.0.0.1       localhost
+255.255.255.255 broadcasthost
+::1             localhost
+127.0.0.1 sandbox.hortonworks.com
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/vi_editor_hosts_file_sentiment_analysis.png" alt="vi editor" /></p>
+
+<p>Press <code class="highlighter-rouge">esc</code>, and type <code class="highlighter-rouge">:wq</code> to save and close the <code class="highlighter-rouge">hosts</code> file.</p>
+
+<h2 id="outline">Outline</h2>
+
+<ol>
+  <li><a href="#install-apache-nifi">Install Apache NiFi</a></li>
+  <li><a href="#configure-and-start-solr">Configure and Start Solr</a></li>
+  <li><a href="#creating-a-twitter-application">Create a Twitter Application</a></li>
+  <li><a href="#creating-a-data-flow-with-nifi">Create a Data Flow with Nifi</a></li>
+  <li><a href="#generating-random-tweet-data-for-hive-and-solr">(Optional) Generating Random Twitter Data</a></li>
+  <li><a href="#analyze-and-search-data-with-solr">Analyze and Search Data with Solr</a></li>
+  <li><a href="#analyzing-tweet-data-in-hive">Analyze Tweet Data in Hive</a></li>
+  <li><a href="#visualizing-sentiment-with-zeppelin">Visualize Sentiment with Zeppelin</a></li>
+</ol>
+
+<hr />
+
+<h2 id="install-apache-nifi-a-idinstall-apache-nifia">Install Apache Nifi <a id="install-apache-nifi"></a></h2>
+<hr />
+
+<p>The first thing you're going to need if you haven't done it already is install the Apache Nifi service on your Sandbox.</p>
+
+<h3 id="download-apache-nifi">Download Apache NiFi</h3>
+
+<p>If you haven't already, you will need to <a href="http://hortonworks.com/hdp/downloads/#hdf">download the GZipped versions of Hortonworks DataFlow from the website</a>.</p>
+
+<h4 id="send-nifi-to-the-sandbox">Send NiFi to the Sandbox</h4>
+
+<p>First we're going to need to send the HDF file that was just downloaded to the Sandbox via SCP.</p>
+
+<p>Assuming that HDF has been downloaded to your <code class="highlighter-rouge">~/Downloads/</code> directory and that the file has a name <code class="highlighter-rouge">HDF-1.2.0.0-91.tar.gz</code> Open up the your terminal and type the following command:</p>
+
+<p><strong>Note:</strong> the <code class="highlighter-rouge">-P</code> argument is case sensitive.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c"># Virtualbox </span>
+	scp -P 2222 ~/Downloads/HDF-1.2.0.0-91.tar.gz root@localhost:/root 
+
+<span class="c"># Azure</span>
+	scp -P &lt;port&gt; ~/Downloads/HDF-1.2.0.0-91.tar.gz &lt;username&gt;@&lt;hostname&gt;:/folder_destination
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Note: 22 is the azure port number used for this tutorial. The port on your azure sandbox may be different. Check the port in Settings -&gt; Endpoints, then scroll to row, SSH.
+<code class="highlighter-rouge">&lt;username&gt;</code> is under virtual network/subnet in Azure virtual machine, the username we used is james.
+<code class="highlighter-rouge">&lt;hostname&gt;</code> is sandbox.hortonworks.com
+folder_destination should not be root folder since we don't have writing permissions.</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/send_nifi_data_to_sandbox_sentiment_analysis.png" alt="send nifi data to sandbox" /></p>
+
+<p>Once you've done that you'll need to SSH into the sandbox</p>
+
+<h3 id="ssh-into-the-sandbox">SSH into the Sandbox</h3>
+
+<p>There are two options to connect to your sandbox. We can use the terminal emulator at <a href="http://sandbox.hortonworks.com:4200">http://sandbox.hortonworks.com:4200</a> or use the terminal on your computer. Let's run the following command:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c"># Virtualbox  </span>
+	ssh root@sandbox.hortonworks.com -p 2222
+<span class="c"># Azure       </span>
+	ssh &lt;username&gt;@&lt;hostname&gt; -p &lt;port&gt;       
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/ssh_into_sandbox_sentiment_analysis.png" alt="ssh into sandbox" /></p>
+
+<p>If you've already logged into your sandbox through SSH, your password will be what you set it to.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">username</th>
+      <th style="text-align: center">password</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><em>root</em></td>
+      <td style="text-align: center"><em>hadoop</em></td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>Note</strong> Virtualbox users will be prompted to change the <code class="highlighter-rouge">root</code> user's password once you login to the sandbox. <strong>Do NOT forget this!</strong> Azure users will have to manually enter a password to access root. For steps to create a new password, visit <a href="http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/">Deploying Hortonworks Sandbox on Microsoft Azure</a>.</p>
+</blockquote>
+
+<p>Now that we're SSH'd into the sandbox execute the following to create an HDF directory under <code class="highlighter-rouge">/root</code></p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mkdir hdf
+</code></pre>
+</div>
+
+<p>Next, move the zipped HDF file into the HDF folder, traverse into the <code class="highlighter-rouge">hdf</code> directory then unzip the file.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mv HDF-1.2.0.0-91.tar.gz hdf
+<span class="nb">cd </span>hdf
+tar -xvf HDF-1.2.0.0-91.tar.gz
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/move-and-unzip-hdf.png" alt="" /></p>
+
+<p>Now we just need to update a NiFi setting to set the port through which we can access the NiFi web interface. We are setting the NiFi port to 6434. Make sure you're in the <code class="highlighter-rouge">/root/hdf</code> directory and run the following command to update the necessary <code class="highlighter-rouge">nifi.properties</code> file:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sed -i s/nifi.web.http.port<span class="o">=</span>8080/nifi.web.http.port<span class="o">=</span>6434/g HDF-1.2.0.0/nifi/conf/nifi.properties
+</code></pre>
+</div>
+
+<p>You can now start NiFi! use the <code class="highlighter-rouge">nifi.sh</code> file to start the application.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>bash HDF-1.2.0.0/nifi/bin/nifi.sh start
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/start_nifi_application_sentiment_analysis.png" alt="export create temp variable" /></p>
+
+<p>After a few short moments NiFi will start up on the Sandbox.</p>
+
+<p>Make sure you can reach the NiFi user interface at <a href="http://sandbox.hortonworks.com:6434/nifi">http://sandbox.hortonworks.com:6434/nifi</a>.</p>
+
+<p>If you can't access it, first wait approximately 10-15 seconds after executing the command. If you still can't connect after that then you might need to forward port <code class="highlighter-rouge">6434</code> on your virtual machine.</p>
+
+<p>For VirtualBox you can forward the port <strong>2</strong> ways. Either through the GUI, or using the command line on the Host machine. For Azure you can forward the port <strong>1</strong> way, which involves the GUI.</p>
+
+<h3 id="forwarding-a-port-on-the-host-machines-terminal">Forwarding a Port on the Host Machine's Terminal</h3>
+
+<p>First you'll need to run the following command:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>VBoxManage list vms
+</code></pre>
+</div>
+
+<p>Look for the Hortonworks Sandbox VM. Take note of it's ID. Once you've taken note of the ID, run the following command to forward the port:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>VBoxManage controlvm <span class="o">{</span>INSERT_VM_ID_HERE<span class="o">}</span> natpf1 nifi,tcp,,6434,,6434
+</code></pre>
+</div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>HW11108:~ zblanco<span class="nv">$ </span>VBoxManage list vms
+<span class="s2">"Hortonworks Sandbox with HDP 2.3.2"</span> <span class="o">{</span>2d299b17-3b10-412a-a895-0bf958f98788<span class="o">}</span>
+
+HW11108:~ zblanco<span class="nv">$ </span>VBoxManage controlvm 2d299b17-3b10-412a-a895-0bf958f98788 natpf1 nifi,tcp,,6434,,6434
+</code></pre>
+</div>
+
+<p>Port 6434 should now be forwarded! You may skip the GUI section of port forwarding.</p>
+
+<h3 id="forwarding-a-port-with-the-gui">Forwarding a Port with the GUI</h3>
+
+<ol>
+  <li>Opening VirtualBox Manager</li>
+  <li>Right click your running Hortonworks Sandbox, click <strong>Settings</strong></li>
+  <li>Go to the <strong>Network</strong> Tab</li>
+  <li>Click the button that says <strong>Port Forwarding</strong>. Add an entry with the following values</li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Protocol</th>
+      <th>Host IP</th>
+      <th>Host Port</th>
+      <th>Guest IP</th>
+      <th>Guest Port</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NiFi</td>
+      <td>TCP</td>
+      <td>127.0.0.1</td>
+      <td>6434</td>
+      <td> </td>
+      <td>6434</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/06_port_forward_nifi.png" alt="Port Forward NiFi" /></p>
+
+<ol>
+  <li>Open Sandbox Virtual Machine (classic) in Azure</li>
+  <li>Click <strong>settings</strong></li>
+  <li>Go to the <strong>Endpoints</strong> row under <em>Manage</em></li>
+  <li>Click the button that says <strong>Add</strong>. Add an entry with the values in the table above.</li>
+</ol>
+
+<p>You should now be able to access the NiFi user interface at <a href="http://sandbox.hortonworks.com:6434/nifi">http://sandbox.hortonworks.com:6434/nifi</a>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/07_nifi_interface.png" alt="NiFi Interface" /></p>
+
+<h2 id="configure-and-start-solr-a-idconfigure-and-start-solra">Configure and Start Solr <a id="configure-and-start-solr"></a></h2>
+
+<p>Hortonworks Sandbox with HDP 2.4 has the <strong>Lucidworks HDP Search</strong> Pre-installed.</p>
+
+<p>We just need to make a few quick changes.</p>
+
+<p>First, we need to modify some file permissions. Open your terminal shell and SSH back into the sandbox. Execute the following</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sudo chown -R solr:solr /opt/lucidworks-hdpsearch/solr
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/modify_permissions_solr_sentiment_analysis.png" alt="modify solr permissions" /></p>
+
+<p>We're going to need to run the following commands as the Solr user. run</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sudo su solr
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/login_as_solr_user_sentiment_analysis.png" alt="login as solr user" /></p>
+
+<p>Then we need to edit the following file path to make sure that Solr can recognize a tweet's timestamp format. First we're going to copy the config set over to twitter's tweet_configs folder:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>cp -r /opt/lucidworks-hdpsearch/solr/server/solr/configsets/data_driven_schema_configs /opt/lucidworks-hdpsearch/solr/server/solr/configsets/tweet_configs
+</code></pre>
+</div>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>vi /opt/lucidworks-hdpsearch/solr/server/solr/configsets/tweet_configs/conf/solrconfig.xml
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/copy_config_set_to_tweet_configs_sentiment_analysis.png" alt="copy and edit solr configs file" /></p>
+
+<p>Once the file is opened in <code class="highlighter-rouge">vi</code> type</p>
+
+<p><strong>Note</strong> In <strong>vi</strong> the command below should not be run in <strong>INSERT</strong> mode.  <code class="highlighter-rouge">/</code> will do a find for the text that you type after it.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/solr.ParseDateFieldUpdateProcessorFactory
+</code></pre>
+</div>
+
+<p>This will bring you to the part of the config where we need to add the following:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;str&gt;</span>EEE MMM d HH:mm:ss Z yyyy<span class="nt">&lt;/str&gt;</span>
+</code></pre>
+</div>
+
+<p>Make sure this is inserted just above all of the other <code class="highlighter-rouge">&lt;str&gt;</code> tags.</p>
+
+<p><strong>Note</strong> In <code class="highlighter-rouge">vi</code>, to type or insert anything you must be in <em>insert mode</em>. Press <code class="highlighter-rouge">i</code> on your keyboard to enter insert mode in <code class="highlighter-rouge">vi</code>.</p>
+
+<p>After inserting the above, the portion of the file should look something like this:</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;processor</span> <span class="na">class=</span><span class="s">"solr.ParseLongFieldUpdateProcessorFactory"</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;processor</span> <span class="na">class=</span><span class="s">"solr.ParseDateFieldUpdateProcessorFactory"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;arr</span> <span class="na">name=</span><span class="s">"format"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;str&gt;</span>EEE MMM d HH:mm:ss Z yyyy<span class="nt">&lt;/str&gt;</span>
+      <span class="nt">&lt;str&gt;</span>yyyy-MM-dd'T'HH:mm:ss.SSSZ<span class="nt">&lt;/str&gt;</span>
+      <span class="nt">&lt;str&gt;</span>yyyy-MM-dd'T'HH:mm:ss,SSSZ<span class="nt">&lt;/str&gt;</span>
+      <span class="nt">&lt;str&gt;</span>yyyy-MM-dd'T'HH:mm:ss.SSS<span class="nt">&lt;/str&gt;</span>
+      <span class="nt">&lt;str&gt;</span>yyyy-MM-dd'T'HH:mm:ss,SSS<span class="nt">&lt;/str&gt;</span>
+      <span class="nt">&lt;str&gt;</span>yyyy-MM-dd'T'HH:mm:ssZ<span class="nt">&lt;/str&gt;</span>
+      <span class="nt">&lt;/arr&gt;</span>
+    <span class="nt">&lt;/processor&gt;</span>
+<span class="nt">&lt;/processor&gt;</span>
+</code></pre>
+</div>
+
+<p>Finally press the <strong>Escape key</strong> on your keyboard and type <code class="highlighter-rouge">:wq</code> to save and close the <code class="highlighter-rouge">solrconfig.xml</code> file.</p>
+
+<p>Next we need to replace a JSON file. Use the following commands to move the original and download the replacement file:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/banana/app/dashboards/
+
+mv default.json default.json.orig
+
+wget https://raw.githubusercontent.com/abajwa-hw/ambari-nifi-service/master/demofiles/default.json
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/replace_json_file_move_orig_download_sentiment_analysis.png" alt="replace json file" /></p>
+
+<p>Now we're going to start Solr. Execute</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-1.7.0-openjdk.x86_64
+/opt/lucidworks-hdpsearch/solr/bin/solr start -c -z localhost:2181
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Note: -c or -cloud Start Solr in SolrCloud mode.
+-z is a ZooKeeper connection string; only used when running in SolrCloud mode using -c.
+To launch an embedded ZooKeeper instance, don't pass this parameter.</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/start_solr_server_sentiment_analysis.png" alt="start solr server" /></p>
+
+<p>Then we are going to add a collection called "tweets"</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>/opt/lucidworks-hdpsearch/solr/bin/solr create -c tweets -d tweet_configs -s 1 -rf 1
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Note: Here -c indicates the name
+-d is the config directory
+-s is the number of shards
+-rf is the replication factor</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/add_collection_tweets_sentiment_analysis.png" alt="add collection tweets" /></p>
+
+<p>We can now go back to running commands as the <strong>root</strong> user. Run</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">exit</span>
+</code></pre>
+</div>
+
+<p>This will log you out of the <code class="highlighter-rouge">solr</code> user</p>
+
+<p>Lastly, we need to update the system time on the sandbox so that we will be able to process the tweets correctly in NiFi</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>yum install -y ntp
+service ntpd stop
+ntpdate pool.ntp.org
+service ntpd start
+</code></pre>
+</div>
+
+<p>Great! Now Solr should be installed and running on your sandbox!</p>
+
+<p>Ensure that you can access the Solr UI by navigating to <a href="http://sandbox.hortonworks.com:8983/solr/">http://sandbox.hortonworks.com:8983/solr/</a></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/08_solr_ui.png" alt="Solr UI" /></p>
+
+<h2 id="create-a-twitter-application-a-idcreating-a-twitter-applicationa">Create a Twitter Application <a id="creating-a-twitter-application"></a></h2>
+
+<p>If you would rather not register your own Twitter application and use previous data, please head to the <a href="#analyze-and-search-data-with-solr">next section</a> where you can download the sample dataset.</p>
+
+<p>If you want to pull live data from Twitter in this tutorial you'll need to register your own Twitter application. It's quite simple and only takes a few short steps</p>
+
+<p>First head over to the <a href="http://apps.twitter.com">Twitter Apps Website</a> and Sign In using your Twitter account (or make one if you don't have one yet!)</p>
+
+<p>Then click <strong>Create a New App</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/09_create_twitter_app.png" alt="Creating Twitter App" /></p>
+
+<p>After you've clicked that you'll need to fill in some details about your application. Feel free to put whatever you want.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/10_twitter_app_details.png" alt="Twitter App Details" /></p>
+
+<p>Then click <strong>Create Your Twitter Application</strong> at the bottom of the screen after reading the developer agreement.</p>
+
+<blockquote>
+  <p><strong>Note</strong> that you might need to add your mobile phone to your Twitter account before creating your application</p>
+</blockquote>
+
+<p>Once you've done that you should be greeted by a dashboard for your Twitter application. Head over to the permissions tab and select the <strong>Read Only</strong> Option and <strong>Update</strong> your application.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/11_changing_app_permissions.png" alt="Changing App Permission" /></p>
+
+<p>Finally you need to generate your OAuth key. You can do this by clicking <strong>Test OAuth</strong> on the top of the permissions page, or by heading to <strong>Keys and Access Tokens</strong> and then finding the option that allows you to generate your OAuth tokens.</p>
+
+<p>Finally, your keys and access tokens should look similar to the following:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/12_twitter_app_tokens.png" alt="Twitter Tokens" /></p>
+
+<p>Please make note of your <strong>Consumer Key</strong>, <strong>Consumer Secret</strong>, <strong>Access Token</strong>, and <strong>Access Token Secret</strong>. You will need these to create the data flow in NiFi.</p>
+
+<h2 id="create-a-data-flow-with-nifi-a-idcreating-a-data-flow-with-nifia">Create a Data Flow with NiFi <a id="creating-a-data-flow-with-nifi"></a></h2>
+
+<p>The first thing you'll need to do here is download the NiFi data flow template for the <a href="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/Twitter_Flow.xml">Twitter Dashboard here</a></p>
+
+<p><a href="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/Twitter_Flow.xml"><strong>Download</strong></a></p>
+
+<p>Make note of where you download this file. You'll need it in the next step.</p>
+
+<p>Open up the NiFi user interface found at <a href="http://sandbox.hortonworks.com:6434/nifi">http://sandbox.hortonworks.com:6434/nifi</a>. Then you'll need to import the template you just downloaded into NiFi.</p>
+
+<p>Import the template by clicking <strong>Templates</strong> icon on the top right corner of the screen (Third from the right).</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/13_nifi_templates_icon.png" alt="NiFi Templates Icon" /></p>
+
+<p>Then click <strong>Browse</strong> and navigate to the <code class="highlighter-rouge">Twitter_Dashboard.xml</code> file that you just previously downloaded.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/14_nifi_template_browse.png" alt="NiFi Template Browse" /></p>
+
+<p>Once you've selected the file you can click <strong>Import</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/15_nifi_import_template.png" alt="NiFi Import Template" /></p>
+
+<p>You should now see the template appear below.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/16_nifi_template_imported.png" alt="NiFi Template Imported" /></p>
+
+<p>Now that we've got the template imported into NiFi we can instantiate it. Drag the template icon (the 7th from the left) onto the workspace.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/17_nifi_drag_template.png" alt="Drag Template Icon" /></p>
+
+<p>Then a dialog box should appear. Make sure that <strong>Twitter Dashboard</strong> is selected and click <strong>Add</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/18_nifi_instantiate_template.png" alt="Instantiate Template" /></p>
+
+<p>After clicking import you should have a screen similar to the following:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/19_nifi_twitter_dashboard.png" alt="Imported Dashboard" /></p>
+
+<p>Great! The NiFi flow has been set up. The <em>boxes</em> are what NiFi calls processors. Each of the processors can be connected to one another and help make data flow. Each processor can perform specific tasks. They are at the very heart of NiFi's functionality.</p>
+
+<p><strong>Note!</strong> You can make you flows looks very clean by having the connections between all of your processors at 90 degree angles with respect to one another. You can do this by <a href="https://community.hortonworks.com/content/kbentry/1828/tip-bend-those-connections.html"><strong>double clicking a connection arrow to create a vertex</strong></a>. This will allow you to customize the look of your flow</p>
+
+<p>Try <strong>right-clicking</strong> on a few of the the processors and look at their configuration. This can help you better understand how the Twitter flow works.</p>
+
+<p>Now we'll need to configure the Twitter Hose processor with the access tokens that we made earlier for our Twitter application.</p>
+
+<p>Right click on the <strong>Grab Garden Hose</strong> element and click <strong>Configure</strong></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/20_nifi_configure_hose.png" alt="Configure Garden Hose" /></p>
+
+<p>Then you're going to need to place all of those Twitter API tokens from earlier in their respective places. Then hit <strong>Apply</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/21_nifi_set_tokens.png" alt="NiFi Tokens" /></p>
+
+<p>Once you've got all of your properties set up you can take a look at the configurations of some of the other processors in our data.</p>
+
+<p>Once you've done that head to the top of the page and click the play button to watch the tweets roll in! Note that all of the red squares have now turned to green arrows.</p>
+
+<p>If only one of the boxes changes when you click <strong>Start</strong>, make sure that you don't have any specific processor selected. Deselect things by simply clicking on the blank area of the screen.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/22_nifi_start.png" alt="Starting NiFi Flow" /></p>
+
+<h2 id="generating-random-tweet-data-for-hive-and-solr-a-idgenerating-random-tweet-data-for-hive-and-solra">Generating Random Tweet Data for Hive and Solr <a id="generating-random-tweet-data-for-hive-and-solr"></a></h2>
+
+<p>This section is for anyone who didn't want to set up a Twitter app so they could stream custom data. We're just going to use a script to generate some data and then put that into Hive and Solr. Skip to the next section if you have already set up NiFi to collect tweets.</p>
+
+<p>First you'll need to SSH into the sandbox execute the following command</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/assets/twitter-gen.sh
+</code></pre>
+</div>
+
+<p>Then run the command with your specified number of tweets that you would like to generate.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>bash twitter-gen.sh <span class="o">{</span>NUMBER_OF_TWEETS<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>bash twitter-gen.sh 2000
+</code></pre>
+</div>
+
+<p>The script will generate the data and put it in the directory <code class="highlighter-rouge">/tmp/data/</code></p>
+
+<p>You can now continue on with the rest of the tutorial.</p>
+
+<h2 id="analyze-and-search-data-with-solr-a-idanalyze-and-search-data-with-solra">Analyze and Search Data with Solr <a id="analyze-and-search-data-with-solr"></a></h2>
+<hr />
+
+<p>Now that we have our data in HDP-Search/Solr we can go ahead and start searching through our data.
+If you are using NiFi to stream the data you can head over to the Banana Dashboard at <a href="http://sandbox.hortonworks.com:8983/solr/banana/index.html">http://sandbox.hortonworks.com:8983/solr/banana/</a></p>
+
+<p>The dashboard was designed by the <code class="highlighter-rouge">default.json</code> file that we had downloaded previously. You can find more about <a href="https://github.com/LucidWorks/banana">Banana here</a></p>
+
+<p>You should be able to see the constant flow of data here and you can analyze some of it as it is dropped into the Solr index from NiFi. Try exploring the charts and see what each one does. It should be important to note that all of the graphs on the page include data that was queried straight from Solr to create those images using <a href="http://d3js.org/">d3.js</a>. You can see the queries for each graph by clicking the small <strong>gear icon</strong> located in each box.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/23_solr_banana_dashboard.png" alt="Banana Dashboard" /></p>
+
+<p><strong>Note</strong> If you didn't use NiFi to import the data from Twitter then you won't see anything on the dashboard.</p>
+
+<p>Let's go do some custom search on the data! Head back to the normal Solr dashboard at <a href="http://sandbox.hortonworks.com:8983/solr">http://sandbox.hortonworks.com:8983/solr</a></p>
+
+<p>Select the <strong>tweets shard</strong> that we created before from the <code class="highlighter-rouge">Core Selector</code> menu on the bottom left of the screen.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/24_solr_core_selector.png" alt="Solr Core Selector" /></p>
+
+<p>Once you've selected the tweets shard we can take a look to see what Solr has done with our data.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/25_solr_tweets_index.png" alt="Solr Tweets Index" /></p>
+
+<ol>
+  <li>We can see how many documents or records have been stored into this index in Solr. As long as NiFi continues to run this number will become larger as more data is ingested. If you used the <code class="highlighter-rouge">twitter-gen.sh</code> script then this number should be close to the amount of tweets that you generated.</li>
+  <li>Here we can see the size on the disk that the data is taking up in Solr. We don't have many tweets collected yet, so this number is quite small.</li>
+  <li>On the left side bar there are a number of different tabs to view the data that's stored within Solr. We're going to focus on the <strong>Query</strong> one, but you should explore the others as well.</li>
+</ol>
+
+<p>Click on the query tab, and you should be brought to screen similar to the following:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/26_solr_query_1.png" alt="Solr Query Dash" /></p>
+
+<p>We're only going to be using 3 of these fields before we execute any queries, but let's quickly outline the different query parameters</p>
+
+<ul>
+  <li><strong>fq</strong>: This is a filter query parameter it lets us retrieve data that only contains certain values that we're looking for. Example: we can specify that we only want tweets after a certain time to be returned.</li>
+  <li><strong>sort</strong>: self-explanatory. You can sort by a specified field in ascending or descending order. we could return all tweets by alphabetical order of Twitter handles, or possible by the time they were tweeted as well.</li>
+  <li><strong>start, rows</strong>: This tells us where exactly in the index we should start searching, and how many rows should be returned when we execute the query. The defaults for each of these is <code class="highlighter-rouge">0</code> and <code class="highlighter-rouge">10</code> respectively.</li>
+  <li><strong>fl</strong>: Short for <em>field list</em> specify which fields you want to be returned. If the data many, many fields, you can choose to specify only a few that are returned in the query.</li>
+  <li><strong>df</strong>: Short for <em>default fields</em> you can tell which fields solr should be searching in. You will not need this if the query fields are already defined.</li>
+  <li><strong>Raw Query Params</strong>: These will be added directly the the url that is requested when Solr send the request with all of the query information.</li>
+  <li><strong>wt</strong>: This is the type of data that solr will return. We can specify many things such as JSON, XML, or CSV formatting.</li>
+</ul>
+
+<p>We aren't going to worry about the rest of the flags. Without entering any parameters click <strong>Execute Query</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/27_solr_query_results_1.png" alt="Solr Query Results 1" /></p>
+
+<p>From this you should be able to view all of the tweet data that is collected. Try playing with some of the parameters and add more to the <strong>rows</strong> value in the query to see how many results you can obtain.</p>
+
+<p>Now let's do a real query and see if we can find some valuable data.</p>
+
+<ul>
+  <li>For <strong>q</strong> type <code class="highlighter-rouge">language_s:en</code></li>
+  <li>For <strong>sort</strong> type <code class="highlighter-rouge">screeName_s asc</code></li>
+  <li>For <strong>rows</strong> type <code class="highlighter-rouge">150</code></li>
+  <li>For <strong>fl</strong> type <code class="highlighter-rouge">screenName_s, text_t</code></li>
+  <li>For <strong>wt</strong> choose <code class="highlighter-rouge">csv</code></li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/28_solr_query_results_2.png" alt="Solr Query Results 2" /></p>
+
+<p>Let's try one last query. This time you can omit the <strong>sort</strong> field and chooses whichever <strong>wt</strong> format you like. Keep the <strong>fl</strong> parameter as is though.</p>
+
+<ul>
+  <li>Specify an <strong>fq</strong> parameter as <code class="highlighter-rouge">language_s:en</code></li>
+  <li>In the query box, pick any keyword. I am going to use <code class="highlighter-rouge">stock</code></li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/29_solr_query_results_3.png" alt="Solr Query Results 3" /></p>
+
+<p><strong>Further Reading</strong></p>
+
+<ul>
+  <li>For more information on Solr you can <a href="http://hortonworks.com/hadoop/solr/">go here</a></li>
+  <li>You can also visit the <a href="http://lucene.apache.org/solr/">Apache project Page</a></li>
+</ul>
+
+<h2 id="analyze-tweet-data-in-hive-a-idanalyzing-tweet-data-in-hivea">Analyze Tweet Data in Hive <a id="analyzing-tweet-data-in-hive"></a></h2>
+<hr />
+
+<p>Now that we've taken a look at some of our data and searched it with Solr, let's see if we can refine it a bit more.</p>
+
+<p>We're going to attempt to get the sentiment of each tweet by matching the words in the tweets with a sentiment dictionary. From this we can determine the sentiment of each tweet and analyze it from there.</p>
+
+<p>First off, if your Twitter flow on the NiFi instance is still running, you'll need to shut it off. Open up the NiFi dashboard at <a href="http://sandbox.hortonworks.com:6434/nifi">sandbox.hortonworks.com:6434/nifi</a> and click red square at the top of the screen.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/29_1_stopping_nifi.png" alt="Turning off NiFi" /></p>
+
+<p>Next, you'll need to SSH into the sandbox again and run the following two commands</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c"># Virtualbox  </span>
+	sudo -u hdfs hadoop fs -chown -R maria_dev /tmp/tweets_staging
+	sudo -u hdfs hadoop fs -chmod -R 777 /tmp/tweets_staging
+<span class="c"># Azure	    </span>
+	sudo -u hdfs hadoop fs -chown -R azure /tmp/tweets_staging
+	sudo -u hdfs hadoop fs -chmod -R 777 /tmp/tweets_staging
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/change_permissions_tweets_staging_sentiment_analysis.png" alt="change permission of tweets staging" /></p>
+
+<p>After the commands complete let's go to the Hive view. Head over to <a href="http://sandbox.hortonworks.com:8080/">http://sandbox.hortonworks.com:8080</a>. Login into Ambari. Refer to <a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox</a> if you need assistance with logging into Ambari.
+&gt; <strong>Note:</strong> login credentials are <code class="highlighter-rouge">maria_dev/maria_dev</code> (Virtualbox), else <code class="highlighter-rouge">azure/azure</code> (Azure). Use the dropdown menu at the top to get to the Hive view.</p>
+
+<p>Execute the following command to create a table for the tweets</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">tweets_text</span><span class="p">(</span>
+  <span class="n">tweet_id</span> <span class="n">bigint</span><span class="p">,</span>
+  <span class="n">created_unixtime</span> <span class="n">bigint</span><span class="p">,</span>
+  <span class="n">created_time</span> <span class="n">string</span><span class="p">,</span>
+  <span class="n">lang</span> <span class="n">string</span><span class="p">,</span>
+  <span class="n">displayname</span> <span class="n">string</span><span class="p">,</span>
+  <span class="n">time_zone</span> <span class="n">string</span><span class="p">,</span>
+  <span class="n">msg</span> <span class="n">string</span><span class="p">,</span>
+  <span class="n">fulltext</span> <span class="n">string</span><span class="p">)</span>
+<span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span>
+<span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="nv">"|"</span>
+<span class="k">LOCATION</span> <span class="nv">"/tmp/tweets_staging"</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/create_tweets_text_table_sentiment_analysis.png" alt="Hive Tweets Table" /></p>
+
+<p>Now we're going to need to do some data analysis.</p>
+
+<p>First you're going to need to head to the <strong>HDFS Files View</strong> and create a new directory in <code class="highlighter-rouge">/tmp/data/tables</code></p>
+
+<p>Then create two new directories inside of <code class="highlighter-rouge">/tmp/data/tables</code>. One named <strong>time_zone_map</strong> and another named <strong>dictionary</strong></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/two_new_tweet_dir_sentiment_analysis.png" alt="Data Table Folders" /></p>
+
+<p>In each of the folders respectively you'll need to upload the <a href="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/dictionary.tsv"><code class="highlighter-rouge">dictionary.tsv</code> file</a>, and the <a href="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/time_zone_map.tsv"><code class="highlighter-rouge">time_zone_map.tsv</code> file</a> to each of their respective directories.</p>
+
+<p>After doing so, you'll need to run the following command on the Sandbox:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sudo -u hdfs hadoop fs -chmod -R 777 /tmp/data/tables
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/modify_permissions_tables_dir_sentiment_analysis.png" alt="modify permissions tables folder" /></p>
+
+<p>Finally, run the following two commands:</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="k">dictionary</span> <span class="p">(</span>
+	<span class="k">type</span> <span class="n">string</span><span class="p">,</span>
+	<span class="k">length</span> <span class="n">int</span><span class="p">,</span>
+	<span class="n">word</span> <span class="n">string</span><span class="p">,</span>
+	<span class="n">pos</span> <span class="n">string</span><span class="p">,</span>
+	<span class="n">stemmed</span> <span class="n">string</span><span class="p">,</span>
+	<span class="n">polarity</span> <span class="n">string</span> <span class="p">)</span>
+<span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span>
+<span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">'</span><span class="se">\t</span><span class="s1">'</span>
+<span class="n">STORED</span> <span class="k">AS</span> <span class="n">TEXTFILE</span>
+<span class="k">LOCATION</span> <span class="s1">'/tmp/data/tables/dictionary'</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/create_dictionary_table_sentiment_analysis.png" alt="create dictionary table" /></p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">EXTERNAL</span> <span class="k">TABLE</span> <span class="n">if</span> <span class="k">not</span> <span class="k">exists</span> <span class="n">time_zone_map</span> <span class="p">(</span>
+    <span class="n">time_zone</span> <span class="n">string</span><span class="p">,</span>
+    <span class="n">country</span> <span class="n">string</span><span class="p">,</span>
+    <span class="n">notes</span> <span class="n">string</span> <span class="p">)</span>
+<span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span>
+<span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">'</span><span class="se">\t</span><span class="s1">'</span>
+<span class="n">STORED</span> <span class="k">AS</span> <span class="n">TEXTFILE</span>
+<span class="k">LOCATION</span> <span class="s1">'/tmp/data/tables/time_zone_map'</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/create_time_zone_map_table_sentiment_analysis.png" alt="create time zone map table" /></p>
+
+<p>This will create two tables from that data which we will use to analyze the tweet sentiment. They should appear in the <strong>database explorer</strong> as shown below.</p>
+
+<blockquote>
+  <p><strong>Note</strong> Refresh page if explorer doesn't appear automatically.</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/32_hive_table_db_explorer.png" alt="Data Table Folders" /></p>
+
+<p>Next we'll need to create two table views from our tweets which will simplify the columns the data we have access to.</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">tweets_simple</span> <span class="k">AS</span>
+<span class="k">SELECT</span>
+  <span class="n">tweet_id</span><span class="p">,</span>
+  <span class="k">cast</span> <span class="p">(</span> <span class="n">from_unixtime</span><span class="p">(</span> <span class="n">unix_timestamp</span><span class="p">(</span><span class="n">concat</span><span class="p">(</span> <span class="s1">'2015 '</span><span class="p">,</span> <span class="k">substring</span><span class="p">(</span><span class="n">created_time</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">15</span><span class="p">)),</span> <span class="s1">'yyyy MMM dd hh:mm:ss'</span><span class="p">))</span> <span class="k">as</span> <span class="k">timestamp</span><span class="p">)</span> <span class="n">ts</span><span class="p">,</span>
+  <span class="n">msg</span><span class="p">,</span>
+  <span class="n">time_zone</span>
+<span class="k">FROM</span> <span class="n">tweets_text</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/create_tweets_simple_view_sentiment_analysis.png" alt="create tweets simple view" /></p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">tweets_clean</span> <span class="k">AS</span>
+<span class="k">SELECT</span>
+  <span class="n">t</span><span class="p">.</span><span class="n">tweet_id</span><span class="p">,</span>
+  <span class="n">t</span><span class="p">.</span><span class="n">ts</span><span class="p">,</span>
+  <span class="n">t</span><span class="p">.</span><span class="n">msg</span><span class="p">,</span>
+  <span class="n">m</span><span class="p">.</span><span class="n">country</span>
+ <span class="k">FROM</span> <span class="n">tweets_simple</span> <span class="n">t</span> <span class="k">LEFT</span> <span class="k">OUTER</span> <span class="k">JOIN</span> <span class="n">time_zone_map</span> <span class="n">m</span> <span class="k">ON</span> <span class="n">t</span><span class="p">.</span><span class="n">time_zone</span> <span class="o">=</span> <span class="n">m</span><span class="p">.</span><span class="n">time_zone</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/create_tweets_clean_sentiment_analysis.png" alt="create tweets clean view" /></p>
+
+<p>After running the above commands you should be able run <code class="highlighter-rouge">SELECT * FROM tweets_clean LIMIT 100;</code> which should yield results:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/view_tweets_clean_data_sentiment_analysis.png" alt="Data Table Folders" /></p>
+
+<p>Now that we've cleaned our data we can get around to computing the sentiment. Use the following Hive commands to create some views that will allow us to do that.</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="c1">-- Compute sentiment</span>
+<span class="k">create</span> <span class="k">view</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">l1</span> <span class="k">as</span> <span class="k">select</span> <span class="n">tweet_id</span><span class="p">,</span> <span class="n">words</span> <span class="k">from</span> <span class="n">tweets_text</span> <span class="k">lateral</span> <span class="k">view</span> <span class="n">explode</span><span class="p">(</span><span class="n">sentences</span><span class="p">(</span><span class="k">lower</span><span class="p">(</span><span class="n">msg</span><span class="p">)))</span> <span class="n">dummy</span> <span class="k">as</span> <span class="n">words</span><span class="p">;</span>
+
+<span class="k">create</span> <span class="k">view</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">l2</span> <span class="k">as</span> <span class="k">select</span> <span class="n">tweet_id</span><span class="p">,</span> <span class="n">word</span> <span class="k">from</span> <span class="n">l1</span> <span class="k">lateral</span> <span class="k">view</span> <span class="n">explode</span><span class="p">(</span> <span class="n">words</span> <span class="p">)</span> <span class="n">dummy</span> <span class="k">as</span> <span class="n">word</span><span class="p">;</span>
+
+<span class="k">create</span> <span class="k">view</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">l3</span> <span class="k">as</span> <span class="k">select</span>
+    <span class="n">tweet_id</span><span class="p">,</span>
+    <span class="n">l2</span><span class="p">.</span><span class="n">word</span><span class="p">,</span>
+    <span class="k">case</span> <span class="n">d</span><span class="p">.</span><span class="n">polarity</span>
+      <span class="k">when</span>  <span class="s1">'negative'</span> <span class="k">then</span> <span class="o">-</span><span class="mi">1</span>
+      <span class="k">when</span> <span class="s1">'positive'</span> <span class="k">then</span> <span class="mi">1</span>
+      <span class="k">else</span> <span class="mi">0</span> <span class="k">end</span> <span class="k">as</span> <span class="n">polarity</span>
+ <span class="k">from</span> <span class="n">l2</span> <span class="k">left</span> <span class="k">outer</span> <span class="k">join</span> <span class="k">dictionary</span> <span class="n">d</span> <span class="k">on</span> <span class="n">l2</span><span class="p">.</span><span class="n">word</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">word</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/compute_sentiment_sentiment_analysis.png" alt="compute sentiment" /></p>
+
+<p>Now that we were able to compute some sentiment values we can assign whether a tweet was <strong>positive</strong>, <strong>neutral</strong>, or <strong>negative</strong>. Use this next Hive command to do that.</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">create</span> <span class="k">table</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">tweets_sentiment</span> <span class="n">stored</span> <span class="k">as</span> <span class="n">orc</span> <span class="k">as</span> <span class="k">select</span>
+  <span class="n">tweet_id</span><span class="p">,</span>
+  <span class="k">case</span>
+    <span class="k">when</span> <span class="k">sum</span><span class="p">(</span> <span class="n">polarity</span> <span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="s1">'positive'</span>
+    <span class="k">when</span> <span class="k">sum</span><span class="p">(</span> <span class="n">polarity</span> <span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="s1">'negative'</span>  
+    <span class="k">else</span> <span class="s1">'neutral'</span> <span class="k">end</span> <span class="k">as</span> <span class="n">sentiment</span>
+<span class="k">from</span> <span class="n">l3</span> <span class="k">group</span> <span class="k">by</span> <span class="n">tweet_id</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/compute_sentiment_values_sentiment_analysis.png" alt="compute sentiment values" /></p>
+
+<p>Lastly, to make our analysis somewhat easier we are going to turn those 'positive', 'negative', and 'neutral' values into numerical values using the next Hive command</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">tweetsbi</span>
+<span class="n">STORED</span> <span class="k">AS</span> <span class="n">ORC</span>
+<span class="k">AS</span> <span class="k">SELECT</span>
+  <span class="n">t</span><span class="p">.</span><span class="o">*</span><span class="p">,</span>
+  <span class="k">case</span> <span class="n">s</span><span class="p">.</span><span class="n">sentiment</span>
+    <span class="k">when</span> <span class="s1">'positive'</span> <span class="k">then</span> <span class="mi">2</span>
+    <span class="k">when</span> <span class="s1">'neutral'</span> <span class="k">then</span> <span class="mi">1</span>
+    <span class="k">when</span> <span class="s1">'negative'</span> <span class="k">then</span> <span class="mi">0</span>
+  <span class="k">end</span> <span class="k">as</span> <span class="n">sentiment</span>  
+<span class="k">FROM</span> <span class="n">tweets_clean</span> <span class="n">t</span> <span class="k">LEFT</span> <span class="k">OUTER</span> <span class="k">JOIN</span> <span class="n">tweets_sentiment</span> <span class="n">s</span> <span class="k">on</span> <span class="n">t</span><span class="p">.</span><span class="n">tweet_id</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">tweet_id</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/transform_values_numerically_sentiment_analysis.png" alt="Hive Sentiment Analysis Results" /></p>
+
+<p>This command should yield our final results table as shown below.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/view_tweetsbi_data_sentiment_analysis.png" alt="Hive Sentiment Analysis Results" /></p>
+
+<p><strong>Try the new Hive Visualization tab!</strong></p>
+
+<p>On the right hand side of the screen try clicking the <strong>graph icon</strong> in the column located in row 3. It will bring up a new tab where you can directly create charts using your query results in Hive!</p>
+
+<p>Now that we can access the sentiment data in our Hive table let's do some visualization on the analysis using Apache Zeppelin.</p>
+
+<h2 id="visualize-sentiment-with-zeppelin-a-idvisualizing-sentiment-with-zeppelina">Visualize Sentiment With Zeppelin <a id="visualizing-sentiment-with-zeppelin"></a></h2>
+<hr />
+
+<p>Make sure your Zeppelin service is started in Ambari, then head over to the Zeppelin at <a href="http://sandbox.hortonworks.com:9995/">http://sandbox.hortonworks.com:9995</a>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/zeppelin_welcome_screen_sentiment_analysis.png" alt="Hive Sentiment Analysis Results" /></p>
+
+<p>Use the <strong>Notebook</strong> dropdown menu at the top of the screen and click <strong>+ Create New Note</strong>. After which, you can name the note <strong>Sentiment Analysis</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/36_zeppelin_create_note.png" alt="Hive Sentiment Analysis Results" /></p>
+
+<p>After creating the note, open it up to the blank Notebook screen and type the following command.</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="o">%</span><span class="n">hive</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">tweetsbi</span> <span class="k">LIMIT</span> <span class="mi">300</span>
+</code></pre>
+</div>
+
+<p>We're limiting our query to just <code class="highlighter-rouge">300</code> results because right now we won't need to see everything. And if you've collected a lot of data from NiFi, then it could slow down your computer.</p>
+
+<ul>
+  <li>Arrange your results so that your chart is a <strong>bar graph</strong>.</li>
+  <li>The <code class="highlighter-rouge">tweetsbi.country</code> column is a <strong>key</strong> and the <code class="highlighter-rouge">tweetsbi.sentiment</code> as the <strong>value</strong>.</li>
+  <li>Make sure that <strong>sentiment</strong> is labeled as <strong>COUNT</strong>.</li>
+  <li>Run the query by <strong>clicking the arrow on the right hand side</strong>, or by pressing <strong>Shift+Enter</strong>.</li>
+</ul>
+
+<p>Your results should look like the following:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/tweetsbi_bar_graph_sentiment_analysis.png" alt="First Zeppelin Query Results" /></p>
+
+<p>After looking at the results we see that if we group by country that many tweets are actually labeled as null.</p>
+
+<p>For the sake of visualization let's remove any tweets that might appear in our select statement that have a country value of "null", as well as increase our result limit to 500.</p>
+
+<p>Scroll down to the next note and create run the following query, and set up the results the same way as above.</p>
+
+<blockquote>
+  <p><strong>Note</strong> Before running Hive queries, restart the Spark Interpreter since Spark jobs take up cluster resources. Click the <strong>Interpreter</strong> tab located near Zeppelin logo at the top of the page, under <strong>Spark</strong> click on the button that says <strong>restart</strong>.</p>
+</blockquote>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="o">%</span><span class="n">hive</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">tweetsbi</span> <span class="k">where</span> <span class="n">country</span> <span class="o">!=</span> <span class="nv">"null"</span> <span class="k">LIMIT</span> <span class="mi">500</span>
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/eliminate_null_bargraph_sentiment_analysis.png" alt="Non Null Countries in Results" /></p>
+
+<p>Great! Now given the data we have, we can at least have an idea of the distribution of users who's tweets come from certain countries!</p>
+
+<p>You can also experiment with this and try a pie chart as well.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/39_zeppelin_country_pie_chart.png" alt="Pie chart of above results" /></p>
+
+<p>In our original raw tweet data from NiFi we also collected the language from our users as well. So we can also get an idea of the distribution of languages!</p>
+
+<p>Run the following query and make</p>
+
+<ul>
+  <li><strong>lang</strong> as the <strong>Key</strong></li>
+  <li><strong>COUNT</strong> for <strong>lang</strong> in <strong>values</strong></li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="o">%</span><span class="n">hive</span>
+<span class="k">select</span> <span class="n">lang</span><span class="p">,</span> <span class="n">time_zone</span> <span class="k">from</span> <span class="n">tweets_text</span> <span class="k">LIMIT</span> <span class="mi">1000</span>
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/40_zeppelin_language_pie_chart.png" alt="Pie chart of language results" /></p>
+
+<p>If you have not seen from our earlier analysis in Hive</p>
+
+<ul>
+  <li>A bad or negative sentiment is <strong>0</strong></li>
+  <li>A neutral sentiment value is <strong>1</strong>.</li>
+  <li>A positive sentiment value is <strong>2</strong>.</li>
+</ul>
+
+<p>Using this we can now look at individual countries and see the sentiment distributions of each.</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="o">%</span><span class="n">hive</span>
+<span class="k">select</span> <span class="n">sentiment</span><span class="p">,</span> <span class="k">count</span><span class="p">(</span><span class="n">country</span><span class="p">),</span> <span class="n">country</span> <span class="k">from</span> <span class="n">tweetsbi</span> <span class="k">group</span> <span class="k">by</span> <span class="n">sentiment</span><span class="p">,</span> <span class="n">country</span> <span class="k">having</span> <span class="n">country</span> <span class="o">!=</span> <span class="nv">"null"</span>
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/nifi-sentiment-analytics/images/41_zeppelin_sentiment_average.png" alt="Sentiment Comparison" /></p>
+
+<p>&lt;/br&gt;
+Using this data you can determine how you might want to market your products to different countries!</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+  <li><a href="http://hortonworks.com/blog/category/nifi/">NiFi blogs</a></li>
+  <li><a href="http://hortonworks.com/hadoop-tutorial/searching-data-solr/">Indexing and Searching Documents with Apache Solr</a></li>
+  <li><a href="http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/">Introduction to Data Science with Apache Zeppelin</a></li>
+  <li><a href="http://hortonworks.com/community/">Hortonworks Community Connection</a></li>
+  <li><a href="https://community.hortonworks.com/spaces/81/index.html">HDP Sandbox &amp; Learning Forum</a></li>
+</ul>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-210.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-210&topics=hdp-2.4.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>How to Refine and Visualize Social Media Sentiment Data</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-210</strong> and <strong>hdp-2.4.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

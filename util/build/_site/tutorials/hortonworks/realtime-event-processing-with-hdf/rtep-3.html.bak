@@ -1,0 +1,619 @@
+
+
+<div class="tutorial-content">
+  <h1 id="lab-2-real-time-data-ingestion-in-hbase-and-hive-using-storm">Lab 2: Real Time Data Ingestion in Hbase and Hive using Storm</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The Trucking business is a high-risk business in which truck drivers venture into remote areas, often in  harsh weather conditions and chaotic traffic on a daily basis. Using this solution illustrating Modern Data Architecture with Hortonworks Data Platform, we have developed a centralized management system that can help reduce risk and lower the total cost of operations.</p>
+
+<p>This system can take into consideration adverse weather conditions, the driver’s driving patterns, current traffic conditions and other criteria to alert and inform the management staff and the drivers themselves when risk factors run high.</p>
+
+<p>In previous tutorial, we have explored generating and capturing streaming data with <a href="#rtep-1.md">Apache NiFi</a> and <a href="http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/">Apache Kafka</a>.</p>
+
+<p>In this tutorial, you  will use <a href="http://hortonworks.com/labs/storm/"><strong>Apache Storm</strong></a> on the Hortonworks Data Platform to capture these data events and process them in real time for further analysis.</p>
+
+<p>In this tutorial, we will build a solution to ingest real time streaming data into HBase and HDFS using <a href="http://hortonworks.com/hadoop-tutorial/ingesting-processing-real-time-events-apache-storm/">Storm</a>. Storm has a spout that reads truck_events data from Kafka and passes it to bolts, which process and persist the data into Hive &amp; HBase tables.</p>
+
+<h2 id="pre-requisites">Pre-Requisites</h2>
+
+<ul>
+  <li><a href="rtep-1.md">Lab #0</a> Ingest, Route and Land Real Time Events with Apache NiFi</li>
+  <li><a href="http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/">Lab #1</a> Capture Real Time Events with Apache Kafka</li>
+  <li>Downloaded and Installed the latest <a href="http://hortonworks.com/products/hortonworks-sandbox/#install">Hortonworks Sandbox</a></li>
+  <li><a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox</a></li>
+  <li><a href="https://hbase.apache.org/book.html#quickstart">Hive Quick Start</a></li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#hbase-concept-lab3">HBase</a></li>
+  <li><a href="#apache-storm-concept-lab3">Apache Storm</a></li>
+  <li><a href="#step-1-start-hbase-storm-lab3">Step 1: Start HBase &amp; Storm</a></li>
+  <li><a href="#step2-create-tables-hdfs-hbase-lab3">Step 2: Create tables in HDFS and HBase</a></li>
+  <li><a href="#step3-run-auto-script-lab3">Step 3: Run Automation Script: Setup Demo Modules</a></li>
+  <li><a href="#step4-launch-new-storm-topology-lab3">Step 4: Launch new Storm Topology</a></li>
+  <li><a href="#step5-verify-data-hdfs-hbase-lab3">Step 5: Verify Data in HDFS and HBase</a></li>
+  <li><a href="#conclusion-lab3">Conclusion</a></li>
+  <li><a href="#run-the-trucking-demo-lab3">Appendix A: Run the Trucking Demo with NiFi Integration</a></li>
+  <li><a href="#update-iot-truck-streaming-project-lab3">Appendix B: Update iot-truck-streaming Project</a></li>
+  <li><a href="#enable-remote-desktop-setup-topology-lab3">Appendix C: Enable Remote Desktop and Set up Storm Topology as an Eclipse Project</a></li>
+  <li><a href="#further-reading-lab3">Further Reading</a></li>
+</ul>
+
+<h2 id="hbase-a-idhbase-concept-lab3a">HBase <a id="hbase-concept-lab3"></a></h2>
+
+<p>HBase provides near real-time, random read and write access to tables (or to be more accurate ‘maps’) storing billions of rows and millions of columns.</p>
+
+<p>In this case, once we store this rapidly and continuously growing dataset from Internet of Things (IoT), we will be able to perform a swift lookup for analytics regardless of the data size.</p>
+
+<h2 id="apache-storm-a-idapache-storm-concept-lab3a">Apache Storm <a id="apache-storm-concept-lab3"></a></h2>
+
+<p>Apache Storm is an Open Source distributed, reliable, fault–tolerant system for real time processing of large volume of data.
+It’s used for:
+*   Real time analytics
+*   Scoring machine learning modeles
+*   Continuous statics computations
+*   Operational Analytics
+*   And, to enforce Extract, Transform, and Load (ETL) paradigms.</p>
+
+<p>A Storm Topology is network of Spouts and Bolts. The Spouts generate streams, which contain sequences of tuples (data) while the Bolts process input streams and produce output streams. Hence, the Storm Toplogy can talk to databases, run functions, filter, merge or join data.
+*   <strong>Spout</strong>: Works on the source of data streams. In the “Truck Events” use case, Spout will read data from Kafka topics.
+*   <strong>Bolt</strong>: Spout passes streams of data to Bolt which processes and persists  it to a data store or sends it downstream to another Bolt.</p>
+
+<p>Learn more about Apache Storm at the <a href="http://storm.apache.org/releases/1.0.0/index.html">Storm Documentation page</a>.</p>
+
+<h2 id="tutorial-overview">Tutorial Overview</h2>
+
+<ul>
+  <li>Create HBase &amp; Hive Tables</li>
+  <li>Create Storm Topology</li>
+  <li>Configure a Storm Spout and Bolts.</li>
+  <li>Store Persisting data in HBase and Hive.</li>
+  <li>Verify Data Stored in HDFS and HBase.</li>
+</ul>
+
+<h3 id="step-1-start-hbase--storm-a-idstep-1-start-hbase-storm-lab3a">Step 1: Start HBase &amp; Storm <a id="step-1-start-hbase-storm-lab3"></a></h3>
+
+<p>1.  <strong>View the HBase Services page</strong></p>
+
+<p>Started by logging into Ambari as an admin user. From the previous tutorials: HDFS, Hive, YARN and Kafka should already be running but HBase may be down. From the Dashboard page of Ambari, click on HBase from the list of installed services.</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_service_on_off_iot.png" alt="hbase_service_on_off_iot" /></p>
+
+<p>2. Start HBase</p>
+
+<p>From the HBase page, click on Service Actions -&gt; Start</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/start_hbase_service_iot.png" alt="start_hbase_service_iot" /></p>
+
+<p>Check the box and click on Confirm Start:</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/confirm_hbase_start_iot.png" alt="confirm_hbase_start_iot" /></p>
+
+<p>Wait for HBase to start (It may take a few minutes to turn green)</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_started_iot.png" alt="hbase_started_iot" /></p>
+
+<p>3. Start Storm the same way we started HBase in the previous steps. We will need it later for streaming real-time event data.</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_service_on_off_iot.png" alt="storm_service_on_off_iot" /></p>
+
+<p>4. After starting storm, a green check symbol will be present:</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_service_started_iot.png" alt="storm_service_started_iot" /></p>
+
+<p>You can use the Ambari dashboard to check status of other components too. If <strong>HDFS, Hive, YARN, Kafka, Storm or HBase</strong> are down, you can start them in the same way: by selecting the service and then using the Service Actions to start it. The remaining components do not have to be up. (Oozie can be stopped to save memory, as it is not needed for this tutorial)</p>
+
+<h3 id="step-2-create-tables-in-hdfs--hbase-a-idstep2-create-tables-hdfs-hbase-lab3a">Step 2: Create tables in HDFS &amp; HBase <a id="step2-create-tables-hdfs-hbase-lab3"></a></h3>
+
+<ul>
+  <li>Create HBase tables</li>
+</ul>
+
+<p>We will be working with 3 Hbase tables in this tutorial.</p>
+
+<p>The first table stores all events generated, the second stores the ‘driverId’ and non-normal events count and third stores number of non-normal events for each driverId.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[root@sandbox ~]$ su hbase
+
+[hbase@sandbox root]$ hbase shell
+
+hbase(main):001:0&gt; create 'driver_events', 'allevents'    
+hbase(main):002:0&gt; create 'driver_dangerous_events', 'events'
+hbase(main):003:0&gt; create 'driver_dangerous_events_count', 'counters'
+hbase(main):004:0&gt; list    
+hbase(main):005:0&gt; exit
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Note: ‘driver_events’ is the table name and ‘allevents’ is column family. In the script above, we have one column family. Yet, if we want we can have multiple column families. We just need to include more arguments.</p>
+</blockquote>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_tables_iot.png" alt="Screen Shot 2015-06-04 at 7.03.00 PM.png" /></p>
+
+<p>Next, we will create 4 Hive tables. For each table in the following section, the table was built based on the truck event data generated. The tables contain attributes associated with that data.</p>
+
+<ul>
+  <li>Create Hive tables</li>
+</ul>
+
+<p>The first two tables will stores information about the vehicle.</p>
+
+<p>Open the Hive view in Ambari in a browser, copy the below script into the query editor and click Execute: <a href="http://localhost:8080/#/main/views/HIVE/1.0.0/AUTO_HIVE_INSTANCE">http://localhost:8080/#/main/views/HIVE/1.0.0/Hive</a></p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">create</span> <span class="k">table</span> <span class="n">truck_events_text_partition</span>
+<span class="p">(</span><span class="n">driverId</span> <span class="n">int</span><span class="p">,</span>
+<span class="n">truckId</span> <span class="n">int</span><span class="p">,</span>
+<span class="n">eventTime</span> <span class="n">string</span><span class="p">,</span>
+<span class="n">eventType</span> <span class="n">string</span><span class="p">,</span>
+<span class="n">longitude</span> <span class="n">double</span><span class="p">,</span>
+<span class="n">latitude</span> <span class="n">double</span><span class="p">,</span>
+<span class="n">eventKey</span> <span class="n">string</span><span class="p">,</span>
+<span class="n">correlationId</span> <span class="n">bigint</span><span class="p">,</span>
+<span class="n">driverName</span> <span class="n">string</span><span class="p">,</span>
+<span class="n">routeId</span> <span class="n">int</span><span class="p">,</span>
+<span class="n">routeName</span> <span class="n">string</span><span class="p">)</span>
+<span class="n">partitioned</span> <span class="k">by</span> <span class="p">(</span><span class="n">eventDate</span> <span class="n">string</span><span class="p">)</span>
+<span class="k">row</span> <span class="n">format</span> <span class="n">delimited</span> <span class="n">fields</span> <span class="n">terminated</span> <span class="k">by</span> <span class="s1">','</span>
+<span class="n">stored</span> <span class="k">as</span> <span class="n">textfile</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>This hive query creates the Hive table to persist all events generated. The table is partitioned by date.</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/truck_events_text_partition_table_hbase_iot.png" alt="truck_events_text_partition_table_hbase_iot" /></p>
+
+<p>Verify that the table has been properly created by refreshing the Database Explorer. Under Databases, click default to expand this table and the new table should appear. Clicking on the List icon next to truck_events_text_partition shows that the table was created but empty.</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/verify_truck_text_partition_created_iot.png" alt="verify_truck_events_text_partition_created" /></p>
+
+<ul>
+  <li>Create ORC ‘truck_events’ Hive tables</li>
+</ul>
+
+<p>The Optimized Row Columnar (ORC) file format provides a highly efficient way to store Hive data. It was designed to overcome limitations of the other Hive file formats. Using ORC files improves performance when Hive is reading, writing, and processing data.</p>
+
+<p>Syntax for ORC tables:</p>
+
+<p><code class="highlighter-rouge">CREATE TABLE … STORED AS ORC</code></p>
+
+<p><code class="highlighter-rouge">ALTER TABLE … [PARTITION partition_spec] SET FILEFORMAT ORC</code></p>
+
+<p><strong>Note</strong>: This statement only works on partitioned tables. If you apply it to flat tables, it may cause query errors.</p>
+
+<p>Next let’s create the ‘truck_events’ table as per the above syntax. Paste the below into the worksheet of the Hive view and click Execute</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">create</span> <span class="k">table</span> <span class="n">truck_events_orc_partition_single</span>
+<span class="p">(</span><span class="n">driverId</span> <span class="n">int</span><span class="p">,</span>     
+<span class="n">truckId</span> <span class="n">int</span><span class="p">,</span>
+<span class="n">eventTime</span> <span class="n">string</span><span class="p">,</span>
+<span class="n">eventType</span> <span class="n">string</span><span class="p">,</span>
+<span class="n">longitude</span> <span class="n">double</span><span class="p">,</span>
+<span class="n">latitude</span> <span class="n">double</span><span class="p">,</span>
+<span class="n">eventKey</span> <span class="n">string</span><span class="p">,</span>
+<span class="n">correlationId</span> <span class="n">bigint</span><span class="p">,</span>
+<span class="n">driverName</span> <span class="n">string</span><span class="p">,</span>
+<span class="n">routeId</span> <span class="n">int</span><span class="p">,</span>
+<span class="n">routeName</span> <span class="n">string</span><span class="p">)</span>
+<span class="n">partitioned</span> <span class="k">by</span> <span class="p">(</span><span class="n">eventDate</span> <span class="n">string</span><span class="p">)</span>
+<span class="k">row</span> <span class="n">format</span> <span class="n">serde</span> <span class="s1">'org.apache.hadoop.hive.ql.io.orc.OrcSerde'</span>
+<span class="n">stored</span> <span class="k">as</span> <span class="n">orc</span>
+<span class="n">TBLPROPERTIES</span> <span class="p">(</span><span class="nv">"orc.compress"</span><span class="o">=</span><span class="nv">"NONE"</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<p>Refresh the Database Explorer and you should see the new table appear under default:</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/truck_events_orc_partition_table.png" alt="" /></p>
+
+<p>The data in ‘truck_events_orc_partition_single’ table can be stored with ZLIB, Snappy, LZO compression options. This can be set by changing tblproperties (“orc.compress”=”NONE”)option in the query above.</p>
+
+<p>The last two tables store data about the drivers.
+~~~sql
+CREATE TABLE <code class="highlighter-rouge">drivers</code>
+(<code class="highlighter-rouge">driverid</code> bigint,
+<code class="highlighter-rouge">name</code> string,
+<code class="highlighter-rouge">certified</code> string,
+<code class="highlighter-rouge">wage_plan</code> string)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ‘,’;
+~~~</p>
+
+<p>This hive query creates hive table to persist all information regarding the driver.</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/drivers_table_hbase_iot.png" alt="drivers_table_hbase_iot" /></p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nv">`timesheet`</span>
+<span class="p">(</span><span class="nv">`driverid`</span> <span class="n">bigint</span><span class="p">,</span>
+<span class="nv">`week`</span> <span class="n">bigint</span><span class="p">,</span>
+<span class="nv">`hours_logged`</span> <span class="n">bigint</span><span class="p">,</span>
+<span class="nv">`miles_logged`</span> <span class="n">bigint</span><span class="p">)</span>
+<span class="k">ROW</span> <span class="n">FORMAT</span> <span class="n">DELIMITED</span>
+<span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">','</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>This hive query creates a hive table to persist data regarding the driver’s total time, distance and days driving.</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/timesheet_table_hbase_iot.png" alt="timesheet_table_hbase_iot" /></p>
+
+<p>Set permissions on <code class="highlighter-rouge">/tmp/hive</code></p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>chmod -R 777 /tmp/hive/
+</code></pre>
+</div>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/set_permissions_hive_iot_hbase.png" alt="set_permissions_hive_iot_hbase" /></p>
+
+<h3 id="step-3-run-the-automation-script-setup-demo-modules">Step 3: Run the Automation script: Setup Demo Modules</h3>
+
+<p>Since this tutorial series is based on part of the trucking demo, there are many modules that need to be setup for the demo outside the scope of the tutorial. We manually setup NiFi, Kafka, HBase and Hive for the demo. Since there are other particular modules in the demo irrelevant from what we are learning in the lab series, we will run an automation script to setup the other modules that way we will be able to use storm for ingesting data in HBase and HDFS with no issues.</p>
+
+<p>1. Update ambari admin login variables defined at the top in <strong>user-env.sh</strong> file, so the automation script can have the privileges to setup the demo modules. Enter the <strong>username and password</strong> you use to login into to Ambari as an admin. Open a terminal, type:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>vi ~/iot-truck-streaming/user-env.sh
+</code></pre>
+</div>
+
+<p>The file will open as in the image below:</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/user_env_sh_setup_auto_script_iot.png" alt="user_env_sh_setup_auto_script_iot" /></p>
+
+<p>For the ambari configuration credentials: user=’admin’, pass=what you set it up as manually. For example, after setting up my password, I would enter user=’admin’, pass=’h@d0op.’</p>
+
+<p>Press <code class="highlighter-rouge">esc</code> and then type <code class="highlighter-rouge">:wq</code> to exit the editor.</p>
+
+<p>2. After you update the <strong>user-env.sh</strong> file, we will also need to verify whether the hostnames in the <strong>config.properties</strong> file match the appropriate hostnames for services on HDP. If they do not match, then update the hostname. For example, let’s check the <strong>kafka.brokers</strong> host, open Ambari dashboard. Hover to the left side bar, click on <strong>Kafka</strong>. At the top next to the <code class="highlighter-rouge">Summary</code> tab, click on the <code class="highlighter-rouge">Configs</code> tab. Under <strong>Kafka Broker</strong> Section, examine <strong>Kafka Broker host</strong> and <strong>listeners</strong> field. You should see the following image:</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/kafka_broker_hostname_verify.png" alt="kafka_broker_hostname_verify" /></p>
+
+<p>Notice Kafka Broker host = sandbox.hortonworks.com
+Listeners = localhost:6667</p>
+
+<p>Thus, our <strong>Kafka Broker and Listenrs host</strong> = <code class="highlighter-rouge">sandbox.hortonworks.com:6667</code></p>
+
+<p>In our <strong>config.properties</strong> file, under Stream Simulator Config, it shows:</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/config_properties_file_verify_hosts_match.png" alt="config_properties_file_verify_hosts_match" /></p>
+
+<blockquote>
+  <p>Note: In the config.properties file Kafka.brokers=sandbox.hortonworks.com:6667</p>
+</blockquote>
+
+<p>Since the <strong>kafka.brokers</strong> hostname in the <strong>config.properties</strong> file matches kafka brokers hostname on HDP, we verified that hostname is up to date. Now let’s verify the other hostnames in the config.properties file match the ones on HDP. If there is a mismatch, update the config.properties file.</p>
+
+<p>3. Now we can run the installdemo.sh script to automatically setup the background services for the trucking demo. Type the following command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd iot-truck-streaming/
+./installdemo.sh
+</code></pre>
+</div>
+
+<p>Once we build and install the necessary modules for the demo, we are ready to deploy our storm topology.</p>
+
+<h3 id="step-4-launch-storm-topology-a-idstep4-launch-new-storm-topology-lab3a">Step 4: Launch Storm Topology <a id="step4-launch-new-storm-topology-lab3"></a></h3>
+
+<p>Recall that the source code is under directory path
+<code class="highlighter-rouge">iot-truck-streaming/storm-streaming/src/</code>.</p>
+
+<p>The pre-compiled jars are under the directory path
+<code class="highlighter-rouge">iot-truck-streaming/storm-streaming/target/</code>.</p>
+
+<p><strong>(Optional)</strong> If you would like to modify/run the code:</p>
+
+<ul>
+  <li>refer to <a href="#update-iot-truck-streaming-project-lab3">Appendix B</a> for the steps to run maven to compile the jars to the target subdir from terminal command line</li>
+  <li>refer to <a href="#enable-remote-desktop-setup-topology">Appendix C</a> for the steps to enable VNC (i.e. ‘remote desktop’) access on your sandbox and open/compile the code using Eclipse</li>
+</ul>
+
+<h3 id="verify-kafka-is-running--create-topology">4.1 Verify Kafka is Running &amp; Create Topology</h3>
+
+<p>1. Verify that Kafka service is running using Ambari dashboard. If not, start the Kafka service as we did in lab 1.</p>
+
+<p>2. Create Storm Topology</p>
+
+<p>We now have ‘supervisor’ daemon and Kafka processes running.
+To do real-time computation on Storm, you create what are called “topologies”. A topology is a Directed Acyclic Graph (DAG) of spouts and bolts with streams of tuples representing the edges. Each node in a topology contains processing logic, and links between nodes indicate how data should be passed around between nodes.</p>
+
+<p>Running a topology is straightforward. First, you package all your code and dependencies into a single jar like we did in the lab0 with mvn clean package. Then, you run a command like the following: The command below will start a new Storm Topology for Truck Events.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>root@sandbox iot-truck-streaming]# storm jar storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar com.hortonworks.streaming.impl.topologies.TruckEventProcessorKafkaTopology /etc/storm_demo/config.properties
+</code></pre>
+</div>
+
+<p>You should see that the topology deployed successfully:</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_topology_submitted_success_storm_iot.png" alt="Screen Shot 2015-06-04 at 7.55.23 PM.png" /></p>
+
+<p>This runs the class <strong>TruckEventProcessorKafkaTopology</strong>. The main function of the class defines the topology and submits it to Nimbus. The storm jar part takes care of connecting to Nimbus and uploading the jar.</p>
+
+<p>Open your Ambari Dashboard. Click the Storm Service located in the ambari service list. Click the Quick Links Dropdown button at the top middle between Configs and Service Actions, then click the Storm UI button to enter the Storm UI. You should see the new Topology <strong>truck-event-processor</strong>.</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_ui_welcome_screen_iot.png" alt="Topology Summary" /></p>
+
+<p>Run the NiFi DataFlow to generate events.
+Return to the Storm UI and click on truck-event-processor topology to drill into it.  Under Spouts, after 6-10 minutes, you should see that numbers of emitted and transferred tuples is increasing which shows that the messages are processed in real time by Spout</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/topology_spouts_bolts_tuples_increasing.png" alt="" /></p>
+
+<p>Under Topology Visualization: You shall see here that Kafka Spout has started writing to hdfs and hbase along with the other bolts.</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/topology_visualization_storm.png" alt="" /></p>
+
+<p>Note: You can also keep track of several statistics of Spouts and Bolts. For instance, to find Spouts Statistics, click on <strong>kafkaSpout</strong> located in the Spouts section.</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/spout_statistics_iot.png" alt="spout_statistics_iot" /></p>
+
+<h3 id="step-5-verify-data-in-hdfs-and-hbase-a-idstep5-verify-data-hdfs-hbase-lab3a">Step 5: Verify Data in HDFS and HBase <a id="step5-verify-data-hdfs-hbase-lab3"></a></h3>
+
+<p>Since the NiFi DataFlow was activated in the last step, let’s verify that Storm spout has started writing data to HDFS and HBase.</p>
+
+<ul>
+  <li>Verify the data is in HDFS by opening the Ambari Files view: <code class="highlighter-rouge">http://localhost:8080/#/main/views/FILES/0.1.0/MyFiles</code></li>
+</ul>
+
+<p>With the default settings for HDFS, users will see the data written to HDFS once every few minutes.</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hdfs_files_view_base_directory.png" alt="hdfs_files_view_base_directory" /></p>
+
+<p>Drill down into <code class="highlighter-rouge">/truck-events-v4/staging</code> dir in HDFS</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_loads_txt_files_events_lab2_iot.png" alt="" /></p>
+
+<p>Stop the NiFi DataFlow to no longer send messages to Kafka. Now go back to the staging directory, click on one of the txt files and confirm that it contains the events:</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/verify_hdfs_files_contain_data_iot.png" alt="Screen Shot 2015-06-04 at 9.20.24 PM.png" /></p>
+
+<blockquote>
+  <p><strong>Note:</strong> It may take a 5-10 minutes, before you can access the txt files to see the data.</p>
+</blockquote>
+
+<ul>
+  <li>Verify data in Hive by navigating to the Hive view, expanding the default database and clicking the List icon next to <strong>truck_events_text_partition table</strong></li>
+</ul>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/truck_text_partition_table_load_sample_iot.png" alt="Screen Shot 2015-06-04 at 9.13.23 PM.png" /></p>
+
+<ul>
+  <li>If you haven’t done so, you can you can stop the NiFi DataFlow. Press the stop symbol.</li>
+  <li>Verify that the data is in HBase by executing the following commands in HBase shell:</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[root@sandbox Tutorials-master]# hbase shell
+
+hbase(main):001:0&gt; list
+hbase(main):002:0&gt; count 'driver_events'
+hbase(main):003:0&gt; count 'driver_dangerous_events'
+hbase(main):004:0&gt; count 'driver_dangerous_events_count'    
+hbase(main):005:0&gt; exit
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">driver_dangerous_events</code> table is updated upon every violation.</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/verify_data_in_hbase_iot.png" alt="verify_data_in_hbase_iot" /></p>
+
+<ul>
+  <li>Next let’s populate the data into ORC table for interactive query by Excel (or any BI tool) via ODBC over Hive/Tez. Open the Hive view and enter the below and click Execute.</li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">INSERT</span> <span class="n">OVERWRITE</span> <span class="k">TABLE</span> <span class="n">truck_events_orc_partition_single</span>
+<span class="n">partition</span> <span class="p">(</span><span class="n">eventDate</span><span class="p">)</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">truck_events_text_partition</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/populate_orc_with_data_iot.png" alt="populate_orc_with_data_iot" /></p>
+
+<p>Notice that this launches a Tez job in the background. You can get more details on this using the Yarn resource manager UI. You can find for this under the link under Ambari -&gt; Yarn -&gt; Quick links but will be similar to <code class="highlighter-rouge">http://localhost:8088/cluster</code></p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/yarn_resource_manager_tez_job_iot.png" alt="yarn_resource_manager_tez_job_iot" /></p>
+
+<p>Now query the ORC table by clicking the List icon next to it under Databases and notice it is also now populated</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/load_sample_orc_table_populated_iot.png" alt="" /></p>
+
+<ul>
+  <li>Once done, stop the Storm topology</li>
+</ul>
+
+<p>The Storm topology can be deactivated/killed from the Storm UI or shell</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>storm <span class="nb">kill </span>TruckEventProcessorKafkaTopology
+</code></pre>
+</div>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_topology_actions_iot.png" alt="storm_topology_actions_iot" /></p>
+
+<h2 id="conclusion-a-idconclusion-lab3a">Conclusion <a id="conclusion-lab3"></a></h2>
+
+<p>Congratulations, you built your first Hortonworks DataFlow Application. When NiFi, Kafka and Storm are combined, they create the Hortonworks DataFlow. You have used the power of NiFi to ingest, route and land real-time streaming data. You learned to capture that data with Kafka and perform instant processing with Storm. A common challenge with many use cases, which is also observed in this lab series is ingesting a live stream of random data, and filtering the junk data from the actual data we care about. Through these labs, you learned to manipulate, persist and perform many other operations on random data.</p>
+
+<h3 id="appendix-a-run-the-trucking-demo-with-nifi-integration-a-idrun-the-trucking-demo-lab3a">Appendix A: Run the Trucking Demo with NiFi Integration <a id="run-the-trucking-demo-lab3"></a></h3>
+
+<p>The trucking demo shows realtime monitoring of alerts and predictions of driving violations by fleets of trucks. The demo visually illustrates these events on a map. Let’s start the demo to observe these realtime events in action.</p>
+
+<h3 id="a1-start-the-trucking-demo">A.1 Start the Trucking Demo</h3>
+
+<p>1. Navigate to the base of the trucking demo project folder, make sh files executable, then execute the rundemo.sh script. Starting the demo may take 15 - 20 minutes:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd ~/iot-truck-streaming
+chmod 750 *.sh
+./rundemo.sh clean
+</code></pre>
+</div>
+
+<p>Note: rundemo.sh clean kills the storm topology, stops storm, cleans the storm directories, restarts storm and redeploys the topology. rundemo.sh is modified with the assumption that you completed the Lab Series, specifically you manually installed maven back in lab 0, Kafka, Storm, HBase services are running and updated the user-env.sh file in lab 2. rundemo.sh will setup and start the demo.</p>
+
+<p>When you see <strong>“[INFO] Started Jetty Server”</strong> message up in the console, you will be able to access the demo at:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>http://&lt;hostname&gt;:8081/storm-demo-web-app/index.html.
+</code></pre>
+</div>
+
+<p>If on virtualbox, the hostname will be: http://127.0.0.1:8081/storm-demo-web-app/index.html.</p>
+
+<p>If you receive the message, <strong>“This site can’t be reached”</strong>, you will need to port forward <code class="highlighter-rouge">8081</code> onto your virtual machine. Refer to <a href="#step3-start-nifi">lab 0 step 3</a> where we port forward NiFi port number if you need to review.</p>
+
+<h3 id="a2-login-to-trucking-demo-dashboard">A.2 Login to Trucking Demo Dashboard</h3>
+
+<p>Once connected to Jetty Server, the following login page appears, user and password are given by default, so press the <strong>sign in</strong> button:</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/trucking_demo_sign_in.png" alt="trucking_demo_sign_in" /></p>
+
+<p>The HDP Storm Demo Dashboard will appear:</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hdp_storm_demo_dashboard_iot.png" alt="hdp_storm_demo_dashboard_iot" /></p>
+
+<h3 id="a3-run-nifi-dataflow--topology-tuples-increase">A.3 Run NiFi DataFlow &amp; Topology Tuples Increase</h3>
+
+<p>Before entering one of these applications on the dashboard as in the image above, make sure your NiFi DataFlow is running and that your storm topology spout/bolt tuples are increasing. You should have images similar to as below:</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_withKafka_running_iot.png" alt="dataflow_withKafka_running_iot" /></p>
+
+<blockquote>
+  <p>DataFlow is running and sending events to Kafka. If you notice events stop being sent to kafka, stop and start the DataFlow.</p>
+</blockquote>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_topology_tuples_increasing.png" alt="storm_topology_tuples_increasing" /></p>
+
+<blockquote>
+  <p>Storm Topology Spout/Bolt tuples increasing</p>
+</blockquote>
+
+<h3 id="a4-troubleshooting-section">A.4 Troubleshooting Section</h3>
+
+<p>If storm shows an internal server error, refer to the <strong>troubleshooting section below</strong>, else skip to the next section:</p>
+
+<p>If in the Storm UI and it shows that storm nimbus is not coming up, or you are getting an error similar to:
+<code class="highlighter-rouge">java.lang.RuntimeException: Could not find leader nimbus from seed hosts [sandbox.hortonworks.com]. Did you specify a valid list of nimbus hosts for config nimbus.seeds</code></p>
+
+<p>Stop Storm and run the following commands to clean out the old data.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>./iot-truck-streaming/setup/bin/cleanupstormdirs.sh
+/usr/hdp/current/zookeeper-client/bin/zkCli.sh
+rmr /storm
+</code></pre>
+</div>
+
+<p>If any other issues, reset and restart the demo:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>./iot-truck-streaming/setup/bin/cleanup.sh
+</code></pre>
+</div>
+
+<p>Now let’s start the Storm service. We’ll need to redeploy our topology:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[root@sandbox ~]# cd iot-truck-streaming/
+[root@sandbox iot-truck-streaming]# storm jar storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar com.hortonworks.streaming.impl.topologies.TruckEventProcessorKafkaTopology /etc/storm_demo/config.properties
+</code></pre>
+</div>
+
+<p>We also need to run our NiFi DataFlow. Now we can we can explore the different applications within the demo.</p>
+
+<h3 id="a5-explore-trucking-demo-applications">A.5 Explore Trucking Demo Applications</h3>
+
+<p>If you can see your NiFi DataFlow sending truck event data to Kafka and Storm tuples increasing, enter the applications and you shall the see the following maps and tables:</p>
+
+<p>Real-Time Driver Monitoring Application</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_monitoring_app_map.png" alt="driver_monitoring_app_map" />
+<img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_monitoring_app_table.png" alt="driver_monitoring_app_table" /></p>
+
+<p>Real-Time Driver Behavior Predictions Application</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_behavior_predictions_app_map.png" alt="driver_behavior_predictions_app_map" />
+<img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_behavior_predictions_app_table.png" alt="driver_behavior_predictions_app_table" /></p>
+
+<p>Real-Time Drools Driven Monitoring Application</p>
+
+<p><img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/drools_driven_driver_alerts_app_map.png" alt="drools_driven_driver_alerts_app_map" />
+<img src="/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/drools_driven_driver_alerts_app_table.png" alt="drools_driven_driver_alerts_app_table" /></p>
+
+<p>Congratulations, you just incorporated NiFi into the trucking demo. Notice that each time the rows in the table turn red, it indicates a prediction that the driver committed a violation while driving. On the map, the green dots indicate probability that the driver will not commit a violation while red dots indicate the opposite.</p>
+
+<h3 id="appendix-b-update-iot-truck-streaming-project-a-idupdate-iot-truck-streaming-project-lab3a">Appendix B: Update iot-truck-streaming Project <a id="update-iot-truck-streaming-project-lab3"></a></h3>
+
+<ul>
+  <li>Copy /etc/hbase/conf/hbase-site.xml to src/main/resources/ directory</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>root@sandbox ~]# <span class="nb">cd</span> /iot-truck-streaming
+<span class="o">[</span>root@sandbox ~]# cp /etc/hbase/conf/hbase-site.xml src/main/resources/
+</code></pre>
+</div>
+
+<ul>
+  <li>Check pom.xml to ensure it includes the below dependencies (check after <strong>line 104</strong>)</li>
+</ul>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>xerces<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>xercesImpl<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>2.9.1<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>xalan<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>xalan<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>2.7.1<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.htrace<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>htrace-core<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>3.0.4<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.hadoop<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>hadoop-hdfs<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>2.6.0<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>recompile the Maven project. This may run for 10+ min</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>root@sandbox ~]# mvn clean package
+</code></pre>
+</div>
+
+<p>The maven build should succeed.</p>
+
+<h3 id="appendix-c-enable-remote-desktop-on-sandbox-and-set-up-storm-topology-as-eclipse-project-a-idenable-remote-desktop-setup-topology-lab3a">Appendix C: Enable remote desktop on sandbox and set up Storm topology as Eclipse project <a id="enable-remote-desktop-setup-topology-lab3"></a></h3>
+
+<ol>
+  <li>Setup Ambari VNC service on the sandbox to enable remote desktop via VNC and install eclipse using steps here <a href="https://github.com/hortonworks-gallery/ambari-vnc-service%23setup-vnc-service">https://github.com/hortonworks-gallery/ambari-vnc-service#setup-vnc-service</a></li>
+  <li>Import code as Eclipse project using steps here:</li>
+</ol>
+
+<p><a href="https://github.com/hortonworks-gallery/ambari-vnc-service%23getting-started-with-storm-and-maven-in-eclipse-environment">https://github.com/hortonworks-gallery/ambari-vnc-service#getting-started-with-storm-and-maven-in-eclipse-environment</a></p>
+
+<h2 id="further-reading-a-idfurther-reading-lab3a">Further Reading <a id="further-reading-lab3"></a></h2>
+<ul>
+  <li><a href="http://hortonworks.com/hadoop/hbase/">Apache HBase</a></li>
+  <li><a href="https://hbase.apache.org/book.html#quickstart">Getting Started with HBase</a></li>
+  <li><a href="http://storm.apache.org/documentation/storm-hive.html">Storm Hive Integration</a></li>
+  <li><a href="http://hortonworks.com/hadoop/storm/#tutorials">Storm Tutorials</a></li>
+  <li><a href="http://storm.apache.org/documentation.html">Getting Started with Apache Storm</a></li>
+  <li><a href="http://hortonworks.com/hadoop/storm/">Apache Storm</a></li>
+</ul>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-220.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-220&topics=hdp-2.4.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Real Time Data Ingestion in Hbase and Hive using Storm</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-220</strong> and <strong>hdp-2.4.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

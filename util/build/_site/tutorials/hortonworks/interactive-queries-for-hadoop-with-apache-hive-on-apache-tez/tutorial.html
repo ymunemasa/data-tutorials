@@ -1,0 +1,377 @@
+
+
+<div class="tutorial-content">
+  <h1 id="interactive-query-for-hadoop-with-apache-hive-on-apache-tez">Interactive Query for Hadoop with Apache Hive on Apache Tez</h1>
+
+<h3 id="introduction">Introduction</h3>
+
+<p>In this tutorial, we'll focus on taking advantage of the improvements to <a href="http://hortonworks.com/hadoop/hive">Apache Hive</a> and <a href="http://hortonworks.com/hadoop/tez">Apache Tez</a> through the work completed by the community as part of the <a href="http://hortonworks.com/labs/stinger">Stinger initiative</a>. We will explore the new features that Hive on Tez brings to HDP 2.4:</p>
+
+<ul>
+  <li>Performance improvements of Hive on Tez</li>
+  <li>Performance improvements of Vectorized Query</li>
+  <li>Cost-based Optimization Plans</li>
+  <li>Multi-tenancy with HiveServer2</li>
+  <li>SQL Compliance Improvements</li>
+</ul>
+
+<h2 id="pre-requisites">Pre-Requisites</h2>
+<ul>
+  <li>Downloaded and Installed latest <a href="http://hortonworks.com/products/hortonworks-sandbox/#install">Hortonworks Sandbox</a></li>
+  <li><a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox</a></li>
+  <li>Allow yourself around one hour to complete this tutorial</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li><a href="#download-data">Step 1: Download Data</a></li>
+  <li><a href="#upload_data_using_hdfs">Step 2: Upload Data Using HDFS</a></li>
+  <li><a href="#create-hive-queries">Step 3: Create Hive Queries</a></li>
+  <li><a href="#speed-improvements">Speed Improvements</a></li>
+  <li><a href="#configure-mapreduce-engine-in-hive-settings">Step 4: Configure MapReduce as Execution Engine in Hive view Settings Tab</a></li>
+  <li><a href="#test-query-mapreduce-engine">Step 5: Test Query on MapReduce Engine</a></li>
+  <li><a href="#configure-tez-engine-in-hive-settings">Step 6: Configure Tez as Execution Engine in Hive view Settings Tab</a></li>
+  <li><a href="#test-query-on-tez-engine">Step 7: Test Query on Tez Engine</a></li>
+  <li><a href="#execute-query-mapreduce-tez-engine">Step 8: Execute Query as MapReduce Then Tez Engine</a></li>
+  <li><a href="#track-hive-on-tez-jobs">Step 9: Track Hive on Tez Jobs</a></li>
+  <li><a href="#stats-cost-optimization">Stats &amp; Cost Based Optimization (CBO)</a></li>
+  <li><a href="#multi-tenancy-hiveserver2">Multi-tenancy with HiveServer2</a></li>
+  <li><a href="#sql-compliance">SQL Compliance</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+</ul>
+
+<h3 id="step-1-download-data-a-iddownload-dataa">Step 1: Download Data <a id="download-data"></a></h3>
+
+<p>The dataset that we will need for this tutorial is <a href="http://s3.amazonaws.com/hw-sandbox/tutorial14/SensorFiles.zip">SensorFiles.zip</a>. Please download and save the file in a folder on your local machine.</p>
+
+<p>Once you unzip the zip file – SensorFiles.zip, you will see the following files inside. We will be using these data files for the following tutorial.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/step1_sensor_files_zip_interactive_hive_tez.png" alt="" /></p>
+
+<h3 id="step-2-upload-data-using-hdfs-a-iduploaddatausinghdfsa">Step 2: Upload Data Using HDFS <a id="upload_data_using_hdfs"></a></h3>
+
+<p>Let's use the above two csv files (HVAC.csv &amp; building.csv) to create two new tables using the following step. Navigate to <a href="http://sandbox.hortonworks.com:8080">http://sandbox.hortonworks.com:8080</a> using your browser. Click the <strong>HDFS Files</strong> view from the dropdown menu.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/hdfs_files_view_interactive_hive_tez.png" alt="" /></p>
+
+<p>Go to the <code class="highlighter-rouge">/tmp</code> folder and if it is not already present, create a new directory called <code class="highlighter-rouge">data</code> using the controls toward the top of the screen. Then right-click on the folder and click <strong>Permissions</strong>. Make sure to check (blue) all of the permissions boxes.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/02_hdfs_files_permissions.png" alt="" /></p>
+
+<p>Now, let's upload the above data files into HDFS and create two hive tables using the following steps.</p>
+
+<p>Upload the two files under <code class="highlighter-rouge">/tmp/data</code> using <strong>Upload</strong> at the top of the screen</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/tmp_data_upload_2files_interactive_hive_tez.png" alt="" /></p>
+
+<h3 id="step-3-create-hive-queries-a-idcreate-hive-queriesa">Step 3: Create Hive Queries <a id="create-hive-queries"></a></h3>
+
+<p>Now head on over to the Hive view</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/hive_view_interactive_hive_tez.png" alt="" /></p>
+
+<p>We will now use hive and create the two tables. They will be named per the csv file names : "hvac" and "building".</p>
+
+<p>Use the following two queries to create the tables a then load the data</p>
+
+<h4 id="create-table-building">3.1 Create Table building</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>create table building
+(BuildingID int,
+ BuildingMgr string,
+ BuildingAge string,
+ HVACproduct string,
+ Country string) 
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+TBLPROPERTIES("skip.header.line.count"="1");
+</code></pre>
+</div>
+
+<h4 id="create-table-hvac">3.2 Create Table hvac</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>create table hvac (
+recorddate string,
+Time string,
+TargetTemp int,
+ActualTemp int,
+System int,
+SystemAge int,
+BuildingID int) 
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+TBLPROPERTIES("skip.header.line.count"="1");
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/05_tables_created.png" alt="" /></p>
+
+<blockquote>
+  <p>Tables In DataBase Explorer</p>
+</blockquote>
+
+<p>We're are now going to load the data into the two tables using the <code class="highlighter-rouge">LOAD DATA INPATH</code> Hive command</p>
+
+<h4 id="load-data-into-query-tables">3.3 Load Data into Query Tables</h4>
+<div class="highlighter-rouge"><pre class="highlight"><code>LOAD DATA INPATH '/tmp/data/HVAC.csv' OVERWRITE INTO TABLE hvac;
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>LOAD DATA INPATH '/tmp/data/building.csv' OVERWRITE INTO TABLE building;
+</code></pre>
+</div>
+
+<p>You should now be able to obtain results when selecting small amounts of data from either table</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/06_tables_loaded.png" alt="" /></p>
+
+<h2 id="speed-improvements-a-idspeed-improvementsa">Speed Improvements <a id="speed-improvements"></a></h2>
+
+<p>To take a look at the speed improvements of Hive on Tez, we can run some sample queries. For this we will use the above two tables – hvac and building.</p>
+
+<p>By default, the Hive view runs with Tez as it's execution engine. That's because Tez has great speed improvements over the original MapReduce execution engine. But by how much exactly are these improvements? Well let's find out!</p>
+
+<h3 id="step-4-configure-mapreduce-as-execution-engine-in-hive-view-settings-tab-a-idconfigure-mapreduce-engine-in-hive-settingsa">Step 4: Configure MapReduce as Execution Engine in Hive view Settings Tab <a id="configure-mapreduce-engine-in-hive-settings"></a></h3>
+
+<p>Click on the Hive view <strong>Settings</strong> tab. Then we're going to need to add a new setting.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/07_hive_settings.png" alt="Image hive" /></p>
+
+<p>Then we're going to need to find the property which is <code class="highlighter-rouge">hive.execution.engine</code>. Select this property and then for it's value select, <code class="highlighter-rouge">mr</code> (short for MapReduce).</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/08_setting_execution_engine.png" alt="Image hive" /></p>
+
+<h3 id="step-5-test-query-on-mapreduce-engine-a-idtest-query-mapreduce-enginea">Step 5: Test Query on MapReduce Engine <a id="test-query-mapreduce-engine"></a></h3>
+
+<p>We are now going to test a query using MapReduce as our execution engine. Execute the following query and wait for the results.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>select h.*, b.country, b.hvacproduct, b.buildingage, b.buildingmgr 
+from building b join hvac h 
+on b.buildingid = h.buildingid;
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/09_mr_join_query.png" alt="enter image description here" /></p>
+
+<p>This query was run using the MapReduce framework.</p>
+
+<h3 id="step-6-configure-tez-as-execution-engine-in-hive-view-settings-tab-a-idconfigure-tez-engine-in-hive-settingsa">Step 6: Configure Tez as Execution Engine in Hive view Settings Tab <a id="configure-tez-engine-in-hive-settings"></a></h3>
+
+<p>Now we can enable Hive on Tez execution and take advantage of Directed Acyclic Graph (DAG) execution representing the query instead of multiple stages of MapReduce program which involved a lot of synchronization, barriers and IO overheads. This is improved in Tez, by writing intermediate data set into memory instead of hard disk.</p>
+
+<p>Head back to the <strong>Settings</strong> in the Hive view and now change the <code class="highlighter-rouge">hive.execution.engine</code> to <code class="highlighter-rouge">tez</code>.</p>
+
+<h3 id="step-7-test-query-on-tez-engine-a-idtest-query-on-tez-enginea">Step 7: Test Query on Tez Engine <a id="test-query-on-tez-engine"></a></h3>
+
+<p>Run the same query as we had run earlier in Step 5, to see the speed improvements with Tez.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>select h.*, b.country, b.hvacproduct, b.buildingage, b.buildingmgr 
+from building b join hvac h 
+on b.buildingid = h.buildingid;
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/09_mr_join_query.png" alt="enter image description here" /></p>
+
+<p>Check the output of this job. It shows the usage of the containers.<br />
+Here is the rest of the output log:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/10_tez_output_log.png" alt="enter image description here" /></p>
+
+<p>Notice that the results will have appeared much quicker while having the execution engine set to Tez. This is currently the default for all Hive queries.</p>
+
+<p>Congratulations! You have successfully run your Hive on Tez Job.</p>
+
+<h3 id="step-8-execute-query-as-mapreduce-then-tez-engine-a-idexecute-query-mapreduce-tez-enginea">Step 8: Execute Query as MapReduce Then Tez Engine <a id="execute-query-mapreduce-tez-engine"></a></h3>
+
+<p>Now let's try a new query to work with</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>select a.buildingid, b.buildingmgr, max(a.targettemp-a.actualtemp)
+from hvac a join building b
+on a.buildingid = b.buildingid
+group by a.buildingid, b.buildingmgr;
+</code></pre>
+</div>
+
+<p>Try executing the query first on MapReduce execution engine, then on Tez. You should notice a considerable gap in execution time</p>
+
+<p>Here is the result.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/11_second_query_results.png" alt="" /></p>
+
+<p>To experience this further, you could use your own dataset, upload to your HDP Sandbox using steps above and execute with and without Tez to compare the difference.</p>
+
+<h3 id="step-9-track-hive-on-tez-jobs-a-idtrack-hive-on-tez-jobsa">Step 9: Track Hive on Tez Jobs <a id="track-hive-on-tez-jobs"></a></h3>
+
+<p>You can track your Hive on Tez jobs in HDP Sandbox Web UI as well. Please go to : <a href="http://127.0.0.1:8088/cluster">http://127.0.0.1:8088/cluster</a> and track your jobs while running or post to see the details.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/11_1_UI_job_tracking.jpg" alt="enter image description here" /></p>
+
+<p>You can click on your job and see further details.</p>
+
+<h2 id="stats--cost-based-optimization-cbo-a-idstats-cost-optimizationa">Stats &amp; Cost Based Optimization (CBO) <a id="stats-cost-optimization"></a></h2>
+
+<p>Cost Based Optimization(CBO) engine uses statistics within Hive tables to produce optimal query plans.</p>
+
+<h3 id="benefits-of-cbo">Benefits of CBO</h3>
+
+<ol>
+  <li>Reduces need of a specialists to tune queries</li>
+  <li>More efficient query plans lead to better cluster utilization</li>
+</ol>
+
+<h3 id="types-of-stats">Types of Stats</h3>
+
+<p>There are two types of stats which could be collected so that the optimizer could use it in the decision making process :</p>
+
+<ol>
+  <li>Table Stats</li>
+  <li>Column Stats</li>
+</ol>
+
+<p>The 'explain' plan feature can be used to see if the correct stats are being used.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Note : CBO requires column stats. 
+</code></pre>
+</div>
+
+<h3 id="phases-in-which-stats-could-be-collected">Phases in which stats could be collected</h3>
+
+<ol>
+  <li>While data is inserted:<code class="highlighter-rouge">hive.stats.autographer =  [true,  **false**]</code></li>
+  <li>On existing data : table level<code class="highlighter-rouge">ANALYZE TABLE table [partion(key)] COMPUTE STATISTICS;</code></li>
+  <li>On existing data : column level<code class="highlighter-rouge">ANALYZE TABLE table [partion(key)] COMPUTE STATISTICS FOR COLUMNS col1,col2,...;</code></li>
+</ol>
+
+<h3 id="configuration-to-make-cbo-effective-for-your-query">Configuration to make CBO effective for your query</h3>
+
+<ol>
+  <li><code class="highlighter-rouge">hive.compute.query.using.stats =  [true,  **false**];</code></li>
+  <li><code class="highlighter-rouge">hive.stats.fetch.column.stats =  [true,  **false**];</code></li>
+  <li><code class="highlighter-rouge">hive.stats.fetch.partition.stats =  [true,  **false**];</code></li>
+  <li><code class="highlighter-rouge">hive.cbo.enable =  [true,  **false**];</code></li>
+</ol>
+
+<p>Currently, CBO for Hive is enabled by defaults. You can see this if you head over to the Hive configuration tab in Ambari.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/12_hive_configs.png" alt="Hive Configs PIC 12" /></p>
+
+<p>As you can see the CBO flag is <strong>on</strong>, meaning that Hive will attempt to optimize complex queries in order to shorten the execution time.</p>
+
+<p>However, the only caveat is that for each table you will need to compute statistics before CBO can be utilized.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Usage:
+       # ANALYZE TABLE table [partion(key)] COMPUTE STATISTICS;
+       # ANALYZE TABLE table [partion(key)] COMPUTE STATISTICS FOR COLUMNS col1,col2,...
+# Example:         
+         ANALYZE TABLE building COMPUTE STATISTICS FOR COLUMNS buildingage, buildingid;
+</code></pre>
+</div>
+
+<p>Once these two commands are both executed, Hive will utilize CBO on more complex queries.</p>
+
+<h2 id="multi-tenancy-with-hiveserver2-a-idmulti-tenancy-hiveserver2a">Multi-tenancy with HiveServer2 <a id="multi-tenancy-hiveserver2"></a></h2>
+
+<p>There could be contentions when multiple users run large queries simultaneously. Processing queries with many containers could lead to lower latency. For this, 3 controls could be put in place:</p>
+
+<ul>
+  <li>Container re-use timeout</li>
+  <li>Tez split wave tuning</li>
+  <li>Round Robin Queuing setup</li>
+</ul>
+
+<h3 id="diagnose-job-viewer">Diagnose: Job Viewer</h3>
+
+<p>Hive Job Viewer available in Ambari is a simple exploration and troubleshooting Graphical tool for Hive jobs.</p>
+
+<p>The purposes of this Job Viewer are as follows:</p>
+
+<ul>
+  <li>Visualize execution DAG</li>
+  <li>Drill Down into individual stages for:
+    <ul>
+      <li>Execution status</li>
+      <li>Duration</li>
+      <li>Number of bytes read and written, No of containers, etc.<br />
+DAG Viewer is releasing soon, which will be available in Ambari.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Run a simple query such as:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ANALYZE TABLE building COMPUTE STATISTICS FOR COLUMNS buildingage, buildingid;
+</code></pre>
+</div>
+
+<p>To see the job executions visually, you can open the <strong>Tez View</strong> in Ambari Views. Tez View will take you to DAG Details, which includes all your DAG projects.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/tez_view_dag_details_interactive_hive_tez.png" alt="PICTURE 13" /></p>
+
+<blockquote>
+  <p>Notice the query utilized in the photo is "ANALYZE TABLE building COMPUTE STATISTICS FOR COLUMNS." After executing your query, make sure to save it, then visit "Tez View."</p>
+</blockquote>
+
+<p>Try clicking on the different parts above, such as <strong>Graphical View</strong> and explore some of the other execution information from Tez.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-queries-hive-on-tez/building_tez_graphical_view.png" alt="PIC 14" /></p>
+
+<h2 id="sql-compliance-a-idsql-compliancea">SQL Compliance <a id="sql-compliance"></a></h2>
+
+<p>There are several SQL query enhancements in this version of Hive.</p>
+
+<h3 id="query-enhancements-support-extensions">Query Enhancements Support extensions:</h3>
+
+<ul>
+  <li>Expanded Join Semantics – Supports from table1, table2 where table1.col1=table2.col2</li>
+  <li>IN, NOT IN subqueries in WHERE Clause</li>
+  <li>EXISTS and NOT EXISTS</li>
+  <li>Correlated Subqueries with equality operation only</li>
+  <li>Common Table Expressions (CTE)</li>
+  <li>The CHAR datatype – trailing White Space</li>
+</ul>
+
+<h3 id="authorization-system-enhancements">Authorization System enhancements:</h3>
+
+<ul>
+  <li>SQL Authorizations : Actions
+    <ul>
+      <li>Grant/Revoke
+        <ul>
+          <li>Create</li>
+          <li>Insert</li>
+          <li>Select</li>
+          <li>Drop</li>
+          <li>Delete</li>
+          <li>All
+            <ul>
+              <li>Create Roles &amp; Grant with admin option</li>
+              <li>Using views to restrict data visibility</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>We will go into these in much more details in a later tutorial. You learned to perform basic hive queries, compared Hive on MapReduce and Tez Engine</p>
+
+<h2 id="further-reading-a-idfurther-readinga">Further Reading <a id="further-reading"></a></h2>
+<ul>
+  <li><a href="http://hortonworks.com/hadoop/hive/">Apache Hive</a></li>
+  <li><a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL">Hive Language Manual</a></li>
+</ul>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-290.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-290&topics=hdp-2.4.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Interactive Query for Hadoop with Apache Hive on Apache Tez</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-290</strong> and <strong>hdp-2.4.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>
