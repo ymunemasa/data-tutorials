@@ -11,6 +11,7 @@ If you're looking for tutorials which are compatible with older versions of HDP 
 - [HDP 2.1](https://github.com/hortonworks/tutorials/tree/hdp-2.1)
 - [HDP 2.2](https://github.com/hortonworks/tutorials/tree/hdp-2.2)
 - [HDP 2.3](https://github.com/hortonworks/tutorials/tree/hdp-2.3)
+- [HDP 2.4](https://github.com/hortonworks/tutorials/tree/hdp/tutorials)
 
 # Contributing 
 
