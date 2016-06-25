@@ -214,7 +214,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 **Figure 3:** GetFile Configuration Property Tab Window
 
-3\. Now that each property is updated. Click **Apply**. Connect **GetFile** to **UnpackPack** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
+3\. Now that each property is updated. Click **Apply**. Connect **GetFile** to **UnpackPack** processor by dragging the arrow icon from the first processor to the next component. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
 ### 2.2 UnpackContent
 
