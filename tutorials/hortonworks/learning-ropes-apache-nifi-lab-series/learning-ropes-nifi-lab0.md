@@ -67,7 +67,8 @@ If you plan to install HDF on Hortonworks Sandbox, review the table, and proceed
 > Note: **Host Name** values are unique for VMware & Azure Sandbox compared to the table. For VMware and VirtualBox, **Host Name** is located on the Welcome screen. For Azure, **Host Name** is located under **Public IP Address** on the Sandbox Dashboard. For Azure users, you created the terminal **username** and **password** while deploying the Sandbox on Azure. For VMware and VirtualBox users, you change the terminal password after first login.
 
 If it is your first time using the Sandbox VM, you might be prompted to change the default 'hadoop' password. Run the following command and provide a stronger password:
-```
+
+~~~
 ssh -p 2222 root@localhost
 root@localhost's password:
 You are required to change your password immediately (root enforced)
@@ -77,7 +78,7 @@ Changing password for root.
 New password:
 Retype new password:
 [root@sandbox ~]#
-```
+~~~
 
 ### 1.2 Plan to Install HDF 1.2 on Local Machine
 
