@@ -136,6 +136,8 @@ cd ~
 
 Now that we have set the configurations above, we are ready to install maven.
 
+### Install Maven and Build Packages For Simulator
+
 3\. Install Apache Maven, so we can compile the stream simulator code and run the simulator. Run the following commands:
 
 ~~~
