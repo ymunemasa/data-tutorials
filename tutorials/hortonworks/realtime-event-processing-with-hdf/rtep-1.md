@@ -25,7 +25,7 @@ Apache NiFi can collect and transport data from numerous sources and provide int
 
 | Parameter  | Value (VirtualBox)  | Value(VMware)  | Value(MS Azure)  |
 |---|---|---|---|
-| Host Name  | 127.0.0.1  | 172.16.110.129  | 23.99.9.233  |
+| Host Name  | 127.0.0.1  | 172.16.110.129  | { Input-DNS-Name } |
 | Port  | 2222  | 2222  | 22  |
 | Terminal Username  | root  | root  | {username-of-azure}  |
 | Terminal Password  | hadoop  | hadoop  | {password-of-azure}  |
@@ -93,7 +93,7 @@ ssh root@127.0.0.1 -p 2222
 For VMware and Azure users, insert the appropriate values for username, hostname and port into the SSH Definition:
 
 ~~~
-ssh <username>@<hostname> -p <port>
+ssh <username>@<hostname>.cloudapp.net -p <port>
 ~~~
 
 > Note: For VMware and Azure users, the hostname is different than VirtualBox and the **hostname** can be found on the welcome screen. Refer to Table 1 for **port** number. Username for VMware and Azure is same as VirtualBox. If you need help, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/).
@@ -104,6 +104,37 @@ ssh <username>@<hostname> -p <port>
 cd ~
 git clone https://github.com/james94/iot-truck-streaming
 ~~~
+
+### Azure Sandbox Root Terminal Access (Required for Azure Users)
+
+if on **Azure Sandbox**, we need to access root user from terminal to install maven. Run the following command to reset root's password:
+
+~~~
+sudo passwd root
+~~~
+
+> Note: Remember root user password
+
+Now we can login to terminal as root user. Let's change the hostname of the azure VM to `sandbox.hortonworks.com`:
+
+~~~
+sudo hostname sandbox.hortonworks.com
+~~~
+
+Now let's login to root user and input the password you set for root. Enter the command:
+
+~~~
+su root
+~~~
+
+For Azure users, move iot-truck-streaming folder to `/root` directory and then navigate to the root:
+
+~~~
+mv iot-truck-streaming/ /root
+cd ~
+~~~
+
+Now that we have set the configurations above, we are ready to install maven.
 
 3\. Install Apache Maven, so we can compile the stream simulator code and run the simulator. Run the following commands:
 
@@ -139,15 +170,20 @@ mv -f storm-streaming/pom24.xml storm-streaming/pom.xml
 
 Apache Maven command: mvn clean deletes everying in the target folder. The storm-streaming contains a target folder that is impacted. The package phase of the command compiles the code and packages it into jar files according to the pom file.
 
-> Note: packaging may take around 9 minutes.
-
-### 1.2 Run The Simulator
-
-1\. To test the simulator, run `generate.sh` script. Use the commands:
+7\. To run the simulator from the terminal or nifi, we need to change the permissions to make the generate.sh script executable. Enter the commands
 
 ~~~
 cd stream-simulator
 chmod 750 *.sh
+~~~
+
+> Note: packaging may take around 9 minutes.
+
+### 1.2 Run The Simulator (Optional)
+
+1\. To test the simulator, run `generate.sh` script. Use the commands:
+
+~~~
 ./generate.sh
 ~~~
 
@@ -193,13 +229,15 @@ curl -o install-nifi.sh https://raw.githubusercontent.com/hortonworks/tutorials/
 
 ![download_hdf_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/download_hdf_iot.png)
 
-3\. Run the install-nifi.sh script. Below is a definition of how the install nifi command works:
+3\. Run the install-nifi.sh script. Below is a definition of how the install nifi command works. Azure, VirtualBox and VMware users, utilize this command as a template to install nifi:
 
 ~~~
 install-nifi.sh {location-of-HDF-download} {sandbox-host} {ssh-port} {hdf-version}
 ~~~
 
 > Note: For VMware and Azure users, sandbox-host can be found at the welcome screen after starting your sandbox and ssh-port can be found in Table 1. hdf-version is the digits in the tar.gz name you downloaded, for example the numbers in bold HDF-**1.2.0.1-1**.tar.gz.
+
+### Install NiFi onto VirtualBox Sandbox
 
 After you provide the file path location to HDF Gzip file, sandbox hostname, ssh port number and HDF version, your command should look similar as follows:
 
@@ -209,13 +247,21 @@ bash install-nifi.sh ~/Downloads/HDF-1.2.0.1-1.tar.gz localhost 2222 1.2.0.1-1
 
 > Note: You will be asked if you want to continue the download, type `yes`. You will also be asked twice for your ssh password to install NiFi on your Hortonworks Sandbox.
 
+### Install NiFi onto Azure Sandbox
+
+~~~
+bash install-nifi.sh ~/Downloads/HDF-1.2.0.1-1.tar.gz sandbox4247.cloudapp.net 22 1.2.0.1-1
+~~~
+
+> Note: `sandbox4247.cloudapp.net` is the DNS name located on your azure dashboard. Make sure to change this variable before running the command above.
+
 The script automatically installs NiFi onto your virtual machine. After successful completion, NiFi is transported onto the Hortonworks Sandbox and the HDF folder will be located at `~` folder.
 
 ### Step 3: Start NiFi <a id="step3-start-nifi"></a>
 
 It is time to start Apache NiFi.
 
-1\. SSH into the Hortonworks Sandbox
+1\. SSH into the Hortonworks Sandbox. Note: if on Azure sandbox, change the IP address from 127.0.0.1 to your DNS name and login as root user using the password you set up for root.
 
 ~~~
 ssh root@127.0.0.1 -p 2222
