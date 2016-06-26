@@ -19,7 +19,7 @@ It makes it much simpler to onboard new workflows/pipelines, with support for la
 
 ## Prerequisite
 
-- [Download Hortonworks Sandbox 2.5 Technical Preview](http://hortonworks.com/products/hortonworks-sandbox/#install)
+- [Download Hortonworks Sandbox 2.5 Technical Preview](http://hortonworks.com/tech-preview-hdp-2-5/)
 - Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
 
 Once you have downloaded the Hortonworks Sandbox and run the VM, navigate to the Ambari interface on the port `8080` of the IP address of your Sandbox VM. Login with the username of `admin` and the password that you set for the Ambari admin user. You should have a similar image as below:
