@@ -60,7 +60,7 @@ Then click on `Start`:
 
 Once Falcon starts, Ambari should clearly indicate as below that the service has started:
 
-![falconStarted](/assets/create-falcon-cluster-2.5/falconStarted.png)
+![falconStarted](/assets/create-falcon-cluster-hdp2.5/falconStarted.png)
 
 ## 3. Preparing HDFS Directories <a id="preparing-hdfs-directories"></a>
 
@@ -330,7 +330,7 @@ Once you have verified that these are the correct values press `Next`.
 
 Click `Save` to persist the `backupCluster` entity.
 
-![backup_cluster_xml_save](/assets/create-falcon-cluster/backup_cluster_xml_save.png)
+![backup_cluster_xml_save](/assets/create-falcon-cluster-hdp2.5/backup_cluster_xml_save.png)
 
 ## 5. Summary <a id="summary"></a>
 
