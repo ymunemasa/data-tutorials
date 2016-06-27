@@ -124,7 +124,7 @@ For improved Hive integration, HDP 2.4 offers [ORC file](http://hortonworks.com/
 
 #### Import sql libraries:
 
-Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code.
+Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code. We can either run the original `%spark` interpreter or the `%livy` spark interpreter to run spark code. The difference is that livy comes with more security.
 
 ~~~scala
 %spark
