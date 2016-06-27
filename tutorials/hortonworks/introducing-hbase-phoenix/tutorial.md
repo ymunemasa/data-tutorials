@@ -291,7 +291,7 @@ After pressing `Save`, you will get a popup like this:
 To connect to Phoenix, you need to specify the zookeeper quorum and in the sandbox, it is localhost. Change the working directory as per your HDP version. To launch it, execute the following commands:
 
 ~~~
-cd /usr/hdp/2.5.0.0-723/phoenix/bin
+cd /usr/hdp/2.5.0.0-817/phoenix/bin
 
 ./sqlline.py localhost
 ~~~
@@ -315,7 +315,7 @@ create table "driver_dangerous_event" ("row" VARCHAR primary key,"events"."drive
 "events"."truckId" VARCHAR);
 ~~~
 
-![create_phoenix_table](/assets/introducing-hbase-phoenix/create_phoenix_table.png)
+![create_phoenix_table](/assets/introducing-hbase-phoenix/create_table_phoenix.png)
 
 You can view the HBase table data from this Phoenix table.
 
