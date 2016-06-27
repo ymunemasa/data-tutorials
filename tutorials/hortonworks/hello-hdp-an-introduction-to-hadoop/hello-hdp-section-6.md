@@ -61,16 +61,36 @@ Let's get started!
 
 ### Step 4.1: Configure Spark services using Ambari <a id="step4.1"></a>
 
-1)  Log on to Ambari Dashboard as `maria_dev`. At the bottom left corner of the services column, check that Spark and Zeppelin are running.
+1\.  Log on to Ambari Dashboard as `admin`. At the bottom left corner of the services column, check that Spark and Zeppelin are running.
 
-**Note:** If these services are disabled, you will need to login in as an `admin` user to start all services. Refer to [Learning the Ropes of Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) for steps to gain `admin` privileges.
+**Note:** If these services are disabled, start these services.
 
 
 ![Lab4_2](/assets/hello-hdp/configure_spark_service_hello_hdp_lab4.png)
 
+2\. Now verify the Spark livy server is running:
 
-2) Open a new browser tab and type the following address to access Zeppelin:
+![verify_spark_livy_server_lab4](/assets/hello-hdp/verify_spark_livy_server_lab4.png)
 
+3\. As you can see our server is down. We need to start it before running spark jobs in Zeppelin. Click on `Livy Server`, then click on **sandbox.hortonworks.com**. Now we let's scroll down to `livy server`, press on the `Stopped` button and start the server. Press the `OK` button in the Confirmation window.
+
+![start_livy_server_lab4](/assets/hello-hdp/start_livy_server_lab4.png)
+
+Livy Server Started:
+
+![livy_server_running_lab4](/assets/hello-hdp/livy_server_running_lab4.png)
+
+### 4.1.1 There are two ways to access Zeppelin.
+
+1\. The first way, open **Zeppelin View** from Ambari views selector:
+
+![zeppelin_view_lab4](/assets/hello-hdp/zeppelin_view_lab4.png)
+
+2\. Below is an image of the welcome screen from Zeppelin View, as you can see users must login to create notebooks:
+
+![zeppelin_view_welcome_lab4](/assets/hello-hdp/zeppelin_view_welcome_lab4.png)
+
+3\. The second way is to access Zeppelin at `sandbox.hortonworks.com:9995` through its port number, as you can see both ways require users to submit login credentials:
 
 ~~~
 <hostname>:9995
@@ -79,13 +99,16 @@ Let's get started!
 
 You should see a Zeppelin Welcome Page:
 
-
-![zeppelin_welcome_page](/assets/hello-hdp/zeppelin_welcome_page_hello_hdp_lab4.png)
+![zeppelin_welcome_page](/assets/hello-hdp/zeppelin_welcome_page_lab4.png)
 
 
 Optionally, if you want to find out how to access the Spark shell to run code on Spark refer to [Appendix A](#run-spark-in-shell).
 
-3)  Create a Zeppelin Notebook
+4\. The login credentials for Zeppelin are: username = `admin` and password = `password1`. Click on the grey **Login** button at the top right corner. Add username and password, then click blue **Login** button in the Login window. The reason we are prompted for this information is because we are using livy, which adds a security component to make Zeppelin more secure. In a production environment users would all have their own login information.
+
+![zeppelin_login_window_lab4](/assets/hello-hdp/zeppelin_login_window_lab4.png)
+
+5\.  Create a Zeppelin Notebook
 
 Click on a Notebook tab at the top left and hit **Create new note**. Name your notebook `Compute Riskfactor with Spark`. By the default, the notebook will load Spark Scala API.
 
@@ -376,6 +399,7 @@ hiveContext.sql("select * from finalresults")
 ## Full Spark Code for Lab
 
 ~~~scala
+%spark
 import org.apache.spark.sql.hive.orc._
 import org.apache.spark.sql._
 

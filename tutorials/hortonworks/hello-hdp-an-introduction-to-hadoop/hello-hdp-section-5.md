@@ -265,7 +265,7 @@ store final_data into 'riskfactor' using org.apache.hive.hcatalog.pig.HCatStorer
 ~~~
 
 
-![Lab3_8](/assets/hello-hdp/pig_script_compute_driver_riskfactor_hello_hdp_lab3.png)
+![Lab3_8](/assets/hello-hdp/riskfactor_computation_script_lab3.png)
 
 
 Save the file riskfactor.pig by clicking the **Save** button in the left-hand column.
