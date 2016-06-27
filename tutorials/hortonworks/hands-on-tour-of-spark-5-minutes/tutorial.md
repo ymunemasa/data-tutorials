@@ -3,9 +3,9 @@ layout: tutorial
 title: A Hands-On Tour of Apache Spark in 5 Minutes
 tutorial-id: 360
 tutorial-series: Spark
-tutorial-version: hdp-2.5.0-TP
+tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ spark, zeppelin ]
+components: [ spark, zeppelin, technical-preview ]
 ---
 
 

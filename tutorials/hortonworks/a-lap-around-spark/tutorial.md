@@ -3,9 +3,9 @@ layout: tutorial
 title: A Lap Around Apache Spark
 tutorial-id: 390
 tutorial-series: Spark
-tutorial-version: hdp-2.5.0-TP
+tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ spark ]
+components: [ spark, technical-preview ]
 ---
 
 ### Introduction
