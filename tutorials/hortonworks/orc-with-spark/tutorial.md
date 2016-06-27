@@ -3,7 +3,7 @@ layout: tutorial
 title: Using Hive with ORC from Apache Spark
 tutorial-id: 400
 tutorial-series: Spark
-tutorial-version: hdp-2.4.0
+tutorial-version: hdp-2.5.0-TP
 intro-page: true
 components: [ spark, hive, orc ]
 ---
@@ -25,7 +25,7 @@ Spark SQL uses the Spark engine to execute SQL queries either on data sets persi
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*   Downloaded and Installed [Hortonworks Sandbox 2.5 Tech Preview](http://hortonworks.com/tech-preview-hdp-2-5)
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ### Getting the dataset
