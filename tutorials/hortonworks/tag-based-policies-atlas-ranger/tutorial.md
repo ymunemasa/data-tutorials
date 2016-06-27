@@ -154,17 +154,21 @@ Click on `Sandbox_hive` and then `Add New Policy`:
 
 Enter following values:
 
-Policy Names - **policy for all users**
-Hive Databases - **default**
-table - **employee**
-Hive_column - **ssn, location (NOTE : Do NOT forget to exclude these columns)**
-Description - **Any description**
+~~~
+Policy Names - policy for all users
+Hive Databases - default
+table - employee
+Hive_column - ssn, location (NOTE : Do NOT forget to exclude these columns)
+Description - Any description
+~~~
 
 In the `Allow Conditions`, it should have the following values:
 
-Select Group – **blank, no input**
-Select User – **admin, maria_dev**
-Permissions – **Click on the + sign next to Add Permissions and click on select and then green tick mark.**
+~~~
+Select Group – blank, no input
+Select User – admin, maria_dev
+Permissions – Click on the + sign next to Add Permissions and click on select and then green tick mark.
+~~~
 
 ![add_permission](/assets/tag-based-policies-atlas-ranger/add_permission.png)
 
@@ -253,27 +257,33 @@ Click on `Sandbox_tag` to add a policy.
 
 Click on `Add New Policy` button.
 
+~~~
 Give following details:
-Policy Name – **PII column access policy**
-Tag – **PII**
-Description – **Any description**
-Audit logging – **Yes**
+Policy Name – PII column access policy
+Tag – PII
+Description – Any description
+Audit logging – Yes
+~~~
 
 ![pii_column_access_policy](/assets/tag-based-policies-atlas-ranger/pii_column_access_policy.png)
 
+~~~
 In the `Deny Conditions`, it should have the following values,
-Select Group – **public**
-Select User – **no input**
-Component Permission – **Hive – Select**
+Select Group – public
+Select User – no input
+Component Permission – Hive – Select
 You can select the component permission through this popup:
+~~~
 
 ![components_permission_public](/assets/tag-based-policies-atlas-ranger/components_permission_public.png)
 
+~~~
 In the `Exclude from Deny Conditions`, it should have the following values,
-Select Group – **no input**
-Select User – **admin**
-Component Permission – **Hive – Select**
+Select Group – no input
+Select User – admin
+Component Permission – Hive – Select
 You can select the component permission through this popup:
+~~~
 
 ![components_permission_public1](/assets/tag-based-policies-atlas-ranger/components_permission_public.png)
 
