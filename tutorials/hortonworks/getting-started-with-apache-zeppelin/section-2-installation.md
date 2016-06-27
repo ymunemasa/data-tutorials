@@ -3,7 +3,7 @@ layout: tutorial
 title: Getting Started with Apache Zeppelin
 tutorial-id: 368
 tutorial-series: Zeppelin
-tutorial-version: hdp-2.5.0
+tutorial-version: hdp-2.5.0-TP
 intro-page: true
 components: [ Zeppelin, Spark, Hive, LDAP, Livy ]
 ---
@@ -11,7 +11,7 @@ components: [ Zeppelin, Spark, Hive, LDAP, Livy ]
 Apache Zeppelin requires the following software:
 
 *   HDP 2.5 TP
-*   Spark 1.6.1
+*   Spark 1.6.2
 *   Git installed on the node that is running Ambari Server. (If you need to install git, run sudo yum install git.)
 *   Java 8 installed on the node where Zeppelin is installed
 
@@ -19,7 +19,7 @@ Apache Zeppelin requires the following software:
 
 **HDP Cluster Requirements**
 
-Zeppelin can be installed on any HDP 2.5 TP cluster. The following instructions assume that Spark version 1.6.1 is already installed on the HDP cluster.
+Zeppelin can be installed on any HDP 2.5 TP cluster. The following instructions assume that Spark version 1.6.2 is already installed on the HDP cluster.
 
 ### **Installing Zeppelin on an Ambari-Managed Cluster**
 
