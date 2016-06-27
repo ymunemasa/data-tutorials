@@ -25,7 +25,7 @@ Apache NiFi can collect and transport data from numerous sources and provide int
 
 | Parameter  | Value (VirtualBox)  | Value(VMware)  | Value(MS Azure)  |
 |---|---|---|---|
-| Host Name  | 127.0.0.1  | 172.16.110.129  | { Input-DNS-Name } |
+| Host Name  | 127.0.0.1  | 172.16.110.129  | 13.93.143.136 |
 | Port  | 2222  | 2222  | 22  |
 | Terminal Username  | root  | root  | {username-of-azure}  |
 | Terminal Password  | hadoop  | hadoop  | {password-of-azure}  |
@@ -93,7 +93,7 @@ ssh root@127.0.0.1 -p 2222
 For VMware and Azure users, insert the appropriate values for username, hostname and port into the SSH Definition:
 
 ~~~
-ssh <username>@<hostname>.cloudapp.net -p <port>
+ssh <username>@<hostname> -p <port>
 ~~~
 
 > Note: For VMware and Azure users, the hostname is different than VirtualBox and the **hostname** can be found on the welcome screen. Refer to Table 1 for **port** number. Username for VMware and Azure is same as VirtualBox. If you need help, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/).
@@ -170,7 +170,11 @@ mv -f storm-streaming/pom24.xml storm-streaming/pom.xml
 /root/maven/bin/mvn clean package
 ~~~
 
+> Note: Maven will take around 8 minutes to complete
+
 Apache Maven command: mvn clean deletes everying in the target folder. The storm-streaming contains a target folder that is impacted. The package phase of the command compiles the code and packages it into jar files according to the pom file.
+
+You should receive the message build success!
 
 7\. To run the simulator from the terminal or nifi, we need to change the permissions to make the generate.sh script executable. Enter the commands
 
@@ -222,6 +226,8 @@ The following instructions will guide you through the NiFi installation process.
 
 1\. Make sure to exit from sandbox shell. Type `exit`. Open a terminal on **local machine**. Download the **install-nifi.sh** file from the github repo. Copy & paste the following commands:
 
+> Note: If on Azure, you will need to exit twice. Exit root user and Azure user you created while deploying your sandbox on Azure.
+
 ~~~
 cd ~
 curl -o install-nifi.sh https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-event-processing/install-nifi.sh
@@ -252,7 +258,7 @@ bash install-nifi.sh ~/Downloads/HDF-1.2.0.1-1.tar.gz localhost 2222 1.2.0.1-1
 ### Install NiFi onto Azure Sandbox
 
 ~~~
-bash install-nifi.sh ~/Downloads/HDF-1.2.0.1-1.tar.gz sandbox4247.cloudapp.net 22 1.2.0.1-1
+bash install-nifi.sh ~/Downloads/HDF-1.2.0.1-1.tar.gz 13.93.143.136 22 1.2.0.1-1
 ~~~
 
 > Note: `sandbox4247.cloudapp.net` is the DNS name located on your azure dashboard. Make sure to change this variable before running the command above.
@@ -263,7 +269,7 @@ The script automatically installs NiFi onto your virtual machine. After successf
 
 It is time to start Apache NiFi.
 
-1\. SSH into the Hortonworks Sandbox. Note: if on Azure sandbox, change the IP address from 127.0.0.1 to your DNS name and login as root user using the password you set up for root.
+1\. SSH into the Hortonworks Sandbox. Note: if on Azure sandbox, change the IP address from 127.0.0.1 to your Public IP Address and login as root user using the password you set up for root.
 
 ~~~
 ssh root@127.0.0.1 -p 2222
@@ -364,7 +370,7 @@ If you want to view and run the dataflow from the template, follow the steps bel
 
 1\. To open the template xml in NiFi, hover over to the management toolbar and click on the template icon ![template_icon_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/template_icon_nifi_iot.png). Click on the Browse button and find the dataflow xml file that you downloaded and click open. The template should appear in your NiFi Flow Templates spreadsheet.
 
-2\. To display your dataflow template xml onto the screen, drag the template icon from the components toolbar onto the graph. The dataflow should appear as in the dataflow image above, except this dataflow will be missing the PutKafka processor. We will add it in the next lab.
+2\. To display your dataflow template xml onto the screen, drag the template icon from the components toolbar onto the graph. The dataflow should appear as in the dataflow image above, this dataflow will include the PutKafka processor. We will need to add a topic name and activate the kafka service for dataflow to send data (messages) to the kafka cluster. Let's go to **[lab1](https://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm/#section_4)** to make these configurations for Kafka.
 
 ### 5.2 Overiew of Processors in NiFi DataFlow
 
