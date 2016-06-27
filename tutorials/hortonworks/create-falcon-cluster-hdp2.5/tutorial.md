@@ -1,6 +1,6 @@
 ---
 layout: tutorial
-title: Create a Falcon Cluster
+title: Leveraging Apache Falcon with Your Hadoop Clusters
 tutorial-id: 670
 tutorial-series: Governance
 tutorial-version: hdp-2.5.0
