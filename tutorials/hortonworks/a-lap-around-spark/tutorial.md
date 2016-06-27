@@ -31,7 +31,7 @@ When you are ready to go beyond these tasks, checkout the [Apache Spark Machine 
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*   Downloaded and Installed [Hortonworks Sandbox 2.5 Tech Preview](http://hortonworks.com/tech-preview-hdp-2-5)
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 
