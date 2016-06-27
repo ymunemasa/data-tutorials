@@ -3,9 +3,9 @@ layout: tutorial
 title: Hello HDP An Introduction to Hadoop with Hive and Pig
 tutorial-id: 100
 tutorial-series: Basic Development
-tutorial-version: hdp-2.4.0
+tutorial-version: hdp-2.5.0
 intro-page: false
-components: [ ambari, hive, pig, spark, zeppelin ]
+components: [ ambari, hive, pig, spark, zeppelin, technical-preview ]
 ---
 
 # Concepts
