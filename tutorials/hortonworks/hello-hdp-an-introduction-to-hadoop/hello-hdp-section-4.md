@@ -196,7 +196,7 @@ Click on the **Load sample data** icon to generate and execute a select SQL stat
 
 ### 2.3.1 Manual Approach: Populate Hive Table with Data
 
-Let’s load some data into your two Hive tables. Populating a Hive table can be done in various ways. A simple way to populate a table is to put a file into the directory associated with the table. Using the Ambari Files User View, click on the **Move** icon next to the file `/tmp/maria_dev/data/geolocation.csv`. (Clicking on **Move** is similar to “cut” in cut-and-paste.)
+Let’s load some data into your two Hive tables. Populating a Hive table can be done in various ways. A simple way to populate a table is to put a file into the directory associated with the table. Using the Ambari Files View, click on the file's row, then click on the **Move** icon above the file `/tmp/maria_dev/data/geolocation.csv`. (Clicking on **Move** is similar to “cut” in cut-and-paste.)
 
 
 ![Screen Shot 2015-07-27 at 9.45.11 PM](/assets/hello-hdp/move_icon_files_view_lab2.png)
@@ -210,15 +210,15 @@ Let’s load some data into your two Hive tables. Populating a Hive table can be
 
 #### 2.3.1.2 Notice two things have changed:
 
-1.  The file name geolocation.csv is grayed out.
-2.  The icons associated with the operations on the files are removed. This is to indicate that this file is in a special state that is ready to be moved.
+1.  A **Move to** window appears.
+2.  The icons associated with the operations on the files are not accessible while the window is present. This is state indicates that this file is in a special state that is ready to be moved.
 
-#### 2.3.1.3 Navigate to Destination Path and Paste File
+#### 2.3.1.3 Navigate to Destination Path and Move File
 
-Now navigate to the destination path `/apps/hive/warehouse/geolocation_stage`.  You might notice that as you navigate through the directories that the file is pinned at the top.  Once you get to the appropriate directory click on the **Paste** icon to move the file:
+Now navigate to the destination path `/apps/hive/warehouse/geolocation_stage`. Click on the `apps` folder's icon to move into app's folder, repeat this process until you navigated to `geolocation_stage` folder. Click on the folder's name to set the directory path. Hence, press the **Move** button to move the file:
 
 
-![Lab2_11](/assets/hello-hdp/paste_geolocation_to_warehouse_hello_hdp_lab2.png)
+![Lab2_11](/assets/hello-hdp/move_geo_csv_to_geo_stage_lab2.png)
 
 
 #### 2.3.1.4 Load Sample Data of geolocation_stage
