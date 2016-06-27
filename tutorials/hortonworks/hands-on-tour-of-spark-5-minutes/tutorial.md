@@ -1,6 +1,6 @@
 ---
 layout: tutorial
-title: A Hnds-On Tour of Apache Spark in 5 Minutes
+title: A Hands-On Tour of Apache Spark in 5 Minutes
 tutorial-id: 360
 tutorial-series: Spark
 tutorial-version: hdp-2.5.0-TP
