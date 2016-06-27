@@ -8,7 +8,7 @@ intro-page: false
 components: [ ambari, hive, pig, spark, zeppelin ]
 ---
 
-# Lab 5: Reporting
+# Lab 5: Reporting (Optional)
 
 ## Data Visualization using Microsoft Excel
 
