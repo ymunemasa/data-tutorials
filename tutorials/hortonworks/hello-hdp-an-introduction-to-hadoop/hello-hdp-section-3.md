@@ -37,44 +37,50 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 
 A single physical machine gets saturated with its storage capacity as the data grows. This growth drives the need to partition your data across separate machines. This type of File system that manages storage of data across a network of machines is called Distributed File Systems. [HDFS](http://hortonworks.com/blog/thinking-about-the-hdfs-vs-other-storage-technologies/) is a core component of Apache Hadoop and is designed to store large files with streaming data access patterns, running on clusters of commodity hardware. With Hortonworks Data Platform HDP 2.2, HDFS is now expanded to support [heterogeneous storage](http://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)  media within the HDFS cluster.
 
-## Step 1.1: Download and Extract the Sensor Data Files <a id="step1.1"></a>
+### Step 1.1: Download and Extract the Sensor Data Files <a id="step1.1"></a>
 
-*   You can download the sample sensor data contained in a compressed (.zip) folder here:  [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
-*   Save the Geolocation.zip file to your computer, then extract the files. You should see a Geolocation folder that contains the following files:
+1\.  You can download the sample sensor data contained in a compressed (.zip) folder here:  [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
+
+2\.   Save the Geolocation.zip file to your computer, then extract the files. You should see a Geolocation folder that contains the following files:
     *   geolocation.csv – This is the collected geolocation data from the trucks. It contains **records** showing _truck location, date, time, type of event, speed, etc_.
     *   trucks.csv – This is data was exported from a relational database and it shows **info** on _truck models, driverid, truckid, and aggregated mileage info_.
 
-## Step 1.2: Load the Sensor Data into HDFS <a id="step1.2"></a>
+### Step 1.2: Load the Sensor Data into HDFS <a id="step1.2"></a>
 
-*   Go to the Ambari Dashboard and open the **HDFS Files** view. Click on the 9 square Ambari User Views icon next to the username button and select the **HDFS Files** menu item.
+1\.   Go to the Ambari Dashboard and open the **HDFS Files** view. Click on the 9 square Ambari User Views icon next to the username button and select the **HDFS Files** menu item.
 
 
 ![Screen Shot 2015-07-21 at 10.17.21 AM](/assets/hello-hdp/files_view_lab1.png)
 
 
-*   Start from the top root of the HDFS file system, you will see all the files the logged in user (_maria_dev_ in this case) has access to see:
+2\.  Start from the top root of the HDFS file system, you will see all the files the logged in user (_maria_dev_ in this case) has access to see:
 
 
 ![Lab2_2](/assets/hello-hdp/root_files_view_folder_lab1.png)
 
 
-*   Click `tmp` folder. Then click  ![Lab2_3](/assets/hello-hdp/new_folder_icon_lab1.png) button to create the `maria_dev` directory inside the `tmp` folder. Then create the `data` directory inside `maria_dev` folder. Now navigate into the `data` folder.
+3\.   Click `tmp` folder. Then click  ![Lab2_3](/assets/hello-hdp/new_folder_icon_lab1.png) button to create the `maria_dev` directory inside the `tmp` folder. Then create the `data` directory inside `maria_dev` folder. Now navigate into the `data` folder.
 
 
-![Screen Shot 2015-07-27 at 9.42.07 PM](/assets/hello-hdp/new_folder_maria_data_lab1.png)
+![new_folder_maria_data_lab1](/assets/hello-hdp/new_folder_maria_data_lab1.png)
 
 
-*   If your not already in your newly created directory path `/tmp/maria_dev/data`, go to the **data** folder. Then  click on the ![upload_icon_lab1](/assets/hello-hdp/upload_icon_lab1) button to upload the corresponding **geolocation.csv** and **trucks.csv** files into it.
+4\.   If your not already in your newly created directory path `/tmp/maria_dev/data`, go to the **data** folder. Then  click on the ![upload_icon_lab1](/assets/hello-hdp/upload_icon_lab1.png) button to upload the corresponding **geolocation.csv** and **trucks.csv** files into it.
 
+5\. An **Upload file** window will appear, click on the cloud symbol. Another window will appear and navigate to the destination the two csv files were downloaded. Click on one at a time, press open to complete the upload. Repeat the process until both files are uploaded.
 
-![Screen Shot 2015-07-27 at 9.43.28 PM](/assets/hello-hdp/uploaded_geo_files_lab1.png)
+![upload_file_window_lab1](/assets/hello-hdp/upload_file_window_lab1.png)
+
+Both files are uploaded to HDFS as shown in the Files View UI:
+
+![uploaded_geo_files_lab1](/assets/hello-hdp/uploaded_geo_files_lab1.png)
 
 
 You can also perform the following operations on a file or folder by clicking on the entity's row: **Open**, **Rename**, **Permissions**, **Delete**, **Copy**, **Move**, **Download** and **concatenate**.
 
-**IMPORTANT**
+### 1.2.1 Set Write Permissions to Write to data Folder
 
-- click on the `data` folder's row, which is contained within the directory path `/tmp/maria_dev`. Click **Permissions**. Make sure that the background of all the **write** boxes are checked (**blue**). Refer to image for a visual explanation.
+1\. click on the `data` folder's row, which is contained within the directory path `/tmp/maria_dev`. Click **Permissions**. Make sure that the background of all the **write** boxes are checked (**blue**). Refer to image for a visual explanation.
 
 
 ![Lab2_5](/assets/hello-hdp/edit_permissions_data_folder_lab1.png)
