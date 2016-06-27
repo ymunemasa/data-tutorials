@@ -158,7 +158,7 @@ With the [next generation HDFS data architecture](http://hortonworks.com/blog/hd
 Ambari Files User View
 
 
-![HDFS_3](/assets/hello-hdp/hdfs_files_user_view_maria_dev_hello_hdp.png)
+![HDFS_3](/assets/hello-hdp/hdfs_files_view_base_folder_concepts.png)
 
 
 Ambari Files User View provides a user friendly interface to upload, store and move data. Underlying all components in Hadoop is the Hadoop Distributed File System([HDFS](http://hortonworks.com/hadoop/hdfs/)™).  This is the foundation of the Hadoop cluster. The HDFS file system manages how the datasets are stored in the Hadoop cluster. It is responsible for distributing the data across the datanodes, managing replication for redundancy and administrative tasks like adding, removing and recovery of data nodes.
@@ -353,13 +353,13 @@ To make it easy to interact with Hive we use a tool in the Hortonworks Sandbox c
 Let’s now open the Ambari Hive User View and get introduced to the environment, go to the Ambari User VIew icon and select Hive :
 
 
-![Screen Shot 2016-02-17 at 7.10.18 PM](/assets/hello-hdp/hive_user_view_hello_hdp_concepts.png)
+![Screen Shot 2016-02-17 at 7.10.18 PM](/assets/hello-hdp/selector_views_concepts.png)
 
 
 Ambari Hive User View
 
 
-![Hive_6](/assets/hello-hdp/ambari_hive_user_view_interface_hello_hdp_concepts.png)
+![Hive_6](/assets/hello-hdp/ambari_hive_user_view_concepts.png)
 
 
 Now let’s take a closer look at the SQL editing capabilities in the User View:
@@ -439,13 +439,13 @@ The user can run Pig in two modes, using either the “pig” command or the “
 To get to the Ambari Pig User View on Sandbox, click on the User Views icon at top right and select **Pig**:
 
 
-![Screen Shot 2016-02-17 at 7.12.41 PM](/assets/hello-hdp/ambari_pig_user_view_hello_hdp.png)
+![Screen Shot 2016-02-17 at 7.12.41 PM](/assets/hello-hdp/ambari_pig_view_concepts.png)
 
 
 This will bring up the Ambari Pig User View interface. Your Pig View does not have any scripts to display, so it will look like the following:
 
 
-![Pig_2](/assets/hello-hdp/Pig_2.png)
+![Pig_2](/assets/hello-hdp/pig_view_scripts_list_empty_concepts.png)
 
 
 On the left is a list of your scripts, and on the right is a composition box for writing scripts. A special feature of the interface is the Pig helper at the bottom. The Pig helper will provide us with templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. At the very bottom are status areas that will show the results of our script and log files.
@@ -453,7 +453,7 @@ On the left is a list of your scripts, and on the right is a composition box for
 The following screenshot shows and describes the various components and features of the Pig User View:
 
 
-![Pig_3](/assets/hello-hdp/pig_user_view_components_hello_hdp.png)
+![Pig_3](/assets/hello-hdp/pig_view_workspace_interface_concepts.png)
 
 
 ### 4.5 Suggested Readings

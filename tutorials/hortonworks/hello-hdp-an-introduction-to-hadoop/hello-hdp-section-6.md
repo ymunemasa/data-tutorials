@@ -61,16 +61,36 @@ Let's get started!
 
 ### Step 4.1: Configure Spark services using Ambari <a id="step4.1"></a>
 
-1)  Log on to Ambari Dashboard as `maria_dev`. At the bottom left corner of the services column, check that Spark and Zeppelin are running.
+1\.  Log on to Ambari Dashboard as `admin`. At the bottom left corner of the services column, check that Spark and Zeppelin are running.
 
-**Note:** If these services are disabled, you will need to login in as an `admin` user to start all services. Refer to [Learning the Ropes of Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) for steps to gain `admin` privileges.
+**Note:** If these services are disabled, start these services.
 
 
 ![Lab4_2](/assets/hello-hdp/configure_spark_service_hello_hdp_lab4.png)
 
+2\. Now verify the Spark livy server is running:
 
-2) Open a new browser tab and type the following address to access Zeppelin:
+![verify_spark_livy_server_lab4](/assets/hello-hdp/verify_spark_livy_server_lab4.png)
 
+3\. As you can see our server is down. We need to start it before running spark jobs in Zeppelin. Click on `Livy Server`, then click on **sandbox.hortonworks.com**. Now we let's scroll down to `livy server`, press on the `Stopped` button and start the server. Press the `OK` button in the Confirmation window.
+
+![start_livy_server_lab4](/assets/hello-hdp/start_livy_server_lab4.png)
+
+Livy Server Started:
+
+![livy_server_running_lab4](/assets/hello-hdp/livy_server_running_lab4.png)
+
+### 4.1.1 There are two ways to access Zeppelin.
+
+1\. The first way, open **Zeppelin View** from Ambari views selector:
+
+![zeppelin_view_lab4](/assets/hello-hdp/zeppelin_view_lab4.png)
+
+2\. Below is an image of the welcome screen from Zeppelin View, as you can see users must login to create notebooks:
+
+![zeppelin_view_welcome_lab4](/assets/hello-hdp/zeppelin_view_welcome_lab4.png)
+
+3\. The second way is to access Zeppelin at `sandbox.hortonworks.com:9995` through its port number, as you can see both ways require users to submit login credentials:
 
 ~~~
 <hostname>:9995
@@ -79,13 +99,16 @@ Let's get started!
 
 You should see a Zeppelin Welcome Page:
 
-
-![zeppelin_welcome_page](/assets/hello-hdp/zeppelin_welcome_page_hello_hdp_lab4.png)
+![zeppelin_welcome_page](/assets/hello-hdp/zeppelin_welcome_page_lab4.png)
 
 
 Optionally, if you want to find out how to access the Spark shell to run code on Spark refer to [Appendix A](#run-spark-in-shell).
 
-3)  Create a Zeppelin Notebook
+4\. The login credentials for Zeppelin are: username = `admin` and password = `password1`. Click on the grey **Login** button at the top right corner. Add username and password, then click blue **Login** button in the Login window. The reason we are prompted for this information is because we are using livy, which adds a security component to make Zeppelin more secure. In a production environment users would all have their own login information.
+
+![zeppelin_login_window_lab4](/assets/hello-hdp/zeppelin_login_window_lab4.png)
+
+5\.  Create a Zeppelin Notebook
 
 Click on a Notebook tab at the top left and hit **Create new note**. Name your notebook `Compute Riskfactor with Spark`. By the default, the notebook will load Spark Scala API.
 
@@ -101,9 +124,10 @@ For improved Hive integration, HDP 2.4 offers [ORC file](http://hortonworks.com/
 
 #### Import sql libraries:
 
-Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code.
+Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code. We can either run the original `%spark` interpreter or the `%livy` spark interpreter to run spark code. The difference is that livy comes with more security.
 
 ~~~scala
+%spark
 import org.apache.spark.sql.hive.orc._
 import org.apache.spark.sql._
 ~~~
@@ -116,6 +140,7 @@ import org.apache.spark.sql._
 
 
 ~~~scala
+%spark
 val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 ~~~
 
@@ -153,6 +178,7 @@ Once a RDD is instantiated, you can apply a [series of operations](https://spark
 Use a simple show command to see the list of tables in Hive warehouse.
 
 ~~~scala
+%spark
 hiveContext.sql("show tables").collect.foreach(println)
 ~~~
 
@@ -168,6 +194,7 @@ You will notice that the geolocation table and the driver mileage table that we 
 We will do a simple select query to fetch data from geolocation and drivermileage tables to a spark variable. Getting data into Spark this way also allows to copy table schema to RDD.
 
 ~~~scala
+%spark
 val geolocation_temp1 = hiveContext.sql("select * from geolocation")
 ~~~
 
@@ -176,6 +203,7 @@ val geolocation_temp1 = hiveContext.sql("select * from geolocation")
 
 
 ~~~scala
+%spark
 val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
 ~~~
 
@@ -190,6 +218,7 @@ val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
 Now let’s register a temporary table and use SQL syntax to query against that table.
 
 ~~~scala
+%spark
 geolocation_temp1.registerTempTable("geolocation_temp1")
 drivermileage_temp1.registerTempTable("drivermileage_temp1")
 ~~~
@@ -200,6 +229,7 @@ drivermileage_temp1.registerTempTable("drivermileage_temp1")
 Next, we will perform an iteration and a filter operation. First, we need to filter drivers that have non-normal events associated with them and then count the number for non-normal events for each driver.
 
 ~~~scala
+%spark
 val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from geolocation_temp1 where event!='normal' group by driverid")
 ~~~
 
@@ -212,6 +242,7 @@ val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occura
 
 
 ~~~scala
+%spark
 geolocation_temp2.registerTempTable("geolocation_temp2")
 ~~~
 
@@ -222,6 +253,7 @@ geolocation_temp2.registerTempTable("geolocation_temp2")
 *   You can view the result by executing an action operation on the RDD.
 
 ~~~scala
+%spark
 geolocation_temp2.collect.foreach(println)
 ~~~
 
@@ -236,6 +268,7 @@ In this section we will perform a join operation geolocation_temp2 table has det
 *   We will join two tables on common column, which in our case is `driverid`.
 
 ~~~scala
+%spark
 val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geolocation_temp2 a,drivermileage_temp1 b where a.driverid=b.driverid")
 ~~~
 
@@ -246,6 +279,7 @@ val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geol
 *   The resulting data set will give us total miles and total non-normal events for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied to it.
 
 ~~~scala
+%spark
 joined.registerTempTable("joined")
 ~~~
 
@@ -256,6 +290,7 @@ joined.registerTempTable("joined")
 *   You can view the result by executing action operation on RDD.
 
 ~~~scala
+%spark
 joined.collect.foreach(println)
 ~~~
 
@@ -268,6 +303,7 @@ joined.collect.foreach(println)
 In this section we will associate a driver risk factor with every driver. Driver risk factor will be calculated by dividing total miles travelled by non-normal event occurrences.
 
 ~~~scala
+%spark
 val risk_factor_spark=hiveContext.sql("select driverid, occurance, totmiles, totmiles/occurance riskfactor from joined")
 ~~~
 
@@ -278,12 +314,14 @@ val risk_factor_spark=hiveContext.sql("select driverid, occurance, totmiles, tot
 *   The resulting data set will give us total miles and total non normal events and what is a risk for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied to it.
 
 ~~~scala
+%spark
 risk_factor_spark.registerTempTable("risk_factor_spark")
 ~~~
 
 *   View the results
 
 ~~~scala
+%spark
 risk_factor_spark.collect.foreach(println)
 ~~~
 
@@ -302,6 +340,7 @@ Predicate pushdown uses those indexes to determine which stripes in a file need 
 Create a table and store it as ORC. Specifying as *orc* at the end of the SQL statement below ensures that the Hive table is stored in the ORC format.
 
 ~~~scala
+%spark
 hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
 ~~~
 
@@ -317,12 +356,14 @@ Before we load the data into hive table that we created above, we will have to c
 > **Note:** For Spark 1.3.1, use
 
 ~~~scala
+%spark
 risk_factor_spark.saveAsOrcFile("risk_factor_spark")
 ~~~
 
 > **Note:** For Spark 1.4.1 and higher, use
 
 ~~~scala
+%spark
 risk_factor_spark.write.format("orc").save("risk_factor_spark")
 ~~~
 
@@ -333,6 +374,7 @@ risk_factor_spark.write.format("orc").save("risk_factor_spark")
 #### 4.5.3 Load the data into Hive table using load data command
 
 ~~~scala
+%spark
 hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 ~~~
 
@@ -344,6 +386,7 @@ hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 Execute a select query to verify your table has been successfully stored.You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
 
 ~~~scala
+%spark
 hiveContext.sql("select * from finalresults")
 ~~~
 
@@ -356,6 +399,7 @@ hiveContext.sql("select * from finalresults")
 ## Full Spark Code for Lab
 
 ~~~scala
+%spark
 import org.apache.spark.sql.hive.orc._
 import org.apache.spark.sql._
 
