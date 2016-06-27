@@ -70,7 +70,7 @@ A single physical machine gets saturated with its storage capacity as the data g
 
 5\. An **Upload file** window will appear, click on the cloud symbol.
 
-![upload_file_cloud_lab1](/assets/hello-hdp/upload_file_cloud_lab1)
+![upload_file_cloud_lab1](/assets/hello-hdp/upload_file_cloud_lab1.png)
 
 6\. Another window will appear, navigate to the destination the two csv files were downloaded. Click on one at a time, press open to complete the upload. Repeat the process until both files are uploaded.
 
