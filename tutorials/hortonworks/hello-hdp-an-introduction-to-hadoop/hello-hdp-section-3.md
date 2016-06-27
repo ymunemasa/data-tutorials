@@ -20,7 +20,7 @@ In this section, you will download the sensor data and load that into HDFS using
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*   Downloaded and Installed [Hortonworks Sandbox Tech Preview HDP 2.5](http://hortonworks.com/tech-preview-hdp-2-5/)
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *   Allow yourself around **20 minutes** to complete this tutorial.
 
