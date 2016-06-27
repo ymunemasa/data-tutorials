@@ -28,6 +28,10 @@ In this tutorial we are going walk the process of mirroring the datasets between
 - [3: Running the Job](#running-job)
 - [4: Summary](#summary)
 
+## 1. Preparing HDFS Directories <a id="preparing-hdfs-directories"></a>
+
+After creating cluster entities, let’s go back to the SSH terminal, switch the user to `root` and then to `ambari-qa`:  
+
 ~~~
 hadoop fs -mkdir /user/ambari-qa/falcon
 hadoop fs -mkdir /user/ambari-qa/falcon/mirrorSrc
@@ -115,4 +119,4 @@ After a few minutes, use the HDFS View in the Ambari console to check the `/user
 
 ## 4. Summary <a id="summary"></a>
 
-In this tutorial we walked through the process of mirroring the datasets between two cluster entities. 
+In this tutorial we walked through the process of mirroring the datasets between two cluster entities.
