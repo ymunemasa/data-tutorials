@@ -49,35 +49,35 @@ A single physical machine gets saturated with its storage capacity as the data g
 *   Go to the Ambari Dashboard and open the **HDFS Files** view. Click on the 9 square Ambari User Views icon next to the username button and select the **HDFS Files** menu item.
 
 
-![Screen Shot 2015-07-21 at 10.17.21 AM](/assets/hello-hdp/hdfs_files_view_hdp_2_4_current.png)
+![Screen Shot 2015-07-21 at 10.17.21 AM](/assets/hello-hdp/files_view_lab1.png)
 
 
 *   Start from the top root of the HDFS file system, you will see all the files the logged in user (_maria_dev_ in this case) has access to see:
 
 
-![Lab2_2](/assets/hello-hdp/hdfs_files_user_view_maria_dev_hello_hdp.png)
+![Lab2_2](/assets/hello-hdp/root_files_view_folder_lab1.png)
 
 
-*   Click **tmp** folder. Then click  ![Lab2_3](/assets/hello-hdp/Lab2_3.png) button to create the `maria_dev` directory inside the _tmp_ folder. Then create the `data` directory inside _maria_dev_ folder. Now navigate into the **data** folder.
+*   Click `tmp` folder. Then click  ![Lab2_3](/assets/hello-hdp/new_folder_icon_lab1.png) button to create the `maria_dev` directory inside the `tmp` folder. Then create the `data` directory inside `maria_dev` folder. Now navigate into the `data` folder.
 
 
-![Screen Shot 2015-07-27 at 9.42.07 PM](/assets/hello-hdp/maria_dev_create_new_dir_data_hello_hdp_lab1.png)
+![Screen Shot 2015-07-27 at 9.42.07 PM](/assets/hello-hdp/new_folder_maria_data_lab1.png)
 
 
-*   If your not already in your newly created directory path `/tmp/maria_dev/data`, go to the **data** folder. Then upload the corresponding **geolocation.csv** and **trucks.csv** files into it.
+*   If your not already in your newly created directory path `/tmp/maria_dev/data`, go to the **data** folder. Then  click on the ![upload_icon_lab1](/assets/hello-hdp/upload_icon_lab1) button to upload the corresponding **geolocation.csv** and **trucks.csv** files into it.
 
 
-![Screen Shot 2015-07-27 at 9.43.28 PM](/assets/hello-hdp/uploaded_geolocation_files_data_hello_hdp_lab1.png)
+![Screen Shot 2015-07-27 at 9.43.28 PM](/assets/hello-hdp/uploaded_geo_files_lab1.png)
 
 
-You can also perform the following operations on a file by right clicking on the file: **Download**, **Move**, **Permissions**, **Rename** and **Delete**.
+You can also perform the following operations on a file or folder by clicking on the entity's row: **Open**, **Rename**, **Permissions**, **Delete**, **Copy**, **Move**, **Download** and **concatenate**.
 
 **IMPORTANT**
 
-- Right click on the folder `data` which is contained within the directory path `/tmp/maria_dev`. Click **Permissions**. Make sure that the background of all the **write** boxes are checked (**blue**).
+- click on the `data` folder's row, which is contained within the directory path `/tmp/maria_dev`. Click **Permissions**. Make sure that the background of all the **write** boxes are checked (**blue**). Refer to image for a visual explanation.
 
 
-![Lab2_5](/assets/hello-hdp/edit_permissions_data_folder_hello_hdp_lab1.png)
+![Lab2_5](/assets/hello-hdp/edit_permissions_data_folder_lab1.png)
 
 
 ## Summary <a id="summary-lab1"></a>
@@ -86,6 +86,7 @@ Congratulations! Let’s summarize the skills and knowledge we acquired from thi
 
 ## Suggested Reading <a id="suggested-reading"></a>
 - [HDFS](http://hortonworks.com/hadoop/hdfs/)
+- [Manage Files on HDFS with Command Line](http://hortonworks.com/hadoop-tutorial/using-commandline-manage-files-hdfs/)
 - [HDFS User Guide](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html)
 - Build your HDFS Architecture Knowledge [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.0.4/hdfs_design.html)
 - [HDP OPERATIONS: HADOOP ADMINISTRATION](http://hortonworks.com/training/class/hdp-operations-hadoop-administration-fundamentals/)
