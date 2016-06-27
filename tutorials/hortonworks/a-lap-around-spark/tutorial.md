@@ -3,22 +3,21 @@ layout: tutorial
 title: A Lap Around Apache Spark
 tutorial-id: 390
 tutorial-series: Spark
-tutorial-version: hdp-2.4.0
+tutorial-version: hdp-2.5.0-TP
 intro-page: true
 components: [ spark ]
 ---
 
 ### Introduction
 
-This tutorial walks you through many of the newer features of Spark 1.6 on YARN.
+This tutorial walks you through many of the newer features of Spark 1.6.2 on YARN.
 
 With YARN, Hadoop can now support many types of data and application workloads; Spark on YARN becomes yet another workload running against the same set of hardware resources.
 
 The tutorial describes how to:
 
-* Install Spark 1.6 Tech Preview on HDP 2.3.x
 * Run Spark on YARN and run the canonical Spark examples: SparkPi and Wordcount.
-* Run Spark 1.6 on HDP 2.4.
+* Run Spark 1.6.2 on HDP 2.5 TP
 * Use the Spark DataFrame API.
 * Read/write data from Hive.
 * Use SparkSQL Thrift Server for JDBC/ODBC access.
@@ -35,64 +34,8 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 *   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
-#### Installing Spark 1.6 on HDP 2.3.x
 
-If you are running HDP 2.3.x you can install Spark 1.6 Technical Preview (TP).
-
-The Spark 1.6 TP is provided in RPM and DEB package formats. The following instructions assume RPM packaging:
-
-##### 1. Download the Spark 1.6 RPM repository:
-
-~~~ bash
-wget -nv http://private-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.3.4.1-10/hdp.repo -O /etc/yum.repos.d/HDP-TP.repo
-~~~
-
-For installing on Ubuntu use the following
-
-~~~ bash
-http://private-repo-1.hortonworks.com/HDP/ubuntu12/2.x/updates/2.3.4.1-10/hdp.list
-~~~
-
-##### 2. Install the Spark Package:
-
-Download the Spark 1.6 RPM (and pySpark, if desired) and set it up on your HDP 2.3 cluster:
-
-~~~ bash
-yum install spark_2_3_4_1_10-master -y
-~~~
-
-If you want to use pySpark, install it as follows and make sure that Python is installed on all nodes.
-
-~~~ bash
-yum install spark_2_3_4_1_10-python -y
-~~~
-
-The RPM installer will also download core Hadoop dependencies. It will create “spark” as an OS user, and it will create the `/user/spark directory` in HDFS.
-
-##### 3. Set JAVA_HOME:
-
-Make sure that you set JAVA_HOME before you launch the Spark Shell or thrift server.
-
-~~~ bash
-export JAVA_HOME=<path to JDK 1.8>
-~~~
-
-##### 4. Create hive-site in the Spark conf directory:
-
-As user root, create the file `SPARK_HOME/conf/hive-site.xml`. Edit the file to contain only the following configuration setting:
-
-~~~ xml
-<configuration>
-  <property>
-    <name>hive.metastore.uris</name>
-    <!--Make sure that <value> points to the Hive Metastore URI in your cluster -->
-    <value>thrift://sandbox.hortonworks.com:9083</value>
-    <description>URI for client to contact metastore server</description>
-  </property>
-</configuration>
-~~~
-
-##### 5. Set SPARK_HOME
+**Set SPARK_HOME**
 
 If you haven't already, make sure to set `SPARK_HOME` before proceeding:
 
@@ -159,12 +102,12 @@ Welcome to
      ____              __
     / __/__  ___ _____/ /__
    _\ \/ _ \/ _ `/ __/  '_/
-  /___/ .__/\_,_/_/ /_/\_\   version 1.6.0
+  /___/ .__/\_,_/_/ /_/\_\   version 1.6.2
      /_/
-Using Scala version 2.10.5 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_60)
+Using Scala version 2.10.5 (OpenJDK 64-Bit Server VM, Java 1.7.0_101)
 Type in expressions to have them evaluated.
 Type :help for more information.
-15/12/16 13:21:57 INFO SparkContext: Running Spark version 1.6.0
+15/12/16 13:21:57 INFO SparkContext: Running Spark version 1.6.2
 ...
 
 scala>
@@ -557,8 +500,8 @@ Connecting to jdbc:hive2://localhost:10015
 Enter username for jdbc:hive2://localhost:10015:
 Enter password for jdbc:hive2://localhost:10015:
 ...
-Connected to: Spark SQL (version 1.6.0)
-Driver: Spark Project Core (version 1.6.0.2.4.0.0-169)
+Connected to: Spark SQL (version 1.6.2)
+Driver: Spark Project Core (version 1.6.1.2.5.0.0-817)
 Transaction isolation: TRANSACTION_REPEATABLE_READ
 0: jdbc:hive2://localhost:10015>
 ~~~
@@ -620,7 +563,7 @@ Welcome to
    ____              __
   / __/__  ___ _____/ /__
  _\ \/ _ \/ _ `/ __/  '_/
-/___/ .__/\_,_/_/ /_/\_\   version  1.6.0
+/___/ .__/\_,_/_/ /_/\_\   version  1.6.2
    /_/
 
 
