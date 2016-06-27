@@ -64,10 +64,15 @@ A single physical machine gets saturated with its storage capacity as the data g
 
 ![new_folder_maria_data_lab1](/assets/hello-hdp/new_folder_maria_data_lab1.png)
 
+### 1.2.1 Upload Geo CSV Files to data Folder
 
 4\.   If your not already in your newly created directory path `/tmp/maria_dev/data`, go to the **data** folder. Then  click on the ![upload_icon_lab1](/assets/hello-hdp/upload_icon_lab1.png) button to upload the corresponding **geolocation.csv** and **trucks.csv** files into it.
 
-5\. An **Upload file** window will appear, click on the cloud symbol. Another window will appear and navigate to the destination the two csv files were downloaded. Click on one at a time, press open to complete the upload. Repeat the process until both files are uploaded.
+5\. An **Upload file** window will appear, click on the cloud symbol.
+
+![upload_file_cloud_lab1](/assets/hello-hdp/upload_file_cloud_lab1)
+
+6\. Another window will appear, navigate to the destination the two csv files were downloaded. Click on one at a time, press open to complete the upload. Repeat the process until both files are uploaded.
 
 ![upload_file_window_lab1](/assets/hello-hdp/upload_file_window_lab1.png)
 
@@ -78,7 +83,7 @@ Both files are uploaded to HDFS as shown in the Files View UI:
 
 You can also perform the following operations on a file or folder by clicking on the entity's row: **Open**, **Rename**, **Permissions**, **Delete**, **Copy**, **Move**, **Download** and **concatenate**.
 
-### 1.2.1 Set Write Permissions to Write to data Folder
+### 1.2.2 Set Write Permissions to Write to data Folder
 
 1\. click on the `data` folder's row, which is contained within the directory path `/tmp/maria_dev`. Click **Permissions**. Make sure that the background of all the **write** boxes are checked (**blue**). Refer to image for a visual explanation.
 
