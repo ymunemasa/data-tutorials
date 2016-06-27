@@ -1,9 +1,9 @@
 ---
 layout: tutorial
-title: A Hnds-On Tour of Apache Spark in 5 Minutes
+title: A Hands-On Tour of Apache Spark in 5 Minutes
 tutorial-id: 360
 tutorial-series: Spark
-tutorial-version: hdp-2.4.0
+tutorial-version: hdp-2.5.0-TP
 intro-page: true
 components: [ spark, zeppelin ]
 ---
@@ -19,7 +19,7 @@ In this tutorial, we will introduce the basic concepts of Apache Spark and the f
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*   Downloaded and Installed [Hortonworks Sandbox 2.5 Tech Preview](http://hortonworks.com/tech-preview-hdp-2-5)
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ### Concepts
@@ -41,6 +41,17 @@ Go to `http://<host IP>:9995`.
 For example, the default local **VirtualBox** address is [http://127.0.0.1:9995](http://127.0.0.1:9995) and the default local **VmWare** address is [http://172.16.148.128:9995](http://172.16.148.128:9995).
 
 **Note:** In local mode your `host IP` should be `127.0.0.1` for VirtualBox and `172.16.148.128` for VmWare, however if you are running your Sandbox in the cloud, review [Learning the Ropes](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to learn how to determine your `host IP` address.
+
+#### Login
+
+To see a list of current notebooks and create new ones you will need to login.
+
+Click **Login** button in the top right-hand corner and use the following credentials:
+
+* User: admin
+* Pass: password1
+
+#### Create Notebook
 
 Next, select **Create new note** from **Notebook** dropdown menu:
 
