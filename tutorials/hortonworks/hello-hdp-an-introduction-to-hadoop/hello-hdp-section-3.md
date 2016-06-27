@@ -97,7 +97,7 @@ Congratulations! Let’s summarize the skills and knowledge we acquired from thi
 
 ## Suggested Reading <a id="suggested-reading"></a>
 - [HDFS](http://hortonworks.com/hadoop/hdfs/)
-- [Manage Files on HDFS with Command Line](http://hortonworks.com/hadoop-tutorial/using-commandline-manage-files-hdfs/)
+- [Manage Files on HDFS with Command Line: Hands-on Tutorial](http://hortonworks.com/hadoop-tutorial/using-commandline-manage-files-hdfs/)
 - [HDFS User Guide](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html)
 - Build your HDFS Architecture Knowledge [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.0.4/hdfs_design.html)
 - [HDP OPERATIONS: HADOOP ADMINISTRATION](http://hortonworks.com/training/class/hdp-operations-hadoop-administration-fundamentals/)
