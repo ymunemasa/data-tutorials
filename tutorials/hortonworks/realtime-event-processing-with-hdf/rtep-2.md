@@ -170,6 +170,8 @@ You should see `truck_events` in the list of topics (and probably your only top
 
 ### Step 5: Create NiFi PutKafka Processor <a id="create-nifi-putkafka-lab1"></a>
 
+If you **imported the NiFi template**, the PutKafka processor is already created and you can skip the step of creating the processor. **Skip to section 5.2** to run the NiFi DataFlow.
+
 In the previous tutorial, we stored the truck event data into a file. Now we can use the [PutKafka](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi.processors.kafka.PutKafka/index.html) processor since the Kafka service is running, we have access to the "Known Broker", "Topic Name" and "Client Name." We will send the truck event contents of a FlowFile to Kafka as a message. Similar to the Kafka Producer, NiFi acts as a producer since it creates messages and publishes them to the Kafka broker for further consumption.
 
 1\. If not already open, navigate to the NiFi Web Interface at `http://127.0.0.1:6434/nifi/`. For vmware and azure, the host and port may be different.
@@ -214,13 +216,15 @@ You should obtain a similar dataflow as the following:
 
 > Note: If there is a warning symbol after updating the PutKafka, verify that the property values are correct. Check **3**. in case you need to review the values changed.
 
+### 5.2 Run the NiFi DataFlow
+
 6\. Let’s start our Hortonworks DataFlow to see a real live stream of truck event data be read from NiFi and written to a Kafka cluster. In the **actions** toolbar, hit the **start** button.
 
 ![dataflow_withKafka_running_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_withKafka_running_iot.png)
 
 > Dataflow generates data, filtering truck events from the dataflow and sending those events to kafka.
 
-### 5.2 Verify PutKafka Published Message to Kafka
+### 5.3 Verify PutKafka Published Message to Kafka
 
 After a few seconds, stop the NiFi DataFlow using the **stop** button in the **actions** toolbar.
 To verify that the PutKafka processor successfully published messages to the Kafka cluster, execute the following command to start a consumer to see the produced events:
