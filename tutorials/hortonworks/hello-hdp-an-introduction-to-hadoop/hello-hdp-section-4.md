@@ -42,7 +42,7 @@ The tutorial is a part of a series of hands on tutorials to get you started on H
 
 Hive is an SQL like query language that enables analysts familiar with SQL to run queries on large volumes of data.  Hive has three main functions: data summarization, query and analysis. Hive provides tools that enable easy data extraction, transformation and loading (ETL).
 
-## Step 2.1: Become Familiar with Ambari Hive User View <a id="use-ambari-hive-user-views"></a>
+### Step 2.1: Become Familiar with Ambari Hive User View <a id="use-ambari-hive-user-views"></a>
 
 Apache Hive presents a relational view of data in HDFS and ensures that users need not worry about where or in what format their data is stored.  Hive can display data from RCFile format, text files, ORC, JSON, parquet,  sequence files and many of other formats in a tabular view.   Through the use of SQL you can view your data as a table and create queries like you would in an RDBMS.
 
@@ -88,7 +88,15 @@ Now let’s take a closer look at the SQL editing capabilities in the User View:
 
 Take a few minutes to explore the various Hive User View features.
 
-## Step 2.2: Define a Hive Table <a id="define-a-hive-table"></a>
+### 2.1.1 Set hive.execution.engine as mr
+
+A feature we will configure before we run our hive queries is to set the hive execution engine as mepreduce. You can try tez if you like. We will use mapreduce in this tutorial.
+
+1\. Click on the gear in the sidebar referred to as number 6 in the interface above.
+
+2\. Click on the dropdown menu, choose hive.execution.engine and set the value as mr. Now we are ready to run our queries for this tutorial.
+
+### Step 2.2: Define a Hive Table <a id="define-a-hive-table"></a>
 
 Now that you are familiar with the Hive User View, let’s create the initial staging tables for the geolocation and trucks data. In this section we will learn how to use the Ambari Hive User View to create four tables: geolocaiton_stage, trucking_stage, geolocation, trucking.  First we are going to create 2 tables to stage the data in their original csv text format and then will create two more tables where we will optimize the storage with ORC. Here is a **visual representation of the Data Flow**:
 
@@ -100,7 +108,7 @@ Now that you are familiar with the Hive User View, let’s create the initial st
 
 Copy-and-paste the the following table DDL into the empty **Worksheet** of the **Query Editor** to define a new table named geolocation_stage:
 
-~~~
+~~~sql
 CREATE TABLE geolocation_stage (truckid string, driverid string, event string, latitude DOUBLE, longitude DOUBLE, city string, state string, velocity BIGINT, event_ind BIGINT, idling_ind BIGINT)
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
@@ -323,6 +331,10 @@ iii.  `hive` Starts Hive shell and now you can enter commands and SQL
 
 iv.  `quit;` Exits out of the Hive shell.
 
+What did you notice about performance after running hive queries from shell?
+
+- queries in shell run faster because hive runs the query directory in hadoop whereas in ambari hive view, the query must be accepted by a rest server before it can submitted to hadoop.
+
 
 ## Step 2.5: Explore Hive Settings as admin <a id="explore-hive-settings"></a>
 
@@ -535,7 +547,32 @@ SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 ![Lab2_35](/assets/hello-hdp/tez_graphical_view_lab2.png)
 
 
-4\. Go back to the Hive UV and save the query by clicking the **Save as ...** button.
+4\. Let's also view **Vertex Swimlane**. This feature helps with troubleshooting of TEZ jobs. As you will see in the image there is a graph for Map 1 and Reduce 2. These graphs are timelines for when events happened. Hover over red or blue line to view a event tooltip.
+
+Basic Terminology:
+
+- **Bubble** represents an event
+- **Vertex** represents the solid line, timeline of events
+
+For map1, the tooltip shows that the events vertex started and vertex initialize occur simultaneously:
+
+![tez_vertex_swimlane_map1_lab2](/assets/hello-hdp/tez_vertex_swimlane_map1_lab2.png)
+
+For Reducer 2, the tooltip shows that the events vertex started and initialize share 1 second difference on execution time.
+
+Vertex Intilize
+
+![tez_vertex_swimlane_reducer2_initial_lab2](/assets/hello-hdp/tez_vertex_swimlane_reducer2_initial_lab2.png)
+
+Vertex started
+
+![tez_vertex_swimlane_reducer2_started_lab2](/assets/hello-hdp/tez_vertex_swimlane_reducer2_started_lab2.png)
+
+When you look at the tasks started for and finished (thick line) for Map1 compared to Reducer2 in the graph, what do you notice?
+
+- Map1 starts and completes before Reducer2.
+
+5\. Go back to the Hive UV and save the query by clicking the **Save as ...** button.
 
 ### 2.6.7 Create Table truck avg_mileage From Existing trucks_mileage Data
 
