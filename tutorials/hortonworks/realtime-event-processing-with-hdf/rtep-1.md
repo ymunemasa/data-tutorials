@@ -370,7 +370,9 @@ If you want to view and run the dataflow from the template, follow the steps bel
 
 1\. To open the template xml in NiFi, hover over to the management toolbar and click on the template icon ![template_icon_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/template_icon_nifi_iot.png). Click on the Browse button and find the dataflow xml file that you downloaded and click open. The template should appear in your NiFi Flow Templates spreadsheet.
 
-2\. To display your dataflow template xml onto the screen, drag the template icon from the components toolbar onto the graph. The dataflow should appear as in the dataflow image above, this dataflow will include the PutKafka processor. We will need to add a topic name and activate the kafka service for dataflow to send data (messages) to the kafka cluster. Let's go to **[lab1](https://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm/#section_4)** to make these configurations for Kafka.
+2\. To display your dataflow template xml onto the screen, drag the template icon from the components toolbar onto the graph. The dataflow should appear as in the dataflow image above, this dataflow will include the PutKafka processor. 
+
+> Note: We will need to add a topic name and activate the kafka service for dataflow to send data (messages) to the kafka cluster. Let's go to **[lab1](https://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm/#section_4)** to make these configurations for Kafka.
 
 ### 5.2 Overiew of Processors in NiFi DataFlow
 
