@@ -576,6 +576,8 @@ When you look at the tasks started for and finished (thick line) for Map1 compar
 
 ### 2.6.7 Create Table truck avg_mileage From Existing trucks_mileage Data
 
+> Note: Verify that the `hive.execution.engine` is under `mr`.
+
 **Persist these results into a table**, this is a fairly common pattern in Hive and it is called [Create Table As Select](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-CreateTableAsSelect(CTAS)) (CTAS ).  Paste the following script into a new Worksheet, then click the **Execute** button:
 
 ~~~
