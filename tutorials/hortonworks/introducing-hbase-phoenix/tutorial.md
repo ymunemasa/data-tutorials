@@ -21,7 +21,7 @@ In this tutorial, we are going to walk you through some basic HBase shell comman
 
 ## Prerequisites
 
-- [Download Hortonworks 2.5 Sandbox Technical Preview](http://hortonworks.com/products/hortonworks-sandbox/#install)
+- [Download Hortonworks 2.5 Sandbox Technical Preview](http://hortonworks.com/tech-preview-hdp-2-5/)
 - Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
 
 ## Outline
@@ -63,7 +63,7 @@ Started by logging into Ambari as an admin user. From the Dashboard page of Amba
 
 From the HBase page, click on Service Actions -> `Start`
 
-![starthbaseService](/assets/introducing-hbase-phoenix/start_hbase_service.png)
+![starthbaseService](/assets/introducing-hbase-phoenix/start_hbase_service_iot.png)
 
 Check the box and click on Confirm Start:
 
@@ -143,20 +143,15 @@ Type `describe 'driver_dangerous_event'`  to see the description of the table.
 
 ## 5. Data Manipulation Commands in HBase <a id="dml-hbase"></a>
 
-Let’s import some data into the table which you created. Download [data.csv](https://hortonworks.box.com/shared/static/skoajxa1or0h716cn9hsv6hhso05xboj.csv) which is the collected data from the events. It contains records like driverId, truckId, eventTime, eventType, location, etc.
+Let’s import some data into the table which you created. The file data.csv is the collected data from the events. It contains records like driverId, truckId, eventTime, eventType, location, etc.
 
-Open a new terminal and change to the directory where you have downloaded csv file. Let’s put the **data.csv** file in HDFS, you may **SCP** it first to the cluster by using the following command:
-
-~~~
-scp -P 2222 data.csv root@127.0.0.1:~
-~~~
-
-![scp_data_csv](/assets/introducing-hbase-phoenix/scp_data_csv.png)
-
-Now let’s do ssh into the sandbox and copy the **data.csv** file to the HDFS folder.
+Open a new terminal and ssh into the Sandbox. Download the data.csv file and let’s copy the file in HDFS,
 
 ~~~
 ssh root@127.0.0.1 -p 2222
+
+curl -o data.csv https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/data.csv
+
 hadoop fs -copyFromLocal data.csv /tmp
 ~~~
 
