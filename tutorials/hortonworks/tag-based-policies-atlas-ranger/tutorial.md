@@ -83,7 +83,7 @@ Go to Hive view from menu icon, and type the following create table query:
 ~~~
 create table employee (ssn string, name string, location string)
 row format delimited
-fields terminated by ‘,’
+fields terminated by ','
 stored as textfile;
 ~~~
 
@@ -118,6 +118,7 @@ And put following data:
 333-333-333,Robert,Fremont
 ~~~
 
+Exit the vi shell by typing Esc-->wq!
 Now copy this file to HDFS where employee table data is being stored.
 
 ~~~
