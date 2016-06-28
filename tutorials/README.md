@@ -2,12 +2,14 @@
 
 Tutorials below in Section 1 are working and the ones in Section 2 don’t work.
 
-## Outline
+## Outline 
 
-- Section 1: Tutorials with no bugs
-- Section 2: Tutorials with bugs
+- Getting Started with HDP
+- Apache Atlas & Apache Ranger Integration
+- Apache Spark & Apache Zeppelin
+- Apache HBase & Apache Phoenix
+- Data Pipelining with Apache Falcon
 
-## Section 1: Tutorials with no bugs
 
 ## Getting Started with HDP
 
@@ -96,21 +98,3 @@ These tutorials work with HDP 2.4 but given the major Falcon UI change these wil
 [Create a Falcon Cluster](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/create-falcon-cluster-hdp2.5/tutorial.md)
 
 [Mirroring datasets between Hadoop Clusters via Apache Falcon](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/mirroring-datasets-using-falcon-hdp2.5/tutorial.md)
-
-
-## Section 2: Tutorials with bugs
-
-## Realtime Event Processing with NiFi, Kafka, Storm
-
-The URL has the 2.4 version, we are in the process of making the tutorial HDP 2.5 compatible. We are currently solving bug issues. 
-
-[View Real-Time Event Processing Tutorial](https://github.com/hortonworks/tutorials/tree/hdp/tutorials/hortonworks/realtime-event-processing-with-hdf)
-
-View the new Storm UI from HDP 2.5 with truck event data below:
-
-![storm_topology_visualization_tp_iot](/assets/storm_topology_visualization_tp_iot.png)
-
-Coverage: NiFi, Kafka, Storm, Hive, Hbase
-
-This tutorial will be enhanced to use the new Ambari Storm View.  The Hbase db will be used to build out the Spark Hbase Connector tutorial.
-
