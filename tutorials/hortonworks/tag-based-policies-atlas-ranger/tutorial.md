@@ -305,11 +305,7 @@ The Ranger tag based policy is now enabled for **admin** user. You can test it b
 
 ![admin_access_successful](/assets/tag-based-policies-atlas-ranger/admin_access_successful.png)
 
-The query executes successfully. The query can be checked in the Ranger audit log which will show the access granted and associated policy which granted access.
-
-![audit_access_events](/assets/tag-based-policies-atlas-ranger/audit_access_events.png)
-
-> **NOTE**: There are 2 policies which provided access to admin user, one is a tag based policy and the other is hive resource based policy. The associated tags (PII) is also denoted in the tags column in the audit record).
+The query executes successfully. 
 
 ## 5. Summary <a id="summary"></a>
 
