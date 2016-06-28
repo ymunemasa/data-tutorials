@@ -5,7 +5,7 @@ tutorial-id: 670
 tutorial-series: Governance
 tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ falcon, ambari ]
+components: [ falcon, ambari, technical-preview]
 ---
 
 ## Introduction

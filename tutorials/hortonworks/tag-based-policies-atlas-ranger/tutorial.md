@@ -5,7 +5,7 @@ tutorial-id: 660
 tutorial-series: Security and Governance
 tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ atlas, ranger ]
+components: [ atlas, ranger, technical-preview ]
 ---
 
 ## Introduction

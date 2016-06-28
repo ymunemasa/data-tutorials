@@ -5,7 +5,7 @@ tutorial-id: 650
 tutorial-series: Hello World
 tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ hbase, phoenix, ambari ]
+components: [ hbase, phoenix, ambari, technical-preview ]
 ---
 
 ## Introduction
