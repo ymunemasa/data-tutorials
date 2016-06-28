@@ -46,7 +46,7 @@ Coverage: Atlas, Ranger
 **Description**
 
 Apache Spark is a fast, in-memory data processing engine with elegant and expressive development APIs to allow data workers to efficiently execute streaming, machine learning or SQL workloads that require fast iterative access to datasets. 
-
+ 
 These tutorials will provide you an introduction to using Apache Spark in Apache Zeppelin notebooks.  You will also learn to use the new Apache Spark HBase connector inside an Apache Zeppelin notebook.
 
 ![zeppelin_login_lab4](/assets/hello-hdp/zeppelin_login_lab4.png)
@@ -97,7 +97,6 @@ These tutorials work with HDP 2.4 but given the major Falcon UI change these wil
 
 [Mirroring datasets between Hadoop Clusters via Apache Falcon](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/mirroring-datasets-using-falcon-hdp2.5/tutorial.md)
 
-[Define and Process Data pipelines using Apache Falcon](https://docs.google.com/document/d/1_AWwAcohpRwfd6fiq2C6ikVmHNcZ8Ol0AcRgh9hc1oA/edit)
 
 ## Section 2: Tutorials with bugs
 
