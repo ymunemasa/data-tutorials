@@ -42,6 +42,8 @@ Apache Spark is a fast, in-memory data processing engine with elegant and expres
 
 These tutorials will provide you an introduction to using Apache Spark in Apache Zeppelin notebooks.  You will also learn to use the new Apache Spark HBase connector inside an Apache Zeppelin notebook.
 
+![zeppelin_login_lab4](/assets/hello-hdp/zeppelin_login_lab4.png)
+
 There are 6 tutorials (2 new) 
 
 - (**New!**) [Spark HBase - A DataFrame Based Connector](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/spark-hbase-a-dataframe-based-hbase-connector/tutorial.md)
