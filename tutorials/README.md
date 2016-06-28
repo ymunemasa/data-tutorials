@@ -78,7 +78,7 @@ Coverage: Spark RDD, ORC
 
 Apache HBase is an open source NoSQL database that provides real-time read/write access to those large datasets.  Learn how to use the new Apache HBase backup and restore features.
 
-[View HBase & Phoenix Tutorial](https://github.com/hortonworks/tutorials-future/blob/master/tutorials/hortonworks/introducing-hbase-phoenix/tutorial.md)
+[View HBase & Phoenix Tutorial](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/introducing-hbase-phoenix/tutorial.md)
 
 The new "Introduction to Hbase Concepts and Apache Phoenix" tutorial where some parts are still pending.  This will be leveraging the same Hbase tables from the IOT tutorial and will break it out into its own series.   This will also add the Backup and Restore labs (new feature in HDP 2.5) and the Spark Hbase Connector(new feature HDP 2.5).
 
@@ -93,9 +93,9 @@ Learn how to use the update Apache Falcon to create data pipelines and mirror da
 
 These tutorials work with HDP 2.4 but given the major Falcon UI change these will need a lot updates.
 
-[Create a Falcon Cluster](https://github.com/hortonworks/tutorials-future/blob/master/tutorials/hortonworks/create-falcon-cluster-hdp2.5/tutorial.md)
+[Create a Falcon Cluster](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/create-falcon-cluster-hdp2.5/tutorial.md)
 
-[Mirroring datasets between Hadoop Clusters via Apache Falcon](https://github.com/hortonworks/tutorials-future/tree/master/tutorials/hortonworks/mirroring-datasets-using-falcon-hdp2.5/tutorial.md)
+[Mirroring datasets between Hadoop Clusters via Apache Falcon](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/mirroring-datasets-using-falcon-hdp2.5/tutorial.md)
 
 [Define and Process Data pipelines using Apache Falcon](https://docs.google.com/document/d/1_AWwAcohpRwfd6fiq2C6ikVmHNcZ8Ol0AcRgh9hc1oA/edit)
 
