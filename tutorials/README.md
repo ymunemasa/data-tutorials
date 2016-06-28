@@ -4,8 +4,8 @@ Tutorials below in Section 1 are working and the ones in Section 2 don’t work.
 
 ## Outline
 
-Section 1: Tutorials with no bugs
-Section 2: Tutorials with bugs
+- Section 1: Tutorials with no bugs
+- Section 2: Tutorials with bugs
 
 ## Section 1: Tutorials with no bugs
 
