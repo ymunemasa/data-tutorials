@@ -82,6 +82,8 @@ The new "Introduction to Hbase Concepts and Apache Phoenix" tutorial where some 
 Apache Falcon centrally manages the data lifecycle, facilitate quick data replication for business continuity and disaster recovery and provides a foundation for audit and compliance by tracking entity lineage and collection of audit logs.
 Learn how to use the update Apache Falcon to create data pipelines and mirror data sets.
 
+![falcon_new_ui](/assets/create-falcon-cluster-hdp2.5/tutorial_image.png)
+
 These tutorials work with HDP 2.4 but given the major Falcon UI change these will need a lot updates.
 
 [Create a Falcon Cluster](https://github.com/hortonworks/tutorials-future/blob/master/tutorials/hortonworks/create-falcon-cluster-hdp2.5/tutorial.md)
