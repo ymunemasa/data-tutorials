@@ -28,7 +28,7 @@ Hortonworks has recently announced the integration of Apache Atlas and Apache Ra
 
 This tutorial walks through an example of tagging data in Atlas and building a security policy in Ranger.
 
-![View Atlas & Ranger Integration Tutorial](https://github.com/hortonworks/tutorials-future/blob/master/tutorials/hortonworks/tag-based-policies-atlas-ranger/tutorial.md)
+[View Atlas & Ranger Integration Tutorial](https://github.com/hortonworks/tutorials-future/blob/master/tutorials/hortonworks/tag-based-policies-atlas-ranger/tutorial.md)
 
 ![Tag Based Policies](/assets/tag-based-policies-atlas-ranger/deny_conditions.png)
 
