@@ -1,48 +1,90 @@
-# Hortonworks Tutorials
+# Hortonworks HDP 2.5 Technical Preview Tutorials
 
-The tutorials that are currently working with HDP 2.4:
+Tutorials below in Section 1 are working and the ones in Section 2 don’t work.
 
-- [A Lap Around Spark with HDP 2.4](hortonworks/a-lap-around-spark/)
-- [A Short Primer On Scala](hortonworks/a-short-primer-on-scala/)
-- [How to Analyze Server Log Data](hortonworks/analyze-server-log-data/)
-- [How to Analyze Social Media Sentiment Data with NiFi and HDP](hortonworks/analyzing-social-media-sentiment-data/)
-- [Configuring the YARN Capacity Scheduler](hortonworks/configuring-yarn-capacity-scheduler/)
-- [Define and Process Data Pipelines with Falcon](hortonworks/define-and-process-data-pipelines-with-falcon/)
-- [Deploying Hortonworks Sandbox on Microsoft Azure](hortonworks/deploying-hortonworks-sandbox-on-microsoft-azure/)
-- [Faster Pig with Tez](hortonworks/faster-pig-with-tez/)
-- [A Hands on Tour of Spark in 5 minutes](hortonworks/hands-on-tour-of-spark-5-minutes/)
-- [Basic Pig and Hive Commands](hortonworks/hcatalog-basic-pig-and-hive-commands/)
-- [Hello HDP: An Introduction to Hadoop](hortonworks/hello-hdp-an-introduction-to-hadoop/)
-- [How to Analyze Machine and Sensor Data in Hadoop](hortonworks/how-to-analyze-machine-and-sensor-data/)
-- [How to Load data into the Hortonworks Sandbox](hortonworks/how-to-load-data-into-hortonworks-sandbox/)
-- [How to Process Data with Apache Hive](hortonworks/how-to-process-data-with-apache-hive/)
-- [How to Process Data with Apache Pig](hortonworks/how-to-process-data-with-apache-pig/)
-- [How to Use Basic Pig Commands](hortonworks/how-to-use-basic-pig-commands/)
-- [Incremental Backup using HDP on Azure and Apache Falcon](hortonworks/incremental-backup-using-hdp-azure-and-falcon/)
-- [Indexing Search Text in Images with Solr](hortonworks/indexing-and-search-text-in-images-with-solr/)
-- [Interacting With Data using Zeppelin and Spark](hortonworks/interacting-with-data-using-zeppelin-and-spark/)
-- [Interactive Queries for Hadoop with Apache Hive on Tez](hortonworks/interactive-queries-for-hadoop-with-apache-hive-on-apache-tez/)
-- [Introducing Apache Hadoop to Java Developers](hortonworks/introducing-apache-hadoop-to-java-developers/)
-- [IPython Notebook with Spark](hortonworks/ipython-notebook-with-spark/)
-- [Learning the Ropes of the Hortonworks Sandbox](hortonworks/learning-the-ropes-of-the-hortonworks-sandbox/)
-- [Using Apache ORC Files with Spark](hortonworks/orc-with-spark/)
-- [Processing Streaming Data in Hadoop with Storm](hortonworks/processing-streaming-data-in-hadoop-with-storm/)
-- [Realtime Event Processing with Hadoop](hortonworks/realtime-event-processing-with-hadoop/)
-- [How to Search Data with Solr](hortonworks/search-data-with-solr/)
-- [Securing Hadoop Infrastructure with Apache Knox](hortonworks/securing-hadoop-infrastructure-with-apache-knox/)
-- [Securing HDFS, Hive, and HBase with Knox and Ranger](hortonworks/securing-hdfs-hive-and-hbase-with-knox-and-ranger/)
-- [Using Ambari to add new Hosts to your Cluster](hortonworks/use-ambari-to-add-new-hosts/)
-- [Using the Command Line to Manage Files on HDFS](hortonworks/using-the-command-line-to-manage-files-on-hdfs/)
-- [Analyzing and Visualizing Website Clickstream Data](hortonworks/visualizing-website-clickstream-data/)
+## Getting Started with HDP
 
-# Partner Tutorials
+**Description**
 
-Below is a list of tutorials from our Partners
+Begin your Apache Hadoop journey with this tutorial aimed for users with limited experience in using the Sandbox.
+Explore Sandbox on virtual machine and cloud environments and learn to navigate the Apache Ambari user interface.
 
-- [Cascading - 1](partners/get-started-with-cascading-1/)
-- [Cascading - 2](partners/get-started-with-cascading-2/)
-- [Making Data Tick with Tableau](partners/make-data-tick-with-tableau/)
+This tutorial provides a section that describes the key concepts and series of tutorials where you move data into HDFS, 
+explore the data with SQL in Apache Hive, do transformations with Apache Pig or Apache Spark and at the end generate a 
+report with Apache Zeppelin.
+
+[View Hello HDP Tutorial](https://github.com/hortonworks/tutorials/tree/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop)
+
+![tez_vertex_swimlane](/assets/hello-hdp/tez_vertex_swimlane_map1_lab2.png)
+
+Coverage: Ambari, Ambari Views(Hive, Pig), Hive, Pig, Spark, Zeppelin
 
 
+## Apache Atlas & Apache Ranger Integration
 
+**Description**
+
+Hortonworks has recently announced the integration of Apache Atlas and Apache Ranger, and introduced the concept of tag or classification based policies. Enterprises can classify data in Apache Atlas and use the classification to build security policies in Apache Ranger.
+
+This tutorial walks through an example of tagging data in Atlas and building a security policy in Ranger.
+
+![View Atlas & Ranger Integration Tutorial](https://github.com/hortonworks/tutorials-future/blob/master/tutorials/hortonworks/tag-based-policies-atlas-ranger/tutorial.md)
+
+![Tag Based Policies](/assets/tag-based-policies-atlas-ranger/deny_conditions.png)
+
+Coverage: Atlas, Ranger
+
+## Apache Spark & Apache Zeppelin
+
+**Description**
+
+Apache Spark is a fast, in-memory data processing engine with elegant and expressive development APIs to allow data workers to efficiently execute streaming, machine learning or SQL workloads that require fast iterative access to datasets. 
+
+These tutorials will provide you an introduction to using Apache Spark in Apache Zeppelin notebooks.  You will also learn to use the new Apache Spark HBase connector inside an Apache Zeppelin notebook.
+
+There are 6 tutorials (2 new) 
+
+- (**New!**) [Spark HBase - A DataFrame Based Connector](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/spark-hbase-a-dataframe-based-hbase-connector/tutorial.md)
+Coverage: Spark with Hortonworks HBase Connector in Zeppelin
+
+
+- (**New!**) [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/tree/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin)
+Coverage: Zeppelin
+
+-  [Hands-on Tour of Apache Spark in 5 Minutes](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hands-on-tour-of-spark-5-minutes/tutorial.md)
+Coverage: Spark w Python, Zeppelin
+
+-  [A Lap Around Apache Spark](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/a-lap-around-spark/tutorial.md)
+Coverage: Uses a lot of Spark features but no Zeppelin
+
+-  [Interacting with Data on HDP using Apache Zeppelin and Apache Spark](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/interacting-with-data-using-zeppelin-and-spark/tutorial.md)
+Coverage: Spark w Scala, Zeppelin
+
+-  [Using Hive with ORC from Apache Spark](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/orc-with-spark/tutorial.md)
+Coverage: Spark RDD, ORC
+
+## Apache HBase & Apache Phoenix
+
+**Description**
+
+Apache HBase is an open source NoSQL database that provides real-time read/write access to those large datasets.  Learn how to use the new Apache HBase backup and restore features.
+
+[View HBase & Phoenix Tutorial](https://github.com/hortonworks/tutorials-future/blob/master/tutorials/hortonworks/introducing-hbase-phoenix/tutorial.md)
+
+The new "Introduction to Hbase Concepts and Apache Phoenix" tutorial where some parts are still pending.  This will be leveraging the same Hbase tables from the IOT tutorial and will break it out into its own series.   This will also add the Backup and Restore labs (new feature in HDP 2.5) and the Spark Hbase Connector(new feature HDP 2.5).
+
+## Data Pipelining with Apache Falcon
+
+**Description**
+
+Apache Falcon centrally manages the data lifecycle, facilitate quick data replication for business continuity and disaster recovery and provides a foundation for audit and compliance by tracking entity lineage and collection of audit logs.
+Learn how to use the update Apache Falcon to create data pipelines and mirror data sets.
+
+These tutorials work with HDP 2.4 but given the major Falcon UI change these will need a lot updates.
+
+[Create a Falcon Cluster](https://github.com/hortonworks/tutorials-future/blob/master/tutorials/hortonworks/create-falcon-cluster-hdp2.5/tutorial.md)
+
+[Mirroring datasets between Hadoop Clusters via Apache Falcon](https://github.com/hortonworks/tutorials-future/tree/master/tutorials/hortonworks/mirroring-datasets-using-falcon-hdp2.5/tutorial.md)
+
+[Define and Process Data pipelines using Apache Falcon](https://docs.google.com/document/d/1_AWwAcohpRwfd6fiq2C6ikVmHNcZ8Ol0AcRgh9hc1oA/edit)
 
