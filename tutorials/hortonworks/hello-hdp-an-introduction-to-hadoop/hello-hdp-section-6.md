@@ -70,7 +70,7 @@ Let's get started!
 
 ### For HDP 2.5 Sandbox Users Activate Livy Server
 
-Livy Server is a new feature added to the latest Sandbox HDP Platform and it adds extra security while running our spark jobs from Zeppelin Notebook. For this lab, users that have HDP 2.5 Sandbox can use Livy. 
+Livy Server is a new feature added to the latest Sandbox HDP Platform and it adds extra security while running our spark jobs from Zeppelin Notebook. For this lab, users that have HDP 2.5 Sandbox can use Livy.
 
 2\. Now verify the Spark livy server is running:
 
@@ -128,7 +128,7 @@ For improved Hive integration, HDP 2.4 offers [ORC file](http://hortonworks.com/
 
 #### Import sql libraries:
 
-Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code. We can either run the original `%spark` interpreter or the `%livy` spark interpreter to run spark code. The difference is that livy comes with more security.
+Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code. We can either run the original `%spark` interpreter or the `%livy` spark interpreter to run spark code. The difference is that livy comes with more security. The default interpreter for spark jobs is `%spark`.
 
 ~~~scala
 %spark
