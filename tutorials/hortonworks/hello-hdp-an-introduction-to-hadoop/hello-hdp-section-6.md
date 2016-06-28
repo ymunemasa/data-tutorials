@@ -68,6 +68,10 @@ Let's get started!
 
 ![Lab4_2](/assets/hello-hdp/configure_spark_service_hello_hdp_lab4.png)
 
+### For HDP 2.5 Sandbox Users Activate Livy Server
+
+Livy Server is a new feature added to the latest Sandbox HDP Platform and it adds extra security while running our spark jobs from Zeppelin Notebook. For this lab, users that have HDP 2.5 Sandbox can use Livy. 
+
 2\. Now verify the Spark livy server is running:
 
 ![verify_spark_livy_server_lab4](/assets/hello-hdp/verify_spark_livy_server_lab4.png)
