@@ -80,7 +80,7 @@ When we learned the process of building a dataflow, we crossed paths with many o
 **Table 1**: NiFi Core Concepts
 
 | NiFi Term  | Description  |
-|---|---|
+|:---|---:|
 | FlowFile  | Data brought into NiFi that moves through the system. This data holds attributes and can contain content. |
 | [Processor](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/processor_anatomy.html)  | Tool that pulls data from external sources, performs actions on attributes and content of FlowFiles and publishes data to external source. |
 | Connection  | Linkage between processors that contain a queue and relationship(s) that effect where data is routed. |
