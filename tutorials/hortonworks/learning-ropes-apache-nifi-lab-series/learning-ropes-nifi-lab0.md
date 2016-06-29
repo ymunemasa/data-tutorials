@@ -61,7 +61,7 @@ If you plan to install HDF on Hortonworks Sandbox, review the table, and proceed
 **Table 1: Hortonworks Sandbox VM Information**
 
 | Parameter  | Value (VirtualBox)  | Value(VMware)  | Value(MS Azure)  |
-|---|---|---|---|
+|:---|:---:|:---:|---:|
 | Host Name  | 127.0.0.1  | 172.16.110.129  | 23.99.9.233  |
 | Port  | 2222  | 2222  | 22  |
 | Terminal Username  | root  | root  | {username-of-azure}  |
@@ -222,7 +222,7 @@ Now that the configuration in the nifi.properties file is updated, port forward 
 Click the button that says **Port Forwarding**. Overwrite NiFi entry with the following values:
 
 | Name  | Protocol  | Host IP  | Host Port  | Guest IP  | Guest Port  |
-|---|---|---|---|---|---|
+|:---|:---:|:---:|:---:|:---:|---:|
 | NiFi  | TCP  | 127.0.0.1  | 6434  |   | 6434  |
 
 ![port_forward_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/port_forward_nifi_iot.png)
