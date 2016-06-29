@@ -27,9 +27,9 @@ The following illustrates the basic procedure on how to use the connector. For m
 
 For this example, we have prepared and written a fully functional Zeppelin notebook example: "Spark HBase - A DataFrame Based Connector."
 
-You can preview it [here](https://www.zeppelinhub.com/viewer/notebooks/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2hvcnRvbndvcmtzLWdhbGxlcnkvemVwcGVsaW4tbm90ZWJvb2tzL21hc3Rlci8yQlJaQ0FNNEUvbm90ZS5qc29u).
+You can preview it [here](https://www.zeppelinhub.com/viewer/notebooks/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2hvcnRvbndvcmtzLWdhbGxlcnkvemVwcGVsaW4tbm90ZWJvb2tzL2hkcC0yLjUvMkJSWkNBTTRFL25vdGUuanNvbg).
 
-If the notebook is not already in your private notebook space, you can download and import the json notebook file from [here](https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/master/2BRZCAM4E/note.json).
+If the notebook is not already in your private notebook space, you can download and import the json notebook file from [here](https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.5/2BRZCAM4E/note.json).
 
 If you are new to the Zeppelin environment on HDP 2.5 TP, checkout [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/section-3a-getting-started.md).
 
