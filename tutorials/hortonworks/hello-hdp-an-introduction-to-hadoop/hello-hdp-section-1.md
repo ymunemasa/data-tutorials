@@ -76,7 +76,7 @@ The goal of this tutorial is that you get familiar with the basics of following:
 3.  Tutorial Overview
 4.  Goals of the Tutorial (outcomes)
 5.  Hadoop Data Platform Concepts (New to Hadoop or HDP- Refer following)
-    1.  [Apache Hadoop and HDP](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_2) (5 Pillars)
+    1.  [Apache Hadoop and HDP](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-2.md) (5 Pillars)
     2.  [Apache Hadoop Distributed File System (HDFS)](http://hortonworks.com/hadoop/hdfs/)
     3.  [Apache YARN](http://hortonworks.com/hadoop/yarn/)
     4.  [Apache MapReduce](http://hortonworks.com/hadoop/mapreduce/)
