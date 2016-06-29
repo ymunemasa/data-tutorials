@@ -69,7 +69,7 @@ Apache Kafka supports a wide range of use cases as a general-purpose messaging s
 Some of the important characteristics that make Kafka such an attractive option for these use cases include the following:
 
 | Feature | Description |
-|---------|-------------|
+|:---------|-------------:|
 | Scalability | Distributed messaging system scales easily with no downtime |
 | Durability | Persists messages on disk, and provides intra-cluster replication |
 | Reliability | Replicates data, supports multiple consumers, and automatically balances consumers in case of failure |
@@ -122,7 +122,7 @@ Here are some typical "prevent" and "optimize" use cases for Storm.
 
 
 |---|"Prevent" Use Cases| "Optimize" Use Cases |
-|---|-------------------|----------------------|
+|:---|:-------------------:|----------------------:|
 | Financial Services | Securities fraud, Operational risks & compliance violations | Order routing, Pricing |
 | Telecom | Security breaches, Network outages | Bandwidth allocation, Customer service |
 | Retail | Shrinkage, Stock outs | Offers, Pricing |

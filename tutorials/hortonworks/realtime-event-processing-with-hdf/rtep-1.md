@@ -24,7 +24,7 @@ Apache NiFi can collect and transport data from numerous sources and provide int
 **Table 1: Virtual Machine Information** <a id="table1-virtual-machine-information"></a>
 
 | Parameter  | Value (VirtualBox)  | Value(VMware)  | Value(MS Azure)  |
-|---|---|---|---|
+|:---|:---:|:---:|---:|
 | Host Name  | 127.0.0.1  | 172.16.110.129  | 13.93.143.136 |
 | Port  | 2222  | 2222  | 22  |
 | Terminal Username  | root  | root  | {username-of-azure}  |
@@ -318,7 +318,7 @@ Now that the configuration in the nifi.properties file has been updated, we need
 Click the button that says **Port Forwarding**. Overwrite NiFi entry with the following values:
 
 | Name  | Protocol  | Host IP  | Host Port  | Guest IP  | Guest Port  |
-|---|---|---|---|---|---|
+|:---|:---:|:---:|:---:|:---:|---:|
 | NiFi  | TCP  | 127.0.0.1  | 6434  |   | 6434  |
 
 ![port_forward_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/port_forward_nifi_iot.png)
@@ -370,7 +370,7 @@ If you want to view and run the dataflow from the template, follow the steps bel
 
 1\. To open the template xml in NiFi, hover over to the management toolbar and click on the template icon ![template_icon_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/template_icon_nifi_iot.png). Click on the Browse button and find the dataflow xml file that you downloaded and click open. The template should appear in your NiFi Flow Templates spreadsheet.
 
-2\. To display your dataflow template xml onto the screen, drag the template icon from the components toolbar onto the graph. The dataflow should appear as in the dataflow image above, this dataflow will include the PutKafka processor. 
+2\. To display your dataflow template xml onto the screen, drag the template icon from the components toolbar onto the graph. The dataflow should appear as in the dataflow image above, this dataflow will include the PutKafka processor.
 
 > Note: We will need to add a topic name and activate the kafka service for dataflow to send data (messages) to the kafka cluster. Let's go to **[lab1](https://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm/#section_4)** to make these configurations for Kafka.
 
@@ -418,10 +418,10 @@ If you would like to read more about configuring and connecting processors, refe
 **Table 1:** Update ExecuteProcess Property Values
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | **Command**  | **sh**  |
-| Command Arguments  | `/root/iot-truck-streaming/stream-simulator/generate.sh`  |
-| Batch Duration  | 10 sec  |
+| `Command Arguments`  | `/root/iot-truck-streaming/stream-simulator/generate.sh`  |
+| `Batch Duration`  | `10 sec`  |
 
 **Command** instructs processor on what type of command to run
 **Command Arguments** inform processor which particular directory to look for script files
@@ -442,9 +442,9 @@ If you would like to read more about configuring and connecting processors, refe
 **Table 2:** Update SplitText Property Values
 
 | Property  | Value  |
-|---|---|
-| **Line Split Count**  | **1**  |
-| **Remove Trailing Newlines**  | **false**  |
+|:---|---:|
+| `Line Split Count`  | `1`  |
+| `Remove Trailing Newlines`  | `false`  |
 
 **Line Split Count** adds 1 line to each split FlowFile
 **Remove Trailing Newlines** controls whether newlines are removed at the end of each split file. With the value set to false, newlines are not removed.
@@ -464,8 +464,8 @@ If you would like to read more about configuring and connecting processors, refe
 **Table 3:** Update UpdateAttribute Property Value
 
 | Property  | Value  |
-|---|---|
-| filename  | `{UUID()}`  |
+|:---|---:|
+| `filename`  | `{UUID()}`  |
 
 **filename** uses NiFi Expression language to assign each FlowFile a unique name
 
@@ -482,9 +482,9 @@ If you would like to read more about configuring and connecting processors, refe
 **Table 4:** Update RouteOnContent Property Values
 
 | Property  | Value  |
-|---|---|
-| **Match Requirement**  | `content must contain match`  |
-| search_for_truck_event_data  | `(Normal)|(Overspeed)|(Lane Departure)|(Unsafe tail distance)|(Unsafe following distance)`  |
+|:---|---:|
+| `Match Requirement`  | `content must contain match`  |
+| `search_for_truck_event_data`  | `(Normal)|(Overspeed)|(Lane Departure)|(Unsafe tail distance)|(Unsafe following distance)`  |
 
 **Match Requirements** specifies condition for FlowFile to be transferred to next processor
 **search_for_truck_event_data** is Regex Expression that searches each FlowFile for the truck event keywords
@@ -504,9 +504,9 @@ If you would like to read more about configuring and connecting processors, refe
 **Table 5:** Update MergeContent(truck_events) Property Values
 
 | Property  | Value  |
-|---|---|
-| **Minimum Number of Entries**  | **50**  |
-| Maximum Number of Entries  | 70  |
+|:---|---:|
+| `Minimum Number of Entries`  | `50`  |
+| `Maximum Number of Entries`  | `70`  |
 
 **Minimum Number of Entries** specifies minimum amount of FlowFiles to gather at the queue before FlowFiles merge together
 **Maximum Number of Entries** specifies maximum amount of FlowFiles to gather at the queue before FlowFiles merge together
@@ -534,8 +534,8 @@ If you would like to read more about configuring and connecting processors, refe
 **Table 6:** Update PutFile(truck_events) Property Values
 
 | Property  | Value  |
-|---|---|
-| **Directory**  | `/root/nifi_output/truck_events`  |
+|:---|---:|
+| `Directory`  | `/root/nifi_output/truck_events`  |
 
 **Directory** instructs processor which directory to store the output data files
 
@@ -554,8 +554,8 @@ If you would like to read more about configuring and connecting processors, refe
 Table 7: Update PutFile(logs) Property Values
 
 | Property  | Value  |
-|---|---|
-| **Directory**  | `/root/nifi_output/log_data`  |
+|:---|---:|
+| `Directory`  | `/root/nifi_output/log_data`  |
 
 ![putfile_properties_config_logs_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_properties_config_logs_nifi_iot.png)
 

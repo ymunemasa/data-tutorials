@@ -126,11 +126,11 @@ The first table stores all events generated, the second stores the 'driverId' an
 
 [hbase@sandbox root]$ hbase shell
 
-hbase(main):001:0> create 'driver_events', 'allevents'    
-hbase(main):002:0> create 'driver_dangerous_events', 'events'
-hbase(main):003:0> create 'driver_dangerous_events_count', 'counters'
-hbase(main):004:0> list    
-hbase(main):005:0> exit
+create 'driver_events', 'allevents'    
+create 'driver_dangerous_events', 'events'
+create 'driver_dangerous_events_count', 'counters'
+list    
+exit
 ~~~
 
 > Note: 'driver_events' is the table name and 'allevents' is column family. In the script above, we have one column family. Yet, if we want we can have multiple column families. We just need to include more arguments.
@@ -259,10 +259,11 @@ chmod -R 777 /tmp/hive/
 
 Since this tutorial series is based on part of the trucking demo, there are many modules that need to be setup for the demo outside the scope of the tutorial. We manually setup NiFi, Kafka, HBase and Hive for the demo. Since there are other particular modules in the demo irrelevant from what we are learning in the lab series, we will run an automation script to setup the other modules that way we will be able to use storm for ingesting data in HBase and HDFS with no issues.
 
-1\. Update ambari admin login variables defined at the top in **user-env.sh** file, so the automation script can have the privileges to setup the demo modules. Enter the **username and password** you use to login into to Ambari as an admin. Open a terminal, type:
+1\. Let's navigate to the `iot-truck-streaming` folder. Update ambari admin login variables defined at the top in **user-env.sh** file, so the automation script can have the privileges to setup the demo modules. Enter the **username and password** you use to login into to Ambari as an admin. Open a terminal, type:
 
 ~~~
-vi ~/iot-truck-streaming/user-env.sh
+cd ~/iot-truck-streaming
+vi user-env.sh
 ~~~
 
 The file will open as in the image below:
@@ -273,27 +274,28 @@ For the ambari configuration credentials: user='admin', pass=what you set it up 
 
 Press `esc` and then type `:wq` to exit the editor.
 
-2\. After you update the **user-env.sh** file, we will also need to verify whether the hostnames in the **config.properties** file match the appropriate hostnames for services on HDP. If they do not match, then update the hostname. For example, let's check the **kafka.brokers** host, open Ambari dashboard. Hover to the left side bar, click on **Kafka**. At the top next to the `Summary` tab, click on the `Configs` tab. Under **Kafka Broker** Section, examine **Kafka Broker host** and **listeners** field. You should see the following image:
+2\. After you update the **user-env.sh** file, we will also need to verify whether the **domain name** and their associated **port number** in the **config.properties** file match the appropriate (domain name & port number) for services on HDP, Ambari configurations. If they do not match, then update the value. For example, let's check the **kafka.brokers** host, open Ambari dashboard. Hover to the left side bar, click on **Kafka**. At the top next to the `Summary` tab, click on the `Configs` tab. Under **Kafka Broker** Section, examine **Kafka Broker host** and **listeners** field. You should see the following image:
 
 ![kafka_broker_hostname_verify](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/kafka_broker_hostname_verify.png)
 
-Notice Kafka Broker host = sandbox.hortonworks.com
-Listeners = localhost:6667
+Now to obtain the domain name & port number, we will combine domain name from Kafka Broker host and port number from listeners field.
 
-Thus, our **Kafka Broker and Listenrs host** = `sandbox.hortonworks.com:6667`
+- Notice Kafka Broker host = sandbox.hortonworks.com
+- Listeners = localhost:6667
 
-In our **config.properties** file, under Stream Simulator Config, it shows:
+Thus, our **Kafka Broker and Listeners host** = `sandbox.hortonworks.com:6667`
+
+In our **config.properties** file, under Stream Simulator Config section, it shows:
 
 ![config_properties_file_verify_hosts_match](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/config_properties_file_verify_hosts_match.png)
 
 > Note: In the config.properties file Kafka.brokers=sandbox.hortonworks.com:6667
 
-Since the **kafka.brokers** hostname in the **config.properties** file matches kafka brokers hostname on HDP, we verified that hostname is up to date. Now let’s verify the other hostnames in the config.properties file match the ones on HDP. If there is a mismatch, update the config.properties file.
+Since the **kafka.brokers** property value in the **config.properties** file matches the combined value of Kafka Brokers and Listeners from Ambari Configuration, we verified that this property value is up to date. Now let’s verify the other property values in the **config.properties** file match the ones in Ambari Configuration. If there is a mismatch, update the config.properties file.
 
-3\. Now we can run the installdemo.sh script to automatically setup the background services for the trucking demo. Type the following command:
+3\. Now we can run the **installdemo.sh** script to automatically setup the background services for the trucking demo. Type the following command:
 
 ~~~
-cd iot-truck-streaming/
 ./installdemo.sh
 ~~~
 
@@ -390,11 +392,11 @@ Stop the NiFi DataFlow to no longer send messages to Kafka. Now go back to the s
 ~~~
 [root@sandbox Tutorials-master]# hbase shell
 
-hbase(main):001:0> list
-hbase(main):002:0> count 'driver_events'
-hbase(main):003:0> count 'driver_dangerous_events'
-hbase(main):004:0> count 'driver_dangerous_events_count'    
-hbase(main):005:0> exit
+list
+count 'driver_events'
+count 'driver_dangerous_events'
+count 'driver_dangerous_events_count'    
+exit
 ~~~
 
 The `driver_dangerous_events` table is updated upon every violation.
