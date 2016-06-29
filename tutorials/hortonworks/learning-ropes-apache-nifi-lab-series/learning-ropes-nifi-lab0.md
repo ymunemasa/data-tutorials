@@ -165,7 +165,7 @@ The script automatically installs NiFi onto your virtual machine. After successf
 
 The image below shares NiFi downloaded and installed in the Applications folder:
 
-![download_install_nifi](assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download_install_nifi.png)
+![download_install_nifi](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download_install_nifi.png)
 
 ### Step 4: Start NiFi on Sandbox <a id="step3-start-nifi"></a>
 
