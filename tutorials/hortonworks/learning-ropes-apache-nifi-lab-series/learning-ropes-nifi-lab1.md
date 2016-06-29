@@ -72,7 +72,7 @@ Your dataflow will extract the following XML Attributes from the transit data li
 **Table 1: Extracted XML Attributes From Transit Data**
 
 | Attribute Name  | Type  | Comment  |
-|---|---|---|
+|:---|:---:|---:|
 | id  | string  | Vehicle ID |
 | time  | int64  | Observation timestamp  |
 | lat  | float64  | Latitude (degrees)  |
@@ -85,7 +85,7 @@ After extracting, filtering and converting the data, your new file, which contai
 **Table 2: Other DataFlow Requirements**
 
 | Parameter  | Value  |
-|---|---|
+|:---|---:|
 | Input Directory  | /tmp/nifi/input  |
 | Output Directory  | /tmp/nifi/output/filtered_transitLoc_data  |
 | File Format  | JSON  |
@@ -206,7 +206,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 3:** Update GetFile Property Values
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Input Directory  | `/tmp/nifi/input`  |
 | Keep Source File  | `true`  |
 
@@ -223,7 +223,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 4:** Update UnpackContent Property Value
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Packaging Format  | zip  |
 
 ![unpackContent_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/unpackContent_config_property_tab_window.png)
@@ -241,7 +241,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 5:** Update ControlRate Property Values
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Rate Control Criteria  | flowfile count  |
 | Maximum Rate  | `1`  |
 | Time Duration  | `6 second`  |
@@ -267,7 +267,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 6:** Update EvaluateXPath Property Values
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Destination  | flowfile-attribute  |
 | Last_Time  | `//body/lastTime/@time`  |
 
@@ -294,7 +294,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 7:** Add UpdateAttribute Property Value
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | filename  | `${UUID()}`  |
 
 ![updateAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/updateAttribute_config_property_tab_window.png)
@@ -310,7 +310,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 8:** Update EvaluateXPath Property Values
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Destination  | flowfile-attribute  |
 | Direction_of_Travel  | `//vehicle/@dirTag`  |
 | Latitude  | `//vehicle/@lat`  |
@@ -336,7 +336,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 9:** Add RouteOnAttribute Property Value
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Filter_Attributes  | `${Direction_of_Travel:isEmpty():not():and(${Last_Time:isEmpty():not()}):and(${Latitude:isEmpty():not()}):and(${Longitude:isEmpty():not()}):and(${Vehicle_ID:isEmpty():not()}):and(${Vehicle_Speed:equals('0'):not()})}`  |
 
 ![routeOnAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/routeOnAttribute_config_property_tab_window.png)
@@ -354,7 +354,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 10:** Update AttributesToJSON Property Values
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Attributes List  | `Vehicle_ID, Direction_of_Travel, Latitude, Longitude, Vehicle_Speed, Last_Time`  |
 | Destination  | flowfile-content  |
 
@@ -373,7 +373,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 11:** Update MergeContent Property Values
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Minimum Number of Entries  | `10`  |
 | Maximum Number of Entries  | `15`  |
 | Delimiter Strategy  | Text  |
@@ -401,7 +401,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 12:** Update PutFile Property Value
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Directory  | `/tmp/nifi/output/filtered_transitLoc_data`  |
 
 ![putFile_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/putFile_config_property_tab_window.png)
