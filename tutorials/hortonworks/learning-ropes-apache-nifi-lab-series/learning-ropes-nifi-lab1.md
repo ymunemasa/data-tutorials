@@ -295,7 +295,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |---|---|
-| filename  | `${UUID()}``  |
+| filename  | `${UUID()}`  |
 
 ![updateAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/updateAttribute_config_property_tab_window.png)
 
@@ -420,7 +420,11 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. To quickly see what the processors are doing and the information on their faces, right click on the graph, click the **refresh status** button ![refresh_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/refresh_nifi_iot.png)
 
-4\. To check that the data was written to a file, open your terminal. Make sure to SSH into your sandbox. Navigate to the directory you wrote for the PutFile processor. List the files and open one of the newly created files to view filtered transit output. In the tutorial our directory path is: `/tmp/nifi/output/filtered_transitLoc_data`.
+There are two options for checking that the data stored in the destination is correct. Option 1 is to navigate by terminal to the folder where NiFi stores the data. Option 2 is to use Data Provenance to verify the data is correct.
+
+### Check Data By Terminal (Option 1)
+
+4\. To check that the data was written to a file, open your terminal or use NiFi's Data Provenance. Make sure to SSH into your sandbox. Navigate to the directory you wrote for the PutFile processor. List the files and open one of the newly created files to view filtered transit output. In the tutorial our directory path is: `/tmp/nifi/output/filtered_transitLoc_data`.
 
 ~~~
 cd /tmp/nifi/output/filtered_transitLoc_data
@@ -435,11 +439,35 @@ vi 22169558941607
 
 > Note: to exit the vi editor, press `esc` and then type `:q`.
 
+### Check Data By NiFi's Data Provenance (Option 2)
+
+Data Provenance is a unique feature in NiFi that enables the user to check the data from any processor or component while the FlowFiles move throughout the dataflow. Data Provenance is a great tool for troubleshooting issues that may occur in the dataflow. In this section, we will check the Data Provenance for the PutFile processor.
+
+1\. Right click on the PutFile processor. Select `Data Provenance`. It is the 4th item in the dropdown menu.
+
+2\. NiFi will search for provenance events. The window will load with events, select any event. An event is a FlowFile that passes through a processor and the data that is viewable at that particular time. For the tutorial, let's select the first event by pressing on the view provenance event symbol ![i_symbol_nifi_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/i_symbol_nifi_lab1.png).
+
+Provence Event Window:
+
+![provenance_event_window_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/provenance_event_window_lab1.png)
+
+
+3\. Once you select the event, a Provenance Event Dialog Window will appear. It contains Details, Attributes and Content regarding the particular event. Take a few minutes to view each tab. Let's navigate to the `Content` tab to view the data generated from the FlowFile.
+
+![provenance_content_tab_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/provenance_content_tab_lab1.png)
+
+4\. NiFi gives the user the option to download or view the content of the event. Click on the **View** button.
+
+![event_content_view_window_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/event_content_view_window_lab1.png)
+
 Did you receive the data you expected?
+
 
 ## Summary
 
-Congratulations! You made it to the end of the tutorial and built a NiFi DataFlow that reads in a live stream simulation from NextBus.com, splits the parent’s children elements from the XML file into separate FlowFiles, extracts nodes from the XML file, makes a filtering decision on the attributes and stores that newly modified data into a file. If you are interested in learning more about NiFi, view the following further reading section.
+Congratulations! You made it to the end of the tutorial and built a NiFi DataFlow that reads in a live stream simulation from NextBus.com, splits the parent’s children elements from the XML file into separate FlowFiles, extracts nodes from the XML file, makes a filtering decision on the attributes and stores that newly modified data into a file. You also learned how to use NiFi's Data Provenance feature to view data from a FlowFile that flows through a processor, a powerful feature that enables users to troubleshoot issues in real-time. Feel free to use this feature in the other labs. If you are interested in learning more about NiFi, view the following further reading section.
+
+## Appendix A: Review of the NiFi DataFlow
 
 If you want a more in depth review of the dataflow we just built, read the information below, else continue onto the next lab.
 
@@ -458,3 +486,4 @@ Routes FlowFile based on whether it contains all XPath Expressions (attributes) 
 - [Hortonworks DataFlow Documentation](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2/bk_UserGuide/content/index.html)
 - [NiFi Expression Language Guide](https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html)
 - [Apache NiFi](https://nifi.apache.org/videos.html)
+- [Google Places API](https://developers.google.com/places/)
