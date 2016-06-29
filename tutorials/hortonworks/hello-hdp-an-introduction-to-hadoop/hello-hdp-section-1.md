@@ -84,14 +84,14 @@ The goal of this tutorial is that you get familiar with the basics of following:
     6.  [Apache Pig](http://hortonworks.com/hadoop/pig/)
 6.  **Get Started with HDP Labs**
 
-    1.  [Lab 1: Loading Sensor Data into HDFS](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/#section_3)
-    2.  [Lab 2: Data Manipulation with Hive](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/#section_4) (Ambari User Views)
-    3.  [Lab 3: Use Pig to compute Driver Risk Factor](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_5)
-    4.  [Lab 4: Use Apache Spark to compute Driver Risk Factor](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_6)
-    5.  [Lab 5: Optional Visualization and Reporting with Excel](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_7)
+    1.  [Lab 1: Loading Sensor Data into HDFS](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-3.md)
+    2.  [Lab 2: Data Manipulation with Hive](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-4.md) (Ambari User Views)
+    3.  [Lab 3: Use Pig to compute Driver Risk Factor](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-5.md)
+    4.  [Lab 4: Use Apache Spark to compute Driver Risk Factor](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-6.md)
+    5.  [Lab 5: Optional Visualization and Reporting with Excel](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-7.md)
         1.  [Configuring ODBC driver](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/)  (Mac and Windows)
-    6.  [Lab 6: Optional Visualization and Reporting with Zeppelin](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_8)  
-    7.  [Lab 7: Optional Visualization and Reporting with Zoomdata](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig#section_9)
+    6.  [Lab 6: Optional Visualization and Reporting with Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-8.md)  
+    7.  [Lab 7: Optional Visualization and Reporting with Zoomdata](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-9.md)
 7.  **Next Steps/Try These**
     1.  Practitioner Journey-  As a Hadoop Practitioner you can adopt following learning paths
         *   Hadoop Developer - [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)
