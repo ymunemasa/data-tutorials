@@ -115,7 +115,7 @@ sudo passwd root
 
 > Note: Remember root user password
 
-Now we can login to terminal as root user. Let's change the hostname of the azure VM to `sandbox.hortonworks.com`:
+Now we can login to terminal as root user. Let's change the hostname of the azure VM to **sandbox.hortonworks.com**:
 
 ~~~
 sudo hostname sandbox.hortonworks.com
@@ -127,7 +127,7 @@ Now let's login to root user and input the password you set for root. Enter the 
 su root
 ~~~
 
-For Azure users, move iot-truck-streaming folder to `/root` directory and then navigate to the root:
+For Azure users, move iot-truck-streaming folder to **/root** directory and then navigate to the root:
 
 ~~~
 mv iot-truck-streaming/ /root
@@ -187,7 +187,7 @@ chmod 750 *.sh
 
 ### 1.2 Run The Simulator (Optional)
 
-1\. To test the simulator, run `generate.sh` script. Use the commands:
+1\. To test the simulator, run **generate.sh** script. Use the commands:
 
 ~~~
 ./generate.sh
@@ -224,7 +224,7 @@ NiFi will be installed on the Hortonworks Sandbox VirtualBox image because the s
 
 The following instructions will guide you through the NiFi installation process. All the steps throughout the tutorial will be done using the latest Hortonworks Sandbox 2.4 on VirtualBox.
 
-1\. Make sure to exit from sandbox shell. Type `exit`. Open a terminal on **local machine**. Download the **install-nifi.sh** file from the github repo. Copy & paste the following commands:
+1\. Make sure to exit from sandbox shell. Type **exit**. Open a terminal on **local machine**. Download the **install-nifi.sh** file from the github repo. Copy & paste the following commands:
 
 > Note: If on Azure, you will need to exit twice. Exit root user and Azure user you created while deploying your sandbox on Azure.
 
@@ -275,13 +275,13 @@ It is time to start Apache NiFi.
 ssh root@127.0.0.1 -p 2222
 ~~~
 
-2\. Navigate to the `bin` directory using the following command:
+2\. Navigate to the **bin** directory using the following command:
 
 ~~~
 cd hdf/HDF-1.2.0.1-1/nifi/bin
 ~~~
 
-3\. Run the `nifi.sh` script to start NiFi:
+3\. Run the **nifi.sh** script to start NiFi:
 
 ~~~
 ./nifi.sh start
@@ -298,7 +298,7 @@ cd ../conf
 vi nifi.properties
 ~~~
 
-5\. Type `/nifi.web.http.port` and press enter. Verify `6434` is the value of nifi.web.http.port as below, else change it to this value:
+5\. Type **/nifi.web.http.port** and press enter. Verify **6434** is the value of nifi.web.http.port as below, else change it to this value:
 
 ~~~
 nifi.web.http.port=6434
