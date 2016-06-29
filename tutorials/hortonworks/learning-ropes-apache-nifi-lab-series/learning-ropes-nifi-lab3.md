@@ -63,7 +63,7 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 **Table 1:** Update GetHTTP Properties Tab
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | URL  | `http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=sf-muni&r=M&t=0` |
 | Filename  | `vehicleLoc_SF_OceanView.xml` |
 
@@ -78,7 +78,7 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 **Table 2:** Update PutFile Properties Tab
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Directory  | `/tmp/nifi/output/nearby_neighborhoods_liveStream`  |
 
 **Directory** is changed to a new location for the real-time data coming in from NextBus live stream.
