@@ -25,10 +25,30 @@ Feel free to download the [Lab3-NiFi-Learn-Ropes.xml](https://raw.githubusercont
 - Completed Lab 2: Enhance the DataFlow with Geo Location Enrichment
 
 ## Outline
+- NextBus Live Feed
 - Step 1: Attach NextBus Live Stream to the DataFlow
 - Step 2: Run the NiFi DataFlow
 - Summary
 - Further Reading
+
+## NextBus Live Feed
+
+Provides the public with live information regarding passenger information, such as vehicle location information, prediction times on transit vehicles, routes of vehicles and different agencies (San Francisco Muni, Unitrans City of Davis, etc). We will learn to use to access the XML Live Feed Data by creating an URL. In this URL we will specify parameters in a query string. The parameters for the lab will include the vehicle location, agency, route and time.
+
+After viewing the Live Feed Documentation, we created the following URL for the GetHTTP processor:
+
+~~~
+http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=sf-muni&r=M&t=0
+~~~
+
+Let’s break apart the parameters, so we can better understand how to create custom URLs. There are 4 parameters:
+
+- commands: command = vehicleLocations
+- agency: a=sf-muni
+- route: r=M
+- time: t=0
+
+Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf) to learn more about each parameter.
 
 ### Step 1: Attach NextBus Live Stream to the DataFlow
 
