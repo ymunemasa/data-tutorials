@@ -70,7 +70,7 @@ Let's obtain the **required parameters** to initiate a Nearby Search request.
 **Table 1: Example of the API Key Table**
 
 | Name  | Creation date  | Type  | Key  |
-|---|---|---|---|
+|:---|:---:|:---:|---:|
 | Server Key 1  | June 14, 2016  | Server  | AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug  |
 
 Now we have the API Key parameter for our HTTP request. We also have the other required parameters: **location** thanks to lab 1 in which we extracted longitude & latitude attributes and **radius**, which can be a distance that does not surpass 50,000 meters. We will use one optional parameter **type** to signify what type of place we are interested in searching for.
@@ -112,7 +112,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 Table 1: Update InvokeHTTP Property Value(s)
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Remote URL  | `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Latitude},${Longitude}&radius=500&type=neighborhood&key=AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug` |
 
 ![invokeHTTP_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/invokeHTTP_config_property_tab_window.png)
@@ -128,7 +128,7 @@ Table 1: Update InvokeHTTP Property Value(s)
 Table 2: Update and Add New EvaluateJsonPath Property Values
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Destination  | flowfile-attribute  |
 | Return Type  | json  |
 | city  | `$.results[0].vicinity`  |
@@ -147,7 +147,7 @@ Table 2: Update and Add New EvaluateJsonPath Property Values
 Table 3: Add New RouteOnAttribute Property Value
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | RouteNearbyNeighborhoods  | `${city:isEmpty():not():and(${neighborhoods_nearby:isEmpty():not()})}`  |
 
 ![routeOnAttribute_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/routeOnAttribute_geoEnrich_config_property_tab_window.png)
@@ -161,7 +161,7 @@ Table 3: Add New RouteOnAttribute Property Value
 2\. Open AttributesToJSON configure properties tab and update the properties with the information listed in Table 2.
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Attributes List  | `Vehicle_ID, city, Latitude, Longitude, neighborhoods_nearby, Last_Time`  |
 | Destination  | flowfile-content  |
 
@@ -176,7 +176,7 @@ Table 3: Add New RouteOnAttribute Property Value
 2\. Open MergeContent configure properties tab and update the properties with the information listed in Table 2. For the Demarcator property, type `,` then press `shift+enter`.
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Minimum Number of Entries  | `20`  |
 | Maximum Number of Entries  | `25`  |
 | Delimiter Strategy  | Text  |
@@ -195,7 +195,7 @@ Table 3: Add New RouteOnAttribute Property Value
 2\. Open PutFile configure properties tab and update the property with the information listed in Table 2.
 
 | Property  | Value  |
-|---|---|
+|:---|---:|
 | Directory  | `/tmp/nifi/output/nearby_neighborhoods_search`  |
 
 ![putFile_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/putFile_geoEnrich_config_property_tab_window.png)
