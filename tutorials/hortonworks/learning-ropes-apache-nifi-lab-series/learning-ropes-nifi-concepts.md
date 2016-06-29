@@ -89,7 +89,7 @@ When we learned the process of building a dataflow, we crossed paths with many o
 
 
 
-### 5\. A Brief Hisotry of NiFi
+### 5\. A Brief History of NiFi
 
 
 Apache NiFi originated from the NSA Technology Transfer Program in Autumn of 2014. NiFi became an official apache project in July of 2015. NiFi has been in development for 8 years. NiFi was built with the idea to make it easier for people to automate and manage their data-in-motion without having to write numerous lines of code. Therefore, the user interface comes with many shape like tools that can be dropped onto the graph and connected together. NiFi was also created to solve many challenges of data-in-motion, such as multi-way dataflows, data ingestion from any data source, data distribution and the required security and governance. NiFi is a great tool for users who come from strong backgrounds in development or business that want to tackle the challenges stated above.
