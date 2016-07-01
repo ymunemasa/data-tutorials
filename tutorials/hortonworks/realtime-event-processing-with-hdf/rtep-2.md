@@ -172,7 +172,7 @@ You should see `truck_events` in the list of topics (and probably your only top
 
 If you **imported the NiFi template**, the PutKafka processor is already created and you can skip the step of creating the processor. **Skip to section 5.2** to run the NiFi DataFlow.
 
-In the previous tutorial, we stored the truck event data into a file. Now we can use the [PutKafka](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi.processors.kafka.PutKafka/index.html) processor since the Kafka service is running, we have access to the "Known Broker", "Topic Name" and "Client Name." We will send the truck event contents of a FlowFile to Kafka as a message. Similar to the Kafka Producer, NiFi acts as a producer since it creates messages and publishes them to the Kafka broker for further consumption.
+In the previous tutorial, we stored the truck event data into a file. Now we can use the [PutKafka](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi.processors.kafka.PutKafka/index.html) processor since the Kafka service is running, we have access to the **Known Broker**, **Topic Name** and **Client Name.** We will send the truck event contents of a FlowFile to Kafka as a message. Similar to the Kafka Producer, NiFi acts as a producer since it creates messages and publishes them to the Kafka broker for further consumption.
 
 1\. If not already open, navigate to the NiFi Web Interface at `http://127.0.0.1:6434/nifi/`. For vmware and azure, the host and port may be different.
 
@@ -200,7 +200,7 @@ Client Name = truck_events_client
 
 **Known Brokers** can be found in **Kafka** configs under listeners
 
-**Topic Name** is the name you created earlier for Kafka. Type the following command to see your topic name: ./kafka-topics.sh --list --zookeeper localhost:2181.
+**Topic Name** is the name you created earlier for Kafka. Type the following command to see your topic name: `./kafka-topics.sh --list --zookeeper localhost:2181`.
 
 **Message Delimiter** set as "Shift+enter" in the value field makes each line of incoming FlowFile a single message, so kafka does not receive an enormous flowfile as a single message.
 

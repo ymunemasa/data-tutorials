@@ -18,7 +18,7 @@ This system can take into consideration adverse weather conditions, the driver's
 
 In previous tutorial, we have explored generating and capturing streaming data with [Apache NiFi](#rtep-1.md) and [Apache Kafka](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/).
 
-In this tutorial, you  will use [**Apache Storm**](http://hortonworks.com/labs/storm/) on the Hortonworks Data Platform to capture these data events and process them in real time for further analysis.
+In this tutorial, you  will use [**Apache Storm**](http://hortonworks.com/labs/storm/) Kafka Spout on the Hortonworks Data Platform to send these data events to various bolts to process the data in real time for further analysis.
 
 In this tutorial, we will build a solution to ingest real time streaming data into HBase and HDFS using [Storm](http://hortonworks.com/hadoop-tutorial/ingesting-processing-real-time-events-apache-storm/). Storm has a spout that reads truck_events data from Kafka and passes it to bolts, which process and persist the data into Hive & HBase tables.
 
@@ -57,7 +57,7 @@ In this case, once we store this rapidly and continuously growing dataset from I
 Apache Storm is an Open Source distributed, reliable, fault–tolerant system for real time processing of large volume of data.
 It's used for:
 *   Real time analytics
-*   Scoring machine learning modeles
+*   Scoring machine learning models
 *   Continuous statics computations
 *   Operational Analytics
 *   And, to enforce Extract, Transform, and Load (ETL) paradigms.
@@ -82,7 +82,7 @@ Learn more about Apache Storm at the [Storm Documentation page](http://storm.apa
 
 1\.  **View the HBase Services page**
 
-Started by logging into Ambari as an admin user. From the previous tutorials: HDFS, Hive, YARN and Kafka should already be running but HBase may be down. From the Dashboard page of Ambari, click on HBase from the list of installed services.
+Start by logging into Ambari as an admin user. From the previous tutorials: HDFS, Hive, YARN and Kafka should already be running but HBase may be down. From the Dashboard page of Ambari, click on HBase from the list of installed services.
 
 ![hbase_service_on_off_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_service_on_off_iot.png)
 
@@ -143,7 +143,7 @@ Next, we will create 4 Hive tables. For each table in the following section, the
 
 *   Create Hive tables
 
-The first two tables will stores information about the vehicle.
+The first two tables will store information about the vehicle.
 
 Open the Hive view in Ambari in a browser, copy the below script into the query editor and click Execute: [http://localhost:8080/#/main/views/HIVE/1.0.0/Hive](http://localhost:8080/#/main/views/HIVE/1.0.0/AUTO_HIVE_INSTANCE)
 
@@ -171,11 +171,11 @@ This hive query creates the Hive table to persist all events generated. The tabl
 
 ![truck_events_text_partition_table_hbase_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/truck_events_text_partition_table_hbase_iot.png)
 
-Verify that the table has been properly created by refreshing the Database Explorer. Under Databases, click default to expand this table and the new table should appear. Clicking on the List icon next to truck_events_text_partition shows that the table was created but empty.
+Verify that the table has been properly created by refreshing the Database Explorer. Under Databases, click default to expand this table and the new table should appear. Clicking on the List icon next to **truck_events_text_partition** shows that the table was created but empty.
 
 ![verify_truck_events_text_partition_created](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/verify_truck_text_partition_created_iot.png)
 
-*   Create ORC 'truck_events' Hive tables
+*   Create ORC 'truck_events' Hive table
 
 The Optimized Row Columnar (ORC) file format provides a highly efficient way to store Hive data. It was designed to overcome limitations of the other Hive file formats. Using ORC files improves performance when Hive is reading, writing, and processing data.
 
@@ -212,7 +212,7 @@ Refresh the Database Explorer and you should see the new table appear under defa
 
 ![](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/truck_events_orc_partition_table.png)
 
-The data in 'truck_events_orc_partition_single' table can be stored with ZLIB, Snappy, LZO compression options. This can be set by changing tblproperties ("orc.compress"="NONE")option in the query above.
+The data in **truck_events_orc_partition_single** table can be stored with ZLIB, Snappy, LZO compression options. This can be set by changing TBLPROPERTIES ("orc.compress"="NONE")option in the query above.
 
 The last two tables store data about the drivers.
 ~~~sql
@@ -413,7 +413,7 @@ select * from truck_events_text_partition;
 
 ![populate_orc_with_data_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/populate_orc_with_data_iot.png)
 
-Notice that this launches a Tez job in the background. You can get more details on this using the Yarn resource manager UI. You can find for this under the link under Ambari -> Yarn -> Quick links but will be similar to `http://localhost:8088/cluster`
+Notice that this launches a Tez job in the background. You can get more details on this using the Yarn resource manager UI. You can find THE link under Ambari -> Yarn -> Quick links but will be similar to `http://localhost:8088/cluster`
 
 ![yarn_resource_manager_tez_job_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/yarn_resource_manager_tez_job_iot.png)
 
@@ -442,7 +442,7 @@ The trucking demo shows realtime monitoring of alerts and predictions of driving
 
 ### A.1 Start the Trucking Demo
 
-1\. Navigate to the base of the trucking demo project folder, make sh files executable, then execute the rundemo.sh script. Starting the demo may take 15 - 20 minutes:
+1\. Navigate to the base of the trucking demo project folder, make shell files executable, then execute the rundemo.sh script. Starting the demo may take 15 - 20 minutes:
 
 ~~~
 cd ~/iot-truck-streaming
@@ -450,7 +450,7 @@ chmod 750 *.sh
 ./rundemo.sh clean
 ~~~
 
-Note: rundemo.sh clean kills the storm topology, stops storm, cleans the storm directories, restarts storm and redeploys the topology. rundemo.sh is modified with the assumption that you completed the Lab Series, specifically you manually installed maven back in lab 0, Kafka, Storm, HBase services are running and updated the user-env.sh file in lab 2. rundemo.sh will setup and start the demo.
+Note: **rundemo.sh clean** kills the storm topology, stops storm, cleans the storm directories, restarts storm and redeploys the topology. rundemo.sh is modified with the assumption that you completed the Lab Series, specifically you manually installed maven back in lab 0, Kafka, Storm, HBase services are running and updated the user-env.sh file in lab 2. rundemo.sh will setup and start the demo.
 
 When you see **"[INFO] Started Jetty Server"** message up in the console, you will be able to access the demo at:
 
@@ -460,7 +460,7 @@ http://<hostname>:8081/storm-demo-web-app/index.html.
 
 If on virtualbox, the hostname will be: http://127.0.0.1:8081/storm-demo-web-app/index.html.
 
-If you receive the message, **"This site can't be reached"**, you will need to port forward `8081` onto your virtual machine. Refer to [lab 0 step 3](#step3-start-nifi) where we port forward NiFi port number if you need to review.
+If you receive the message, **"This site can't be reached"**, you will need to port forward `8081` onto your virtual machine. Refer to [lab 0 step 3](#step3-start-nifi) where we port forward NiFi port number if you need to review how to port forward.
 
 ### A.2 Login to Trucking Demo Dashboard
 

@@ -12,7 +12,7 @@ components: [ nifi ]
 
 ## Introduction
 
-Apache NiFi can collect and transport data from numerous sources and provide interactive command and control of live flows with full and automated data provenance. We will install NiFi onto our Hortonworks Sandbox and become familiar with the NiFi Web Interface. We will create a flow of data using Hortonworks DataFlow to activate the truck stream simulator to generate truck data, remove the log data, extract the live truck events data and store the events into a file. We will use a file to verify that the correct data is being inserted into the file.
+Apache NiFi can collect and transport data from numerous sources and provide interactive command and control of live flows with full and automated data provenance. We will install NiFi onto our Hortonworks Sandbox and become familiar with the NiFi Web Interface. We will create a flow of data using Hortonworks DataFlow to activate the truck stream simulator to generate truck data, remove the log data, extract the live truck events data and store the events into a file. We will verify the correct data is being stored into the output destination by using the terminal and NiFi's Data Provenance.
 
 ## Pre-Requisites
 - Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
@@ -37,13 +37,13 @@ Apache NiFi can collect and transport data from numerous sources and provide int
 
 The following terminal commands in the tutorial instructions are performed in VirtualBox Sandbox and Mac machine. For windows users, to run the following terminal commands, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
 
-If on mac or linux, to add `sandbox.hortonworks.com` to your list of hosts, open the terminal, enter the following command, replace {Host-Name} with the appropriate host for your sandbox:
+If on mac or linux, to add **sandbox.hortonworks.com** to your list of hosts, open the terminal, enter the following command, replace {Host-Name} with the appropriate host for your sandbox:
 
 ~~~bash
 echo '{Host-Name} sandbox.hortonworks.com' | sudo tee -a /private/etc/hosts
 ~~~
 
-If on windows 7, to add `sandbox.hortonworks.com` to your list of hosts, open git bash, enter the following command, replace {Host-Name} with the appropriate host for your sandbox:
+If on windows 7, to add **sandbox.hortonworks.com** to your list of hosts, open git bash, enter the following command, replace {Host-Name} with the appropriate host for your sandbox:
 
 ~~~bash
 echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/etc/hosts
@@ -403,7 +403,7 @@ Each Processor will have its own alert message. Let’s configure and connect ea
 
 ### 5.4 Add, Configure & Connect processors
 
-We will build our NiFi DataFlow by adding, configuring and connecting processors. When adding processors, you have three ways to find your desired processor from the **Add Processor** window: **Tags** section left of the table, **Processor List** located in the table and **filter bar** positioned above the table. After we add our processor, we can configure it from the Configure Processor window using the 4 tabs: **Settings**, **Scheduling**, **Properties** and **Commands**. For this lab, we will spend most of our time in the properties tab. The properties in **bold** must contain default or updated values for the processor to run. If you are curious to learn more about a specific property, hover over the help icon next to the Property Name to read a description on that property. Every processor has a relationship on how it transfers data to the next processor, another word for this is connection. Relationships affect how data is transferred between processors. For instance, you can have a **split** relationship that when true transfer a bunch of FlowFiles that were split from one large FlowFile to the next processor.
+We will build our NiFi DataFlow by adding, configuring and connecting processors. When adding processors, you have three ways to find your desired processor from the **Add Processor** window: **Tags** section left of the table, **Processor List** located in the table and **filter bar** positioned above the table. After we add our processor, we can configure it from the Configure Processor window using the 4 tabs: **Settings**, **Scheduling**, **Properties** and **Commands**. For this lab, we will spend most of our time in the properties tab. The properties in **bold** must contain default or updated values for the processor to run. If you are curious to learn more about a specific property, hover over the help icon next to the Property Name to read a description on that property. Every processor has a relationship on how it transfers data to the next processor, relationships are contained within the connection. Relationships affect how data is transferred between processors. For instance, you can have a **split** relationship that when true transfer a bunch of FlowFiles that were split from one large FlowFile to the next processor.
 
 If you would like to read more about configuring and connecting processors, refer to [Hortonworks Apache NiFi User Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/ch_UserGuide.html), Building a DataFlow: section 6.2 and 6.5.
 
@@ -423,15 +423,17 @@ If you would like to read more about configuring and connecting processors, refe
 | `Command Arguments`  | `/root/iot-truck-streaming/stream-simulator/generate.sh`  |
 | `Batch Duration`  | `10 sec`  |
 
-**Command** instructs processor on what type of command to run
-**Command Arguments** inform processor which particular directory to look for script files
-**Batch Duration** instructs processor to run a task every 10 seconds
+- **Command** instructs processor on what type of command to run
+
+- **Command Arguments** inform processor which particular directory to look for script files
+
+- **Batch Duration** instructs processor to run a task every 10 seconds
 
 ![executeProcess_properties_config](/assets/realtime-event-processing-with-hdf/lab0-nifi/executeProcess_properties_config.png)
 
 **Figure 1:** ExecuteProcess Configuration Property Tab Window
 
-3\. Move to the **Scheduling** tab. Modify the **Run Schedule** field from 0 sec to `1 sec`, which makes the processor every 1 second. Click **Apply**.
+3\. Move to the **Scheduling** tab. Modify the **Run Schedule** field from 0 sec to `1 sec`, which makes the processor run every 1 second. Click **Apply**.
 
 ### 6.2 SplitText
 
@@ -446,8 +448,9 @@ If you would like to read more about configuring and connecting processors, refe
 | `Line Split Count`  | `1`  |
 | `Remove Trailing Newlines`  | `false`  |
 
-**Line Split Count** adds 1 line to each split FlowFile
-**Remove Trailing Newlines** controls whether newlines are removed at the end of each split file. With the value set to false, newlines are not removed.
+- **Line Split Count** inserts 1 line to each split FlowFile
+
+- **Remove Trailing Newlines** controls whether newlines are removed at the end of each split file. With the value set to false, newlines are not removed.
 
 ![splittext_property_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/splittext_property_config_nifi_iot.png)
 
@@ -467,7 +470,7 @@ If you would like to read more about configuring and connecting processors, refe
 |:---|---:|
 | `filename`  | `{UUID()}`  |
 
-**filename** uses NiFi Expression language to assign each FlowFile a unique name
+- **filename** uses NiFi Expression language to assign each FlowFile a unique name
 
 3\. Click **OK**.
 
@@ -475,9 +478,9 @@ If you would like to read more about configuring and connecting processors, refe
 
 ### 7.1 RouteOnContent
 
-1\. Add the **RouteOnAttribute** processor onto the right of the ExecuteProcess. Connect the UpdateAttribute processor to RouteOnContent. In the Create Connection window, check the **success** checkbox for the relationship.
+1\. Add the **RouteOnContent** processor onto the right of the ExecuteProcess. Connect the UpdateAttribute processor to RouteOnContent. In the Create Connection window, check the **success** checkbox for the relationship.
 
-2\. Open SplitText **Properties Tab**, add the properties listed in Table 4 to the processor's appropriate properties and if their original properties already have values, update them. For the second property and onward, add a new dynamic property for NiFi expression, select the **New property** button. Insert the following property name and value, refer to Table 4.
+2\. Open RouteOnContent **Properties Tab**, add the properties listed in Table 4 to the processor's appropriate properties and if their original properties already have values, update them. For the second property, select the **New property** button to add a NiFi expression for the dynamic property value. Insert the following property name and value, refer to Table 4.
 
 **Table 4:** Update RouteOnContent Property Values
 
@@ -486,8 +489,9 @@ If you would like to read more about configuring and connecting processors, refe
 | `Match Requirement`  | `content must contain match`  |
 | `search_for_truck_event_data`  | `(Normal)|(Overspeed)|(Lane Departure)|(Unsafe tail distance)|(Unsafe following distance)`  |
 
-**Match Requirements** specifies condition for FlowFile to be transferred to next processor
-**search_for_truck_event_data** is Regex Expression that searches each FlowFile for the truck event keywords
+- **Match Requirements** specifies condition for FlowFile to be transferred to next processor
+
+- **search_for_truck_event_data** is Regex Expression that searches each FlowFile for the truck event keywords
 
 ![routeOnContent_filter_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/routeOnContent_filter_nifi_iot.png)
 
@@ -508,8 +512,9 @@ If you would like to read more about configuring and connecting processors, refe
 | `Minimum Number of Entries`  | `50`  |
 | `Maximum Number of Entries`  | `70`  |
 
-**Minimum Number of Entries** specifies minimum amount of FlowFiles to gather at the queue before FlowFiles merge together
-**Maximum Number of Entries** specifies maximum amount of FlowFiles to gather at the queue before FlowFiles merge together
+- **Minimum Number of Entries** specifies minimum amount of FlowFiles to gather at the queue before FlowFiles merge together
+
+- **Maximum Number of Entries** specifies maximum amount of FlowFiles to gather at the queue before FlowFiles merge together
 
 ![mergeContent_property_configs](/assets/realtime-event-processing-with-hdf/lab0-nifi/mergeContent_property_configs.png)
 
@@ -537,7 +542,7 @@ If you would like to read more about configuring and connecting processors, refe
 |:---|---:|
 | `Directory`  | `/root/nifi_output/truck_events`  |
 
-**Directory** instructs processor which directory to store the output data files
+- **Directory** instructs processor which directory to store the output data files
 
 ![putfile_properties_truck_events_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_properties_truck_events_config_nifi_iot.png)
 
@@ -551,7 +556,7 @@ If you would like to read more about configuring and connecting processors, refe
 
 2\. Open PutFile **Properties Tab**. Add the properties listed in Table 7 and if their original properties already have values, update them.
 
-Table 7: Update PutFile(logs) Property Values
+**Table 7:** Update PutFile(logs) Property Values
 
 | Property  | Value  |
 |:---|---:|
@@ -592,7 +597,7 @@ To check that the log and truck event data were written to the correct directory
 
 ### 5.7 Verify Logs Stored In log_data Directory
 
-1\. Navigate to through directory path: `/root/nifi_output/log_data`, view the files and open two random files to verify only log data is being sent to this directory.
+1\. Navigate to the directory path: `/root/nifi_output/log_data`, view the files and open two random files to verify only log data is being sent to this directory.
 
 ~~~
 cd /root/nifi_output/nifi_output/log_data
@@ -608,7 +613,7 @@ Once the file is opened, you should obtain similar output as below:
 
 ### 5.8 Verify Events Stored In truck_events Directory
 
-1\. Navigate to truck events directory: `/root/nifi_output/truck_events`, view the files. Open two random file to verify only event data is being sent to this directory.
+1\. Navigate to truck events directory: `/root/nifi_output/truck_events`, view the files. Open two random files to verify only event data is being sent to this directory.
 
 ~~~
 cd /root/nifi_output/truck_events
