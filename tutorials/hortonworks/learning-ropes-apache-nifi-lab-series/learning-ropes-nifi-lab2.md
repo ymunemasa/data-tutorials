@@ -240,4 +240,3 @@ Congratulations! For the Geo Enrichment section of the dataflow, you learned to 
 
 - [Google Places API](https://developers.google.com/places/)
 - [HTTP Protocol Overview](http://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177)
--
