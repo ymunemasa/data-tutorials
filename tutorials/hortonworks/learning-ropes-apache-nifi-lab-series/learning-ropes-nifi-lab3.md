@@ -69,7 +69,9 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 
 ![getHTTP_liveStream_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/getHTTP_liveStream_config_property_tab_window.png)
 
-4\. Open the processor config **Settings** tab, change the processor's Name from GetHTTP to `IngestVehicleLoc_SF_OceanView`. Click **Apply** button.
+4\. Now that each property is updated. Navigate to the **Scheduling tab** and change the **Run Schedule** from 0 sec to `1 sec`, so that the processor executes a task every 1 second. Therefore, overuse of system resources is prevented.
+
+5\. Open the processor config **Settings** tab, change the processor's Name from GetHTTP to `IngestVehicleLoc_SF_OceanView`. Click **Apply** button.
 
 ### Modify PutFile in Geo Enrich Section
 
