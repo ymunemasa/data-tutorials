@@ -207,8 +207,8 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |:---|---:|
-| Input Directory  | `/tmp/nifi/input`  |
-| Keep Source File  | `true`  |
+| `Input Directory`  | `/tmp/nifi/input`  |
+| `Keep Source File`  | `true`  |
 
 ![getFile_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/getFile_config_property_tab_window.png)
 
@@ -224,7 +224,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |:---|---:|
-| Packaging Format  | zip  |
+| `Packaging Format`  | `zip`  |
 
 ![unpackContent_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/unpackContent_config_property_tab_window.png)
 
@@ -242,9 +242,9 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |:---|---:|
-| Rate Control Criteria  | flowfile count  |
-| Maximum Rate  | `1`  |
-| Time Duration  | `6 second`  |
+| `Rate Control Criteria`  | `flowfile count`  |
+| `Maximum Rate`  | `1`  |
+| `Time Duration`  | `6 second`  |
 
 **Rate Control Criteria** instructs the processor to count the number of FlowFile before a transfer takes place
 **Maximum Rate** instructs the processor to transfer 1 FlowFile at a time
@@ -268,8 +268,8 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |:---|---:|
-| Destination  | flowfile-attribute  |
-| Last_Time  | `//body/lastTime/@time`  |
+| `Destination`  | `flowfile-attribute`  |
+| `Last_Time`  | `//body/lastTime/@time`  |
 
 ![evaluateXPath_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/evaluateXPath_config_property_tab_window.png)
 
@@ -295,7 +295,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |:---|---:|
-| filename  | `${UUID()}`  |
+| `filename`  | `${UUID()}`  |
 
 ![updateAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/updateAttribute_config_property_tab_window.png)
 
@@ -311,12 +311,12 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |:---|---:|
-| Destination  | flowfile-attribute  |
-| Direction_of_Travel  | `//vehicle/@dirTag`  |
-| Latitude  | `//vehicle/@lat`  |
-| Longitude  | `//vehicle/@lon`  |
-| Vehicle ID  | `//vehicle/@id`  |
-| Vehicle_Speed  | `//vehicle/@speedKmHr`  |
+| `Destination`  | `flowfile-attribute`  |
+| `Direction_of_Travel`  | `//vehicle/@dirTag`  |
+| `Latitude`  | `//vehicle/@lat`  |
+| `Longitude`  | `//vehicle/@lon`  |
+| `Vehicle_ID`  | `//vehicle/@id`  |
+| `Vehicle_Speed`  | `//vehicle/@speedKmHr`  |
 
 ![evaluateXPath_extract_splitFlowFiles_config_property_tab](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/evaluateXPath_extract_splitFlowFiles_config_property_tab.png)
 
@@ -337,7 +337,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |:---|---:|
-| Filter_Attributes  | `${Direction_of_Travel:isEmpty():not():and(${Last_Time:isEmpty():not()}):and(${Latitude:isEmpty():not()}):and(${Longitude:isEmpty():not()}):and(${Vehicle_ID:isEmpty():not()}):and(${Vehicle_Speed:equals('0'):not()})}`  |
+| `Filter_Attributes`  | `${Direction_of_Travel:isEmpty():not():and(${Last_Time:isEmpty():not()}):and(${Latitude:isEmpty():not()}):and(${Longitude:isEmpty():not()}):and(${Vehicle_ID:isEmpty():not()}):and(${Vehicle_Speed:equals('0'):not()})}`  |
 
 ![routeOnAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/routeOnAttribute_config_property_tab_window.png)
 
@@ -355,8 +355,8 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |:---|---:|
-| Attributes List  | `Vehicle_ID, Direction_of_Travel, Latitude, Longitude, Vehicle_Speed, Last_Time`  |
-| Destination  | flowfile-content  |
+| `Attributes List`  | `Vehicle_ID, Direction_of_Travel, Latitude, Longitude, Vehicle_Speed, Last_Time`  |
+| `Destination`  | flowfile-content  |
 
 ![attributesToJSON_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/attributesToJSON_config_property_tab_window.png)
 
@@ -374,12 +374,12 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |:---|---:|
-| Minimum Number of Entries  | `10`  |
-| Maximum Number of Entries  | `15`  |
-| Delimiter Strategy  | Text  |
-| Header  | `[`  |
-| Footer  | `]`  |
-| Demarcator | `,` {insert-then-press-shift-enter} |
+| `Minimum Number of Entries`  | `10`  |
+| `Maximum Number of Entries`  | `15`  |
+| `Delimiter Strategy`  | Text  |
+| `Header`  | `[`  |
+| `Footer`  | `]`  |
+| `Demarcator` | `,` {insert-then-press-shift-enter} |
 
 ![mergeContent_firstHalf_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/mergeContent_firstHalf_config_property_tab_window.png)
 
@@ -402,7 +402,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 | Property  | Value  |
 |:---|---:|
-| Directory  | `/tmp/nifi/output/filtered_transitLoc_data`  |
+| `Directory`  | `/tmp/nifi/output/filtered_transitLoc_data`  |
 
 ![putFile_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/putFile_config_property_tab_window.png)
 
@@ -456,7 +456,7 @@ Provence Event Window:
 
 ![provenance_content_tab_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/provenance_content_tab_lab1.png)
 
-4\. NiFi gives the user the option view the data in multiple formats. We will view it in original format. 
+4\. NiFi gives the user the option view the data in multiple formats. We will view it in original format.
 
 ![event_content_view_window_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/event_content_view_window_lab1.png)
 

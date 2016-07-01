@@ -64,8 +64,8 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 
 | Property  | Value  |
 |:---|---:|
-| URL  | `http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=sf-muni&r=M&t=0` |
-| Filename  | `vehicleLoc_SF_OceanView.xml` |
+| `URL`  | `http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=sf-muni&r=M&t=0` |
+| `Filename`  | `vehicleLoc_SF_OceanView.xml` |
 
 ![getHTTP_liveStream_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/getHTTP_liveStream_config_property_tab_window.png)
 
@@ -79,7 +79,7 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 
 | Property  | Value  |
 |:---|---:|
-| Directory  | `/tmp/nifi/output/nearby_neighborhoods_liveStream`  |
+| `Directory`  | `/tmp/nifi/output/nearby_neighborhoods_liveStream` 
 
 **Directory** is changed to a new location for the real-time data coming in from NextBus live stream.
 
