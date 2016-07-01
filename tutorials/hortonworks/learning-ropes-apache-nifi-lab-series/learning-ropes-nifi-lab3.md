@@ -33,7 +33,7 @@ Feel free to download the [Lab3-NiFi-Learn-Ropes.xml](https://raw.githubusercont
 
 ## NextBus Live Feed
 
-Provides the public with live information regarding passenger information, such as vehicle location information, prediction times on transit vehicles, routes of vehicles and different agencies (San Francisco Muni, Unitrans City of Davis, etc). We will learn to use to access the XML Live Feed Data by creating an URL. In this URL we will specify parameters in a query string. The parameters for the lab will include the vehicle location, agency, route and time.
+NextBus Live Feed provides the public with live information regarding passenger information, such as vehicle location information, prediction times on transit vehicles, routes of vehicles and different agencies (San Francisco Muni, Unitrans City of Davis, etc). We will learn to use NextBus's API to access the XML Live Feed Data and create an URL. In this URL we will specify parameters in a query string. The parameters for the lab will include the vehicle location, agency, route and time.
 
 After viewing the Live Feed Documentation, we created the following URL for the GetHTTP processor:
 
@@ -58,7 +58,7 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 
 2\. Add the **GetHTTP** processor and drag it to the place where the previous three processors were located. Connect GetHTTP to EvaluateXPath processor located above SplitXML. When the Create Connection window appears, select **success** checkbox. Click **Apply**.
 
-3\. Open GetHTTP Config Property Tab window. We will need to copy and paste Nextbus XML Live Feed URL into the property value. Add the property listed in Table 1.
+3\. Open GetHTTP Config Property Tab window. We will need to copy and paste Nextbus XML Live Feed URL into the property value. Add the property listed in **Table 1**.
 
 **Table 1:** Update GetHTTP Properties Tab
 
@@ -73,13 +73,13 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 
 ### Modify PutFile in Geo Enrich Section
 
-1\. Open PutFile Configure **Properties Tab**. Change the Directory property value from the previous value to the value shown in Table 2:
+1\. Open PutFile Configure **Properties Tab**. Change the Directory property value from the previous value to the value shown in **Table 2**:
 
 **Table 2:** Update PutFile Properties Tab
 
 | Property  | Value  |
 |:---|---:|
-| `Directory`  | `/tmp/nifi/output/nearby_neighborhoods_liveStream` 
+| `Directory`  | `/tmp/nifi/output/nearby_neighborhoods_liveStream`
 
 **Directory** is changed to a new location for the real-time data coming in from NextBus live stream.
 
@@ -110,6 +110,10 @@ Did you receive neighborhoods similar to the image below?
 
 ## Summary
 
-Congratulations! You learned how to use the GetHTTP processor to ingest a live stream from NextBus San Francisco Muni!
+Congratulations! You learned how to use NextBus's API to connect to their XML Live Feed for vehicle location data. You also learned how to use the GetHTTP processor to ingest a live stream from NextBus San Francisco Muni into NiFi!
 
 ## Further Reading
+
+- [NextBus XML Live Feed](https://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf)
+- [Hortonworks NiFi User Guie](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/index.html)
+- [Hortonworks NiFi Developer Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_DeveloperGuide/content/index.html)

@@ -214,7 +214,9 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 **Figure 3:** GetFile Configuration Property Tab Window
 
-3\. Now that each property is updated. Click **Apply**. Connect **GetFile** to **UnpackPack** processor by dragging the arrow icon from the first processor to the next component. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
+3\. Now that each property is updated. Navigate to the **Scheduling tab** and change the **Run Schedule** from 0 sec to `1 sec`, so that the processor executes a task every 1 second. Therefore, overuse of system resources is prevented.
+
+4\. Now that each required item is updated, click **Apply**. Connect **GetFile** to **UnpackPack** processor by dragging the arrow icon from the first processor to the next component. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
 ### 2.2 UnpackContent
 
@@ -483,7 +485,8 @@ Routes FlowFile based on whether it contains all XPath Expressions (attributes) 
 
 ## Further Reading
 
+- [Apache NiFi](http://hortonworks.com/apache/nifi/)
 - [Hortonworks DataFlow Documentation](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2/bk_UserGuide/content/index.html)
 - [NiFi Expression Language Guide](https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html)
-- [Apache NiFi](https://nifi.apache.org/videos.html)
-- [Google Places API](https://developers.google.com/places/)
+- [XPath Expression Tutorial](http://www.w3schools.com/xsl/xpath_intro.asp)
+- [JSON Tutorial](http://www.w3schools.com/json/)

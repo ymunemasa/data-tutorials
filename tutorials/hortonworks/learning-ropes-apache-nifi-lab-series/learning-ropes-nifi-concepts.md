@@ -19,7 +19,7 @@ The concepts section is tailored toward enriching your hands-on experience in th
 - 2\. Who Uses NiFi, and for what?
 - 3\. Understand NiFi DataFlow Build Process
 - 4\. The Core Concepts of NiFi
-- 5\. A Brief Hisotry of NiFi
+- 5\. A Brief History of NiFi
 - Further Reading
 
 ### 1\. What is Apache NiFi?
@@ -43,7 +43,7 @@ When NiFi is accessed at `localhost:6434/nifi` by users who run NiFi from Horton
 
 ### 3.2 Add Processor Dialog Overview
 
-Every dataflow requires processors. In the labs, you will use the processor icon ![processor_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/processor_nifi_iot.png) to add processors to the dataflow. Let’s view the add processor window. There are 3 options to find our desired processor. The **processor list** contains 157 items with descriptions for each processor. The **tag cloud** reduces the list by category, so if you know what particular use case your desired processor is associated with, select the tag and find the appropriate processor faster. The **filter bar** searches for processor based on the keyword entered. The image below illustrates where each option is located on the add processor window.
+Every dataflow requires processors. In the labs, you will use the processor icon ![processor_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/processor_nifi_iot.png) to add processors to the dataflow. Let’s view the add processor window. There are 3 options to find our desired processor. The **processor list** contains 157 items with descriptions for each processor. The **tag cloud** reduces the list by category, so if you know what particular use case your desired processor is associated with, select the tag and find the appropriate processor faster. The **filter bar** searches for the processor based on the keyword entered. The image below illustrates where each option is located on the add processor window.
 
 ![add_processor_window](/assets/learning-ropes-nifi-lab-series/lab-concepts-nifi/add_processor_window.png)
 
@@ -81,22 +81,26 @@ When we learned the process of building a dataflow, we crossed paths with many o
 
 | NiFi Term  | Description  |
 |:---|---:|
-| FlowFile  | Data brought into NiFi that moves through the system. This data holds attributes and can contain content. |
-| [Processor](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/processor_anatomy.html)  | Tool that pulls data from external sources, performs actions on attributes and content of FlowFiles and publishes data to external source. |
-| Connection  | Linkage between processors that contain a queue and relationship(s) that effect where data is routed. |
-| Flow Controller | Acts as a Broker to facilitate the exchange of FlowFiles between processors. |
-| Process Group | Enables the creation of new components based on the composition of processors, funnels, etc. |
+| `FlowFile`  | `Data brought into NiFi that moves through the system. This data holds attributes and can contain content.` |
+| [Processor](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/processor_anatomy.html)  | `Tool that pulls data from external sources, performs actions on attributes and content of FlowFiles and publishes data to external source.` |
+| `Connection`  | `Linkage between processors that contain a queue and relationship(s) that effect where data is routed.` |
+| `Flow Controller` | `Acts as a Broker to facilitate the exchange of FlowFiles between processors.` |
+| `Process Group` | `Enables the creation of new components based on the composition of processors, funnels, etc.` |
 
 
 
 ### 5\. A Brief History of NiFi
 
 
-Apache NiFi originated from the NSA Technology Transfer Program in Autumn of 2014. NiFi became an official apache project in July of 2015. NiFi has been in development for 8 years. NiFi was built with the idea to make it easier for people to automate and manage their data-in-motion without having to write numerous lines of code. Therefore, the user interface comes with many shape like tools that can be dropped onto the graph and connected together. NiFi was also created to solve many challenges of data-in-motion, such as multi-way dataflows, data ingestion from any data source, data distribution and the required security and governance. NiFi is a great tool for users who come from strong backgrounds in development or business that want to tackle the challenges stated above.
+Apache NiFi originated from the NSA Technology Transfer Program in Autumn of 2014. NiFi became an official Apache Project in July of 2015. NiFi has been in development for 8 years. NiFi was built with the idea to make it easier for people to automate and manage their data-in-motion without having to write numerous lines of code. Therefore, the user interface comes with many shape like tools that can be dropped onto the graph and connected together. NiFi was also created to solve many challenges of data-in-motion, such as multi-way dataflows, data ingestion from any data source, data distribution and the required security and governance. NiFi is a great tool for users who come from a variety of backgrounds(development, business) and want to tackle the challenges stated above.
 
 ### Further Reading
 
-The topics covered in the concepts section were brief and tailored toward the lab series. If you are interested in learning more in depth about these concepts, view [Getting Started with NiFi](https://nifi.apache.org/docs/nifi-docs/html/getting-started.html).
+The topics covered in the concepts section were brief and tailored toward the lab series.
+
+- If you are interested in learning more in depth about these concepts, view [Getting Started with NiFi](https://nifi.apache.org/docs/nifi-docs/html/getting-started.html).
+
+- If there is a particular feature you want to learn more about, view our [Hortonworks NiFi User Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/index.html)
 
 
 Articles of Interesting Use Cases with NiFi:
