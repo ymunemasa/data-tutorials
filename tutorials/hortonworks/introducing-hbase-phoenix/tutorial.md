@@ -484,7 +484,7 @@ Now let’s restore the backup of this table which you created earlier in the tu
 hbase restore /user/hbase/backup backup_1466560117119 driver_dangerous_event -automatic
 ~~~
 
-![restore_command_result](/assets/introducing-hbase-phoenix/restore_command_resultrev.png)
+![restore_command_result](/assets/introducing-hbase-phoenix/restore_command_result.png)
 
 You can view the result at the end of this command’s execution.
 
