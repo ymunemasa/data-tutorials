@@ -343,7 +343,7 @@ Enter the path of our data set on the Locations page:
 /user/ambari-qa/falcon/demo/primary/input/enron/${YEAR}-${MONTH}-${DAY}-${HOUR}
 ~~~
 
-We will set the stats and meta paths to / for now. Click `Next`.
+We will set the stats and meta paths to /tmp/${YEAR}-${MONTH}-${DAY}-${HOUR} for now. Click `Next`.
 
 ![feed3](/assets/falcon-processing-pipelines/feed3.png)
 
@@ -415,8 +415,8 @@ Then click on the `Edit` button over XML Preview area on the right hand side of 
     </clusters>
     <locations>
         <location type="data" path="/user/ambari-qa/falcon/demo/primary/input/enron/${YEAR}-${MONTH}-${DAY}-${HOUR}"/>
-        <location type="stats" path="/"/>
-        <location type="meta" path="/"/>
+        <location type="stats" path="/tmp/${YEAR}-${MONTH}-${DAY}-${HOUR}"/>
+        <location type="meta" path="/tmp/${YEAR}-${MONTH}-${DAY}-${HOUR}"/>
     </locations>
     <ACL owner="ambari-qa" group="users" permission="0755"/>
     <schema location="/none" provider="/none"/>
@@ -607,7 +607,7 @@ Set the default storage location to
 /user/ambari-qa/falcon/demo/processed/enron/${YEAR}-${MONTH}-${DAY}-${HOUR}
 ~~~
 
-Keep stats path and meta path as /.
+Keep stats path and meta path as /tmp/${YEAR}-${MONTH}-${DAY}-${HOUR}.
 Click `Next`.
 
 ![feed23](/assets/falcon-processing-pipelines/feed23.png)
@@ -618,7 +618,7 @@ On the Clusters page,select source cluster as a primary cluster ensure you modif
 /user/ambari-qa/falcon/demo/primary/processed/enron/${YEAR}-${MONTH}-${DAY}-${HOUR}
 ~~~
 
-And enter / for the stats and meta data locations.
+And enter /tmp/${YEAR}-${MONTH}-${DAY}-${HOUR} for the stats and meta data locations.
 Keep the retention period as 90 hours.
 
 Set the target cluster as backupCluster and again set the validity start for the current time and end time to an hour or two from now
@@ -628,7 +628,7 @@ And specify the data path for the target to
 /falcon/demo/bcp/processed/enron/${YEAR}-${MONTH}-${DAY}-${HOUR}
 ~~~
 
-Set the statistics and meta data locations to /
+Set the statistics and meta data locations to /tmp/${YEAR}-${MONTH}-${DAY}-${HOUR}
 Enter the retention period as 90 hours for target cluster as well.
 Click `Next`.
 
@@ -658,8 +658,8 @@ Click on the `Edit` button over XML Preview area on the right hand side of the s
             <retention limit="hours(90)" action="delete"/>
             <locations>
                 <location type="data" path="/user/ambari-qa/falcon/demo/primary/processed/enron/${YEAR}-${MONTH}-${DAY}-${HOUR}"/>
-                <location type="stats" path="/"/>
-                <location type="meta" path="/"/>
+                <location type="stats" path="/tmp/${YEAR}-${MONTH}-${DAY}-${HOUR}"/>
+                <location type="meta" path="/tmp/${YEAR}-${MONTH}-${DAY}-${HOUR}"/>
             </locations>
         </cluster>
         <cluster name="backupCluster" type="target">
@@ -667,15 +667,15 @@ Click on the `Edit` button over XML Preview area on the right hand side of the s
             <retention limit="hours(90)" action="delete"/>
             <locations>
                 <location type="data" path="/falcon/demo/bcp/processed/enron/${YEAR}-${MONTH}-${DAY}-${HOUR}"/>
-                <location type="stats" path="/"/>
-                <location type="meta" path="/"/>
+                <location type="stats" path="/tmp/${YEAR}-${MONTH}-${DAY}-${HOUR}"/>
+                <location type="meta" path="/tmp/${YEAR}-${MONTH}-${DAY}-${HOUR}"/>
             </locations>
         </cluster>
     </clusters>
     <locations>
         <location type="data" path="/user/ambari-qa/falcon/demo/processed/enron/${YEAR}-${MONTH}-${DAY}-${HOUR}"/>
-        <location type="stats" path="/"/>
-        <location type="meta" path="/"/>
+        <location type="stats" path="/tmp/${YEAR}-${MONTH}-${DAY}-${HOUR}"/>
+        <location type="meta" path="/tmp/${YEAR}-${MONTH}-${DAY}-${HOUR}"/>
     </locations>
     <ACL owner="ambari-qa" group="users" permission="0755"/>
     <schema location="/none" provider="/none"/>
