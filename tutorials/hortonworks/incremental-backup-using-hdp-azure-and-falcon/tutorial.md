@@ -558,9 +558,6 @@ Here is an example of what a process specification looks like:
 ![](/assets/hdp-azure-falcon-backup/process-spec.png)
 
 
-
-
-
 Back to our scenario, let’s submit the ingest and the cleanse process respectively:
 
 The ingest process is responsible for calling the Oozie workflow that downloads the raw emails from the web into the primary Hadoop cluster under the location specified in the rawEmailFeed.xml It also takes care of handling late data arrivals
