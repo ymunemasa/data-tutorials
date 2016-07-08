@@ -170,7 +170,7 @@ If you would like to read more about configuring and connecting processors, refe
 
 ### 2.1 GetFile
 
-1\. Download [trafficLocs_data_for_simulator.zip](/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip).
+1\. Download [trafficLocs_data_for_simulator.zip](https://github.com/hortonworks/tutorials/blob/hdp/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip?raw=true).
 
 ### NiFi on Sandbox (Option 1)
 
