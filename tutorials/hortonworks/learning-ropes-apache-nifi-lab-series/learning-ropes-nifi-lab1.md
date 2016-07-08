@@ -201,7 +201,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 ![configure_processor_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/configure_processor_nifi_iot.png)
 
-2\. Click on the **Properties** tab. Add the properties listed in Table 1 to the processor's appropriate properties and if their original properties already have values, update them. Click the **OK** button after changing a property.
+2\. Click on the **Properties** tab. Add the properties listed in Table 3 to the processor's appropriate properties and if their original properties already have values, update them. Click the **OK** button after changing a property.
 
 **Table 3:** Update GetFile Property Values
 
@@ -216,7 +216,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Now that each property is updated. Navigate to the **Scheduling tab** and change the **Run Schedule** from 0 sec to `1 sec`, so that the processor executes a task every 1 second. Therefore, overuse of system resources is prevented.
 
-4\. Now that each required item is updated, click **Apply**. Connect **GetFile** to **UnpackPack** processor by dragging the arrow icon from the first processor to the next component. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
+4\. Now that each required item is updated, click **Apply**. Connect **GetFile** to **UnpackContent** processor by dragging the arrow icon from the first processor to the next component. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
 ### 2.2 UnpackContent
 
@@ -234,7 +234,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 2\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **original** checkboxes. Click **Apply**.
 
-3\. Connect **UnpackPack** to **ControlRate** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
+3\. Connect **UnpackContent** to **ControlRate** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
 ### 2.3 ControlRate
 
