@@ -55,7 +55,7 @@ In order to start/stop HBase service, you must log into Ambari as an administrat
 First SSH into the Hortonworks Sandbox with the command:
 
 ~~~
-ssh root@127.0.0.1 -p 2222
+$>ssh root@127.0.0.1 -p 2222
 ~~~
 
 ![sshTerminal](/assets/introducing-hbase-phoenix/sshTerminal.png)
@@ -64,7 +64,7 @@ If do do not have ssh client, you can also access the shell via `http://localhos
 Now run the following command to reset the password for user `admin`:
 
 ~~~
-ambari-admin-password-reset
+$>ambari-admin-password-reset
 ~~~
 
 ![admin_password_reset](/assets/introducing-hbase-phoenix/admin_password_reset.png)
