@@ -141,7 +141,7 @@ hadoop jar /opt/lucidworks-hdpsearch/job/lucidworks-hadoop-job-2.0.3.jar com.luc
 
 ### [](#step-8---search-indexed-documents)Step 8 – Search indexed documents
 
-*   Search the indexed documents. Using the browser, visit the url [http://sandbox.hortonworks.com:8984/solr/labs/select?q=*:*](http://sandbox.hortonworks.com:8984/solr/labs/select?q=*:*)
+*   Search the indexed documents. Using the browser, visit the url [http://sandbox.hortonworks.com:8983/solr/labs/select?q=*:*](http://sandbox.hortonworks.com:8983/solr/labs/select?q=*:*)
 *   You will see search results like below
 
 ![Image](/assets/search-with-solr/solr-query.png)
