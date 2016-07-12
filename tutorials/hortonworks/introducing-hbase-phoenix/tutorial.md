@@ -100,7 +100,7 @@ First SSH into the Hortonworks Sandbox with the command:
 Switch the user to hbase.
 
 ~~~
-su hbase
+$>su hbase
 ~~~
 
 ![switchTohbase](/assets/introducing-hbase-phoenix/switch_to_hbase.png)
@@ -120,7 +120,7 @@ These are the commands that operate on tables in HBase.
 The syntax to create a table in HBase is `create '<table_name>','<column_family_name>'`. Let’s create a table called '**driver_dangerous_event'** with a column family of name **events**. Run the following command:
 
 ~~~
-create 'driver_dangerous_event','events'
+hbase> create 'driver_dangerous_event','events'
 ~~~
 
 ![create_table](/assets/introducing-hbase-phoenix/create_table.png)
@@ -142,11 +142,11 @@ Let’s import some data into the table. We’ll use a sample dataset that track
 Open a new terminal and ssh into the Sandbox. Download the data.csv file and let’s copy the file in HDFS, 
 
 ~~~
-ssh root@127.0.0.1 -p 2222
+$>ssh root@127.0.0.1 -p 2222
 
-curl -o ~/data.csv https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/data.csv
+$>curl -o ~/data.csv https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/data.csv
 
-hadoop fs -copyFromLocal ~/data.csv /tmp
+$>hadoop fs -copyFromLocal ~/data.csv /tmp
 ~~~
 
 ![copyFromLocal_data_csv](/assets/introducing-hbase-phoenix/copyFromLocal_data_csv.png)
@@ -154,9 +154,9 @@ hadoop fs -copyFromLocal ~/data.csv /tmp
 Now execute the `LoadTsv` from hbase user statement as following:
 
 ~~~
-su hbase
+$>su hbase
 
-hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=,  -Dimporttsv.columns="HBASE_ROW_KEY,events:driverId,events:driverName,events:eventTime,events:eventType,events:latitudeColumn,events:longitudeColumn,events:routeId,events:routeName,events:truckId" driver_dangerous_event hdfs://sandbox.hortonworks.com:/tmp/data.csv
+$>hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=,  -Dimporttsv.columns="HBASE_ROW_KEY,events:driverId,events:driverName,events:eventTime,events:eventType,events:latitudeColumn,events:longitudeColumn,events:routeId,events:routeName,events:truckId" driver_dangerous_event hdfs://sandbox.hortonworks.com:/tmp/data.csv
 ~~~
 
 ![importtsv_command](/assets/introducing-hbase-phoenix/importtsv_command.png)
@@ -179,15 +179,15 @@ Using put command, you can insert rows in a HBase table. The syntax of put comma
 Copy following lines to put the data in the table.
 
 ~~~
-put 'driver_dangerous_event','4','events:driverId','78'
-put 'driver_dangerous_event','4','events:driverName','Carl'
-put 'driver_dangerous_event','4','events:eventTime','2016-09-23 03:25:03.567'
-put 'driver_dangerous_event','4','events:eventType','Normal'
-put 'driver_dangerous_event','4','events:latitudeColumn','37.484938'
-put 'driver_dangerous_event','4','events:longitudeColumn','-119.966284'
-put 'driver_dangerous_event','4','events:routeId','845'
-put 'driver_dangerous_event','4','events:routeName','Santa Clara to San Diego'
-put 'driver_dangerous_event','4','events:truckId','637'
+hbase>put 'driver_dangerous_event','4','events:driverId','78'
+hbase>put 'driver_dangerous_event','4','events:driverName','Carl'
+hbase>put 'driver_dangerous_event','4','events:eventTime','2016-09-23 03:25:03.567'
+hbase>put 'driver_dangerous_event','4','events:eventType','Normal'
+hbase>put 'driver_dangerous_event','4','events:latitudeColumn','37.484938'
+hbase>put 'driver_dangerous_event','4','events:longitudeColumn','-119.966284'
+hbase>put 'driver_dangerous_event','4','events:routeId','845'
+hbase>put 'driver_dangerous_event','4','events:routeName','Santa Clara to San Diego'
+hbase>put 'driver_dangerous_event','4','events:truckId','637'
 ~~~
 
 ![put_command](/assets/introducing-hbase-phoenix/put_command.png)
@@ -195,7 +195,7 @@ put 'driver_dangerous_event','4','events:truckId','637'
 Now let’s view a data from scan command.
 
 ~~~
-scan 'driver_dangerous_event'
+hbase>scan 'driver_dangerous_event'
 ~~~
 
 ![scan_command1](/assets/introducing-hbase-phoenix/scan_command1.png)
@@ -205,7 +205,7 @@ You can also update an existing cell value using the `put` command. The syntax f
 So let’s update a route name value of row key 4, from `'Santa Clara to San Diego'` to `'Santa Clara to Los Angeles'`. Type the following command in HBase shell:
 
 ~~~
-put 'driver_dangerous_event','4','events:routeName','Santa Clara to Los Angeles'
+hbase>put 'driver_dangerous_event','4','events:routeName','Santa Clara to Los Angeles'
 ~~~
 
 ![update_table](/assets/introducing-hbase-phoenix/update_table.png)
@@ -213,7 +213,7 @@ put 'driver_dangerous_event','4','events:routeName','Santa Clara to Los Angeles'
 Now scan the table to see the updated data:
 
 ~~~
-scan 'driver_dangerous_event'
+hbase>scan 'driver_dangerous_event'
 ~~~
 
 ![scan_command2](/assets/introducing-hbase-phoenix/scan_command2.png)
@@ -233,7 +233,7 @@ You can also read a specific column from get command. The syntax is as follows:
 Type the following statement to get the details from the row 1 and the driverName of column family events.
 
 ~~~
-get 'driver_dangerous_event','1',{COLUMN => 'events:driverName'}
+hbase>get 'driver_dangerous_event','1',{COLUMN => 'events:driverName'}
 ~~~
 
 ![get_command_column](/assets/introducing-hbase-phoenix/get_command_column.png)
@@ -241,7 +241,7 @@ get 'driver_dangerous_event','1',{COLUMN => 'events:driverName'}
 If you want to view the data from two columns, just add it to the {COLUMN =>...} section. Run the following command to get the details from row key 1 and the driverName and routeId of column family events:
 
 ~~~
-get 'driver_dangerous_event','1',{COLUMNS => ['events:driverName','events:routeId']}
+hbase>get 'driver_dangerous_event','1',{COLUMNS => ['events:driverName','events:routeId']}
 ~~~
 
 ![get_command_two_columns](/assets/introducing-hbase-phoenix/get_command_two_columns.png)
@@ -290,9 +290,9 @@ After pressing `Save`, you will get a popup like this:
 To connect to Phoenix, you need to specify the zookeeper quorum and in the sandbox, it is localhost. Change the working directory as per your HDP version. To launch it, execute the following commands:
 
 ~~~
-cd /usr/hdp/2.5.0.0-817/phoenix/bin
+$>cd /usr/hdp/2.5.0.0-817/phoenix/bin
 
-./sqlline.py localhost
+$>./sqlline.py localhost
 ~~~
 
 Your Phoenix shell will look like this:
@@ -387,7 +387,7 @@ The first step in running the backup-and-restore utilities is to capture the com
 Now create a full backup of table `driver_dangerous_event` on `hdfs://sandbox.hortonworks.com:8020/user/hbase/backup`  HDFS path with 3 parallel workers.
 
 ~~~
-hbase backup create full hdfs://sandbox.hortonworks.com:8020/user/hbase/backup driver_dangerous_event -w 3  
+$>hbase backup create full hdfs://sandbox.hortonworks.com:8020/user/hbase/backup driver_dangerous_event -w 3  
 ~~~
 
 ![create_full_backup_image](/assets/introducing-hbase-phoenix/create_full_backup.png)
@@ -395,7 +395,7 @@ hbase backup create full hdfs://sandbox.hortonworks.com:8020/user/hbase/backup d
 You check whether the backup of your table is created in HDFS or not.
 
 ~~~
-hadoop fs -ls /user/hbase/backup
+$>hadoop fs -ls /user/hbase/backup
 ~~~
 
 ![view_full_backup](/assets/introducing-hbase-phoenix/view_full_backup.png)
@@ -403,7 +403,7 @@ hadoop fs -ls /user/hbase/backup
 One more way to check whether the backup is taken or not is by running:
 
 ~~~
-hbase backup history
+$>hbase backup history
 ~~~
 
 ![backup_history](/assets/introducing-hbase-phoenix/backup_history.png)
@@ -436,7 +436,7 @@ remove - Removes tables from the set. Specify the tables to remove in the tables
 Now create a backup set called event which has a table driver_dangerous_event.
 
 ~~~
-hbase backup set add event driver_dangerous_event
+$>hbase backup set add event driver_dangerous_event
 ~~~
 
 ![create_backup_set](/assets/introducing-hbase-phoenix/create_backup_set.png)
@@ -444,7 +444,7 @@ hbase backup set add event driver_dangerous_event
 Let’s check whether our set is added or not using list:
 
 ~~~
-hbase backup set list
+$>hbase backup set list
 ~~~
 
 ![view_backup_set](/assets/introducing-hbase-phoenix/view_backup_set.png)
@@ -474,9 +474,9 @@ Let’s drop a table so that restore utility can be tested. To drop a table in H
 Run the following commands to drop the table:
 
 ~~~
-disable 'driver_dangerous_event'
+hbase>disable 'driver_dangerous_event'
 
-drop 'driver_dangerous_event'
+hbase>drop 'driver_dangerous_event'
 ~~~
 
 ![drop_table](/assets/introducing-hbase-phoenix/drop_table.png)
@@ -486,7 +486,7 @@ Now let’s restore the backup of this table which you created earlier in the tu
 > **NOTE**: Copy the same backup ID that you got while doing **hbase backup history**
 
 ~~~
-hbase restore /user/hbase/backup backup_1466560117119 driver_dangerous_event -automatic
+$>hbase restore /user/hbase/backup backup_1466560117119 driver_dangerous_event -automatic
 ~~~
 
 ![restore_command_result](/assets/introducing-hbase-phoenix/restore_command_result.png)
