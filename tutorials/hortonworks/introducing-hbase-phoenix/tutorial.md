@@ -12,12 +12,11 @@ components: [ hbase, phoenix, ambari ]
 
 HBase is a distributed column-oriented database built on top of the Hadoop file system. It is an open-source project and is horizontally scalable. HBase is a data model that is similar to Google’s big table designed to provide quick random access to huge amounts of unstructured data. It leverages the fault tolerance provided by the Hadoop File System (HDFS).
 
-It is a part of the Hadoop ecosystem that provides random real-time read/write access to data in the Hadoop File System.
+The components of HBase data model consist of tables, rows, column families, columns, cells and versions. Tables are like logical collection of rows stored in separate partitions. A row is one instance of data in a table and is identified by a  rowkey. Data in a row are grouped together as Column Families. Each Column Family has one or more Columns and these Columns in a family are stored together. Column Families form the basic unit of physical storage, hence it’s important that proper care be taken when designing Column Families in table. A Column is identified by a Column Qualifier that consists of the Column Family name concatenated with the Column name using a colon. A Cell stores data and is essentially a unique combination of rowkey, Column Family and the Column (Column Qualifier). The data stored in a cell is versioned and versions of data are identified by the timestamp.
 
-Tables in HBase are sorted by row. The table schema defines only column families, which are the key value pairs. A table have multiple column families and each column family can have any number of columns. Subsequent column values are stored contiguously on the disk. Each cell value of the table has a timestamp.
 For more information, refer HBase documentation [here](http://hortonworks.com/apache/hbase/).
 
-In this tutorial, we are going to walk you through some basic HBase shell commands, how to use Apache Phoenix along with HBase and a new Backup & Restore Utility introduced in HDP 2.5.
+In this tutorial, we are going to walk you through some basic HBase shell commands, how to use Apache Phoenix which enables OLTP and operational analytics in Hadoop by combining the power of standard SQL and JDBC APIs and the flexibility of late-bound, schema-on-read capabilities from the NoSQL world by leveraging HBase as its backing store.
 
 ## Prerequisites
 
@@ -30,32 +29,49 @@ In this tutorial, we are going to walk you through some basic HBase shell comman
     - [1.1: View the HBase Services page](#view-hbase-service)
     - [1.2: Start HBase Service](#start-hbase-service)
 - [2: Enter HBase Shell](#enter-hbase-shell)
-- [3: Try out Some General Commands](#general-commands)
-    - [3.1: version](#version)
-    - [3.2: whoami](#whoami)
-- [4: Data Definition Language Commands in HBase](#ddl-hbase)
-    - [4.1: Create](#create)
-    - [4.2: List](#list)
-    - [4.3: Describe](#describe)
-- [5: Data Manipulation Commands in HBase](#dml-hbase)
+- [3: Data Definition Language Commands in HBase](#ddl-hbase)
+    - [3.1: Create](#create)
+    - [3.2: List](#list)
+- [4: Data Manipulation Commands in HBase](#dml-hbase)
     - [5.1: Scan](#scan)
     - [5.2: Put](#put)
     - [5.3: Get](#get)
-- [6: Apache Phoenix Introduction](#phoenix-introduction)
-- [7: Enabling Phoenix by Ambari](#enable-phoenix)
-- [8: Launch Phoenix Shell](#launch-phoenix-shell)
-- [9: Create Phoenix Table on existing HBase table](#create-phoenix-table)
-- [10: Inserting Data via Phoenix](#inserting-data)
-- [11: HBase Backup & Restore Introduction](#hbase-backup-restore-introduction)
-- [12: Creating a Full Backup](#create-full-backup)
-- [13: Backup Sets](#backup-sets)
-- [14: Restoring a Backup](#restore-backup)
+- [5: Apache Phoenix Introduction](#phoenix-introduction)
+- [6: Enable Phoenix by Ambari](#enable-phoenix)
+- [7: Launch Phoenix Shell](#launch-phoenix-shell)
+- [8: Create Phoenix Table on existing HBase table](#create-phoenix-table)
+- [9: Inserting Data via Phoenix](#inserting-data)
+- [10: HBase Backup & Restore Introduction](#hbase-backup-restore-introduction)
+- [11: Creating a Full Backup](#create-full-backup)
+- [12: Backup Sets](#backup-sets)
+- [13: Restoring a Backup](#restore-backup)
+- [14: Appendix](#appendix)
 
 ## 1. Start HBase <a id="start-hbase"></a>
 
 ### 1.1 View the HBase Services page <a id="view-hbase-service"></a>
 
-Started by logging into Ambari as an admin user. From the Dashboard page of Ambari, click on `HBase` from the list of installed services.
+In order to start/stop HBase service, you must log into Ambari as an administrator. The default account (maria_dev) will not allow you to do this. Please follow these step to setup password for admin account. 
+First SSH into the Hortonworks Sandbox with the command:
+
+~~~
+ssh root@127.0.0.1 -p 2222
+~~~
+
+![sshTerminal](/assets/introducing-hbase-phoenix/sshTerminal.png)
+
+If do do not have ssh client, you can also access the shell via `http://localhost:4200/`
+Now run the following command to reset the password for user `admin`:
+
+~~~
+ambari-admin-password-reset
+~~~
+
+![admin_password_reset](/assets/introducing-hbase-phoenix/admin_password_reset.png)
+
+Now navigate to Ambari on 127.0.0.1:8080 on the browser and give your credentials
+
+From the Dashboard page of Ambari, click on `HBase` from the list of installed services.
 
 ![hbaseServiceOnOff](/assets/introducing-hbase-phoenix/hbase_service_on_off_iot.png)
 
@@ -69,6 +85,7 @@ Check the box and click on Confirm Start:
 
 ![confirmhbaseStartIot](/assets/introducing-hbase-phoenix/confirm_hbase_start_iot.png)
 
+Check the box to turn off the Maintenance Mode as it suppresses alerts, warnings and status change indicators generated for the object. 
 Wait for HBase to start (It may take a few minutes to turn green)
 
 ![hbaseStartedIot](/assets/introducing-hbase-phoenix/hbase_started_iot.png)
@@ -79,11 +96,6 @@ HBase comes with an interactive shell from where you can communicate with HBase 
 
 First SSH into the Hortonworks Sandbox with the command:
 
-~~~
-ssh root@127.0.0.1 -p 2222
-~~~
-
-![sshTerminal](/assets/introducing-hbase-phoenix/sshTerminal.png)
 
 Switch the user to hbase.
 
@@ -99,29 +111,13 @@ Type `hbase shell` and you will see the following screen:
 
 To exit the interactive shell, type `exit` or use `<ctrl+c>`. But wait, it is time to explore more features of the shell.
 
-## 3. Try out Some General Commands <a id="general-commands"></a>
-
-As you are now inside **HBase shell**, let’s try out some general commands:
-
-### 3.1 version <a id="version"></a>
-
-Type `version` to know the version of HBase being used.
-
-![versionHBase](/assets/introducing-hbase-phoenix/version_HBase.png)
-
-### 3.2 whoami <a id="whoami"></a>
-
-Type `whoami`  to know the information about the user.
-
-![whoamiHBase](/assets/introducing-hbase-phoenix/whoami_HBase.png)
-
-## 4. Data Definition Language Commands in HBase <a id="ddl-hbase"></a>
+## 3. Data Definition Language Commands in HBase <a id="ddl-hbase"></a>
 
 These are the commands that operate on tables in HBase.
 
-### 4.1 Create <a id="create"></a>
+### 3.1 Create <a id="create"></a>
 
-The syntax to create a table in HBase is `create '<table_name>','<column_family_name>'`. Let’s create a table called '**driver_dangerous_event'** with a column family as **events**. Type:
+The syntax to create a table in HBase is `create '<table_name>','<column_family_name>'`. Let’s create a table called '**driver_dangerous_event'** with a column family of name **events**. Run the following command:
 
 ~~~
 create 'driver_dangerous_event','events'
@@ -129,30 +125,28 @@ create 'driver_dangerous_event','events'
 
 ![create_table](/assets/introducing-hbase-phoenix/create_table.png)
 
-### 4.2 List <a id="list"></a>
+### 3.2 List <a id="list"></a>
 
-Type `list` to check whether the table is created or not. It will display the list of all the user tables in HBase as shown below:
+Let’s check the table we’ve just created, type the following command in the HBase shell 
+
+~~~
+hbase> list
+~~~
 
 ![list_table](/assets/introducing-hbase-phoenix/list_table.png)
 
-### 4.3 Describe <a id="describe"></a>
+## 4. Data Manipulation Commands in HBase <a id="dml-hbase"></a>
 
-Type `describe 'driver_dangerous_event'`  to see the description of the table.
+Let’s import some data into the table. We’ll use a sample dataset that tracks driving record of a logistics company. 
 
-![describe_table](/assets/introducing-hbase-phoenix/describe_table.png)
-
-## 5. Data Manipulation Commands in HBase <a id="dml-hbase"></a>
-
-Let’s import some data into the table which you created. The file data.csv is the collected data from the events. It contains records like driverId, truckId, eventTime, eventType, location, etc.
-
-Open a new terminal and ssh into the Sandbox. Download the data.csv file and let’s copy the file in HDFS,
+Open a new terminal and ssh into the Sandbox. Download the data.csv file and let’s copy the file in HDFS, 
 
 ~~~
 ssh root@127.0.0.1 -p 2222
 
-curl -o data.csv https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/data.csv
+curl -o ~/data.csv https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/data.csv
 
-hadoop fs -copyFromLocal data.csv /tmp
+hadoop fs -copyFromLocal ~/data.csv /tmp
 ~~~
 
 ![copyFromLocal_data_csv](/assets/introducing-hbase-phoenix/copyFromLocal_data_csv.png)
@@ -167,20 +161,17 @@ hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=,  -Dimp
 
 ![importtsv_command](/assets/introducing-hbase-phoenix/importtsv_command.png)
 
-Wait for 20 seconds, you will see something like this:
-
-![importtsv_output](/assets/introducing-hbase-phoenix/importtsv_output.png)
-
 Now let’s check whether the data got imported in the table `driver_dangerous_events` or not. Go back to the `hbase shell`.
 
-### 5.1 Scan <a id="scan"></a>
+### 4.1 Scan <a id="scan"></a>
 
-The scan command is used to view the data in the HBase table. Type `scan 'driver_dangerous_event'`.
+The scan command is used to view the data in the HBase table. Type the following command:
+`scan 'driver_dangerous_event'`
 You will see all the data present in the table with row keys and the different values for different columns in a column family.
 
 ![scan_command](/assets/introducing-hbase-phoenix/scan_command.png)
 
-### 5.2 Put <a id="put"></a>
+### 4.2 Put <a id="put"></a>
 
 Using put command, you can insert rows in a HBase table. The syntax of put command is as follows:
 `put '<table_name>','row1','<column_family:column_name>','value'`
@@ -209,7 +200,7 @@ scan 'driver_dangerous_event'
 
 ![scan_command1](/assets/introducing-hbase-phoenix/scan_command1.png)
 
-You can also update an existing cell value using the `put` command. The syntax for replacing is same as inserting a new value. Just make sure, you select a correct row, column family and column to update.
+You can also update an existing cell value using the `put` command. The syntax for replacing is same as inserting a new value. 
 
 So let’s update a route name value of row key 4, from `'Santa Clara to San Diego'` to `'Santa Clara to Los Angeles'`. Type the following command in HBase shell:
 
@@ -227,7 +218,7 @@ scan 'driver_dangerous_event'
 
 ![scan_command2](/assets/introducing-hbase-phoenix/scan_command2.png)
 
-### 5.3 Get <a id="get"></a>
+### 4.3 Get <a id="get"></a>
 
 It is used to read the data from HBase table. It gives a single row of data at a time. Syntax for get command is:
 `get '<table_name>','<row_number>'`
@@ -247,14 +238,22 @@ get 'driver_dangerous_event','1',{COLUMN => 'events:driverName'}
 
 ![get_command_column](/assets/introducing-hbase-phoenix/get_command_column.png)
 
-## 6. Apache Phoenix Introduction <a id="phoenix-introduction"></a>
+If you want to view the data from two columns, just add it to the {COLUMN =>...} section. Run the following command to get the details from row key 1 and the driverName and routeId of column family events:
 
-Apache Phoenix is a SQL abstraction layer for interacting with HBase. Phoenix lets you
-create and interact with tables in the form of typical DDL/DML statements via its standard JDBC API. With the driver APIs, Phoenix translates SQL to native HBase API calls. Consequently, Phoenix provides a SQL skin for working with data and objects stored in the NoSQL schema of HBase.
+~~~
+get 'driver_dangerous_event','1',{COLUMNS => ['events:driverName','events:routeId']}
+~~~
+
+![get_command_two_columns](/assets/introducing-hbase-phoenix/get_command_two_columns.png)
+
+
+## 5. Apache Phoenix Introduction <a id="phoenix-introduction"></a>
+
+Apache Phoenix is a SQL abstraction layer for interacting with HBase.  Phoenix translates SQL to native HBase API calls.  Phoenix provide JDBC/ODBC and Python drivers.
 
 For more information about Phoenix capabilities, see the [Apache Phoenix website](#https://phoenix.apache.org/).
 
-## 7. Enabling Phoenix <a id="enable-phoenix"></a>
+## 6. Enable Phoenix by Ambari<a id="enable-phoenix"></a>
 
 There is no separate installation required for Phoenix. You can enable Phoenix with Ambari:
 
@@ -286,7 +285,7 @@ After pressing `Save`, you will get a popup like this:
 
 ![restart_HBase_service](/assets/introducing-hbase-phoenix/restart_HBase_service.png)
 
-## 8. Launch Phoenix Shell <a id="launch-phoenix-shell"></a>
+## 7. Launch Phoenix Shell <a id="launch-phoenix-shell"></a>
 
 To connect to Phoenix, you need to specify the zookeeper quorum and in the sandbox, it is localhost. Change the working directory as per your HDP version. To launch it, execute the following commands:
 
@@ -300,9 +299,9 @@ Your Phoenix shell will look like this:
 
 ![enter_phoenix_shell](/assets/introducing-hbase-phoenix/enter_phoenix_shell.png)
 
-## 9. Create Phoenix Table on existing HBase table <a id="create-phoenix-table"></a>
+## 8. Create Phoenix Table on existing HBase table <a id="create-phoenix-table"></a>
 
-Let’s create an HBase table from Phoenix. You can create a Phoenix table/view on a pre-existing HBase table. There is no need to move the data to Phoenix or convert it. A table can be created with the same name.
+You can create a Phoenix table/view on a pre-existing HBase table. There is no need to move the data to Phoenix or convert it. Apache Phoenix supports table creation and versioned incremental alterations through DDL commands. The table metadata is stored in an HBase table and versioned. You can either create a READ-WRITE table or a READ only view with a condition that the binary representation of the row key and key values must match that of the Phoenix data types. The only addition made to the HBase table is Phoenix coprocessors used for query processing. A table can be created with the same name. 
 
 > **NOTE**: The DDL used to create the table is case sensitive and if HBase table name is in lowercase, you have to put the name in between double quotes. In HBase, you don’t model the possible KeyValues or the structure of the row key. This is the information you specify in Phoenix and beyond the table and column family.
 
@@ -335,9 +334,15 @@ select * from "driver_dangerous_event";
 
 ![select_data_phoenix1](/assets/introducing-hbase-phoenix/select_data_phoenix1.png)
 
+If you do not like this view, you can change it back to horizontal view by running the following command:
+
+~~~
+!outputformat horizontal
+~~~
+
 So with all existing HBase tables, you can query them with SQL now. You can point your Business Intelligence tools and Reporting Tools and other tools which work with SQL and query HBase as if it was another SQL database with the help of Phoenix.
 
-## 10: Inserting Data via Phoenix <a id="inserting-data"></a>
+## 9: Inserting Data via Phoenix <a id="inserting-data"></a>
 
 You can insert the data using `UPSERT` command. It inserts if not present and updates otherwise the value in the table. The list of columns is optional and if not present, the values will map to the column in the order they are declared in the schema. Copy the `UPSERT` statement given below and then view the newly added row.
 
@@ -353,11 +358,11 @@ You will see a newly added row:
 
 ![upsert_data_phoenix1](/assets/introducing-hbase-phoenix/upsert_data_phoenix1.png)
 
-## 11. HBase Backup & Restore Introduction <a id="hbase-backup-restore-introduction"></a>
+## 10. HBase Backup & Restore Introduction <a id="hbase-backup-restore-introduction"></a>
 
-The HBase backup-and-restore utility helps ensure that enterprises using HBase as a data repository can recover from the data loss or failures. HBase incremental backups enable more efficient and effective capture of HBase table images than previous attempts at serial backup-and-restore solutions, such as those that only used HBase Export and Import APIs. The full backup must be exported. The backup utility has an option to restore the data of the baseline full backup, which serves as the foundation on which incremental backups can be applied to return to you the data of a backup that was performed at a later point in time.
+The HBase backup and restore utility helps you take backup of the table schema and data and enable you to recover your environment should failure occur. The HBase backup and restore utility also support incremental backups. This means you don’t have to take full backup each time.
 
-## 12. Creating a Full Backup <a id="create-full-backup"></a>
+## 11. Creating a Full Backup <a id="create-full-backup"></a>
 
 The first step in running the backup-and-restore utilities is to capture the complete data set in a separate image from the source. The syntax for creating HBase backup is as follows:
 
@@ -379,7 +384,7 @@ The first step in running the backup-and-restore utilities is to capture the com
 
 7. -b bandwidth_per_worker (optional) - Specifies the bandwidth of the worker in MB per second.
 
-Now create a full backup of table `driver_dangerous_event` with 3 parallel workers.
+Now create a full backup of table `driver_dangerous_event` on `hdfs://sandbox.hortonworks.com:8020/user/hbase/backup`  HDFS path with 3 parallel workers.
 
 ~~~
 hbase backup create full hdfs://sandbox.hortonworks.com:8020/user/hbase/backup driver_dangerous_event -w 3  
@@ -405,7 +410,7 @@ hbase backup history
 
 Note the backup_ID which will be used while restoring the data.
 
-## 13. Backup Sets <a id="backup-sets"></a>
+## 12. Backup Sets <a id="backup-sets"></a>
 
 You can create a group of tables into a set so that it reduces the amount of repetitive inputs of table names. You can then use the `-set argument` to invoke named backup set in either hbase backup create or hbase backup restore utility. Syntax to create a backup set is:
 
@@ -444,7 +449,7 @@ hbase backup set list
 
 ![view_backup_set](/assets/introducing-hbase-phoenix/view_backup_set.png)
 
-## 14. Restoring a Backup <a id="restore-backup"></a>
+## 13. Restoring a Backup <a id="restore-backup"></a>
 
 The syntax for running a restore utility is as follows:
 
@@ -489,3 +494,12 @@ hbase restore /user/hbase/backup backup_1466560117119 driver_dangerous_event -au
 You can view the result at the end of this command’s execution.
 
 ![restore_command](/assets/introducing-hbase-phoenix/restore_command.png)
+
+## 14. Appendix <a id="appendix"></a>
+
+**ImportTsv Utility in HBase:**
+
+ImportTsv is a utility that will load data in TSV or CSV format into a specified HBase table. The column names of the TSV data must be specified using the -Dimporttsv.columns option. This option takes the form of comma-separated column names, where each column name is either a simple column family, or a columnfamily:qualifier. The special column name HBASE_ROW_KEY is used to designate that this column should be used as the row key for each imported record. You must specify exactly one column to be the row key, and you must specify a column name for every column that exists in the input data. In our case, events is a column family and driverId, driverName,etc are columns. 
+
+Next argument is the table name where you want the data to be imported
+Third argument specifies the input directory of CSV data.
