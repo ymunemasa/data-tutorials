@@ -1,7 +1,7 @@
 ---
 layout: tutorial
 title: Create a Falcon Cluster
-tutorial-id: 640
+tutorial-id: 690
 tutorial-series: Governance
 tutorial-version: hdp-2.4.0
 intro-page: true
