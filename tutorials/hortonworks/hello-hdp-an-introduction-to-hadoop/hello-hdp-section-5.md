@@ -3,9 +3,9 @@ layout: tutorial
 title: Hello HDP An Introduction to Hadoop with Hive and Pig
 tutorial-id: 100
 tutorial-series: Basic Development
-tutorial-version: hdp-2.4.0
-intro-page: true
-components: [ ambari, hive, pig, spark, zeppelin ]
+tutorial-version: hdp-2.5.0
+intro-page: false
+components: [ ambari, hive, pig, spark, zeppelin, technical-preview ]
 ---
 
 # Lab 3: Pig - Risk Factor
@@ -20,7 +20,7 @@ In this tutorial, you will be introduced to [Apache Pig](http://hortonworks.com/
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*   Hortonworks Sandbox Tech Preview HDP 2.5
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *   Lab 1: Load sensor data into HDFS
 *   Lab 2: Data Manipulation with Apache Hive

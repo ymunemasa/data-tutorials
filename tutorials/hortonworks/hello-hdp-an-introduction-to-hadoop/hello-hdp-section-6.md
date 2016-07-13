@@ -3,7 +3,7 @@ layout: tutorial
 title: Hello HDP An Introduction to Hadoop with Hive and Pig
 tutorial-id: 100
 tutorial-series: Basic Development
-tutorial-version: hdp-2.4.0
+tutorial-version: hdp-2.5.0
 intro-page: false
 components: [ ambari, hive, pig, spark, zeppelin ]
 ---
@@ -23,7 +23,7 @@ In this tutorial we will introduce Apache Spark. In the earlier section of the l
 
 This tutorial is a part of a series of hands on tutorials to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*  Hortonworks Sandbox Tech Preview HDP 2.5
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Lab 1: Loading sensor data into HDFS
 *  Lab 2: Data Manipulation with Apache Hive
@@ -67,6 +67,10 @@ Let's get started!
 
 
 ![Lab4_2](/assets/hello-hdp/configure_spark_service_hello_hdp_lab4.png)
+
+### For HDP 2.5 Sandbox Users Activate Livy Server
+
+Livy Server is a new feature added to the latest Sandbox HDP Platform and it adds extra security while running our spark jobs from Zeppelin Notebook. For this lab, users that have HDP 2.5 Sandbox can use Livy.
 
 2\. Now verify the Spark livy server is running:
 
@@ -124,7 +128,7 @@ For improved Hive integration, HDP 2.4 offers [ORC file](http://hortonworks.com/
 
 #### Import sql libraries:
 
-Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code. We can either run the original `%spark` interpreter or the `%livy` spark interpreter to run spark code. The difference is that livy comes with more security.
+Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code. We can either run the original `%spark` interpreter or the `%livy` spark interpreter to run spark code. The difference is that livy comes with more security. The default interpreter for spark jobs is `%spark`.
 
 ~~~scala
 %spark

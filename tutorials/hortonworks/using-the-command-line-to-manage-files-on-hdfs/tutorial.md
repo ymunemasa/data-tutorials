@@ -16,39 +16,43 @@ In this tutorial, we will walk through some of the basic Hadoop Distributed File
 
 ## Pre-Requisites
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*  If you're planning to deploy your sandbox on Azure, refer to this tutorial: [Deploying the Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*  Create popularNames.txt file and save it on your local file system
 *  Allow yourself around **1 hour** to complete this tutorial.
 
-1.) Open your vi editor with the following command:
+Downloaded drivers.csv from iot-truck-streaming repo and save it on your local filesystem of the sandbox.
+
+1\. SSH into the sandbox:
 
 ~~~
-vi popularNames.txt
+ssh root@127.0.0.1 -p 2222
 ~~~
 
-> **Note:** You can create any text file with data you want or you can follow the example. You could also download text file.
-
-2.) In vi, press `i` to insert text. Copy and paste the following data into the text file:
+2\. Download the drivers.csv since we will use it as an example while we learn to manage files.
 
 ~~~
-Rank    Male            Female
-1	Noah	        Emma
-2	Liam	        Olivia
-3	Mason	        Sophia
-4	Jacob	        Isabella
-5	William	        Ava
-6	Ethan	        Mia
-7	Michael	        Emily
-8	Alexander	Abigail
-9	James	        Madison
-10	Daniel	        Charlotte
+wget https://raw.githubusercontent.com/james94/iot-truck-streaming/master/drivers.csv
 ~~~
 
-3.) Press `esc` button and `:wq` to save and quit the vi.
+3\. Download the geolocation.zip file. Unzip the file.
+
+~~~
+wget https://app.box.com/HadoopCrashCourseData
+unzip
+~~~
+
+4\. We will use trucks.csv from the folder.
+
+~~~
+
+
+3\. Open vim to verify drivers.csv downloaded successfully.
+
+4\. Press `esc` button and `:wq` to save and quit vim.
 
 ![local_file_system_path_popularNames_txt](/assets/using-the-command-line-to-manage-hdfs/local_file_system_path_popularNames_txt.png)
 
-> popularNames.txt in the example above is located in `~` directory.
+
 
 ## Outline
 - [Step 1: Create a directory in HDFS, Upload a file and List Contents](#create-a-directory-in-hdfs-upload-a-file-and-list-contents)
@@ -72,7 +76,7 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
         # hadoop fs -mkdir <paths>
 # Example:
         hadoop fs -mkdir /user/hadoop
-        hadoop fs -mkdir /user/hadoop/dir1 /user/hadoop/dir2 /user/hadoop/dir3
+        hadoop fs -mkdir /user/hadoop/drivers /user/hadoop/dir2 /user/hadoop/geolocation
 ~~~
 
 ![create_3_dir](/assets/using-the-command-line-to-manage-hdfs/step1_createDir_hdfs_commandLineManageFiles_hdfs.png)
@@ -86,7 +90,7 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 # Usage:
         # hadoop fs -put <local-src> ... <HDFS_dest_path>
 # Example:
-        hadoop fs -put popularNames.txt /user/hadoop/dir1/popularNames.txt
+        hadoop fs -put drivers.csv /user/hadoop/drivers/drivers.csv
 ~~~
 
 ![upload_file_local_file_system](/assets/using-the-command-line-to-manage-hdfs/step1_createDir_hdfs_commandLineManageFiles_hdfs.png)
@@ -102,8 +106,8 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
         # hadoop  fs  -ls  <args>  
 # Example:
         hadoop fs -ls /user/hadoop
-        hadoop fs -ls /user/hadoop/dir1
-        hadoop fs -ls /user/hadoop/dir1/popularNames.txt
+        hadoop fs -ls /user/hadoop/drivers
+        hadoop fs -ls /user/hadoop/drivers/drivers.csv
 ~~~
 
 ![list_contents_directory](/assets/using-the-command-line-to-manage-hdfs/step1_listContentDir_commandLineManageFiles_hdfs.png)
@@ -119,7 +123,7 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 # Usage:  
         # hadoop fs -du URI
 # Example:
-        hadoop fs -du  /user/hadoop/ /user/hadoop/dir1/popularNames.txt
+        hadoop fs -du  /user/hadoop/ /user/hadoop/drivers/drivers.csv
 ~~~
 
 ![display_sizes_dir_files](/assets/using-the-command-line-to-manage-hdfs/step2_displayFileSize_commandLineManageFiles_hdfs.png)
@@ -135,7 +139,7 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 # Usage:
         # hadoop fs -get <hdfs_src> <localdst>
 # Example:
-        hadoop fs -get /user/hadoop/dir1/popularNames.txt /home/
+        hadoop fs -get /user/hadoop/drivers/drivers.csv /home/
 ~~~
 
 ![enter image description here](/assets/using-the-command-line-to-manage-hdfs/step3_download_hdfs_file_to_localsystem_commandLineManageFiles_hdfs.png)
@@ -153,7 +157,7 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 # Option:
         # addnl: can be set to enable adding a newline on end of each file
 # Example:
-        hadoop fs -getmerge /user/hadoop/dir1/  ./popularNamesV2.txt
+        hadoop fs -getmerge /user/hadoop/drivers/  ./popularNamesV2.txt
 ~~~
 
 ![copy_dir1_to_dir3](/assets/using-the-command-line-to-manage-hdfs/step4_getmerge_to_localDestn_commandLineManageFiles_hdfs.png)
