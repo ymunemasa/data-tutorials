@@ -30,9 +30,9 @@ We will download sf-salaries-2011-2013.csv and sf-salaries-2014.csv data onto ou
 ~~~
 cd ~/Downloads
 # download sf-salaries-2011-2013
-wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/sf-salary-datasets/sf-salaries-2011-2013.csv
+wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/using-the-command-line-to-manage-hdfs/sf-salary-datasets/sf-salaries-2011-2013.csv
 # download sf-salaries-2014
-wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/sf-salary-datasets/sf-salaries-2014.csv
+wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/using-the-command-line-to-manage-hdfs/sf-salary-datasets/sf-salaries-2014.csv
 ~~~
 
 ![list_geolocation_contents](/assets/using-the-command-line-to-manage-hdfs/list_geolocation_contents.png)
