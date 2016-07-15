@@ -33,7 +33,6 @@ ssh root@127.0.0.1 -p 2222
 2\. Copy and paste the commands to download the sf-salaries-2011-2013.csv and sf-salaries-2014.csv files. We will use them while we learn file management operations.
 
 ~~~
-cd ~/Downloads
 # download sf-salaries-2011-2013
 wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/sf-salary-datasets/sf-salaries-2011-2013.csv
 # download sf-salaries-2014
