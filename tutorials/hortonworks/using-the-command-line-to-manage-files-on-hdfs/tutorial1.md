@@ -3,16 +3,16 @@ layout: tutorial
 title: Using the Command Line to Manage Files on HDFS
 tutorial-id: 120
 tutorial-series: Operations
-tutorial-version: hdp-2.4.0
+tutorial-version: hdp-2.5.0
 intro-page: true
 components: [ hdfs ]
 ---
 
-# Using the Command Line to Manage Files on HDFS
+# Manage Files on HDFS with the Command Line
 
 ### Introduction
 
-In this tutorial, we will walk through some of the basic Hadoop Distributed File System (HDFS) commands you will need to manage files on HDFS.
+In this tutorial, we will walk through many of the common of the basic Hadoop Distributed File System (HDFS) commands you will need to manage files on HDFS. The particular datasets we will utilize to learn HDFS file management are San Francisco salaries from 2011-2014.
 
 ## Pre-Requisites
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
@@ -20,7 +20,9 @@ In this tutorial, we will walk through some of the basic Hadoop Distributed File
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around **1 hour** to complete this tutorial.
 
-Downloaded drivers.csv from iot-truck-streaming repo and save it on your local filesystem of the sandbox.
+### Download Vehicle Related Datasets
+
+We will download sf-salaries-2011-2013.csv and sf-salaries-2014.csv data onto our local filesystems of the sandbox. The commands are tailored for mac and linux users.
 
 1\. SSH into the sandbox:
 
@@ -28,29 +30,17 @@ Downloaded drivers.csv from iot-truck-streaming repo and save it on your local f
 ssh root@127.0.0.1 -p 2222
 ~~~
 
-2\. Download the drivers.csv since we will use it as an example while we learn to manage files.
+2\. Copy and paste the commands to download the sf-salaries-2011-2013.csv and sf-salaries-2014.csv files. We will use them while we learn file management operations.
 
 ~~~
-wget https://raw.githubusercontent.com/james94/iot-truck-streaming/master/drivers.csv
+cd ~/Downloads
+# download sf-salaries-2011-2013
+wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/sf-salary-datasets/sf-salaries-2011-2013.csv
+# download sf-salaries-2014
+wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/sf-salary-datasets/sf-salaries-2014.csv
 ~~~
 
-3\. Download the geolocation.zip file. Unzip the file.
-
-~~~
-wget https://app.box.com/HadoopCrashCourseData
-unzip
-~~~
-
-4\. We will use trucks.csv from the folder.
-
-~~~
-
-
-3\. Open vim to verify drivers.csv downloaded successfully.
-
-4\. Press `esc` button and `:wq` to save and quit vim.
-
-![local_file_system_path_popularNames_txt](/assets/using-the-command-line-to-manage-hdfs/local_file_system_path_popularNames_txt.png)
+![list_geolocation_contents](/assets/using-the-command-line-to-manage-hdfs/list_geolocation_contents.png)
 
 
 
@@ -76,7 +66,7 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
         # hadoop fs -mkdir <paths>
 # Example:
         hadoop fs -mkdir /user/hadoop
-        hadoop fs -mkdir /user/hadoop/drivers /user/hadoop/dir2 /user/hadoop/geolocation
+        hadoop fs -mkdir /user/hadoop/sf-salaries-2011-2013 /user/hadoop/sf-salaries /user/hadoop/sf-salaries-2014
 ~~~
 
 ![create_3_dir](/assets/using-the-command-line-to-manage-hdfs/step1_createDir_hdfs_commandLineManageFiles_hdfs.png)
@@ -90,7 +80,8 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 # Usage:
         # hadoop fs -put <local-src> ... <HDFS_dest_path>
 # Example:
-        hadoop fs -put drivers.csv /user/hadoop/drivers/drivers.csv
+        hadoop fs -put drivers.csv /user/hadoop/sf-salaries-2011-2013/sf-salaries-2011-2013.csv
+        hadoop fs -put Geolocation/trucks.csv /user/hadoop/sf-salaries-2014/sf-salaries-2014.csv
 ~~~
 
 ![upload_file_local_file_system](/assets/using-the-command-line-to-manage-hdfs/step1_createDir_hdfs_commandLineManageFiles_hdfs.png)
@@ -106,8 +97,8 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
         # hadoop  fs  -ls  <args>  
 # Example:
         hadoop fs -ls /user/hadoop
-        hadoop fs -ls /user/hadoop/drivers
-        hadoop fs -ls /user/hadoop/drivers/drivers.csv
+        hadoop fs -ls /user/hadoop/sf-salaries-2011-2013
+        hadoop fs -ls /user/hadoop/sf-salaries-2011-2013/sf-salaries-2011-2013.csv
 ~~~
 
 ![list_contents_directory](/assets/using-the-command-line-to-manage-hdfs/step1_listContentDir_commandLineManageFiles_hdfs.png)
@@ -123,7 +114,7 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 # Usage:  
         # hadoop fs -du URI
 # Example:
-        hadoop fs -du  /user/hadoop/ /user/hadoop/drivers/drivers.csv
+        hadoop fs -du  /user/hadoop/ /user/hadoop/sf-salaries-2011-2013/sf-salaries-2011-2013.csv
 ~~~
 
 ![display_sizes_dir_files](/assets/using-the-command-line-to-manage-hdfs/step2_displayFileSize_commandLineManageFiles_hdfs.png)
@@ -139,7 +130,7 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 # Usage:
         # hadoop fs -get <hdfs_src> <localdst>
 # Example:
-        hadoop fs -get /user/hadoop/drivers/drivers.csv /home/
+        hadoop fs -get /user/hadoop/sf-salaries-2011-2013/sf-salaries-2011-2013.csv /home/
 ~~~
 
 ![enter image description here](/assets/using-the-command-line-to-manage-hdfs/step3_download_hdfs_file_to_localsystem_commandLineManageFiles_hdfs.png)
@@ -157,7 +148,7 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 # Option:
         # addnl: can be set to enable adding a newline on end of each file
 # Example:
-        hadoop fs -getmerge /user/hadoop/drivers/  ./popularNamesV2.txt
+        hadoop fs -getmerge /user/hadoop/sf-salaries-2011-2013/  /user/hadoop/sf-salaries-2014/sf-salaries-2014.csv
 ~~~
 
 ![copy_dir1_to_dir3](/assets/using-the-command-line-to-manage-hdfs/step4_getmerge_to_localDestn_commandLineManageFiles_hdfs.png)
@@ -167,7 +158,7 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 
 #### hadoop distcp:
 
-*   Copy file or directories recursively
+*   Copy file or directories recursively, all the directory's files and subdirectories to the bottom of the directory tree are copied.
 *   It is a tool used for large inter/intra-cluster copying
 *   It uses MapReduce to effect its distribution copy, error handling and recovery, and reporting
 
@@ -175,17 +166,17 @@ Let's learn by writing the syntax. You will be able to copy and paste the follow
 # Usage:
         # hadoop distcp <src-url> <dest-url>
 # Example:
-        hadoop distcp /user/hadoop/dir1/ /user/hadoop/dir3/
+        hadoop distcp /user/hadoop/sf-salaries-2011-2013/ /user/hadoop/sf-salaries
 ~~~
 
 ![copy_file_recursively_distcp](/assets/using-the-command-line-to-manage-hdfs/step4_copy_file_recursively_commandLineManageFiles_hdfs.png)
 
-> distcp: copies dir1 and all its contents to dir3
+> distcp: copies drivers and all its contents to trucks
 
 
 ![copy_dir1_to_dir3](/assets/using-the-command-line-to-manage-hdfs/step4_visual_copy_recursively_distcp_commandLineManageFiles_hdfs.png)
 
-> Visual result of distcp operation's aftermath, dir1 gets copied to dir3
+> Visual result of distcp operation's aftermath, drivers gets copied to trucks
 
 
 ### Step 5: Use Help Command to access Hadoop Command Manual <a id="use-help-command-access-hadoop-command-manual"></a>
@@ -203,7 +194,7 @@ Help command opens the list of commands supported by Hadoop Data File System (HD
 Hope this short tutorial was useful to get the basics of file management.
 
 ##Summary <a id="summary">
-Congratulations! We just learned to use commands to manage our files in HDFS. We know how to create, upload and list the the contents in our directories. We also acquired the skills to download files from HDFS to our local file system and explored a few advanced features of the command line.
+Congratulations! We just learned to use commands to manage our drivers.csv and trucks.csv dataset files in HDFS. We learned to create, upload and list the the contents in our directories. We also acquired the skills to download files from HDFS to our local file system and explored a few advanced features of HDFS file management using the command line.
 
 ## Further Reading <a id="further-reading"></a>
 - [HDFS Overview](http://hortonworks.com/hadoop/hdfs/)
