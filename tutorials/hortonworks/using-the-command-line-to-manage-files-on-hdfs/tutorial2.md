@@ -19,9 +19,8 @@ In the previous tutorial, we learned to manage files on the Hadoop Distributed F
 *  If you're planning to deploy your sandbox on Azure, refer to this tutorial: [Deploying the Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around **1 hour** to complete this tutorial.
-*  Downloaded Vehicle Related Datasets from the previous tutorial
 
-### Download Vehicle Related Datasets
+### Download San Francisco Salary Related Datasets
 
 We will download sf-salaries-2011-2013.csv and sf-salaries-2014.csv data onto our local filesystems of our computer. The commands are tailored for mac and linux users.
 
@@ -156,7 +155,7 @@ Copy file or directories recursively means all the directory's files and subdire
 
 1\. Navigate to the **user** directory. Click on the row of the **hadoop** directory. Select the Copy button ![copy_button](/assets/using-the-command-line-to-manage-hdfs/tutorial2/copy_button.png).
 
-2\. The **Copy to** window will appear. Select the **tmp** folder, the row will turn blue. If you select the folder icon, the contents of **tmp** become visible. Click the blue **Copy** button to copy the **hadoop** folder recursively to this new location.
+2\. The **Copy to** window will appear. Select the **tmp** folder, the row will turn blue. If you select the folder icon, the contents of **tmp** become visible. Make sure the row is highlighted blue to do the copy. Click the blue **Copy** button to copy the **hadoop** folder recursively to this new location.
 
 ![copy_hadoop_to_tmp](/assets/using-the-command-line-to-manage-hdfs/tutorial2/copy_hadoop_to_tmp.png)
 

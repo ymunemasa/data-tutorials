@@ -20,7 +20,7 @@ In this tutorial, we will walk through many of the common of the basic Hadoop Di
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around **1 hour** to complete this tutorial.
 
-### Download Vehicle Related Datasets
+### Download San Francisco Salary Related Datasets
 
 We will download sf-salaries-2011-2013.csv and sf-salaries-2014.csv data onto our local filesystems of the sandbox. The commands are tailored for mac and linux users.
 
