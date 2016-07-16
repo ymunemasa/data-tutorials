@@ -22,15 +22,17 @@ In this tutorial, we will walk through many of the common of the basic Hadoop Di
 
 ### Download San Francisco Salary Related Datasets
 
-We will download sf-salaries-2011-2013.csv and sf-salaries-2014.csv data onto our local filesystems of the sandbox. The commands are tailored for mac and linux users.
+We will download **sf-salaries-2011-2013.csv** and **sf-salaries-2014.csv** data onto our local filesystems of the sandbox. The commands are tailored for mac and linux users.
 
-1\. SSH into the sandbox:
+1\. Open a terminal on your local machine, SSH into the sandbox:
 
 ~~~
 ssh root@127.0.0.1 -p 2222
 ~~~
 
-2\. Copy and paste the commands to download the sf-salaries-2011-2013.csv and sf-salaries-2014.csv files. We will use them while we learn file management operations.
+> Note: If your on VMware or Azure, insert your appropriate ip address in place of 127.0.0.1. Azure users will need to replace port 2222 with 22.
+
+2\. Copy and paste the commands to download the **sf-salaries-2011-2013.csv** and **sf-salaries-2014.csv** files. We will use them while we learn file management operations.
 
 ~~~
 # download sf-salaries-2011-2013
@@ -222,8 +224,8 @@ Help command opens the list of commands supported by Hadoop Data File System (HD
 
 Hope this short tutorial was useful to get the basics of file management.
 
-##Summary <a id="summary">
-Congratulations! We just learned to use commands to manage our sf-salaries-2011-2013.csv and sf-salaries-2014.csv dataset files in HDFS. We learned to create, upload and list the the contents in our directories. We also acquired the skills to download files from HDFS to our local file system and explored a few advanced features of HDFS file management using the command line.
+## Summary <a id="summary-lab1">
+Congratulations! We just learned to use commands to manage our **sf-salaries-2011-2013.csv** and **sf-salaries-2014.csv** dataset files in HDFS. We learned to create, upload and list the the contents in our directories. We also acquired the skills to download files from HDFS to our local file system and explored a few advanced features of HDFS file management using the command line.
 
 ## Further Reading <a id="further-reading"></a>
 - [HDFS Overview](http://hortonworks.com/hadoop/hdfs/)
