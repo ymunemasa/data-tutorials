@@ -42,7 +42,7 @@ wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/using-th
 ![sf_salary_datasets](/assets/using-the-command-line-to-manage-hdfs/sf_salary_datasets.png)
 
 ## Outline
-- [Step 1: Create a directory in HDFS, Upload a file and List Contents](#create-a-directory-in-hdfs-upload-a-file-and-list-contents)
+- [Step 1: Create a Directory in HDFS, Upload a file and List Contents](#create-a-directory-in-hdfs-upload-a-file-and-list-contents)
 - [Step 2: Find Out Space Utilization in a HDFS Directory](#find-out-space-utilization-in-a-hdfs-directory)
 - [Step 3: Download Files From HDFS to Local File System](#download-files-hdfs-to-local-file-system)
 - [Step 4: Explore Two Advanced Features](#explore-two-advanced-features)
