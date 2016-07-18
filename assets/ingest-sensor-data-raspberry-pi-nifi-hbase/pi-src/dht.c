@@ -97,7 +97,7 @@ void read_dht_data()
 		}
 		float f = c * 1.8f + 32;
 		//printf( "Humidity = %.1f %% Temperature = %.1f *C (%.1f *F)\n", h, c, f );
-		printf( "{\"date_&_time\":%s,\"Humidity\":%.1f %%,\"Temp_Deg_C\":%.1f,\"Temp_Deg_F\":%.1f}", get_date_tm, h, c, f );
+		printf( "{\"date_&_time\":%s,\"Humidity_Pct\":%.1f,\"Temp_Deg_C\":%.1f,\"Temp_Deg_F\":%.1f}\n", get_date_tm, h, c, f );
 	}else  {
 		printf( "Data not good, skip\n" );
 	}
