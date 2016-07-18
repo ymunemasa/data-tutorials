@@ -8,11 +8,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <time.h>
 
 #define MAX_TIMINGS	85
 #define DHT_PIN		3	/* GPIO-22 */
 
 int data[5] = { 0, 0, 0, 0, 0 };
+
+char *get_date_time()
+{
+	time_t timer;
+	static char buff[26];
+	struct tm* tm_info;
+
+	time(&timer);
+	tm_info = localtime(&timer);
+
+	strftime(buff, sizeof(buff), "%Y:%m:%d %H:%M:%S", tm_info);
+	return buff;
+}
 
 void read_dht_data()
 {
@@ -66,6 +80,7 @@ void read_dht_data()
 	if ( (j >= 40) &&
 	     (data[4] == ( (data[0] + data[1] + data[2] + data[3]) & 0xFF) ) )
 	{
+		char *get_date_tm = get_date_time();
 		float h = (float)((data[0] << 8) + data[1]) / 10;
 		if ( h > 100 )
 		{
@@ -82,6 +97,7 @@ void read_dht_data()
 		}
 		float f = c * 1.8f + 32;
 		printf( "Humidity = %.1f %% Temperature = %.1f *C (%.1f *F)\n", h, c, f );
+		printf( "{\"date_&_time\":%s,\"Humidity\":%.1f %%,\"Temp_Deg_C\":%.1f,\"Temp_Deg_F\":%.1f}", get_date_tm, h, c, f );
 	}else  {
 		printf( "Data not good, skip\n" );
 	}
