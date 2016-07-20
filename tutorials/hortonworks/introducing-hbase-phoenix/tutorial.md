@@ -41,17 +41,19 @@ In this tutorial, we are going to walk you through some basic HBase shell comman
 - [7: Launch Phoenix Shell](#launch-phoenix-shell)
 - [8: Create Phoenix Table on existing HBase table](#create-phoenix-table)
 - [9: Inserting Data via Phoenix](#inserting-data)
-- [10: HBase Backup & Restore Introduction](#hbase-backup-restore-introduction)
-- [11: Creating a Full Backup](#create-full-backup)
-- [12: Backup Sets](#backup-sets)
-- [13: Restoring a Backup](#restore-backup)
-- [14: Appendix](#appendix)
+- [10: Setting up SQuirrel and Phoenix Integration](#squirrel-phoenix-setup)
+- [11: Hive-HBase Integration](#hive-hbase-integration)
+- [12: HBase Backup & Restore Introduction](#hbase-backup-restore-introduction)
+- [13: Creating a Full Backup](#create-full-backup)
+- [14: Backup Sets](#backup-sets)
+- [15: Restoring a Backup](#restore-backup)
+- [16: Appendix](#appendix)
 
 ## 1. Start HBase <a id="start-hbase"></a>
 
 ### 1.1 View the HBase Services page <a id="view-hbase-service"></a>
 
-In order to start/stop HBase service, you must log into Ambari as an administrator. The default account (maria_dev) will not allow you to do this. Please follow these step to setup password for admin account. 
+In order to start/stop HBase service, you must log into Ambari as an administrator. The default account (maria_dev) will not allow you to do this. Please follow these step to setup password for admin account.
 First SSH into the Hortonworks Sandbox with the command:
 
 ~~~
@@ -85,7 +87,7 @@ Check the box and click on Confirm Start:
 
 ![confirmhbaseStartIot](/assets/introducing-hbase-phoenix/confirm_hbase_start_iot.png)
 
-Check the box to turn off the Maintenance Mode as it suppresses alerts, warnings and status change indicators generated for the object. 
+Check the box to turn off the Maintenance Mode as it suppresses alerts, warnings and status change indicators generated for the object.
 Wait for HBase to start (It may take a few minutes to turn green)
 
 ![hbaseStartedIot](/assets/introducing-hbase-phoenix/hbase_started_iot.png)
@@ -127,7 +129,7 @@ hbase> create 'driver_dangerous_event','events'
 
 ### 3.2 List <a id="list"></a>
 
-Let’s check the table we’ve just created, type the following command in the HBase shell 
+Let’s check the table we’ve just created, type the following command in the HBase shell
 
 ~~~
 hbase> list
@@ -137,9 +139,9 @@ hbase> list
 
 ## 4. Data Manipulation Commands in HBase <a id="dml-hbase"></a>
 
-Let’s import some data into the table. We’ll use a sample dataset that tracks driving record of a logistics company. 
+Let’s import some data into the table. We’ll use a sample dataset that tracks driving record of a logistics company.
 
-Open a new terminal and ssh into the Sandbox. Download the data.csv file and let’s copy the file in HDFS, 
+Open a new terminal and ssh into the Sandbox. Download the data.csv file and let’s copy the file in HDFS,
 
 ~~~
 $>ssh root@127.0.0.1 -p 2222
@@ -200,7 +202,7 @@ hbase>scan 'driver_dangerous_event'
 
 ![scan_command1](/assets/introducing-hbase-phoenix/scan_command1.png)
 
-You can also update an existing cell value using the `put` command. The syntax for replacing is same as inserting a new value. 
+You can also update an existing cell value using the `put` command. The syntax for replacing is same as inserting a new value.
 
 So let’s update a route name value of row key 4, from `'Santa Clara to San Diego'` to `'Santa Clara to Los Angeles'`. Type the following command in HBase shell:
 
@@ -301,7 +303,7 @@ Your Phoenix shell will look like this:
 
 ## 8. Create Phoenix Table on existing HBase table <a id="create-phoenix-table"></a>
 
-You can create a Phoenix table/view on a pre-existing HBase table. There is no need to move the data to Phoenix or convert it. Apache Phoenix supports table creation and versioned incremental alterations through DDL commands. The table metadata is stored in an HBase table and versioned. You can either create a READ-WRITE table or a READ only view with a condition that the binary representation of the row key and key values must match that of the Phoenix data types. The only addition made to the HBase table is Phoenix coprocessors used for query processing. A table can be created with the same name. 
+You can create a Phoenix table/view on a pre-existing HBase table. There is no need to move the data to Phoenix or convert it. Apache Phoenix supports table creation and versioned incremental alterations through DDL commands. The table metadata is stored in an HBase table and versioned. You can either create a READ-WRITE table or a READ only view with a condition that the binary representation of the row key and key values must match that of the Phoenix data types. The only addition made to the HBase table is Phoenix coprocessors used for query processing. A table can be created with the same name.
 
 > **NOTE**: The DDL used to create the table is case sensitive and if HBase table name is in lowercase, you have to put the name in between double quotes. In HBase, you don’t model the possible KeyValues or the structure of the row key. This is the information you specify in Phoenix and beyond the table and column family.
 
@@ -358,11 +360,102 @@ You will see a newly added row:
 
 ![upsert_data_phoenix1](/assets/introducing-hbase-phoenix/upsert_data_phoenix1.png)
 
-## 10. HBase Backup & Restore Introduction <a id="hbase-backup-restore-introduction"></a>
+## 10. Setting up SQuirrel and Phoenix Integration <a id="squirrel-phoenix-setup"></a>
+
+**SQuirreL SQL Client** is a graphical Java program that will allow you to view the structure of a JDBC compliant database, browse the data in tables, issue SQL commands etc. If you want to use a graphical user interface for Phoenix, you might give SQuirrel a try.
+
+Go to this [article](https://community.hortonworks.com/content/kbentry/44350/setting-up-squirrel-and-phoenix-integration.html) on Hortonworks Community Connection to set up the SQuirrel client work with Phoenix.
+
+## 11. Hive-HBase Integration <a id="hive-hbase-integration"></a>
+
+We can also use **Hive** to perform SQL queries on the data stored in HBase tables. We will use storage handler mechanism to create HBase tables via hive. **HBaseStorageHandler** allows Hive DDL for managing table definitions in both Hive metastore and HBase catalog simultaneously and consistently.
+
+### Setup HBase and Hive Integration
+
+To set up the integration, there are some jar files which need to be added to value of hive.aux.jars.path property. There are 3 jars in the lib directory of Hive:
+
+~~~
+zookeeper-*.jar
+guava-*.jar
+hive-hbase-handler-*.jar
+~~~
+
+And 6 jars in the lib directory of HBase:
+
+~~~
+hbase-client-*.jar,
+hbase-common-*.jar,
+hbase-protocol-*.jar,
+hbase-server-*.jar,
+hbase-shell-*.jar,
+hbase-thrift-*.jar
+~~~
+
+Let’s go to `Ambari` to add this property:
+
+Click on `Hive → Configs → Advanced`
+
+![hive_config_page](/assets/introducing-hbase-phoenix/hive_config_page.png)
+
+Scroll down to find **Custom hive-site** section, click on `Add Property` button, following pop up will come:
+
+![add_property](/assets/introducing-hbase-phoenix/add_property.png)
+
+Type `hive.aux.jars.path` in key. Check your HDP version and give the jar names as per your version. I am adding following jars in value:
+
+~~~
+file:///usr/hdp/2.5.0.0-817/hive/lib/zookeeper-3.4.6.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hive/lib/hive-hbase-handler-1.2.1000.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hive/lib/guava-14.0.1.jar,
+file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-client-1.1.2.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-common-1.1.2.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-protocol-1.1.2.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-server-1.1.2.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-shell-1.1.2.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-thrift-1.1.2.2.5.0.0-817.jar
+~~~
+
+Your popup should look like this:
+
+![added_property](/assets/introducing-hbase-phoenix/added_property.png)
+
+Click `Add` and then `Save`. You have to restart `Hive` and `Oozie` to get your change reflected.
+
+![restart_hive](/assets/introducing-hbase-phoenix/restart_hive.png)
+
+### Mapping Existing HBase tables to Hive
+
+We need to use External table to give Hive access to an existing HBase table with multiple columns and families. External tables are used when you want your tables to point to data files in place, therefore it has to be a folder you point to. In normal internal table in hive, data gets stored in default location in HDFS which is `/apps/hive/warehouse`.
+
+Let’s create a corresponding Hive table for the HBase table `driver_dangerous_events`.
+Select `Hive view` from the `menu` button next to `admin` button, type the following DDL:
+
+~~~
+CREATE EXTERNAL TABLE hbase_table_driver_dangerous_event(key string, driverId  string, driverName string, eventTime string, eventType string, latitudeColumn string, longitudeColumn string, routeId string, routeName string, truckId string)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+WITH SERDEPROPERTIES ("hbase.columns.mapping" = "events:driverId,events:driverName,events:eventTime,events:eventType,events:latitudeColumn,events:longitudeColumn,events:routeId,events:routeName,events:truckId")
+TBLPROPERTIES("hbase.table.name" = "driver_dangerous_event");
+~~~
+
+This statement registers the HBase table named `driver_dangerous_event` in the Hive metastore, accessible from Hive by the name `hbase_table_driver_dangerous_event`.
+**HBaseStorageHandler** is used to register the HBase table with the Hive metastore.
+**hbase.columns.mapping** is used to link Hive column names to the HBase table’s row key and columns. Your view should look like this:
+
+![create_external_table](/assets/introducing-hbase-phoenix/create_external_table.png)
+
+Click on green `Execute` to run the query. Your table will be created. Now let’s verify the content of this table. Refresh the database explorer and click you will see your table created. Click on menu button next to it to view its data.
+
+![view_table](/assets/introducing-hbase-phoenix/view_table.png)
+
+Wait for 10 seconds, you will see the data of the table.
+
+![view_data](/assets/introducing-hbase-phoenix/view_data.png)
+
+## 12. HBase Backup & Restore Introduction <a id="hbase-backup-restore-introduction"></a>
 
 The HBase backup and restore utility helps you take backup of the table schema and data and enable you to recover your environment should failure occur. The HBase backup and restore utility also support incremental backups. This means you don’t have to take full backup each time.
 
-## 11. Creating a Full Backup <a id="create-full-backup"></a>
+## 13. Creating a Full Backup <a id="create-full-backup"></a>
 
 The first step in running the backup-and-restore utilities is to capture the complete data set in a separate image from the source. The syntax for creating HBase backup is as follows:
 
@@ -410,7 +503,7 @@ $>hbase backup history
 
 Note the backup_ID which will be used while restoring the data.
 
-## 12. Backup Sets <a id="backup-sets"></a>
+## 14. Backup Sets <a id="backup-sets"></a>
 
 You can create a group of tables into a set so that it reduces the amount of repetitive inputs of table names. You can then use the `-set argument` to invoke named backup set in either hbase backup create or hbase backup restore utility. Syntax to create a backup set is:
 
@@ -449,7 +542,7 @@ $>hbase backup set list
 
 ![view_backup_set](/assets/introducing-hbase-phoenix/view_backup_set.png)
 
-## 13. Restoring a Backup <a id="restore-backup"></a>
+## 15. Restoring a Backup <a id="restore-backup"></a>
 
 The syntax for running a restore utility is as follows:
 
@@ -495,11 +588,11 @@ You can view the result at the end of this command’s execution.
 
 ![restore_command](/assets/introducing-hbase-phoenix/restore_command.png)
 
-## 14. Appendix <a id="appendix"></a>
+## 16. Appendix <a id="appendix"></a>
 
 **ImportTsv Utility in HBase:**
 
-ImportTsv is a utility that will load data in TSV or CSV format into a specified HBase table. The column names of the TSV data must be specified using the -Dimporttsv.columns option. This option takes the form of comma-separated column names, where each column name is either a simple column family, or a columnfamily:qualifier. The special column name HBASE_ROW_KEY is used to designate that this column should be used as the row key for each imported record. You must specify exactly one column to be the row key, and you must specify a column name for every column that exists in the input data. In our case, events is a column family and driverId, driverName,etc are columns. 
+ImportTsv is a utility that will load data in TSV or CSV format into a specified HBase table. The column names of the TSV data must be specified using the -Dimporttsv.columns option. This option takes the form of comma-separated column names, where each column name is either a simple column family, or a columnfamily:qualifier. The special column name HBASE_ROW_KEY is used to designate that this column should be used as the row key for each imported record. You must specify exactly one column to be the row key, and you must specify a column name for every column that exists in the input data. In our case, events is a column family and driverId, driverName,etc are columns.
 
 Next argument is the table name where you want the data to be imported
 Third argument specifies the input directory of CSV data.
