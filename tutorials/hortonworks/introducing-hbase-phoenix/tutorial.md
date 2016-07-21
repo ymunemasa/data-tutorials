@@ -181,15 +181,15 @@ Using put command, you can insert rows in a HBase table. The syntax of put comma
 Copy following lines to put the data in the table.
 
 ~~~
-hbase>put 'driver_dangerous_event','4','events:driverId','78'
-hbase>put 'driver_dangerous_event','4','events:driverName','Carl'
-hbase>put 'driver_dangerous_event','4','events:eventTime','2016-09-23 03:25:03.567'
-hbase>put 'driver_dangerous_event','4','events:eventType','Normal'
-hbase>put 'driver_dangerous_event','4','events:latitudeColumn','37.484938'
-hbase>put 'driver_dangerous_event','4','events:longitudeColumn','-119.966284'
-hbase>put 'driver_dangerous_event','4','events:routeId','845'
-hbase>put 'driver_dangerous_event','4','events:routeName','Santa Clara to San Diego'
-hbase>put 'driver_dangerous_event','4','events:truckId','637'
+put 'driver_dangerous_event','4','events:driverId','78'
+put 'driver_dangerous_event','4','events:driverName','Carl'
+put 'driver_dangerous_event','4','events:eventTime','2016-09-23 03:25:03.567'
+put 'driver_dangerous_event','4','events:eventType','Normal'
+put 'driver_dangerous_event','4','events:latitudeColumn','37.484938'
+put 'driver_dangerous_event','4','events:longitudeColumn','-119.966284'
+put 'driver_dangerous_event','4','events:routeId','845'
+put 'driver_dangerous_event','4','events:routeName','Santa Clara to San Diego'
+put 'driver_dangerous_event','4','events:truckId','637'
 ~~~
 
 ![put_command](/assets/introducing-hbase-phoenix/put_command.png)
@@ -289,10 +289,10 @@ After pressing `Save`, you will get a popup like this:
 
 ## 7. Launch Phoenix Shell <a id="launch-phoenix-shell"></a>
 
-To connect to Phoenix, you need to specify the zookeeper quorum and in the sandbox, it is localhost. Change the working directory as per your HDP version. To launch it, execute the following commands:
+To connect to Phoenix, you need to specify the zookeeper quorum and in the sandbox, it is localhost. To launch it, execute the following commands:
 
 ~~~
-$>cd /usr/hdp/2.5.0.0-817/phoenix/bin
+$>cd /usr/hdp/current/phoenix-client/bin
 
 $>./sqlline.py localhost
 ~~~
