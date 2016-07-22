@@ -453,7 +453,7 @@ Wait for 10 seconds, you will see the data of the table.
 
 ## 12. HBase Backup & Restore Introduction <a id="hbase-backup-restore-introduction"></a>
 
-The HBase backup and restore utility helps you take backup of the table schema and data and enable you to recover your environment should failure occur. The HBase backup and restore utility also support incremental backups. This means you don’t have to take full backup each time.
+The HBase backup and restore utility helps you take backup of the table schema and data and enable you to recover your environment should failure occur. The HBase backup and restore utility also supports incremental backups. This means you don’t have to take full backup each time.
 
 ## 13. Creating a Full Backup <a id="create-full-backup"></a>
 
