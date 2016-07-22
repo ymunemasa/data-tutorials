@@ -477,7 +477,7 @@ The first step in running the backup-and-restore utilities is to capture the com
 
 7. -b bandwidth_per_worker (optional) - Specifies the bandwidth of the worker in MB per second.
 
-Now create a full backup of table `driver_dangerous_event` on `hdfs://sandbox.hortonworks.com:8020/user/hbase/backup`  HDFS path with 3 parallel workers.
+Now create a full backup of table `driver_dangerous_event` on `hdfs://sandbox.hortonworks.com:8020/user/hbase/backup`  HDFS path with 3 parallel workers. Run the following command from the command line:
 
 ~~~
 $>hbase backup create full hdfs://sandbox.hortonworks.com:8020/user/hbase/backup driver_dangerous_event -w 3  
@@ -564,7 +564,7 @@ The syntax for running a restore utility is as follows:
 
 Let’s drop a table so that restore utility can be tested. To drop a table in HBase, you first have to disable it and then drop it.
 
-Run the following commands to drop the table:
+Run the following commands from the **hbase shell** to drop the table:
 
 ~~~
 hbase>disable 'driver_dangerous_event'
