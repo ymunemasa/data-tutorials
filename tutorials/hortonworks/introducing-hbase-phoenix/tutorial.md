@@ -574,6 +574,23 @@ hbase>drop 'driver_dangerous_event'
 
 ![drop_table](/assets/introducing-hbase-phoenix/drop_table.png)
 
+You also have to delete the mapping table from Phoenix to avoid any confusion.
+
+Exit from the hbase shell and go to `/usr/hdp/current/phoenix-client/bin` and open the Phoenix shell using:
+
+~~~
+cd /usr/hdp/current/phoenix-client/bin
+./sqlline.py localhost
+~~~
+
+Now drop that mapping table:
+
+~~~
+drop table "driver_dangerous_event";
+~~~
+
+![drop_table_phoenix](/assets/introducing-hbase-phoenix/drop_table_phoenix.png)
+
 Now let’s restore the backup of this table which you created earlier in the tutorial:
 
 > **NOTE**: Copy the same backup ID that you got while doing **hbase backup history**
