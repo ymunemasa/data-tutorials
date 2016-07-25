@@ -586,7 +586,7 @@ cd /usr/hdp/current/phoenix-client/bin
 Now drop that mapping table:
 
 ~~~
-drop table "driver_dangerous_event"
+drop table "driver_dangerous_event";
 ~~~
 
 ![drop_table_phoenix](/assets/introducing-hbase-phoenix/drop_table_phoenix.png)
