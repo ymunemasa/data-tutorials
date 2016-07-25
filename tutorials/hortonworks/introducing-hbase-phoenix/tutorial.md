@@ -591,6 +591,16 @@ drop table "driver_dangerous_event";
 
 ![drop_table_phoenix](/assets/introducing-hbase-phoenix/drop_table_phoenix.png)
 
+Exit the Phoenix shell by typing `!quit` and now drop the table from Hive also. Go back to Hive view and drop the table:
+
+~~~
+drop table hbase_table_driver_dangerous_event;
+~~~
+
+Click on green `Execute` button, you will see something like this:
+
+![drop_table_hive](/assets/introducing-hbase-phoenix/drop_table_hive.png)
+
 Now let’s restore the backup of this table which you created earlier in the tutorial:
 
 > **NOTE**: Copy the same backup ID that you got while doing **hbase backup history**
