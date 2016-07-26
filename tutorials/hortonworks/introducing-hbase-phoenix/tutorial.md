@@ -271,7 +271,17 @@ There is no separate installation required for Phoenix. You can enable Phoenix w
 
 ![enable_phoenix](/assets/introducing-hbase-phoenix/enable_phoenix.png)
 
-4. Scroll up and click `Save` to get your config change reflected.
+4. You have to change 3 more properties. Click on `Advanced Tab` and then scroll down to open `Advanced hbase-site` section. Add `org.apache.ranger.authorization.hbase.RangerAuthorizationCoprocessor` in following three properties:
+
+~~~
+hbase.coprocessor.master.classes 
+hbase.coprocessor.region.classes
+hbase.coprocessor.regionserver.classes
+~~~
+
+![config_HBase1](/assets/introducing-hbase-phoenix/config_HBase1.png)
+
+5. Scroll up and click `Save` to get your config change reflected.
 
 ![save_phoenix_setting](/assets/introducing-hbase-phoenix/save_phoenix_setting.png)
 
@@ -283,7 +293,7 @@ After pressing `Save`, you will get a popup like this:
 
 ![save_configuration_changes](/assets/introducing-hbase-phoenix/save_configuration_changes.png)
 
-5. Restart HBase service.
+6. Restart HBase service.
 
 ![restart_HBase_service](/assets/introducing-hbase-phoenix/restart_HBase_service.png)
 
