@@ -186,7 +186,7 @@ If you scroll down to the “Logs…” and click on the link you can see the lo
 
 ![script_logs](/assets/how-to-process-data-with-apache-pig-hdp2.5/script_logs.png)
 
-** NOTE : Notice, in the Logs, the script typically takes a little around 47 seconds to finish on our single node pseudo cluster.**
+**NOTE : Notice, in the Logs, the script typically takes a little around 47 seconds to finish on our single node pseudo cluster.**
 
 ##### Code Recap
 
