@@ -21,11 +21,13 @@ In this tutorial, we will learn to store data files using Ambari HDFS Files View
 
 ## Outline
 - [What is Pig?](#what-is-pig)
+- [What is Tez?](#what-is-tez)
 - [Our Data Processing Task](#our-data-processing-task)
 - [Step 1: Download The Data](#downloading-the-data)
 - [Step 2: Upload The Data Files](#uploading-data-files)
-- [Step 3: Create Pig Script](#create-pig-script)
+- [Step 3: Create Pig Script and Run it on MapReduce](#create-pig-script)
 - [Full Pig Latin Script for Exercise](#full-pig-script)
+- [Step 4: Run the Pig Script on Tez](#run-pig-script-tez)
 - [Further Reading](#further-reading)
 
 ## What is Pig? <a id="what-is-pig"></a>
@@ -35,6 +37,10 @@ Pig is a high level scripting language that is used with Apache Hadoop. Pig exce
 A good example of a `Pig application` is the `ETL transaction model` that describes how a process will extract data from a source, transform it according to a rule set and then load it into a datastore. Pig can ingest data from files, streams or other sources using the User Defined Functions(UDF). Once it has the data it can perform select, iteration, and other transforms over the data. Again the UDF feature allows passing the data to more complex algorithms for the transform. Finally Pig can store the results into the Hadoop Data File System.
 
 Pig scripts are translated into a series of `MapReduce jobs` that are run on the `Apache  Hadoop cluster`. As part of the translation the Pig interpreter does perform optimizations to speed execution on Apache Hadoop. We are going to write a Pig script that will do our data analysis task.
+
+## What is Tez? <a id="what-is-tez"></a>
+
+Tez – Hindi for “speed” provides a general-purpose, highly customizable framework that creates simplifies data-processing tasks across both small scale (low-latency) and large-scale (high throughput) workloads in Hadoop. It generalizes the [MapReduce paradigm](#http://en.wikipedia.org/wiki/MapReduce) to a more powerful framework by providing the ability to execute a complex DAG ([directed acyclic graph](#http://en.wikipedia.org/wiki/Directed_acyclic_graph)) of tasks for a single job so that projects in the Apache Hadoop ecosystem such as Apache Hive, Apache Pig and Cascading can meet requirements for human-interactive response times and extreme throughput at petabyte scale (clearly MapReduce has been a key driver in achieving this).
 
 ## Our Data Processing Task <a id="our-data-processing-task"></a>
 
@@ -180,6 +186,8 @@ If you scroll down to the “Logs…” and click on the link you can see the lo
 
 ![script_logs](/assets/how-to-process-data-with-apache-pig-hdp2.5/script_logs.png)
 
+**NOTE : Notice, in the Logs, the script typically takes a little around 47 seconds to finish on our single node pseudo cluster.**
+
 ##### Code Recap
 
 So we have created a simple `Pig script` that **reads in some comma separated data**.
@@ -208,8 +216,22 @@ join_data = FOREACH join_sum_logged GENERATE $0 as driverId, $4 as name, $1 as h
 dump join_data;
 ~~~
 
+### Step 4: Run Pig Script on Tez <a id="run-pig-script-tez"></a>
+
+Let’s run the same Pig script with Tez by clicking on `Execute on Tez` button near the `Execute` button:
+
+![execute_script_on_tez](/assets/how-to-process-data-with-apache-pig-hdp2.5/execute_script_on_tez.png)
+
+Notice the time after the execution completes:
+
+![script_logs_with_tez](/assets/how-to-process-data-with-apache-pig-hdp2.5/script_logs_with_tez.png)
+
+On our machine it took around 16 seconds with Pig using the Tez engine. That is more than 2X faster than Pig using MapReduce even without any specific optimization in the script for Tez.
+Tez definitely lives up to it’s name.
+
 ## Further Reading <a id="further-reading"></a>
 - [Apache Pig](http://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-pig/)
 - [Welcome to Apache Pig!](https://pig.apache.org/)
 - [Pig Latin Basics](https://pig.apache.org/docs/r0.12.0/basic.html#store)
 - [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645)
+- [Apache Tez](http://hortonworks.com/apache/tez/)
