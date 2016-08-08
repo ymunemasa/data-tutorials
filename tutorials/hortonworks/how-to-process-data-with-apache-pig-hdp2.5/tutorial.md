@@ -105,11 +105,11 @@ raw_drivers = FILTER drivers BY $0>1;
 
 #### 3.5 Implement a Script to Name the Fields
 
-The next thing we want to do is name the fields. We will use a `FOREACH` statement to iterate through the batting data object. We can use `Pig  Helper` that is at the bottom of the composition area to provide us with a template. We will click on `Pig  Helper`, select Data processing functions and then click on the `FOREACH template`. We can then replace each element by hitting the tab key.
+The next thing we want to do is name the fields. We will use a `FOREACH` statement to iterate through the raw_drivers data object. We can use `Pig  Helper` that is at the bottom of the composition area to provide us with a template. We will click on `Pig  Helper`, select Data processing functions and then click on the `FOREACH template`. We can then replace each element by hitting the tab key.
 
 ![foreach_name_fields](/assets/how-to-process-data-with-apache-pig-hdp2.5/foreach_name_fields.png)
 
-So the `FOREACH` statement will iterate through the batting data object and `GENERATE` pulls out selected fields and assigns them names. The new data object we are creating is then named `driver_details`. Our code will now be:
+So the `FOREACH` statement will iterate through the raw_drivers data object and `GENERATE` pulls out selected fields and assigns them names. The new data object we are creating is then named `driver_details`. Our code will now be:
 
 ~~~
 drivers_details = FOREACH raw_drivers GENERATE $0 AS driverId, $1 AS name;
