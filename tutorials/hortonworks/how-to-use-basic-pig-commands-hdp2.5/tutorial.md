@@ -195,7 +195,7 @@ In this step, you will use the `STORE` command to output a relation into a new f
 STORE specific_columns INTO 'output/specific_columns' USING PigStorage(',');
 ~~~
 
-[store_truck_events_subset_specific](/assets/how-to-use-basic-pig-commands-hdp2.5/store_truck_events_subset_specific.png)
+![store_truck_events_subset_specific](/assets/how-to-use-basic-pig-commands-hdp2.5/store_truck_events_subset_specific.png)
 
 Save and Execute the script. Again, this requires a MapReduce job (just like the DUMP command), so you will need to wait a minute for the job to complete.
 
@@ -203,19 +203,19 @@ Once the job is finished, go to `HDFS Files view` and look for a newly created f
 
 > **Note:** If you didn't use the default path above, then the new folder will exist in the path you created.
 
-[navigate_to_output_directory](/assets/how-to-use-basic-pig-commands-hdp2.5/navigate_to_output_directory.png)
+![navigate_to_output_directory](/assets/how-to-use-basic-pig-commands-hdp2.5/navigate_to_output_directory.png)
 
 Click on `“output”` folder. You will find a subfolder named `“specific_columns”`.
 
-[navigate_to_specific_columns_directory](/assets/how-to-use-basic-pig-commands-hdp2.5/navigate_to_specific_columns_directory.png)
+![navigate_to_specific_columns_directory](/assets/how-to-use-basic-pig-commands-hdp2.5/navigate_to_specific_columns_directory.png)
 
 Click on `“specific_columns”` folder. You will see an output file called `“part-r-00000”`:
 
-[navigate_to_part_r_file](/assets/how-to-use-basic-pig-commands-hdp2.5/navigate_to_part_r_file.png)
+![navigate_to_part_r_file](/assets/how-to-use-basic-pig-commands-hdp2.5/navigate_to_part_r_file.png)
 
 Click on the file `“part-r-00000”` and then click on `Open` :
 
-[file_preview](/assets/how-to-use-basic-pig-commands-hdp2.5/file_preview.png)
+![file_preview](/assets/how-to-use-basic-pig-commands-hdp2.5/file_preview.png)
 
 ### Step 11: Perform a join between 2 relations <a id="step-11-perform-a-join-between-2-relations"></a>
 
@@ -237,15 +237,15 @@ join_data = JOIN  truck_events BY (driverId), drivers BY (driverId);
 DESCRIBE join_data;
 ~~~
 
-[join_two_datasets](/assets/how-to-use-basic-pig-commands-hdp2.5/join_two_datasets.png)
+![join_two_datasets](/assets/how-to-use-basic-pig-commands-hdp2.5/join_two_datasets.png)
 
 Save the script and execute it. Notice `join_data` contains all the fields of both `truck_events` and `drivers`.
 
-[result_join_data](/assets/how-to-use-basic-pig-commands-hdp2.5/result_join_data.png)
+![result_join_data](/assets/how-to-use-basic-pig-commands-hdp2.5/result_join_data.png)
 
 Scroll right in Results section to view other attributes, or simply click `Download` button. Open that file and you will something like this:
 
-[result_join_data_download](/assets/how-to-use-basic-pig-commands-hdp2.5/result_join_data_download.png)
+![result_join_data_download](/assets/how-to-use-basic-pig-commands-hdp2.5/result_join_data_download.png)
 
 ### Step 12: Sort the data using “ORDER BY” <a id="step-12-sort-the-data-using-order-by"></a>
 
@@ -259,11 +259,11 @@ ordered_data = ORDER drivers BY name asc;
 DUMP ordered_data;
 ~~~
 
-[sort_drivers_data](/assets/how-to-use-basic-pig-commands-hdp2.5/sort_drivers_data.png)
+![sort_drivers_data](/assets/how-to-use-basic-pig-commands-hdp2.5/sort_drivers_data.png)
 
 Save and execute the script. Your output should be sorted as shown here:
 
-[result_sort_drivers_data](/assets/how-to-use-basic-pig-commands-hdp2.5/result_sort_drivers_data.png)
+![result_sort_drivers_data](/assets/how-to-use-basic-pig-commands-hdp2.5/result_sort_drivers_data.png)
 
 ### Step 13: Filter and Group the data using “GROUP BY” <a id="step-13-filter-and-group-the-data-using-group-by"></a>
 
@@ -281,15 +281,15 @@ DESCRIBE grouped_events;
 DUMP grouped_events;
 ~~~
 
-[filter_group_datasets](/assets/how-to-use-basic-pig-commands-hdp2.5/filter_group_datasets.png)
+![filter_group_datasets](/assets/how-to-use-basic-pig-commands-hdp2.5/filter_group_datasets.png)
 
 Save and execute the script. Notice that the data for eventType which are not Normal is grouped together for each driverId.
 
-[result_group_data](/assets/how-to-use-basic-pig-commands-hdp2.5/result_group_data.png)
+![result_group_data](/assets/how-to-use-basic-pig-commands-hdp2.5/result_group_data.png)
 
 Scroll right to view all non-Normal events grouped under each driverId. You can also download the results file by clicking Download button.
 
-[result_group_data_download](/assets/how-to-use-basic-pig-commands-hdp2.5/result_group_data_download.png)
+![result_group_data_download](/assets/how-to-use-basic-pig-commands-hdp2.5/result_group_data_download.png)
 
 Congratulations! You have successfully completed the tutorial and well on your way to pigging on Big Data.
 
