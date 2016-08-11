@@ -277,3 +277,4 @@ Follow these steps if your version of the Sandbox does not have Kafka installed:
 - [Apache Kafka Documentation](http://kafka.apache.org/)
 - [Kafka Overview](http://hortonworks.com/hadoop/kafka/)
 - [Apache Zookeeper Documentation](https://zookeeper.apache.org/)
+- HCC Article: [Kafka Best Practices](https://community.hortonworks.com/content/kbentry/49789/kafka-best-practices.html)
