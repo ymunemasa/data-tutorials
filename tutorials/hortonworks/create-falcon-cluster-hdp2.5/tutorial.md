@@ -5,7 +5,7 @@ tutorial-id: 670
 tutorial-series: Governance
 tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ falcon, ambari, technical-preview]
+components: [ falcon, ambari ]
 ---
 
 ## Introduction
@@ -29,14 +29,15 @@ Once you have downloaded the Hortonworks Sandbox and run the VM, navigate to the
 ## Outline
 - [1: Scenario](#scenario)
 - [2: Starting Falcon](#starting-falcon)
-- [3: Preparing HDFS Directories](#preparing-hdfs-directories)
-- [4: Creating Cluster Entities](#creating-cluster-entities)
-      - [4.1: Creating primaryCluster Entity using Wizard](#creating-primaryCluster-wizard)
-      - [4.2: Creating primaryCluster Entity using XML](#creating-primaryCluster-XML)
-      - [4.3: Creating backupCluster Entity using Wizard](#creating-backupCluster-wizard)
-      - [4.4: Creating backupCluster Entity using XML](#creating-backupCluster-XML)
-- [5: Summary](#summary)
-- [6: Where do I go next?](#where-do-I-go-next)
+- [3: Create a Ambari Falcon user](#create-ambari-falcon-user)
+- [4: Preparing HDFS Directories](#preparing-hdfs-directories)
+- [5: Creating Cluster Entities](#creating-cluster-entities)
+      - [5.1: Creating primaryCluster Entity using Wizard](#creating-primaryCluster-wizard)
+      - [5.2: Creating primaryCluster Entity using XML](#creating-primaryCluster-XML)
+      - [5.3: Creating backupCluster Entity using Wizard](#creating-backupCluster-wizard)
+      - [5.4: Creating backupCluster Entity using XML](#creating-backupCluster-XML)
+- [6: Summary](#summary)
+- [7: Where do I go next?](#where-do-I-go-next)
 
 ## 1. Scenario <a id="scenario"></a>
 
@@ -52,18 +53,74 @@ Then click on the `Service  Actions` button on the top right:
 
 ![falconStart](/assets/create-falcon-cluster-hdp2.5/falconStart.png)
 
-
 Then click on `Start`:
 
 ![falconStartProgress](/assets/create-falcon-cluster-hdp2.5/falconStartProgress.png)
-
 
 Once Falcon starts, Ambari should clearly indicate as below that the service has started:
 
 ![falconStarted](/assets/create-falcon-cluster-hdp2.5/falconStarted.png)
 
-## 3. Preparing HDFS Directories <a id="preparing-hdfs-directories"></a>
+## 3. Create a Ambari falcon user <a id="create-ambari-falcon-user"></a>
 
+Click the button at the top of the Ambari screen with admin menu drop down and click `Manage Ambari`.
+
+![manage_ambari](/assets/create-falcon-cluster-hdp2.5/manage_ambari.png)
+
+Click the blue `Users` button in the bottom box as given below:
+
+![manage_users](/assets/create-falcon-cluster-hdp2.5/manage_users.png)
+
+Click the `Create Local User` button at the top of the page.
+
+![create_local_user](/assets/create-falcon-cluster-hdp2.5/create_local_user.png)
+
+Enter `falcon` as the user name and then set the password for it. Enter it again for confirmation and `Save` the user.
+
+![save_local_user](/assets/create-falcon-cluster-hdp2.5/save_local_user.png)
+
+You can see the newly added `falcon` user. Click on it to assign it a group so that it can access Ambari views.
+Write `“views”` and select it in `Local Group Membership` box and then click on `tick` mark to add a falcon user in the `“views”` group.
+
+![local_group_permission](/assets/create-falcon-cluster-hdp2.5/local_group_permission.png)
+
+Now logout of Ambari from the admin user and login to Ambari as falcon user.
+
+## 4. Preparing HDFS Directories <a id="preparing-hdfs-directories"></a>
+
+Select the Files View like given below:
+
+![select_files_view](/assets/create-falcon-cluster-hdp2.5/select_files_view.png)
+
+The Files View Interface will appear with the following default folders.
+
+![files_view_home_page](/assets/create-falcon-cluster-hdp2.5/files_view_home_page.png)
+
+We need to create the directories on HDFS representing the two clusters that we are going to define, namely `primaryCluster` and `backupCluster`.
+Navigate to `/user/apps` folder, click the `New Folder` button ![new_folder_button](/assets/create-falcon-cluster-hdp2.5/new_folder_button.png), an add new folder window appears and name the folder primaryCluster. Press enter or `Add`
+
+![add_new_folder_primary](/assets/create-falcon-cluster-hdp2.5/add_new_folder_primary.png)
+
+Similarly, create another folder called `backupCluster`, you will see your new directories created successfully:
+
+![primary_backup_folders_created](/assets/create-falcon-cluster-hdp2.5/primary_backup_folders_created.png)
+
+Click on the row of `primaryCluster` directory and then click on `Permissions` button:
+
+![click_permissions](/assets/create-falcon-cluster-hdp2.5/click_permissions.png)
+
+Add `Write` permission for both Group and Others and then click `Save`.
+
+![edit_permissions](/assets/create-falcon-cluster-hdp2.5/edit_permissions.png)
+
+Do the same for `backupCluster` directory. Now navigate down into the `primaryCluster` directory and create two new directories: `staging` and `working`. Click on the row for the `staging` directory and add `Write` permission for both Group and Others. Refresh the page and then navigate to `/apps/falcon/primaryCluster` to see the changes:
+
+![staging_working_folders](/assets/create-falcon-cluster-hdp2.5/staging_working_folders.png)
+
+Repeat the same steps for `backupCluster`. Create two directories- `staging` and `working` and then assign `Write` permission in `staging` directory for Group and Others.
+
+![staging_working_folders_backup](/assets/create-falcon-cluster-hdp2.5/staging_working_folders_backup.png)
+<!---
 First SSH into the Hortonworks Sandbox with the command:
 
 ~~~
@@ -130,15 +187,17 @@ hadoop fs -chmod 755 /apps/falcon/primaryCluster/working
 hadoop fs -chmod 777 /apps/falcon/backupCluster/staging
 hadoop fs -chmod 755 /apps/falcon/backupCluster/working
 ~~~
+-->
 
-## 4. Creating Cluster Entities <a id="creating-cluster-entities"></a>
+## 5. Creating Cluster Entities <a id="creating-cluster-entities"></a>
 
-Let’s open the Falcon Web UI. You can easily launch the Falcon Web UI from Ambari:
+Let’s open the Falcon Web UI. You can navigate to the Falcon Web UI directly on the browser. Type `127.0.0.1:15000`. The Falcon UI is by default at port 15000. The default username is `ambari-qa`.
+<!---
+You can easily launch the Falcon Web UI from Ambari:
 Navigate to the Falcon Summary page and click `Quick Links>Falcon Web UI`.
 
 ![quickLinksFalconUI](/assets/create-falcon-cluster-hdp2.5/quickLinksFalconUI.png)
-
-You can also navigate to the Falcon Web UI directly on the browser. The Falcon UI is by default at port 15000. The default username is `ambari-qa`.
+-->
 
 ![falcon_login_page](/assets/create-falcon-cluster-hdp2.5/falcon_login_page.png)
 
@@ -155,7 +214,7 @@ Let’s first create a couple of cluster entities. To create a cluster entity cl
 
 **NOTE : If you want to create it from XML, skip the wizard section, and move on to the next one.**
 
-### 4.1 Creating primaryCluster Entity using Wizard <a id="creating-primaryCluster-wizard"></a>
+### 5.1 Creating primaryCluster Entity using Wizard <a id="creating-primaryCluster-wizard"></a>
 
 A cluster entity defines the default access points for various resources on the cluster as well as default working directories to be used by Falcon jobs.
 
@@ -221,7 +280,7 @@ Click `Save` to persist the entity.
 
 ![cluster_save](/assets/create-falcon-cluster-hdp2.5/cluster_save.png)
 
-### 4.2 Creating primaryCluster Entity using XML <a id="creating-primaryCluster-XML"></a>
+### 5.2 Creating primaryCluster Entity using XML <a id="creating-primaryCluster-XML"></a>
 
 After clicking on the `Create` drop down menu, select `Cluster` button and click on the `Edit XML` button over XML Preview area. Replace the XML content with the XML document below:
 
@@ -266,7 +325,7 @@ Falcon jobs require a source cluster and a destination, or target, cluster. For 
 
 **NOTE : If you want to create it from XML, skip the wizard section, and move on to the next one.**
 
-### 4.3 Creating backupCluster Entity using Wizard <a id="creating-backupCluster-wizard"></a>
+### 5.3 Creating backupCluster Entity using Wizard <a id="creating-backupCluster-wizard"></a>
 
 Let’s go ahead and create a second cluster by creating a cluster with the name:
 
@@ -292,7 +351,7 @@ Click `Save` to persist the `backupCluster` entity.
 
 ![backup_cluster_save](/assets/create-falcon-cluster-hdp2.5/backup_cluster_save.png)
 
-### 4.4 Creating backupCluster Entity using XML <a id="creating-backupCluster-XML"></a>
+### 5.4 Creating backupCluster Entity using XML <a id="creating-backupCluster-XML"></a>
 
 Click on `Create` drop down menu and click `Cluster` button to open up the form to create the cluster entity.
 Click on the `Edit XML` button over XML Preview area. Replace the XML content with the XML document below:
@@ -332,11 +391,11 @@ Click `Save` to persist the `backupCluster` entity.
 
 ![backup_cluster_xml_save](/assets/create-falcon-cluster-hdp2.5/backup_cluster_xml_save.png)
 
-## 5. Summary <a id="summary"></a>
+## 6. Summary <a id="summary"></a>
 
 In this tutorial we learned how to create cluster entities in Apache Falcon using the Falcon UI. Now go ahead and start creating feeds and processes by exploring more Falcon tutorials.
 
-## 6. Where do I go next? <a id="where-do-I-go-next"></a>
+## 7. Where do I go next? <a id="where-do-I-go-next"></a>
 
 You can go to following links to explore other Falcon tutorials:
 
