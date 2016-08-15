@@ -249,4 +249,4 @@ Third argument specifies the input directory of CSV data.
 
 ## 6. Summary <a id="summary"></a>
 
-In this tutorial, we learned about the basic concepts of Apache HBase and different types of data definition and data manipulation commands that are available in HBase shell. Check out the lab 2 of this tutorial where you are going to learn how to use Apache Phoenix with Apaceh HBase.
+In this tutorial, we learned about the basic concepts of Apache HBase and different types of data definition and data manipulation commands that are available in HBase shell. Check out the lab 2 of this tutorial where we are going to learn how to use Apache Phoenix with Apache HBase.
