@@ -1,17 +1,20 @@
 ---
 layout: tutorial
-title: Introducing Apache Hadoop to Developers
+title: Introduce Apache Hadoop to Developers
 tutorial-id: 130
 tutorial-series: Introduction
-tutorial-version: hdp-2.4.0
-intro-page: true
+tutorial-version: hdp-2.5.0
+intro-page: false
 components: [ hadoop ]
 ---
 
 ## Introduction
 
-In this tutorial for Hadoop Developers, we will explore the core concepts of Apache Hadoop and examine the process of writing a MapReduce Program.
-
+- MapReduce Programming Model influenced by functional programming constructs, demonstrate its power through examples
+- Discuss MapReduce and its relationship to HDFS, Streaming API, Repositories, SBT Setup, Gradle Setup
+- Performance Apache MapReduce Implementation
+- Exploits data locality to reduce network overhead
+- Failure recovery features ensure job completion in environment
 
 ## Pre-Requisite
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
@@ -20,98 +23,27 @@ In this tutorial for Hadoop Developers, we will explore the core concepts of Apa
 
 ## Outline
 
-*   [Hadoop](#hadoop-concept)
-*   [Step 1: Explore the Core Concepts of Apache Hadoop](#core-apache-hadoop)
-     *   [1.1 What is MapReduce?](#what-is-mapreduce)
-     *   [1.2 The MapReduce Concepts and Terminology](#mapreduce-concepts-terminology)
-     *   [1.3 MapReduce: The Mapper](#mapreduce-the-mapper)
-     *   [1.4 MapReduce: The Reducer](#mapreduce-the-reducer)
-*   [Step 2: Write a MapReduce program](#write-a-mapreduce-program)
-     *   [2.1 Examine The MapReduce Example](#examine-the-mapreduce-example)
-     *   [2.2 Mapper reading data from HDFS](#mapper-reading-data-hdfs)
-     *   [2.3 Streaming API](#streaming-api)
-     *   [2.4 Repositories](#repositories-hortonworks)
-     *   [2.5 Source & Javadoc](#source-javadoc)
-     *   [2.6 SBT Setup](#sbt-setup)
-     *   [2.7 Gradle Setup](#gradle-setup)
-*   [Step 3: Hive and Pig: Motivation](#hive-and-pig-motivation)
+*   [Write a MapReduce program](#write-a-mapreduce-program)
+*   [Step 1: Examine The MapReduce Example](#examine-the-mapreduce-example)
+*   [Step 2: Mapper reading data from HDFS](#mapper-reading-data-hdfs)
+*   [Step 3: Streaming API](#streaming-api)
+*   [Step 4: Repositories](#repositories-hortonworks)
+*   [Step 5: Source & Javadoc](#source-javadoc)
+*   [Step 6: SBT Setup](#sbt-setup)
+*   [Step 7: Gradle Setup](#gradle-setup)
+*   [Appendix A: Hive and Pig: Motivation](#hive-and-pig-motivation)
 *   [Further Reading](#further-reading-java-dev)
 
 
-## Hadoop <a id="hadoop-concept"></a>
-
-Apache Hadoop is a community driven open-source project goverened by the [Apache Software Foundation](http://apache.org).
-
-It was originally implemented at Yahoo based on papers published by Google in 2003 and 2004\. Hadoop committers today work at several different organizations like Hortonworks, Microsoft, Facebook, Cloudera and many others around the world.
-
-Since then Apache Hadoop has matured and developed to become a data platform for not just processing humongous amount of data in batch but with the advent of [YARN](http://hortonworks.com/hadoop/yarn/) it now supports many diverse workloads such as Interactive queries over large data with [Hive on Tez](http://hortonworks.com/labs/stinger/), Realtime data processing with [Apache Storm](http://hortonworks.com/labs/storm/), super scalable NoSQL datastore like [HBase](http://hortonworks.com/hadoop/hbase/), in-memory datastore like [Spark](http://hortonworks.com/hadoop/spark/) and the list goes on.
-
-![](/assets/introducing-hadoop-to-java-developers/5-boxes.png)
-
-> Hortonworks Data Platform
-
-
-### Step 1: Explore the Core Concepts of Apache Hadoop <a id="core-apache-hadoop"></a>
-
-*   The Hadoop Distributed File System (HDFS)
-*   MapReduce
-
-A Hadoop Cluster is a set of machines that run HDFS and MapReduce. Nodes are individual machines. A cluster can have as few as one node to several thousands of nodes. For most application scenarios, Hadoop is linearly scalable, which means you can expect better performance by simply adding more nodes.
-
-#### 1.1 What is MapReduce? <a id="what-is-mapreduce"></a>
-
-MapReduce is a method for distributing a task across multiple nodes. Each node processes data stored on that node to the extent possible.
-
-A running Map Reduce job consists of various phases such as `Map  ->  Sort  ->  Shuffle  ->  Reduce`
-
-The primary advantages of abstracting your jobs as MapReduce, which run over a distributed infrastructure like CPU and Storage are:
-
-*   Automatic parallelization and distribution of data in blocks across a distributed, scale-out infrastructure.
-*   Fault-tolerance against failure of storage, compute and network infrastructure
-*   Deployment, monitoring and security capability
-*   A clean abstraction for programmers
-
-Most MapReduce programs are written in Java. It can also be written in any scripting language using the Streaming API of Hadoop. MapReduce abstracts all the low level plumbing away from the developer such that developers can concentrate on writing the Map and Reduce functions.
-
-#### 1.2 The MapReduce Concepts and Terminology <a id="mapreduce-concepts-terminology"></a>
-
-MapReduce jobs are controlled by a software daemon known as the `JobTracker`. The JobTracker resides on a ‘master node’. Clients submit MapReduce jobs to the JobTracker. The JobTracker assigns Map and Reduce tasks to other nodes on the cluster.
-
-These nodes each run a software daemon known as the `TaskTracker`. The TaskTracker is responsible for actually instantiating the Map or Reduce task, and reporting progress back to the JobTracker
-
-A `job` is a program with the ability to execute Mappers and Reducers over a dataset. A `task` is the execution of a single Mapper or Reducer over a slice of data.
-
-There will be at least as many task attempts as there are tasks. If a task attempt fails, another will be started by the JobTracker. Speculative execution can also result in more task attempts than completed tasks.
-
-#### 1.3 MapReduce: The Mapper <a id="mapreduce-the-mapper"></a>
-
-Hadoop attempts to ensure that Mappers run on nodes, which hold their portion of the data locally, to minimize network traffic. Multiple Mappers run in parallel, each processing a portion of the input data.
-
-The Mapper reads data in the form of key/value pairs. It outputs zero or more key/value pairs
-
-~~~
-map(in_key, in_value) -> (inter_key, inter_value) list
-~~~
-
-The Mapper may use or completely ignore the input key. For example, a standard pattern is to read a file one line at a time. The key is the byte offset into the file at which the line starts. The value is the contents of the line itself. Typically the key is considered irrelevant. If the Mapper writes anything out, the output must be in the form of key/value pairs.
-
-#### 1.4 MapReduce: The Reducer <a id="mapreduce-the-reducer"></a>
-
-After the Map phase is over, all the intermediate values for a given intermediate key are combined together into a list. This list is given to a Reducer. There may be a single Reducer, or multiple Reducers, this is specified as part of the job configuration. All values associated with a particular intermediate key are guaranteed to go to the same Reducer.
-
-The intermediate keys and their value lists are passed to the Reducer in sorted key order. This step is known as the ***shuffle and sort***. The Reducer outputs zero or more final key/value pairs. These are written to HDFS. In practice, the Reducer usually emits a single key/value pair for each input key.
-
-It is possible for some Map tasks to take more time to complete than the others, often due to faulty hardware, or underpowered machines. This execution time may cause a bottleneck since all mappers need to finish before any reducers can kick-off. Hadoop uses speculative execution to mitigate against such situations. If a Mapper appears to be running more sluggishly than the others, a new instance of the Mapper will be started on another machine, operating on the same data. The results of the first Mapper to finish will be used. Hadoop will kill off the Mapper which is still running.
-
-### Step 2: Write a MapReduce Program <a id="write-a-mapreduce-program"></a>
+## Write a MapReduce Program <a id="write-a-mapreduce-program"></a>
 
 In this section, you will learn how to use the Hadoop API to write a MapReduce program in Java.
 
 Each of the portions (**RecordReader, Mapper, Partitioner, Reducer, etc.**) can be created by the developer. The developer is expected to at least write the Mapper, Reducer, and driver code.
 
-#### 2.1 Examine The MapReduce Example <a id="examine-the-mapreduce-example"></a>
+### Step 1: Examine The MapReduce Example <a id="examine-the-mapreduce-example"></a>
 
-##### MapReduce WordCount Descrption
+### MapReduce WordCount Descrption
 
 **WordCount** example reads text files and counts how often words occur. The input is text files and the output is text files. Each line contains a word and as the program counts how often words appear, it separates each word by a tab.
 
@@ -131,7 +63,7 @@ All of the files in the input directory are read and the number of words in the 
 hadoop dfs -copyFromLocal <local-dir> <hdfs-dir>
 ~~~
 
-##### WordCount Java Code
+### WordCount Java Code
 
 Below is the standard wordcount example implemented in Java:
 
@@ -201,16 +133,16 @@ Below is the standard wordcount example implemented in Java:
         }
 ~~~
 
-Every MapReduce job consists of three portions
+### MapReduce jobs consist of three portions
 
 *   The driver code
      *   Code that runs on the client to configure and submit the job
 *   The Mapper
 *   The Reducer
 
-Before we look at the code, we need to cover some basic **Hadoop API concepts.**
+Before we dive into the code, let's cover basic **Hadoop API concepts.**
 
-#### 2.2 Mapper reading data from HDFS <a id="mapper-reading-data-hdfs"></a>
+### Step 2: Mapper reading data from HDFS <a id="mapper-reading-data-hdfs"></a>
 
 The data passed to the Mapper is specified by an InputFormat. The InputFormat is specified in the driver code. It defines the location of the input data like a file or directory on HDFS. It also determines how to split the input data into input splits.
 
@@ -220,7 +152,7 @@ FilelnputFormat is the base class used for all file-based InputFormats. Textlnpu
 
 Keys and values in Hadoop are objects. Values are objects which implement the writable interface. Keys are objects which implement writableComparable.
 
-#### Writable
+### Writable
 
 Hadoop defines its own ‘box classes’ for strings, integers and so on:
 
@@ -233,17 +165,17 @@ Hadoop defines its own ‘box classes’ for strings, integers and so on:
 
 The writable interface makes serialization quick and easy for Hadoop. Any value’s type must implement the writable interface.
 
-#### WritableComparable
+### WritableComparable
 
 A WritableComparable is a Writable, which is also Comparable. Two writableComparables can be compared against each other to determine their ‘order’. Keys must be WritableComparables because they are passed to the Reducer in sorted order.
 
 Note that despite their names, all Hadoop box classes implement both Writable and WritableComparable, for example, intwritable is actually a WritableComparable
 
-#### Driver
+### Driver
 
 The driver code runs on the client machine. It configures the job, then submits it to the cluster.
 
-#### 2.3 Streaming API <a id="streaming-api"></a>
+### Step 3: Streaming API <a id="streaming-api"></a>
 
 Many organizations have developers skilled in languages other than Java, such as
 
@@ -256,7 +188,7 @@ The Streaming API allows developers to use any language they wish to write Mappe
 
 The advantages of the Streaming API are that there is no need for non-Java coders to learn Java. So it results in faster development time and the ability to use existing code libraries.
 
-#### How Streaming Works
+### How Streaming Works
 
 To implement streaming, write separate Mapper and Reducer programs in the language of your choice. They will receive input via stdin. They should write their output to stdout.
 
@@ -273,11 +205,11 @@ hadoop jar $HADOOP_HOME/contrib/streaming/hadoop-streaming*.jar \
 -reducer myReduce.py \ -file myMap.py \ -file myReduce.py
 ~~~
 
-#### 2.4 Repositories <a id="repositories-hortonworks"></a>
+### Step 4: Repositories <a id="repositories-hortonworks"></a>
 
 At Hortonworks, we store all of our artifacts in a public Sonatype Nexus repository. That repository can be easily accessed and searched for commonly used library, source code, and javadoc archives simply by navigating to [http://repo.hortonworks.com](http://repo.hortonworks.com).
 
-#### Artifacts
+### Step 5: Artifacts
 
 Jar files containing compiled classes, source, and javadocs are all available in our public repository, and finding the right artifact with right version is as easy as searching the repository for classes you need to resolve.
 
@@ -293,11 +225,11 @@ As you’re looking for the right artifact, it’s important to use the artifact
 
 Once the right artifact has been found with the version that corresponds to your target HDP environment, it’s time to configure your build tool to both resolve our repository and include the artifact as a dependency. The following section outlines how to do both with commonly used with build tools such as Maven, SBT, and Gradle.
 
-#### Maven Setup
+### Maven Setup
 
 Apache Maven, is an incredibly flexible build tool used by many Hadoop ecosystem projects. In this section, we will outline what updates to your project’s pom.xml file are required to start resolving HDP artifacts.
 
-#### Repository Configuration
+### Repository Configuration
 
 The pom.xml file enables flexible definition of project dependencies and build procedures. To add the Hortonworks repository to your project, allowing HDP artifacts to be resolved, edit the section and add a entry as illustrated below:
 
@@ -318,7 +250,7 @@ The pom.xml file enables flexible definition of project dependencies and build p
 ~~~
 
 
-#### Artifact Configuration
+### Artifact Configuration
 
 Dependencies are added to Maven using the tag within the section of the pom.xml. To add a dependency such as hadoop-common, add this fragment:
 
@@ -332,7 +264,7 @@ Dependencies are added to Maven using the tag within the section of the pom.xml.
 
 Once both the repository has been added to the repositories section, and the artifacts have been added to the dependencies section, a simple `mvn compile` can be issued from the base directory of your project to ensure that proper syntax has been used and the appropriate dependencies are downloaded.
 
-#### 2.5 Source & Javadoc <a id="source-javadoc"></a>
+### Step 5: Source & Javadoc <a id="source-javadoc"></a>
 
 When using Maven with an IDE, it is often helpful to have the accompanying JavaDoc and source code. To obtain both from our repository for the artifacts that you have defined in your pom.xml, run the following commands from the base directory of your project:
 
@@ -342,7 +274,7 @@ mvn dependency:sources
 mvn dependency:resolve -Dclassifier=javadoc
 ~~~
 
-#### 2.6 SBT Setup <a id="sbt-setup"></a>
+### Step 6: SBT Setup <a id="sbt-setup"></a>
 
 The Scala Build Tool is commonly used with Scala based projects, and provide simple configuration, and many flexible options for dependency and build management.
 
@@ -355,7 +287,7 @@ resolvers += "Hortonworks Releases" at "[http://repo.hortonworks.com/conten
 ~~~
 
 
-#### Artifact Configuration
+### Artifact Configuration
 
 Dependencies can be added to SBT’s libraryDependencies as illustrated below:
 
@@ -367,7 +299,7 @@ To explicitly ask SBT to also download source code and JavaDocs an alternate not
 
 Once both the repository has been added to resolvers, and the artifacts have been added to dependencies, a simple sbt compile can be issued from the base directory of your project to ensure that proper syntax has been used and the appropriate dependencies are downloaded.
 
-#### 2.7 Gradle Setup <a id="gradle-setup"></a>
+### Step 7: Gradle Setup <a id="gradle-setup"></a>
 
 The Gradle build management tool is used frequently in Open Source java projects, and provides a simple Groovy-based DSL for project dependency and build definition.
 
@@ -403,7 +335,7 @@ In order for Gradle projects to resolve Hortonworks Data Platform dependencies, 
     }
 ~~~ 
 
-#### Artifact Configuration
+### Artifact Configuration
 
 Dependencies can be added to Gradle’s dependencies section as illustrated below:
 
@@ -445,7 +377,7 @@ Dependencies can be added to Gradle’s dependencies section as illustrated belo
 ~~~
 Once both the repositories and the dependencies have been added to build file, a simple gradle clean build can be issued from the base directory of your project to ensure that proper syntax has been used and the appropriate dependencies are downloaded.
 
-### Step 3: Hive and Pig: Motivation <a id="hive-and-pig-motivation"></a>
+### Appendix A: Hive and Pig: Motivation <a id="hive-and-pig-motivation"></a>
 
 MapReduce code is typically written in Java. Although it can be written in other languages using Hadoop
 
