@@ -5,7 +5,7 @@ tutorial-id: 368
 tutorial-series: Zeppelin
 tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ zeppelin, spark, technical-preview ]
+components: [ zeppelin, spark ]
 ---
 
 #### Login

@@ -5,7 +5,7 @@ tutorial-id: 400
 tutorial-series: Spark
 tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ spark, hive, orc, technical-preview ]
+components: [ spark, hive, orc ]
 ---
 
 ### Introduction
@@ -25,7 +25,7 @@ Spark SQL uses the Spark engine to execute SQL queries either on data sets persi
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed [Hortonworks Sandbox 2.5 Tech Preview](http://hortonworks.com/tech-preview-hdp-2-5)
+*   Downloaded and Installed [Hortonworks Sandbox 2.5](http://hortonworks.com/products/sandbox/)
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ### Getting the dataset

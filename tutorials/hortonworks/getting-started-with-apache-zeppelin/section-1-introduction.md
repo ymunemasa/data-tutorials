@@ -5,7 +5,7 @@ tutorial-id: 368
 tutorial-series: Zeppelin
 tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ zeppelin, spark, technical-preview ]
+components: [ zeppelin, spark ]
 ---
 
 Apache Zeppelin is a web-based notebook that enables interactive data analytics. With Zeppelin, you can make beautiful data-driven, interactive and collaborative documents with a rich set of pre-built language backends (or interpreters) such as Scala (with Apache Spark), Python (with Apache Spark), SparkSQL, Hive, Markdown, Angular, and Shell.
@@ -21,8 +21,8 @@ With a focus on Enterprise, Zeppelin has the following important features:
 
 ### **Prerequisites**
 
-*   HDP 2.5 TP
-*   Spark 1.6.2
+*   HDP 2.5
+*   Spark 1.6.2+
 
 ### **Overview**
 

@@ -5,17 +5,17 @@ tutorial-id: 368
 tutorial-series: Zeppelin
 tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ zeppelin, spark, technical-preview ]
+components: [ zeppelin, spark ]
 ---
 
 Apache Zeppelin requires the following software:
 
-*   HDP 2.5 TP
-*   Spark 1.6.2
+*   HDP 2.5
+*   Spark 1.6.2+
 *   Git installed on the node that is running Ambari Server. (If you need to install git, run sudo yum install git.)
 *   Java 8 installed on the node where Zeppelin is installed
 
-**Note:** If you're running an **HDP 2.5 TP Sandbox**, then you already have the latest Apache Zeppelin pre-installed with most of the features pre-configured. The features, however, may have to be enabled.
+**Note:** If you're running an **HDP 2.5 Sandbox**, then you already have the latest Apache Zeppelin pre-installed with most of the features pre-configured. The features, however, may have to be enabled.
 
 **HDP Cluster Requirements**
 

@@ -5,7 +5,7 @@ tutorial-id: 390
 tutorial-series: Spark
 tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ spark, technical-preview ]
+components: [ spark ]
 ---
 
 ### Introduction
@@ -17,7 +17,7 @@ With YARN, Hadoop can now support many types of data and application workloads; 
 The tutorial describes how to:
 
 * Run Spark on YARN and run the canonical Spark examples: SparkPi and Wordcount.
-* Run Spark 1.6.2 on HDP 2.5 TP
+* Run Spark 1.6.2 on HDP 2.5
 * Use the Spark DataFrame API.
 * Read/write data from Hive.
 * Use SparkSQL Thrift Server for JDBC/ODBC access.
@@ -31,7 +31,7 @@ When you are ready to go beyond these tasks, checkout the [Apache Spark Machine 
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed [Hortonworks Sandbox 2.5 Tech Preview](http://hortonworks.com/tech-preview-hdp-2-5)
+*   Downloaded and Installed [Hortonworks Sandbox 2.5](http://hortonworks.com/products/sandbox/)
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 
