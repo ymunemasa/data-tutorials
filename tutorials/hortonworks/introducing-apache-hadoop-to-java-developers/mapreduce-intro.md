@@ -29,15 +29,15 @@ Mapper and Reducer at a high level perspective.
 [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around 1 to 2 hours to complete this tutorial
 
-How is this tutorial different?
+## How is this tutorial different?
 - Brief overview of trade-offs between alternatives
 - Apache MapReduce implementation internals, tuning tips
 
-About this tutorial
+## About this tutorial
 - Edited collaboratively on [Github](https://github.com/hortonworks/tutorials-future/new/master/tutorials/hortonworks/introducing-apache-hadoop-to-java-developers) 
 to give the community access to free learning
 
-Tutorial Overview
+## Tutorial Overview
 - MapReduce Core Concepts
   - Brief intro to MapReduce
   - Use of MapReduce inside Hortonworks Data Platform
