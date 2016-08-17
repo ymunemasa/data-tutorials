@@ -33,15 +33,11 @@ To begin, login in to Hortonworks Sandbox through SSH:The default password is `h
 Now let’s configure the dependencies by typing in the following command:
 
 ~~~ bash
-yum install nano centos-release-scl zlib-devel
-
-yum install bzip2-devel openssl-devel ncurses-devel
-
-yum install sqlite-devel readline-devel tk-devel
-
-yum install gdbm-devel db4-devel libpcap-devel xz-devel
-
-yum install libpng-devel libjpg-devel atlas-devel
+yum install nano centos-release-SCL zlib-devel \
+bzip2-devel openssl-devel ncurses-devel \
+sqlite-devel readline-devel tk-devel \
+gdbm-devel db4-devel libpcap-devel xz-devel \
+libpng-devel libjpg-devel atlas-devel
 ~~~
 
 ![saptek2](/assets/ipython-with-spark/saptek2.png)
@@ -68,35 +64,31 @@ Now the Sandbox has multiple versions of Python, so we have to select which vers
 source /opt/rh/python27/enable
 ~~~
 
-Then we will download `easy_install` which we will use to configure `pip`, a Python package installer.
+Next we will install pip using `get-pip.py`.
+
+Download get-pip.py
 
 ~~~ bash
-wget https://bootstrap.pypa.io/ez_setup.py
+wget https://bootstrap.pypa.io/get-pip.py
 ~~~
 
-Now let’s configure `easy_install` with the following command:
+Install pip
 
 ~~~ bash
-python ez_setup.py
+python get-pip.py
 ~~~
 
-Now we can install `pip` with `easy_install` using the following command:
+`pip` makes it really easy to install the Python packages. We will use `pip` to install the data science packages we might need using the following commands:
 
 ~~~ bash
-easy_install-2.7 pip
+pip install numpy scipy pandas \
+scikit-learn tornado pyzmq \
+pygments matplotlib jsonschema
 ~~~
 
-![saptek5](/assets/ipython-with-spark/saptek5.png)
-
-`pip` makes it really easy to install the Python packages. We will use `pip` to install the data science packages we might need using the following command:
+and
 
 ~~~ bash
-pip install numpy scipy pandas
-
-pip install scikit-learn tornado pyzmq
-
-pip install pygments matplotlib jsonschema
-
 pip install jinja2 --upgrade
 ~~~
 
@@ -105,10 +97,8 @@ pip install jinja2 --upgrade
 Finally, we are ready to install IPython notebook using `pip` using the following command:
 
 ~~~ bash
-pip install "ipython[notebook]"
+pip install jupyter
 ~~~
-
-![saptek8](/assets/ipython-with-spark/saptek8.png)
 
 ### Configuring IPython
 
@@ -122,40 +112,6 @@ ipython profile create pyspark
 
 ![saptek9](/assets/ipython-with-spark/saptek9.png)
 
-Next generate a jupyter config file:
-
-~~~ bash
-jupyter notebook --generate-config                                            
-~~~
-
-You should see the following output:
-
-~~~ bash
-Writing default config to: /root/.jupyter/jupyter_notebook_config.py
-~~~
-
-Now open your preferred editor. I’m using `nano` to edit `jupyter_notebook_config.py`
-
-~~~ bash
-nano  ~/.jupyter/jupyter_notebook_config.py  
-~~~
-
-Next copy and paste the following:
-
-~~~ bash
-#!/bin/bash
-source /opt/rh/python27/enable
-IPYTHON_OPTS="notebook --port 8889 \
---notebook-dir='/usr/hdp/current/spark-client/' \
---ip='*' --no-browser" pyspark
-~~~
-
-Save and exit your editor.
-
-For more info checkout: http://simnotes.github.io/blog/installing-jupyter-on-hdp-2.3.2/
-
-![saptek10](/assets/ipython-with-spark/saptek10.png)
-
 Next we are going to create a shell script to set the appropriate values every time we want to start IPython.
 
 Create a shell script with the following command:
@@ -168,10 +124,10 @@ Then copy the following lines into the file:
 
 ~~~ bash
 #!/bin/bash
-
 source /opt/rh/python27/enable
-
-IPYTHON_OPTS="notebook" pyspark
+IPYTHON_OPTS="notebook --port 8889 \
+--notebook-dir='/usr/hdp/current/spark-client/' \
+--ip='*' --no-browser" pyspark
 ~~~
 
 Save and exit your editor.
