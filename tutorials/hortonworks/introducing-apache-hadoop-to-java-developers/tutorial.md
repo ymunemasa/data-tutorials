@@ -23,7 +23,7 @@ components: [ hadoop ]
 
 ## Outline
 
-*   [Write a MapReduce program](#write-a-mapreduce-program)
+*   [Write a MapReduce Program in Java](#write-a-mapreduce-program)
 *   [Step 1: Examine The MapReduce Example](#examine-the-mapreduce-example)
 *   [Step 2: Mapper reading data from HDFS](#mapper-reading-data-hdfs)
 *   [Step 3: Streaming API](#streaming-api)
