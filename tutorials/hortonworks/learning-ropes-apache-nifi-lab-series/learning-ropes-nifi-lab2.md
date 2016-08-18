@@ -1,29 +1,29 @@
 ---
 layout: tutorial
-title: Lab 2 Enhance the DataFlow with Geo Location Enrichment
+title: Tutorial 2 Enhance the DataFlow with Geo Location Enrichment
 tutorial-id: 640
 tutorial-series: Basic Development
-tutorial-version: hdp-2.4.0
+tutorial-version: hdf-2.0
 intro-page: false
 components: [ nifi ]
 ---
 
-# Lab 2: Enhance the DataFlow with Geo Location Enrichment
+# Tutorial 2: Enhance the DataFlow with Geo Location Enrichment
 
 ## Introduction
 
 In this section, you will build a geographic location enrichment for the vehicle filtering dataflow. You will obtain a deep understanding of the automated and managed flow of information between multiple systems and the facilities in NiFi for monitoring and examining the dataflow. To add this enhancement, we will incorporate Google Places Nearby API with NiFi, which will show the neighborhoods nearby the vehicle's location as it moves. This incorporation of external API's is a feasible design pattern because NiFi makes it easy to bring in other technologies to process the data.
 
-In this lab, you will build the Geo Location Enrichment section of the dataflow:
+In this tutorial, you will build the Geo Location Enrichment section of the dataflow:
 
 ![complete_dataflow_lab2_geoEnrich](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/complete_dataflow_lab2_geoEnrich.png)
 
-Feel free to download the [Lab2-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab2-template/Lab2-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to the lab.
+Feel free to download the [Lab2-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab2-template/Lab2-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to the tutorial.
 
 
 ## Pre-Requisites
-- Completed Lab 0: Download, Install and Start NiFi
-- Completed Lab 1: Build A Simple NiFi DataFlow
+- Completed Tutorial 0: Download, Install and Start NiFi
+- Completed Tutorial 1: Build A Simple NiFi DataFlow
 
 ## Outline
 - Google Places API
@@ -35,7 +35,7 @@ Feel free to download the [Lab2-NiFi-Learn-Ropes.xml](https://raw.githubusercont
 
 ## Google Places API
 
-Google Places API Web Service returns info about places: establishments, geographic locations and prominent points of interest using HTTP requests. The Places API includes six place requests: Place Searches, Place Details, Place Add, Place Photos, Place Autocomplete and Query Autocomplete. Read more about these place requests in [Introducing the API](https://developers.google.com/places/web-service/intro).
+Google Places API Web Service returns information about places: establishments, geographic locations and prominent points of interest using HTTP requests. The Places API includes six place requests: Place Searches, Place Details, Place Add, Place Photos, Place Autocomplete and Query Autocomplete. Read more about these place requests in [Introducing the API](https://developers.google.com/places/web-service/intro).
 
 All requests are accessed through an HTTP request and return either JSON or XML response.
 
@@ -53,7 +53,7 @@ The Nearby Search request is an HTTP URL of the following definition, which we w
 https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
 ~~~
 
-The `output` can come in two formats: `json` or `xml`. We will use json for this lab.
+The `output` can come in two formats: `json` or `xml`. We will use json for this tutorial.
 
 Let's obtain the **required parameters** to initiate a Nearby Search request.
 
@@ -70,12 +70,13 @@ Let's obtain the **required parameters** to initiate a Nearby Search request.
 **Table 1: Example of the API Key Table**
 
 | Name  | Creation date  | Type  | Key  |
-|---|---|---|---|
-| Server Key 1  | June 14, 2016  | Server  | AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug  |
+|:---|:---:|:---:|---:|
+| `Server Key 1`  | `June 14, 2016`  | `Server`  | `AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug`  |
 
-Now we have the API Key parameter for our HTTP request. We also have the other required parameters: **location** thanks to lab 1 in which we extracted longitude & latitude attributes and **radius**, which can be a distance that does not surpass 50,000 meters. We will use one optional parameter **type** to signify what type of place we are interested in searching for.
+Now we have the API Key parameter for our HTTP request. We also have the other required parameters: **location** thanks to tutorial 1 in which we extracted longitude & latitude attributes and **radius**, which can be a distance that does not surpass 50,000 meters. We will use one optional parameter **type** to signify what type of place we are interested in searching for.
 
-6\. Let's build our HTTP URL with the parameters below, so we can insert the URL as a property value into **InvokeHTTP** later in the lab.
+6\. Let's build our HTTP URL with the parameters below, so we can insert the URL as a property value into **InvokeHTTP** later in the tutorial.
+
 - API Key = AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug
 - Latitude = ${Latitude}
 - Longitude = ${Longitude}
@@ -86,17 +87,19 @@ Now we have the API Key parameter for our HTTP request. We also have the other r
 https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Latitude},${Longitude}&radius=500&type=neighborhood&key=AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug
 ~~~
 
+> Note: Your API Key will be different than the one in the URL above.
+
 
 ### Step 2: Build Geo Location Enrichment DataFlow Section
 
 Six processors are needed to add geographic location enrichment to your dataflow. Each processor holds a critical role in transporting the enriched data to a destination:
 
-**InvokeHTTP** performs an HTTP request to access data from Google Places API about places nearby a vehicle's location
-**EvaluateJsonPath** extract neighborhoods_nearby and city data elements out of JSON structure
-**RouteOnAttribute** routes FlowFiles as long as their neighborhoods_nearby and city attributes do not contain empty strings
-**AttributesToJSON** represents the enriched attributes in JSON structure
-**MergeContent** merges FlowFiles together by concatenating their JSON content together
-**PutFile** writes the enriched geographic location contents of the FlowFile to the local file system
+- **InvokeHTTP** performs an HTTP request to access data from Google Places API about places nearby a vehicle's location
+- **EvaluateJsonPath** extract neighborhoods_nearby and city data elements out of JSON structure
+- **RouteOnAttribute** routes FlowFiles as long as their neighborhoods_nearby and city attributes do not contain empty strings
+- **AttributesToJSON** represents the enriched attributes in JSON structure
+- **MergeContent** merges FlowFiles together by concatenating their JSON content together
+- **PutFile** writes the enriched geographic location contents of the FlowFile to the local file system
 
 ### 2.1 Learning Objectives: DataFlow Geo Enrichment Addition
 - Add/Configure/Connect processors to ingest, filter and store geo enriched API data
@@ -105,15 +108,17 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 ### InvokeHTTP
 
-1\. Add the InvokeHTTP processor onto the NiFi graph. Connect **RouteOnAttribute** from lab1 to **InvokeHTTP** processor. When the Create Connection window appears, verify **Filter Attributes** checkbox is checked, if not check it. Click **Add**.
+1\. Add the InvokeHTTP processor onto the NiFi graph. Connect **RouteOnAttribute** from tutorial 1 to **InvokeHTTP** processor. When the Create Connection window appears, verify **Filter Attributes** checkbox is checked, if not check it. Click **Add**.
 
-2\. Open InvokeHTTP configure properties tab and add the property listed in Table 1.
+2\. Open InvokeHTTP configure properties tab and add the property listed in **Table 1**.
 
-Table 1: Update InvokeHTTP Property Value(s)
+**Table 1:** Update InvokeHTTP Property Value(s)
 
 | Property  | Value  |
-|---|---|
-| Remote URL  | `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Latitude},${Longitude}&radius=500&type=neighborhood&key=AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug` |
+|:---|---:|
+| `Remote URL`  | `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Latitude},${Longitude}&radius=500&type=neighborhood&key=AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug` |
+
+**Remote URL** connects to the HTTP URL we created using Google Places API and feeds that data into the dataflow. Notice we use two NiFi expressions for location parameter. This is because those two values change as new FlowFiles pass through this processor.  
 
 ![invokeHTTP_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/invokeHTTP_config_property_tab_window.png)
 
@@ -123,32 +128,39 @@ Table 1: Update InvokeHTTP Property Value(s)
 
 1\. Add the EvaluateJsonPath processor onto the NiFi graph. Connect InvokeHTTP to EvaluateJsonPath processor. When the Create Connection window appears, select **Response** checkbox. Click Apply.
 
-2\ Open EvaluateJsonPath configure properties tab and update the original properties with the properties listed in Table 2. Note: add `city` and `neighborhoods_nearby` property by clicking the **New property** button, then insert their values into the properties tab.
+2\ Open EvaluateJsonPath configure properties tab and update the original properties with the properties listed in **Table 2**. Note: add `city` and `neighborhoods_nearby` property by clicking the **New property** button, then insert their values into the properties tab.
 
-Table 2: Update and Add New EvaluateJsonPath Property Values
+**Table 2:** Update and Add New EvaluateJsonPath Property Values
 
 | Property  | Value  |
-|---|---|
-| Destination  | flowfile-attribute  |
-| Return Type  | json  |
-| city  | `$.results[0].vicinity`  |
-| Destination  | `$.results[*].name`  |
+|:---|---:|
+| `Destination`  | `flowfile-attribute`  |
+| `Return Type`  | `json`  |
+| `city`  | `$.results[0].vicinity`  |
+| `neighborhoods_nearby`  | `$.results[*].name`  |
+
+- **Destination** result from JSON Path Evaluation stored in FlowFile attributes.
+
+- **2 user-defined attributes** each hold a value that is used in the NiFi Expression language filtering condition in the next processor.
 
 ![evaluateJsonPath_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/evaluateJsonPath_config_property_tab_window.png)
 
-3\. Navigate to the **Settings** tab. Under Auto terminate relationships check the **unmatched** checkbox. Click **Apply** button. Hover over the processor, the circle with a plus symbol appears, create a connection of the processor to itself. When the Create Connection window opens, check **failure** relationship.
+3\. Navigate to the **Settings** tab. Under Auto terminate relationships check the **unmatched** and **failure** checkboxes. Click **Apply** button.
+
 
 ### RouteOnAttribute
 
 1\. Add the EvaluateJsonPath processor onto the NiFi graph. Connect EvaluateJsonPath to RouteOnAttribute processor. When the Create Connection window appears, select **matched** checkbox. Click Apply.
 
-2\. Open RouteOnAttribute configure properties tab and click on **New property** button to add `RouteNearbyNeighborhoods` to property name and insert its NiFi expression value listed in Table 3.
+2\. Open RouteOnAttribute configure properties tab and click on **New property** button to add `RouteNearbyNeighborhoods` to property name and insert its NiFi expression value listed in **Table 3**.
 
-Table 3: Add New RouteOnAttribute Property Value
+**Table 3:** Add New RouteOnAttribute Property Value
 
 | Property  | Value  |
-|---|---|
-| RouteNearbyNeighborhoods  | `${city:isEmpty():not():and(${neighborhoods_nearby:isEmpty():not()})}`  |
+|:---|---:|
+| `RouteNearbyNeighborhoods`  | `${city:isEmpty():not():and(${neighborhoods_nearby:isEmpty():not()})}`  |
+
+**RouteNearbyNeighborhoods** uses the FlowFile Attribute values obtained from JSON Path Expressions to filter out any FlowFiles that have at least one empty Attribute value. Else the FlowFiles are passed to the remaining processors.
 
 ![routeOnAttribute_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/routeOnAttribute_geoEnrich_config_property_tab_window.png)
 
@@ -158,12 +170,14 @@ Table 3: Add New RouteOnAttribute Property Value
 
 1\. Add the EvaluateJsonPath processor onto the NiFi graph. Connect RouteOnAttribute to AttributesToJSON processor. When the Create Connection window appears, select **RouteNearbyNeighborhoods** checkbox. Click Apply.
 
-2\. Open AttributesToJSON configure properties tab and update the properties with the information listed in Table 2.
+2\. Open AttributesToJSON configure properties tab and update the properties with the information listed in **Table 4**.
+
+**Table 4:** Update AttributesToJSON Property Values
 
 | Property  | Value  |
-|---|---|
-| Attributes List  | `Vehicle_ID, city, Latitude, Longitude, neighborhoods_nearby, Last_Time`  |
-| Destination  | flowfile-content  |
+|:---|---:|
+| `Attributes List`  | `Vehicle_ID, city, Latitude, Longitude, neighborhoods_nearby, Last_Time`  |
+| `Destination`  | flowfile-content  |
 
 ![attributesToJSON_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/attributesToJSON_geoEnrich_config_property_tab_window.png)
 
@@ -173,16 +187,18 @@ Table 3: Add New RouteOnAttribute Property Value
 
 1\. Add the MergeContent processor onto the NiFi graph. Connect AttributesToJSON to MergeContent processor. When the Create Connection window appears, select **success** checkbox. Click Apply.
 
-2\. Open MergeContent configure properties tab and update the properties with the information listed in Table 2. For the Demarcator property, type `,` then press `shift+enter`.
+2\. Open MergeContent configure properties tab and update the properties with the information listed in **Table 5**. For the Demarcator property, type `,` then press `shift+enter`.
+
+**Table 5:** Update MergeContent Property Values
 
 | Property  | Value  |
-|---|---|
-| Minimum Number of Entries  | `20`  |
-| Maximum Number of Entries  | `25`  |
-| Delimiter Strategy  | Text  |
-| Header  | `[`  |
-| Footer  | `]`  |
-| Demarcator  | `,` {press-shift+enter}  |
+|:---|---:|
+| `Minimum Number of Entries`  | `10`  |
+| `Maximum Number of Entries`  | `15`  |
+| `Delimiter Strategy`  | Text  |
+| `Header`  | `[`  |
+| `Footer`  | `]`  |
+| `Demarcator`  | `,` {press-shift+enter}  |
 
 ![mergeContent_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/mergeContent_geoEnrich_config_property_tab_window.png)
 
@@ -192,11 +208,13 @@ Table 3: Add New RouteOnAttribute Property Value
 
 1\. Add the PutFile processor onto the NiFi graph. Connect MergeContent to PutFile processor. When the Create Connection window appears, select **merged** checkbox. Click Apply.
 
-2\. Open PutFile configure properties tab and update the property with the information listed in Table 2.
+2\. Open PutFile configure properties tab and update the property with the information listed in **Table 6**.
+
+**Table 6:** Update PutFile Property Values
 
 | Property  | Value  |
-|---|---|
-| Directory  | `/tmp/nifi/output/nearby_neighborhoods_search`  |
+|:---|---:|
+| `Directory`  | `/tmp/nifi/output/nearby_neighborhoods_search`  |
 
 ![putFile_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/putFile_geoEnrich_config_property_tab_window.png)
 
@@ -209,7 +227,7 @@ Now that we added geographic location enrichment dataflow section to our previou
 
 1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). Your screen should look like the following:
 
-![complete_dataflow_lab2_geoEnrich](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/complete_dataflow_lab2_geoEnrich.png)
+![complete_dataflow_lab2_geoEnrich](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/running_dataflow_lab2_geoEnrich.png)
 
 2\. Let's check the data was written to our expected directory, open your terminal. Make sure to SSH into your sandbox if on sandbox, else navigate to the output directory on your local machine. Navigate to the directory you wrote for the PutFile processor. List the files and open one of the newly created files to view geographic neighborhoods nearby transit location enrichment data output. In the tutorial our directory path is: `/tmp/nifi/output/nearby_neighborhoods_search`.
 
@@ -224,6 +242,11 @@ vi 38997303004413
 
 ## Summary
 
-Congratulations! For the Geo Enrichment section of the dataflow, you learned to use InvokeHTTP to access geographic location of nearby places with Google Places Search API. You learned to add NiFi expression variables into InvokeHTTP property RemoteURL, so that the values for latitude and longitude constantly change in the URL when new FlowFiles pass through this processor. You learned to use EvaluateJsonPath similar to EvaluateXPath to extract JSON elements (neighborhoods_nearby & city) from a JSON structure. Now you know how to incorporate external API's into NiFi further enhance the dataflow.
+Congratulations! For the Geo Enrichment section of the dataflow, you learned to use InvokeHTTP to access geographic location of nearby places with Google Places Search API. You learned to add NiFi expression variables into InvokeHTTP property RemoteURL, so that the values for latitude and longitude constantly change in the URL when new FlowFiles pass through this processor. You learned to use EvaluateJsonPath similar to EvaluateXPath, except JSON Expression is used to extract JSON elements (neighborhoods_nearby & city) from a JSON structure. Now you know how to incorporate external API's into NiFi further enhance the dataflow.
 
 ## Further Reading
+
+- [Google Places API](https://developers.google.com/places/)
+- [HTTP Protocol Overview](http://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177)
+- [JSON Path Expressions](http://goessner.net/articles/JsonPath/index.html#e2)
+- [JSON Path Online Evaluator](http://jsonpath.com/)

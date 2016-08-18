@@ -1,21 +1,21 @@
 ---
 layout: tutorial
-title: Lab0 Download, Install and Start NiFi
+title: Tutorial 0 Download, Install and Start NiFi
 tutorial-id: 640
 tutorial-series: Basic Development
-tutorial-version: hdp-2.4.0
+tutorial-version: hdf-2.0
 intro-page: false
 components: [ nifi ]
 ---
 
-# Lab0: Download, Install, and Start NiFi
+# Tutorial 0: Download, Install, and Start NiFi
 
 ## Introduction
 
-In this tutorial, you learn about the lab environment, how to install NiFi onto Hortonworks Sandbox or on a local machine, and how to start NiFi.
+In this tutorial, you learn about the NiFi environment, how to install NiFi onto Hortonworks Sandbox or on a local machine, and how to start NiFi.
 
 ## Pre-Requisites
-- Completed Learning the Ropes of Apache NiFi.
+- Completed Learning the Ropes of Apache NiFi-Introduction.
 - Downloaded and installed [Hortonworks Sandbox](http://hortonworks.com/products/sandbox/). (Required for Step 2, Option 1 for NiFi installation.)
 - For Windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run Linux terminal commands in these tutorials.
 - If on mac or linux, added `sandbox.hortonworks.com` to your `/private/etc/hosts` file
@@ -38,26 +38,30 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 ![changing-hosts-file.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/changing-hosts-file.png)
 
 ## Outline
-- Step 1: Explore Lab Environment Before NiFi Installation
+- Step 1: Explore NiFi Environment Before NiFi Installation
+  - 1.1 Plan to Install HDF 2.0 on Sandbox
+  - 1.2 Plan to Install HDF 2.0 on Local Machine
 - Step 2: Download and Install NiFi on Sandbox (Option 1)
 - Step 3: Download and Install NiFi on Local Machine (Option 2)
 - Step 4: Start NiFi on Sandbox
+  - 4.1 Forward Port with VirtualBox GUI
+  - 4.2 Forward Port with Azure GUI
 - Step 5: Start NiFi on Local Machine
 
-### Step 1: Explore Lab Environment Before NiFi Installation
+### Step 1: Explore NiFi Environment Before NiFi Installation
 
-You can run NiFi inside a single virtual machine or on your local computer. This version of the lab instructions are based on [Hortonworks DataFlow 1.2 GZipped](http://hortonworks.com/downloads/). There are 2 ways to download and install HDF 1.2: Option 1 on a Hortonworks Sandbox 2.4 Virtual Image or Option 2 on your local machine. HDF comes in 2 versions with only NiFi or with NiFi, Kafka, Storm, and Zookeeper. For this lab series, you should download HDF with NiFi only. The necessary components for this lab series are:
-- HDF 1.2 (NiFi only)
+You can run NiFi inside a single virtual machine or on your local computer. This version of the tutorial instructions are based on [Hortonworks DataFlow 2.0 GZipped](http://hortonworks.com/downloads/). There are 2 ways to download and install HDF 2.0: Option 1 on a Hortonworks Sandbox 2.4 Virtual Image or Option 2 on your local machine. HDF comes in 2 versions with only NiFi or with NiFi, Kafka, Storm, and Zookeeper. For this tutorial series, you should download HDF with NiFi only. The necessary components are:
+- HDF 2.0 (NiFi only)
 - Internet Access
 
-### 1.1 Plan to Install HDF 1.2 on Sandbox
+### 1.1 Plan to Install HDF 2.0 on Sandbox
 
 If you plan to install HDF on Hortonworks Sandbox, review the table, and proceed to step 2.
 
 **Table 1: Hortonworks Sandbox VM Information**
 
 | Parameter  | Value (VirtualBox)  | Value(VMware)  | Value(MS Azure)  |
-|---|---|---|---|
+|:---|:---:|:---:|---:|
 | Host Name  | 127.0.0.1  | 172.16.110.129  | 23.99.9.233  |
 | Port  | 2222  | 2222  | 22  |
 | Terminal Username  | root  | root  | {username-of-azure}  |
@@ -67,7 +71,8 @@ If you plan to install HDF on Hortonworks Sandbox, review the table, and proceed
 > Note: **Host Name** values are unique for VMware & Azure Sandbox compared to the table. For VMware and VirtualBox, **Host Name** is located on the Welcome screen. For Azure, **Host Name** is located under **Public IP Address** on the Sandbox Dashboard. For Azure users, you created the terminal **username** and **password** while deploying the Sandbox on Azure. For VMware and VirtualBox users, you change the terminal password after first login.
 
 If it is your first time using the Sandbox VM, you might be prompted to change the default 'hadoop' password. Run the following command and provide a stronger password:
-```
+
+~~~
 ssh -p 2222 root@localhost
 root@localhost's password:
 You are required to change your password immediately (root enforced)
@@ -77,9 +82,9 @@ Changing password for root.
 New password:
 Retype new password:
 [root@sandbox ~]#
-```
+~~~
 
-### 1.2 Plan to Install HDF 1.2 on Local Machine
+### 1.2 Plan to Install HDF 2.0 on Local Machine
 
 You should read this section if you plan to install NiFi on your local machine. Once you have verified that your machine meets system requirements, proceed to Step 3.
 
@@ -90,6 +95,8 @@ Supported OS for HDF Installation:
 - Ubuntu 12.04 or 14.04 64-bit
 - Debian 6 or 7
 - SUSE Enterprise 11-SP3
+- MAC OS X
+- Windows OS
 
 Supported Browsers:
 - Mozilla Firefox latest
@@ -104,6 +111,14 @@ Supported JDKS:
 Supported HDP Versions that Interoperate with HDF:
 - HDP 2.3.x
 - HDP 2.4.x
+
+Two Versions of HDF
+
+Version 1 only comes with NiFi.
+- On the Hortonworks HDF downloads page, version 1 is available.
+
+Version 2 comes with NiFi, Kafka, Storm and Zookeeper
+- This version is available in Hortonworks Documentation
 
 ### Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)
 This tutorial uses Hortonworks Sandbox 2.4.
@@ -142,15 +157,19 @@ The script automatically installs NiFi onto your virtual machine. After successf
 
 ### Step 3: Download and Install NiFi on Local Machine (Option 2)
 
-1\. Open a browser. Download NiFi from [HDF Downloads Page](http://hortonworks.com/downloads/). There are two package options: one for HDF TAR.GZ file tailored to Linux and zip file more compatible with Windows. Mac can use either option. In this tutorial section, download the zip on a Mac:
+1\. Open a browser. Download NiFi from [HDF Downloads Page](http://hortonworks.com/downloads/). You will see two HDF download links, both include HDF that only comes with NiFi packaged. There are two package options: one for HDF TAR.GZ file tailored to Linux and zip file more compatible with Windows. Mac can use either option. In this tutorial section, download the zip on a Mac:
 
 ![download_hdf_iot](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
 
-2\. To install NiFi, extract the files to the location from which you want to run the application. For the tutorial, we moved the extracted HDF folder to the Applications folder.
+2\. After downloading NiFi, it will be in a compressed format. To install NiFi, extract the files from the compressed file to a location in which you want to run the application. For the tutorial, we moved the extracted HDF folder to the `Applications` folder.
+
+The image below shares NiFi downloaded and installed in the Applications folder:
+
+![download_install_nifi](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download_install_nifi.png)
 
 ### Step 4: Start NiFi on Sandbox <a id="step3-start-nifi"></a>
 
-Use the following steps to start NiFi if you downloaded and installed it on Hortonworks Sandbox. For informaiton about how to start NiFi on your local machine, go to step 5. 
+Use the following steps to start NiFi if you downloaded and installed it on Hortonworks Sandbox. For informaiton about how to start NiFi on your local machine, go to step 5.
 
 In this tutorial, launch NiFi in the background.
 
@@ -203,7 +222,7 @@ Now that the configuration in the nifi.properties file is updated, port forward 
 Click the button that says **Port Forwarding**. Overwrite NiFi entry with the following values:
 
 | Name  | Protocol  | Host IP  | Host Port  | Guest IP  | Guest Port  |
-|---|---|---|---|---|---|
+|:---|:---:|:---:|:---:|:---:|---:|
 | NiFi  | TCP  | 127.0.0.1  | 6434  |   | 6434  |
 
 ![port_forward_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/port_forward_nifi_iot.png)
@@ -238,7 +257,7 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 ### Step 5: Start NiFi on Local Machine
 
-If you downloaded and installed NiFi on your local machine, use this step to start NiFi. 
+If you downloaded and installed NiFi on your local machine, use this step to start NiFi.
 
 There are 3 methods to start NiFi: launch NiFi in foreground, in the background or as a service. See the [HDF Install and Setup Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_HDF_InstallSetup/content/starting-nifi.html) to learn more.
 

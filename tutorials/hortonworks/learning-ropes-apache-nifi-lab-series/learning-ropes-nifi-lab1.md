@@ -1,20 +1,20 @@
 ---
 layout: tutorial
-title: Lab 1 Build A Simple NiFi DataFlow
+title: Tutorial 1 Build A Simple NiFi DataFlow
 tutorial-id: 640
 tutorial-series: Basic Development
-tutorial-version: hdp-2.4.0
+tutorial-version: hdf-2.0
 intro-page: false
 components: [ nifi ]
 ---
 
-# Lab 1: Build A Simple NiFi DataFlow
+# Tutorial 1: Build A Simple NiFi DataFlow
 
 ## Introduction
 
-In this tutorial, we will build a NiFi DataFlow to fetch vehicle location, speed, and other sensor data from a San Francisco Muni traffic simulator, look for observations of a specific few vehicles, and store the selected observations into a new file. Even though this aspect of the lab is not streaming data, you will see the importance of file I/O in NiFi dataflow application development and how it can be used to simulate streaming data.
+In this tutorial, we will build a NiFi DataFlow to fetch vehicle location, speed, and other sensor data from a San Francisco Muni traffic simulator, look for observations of a specific few vehicles, and store the selected observations into a new file. Even though this aspect of the tutorial is not streaming data, you will see the importance of file I/O in NiFi dataflow application development and how it can be used to simulate streaming data.
 
-In this lab, you will build the following dataflow:
+In this tutorial, you will build the following dataflow:
 
 ![completed-data-flow-lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/completed-data-flow-lab1.png)
 
@@ -22,7 +22,7 @@ In this lab, you will build the following dataflow:
 
 Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab1-template/Lab1-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to **Step 1**.
 
-1\. Click on the template icon ![nifi_template_icon](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/nifi_template_icon.png) located in the upper right corner of the NiFi HTML interface.
+1\. Click on the template icon ![nifi_template_icon](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/nifi_template_icon.png) located in the actions toolbar.
 
 2\. Click **Browse**, find the template file, click **Open** and hit **Import**.
 
@@ -32,7 +32,7 @@ Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercont
 
 ## Pre-Requisites
 - Completed Learning the Ropes of Apache NiFi
-- Completed Lab 0: Download, Install and Start NiFi
+- Completed Tutorial 0: Download, Install and Start NiFi
 
 ## Outline
 - Step 1: Create a NiFi DataFlow
@@ -41,12 +41,14 @@ Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercont
 - Step 4: Build Filter and JSON Conversion DataFlow Section
 - Step 5: Run the NiFi DataFlow
 - Summary
+- Appendix A: Review of NiFi DataFlow
+- Appendix B: Create Labels for Processor Groups
 - Further Reading
 
 
 ### Step 1: Create a NiFi DataFlow
 
-The building blocks of every dataflow consist of processors. These tools perform actions on data to ingest, route, extract, split, aggregate or store it. Our dataflow will contain these processors, each processor includes a high level description of their role in the lab:
+The building blocks of every dataflow consist of processors. These tools perform actions on data to ingest, route, extract, split, aggregate or store it. Our dataflow will contain these processors, each processor includes a high level description of their role in the tutorial:
 
 - **GetFile** reads vehicle location data from traffic stream zip file
 - **UnpackContent** decompresses the zip file
@@ -72,7 +74,7 @@ Your dataflow will extract the following XML Attributes from the transit data li
 **Table 1: Extracted XML Attributes From Transit Data**
 
 | Attribute Name  | Type  | Comment  |
-|---|---|---|
+|:---|:---:|---:|
 | id  | string  | Vehicle ID |
 | time  | int64  | Observation timestamp  |
 | lat  | float64  | Latitude (degrees)  |
@@ -85,7 +87,7 @@ After extracting, filtering and converting the data, your new file, which contai
 **Table 2: Other DataFlow Requirements**
 
 | Parameter  | Value  |
-|---|---|
+|:---|---:|
 | Input Directory  | /tmp/nifi/input  |
 | Output Directory  | /tmp/nifi/output/filtered_transitLoc_data  |
 | File Format  | JSON  |
@@ -99,15 +101,11 @@ Let's build our dataflow to fetch, filter, convert and store transit sensor data
 
 1\. Go to the **components** toolbar, drag and drop the processor icon ![processor_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/processor_nifi_iot.png) onto the graph.
 
-
 An **Add Processor** window will appear with 3 ways to find our desired processor: **processor list**, **tag cloud**, or **filter bar**
 
-- processor list: contains almost 160 processors
+- processor list: contains almost 180 processors
 - tag cloud: reduces list by category
 - filter bar: search for desired processor
-
-![add_processor_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/add_processor_window.png)
-
 
 2\. Select the **GetFile** processor and a short description of the processor's function will appear.
 
@@ -146,7 +144,7 @@ Follow the step above to add these processors. You should obtain the image below
 
 ![added_processors_nifi_part1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/added_processors_nifi_part1.png)
 
-> Note: To find more information on the processor, right click ExecuteProcess and click **usage**. An in app window will appear with that processor’s documentation.
+> Note: To find more information on the processor, right click ExecuteProcess and click **usage**. An in app window will appear with that processor’s documentation. Also if you want to create color coded labels that act as a background for a processor group, refer to **Appendix B**.
 
 ### 1.3 Troubleshoot Common Processor Issues
 
@@ -170,7 +168,7 @@ If you would like to read more about configuring and connecting processors, refe
 
 ### 2.1 GetFile
 
-1\. Download [trafficLocs_data_for_simulator.zip](/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip).
+1\. Download [trafficLocs_data_for_simulator.zip](https://github.com/hortonworks/tutorials/blob/hdp/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip?raw=true).
 
 ### NiFi on Sandbox (Option 1)
 
@@ -201,20 +199,26 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 ![configure_processor_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/configure_processor_nifi_iot.png)
 
-2\. Click on the **Properties** tab. Add the properties listed in Table 1 to the processor's appropriate properties and if their original properties already have values, update them. Click the **OK** button after changing a property.
+2\. Click on the **Properties** tab. Add the properties listed in Table 3 to the processor's appropriate properties and if their original properties already have values, update them. Click the **OK** button after changing a property.
 
 **Table 3:** Update GetFile Property Values
 
 | Property  | Value  |
-|---|---|
-| Input Directory  | `/tmp/nifi/input`  |
-| Keep Source File  | `true`  |
+|:---|---:|
+| `Input Directory`  | `/tmp/nifi/input`  |
+| `Keep Source File`  | `true`  |
+
+- **Input Directory** location at which data is ingested into the dataflow
+
+- **Keep Source File** source files in directory remain after all data is ingested
 
 ![getFile_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/getFile_config_property_tab_window.png)
 
 **Figure 3:** GetFile Configuration Property Tab Window
 
-3\. Now that each property is updated. Click **Apply**. Connect **GetFile** to **UnpackPack** processor by dragging the arrow icon from the first processor to the next component. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
+3\. Now that each property is updated. Navigate to the **Scheduling tab** and change the **Run Schedule** from 0 sec to `1 sec`, so that the processor executes a task every 1 second. Therefore, overuse of system resources is prevented.
+
+4\. Now that each required item is updated, click **Apply**. Connect **GetFile** to **UnpackContent** processor by dragging the arrow icon from the first processor to the next component. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
 ### 2.2 UnpackContent
 
@@ -223,8 +227,10 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 4:** Update UnpackContent Property Value
 
 | Property  | Value  |
-|---|---|
-| Packaging Format  | zip  |
+|:---|---:|
+| `Packaging Format`  | `zip`  |
+
+**Packaging Format** tells the processor of packaging format used to create the file
 
 ![unpackContent_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/unpackContent_config_property_tab_window.png)
 
@@ -232,7 +238,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 2\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **original** checkboxes. Click **Apply**.
 
-3\. Connect **UnpackPack** to **ControlRate** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
+3\. Connect **UnpackContent** to **ControlRate** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
 ### 2.3 ControlRate
 
@@ -241,14 +247,16 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 5:** Update ControlRate Property Values
 
 | Property  | Value  |
-|---|---|
-| Rate Control Criteria  | flowfile count  |
-| Maximum Rate  | `1`  |
-| Time Duration  | `6 second`  |
+|:---|---:|
+| `Rate Control Criteria`  | `flowfile count`  |
+| `Maximum Rate`  | `1`  |
+| `Time Duration`  | `6 second`  |
 
-**Rate Control Criteria** instructs the processor to count the number of FlowFile before a transfer takes place
-**Maximum Rate** instructs the processor to transfer 1 FlowFile at a time
-**Time Duration** makes it so only 1 flowfile will transfer through this processor every 6 seconds.
+- **Rate Control Criteria** instructs the processor to count the number of FlowFile before a transfer takes place
+
+- **Maximum Rate** instructs the processor to transfer 1 FlowFile at a time
+
+- **Time Duration** makes it so only 1 flowfile will transfer through this processor every 6 seconds.
 
 ![controlRate_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/controlRate_config_property_tab_window.png)
 
@@ -267,9 +275,13 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 6:** Update EvaluateXPath Property Values
 
 | Property  | Value  |
-|---|---|
-| Destination  | flowfile-attribute  |
-| Last_Time  | `//body/lastTime/@time`  |
+|:---|---:|
+| `Destination`  | `flowfile-attribute`  |
+| `Last_Time`  | `//body/lastTime/@time`  |
+
+- **Destination** result from XPath evaluation stored into FlowFile attribute
+
+- **Last_Time** is a FlowFile Attribute and XPath expression that retrieves value of time node in the XML file
 
 ![evaluateXPath_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/evaluateXPath_config_property_tab_window.png)
 
@@ -294,8 +306,10 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 7:** Add UpdateAttribute Property Value
 
 | Property  | Value  |
-|---|---|
-| filename  | `${UUID()}``  |
+|:---|---:|
+| `filename`  | `${UUID()}`  |
+
+- **filename** updates each FlowFile with a unique identifier
 
 ![updateAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/updateAttribute_config_property_tab_window.png)
 
@@ -310,13 +324,17 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 8:** Update EvaluateXPath Property Values
 
 | Property  | Value  |
-|---|---|
-| Destination  | flowfile-attribute  |
-| Direction_of_Travel  | `//vehicle/@dirTag`  |
-| Latitude  | `//vehicle/@lat`  |
-| Longitude  | `//vehicle/@lon`  |
-| Vehicle ID  | `//vehicle/@id`  |
-| Vehicle_Speed  | `//vehicle/@speedKmHr`  |
+|:---|---:|
+| `Destination`  | `flowfile-attribute`  |
+| `Direction_of_Travel`  | `//vehicle/@dirTag`  |
+| `Latitude`  | `//vehicle/@lat`  |
+| `Longitude`  | `//vehicle/@lon`  |
+| `Vehicle_ID`  | `//vehicle/@id`  |
+| `Vehicle_Speed`  | `//vehicle/@speedKmHr`  |
+
+- **Destination** set to FlowFile attribute because the result of values from XPath expressions need to be stored in FlowFile attributes.
+
+- **5 user-defined attributes** each hold a value that is used in NiFi Expression language filtering condition in the next processor.
 
 ![evaluateXPath_extract_splitFlowFiles_config_property_tab](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/evaluateXPath_extract_splitFlowFiles_config_property_tab.png)
 
@@ -336,8 +354,10 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 9:** Add RouteOnAttribute Property Value
 
 | Property  | Value  |
-|---|---|
-| Filter_Attributes  | `${Direction_of_Travel:isEmpty():not():and(${Last_Time:isEmpty():not()}):and(${Latitude:isEmpty():not()}):and(${Longitude:isEmpty():not()}):and(${Vehicle_ID:isEmpty():not()}):and(${Vehicle_Speed:equals('0'):not()})}`  |
+|:---|---:|
+| `Filter_Attributes`  | `${Direction_of_Travel:isEmpty():not():and(${Last_Time:isEmpty():not()}):and(${Latitude:isEmpty():not()}):and(${Longitude:isEmpty():not()}):and(${Vehicle_ID:isEmpty():not()}):and(${Vehicle_Speed:equals('0'):not()})}`  |
+
+**Filter_Attributes** uses the FlowFile Attribute values obtained from XPath Expressions to filter out any FlowFiles that either have at least one empty Attribute value or the speed attribute value equals 0. Else the FlowFiles are passed to the remaining processors.
 
 ![routeOnAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/routeOnAttribute_config_property_tab_window.png)
 
@@ -354,9 +374,13 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 10:** Update AttributesToJSON Property Values
 
 | Property  | Value  |
-|---|---|
-| Attributes List  | `Vehicle_ID, Direction_of_Travel, Latitude, Longitude, Vehicle_Speed, Last_Time`  |
-| Destination  | flowfile-content  |
+|:---|---:|
+| `Attributes List`  | `Vehicle_ID, Direction_of_Travel, Latitude, Longitude, Vehicle_Speed, Last_Time`  |
+| `Destination`  | flowfile-content  |
+
+- **Attributes List** takes FlowFile attribute parameters and presents them in JSON format
+
+- **Destination** stores the output as content in the FlowFile
 
 ![attributesToJSON_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/attributesToJSON_config_property_tab_window.png)
 
@@ -373,21 +397,26 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 11:** Update MergeContent Property Values
 
 | Property  | Value  |
-|---|---|
-| Minimum Number of Entries  | `10`  |
-| Maximum Number of Entries  | `15`  |
-| Delimiter Strategy  | Text  |
-| Header  | `[`  |
-| Footer  | `]`  |
-| Demarcator | `,` {insert-then-press-shift-enter} |
+|:---|---:|
+| `Minimum Number of Entries`  | `10`  |
+| `Maximum Number of Entries`  | `15`  |
+| `Delimiter Strategy`  | Text  |
+| `Header`  | `[`  |
+| `Footer`  | `]`  |
+| `Demarcator` | `,` {now-press-shift-enter} |
 
-![mergeContent_firstHalf_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/mergeContent_firstHalf_config_property_tab_window.png)
+- **Minimum Number of Entries** takes in at least specified amount of FlowFiles, then merges them into 1 FlowFiles
 
-**Figure 11a:** MergeContent First Half of Configuration Property Tab Window
+- **Maximum Number of Entries** takes in no more than specified amount of FlowFiles, then merges them
 
-![mergeContent_secondHalf_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/mergeContent_secondHalf_config_property_tab_window.png)
+- **Delimiter Strategy** specifies that Header, Footer and Demarcator set the formatting conditions for text in the file
 
-**Figure 11b:** MergeContent Second Half of Configuration Property Tab Window
+- **Header** inserts specified value at the beginning of the file
+
+- **Footer** inserts specified value at the end of the file
+
+- **Demarcator** inserts specified value(s) at the end of every line in the file
+
 
 3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **original** checkboxes. Click **Apply**.
 
@@ -401,8 +430,8 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 **Table 12:** Update PutFile Property Value
 
 | Property  | Value  |
-|---|---|
-| Directory  | `/tmp/nifi/output/filtered_transitLoc_data`  |
+|:---|---:|
+| `Directory`  | `/tmp/nifi/output/filtered_transitLoc_data`  |
 
 ![putFile_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/putFile_config_property_tab_window.png)
 
@@ -420,7 +449,11 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. To quickly see what the processors are doing and the information on their faces, right click on the graph, click the **refresh status** button ![refresh_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/refresh_nifi_iot.png)
 
-4\. To check that the data was written to a file, open your terminal. Make sure to SSH into your sandbox. Navigate to the directory you wrote for the PutFile processor. List the files and open one of the newly created files to view filtered transit output. In the tutorial our directory path is: `/tmp/nifi/output/filtered_transitLoc_data`.
+There are two options for checking that the data stored in the destination is correct. Option 1 is to navigate by terminal to the folder where NiFi stores the data. Option 2 is to use Data Provenance to verify the data is correct.
+
+### Check Data By Terminal (Option 1)
+
+4\. To check that the data was written to a file, open your terminal or use NiFi's Data Provenance. Make sure to SSH into your sandbox. Navigate to the directory you wrote for the PutFile processor. List the files and open one of the newly created files to view filtered transit output. In the tutorial our directory path is: `/tmp/nifi/output/filtered_transitLoc_data`.
 
 ~~~
 cd /tmp/nifi/output/filtered_transitLoc_data
@@ -435,13 +468,37 @@ vi 22169558941607
 
 > Note: to exit the vi editor, press `esc` and then type `:q`.
 
+### Check Data By NiFi's Data Provenance (Option 2)
+
+Data Provenance is a unique feature in NiFi that enables the user to check the data from any processor or component while the FlowFiles move throughout the dataflow. Data Provenance is a great tool for troubleshooting issues that may occur in the dataflow. In this section, we will check the Data Provenance for the PutFile processor.
+
+1\. Right click on the PutFile processor. Select `Data Provenance`. It is the 4th item in the dropdown menu.
+
+2\. NiFi will search for provenance events. The window will load with events, select any event. An event is a FlowFile that passes through a processor and the data that is viewable at that particular time. For the tutorial, let's select the first event by pressing on the view provenance event symbol ![i_symbol_nifi_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/i_symbol_nifi_lab1.png).
+
+Provence Event Window:
+
+![provenance_event_window_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/provenance_event_window_lab1.png)
+
+
+3\. Once you select the event, a Provenance Event Dialog Window will appear. It contains Details, Attributes and Content regarding the particular event. Take a few minutes to view each tab. Let's navigate to the `Content` tab to view the data generated from the FlowFile. NiFi gives the user the option to download or view the content of the event. Click on the **View** button.
+
+![provenance_content_tab_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/provenance_content_tab_lab1.png)
+
+4\. NiFi gives the user the option view the data in multiple formats. We will view it in original format.
+
+![event_content_view_window_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/event_content_view_window_lab1.png)
+
 Did you receive the data you expected?
+
 
 ## Summary
 
-Congratulations! You made it to the end of the tutorial and built a NiFi DataFlow that reads in a live stream simulation from NextBus.com, splits the parent’s children elements from the XML file into separate FlowFiles, extracts nodes from the XML file, makes a filtering decision on the attributes and stores that newly modified data into a file. If you are interested in learning more about NiFi, view the following further reading section.
+Congratulations! You made it to the end of the tutorial and built a NiFi DataFlow that reads in a live stream simulation from NextBus.com, splits the parent’s children elements from the XML file into separate FlowFiles, extracts nodes from the XML file, makes a filtering decision on the attributes and stores that newly modified data into a file. You also learned how to use NiFi's Data Provenance feature to view data from a FlowFile that flows through a processor, a powerful feature that enables users to troubleshoot issues in real-time. Feel free to use this feature in the other tutorials. If you are interested in learning more about NiFi, view the following further reading section.
 
-If you want a more in depth review of the dataflow we just built, read the information below, else continue onto the next lab.
+## Appendix A: Review of the NiFi DataFlow
+
+If you want a more in depth review of the dataflow we just built, read the information below, else continue onto the next tutorial.
 
 Vehicle Location XML Simulation Section:
 streams the contents of a file from local disk into NiFi, unpacks the zip file and transfers each file as a single FlowFile, controls the rate at which the data flows to the remaining part of the flow.
@@ -455,6 +512,8 @@ Routes FlowFile based on whether it contains all XPath Expressions (attributes) 
 
 ## Further Reading
 
+- [Apache NiFi](http://hortonworks.com/apache/nifi/)
 - [Hortonworks DataFlow Documentation](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2/bk_UserGuide/content/index.html)
 - [NiFi Expression Language Guide](https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html)
-- [Apache NiFi](https://nifi.apache.org/videos.html)
+- [XPath Expression Tutorial](http://www.w3schools.com/xsl/xpath_intro.asp)
+- [JSON Tutorial](http://www.w3schools.com/json/)
