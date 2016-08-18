@@ -10,7 +10,7 @@ components: [ nifi ]
 
 # Learning the Ropes of Apache NiFi
 
-Version 1 for HDP 2.4 updated June 13, 2016
+Version 1 for HDF 2.0 updated August 18, 2016
 
 ## Introduction
 
@@ -20,9 +20,9 @@ For the purposes of this tutorial, assume that a city planning board is evaluati
 
 ## Goals and Objectives
 
-The goal of this tutorial is to provide you with an opportunity to interact with Apache NiFi features while building a dataflow. You do not need programming experience or flow-based programming syntax and feature knowledge to successfully complete this lab. 
+The goal of this tutorial is to provide you with an opportunity to interact with Apache NiFi features while building a dataflow. You do not need programming experience or flow-based programming syntax and feature knowledge to successfully complete this tutorial. 
 
-The learning objectives of this lab are to:
+The learning objectives of this tutorial are to:
 - Understand Apache NiFi fundamentals
 - Introduce NiFi’s HTML user interface
 - Introduce NiFi processor configuration, relationships, data provenance, and documentation
@@ -37,18 +37,18 @@ The learning objectives of this lab are to:
 - For Windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run Linux terminal commands in these tutorials.
 
 
-## Lab Series Overview
+## Tutorial Series Overview
 
-In this lab, we work with San Francisco MUNI Transit agency data, gathered from NextBus XML Live Feed, handling vehicle locations, speeds, and other variables.
+In this tutorial, we work with San Francisco MUNI Transit agency data, gathered from NextBus XML Live Feed, handling vehicle locations, speeds, and other variables.
 
-The lab consists of four sections:
+The tutorial consists of four sections:
 
-**Lab 0** - Learn about your lab environment. Get NiFi up and running on Hortonworks Sandbox or your local machine.
+**Tutorial 0** - Learn about your lab environment. Get NiFi up and running on Hortonworks Sandbox or your local machine.
 
-**Lab 1** - Open NiFi UI and explore its features. Create a dataflow by adding and configuring eleven processors. Ingest data from a transit location XML simulator, extract transit location detail attributes from flowfiles, and route attributes to a converted JSON file. Run the dataflow and verify the results in a terminal.
+**Tutorial 1** - Open NiFi UI and explore its features. Create a dataflow by adding and configuring eleven processors. Ingest data from a transit location XML simulator, extract transit location detail attributes from flowfiles, and route attributes to a converted JSON file. Run the dataflow and verify the results in a terminal.
 
-**Lab 2** - Add geographic location enrichment to the dataflow; incorporate Google Places Nearby API into the dataflow to retrieve places near the vehicle's location. 
+**Tutorial 2** - Add geographic location enrichment to the dataflow; incorporate Google Places Nearby API into the dataflow to retrieve places near the vehicle's location. 
 
-**Lab 3** - Ingest NextBus's live stream data for San Francisco MUNI agency.
+**Tutorial 3** - Ingest NextBus's live stream data for San Francisco MUNI agency.
 
-Each lab provides step by step instructions, so that you can complete the learning objectives and tasks associate with it. You are also provided with a dataflow template for each lab that you can use for verification. Each lab builds on the previous. 
+Each tutorial provides step by step instructions, so that you can complete the learning objectives and tasks associate with it. You are also provided with a dataflow template for each tutorial that you can use for verification. Each lab builds on the previous. 
