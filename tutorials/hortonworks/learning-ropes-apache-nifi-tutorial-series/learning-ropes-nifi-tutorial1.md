@@ -509,6 +509,20 @@ Splits XML message into many FlowFiles, updates each FlowFile filename attribute
 Filter Key Attributes to JSON File Section:
 Routes FlowFile based on whether it contains all XPath Expressions (attributes) from the evaluation, writes JSON representation of input attributes to FlowFile as content, merges the FlowFiles by concatenating their content together into a single FlowFile and writes the contents of a FlowFile to a directory on the local filesystem.
 
+## Appendix B: Create Labels for Processor Groups
+
+NiFi DataFlows expand to become enormous pipelines to process data. In large dataflow, it can be difficult to understand what particular actions sections of the dataflow perform on data. Therefore, Labels can be used to make it easier for users to understand the different phases of the dataflow.
+
+Let's create a label to signify the action that happens in the first phase of our dataflow.
+
+1\. Drag the Label icon ![label_icon_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/label_icon_lab1.png) located in the components toolbar onto the canvas. To expand the label, hover toward the right corner, a arrow will appear, click on that edge and drag the label to surround the group of processors.
+
+2\. Right click on the label, press configure. A Configure Label window will appear. Click in the Label Value field, type the name `Generate Vehicle Location XML Simulator` for the first phase of our dataflow. Choose `18px` for Font Size.
+
+![label_first_phase_dataflow_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/label_first_phase_dataflow_lab1.png)
+
+Reference the picture of the dataflow in Step 5 if you would like to assign similar labels used in the dataflow for this tutorial. Feel free to create your own as labels for each phase of the dataflow too.
+
 
 ## Further Reading
 
