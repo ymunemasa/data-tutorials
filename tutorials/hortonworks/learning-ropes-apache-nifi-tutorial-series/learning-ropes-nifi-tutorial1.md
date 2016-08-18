@@ -26,7 +26,7 @@ Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercont
 
 2\. Click **Browse**, find the template file, click **Open** and hit **Import**.
 
-3\. Hover over to the top left of the NiFi HTML interface, drag the template icon ![nifi_template_icon](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/nifi_template_icon.png) onto the graph and select the **NiFi-DataFlow-Lab1.xml** template file.
+3\. Hover over to the top left of the NiFi HTML interface, drag the template icon ![nifi_template_icon](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/add_nifi_template.png) onto the graph and select the **NiFi-DataFlow-Lab1.xml** template file.
 
 4\. Hit the **start** button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). to activate the dataflow. We highly recommend you read through the lab, so you become familiar with the process of building a dataflow.
 
