@@ -97,7 +97,7 @@ The Files View Interface will appear with the following default folders.
 ![files_view_home_page](/assets/create-falcon-cluster-hdp2.5/files_view_home_page.png)
 
 We need to create the directories on HDFS representing the two clusters that we are going to define, namely `primaryCluster` and `backupCluster`.
-Navigate to `/user/apps` folder, click the `New Folder` button ![new_folder_button](/assets/create-falcon-cluster-hdp2.5/new_folder_button.png), an add new folder window appears and name the folder primaryCluster. Press enter or `Add`
+Navigate to `/apps/falcon` folder, click the `New Folder` button ![new_folder_button](/assets/create-falcon-cluster-hdp2.5/new_folder_button.png), an add new folder window appears and name the folder primaryCluster. Press enter or `Add`
 
 ![add_new_folder_primary](/assets/create-falcon-cluster-hdp2.5/add_new_folder_primary.png)
 
