@@ -1,10 +1,10 @@
 create database if not exists foodmart;
 use foodmart;
 
-DROP TABLE IF EXISTS sales_fact_dec_1998;
+DROP TABLE IF EXISTS sales_fact_1998;
 CREATE EXTERNAL TABLE sales_fact_dec_1998(product_id INT,time_id INT,customer_id INT,promotion_id INT,store_id INT,store_sales DECIMAL(10,4),store_cost DECIMAL(10,4),unit_sales DECIMAL(10,4))
 stored as orc
-location '/apps/hive/warehouse/foodmart.db/sales_fact_dec_1998'
+location '/apps/hive/warehouse/foodmart.db/sales_fact_1998'
 tblproperties ("orc.compress"="SNAPPY");
 
 DROP TABLE IF EXISTS inventory_fact_1998;
