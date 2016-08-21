@@ -49,7 +49,7 @@ The goal of this tutorial is to provide you with an opportunity to build a MapRe
 - Learn about Hadoop Streaming API to write Jobs in any Language
 
 ## Tutorial Overview
-- MapReduce Core Concepts
+- **Concepts** - MapReduce Batch Processing 
   - Brief intro to MapReduce
     - MapReduce and HDFS
   - Dealing with failures
@@ -57,12 +57,12 @@ The goal of this tutorial is to provide you with an opportunity to build a MapRe
   - Use of MapReduce inside Hortonworks Data Platform
   - MapReduce programming Examples
   - MapReduce, Tez and LLAP
-- Setup Programming Environment
+- **Tutorial 0** - Setup Programming Environment
   - Sandbox
   - Eclipse IDE (Option1)
   - Intellij IDE (Option2)
   - Maven
-- Implementation of Apache Hadoop MapReduce
+- **Tutorial 1** - Write MapReduce Program to Monitor Driver Behavior
   - Write MapReduce API code
     - Track Miles Logged Per Driver
     - Store Data Into HDFS
