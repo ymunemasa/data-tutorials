@@ -34,6 +34,20 @@ Progressive, our employer of 1 year, wants to implement a new approach for monit
 - Edited collaboratively on [Github](https://github.com/hortonworks/tutorials-future/new/master/tutorials/hortonworks/introducing-apache-hadoop-to-java-developers) 
 to give the community access to free learning
 
+## Goals and Learning Objectives
+
+The goal of this tutorial is to provide you with an opportunity to build a MapReduce DataFlow by writing MapReduce code. You do not need programming experience or functional programming syntax. However, we do recommend you have some knowledge of Java syntax and concepts to obtain the best experience.
+
+**Learning Objectives from this tutorial are:**
+
+- Understand Apache Hadoop MapReduce Fundamentals
+- Understand MapReduce's Role in the Hadoop Ecosystem
+- Introduce MapReduce API's: Mapper, Partitioner, Shuffle, Reducer
+- Setup IDE on Sandbox for MapReduce Development
+- Create MapReduce DataFlows in Java
+- Learn about MapReduce Pipes API to write Jobs in C++
+- Learn about Hadoop Streaming API to write Jobs in any Language
+
 ## Tutorial Overview
 - MapReduce Core Concepts
   - Brief intro to MapReduce
