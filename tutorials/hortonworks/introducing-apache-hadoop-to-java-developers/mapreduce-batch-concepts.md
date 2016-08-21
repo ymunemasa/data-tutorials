@@ -8,10 +8,11 @@ intro-page: false
 components: [ hadoop ]
 ---
 
+# MapReduce Batch Processing Concepts
+
 ## Introduction
 
-In this concepts overview, we will explore the core concepts of Apache Hadoop and examine the 
-Mapper and Reducer at a high level perspective.
+MapReduce is a Programming Model influenced by functional programming constructs. MapReduce processes large datasets with a parallel distributed algorithm. Therefore, data processing occurs at extreme speeds compared to sequential processing. We will discuss MapReduce's implementation on the way it processes data. While MapReduce processes data, we will explore the software's failure recovery features that ensure jobs complete
 
 ## Pre-Requisite
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
