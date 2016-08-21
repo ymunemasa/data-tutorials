@@ -8,17 +8,17 @@ intro-page: false
 components: [ hadoop ]
 ---
 
+# Write MapReduce Program to Monitor Driver Behavior
+
 ## Introduction
 
-- MapReduce Programming Model influenced by functional programming constructs, demonstrate its power through examples
-- Discuss MapReduce and its relationship to HDFS, Streaming API, Repositories, SBT Setup, Gradle Setup
-- Performance Apache MapReduce Implementation
-- Exploits data locality to reduce network overhead
-- Failure recovery features ensure job completion in environment
+Progressive, our employer of 1 year, wants to implement a new approach for monitoring drivers' behavior that uses the MapReduce API. Therefore, once results are collected, drivers will be offered insurance at a rate based on how well they drive. We have been assigned the software project which involves using MapReduce to track the number of miles logged per driver (In the tutorial, we will go through interactive step by step instructions for building this new program).
 
-## Pre-Requisite
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+## Prerequisite
+*  Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  Completed MapReduce Batch Processing Concepts
+*  Completed Tutorial 1: Setup Programming Environment
 *  Allow yourself around 1 to 2 hours to complete this tutorial
 
 ## Outline
