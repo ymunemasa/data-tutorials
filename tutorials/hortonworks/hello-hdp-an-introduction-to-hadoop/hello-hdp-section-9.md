@@ -94,7 +94,7 @@ In this section, we will use [Zoomdata](http://www.zoomdata.com/) to access the 
 Sample JDBC: `jdbc:hive2://_HDPSanboxhost_IPaddress_:10000/default`
 ~~~
 
-**Find IP Address of Your Sandbox (Optonal)**
+### Find IP Address of Your Sandbox (Optonal)
 
 > **Note**: To find the IP address of your sandbox, follow the steps below. Then insert IP address into JDBC above.
 
@@ -118,6 +118,8 @@ VBoxManage guestproperty get "Hortonworks Sandbox with HDP 2.3.2"
 5\. Start the Sandbox. You wont be able to access login page using the default http://localhost:8888. Instead use the ip address you obtained in the above step to go to welcome page. Eg: http://192.168.99.101:8888
 
 ![sandbox_welcome](/assets/hello-hdp/start_sandbox_welcome.png)
+
+### Return to Zoomdata Connection Page
 
 Let's come back to the **connection** page on zoomdata and enter our **credentials** now that we know our **sandbox ip address**. Your input credentials should look similar to the following screen:
 
