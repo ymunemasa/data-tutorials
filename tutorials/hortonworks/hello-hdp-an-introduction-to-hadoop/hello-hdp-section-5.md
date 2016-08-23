@@ -316,7 +316,26 @@ Wait for the job to complete. The output of the job is displayed in the **Result
 
 Click on the **Logs** dropdown menu to see what happened when your script ran. Errors will appear here.
 
-### 3.4.3 Verify Pig Script Successfully Populated Hive Table
+### 3.4.3 View Logs section (Debugging Practice)
+
+**Why are Logs important?**
+
+The logs section is helpful when debugging code after expected output does not happen. For instance, say in the next section, we load the sample data from our **riskfactor** table and nothing appears. Logs will tell us why the job failed. A common issue that could happen is that pig does not successfully read data from the **geolocation** table or **drivermileage** table. Therefore, we can effectively address the issue.
+
+Let's verify pig read from these tables successfully and stored the data into our **riskfactor** table. You should receive similar output:
+
+![assets/hello-hdp/debug_through_logs_lab3](/assets/hello-hdp/assets/hello-hdp/debug_through_logs_lab3.png)
+
+What results do our logs show us about our Pig Script?
+
+- Read 8000 records from our **geolocation** table
+- Read 100 records from our **drivermileage** table
+- Stored 99 records into our **riskfactor** table
+
+Can you think of scenarios in which these results if different would help us debug our script?
+For example, say 0 records were read from the **geolocation** table, how would you solve the problem?
+
+### 3.4.4 Verify Pig Script Successfully Populated Hive Table
 
 Go back to the Ambari Hive User View and browse the data in the **riskfactor** table to verify that your Pig job successfully populated this table. Here is what is should look like:
 

@@ -39,6 +39,7 @@ This tutorial is a part of a series of hands on tutorials to get you started on 
 *   [Step 4.4: RDD transformations and actions](#step4.4)
 *   [Step 4.5: Load and save data into Hive as ORC](#step4.5)
 *   [Appendix A: Run Spark in the Spark Interactive Shell](#run-spark-in-shell)
+*   [Appendix B: Login to Zeppelin (Optional)](#login-to-zeppelin)
 *   [Summary](#summary-lab4)
 *   [Suggested Readings](#suggested-readings)
 
@@ -68,6 +69,8 @@ Let's get started!
 
 ![Lab4_2](/assets/hello-hdp/configure_spark_service_hello_hdp_lab4.png)
 
+> Note: if this is your first time logging in as admin, refer to Learning the Ropes of Hortonworks Sandbox to setup your admin password.
+
 ### For HDP 2.5 Sandbox Users Activate Livy Server
 
 Livy Server is a new feature added to the latest Sandbox HDP Platform and it adds extra security while running our spark jobs from Zeppelin Notebook. For this lab, users that have HDP 2.5 Sandbox can use Livy.
@@ -84,9 +87,13 @@ Livy Server Started:
 
 ![livy_server_running_lab4](/assets/hello-hdp/livy_server_running_lab4.png)
 
+4\. Go back into the Spark Service. Click on **Service Actions** -> **Turn Off Maintenance Mode**.
+
+Log out of Ambari.
+
 ### 4.1.1 There are two ways to access Zeppelin.
 
-1\. The first way, open **Zeppelin View** from Ambari views selector:
+1\. Sign into Ambari as username `maria_dev`. Password is `maria_dev`. The first way, open **Zeppelin View** from Ambari views selector:
 
 ![zeppelin_view_lab4](/assets/hello-hdp/zeppelin_view_lab4.png)
 
@@ -108,14 +115,11 @@ You should see a Zeppelin Welcome Page:
 
 Optionally, if you want to find out how to access the Spark shell to run code on Spark refer to [Appendix A](#run-spark-in-shell).
 
-4\. The login credentials for Zeppelin are: username = `admin` and password = `password1`. Click on the grey **Login** button at the top right corner. Add username and password, then click blue **Login** button in the Login window. The reason we are prompted for this information is because we are using livy, which adds a security component to make Zeppelin more secure. In a production environment users would all have their own login information.
-
-![zeppelin_login_window_lab4](/assets/hello-hdp/zeppelin_login_window_lab4.png)
+If you are not logged into Zeppelin by default, refer to [Appendix B](#login-to-zeppelin)
 
 5\.  Create a Zeppelin Notebook
 
 Click on a Notebook tab at the top left and hit **Create new note**. Name your notebook `Compute Riskfactor with Spark`. By the default, the notebook will load Spark Scala API.
-
 
 ![create_new_notebook](/assets/hello-hdp/create_new_notebook_hello_hdp_lab4.png)
 
@@ -474,6 +478,14 @@ This will load the default Spark Scala API.
 
 
 The coding exercise we just went through can be also completed using a Spark shell. Just as we did in Zeppelin, you can copy and paste the code.
+
+## Appendix B: Login to Zeppelin (Optional) <a id="#login-to-zeppelin"></a>
+
+If you are not logged into Zeppelin as an anonymous user by default, then review the following instruction.
+
+1\. The login credentials for Zeppelin are: username = `admin` and password = `password1`. Click on the grey **Login** button at the top right corner. Add username and password, then click blue **Login** button in the Login window. The reason we are prompted for this information is because we are using livy, which adds a security component to make Zeppelin more secure. In a production environment users would all have their own login information.
+
+![zeppelin_login_window_lab4](/assets/hello-hdp/zeppelin_login_window_lab4.png)
 
 ## Summary <a id="summary-lab4"></a>
 Congratulations! Let’s summarize the spark coding skills and knowledge we acquired to compute risk factor associated with every driver. Apache Spark is efficient for computation because of its **in-memory data processing engine**. We learned how to integrate hive with spark by creating a **Hive Context**. We used our existing data from Hive to create an **RDD**. We learned to perform **RDD transformations and actions** to create new datasets from existing RDDs. These new datasets include filtered, manipulated and processed data. After we computed **risk factor**, we learned to load and save data into Hive as **ORC**.
