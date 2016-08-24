@@ -142,7 +142,7 @@ header
 Now we need to separate the data into a new RDD where we do not have the header above and :
 
 ~~~ java
-val data = yahoo_stocks.filter(_ != header)
+val data = yahoo_stocks.mapPartitionsWithIndex { (idx, iter) => if (idx == 0) iter.drop(1) else iter }
 ~~~
 
 the first row to be seen is indeed only the data in the RDD
