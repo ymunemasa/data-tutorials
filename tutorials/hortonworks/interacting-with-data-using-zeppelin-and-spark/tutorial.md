@@ -23,29 +23,9 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 
 *   Downloaded and Installed [Hortonworks Sandbox 2.5](http://hortonworks.com/products/sandbox/)
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*   Finally, make sure to review a quick tutorial on [Getting started with Zeppelin](https://github.com/hortonworks/tutorials/tree/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin).
 
-### Getting started
-
-**Spark** and **Zeppelin Notebook** services should already be running when you start your Virtual Machine, as highlighted below in Ambari manager.
-
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713864304a50596931345456524c536c553f7261773d74727565.png)
-
-To launch **Zeppelin** from your browser, go to `http://<host IP>:9995`.
-
-For example, the default local **VirtualBox** address is [http://127.0.0.1:9995](http://127.0.0.1:9995) and the default local **VmWare** address is [http://172.16.148.128:9995](http://172.16.148.128:9995).
-
-**Note:** In local mode your `host IP` should be `127.0.0.1` for VirtualBox and `172.16.148.128` for VmWare, however if you are running your Sandbox in the cloud, review [Learning the Ropes](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to learn how to determine your `host IP` address.
-
-#### Login
-
-To see a list of current notebooks and create new ones you will need to login.
-
-Click **Login** button in the top right-hand corner and use the following credentials:
-
-* User: admin
-* Pass: password1
-
-#### Create Notebook
+#### Create a Notebook
 
 Click on Notebook and create a new note.
 
