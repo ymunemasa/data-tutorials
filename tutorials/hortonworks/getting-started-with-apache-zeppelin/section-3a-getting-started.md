@@ -8,14 +8,26 @@ intro-page: true
 components: [ zeppelin, spark ]
 ---
 
-#### Login
+### **Open Zeppelin**
 
-Before you proceed and explore or create new notebooks, you will need to login.
 
-Click **Login** button in the top right-hand corner and use the following credentials:
+If you haven't already, login to Ambari (operations console) using `maria_dev`/`maria_dev` as a username/password combination. Remember that Ambari is accessible on port 8080.
 
-* User: admin
-* Pass: password1
+E.g. on a VirtualBox Sandbox, Ambari would be accessible at http://127.0.0.1:8080.
+
+Note: If you're new to the HDP Sandbox environment, make sure to review [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/).
+
+![scr1-login](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr1-login.png)
+
+Okay, once you're in Ambari just click the Views dropdown (upper-right corner) and select Zeppelin.
+
+![scr2-views](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr2-views.png)
+
+Voila, you should see default Zeppelin menu with a list of demos and labs that you can run to explore great examples to get you quickly up and running.
+
+![scr3-zeppelin-main](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr3-zeppelin-main.png)
+
+Now let's create your first notebook.
 
 ### **Creating a Notebook**
 
@@ -34,6 +46,44 @@ SparkContext, SQLContext, ZeppelinContext will be created automatically. They wi
   ~~~
   res0: String = 1.6.2
   ~~~
+
+### **Importing Notebooks**
+
+Alternatively, instead of creating a new notebook, you may want to import an existing notebook instead.
+
+There are two ways to import Zeppelin notebooks, either by pointing to json notebook file local to your environment or by providing a url to raw file hosted elsewhere, e.g. on github. We'll cover both ways of importing those files.
+
+##### 1. Importing a JSON file
+
+Click Import.
+
+![scr4-import](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr4-import.png)
+
+Next, click "Choose a JSON here" button.
+
+![src5-click-json](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr5-click-json.png)
+
+Finally, select the notebook you want to import.
+
+![src6-choose-json](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr6-choose-json.png)
+
+Now you should see your imported notebook among other notebooks on the main Zeppelin screen.
+
+##### 2. Importing a Notebook with a URL
+
+Click Import.
+
+![scr4-import](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr4-import.png)
+
+Next, click "Add from URL" button.
+
+![src7-click-url](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr7-click-url.png)
+
+Finally, copy and paste the url to the (raw) json file.
+
+![src8-import-url](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr8-import-url.png)
+
+Now you should see your imported notebook among other notebooks on the main Zeppelin screen.
 
 ### **Importing External Libraries**
 
