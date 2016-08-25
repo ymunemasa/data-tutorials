@@ -47,18 +47,26 @@ export SPARK_HOME=/usr/hdp/current/spark-client
 
 To test compute intensive tasks in Spark, the Pi example calculates pi by “throwing darts” at a circle. The example points in the unit square ((0,0) to (1,1)) and sees how many fall in the unit circle. The fraction should be pi/4, which is used to estimate Pi.
 
-To calculate Pi with Spark:
+To calculate Pi with Spark in yarn-client mode.
 
-**Change to your Spark directory and become spark OS user:**
+Assuming you start as `root` user follow these steps depending on your Spark version.
+
+**Spark 2.0+**
 
 ~~~ bash
-cd $SPARK_HOME
-su spark
+root@sandbox spark2-client# export SPARK_MAJOR_VERSION=2
+root@sandbox spark2-client# cd /usr/hdp/current/spark2-client
+root@sandbox spark2-client# su spark
+spark@sandbox spark2-client$ ./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 examples/jars/spark-examples*.jar 10
 ~~~
 
-**Run the Spark Pi example in yarn-client mode:**
+
+**Spark 1.6+**
 
 ~~~ bash
+root@sandbox spark2-client# export SPARK_MAJOR_VERSION=1
+root@sandbox spark2-client# cd /usr/hdp/current/spark-client
+root@sandbox spark2-client# su spark
 ./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 lib/spark-examples*.jar 10
 ~~~
 
@@ -92,7 +100,7 @@ To run WordCount:
 #### Run the Spark shell:
 
 ~~~ bash
-./bin/spark-shell --master yarn-client --driver-memory 512m --executor-memory 512m
+./bin/spark-shell 
 ~~~
 
 Output similar to the following will be displayed, followed by a `scala>` REPL prompt:
