@@ -195,7 +195,7 @@ hiveContext.sql("show tables").collect.foreach(println)
 
 > Note: false indicates whether the column requires data.
 
-You will notice that the geolocation table and the driver mileage table that we created earlier in an tutorial are already listed in Hive metastore and can be directly queried upon.
+You will notice that the geolocation table and the driver mileage table that we created earlier in an tutorial are already listed in **Hive metastore** and can be directly queried upon.
 
 #### 4.3.2 Query Tables To Build Spark RDD
 
@@ -262,7 +262,7 @@ geolocation_temp2.registerTempTable("geolocation_temp2")
 
 ~~~scala
 %spark
-geolocation_temp2.collect.foreach(println)
+geolocation_temp2.take(10).foreach(println)
 ~~~
 
 
@@ -299,7 +299,7 @@ joined.registerTempTable("joined")
 
 ~~~scala
 %spark
-joined.collect.foreach(println)
+joined.take(10).foreach(println)
 ~~~
 
 
@@ -330,7 +330,7 @@ risk_factor_spark.registerTempTable("risk_factor_spark")
 
 ~~~scala
 %spark
-risk_factor_spark.collect.foreach(println)
+risk_factor_spark.take(10).foreach(println)
 ~~~
 
 
@@ -361,18 +361,21 @@ hiveContext.sql("create table finalresults( driverid String, occurance bigint,to
 #### 4.5.2 Convert data into ORC table
 
 Before we load the data into hive table that we created above, we will have to convert our data file into ORC format too.
-> **Note:** For Spark 1.3.1, use
-
-~~~scala
-%spark
-risk_factor_spark.saveAsOrcFile("risk_factor_spark")
-~~~
 
 > **Note:** For Spark 1.4.1 and higher, use
 
 ~~~scala
 %spark
 risk_factor_spark.write.format("orc").save("risk_factor_spark")
+~~~
+
+If you used the above script, skip the following instruction and move to 4.5.3.
+
+> **Note:** For Spark 1.3.1, use
+
+~~~scala
+%spark
+risk_factor_spark.saveAsOrcFile("risk_factor_spark")
 ~~~
 
 
@@ -389,22 +392,32 @@ hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 
 ![load_data_to_finalresults](/assets/hello-hdp/load_data_to_finalresults_hello_hdp_lab4.png)
 
-#### 4.5.4 Verify Data Successfully Populated Table
-
-Execute a select query to verify your table has been successfully stored.You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
+### 4.5.4 Verify Data Successfully Populated Hive Table by Spark (Check 1)
 
 ~~~scala
 %spark
-hiveContext.sql("select * from finalresults")
+val riskfactor = hiveContext.sql("select * from finalresults")
+riskfactor.registerTempTable("riskfactor")
+riskfactor.take(10).foreach(println)
 ~~~
 
+![load_data_finalresults_table_lab4](/assets/hello-hdp/load_data_finalresults_table_lab4.png)
+
+> Note: loads the first 10 rows from finalresults table
+
+#### 4.5.5 Verify Data Successfully Populated Hive Table in Hive (Check 2)
+
+Execute a select query to verify your table has been successfully stored. You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
 
 ![verify_table_populated](/assets/hello-hdp/hive_finalresults_hello_hdp_lab4.png)
 
 > Hive finalresults table populated
 
+Did both tables have the same data up to 10 rows?
 
-## Full Spark Code for Lab
+## Full Spark Code Review for Lab
+
+**Import hive and sql libraries**
 
 ~~~scala
 %spark
@@ -412,9 +425,18 @@ import org.apache.spark.sql.hive.orc._
 import org.apache.spark.sql._
 
 val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
+~~~
 
+**Shows tables in the default hive database**
+
+~~~scala
 hiveContext.sql("show tables").collect.foreach(println)
+~~~
 
+**Select all rows and columns from tables, stores hive script into variable
+and registers variables as RDD**
+
+~~~scala
 val geolocation_temp1 = hiveContext.sql("select * from geolocation")
 
 val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
@@ -425,29 +447,59 @@ drivermileage_temp1.registerTempTable("drivermileage_temp1")
 val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from geolocation_temp1  where event!='normal' group by driverid")
 
 geolocation_temp2.registerTempTable("geolocation_temp2")
+~~~
 
-geolocation_temp2.collect.foreach(println)
+**Load first 10 rows from geolocation_temp2, which is the data from
+drivermileage table**
 
+~~~scala
+geolocation_temp2.take(10).foreach(println)
+~~~
+
+**Create joined to join 2 tables by the same driverid and register joined
+as a RDD**
+
+~~~scala
 val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geolocation_temp2 a,drivermileage_temp1 b where a.driverid=b.driverid")
 
 joined.registerTempTable("joined")
+~~~
 
-joined.collect.foreach(println)
+**Load first 10 rows and columns in joined**
 
+~~~scala
+joined.take(10).foreach(println)
+~~~
+
+**Initialize risk_factor_spark and register as an RDD**
+
+~~~scala
 val risk_factor_spark=hiveContext.sql("select driverid, occurance, totmiles, totmiles/occurance riskfactor from joined")
 
 risk_factor_spark.registerTempTable("risk_factor_spark")
+~~~
 
-risk_factor_spark.collect.foreach(println)
+**Print the first 10 lines from the risk_factor_spark table**
 
+~~~scala
+risk_factor_spark.take(10).foreach(println)
+~~~
+
+**Create table finalresults in Hive, save it as ORC, load data into it,
+print the first 10 lines from the Hive table in Spark**
+
+~~~scala
 hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
 
-risk_factor_spark.write.orc("risk_factor_spark")
+risk_factor_spark.write.format("orc").save("risk_factor_spark")
 
 hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 
-hiveContext.sql("select * from finalresults")
+val riskfactor = hiveContext.sql("select * from finalresults")
 
+riskfactor.registerTempTable("riskfactor")
+
+riskfactor.take(10).foreach(println)
 ~~~
 
 ## Appendix A: Run Spark Code in the Spark Interactive Shell <a id="run-spark-in-shell"></a>
