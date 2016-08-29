@@ -54,20 +54,20 @@ Assuming you start as `root` user follow these steps depending on your Spark ver
 **Spark 2.0+**
 
 ~~~ bash
-root@sandbox spark2-client# export SPARK_MAJOR_VERSION=2
-root@sandbox spark2-client# cd /usr/hdp/current/spark2-client
+root@sandbox# export SPARK_MAJOR_VERSION=2
+root@sandbox# cd /usr/hdp/current/spark2-client
 root@sandbox spark2-client# su spark
 spark@sandbox spark2-client$ ./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 examples/jars/spark-examples*.jar 10
 ~~~
 
 
-**Spark 1.6+**
+**Spark 1.6.x**
 
 ~~~ bash
-root@sandbox spark2-client# export SPARK_MAJOR_VERSION=1
-root@sandbox spark2-client# cd /usr/hdp/current/spark-client
-root@sandbox spark2-client# su spark
-./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 lib/spark-examples*.jar 10
+root@sandbox# export SPARK_MAJOR_VERSION=1
+root@sandbox# cd /usr/hdp/current/spark-client
+root@sandbox spark-client# su spark
+spark@sandbox spark-client$ ./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 lib/spark-examples*.jar 10
 ~~~
 
 **Note:** The Pi job should complete without any failure messages and produce output similar to below, note the value of Pi in the output message:
@@ -218,7 +218,7 @@ As a `spark` user, launch the Spark Shell:
 ~~~ bash
 cd /usr/hdp/current/spark-client
 su spark
-./bin/spark-shell --num-executors 2 --executor-memory 512m --master yarn-client
+./bin/spark-shell
 ~~~
 
 At a `scala>` REPL prompt, type the following:
@@ -382,7 +382,7 @@ su hdfs
 
 # If not already in spark-client directory, change to that directory
 cd $SPARK_HOME
-./bin/spark-shell --num-executors 2 --executor-memory 512m --master yarn-client
+./bin/spark-shell
 ~~~
 
 #### Create Hive Context
@@ -646,7 +646,7 @@ As `spark` user, launch the Spark Shell:
 ~~~ bash
 cd $SPARK_HOME
 su spark
-./bin/spark-shell --num-executors 2 --executor-memory 512m --master yarn-client
+./bin/spark-shell
 ~~~
 
 At the `scala>` prompt, copy & paste the following:
