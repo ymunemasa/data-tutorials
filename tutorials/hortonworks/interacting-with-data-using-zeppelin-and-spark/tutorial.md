@@ -8,7 +8,6 @@ intro-page: true
 components: [ spark, zeppelin ]
 ---
 
-
 ### Introduction
 
 In this tutorial, we are going to walk through the process of using Apache Zeppelin and Apache Spark to interactively analyze data on a Apache Hadoop Cluster. In particular, you will learn:
@@ -23,18 +22,19 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 
 *   Downloaded and Installed [Hortonworks Sandbox 2.5](http://hortonworks.com/products/sandbox/)
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*   Finally, make sure to review a quick tutorial on [Getting started with Zeppelin](https://github.com/hortonworks/tutorials/tree/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin).
+*   Finally, make sure to review a quick tutorial on [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md).
 
 #### Create a Notebook
 
-Click on Notebook and create a new note.
+If you're new to Zeppelin, make sure to checkout the [Getting Started Guide](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md) before proceeding.
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138595578794e6b633061336b3061306b3f7261773d74727565.png)  
+Create a new note and give it a meaningful name, e.g. I gave it *Interacting with Data on HDP*
+
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138527a4935516b52464f465a535657383f7261773d74727565.png)
 
-You can use the Shell Interpreter by adding `%sh` at the beginning.
+Next, we'll start with a first paragraph and use a Shell interpreter. In Zeppelin, this is indicated by putting `%sh` at the top of a paragraph.
 
-Next, let’s save `littlelog.csv` in our local sandbox `/tmp` directory and upload it to the HFDS `/tmp` directory
+In that paragraph, we'll save an external `littlelog.csv` to our local sandbox `/tmp` directory and then copy it to our local HDFS `/tmp` directory
 
 ~~~ bash
 %sh
@@ -45,14 +45,15 @@ wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=0Bzhl
 # Cleanup HDFS directory
 hadoop fs -rm /tmp/littlelog.csv
 
-# Copy to HDFS directory /tmp
+# Copy to HDFS /tmp directory
 hadoop fs -put /tmp/littlelog.csv /tmp/
 ~~~
 
-
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138596c5a6f613039705a306c56626a673f7261773d74727565.png)
 
-Open the HDFS Files view and navigate to `/tmp` to verify that `littlelog.csv` has been uploaded correctly.
+Now, open the HDFS Files view in Ambari and navigate to `/tmp` directory to verify that `littlelog.csv` has been uploaded correctly.
+
+Note: If you're not familiar with Ambari, make sure to review [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) first.
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713855306c6164455268527a644d6155453f7261773d74727565.png)
 
@@ -74,7 +75,7 @@ file.collect().foreach(println)
 
 ![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a32354c4c546c4f59305131616c453f7261773d74727565.png)
 
-Remember doing a `collect()` action operation on a very large distributed RDD can cause your driver program to run out of memory and crash. So, **do not use collect()** except for when you are prototyping your Spark program on a small dataset.
+**Remember** doing a `collect()` action operation on a very large distributed RDD can cause your driver program to run out of memory and crash. So, **do not use collect()** except for when you are prototyping your Spark program on a small dataset.
 
 Another way to print the content of the RDD is
 
