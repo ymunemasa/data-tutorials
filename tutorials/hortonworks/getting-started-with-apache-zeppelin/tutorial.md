@@ -8,8 +8,22 @@ intro-page: true
 components: [ zeppelin, spark ]
 ---
 
-### **Open Zeppelin**
+Apache Zeppelin is a web-based notebook that enables interactive data analytics. With Zeppelin, you can make beautiful data-driven, interactive and collaborative documents with a rich set of pre-built language backends (or interpreters) such as Scala (with Apache Spark), Python (with Apache Spark), SparkSQL, Hive, Markdown, Angular, and Shell.
 
+With a focus on Enterprise, Zeppelin has the following important features:
+
+* Livy integration (REST interface for interacting with Spark)
+* Security:
+  * Execute jobs as authenticated user
+  * Zeppelin authentication against LDAP
+  * Notebook authorization
+
+### **Prerequisites**
+
+*   HDP 2.5
+*   Spark 1.6.2
+
+### **Launching Zeppelin**
 
 If you haven't already, login to Ambari (operations console) using `maria_dev`/`maria_dev` as a username/password combination. Remember that Ambari is accessible on port 8080.
 
@@ -43,9 +57,9 @@ SparkContext, SQLContext, ZeppelinContext will be created automatically. They wi
 
 4.  When finished, the status indicator on the right will say "FINISHED". The output should list the version of Spark in your cluster: <br>
 
-  ~~~
-  res0: String = 1.6.2
-  ~~~
+~~~
+res0: String = 1.6.2
+~~~
 
 ### **Importing Notebooks**
 
