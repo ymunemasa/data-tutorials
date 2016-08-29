@@ -19,8 +19,9 @@ In this tutorial, we will introduce the basic concepts of Apache Spark and the f
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed [Hortonworks Sandbox 2.5](http://hortonworks.com/products/sandbox/)
-*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*   Download and Install [Hortonworks Sandbox 2.5](http://hortonworks.com/products/sandbox/)
+*   Review [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*   Review [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md)
 
 ### Concepts
 
@@ -34,30 +35,14 @@ Let’s try it out.
 
 ### A Hands-On Example
 
-First, let's launch **Zeppelin** from your browser.
+First, launch **Apache Zeppelin**.
 
-Go to `http://<host IP>:9995`.
+If you're new to Zeppelin, make sure to checkout the [Getting Started Guide](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md).
 
-For example, the default local **VirtualBox** address is [http://127.0.0.1:9995](http://127.0.0.1:9995) and the default local **VmWare** address is [http://172.16.148.128:9995](http://172.16.148.128:9995).
-
-**Note:** In local mode your `host IP` should be `127.0.0.1` for VirtualBox and `172.16.148.128` for VmWare, however if you are running your Sandbox in the cloud, review [Learning the Ropes](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to learn how to determine your `host IP` address.
-
-#### Login
-
-To see a list of current notebooks and create new ones you will need to login.
-
-Click **Login** button in the top right-hand corner and use the following credentials:
-
-* User: admin
-* Pass: password1
 
 #### Create Notebook
 
-Next, select **Create new note** from **Notebook** dropdown menu:
-
-![](/assets/a-tour-of-spark-in-5-minutes/2-apache-spark-tour-in-5-minutes.png)
-
-Give your notebook a name. I named my notebook *Apache Spark in 5 Minutes*
+Create a new note, and give it a meaningful name, e.g. *Apache Spark in 5 Minutes*
 
 ![](/assets/a-tour-of-spark-in-5-minutes/3-apache-spark-tour-in-5-minutes.png)
 
