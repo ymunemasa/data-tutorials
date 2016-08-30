@@ -3,7 +3,7 @@ layout: tutorial
 title: Learning Spark with Zeppelin
 tutorial-id: 365
 tutorial-series: Spark
-tutorial-version: hdp-2.5.0
+tutorial-version: hdp-2.4.0
 intro-page: true
 components: [ spark, zeppelin ]
 ---
@@ -58,7 +58,7 @@ For example, the default address for **VirtualBox** is [http://127.0.0.1:9995](h
 
 #### 3. Import Lab
 
-The name of the lab you will be running today is *Lab 101_DW: Hands-on Intro to Spark with Scala*.
+The name of the lab you will be running today is *Lab 102: Intro to Spark with Scala*.
 
 By now you should see the main Zeppelin screen with a list of notebooks that you can explore later.
 
@@ -78,7 +78,7 @@ and click "Import Note"
 
 ![src8-import-url](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr8-import-url.png)
 
-Voila! Now you should have your "Lab 101_DW: ..." listed in the main Zeppelin directory.
+Voila! Now you should have your *Lab 102: Intro to Spark with Scala* listed in the main Zeppelin directory.
 
 Click on the lab to get started and follow the step-by-step instructions in the notebook to complete the lab.
 
