@@ -30,7 +30,7 @@ The HBase backup and restore utility helps you take backup of the table schema a
 
 The first step in running the backup-and-restore utilities is to capture the complete data set in a separate image from the source. The syntax for creating HBase backup is as follows:
 
-`hbase backup create {{ full | incremental } {backup_root_path} {[tables] | [-set backup_set_name]}} [[-silent] | [-w number_of_workers] | [-b bandwidth_per_worker]]`
+`hbase backup create { {full | incremental} {backup_root_path} {[tables] | [-set backup_set_name]} } [[-silent] | [-w number_of_workers] | [-b bandwidth_per_worker]]`
 
 ### Arguments:-
 
