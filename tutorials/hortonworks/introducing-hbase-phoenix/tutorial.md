@@ -274,7 +274,7 @@ There is no separate installation required for Phoenix. You can enable Phoenix w
 4/ You have to change 3 more properties. Click on `Advanced Tab` and then scroll down to open `Advanced hbase-site` section. Add `org.apache.ranger.authorization.hbase.RangerAuthorizationCoprocessor` in following three properties:
 
 ~~~
-hbase.coprocessor.master.classes 
+hbase.coprocessor.master.classes
 hbase.coprocessor.region.classes
 hbase.coprocessor.regionserver.classes
 ~~~
@@ -469,7 +469,7 @@ The HBase backup and restore utility helps you take backup of the table schema a
 
 The first step in running the backup-and-restore utilities is to capture the complete data set in a separate image from the source. The syntax for creating HBase backup is as follows:
 
-`hbase backup create {{ full | incremental } {backup_root_path} {[tables] | [-set backup_set_name]}} [[-silent] | [-w number_of_workers] | [-b bandwidth_per_worker]]`
+`hbase backup create { {full | incremental} {backup_root_path} {[tables] | [-set backup_set_name]} } [[-silent] | [-w number_of_workers] | [-b bandwidth_per_worker]]`
 
 ### Arguments:-
 
