@@ -277,6 +277,13 @@ This process will take a couple of minutes. After it’s complete, connect Table
 
 There are 8 total tables here and for a realistic experience we should load all of them with the appropriate associations. Here’s the load order and associations you should make:
 
+| Load Order   |      Table      |  Join Condition |
+|--------------|:---------------:|----------------:|
+| 1 |  left-aligned | $1600 |
+| 2 |    centered   |   $12 |
+| 3 | right-aligned |    $1 |
+
+
 It is important to ensure these join conditions are established properly. If they aren’t, queries will run very slow. When you’re done, the table associations should look like this:
 
 ![table_association](/assets/interactive-sql-on-hadoop-with-hive-llap/table_association.png)
