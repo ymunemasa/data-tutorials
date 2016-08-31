@@ -87,7 +87,7 @@ su - hive
 3. Download the data generator bundle:
 
 ~~~
-wget  https://github.com/cartershanklin/sandbox-datagen/blob/master/datagen.tgz
+wget  https://github.com/cartershanklin/sandbox-datagen/blob/master/datagen.tgz?raw=true
 ~~~
 
 4. Extract the bundle:
