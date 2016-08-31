@@ -277,16 +277,14 @@ This process will take a couple of minutes. After it’s complete, connect Table
 
 There are 8 total tables here and for a realistic experience we should load all of them with the appropriate associations. Here’s the load order and associations you should make:
 
-| Load Order   |      Table      |  Join Condition |
-|--------------|:---------------:|----------------:|
+| Load Order     |      Table      |  Join Condition  |
+|:--------------:|:---------------:|:----------------:|
 | 1 |  lineitem | N/A |
 | 2 |    orders   |   Join L_Orderkey to O_Orderkey |
 | 3 | customer |    Join O_Custkey to C_Custkey |
 | 4 |  nation | Join C_Nationkey to N_Nationkey |
 | 5 |    region   |   Join N_Regionkey to R_Regionkey |
-| 6 | partsupp |    Join L_Suppkey to Ps_Suppkey
-AND
-Join L_Partkey to Ps_Partkey |
+| 6 | partsupp |    Join L_Suppkey to Ps_Suppkey AND Join L_Partkey to Ps_Partkey |
 | 7 |  part | Join Ps_Partkey to P_Partkey |
 | 8 |    supplier   |   Join Ps_Suppkey to S_Suppkey |
 
