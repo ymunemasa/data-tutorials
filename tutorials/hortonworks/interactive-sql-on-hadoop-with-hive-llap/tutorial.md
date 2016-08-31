@@ -279,9 +279,16 @@ There are 8 total tables here and for a realistic experience we should load all 
 
 | Load Order   |      Table      |  Join Condition |
 |--------------|:---------------:|----------------:|
-| 1 |  left-aligned | $1600 |
-| 2 |    centered   |   $12 |
-| 3 | right-aligned |    $1 |
+| 1 |  lineitem | N/A |
+| 2 |    orders   |   Join L_Orderkey to O_Orderkey |
+| 3 | customer |    Join O_Custkey to C_Custkey |
+| 4 |  nation | Join C_Nationkey to N_Nationkey |
+| 5 |    region   |   Join N_Regionkey to R_Regionkey |
+| 6 | partsupp |    Join L_Suppkey to Ps_Suppkey
+AND
+Join L_Partkey to Ps_Partkey |
+| 7 |  part | Join Ps_Partkey to P_Partkey |
+| 8 |    supplier   |   Join Ps_Suppkey to S_Suppkey |
 
 
 It is important to ensure these join conditions are established properly. If they aren’t, queries will run very slow. When you’re done, the table associations should look like this:
