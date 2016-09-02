@@ -393,7 +393,7 @@ The Apache Hive project provides a data warehouse view of the data in HDFS. Usin
 
 ### 4.4 Introduction: Apache Pig
 
-MapReduce allows allows you to specify map and reduce functions, but working out how to fit your data processing into this pattern may sometimes require you to write multiple MapReduce stages. With Pig, data structures are much richer and the transformations you can apply to data are much more powerful.
+MapReduce allows you to specify map and reduce functions, but working out how to fit your data processing into this pattern may sometimes require you to write multiple MapReduce stages. With Pig, data structures are much richer and the transformations you can apply to data are much more powerful.
 
 ### 4.4.1 Goals of this Module
 
