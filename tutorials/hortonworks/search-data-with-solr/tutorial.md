@@ -114,8 +114,7 @@ cp /opt/lucidworks-hdpsearch/solr/server/solr/solr.xml ~/solr-cores/core2
 ### [](#step-4---create-a-solr-collection-named-labs-with-2-shards-and-a-replication-factor-of-2)Step 4 – Create a Solr Collection named “labs” with 2 shards and a replication factor of 2
 
 ~~~
-/opt/lucidworks-hdpsearch/solr/bin/solr create -c labs \
--d /opt/lucidworks-hdpsearch/solr/server/solr/configsets/data_driven_schema_configs_hdfs/conf -n labs -s 2 -rf 2
+/opt/lucidworks-hdpsearch/solr/bin/solr create -c labs -d /opt/lucidworks-hdpsearch/solr/server/solr/configsets/data_driven_schema_configs_hdfs/conf -n labs -s 2 -rf 2
 ~~~
 
 ### [](#step-5---validate-that-the-labs-collection-got-created)Step 5 – Validate that the labs collection got created
