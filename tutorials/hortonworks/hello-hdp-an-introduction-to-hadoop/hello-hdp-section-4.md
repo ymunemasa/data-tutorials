@@ -21,7 +21,7 @@ In this tutorial, you will be introduced to Apache(<sup>TM</sup>) Hive. In the e
 The tutorial is a part of a series of hands on tutorials to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*   Hortonworks Sandbox Tech Preview HDP 2.5
+*   Hortonworks Sandbox
 *   Lab 1: Load sensor data into HDFS
 *   Allow yourself around **one hour** to complete this tutorial.
 
@@ -35,6 +35,7 @@ The tutorial is a part of a series of hands on tutorials to get you started on H
 *   [Step 2.5: Explore Hive Settings as admin](#explore-hive-settings)
 *   [Step 2.6: Analyze Truck Data](#analyze-truck-data)
 *   [Step 2.7: Create Table DriverMileage](#create-table-DriverMileage)
+*   [Appendix A: Use Hive Data Visualization](#hive-data-visualization)
 *   [Summary](#summary-lab2)
 *   [Suggested readings](#suggested-readings-lab2)
 
@@ -620,6 +621,19 @@ To view data, click the **Load sample data** icon in the Database Explorer next 
 
 
 ![Lab3_2](/assets/hello-hdp/Lab3_2.png)
+
+### Appendix A: Use Hive Data Visualization <a id="hive-data-visualization"></a>
+
+This tool enables us to transform our hive data into a visualization that makes
+data easier to understand. Let's explore the Hive data explorer to see a variety
+of different data visualizations. We'll use these examples to build a custom
+visualization, which will show the user
+
+1\. Click on data explorer. The image should show multiple graphs of data.
+
+![graphs_of_data_visualized]()
+
+2\.
 
 
 ## Summary <a id="summary-lab2"></a>

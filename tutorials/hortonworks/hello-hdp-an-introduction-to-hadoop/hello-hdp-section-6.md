@@ -23,7 +23,7 @@ In this tutorial we will introduce Apache Spark. In the earlier section of the l
 
 This tutorial is a part of a series of hands on tutorials to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*  Hortonworks Sandbox Tech Preview HDP 2.5
+*  Hortonworks Sandbox
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Lab 1: Loading sensor data into HDFS
 *  Lab 2: Data Manipulation with Apache Hive

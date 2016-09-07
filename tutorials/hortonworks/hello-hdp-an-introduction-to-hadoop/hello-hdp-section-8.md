@@ -21,7 +21,7 @@ using Excel. This section will teach you to visualize data using Zeppelin.
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Hortonworks Sandbox Tech Preview HDP 2.5
+*   Hortonworks Sandbox
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *   Lab 1: Load sensor data into HDFS
 *   Lab 2: Data Manipulation with Apache Hive

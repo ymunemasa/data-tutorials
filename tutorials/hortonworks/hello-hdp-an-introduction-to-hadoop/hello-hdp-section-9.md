@@ -7,7 +7,7 @@ settings and access refined data.
 
 ## Pre-Requisites
 
-- Hortonworks Sandbox Tech Preview HDP 2.5
+- Hortonworks Sandbox
 - [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 - Lab 1: Load sensor data into HDFS
 - Lab 2: Data Manipulation with Apache Hive

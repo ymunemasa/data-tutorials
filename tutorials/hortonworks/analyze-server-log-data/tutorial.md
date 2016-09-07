@@ -21,7 +21,6 @@ In this demo, we demonstrate how an enterprise security breach analysis and resp
 
 *   Stream server logs into Hadoop with [Hortonworks Dataflow](http://hortonworks.com/hdf/) powered by **Apache NiFi**
 *   Use [Hive](http://hortonworks.com/hadoop/hive) to build a relational view of the data
-*   Use [Pig](http://hortonworks.com/hadoop/pig) to query and refine the data
 *   Use Elastic Search for high-level visualization
 *   Import the data into Microsoft Excel with the [ODBC connector](http://hortonworks.com/products/hdp-2/#add_ons)
 *   Visualize data with Powerview
@@ -80,7 +79,7 @@ A FlowFile can originate from a processor in NiFi. Processors can also receive t
 - In this tutorial, the Hortonworks Sandbox is installed on an Oracle VirtualBox virtual machine (VM).
 - Install the ODBC driver that matches the version of Excel you are using (32-bit or 64-bit).
 - In this tutorial, we will use the Power View feature in Excel 2013 to visualize the server log data. Power View is currently only available in Microsoft Office Professional Plus and Microsoft Office 365 Professional Plus.
-- We're going to install Hortonworks DataFlow (HDF) on the Sandbox, so you'll need to download the latest HDF release 
+- We're going to install Hortonworks DataFlow (HDF) on the Sandbox, so you'll need to download the latest HDF release
 
 ### Overview
 
@@ -94,47 +93,17 @@ To refine and visualize server log data, we will:
 
 * * *
 
-## Step 1: Download and the Script to Generate Log Data
-
-We'll be using a python script to generate the server log data. SSH into the sandbox with the command
-
-~~~
-ssh root@localhost -p 2222
-~~~
-
-**Default Sandbox Login**
-
-| username | password |
-|----------|----------|
-| root | hadoop |
-
-Or you can choose to use the Sandbox's built-in Web-based SSH terminal **Shell-In-A-Box** which can be accessed at [http://sandbox.hortonworks.com:4200](http://sandbox.hortonworks.com:4200)
-
-Remember the username is `root` and the password is `hadoop`.
-
-After you log in, the command prompt will appear with the prefix `[root@Sandbox \~]\#:`
-
-Then execute:
-
-~~~
-wget https://raw.githubusercontent.com/hortonworks/tutorials/%2370-revamp-refine-analyze-server-log-data/assets/server-logs/scripts/generate_logs.py
-~~~
-
-An exmaple for the output of these commands is below
-
-![Example Output](../../../assets/server-logs/script-download.png)
-
-* * *
-
-## Step 2 – Configure and Install Hortonworks DataFlow
+## Step 1 – Configure and Install Hortonworks DataFlow
 
 First thing's you'll need to do is to make sure you've [downloaded the gzipped version of Hortonworks DataFlow](http://hortonworks.com/hdp/downloads/#hdf)
 
 Once you've downloaded HDF let's get it on the sandbox. If you're on a Mac or Unix system with the scp command available on your terminal you can simply run
 
 ~~~
-scp -P 2222 $HDF_DOWNLOAD root@localhost:/root/
+scp -P 2122 $HDF_DOWNLOAD root@localhost:/root/
 ~~~
+
+> Password for sandbox terminal: **hadoop**
 
 If you're on a windows system you can use the program [WinSCP](https://winscp.net/eng/index.php) to transfer files to the Sandbox.
 
@@ -177,9 +146,9 @@ It should look something like below:
 
 ![Nifi Interface](../../../assets/server-logs/nifi-interface.png)
 
-## Step 3: Import the Flow
+## Step 2: Import the Flow
 
-We're going to import a pre-made data flow from a template which you can [**download here**](/assets/server-logs/ServerLogGenerator.xml).
+We're going to import a pre-made data flow from a template which you can [**download ServerLogGeneratorSecurity.xml**](/assets/server-logs/templates/ServerLogGeneratorSecurity.xml).
 
 Use the NiFi inteface to upload the flow, and then drag it onto your workspace.
 
@@ -193,7 +162,7 @@ Once you've uploaded the template into NiFi you can instantiate it by dragging t
 
 * * *
 
-## Step 4: Generate the Server Log Data
+## Step 3: Generate the Server Log Data
 
 Now that you've imported the data flow and everything it set up, simply click the **Run** at the top of the screen. (Make you you haven't selected a specific processor, or  else only one of the processors will start)
 
@@ -214,7 +183,7 @@ Open the Ambari UI and head to the views dropdown list. Select **Hive** and then
 
 	CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, success BOOLEAN)
 	ROW FORMAT DELIMITED
-	FIELDS TERMINATED BY '|' 
+	FIELDS TERMINATED BY '|'
 	LOCATION '/tmp/server-logs';
 
 
@@ -225,7 +194,7 @@ Open the Ambari UI and head to the views dropdown list. Select **Hive** and then
     sudo -u hdfs hadoop fs -chown -R admin /tmp
 
 
-When the table has been created you should now be able to query the data table for data using a query like 
+When the table has been created you should now be able to query the data table for data using a query like
 
     Select * from FIREWALL_LOGS LIMIT 100;
 
@@ -233,7 +202,7 @@ When the table has been created you should now be able to query the data table f
 
 * * *
 
-## Step 5: Import the Server Log Data into Excel
+## Step 4: Import the Server Log Data into Excel
 
 In this section, we will use Excel Professional Plus 2013 to access the generated server log data. Note: if you do not have Excel 2013, you can still bring the data into other versions of Excel and explore the data through other charts. The screens may be slightly different in your version, but the actions are the same. You can complete Step 5 and then explore the data on your own.
 
@@ -273,7 +242,7 @@ Now that we have successfully imported Hortonworks Sandbox data into Microsoft E
 
 * * *
 
-## Step 6: Visualize the Sentiment Data Using Excel Power View
+## Step 5: Visualize the Sentiment Data Using Excel Power View
 
 Data visualization can help you analyze network data and determine effective responses to network issues. In this section, we will analyze data for a denial-of-service attack:
 
@@ -336,12 +305,12 @@ You should be greeted by the following screen where you can choose to view notes
 You can choose to import the note from this tutorial using the following URL:
 
 	https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.4/data/zeppelin-notes/FlumeServerLogs.json
-	
+
 Once you've opened the note you can use the following commands to generate charts to visualize the data
 
 	%hive
 	select country from firewall_logs
-	
+
 and
 
 	%hive
