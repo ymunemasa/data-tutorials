@@ -7,7 +7,7 @@ settings and access refined data.
 
 ## Pre-Requisites
 
-- Hortonworks Sandbox Tech Preview HDP 2.5
+- Hortonworks Sandbox
 - [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 - Lab 1: Load sensor data into HDFS
 - Lab 2: Data Manipulation with Apache Hive
@@ -25,10 +25,23 @@ settings and access refined data.
 
 ## Step 7.1: Install Zoomdata via Docker <a id="install-zoomdata"></a>
 
-Please install Docker and Zoomdata on your system using the guides linked below:
+Please install Docker and Zoomdata on your system using the guides linked below.
+Summarized the steps from the links below to help you navigate through them as you
+install Docker and Zoomdata. You should still go to the links:
 
 - [Install and Configure Docker](https://docs.docker.com/installation/)
+  - 1\. Install Docker Engine page appears, choose your appropriate OS
+  - 2\. (Example steps done in Mac) Select Getting Started with Docker for Machine
+  - 3\. Select **Get Docker for Mac(stable)**
+  - 4\. Go through steps 1 and 2 to install and verify Docker installed successfully
+
 - [Install Zoomdata via Docker](http://docs.zoomdata.com/docker-install)
+  - 1\. Docker Image Installation appears
+  - 2\. View prerequisites
+  - 3\. Navigate to installation processing
+  - 4\. Run the 1st and 2nd instructions to install and setup Zoomdata
+  - 5\. If on Mac or Linux, navigate to `http://localhost/zoomdata`
+
 
 ## Step 7.2: Configure Zoomdata <a id="configure-zoomdata"></a>
 
@@ -75,35 +88,40 @@ In this section, we will use [Zoomdata](http://www.zoomdata.com/) to access the 
 
 ![name_description_data_source](/assets/hello-hdp/name_source_geolocation.png)
 
-5\. On the Connection page, specify the **Connection Name** and **JDBC URL** (sample below). Leave the **User Name** and **Password** fields blank. Click **Validate**. When the connection has completed validation, click **Save** then click **Next**.
+5\. On the Connection page, specify the **Connection Name** as **Hortonworks HDP** and **JDBC URL** (sample below). Leave the **User Name** and **Password** fields blank. Click **Validate**. When the connection has completed validation, click **Save** then click **Next**.
 
-    - Sample JDBC: `jdbc:hive2://_HDPSanboxhost_IPaddress_:10000/default`
+~~~
+Sample JDBC: `jdbc:hive2://_HDPSanboxhost_IPaddress_:10000/default`
+~~~
+
+### Find IP Address of Your Sandbox (Optonal)
 
 > **Note**: To find the IP address of your sandbox, follow the steps below. Then insert IP address into JDBC above.
 
-      - Change the settings for your VirtualBox that is **hosting Hortonworks Sandbox**:
-          - Vbox settings > Network > Adapter 1 > change "Attached to:" to **Host-only** Adapter > Name **vboxnet0** > Advanced > Adapter Type: **Paravirtualized Network** (virtio-net) > Promiscuous Mode: **Allow All**
+1\. Change the settings for your VirtualBox that is **hosting Hortonworks Sandbox**:
 
-          ![change_vbox_settings](/assets/hello-hdp/change_vbox_settings.png)
+2\. Vbox settings > Network > Adapter 1 > change "Attached to:" to **Host-only** Adapter > Name **vboxnet0** > Advanced > Adapter Type: **Paravirtualized Network** (virtio-net) > Promiscuous Mode: **Allow All**
 
-          - You can look up sandbox ip address by typing following on the terminal:
+![change_vbox_settings](/assets/hello-hdp/change_vbox_settings.png)
 
-          ~~~bash
-          VBoxManage guestproperty get "Hortonworks Sandbox with HDP 2.3.2"
-          "/VirtualBox/GuestInfo/Net/0/V4/IP"
-          ~~~
+3\. You can look up sandbox ip address by typing following on the terminal:
 
-          Replace `"Hortonworks Sandbox with HDP 2.3.2"` with the the name of your Sandbox.
+~~~bash
+VBoxManage guestproperty get "Hortonworks Sandbox with HDP 2.3.2"
+"/VirtualBox/GuestInfo/Net/0/V4/IP"
+~~~
 
-          ![look_up_sandbox_ip_address](/assets/hello-hdp/look_up_sandbox_ip_address.png)
+4\. Replace `"Hortonworks Sandbox with HDP 2.3.2"` with the the name of your Sandbox.
 
-          - Start the Sandbox. You wont be able to access login page using the default http://localhost:8888. Instead use the ip address you obtained in the above step to go to welcome page. Eg: http://192.168.99.101:8888
+![look_up_sandbox_ip_address](/assets/hello-hdp/look_up_sandbox_ip_address.png)
 
-          ![sandbox_welcome](/assets/hello-hdp/start_sandbox_welcome.png)
+5\. Start the Sandbox. You wont be able to access login page using the default http://localhost:8888. Instead use the ip address you obtained in the above step to go to welcome page. Eg: http://192.168.99.101:8888
 
+![sandbox_welcome](/assets/hello-hdp/start_sandbox_welcome.png)
+
+### Return to Zoomdata Connection Page
 
 Let's come back to the **connection** page on zoomdata and enter our **credentials** now that we know our **sandbox ip address**. Your input credentials should look similar to the following screen:
-
 
 ![input_credentials_connection_page](/assets/hello-hdp/input_credentials_connection_page.png)
 

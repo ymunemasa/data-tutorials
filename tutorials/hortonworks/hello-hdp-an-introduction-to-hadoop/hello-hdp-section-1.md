@@ -22,7 +22,7 @@ Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) t
 
 ## Pre-Requisites:
 
-*  Downloaded and Installed [Hortonworks Sandbox Tech Preview HDP 2.5](http://hortonworks.com/tech-preview-hdp-2-5/)
+*  Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
 *  Before entering hello HDP labs, we **highly recommend** you go through [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to become familiar with the Sandbox in a VM and the Ambari Interface.
 
 *   Data Set Used: [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
