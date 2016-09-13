@@ -69,7 +69,7 @@ As each processor configuration is completed, we must [connect](http://docs.hort
 
 ### 3.6 Running the NiFi DataFlow
 
-Once we finish connecting and configuring the components in our dataflow, there are at least 3 conditions we should check to ensure our dataflow successfully runs. We must verify that all relationships are established, the components are valid, stopped, enabled and have no active tasks. After you complete the verification process, you can select the processors, click the play symbol ![start_button_nifi_iot](assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png) in the actions toolbar to run the dataflow. View the image of a dataflow that is active.
+Once we finish connecting and configuring the components in our dataflow, there are at least 3 conditions we should check to ensure our dataflow successfully runs. We must verify that all relationships are established, the components are valid, stopped, enabled and have no active tasks. After you complete the verification process, you can select the processors, click the play symbol ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png) in the actions toolbar to run the dataflow. View the image of a dataflow that is active.
 
 ![run_dataflow_lab1_nifi_learn_ropes_concepts_section](/assets/learning-ropes-nifi-lab-series/lab-concepts-nifi/run_dataflow_lab1_nifi_learn_ropes_concepts_section.png)
 
