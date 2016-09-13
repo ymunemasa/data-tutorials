@@ -21,7 +21,7 @@ This tutorial walks through an example of tagging data in Atlas and building a s
 
 ## Outline
 
-- [1: Start Kafka, HDFS, HBase, Log Search and Atlas](#start-services)
+- [1: Start Kafka, HBase, Ambari Infra, Atlas and Ranger](#start-services)
       - [1.1: View the Services Page](#view-service-page)
       - [1.2: Start Kafka Service](#start-kafka)
 - [2: General Information](#general-information)
@@ -29,17 +29,17 @@ This tutorial walks through an example of tagging data in Atlas and building a s
 - [4: Create Tag and Tag Based Policy](#create-tag-based-policy)
 - [5: Summary](#summary)
 
-## 1. Start Kafka, HDFS, HBase, Log Search and Atlas <a id="start-services"></a>
+## 1. Start Kafka, HBase, Ambari Infra, Atlas and Ranger <a id="start-services"></a>
 
 ### 1.1 View the Services Page <a id="view-service-page"></a>
 
 Started by logging into Ambari as an admin user.
 
-![ambari_home_page](/assets/tag-based-policies-atlas-ranger/ambari_home_page.png)
+![new_ambari_home_page](/assets/tag-based-policies-atlas-ranger/new_ambari_home_page.png)
 
 From the Dashboard page of Ambari, click on Kafka from the list of installed services.
 
-![kafka_service](/assets/tag-based-policies-atlas-ranger/kafka_service.png)
+![new_select_kafka](/assets/tag-based-policies-atlas-ranger/new_select_kafka.png)
 
 ### 1.2 Start Kafka Service <a id="start kafka"></a>
 
@@ -53,11 +53,25 @@ Check the box and click on `Confirm Start`:
 
 Wait for Kafka to start (It may take a few minutes to turn green)
 
-![kafka_started](/assets/tag-based-policies-atlas-ranger/kafka_started.png)
+![new_started_kafka](/assets/tag-based-policies-atlas-ranger/new_started_kafka.png)
 
-Similarly, start other required services as well. Your Ambari dashboard page should look like this:
+Now do ssh into the terminal:
 
-![ambari_correct_home_page](/assets/tag-based-policies-atlas-ranger/ambari_correct_home_page.png)
+~~~
+ssh root@127.0.0.1 -p 2222
+~~~
+
+![sshTerminal](/assets/tag-based-policies-atlas-ranger/sshTerminal.png)
+
+Let’s us give proper permissions. Type the following command on terminal:
+
+~~~
+chmod 777 /etc/ranger/admin/.rangeradmin.jceks.crc
+~~~
+
+Now start other required services as well and restart Ranger. Your Ambari dashboard page should look like this:
+
+![new_ambari_dashboard](/assets/tag-based-policies-atlas-ranger/new_ambari_dashboard.png)
 
 ## 2. General Information <a id="general-information"></a>
 
@@ -96,13 +110,6 @@ You can check whether your table gets created or not by refreshing database expl
 ![list_hive_table](/assets/tag-based-policies-atlas-ranger/list_hive_table.png)
 
 Now let’s put some records into this table.
-First SSH into the Hortonworks Sandbox with the command:
-
-~~~
-ssh root@127.0.0.1 -p 2222
-~~~
-
-![sshTerminal](/assets/tag-based-policies-atlas-ranger/sshTerminal.png)
 
 Create a new file called `employeedata.txt` from the terminal:
 
@@ -150,7 +157,7 @@ Press `Sign In` button, the home page of Ranger will be displayed
 
 Click on `Sandbox_hive` and then `Add New Policy`:
 
-![add_new_policy](/assets/tag-based-policies-atlas-ranger/add_new_policy.png)
+![new_sandbox_hive_policies](/assets/tag-based-policies-atlas-ranger/new_sandbox_hive_policies.png)
 
 Enter following values:
 
@@ -178,11 +185,11 @@ You should have your policy configured like this:
 
 Click on `Add` and you can see the list of policies that are present in `Sandbox_hive`.
 
-![list_sandboxhive_policies](/assets/tag-based-policies-atlas-ranger/list_sandboxhive_policies.png)
+![new_policy_added](/assets/tag-based-policies-atlas-ranger/new_policy_added.png)
 
-You have to disable the first two policies to test out the one that you just created. Go inside to these policies and toggle to disable it.
+You have to disable the `Hive Global Tables Allow` to test out the one that you just created. Go inside to this policy and toggle to disable it.
 
-![disable_sandboxhive_policies](/assets/tag-based-policies-atlas-ranger/disable_sandboxhive_policies.png)
+![new_hive_global_policy_disabled](/assets/tag-based-policies-atlas-ranger/new_hive_global_policy_disabled.png)
 
 To check the access, get back to Ambari as `maria_dev` user.
 
@@ -192,9 +199,11 @@ Go directly to `Hive View`, click on default database and employee table. Press 
 
 ![maria_dev_access_error](/assets/tag-based-policies-atlas-ranger/maria_dev_access_error.png)
 
-You will get an authorization error. This is expected as the user does not have access to 2 columns in this table (ssn and location).
+You will get an authorization error. This is expected as the user does not have access to 2 columns in this table (ssn and location). To verify this, you can also view the Audits in Ranger. Go back to Ranger and click on `Audits=>Access` and select `Sandbox_hive` in Service Name. You will see the entry of Access Denied for maria_dev.
 
-You can try running a query for selective column:
+![new_policy_audit](/assets/tag-based-policies-atlas-ranger/new_policy_audit.png)
+
+Now coming back to Hive View, try running a query for selective column.
 
 ~~~
 SELECT name from employee LIMIT 100;
@@ -209,34 +218,26 @@ Even, **admin** user cannot not see all the columns the location and SSN. We wou
 
 ## 4. Create Tag and Tag Based Policy <a id="create-tag-based-policy"></a>
 
-As a first step, login into ATLAS web app using `http://127.0.0.1:21000/` and use username **admin** and password **admin**.
+As a first step, login into ATLAS web app using `http://127.0.0.1:21000/` and use username **holger_gov** and password **holger_gov**.
 
-![atlas_login](/assets/tag-based-policies-atlas-ranger/atlas_login.png)
+![new_atlas_login](/assets/tag-based-policies-atlas-ranger/new_atlas_login.png)
 
 Go to `Tags` tab and press `Create Tag` button.
-Give it a name as **PII**.
+Give it a name as **PII** and description as **Personal Identifiable Information**.
 
-![pii_page](/assets/tag-based-policies-atlas-ranger/pii_page.png)
+![new_create_tag](/assets/tag-based-policies-atlas-ranger/new_create_tag.png)
 
-Now go to `Search` tab and write `employee` in the box. It will give all the entities related to word employee. Click on the `hive_table` one.
+Now go to `Search` tab and write `employee` in the box. It will give all the entities related to word employee. Click on the **+** sign of ssn column.
 
-![search_employee_hive_table](/assets/tag-based-policies-atlas-ranger/search_employee_hive_table.png)
+![new_employee_search](/assets/tag-based-policies-atlas-ranger/new_employee_search.png)
 
-You can view the details of an employee hive table.
+Select `PII` from the drop down and click on `Add` to get PII assigned to ssn :
 
-![view_employee_hive_table](/assets/tag-based-policies-atlas-ranger/view_employee_hive_table.png)
+![new_select_pii_for_ssn](/assets/tag-based-policies-atlas-ranger/new_select_pii_for_ssn.png)
 
-Go to `Schema` tab to assign specific columns to `PII` tag.
+Do the same thing for location column. You should see your PII tag getting assigned to both ssn and location columns:
 
-![view_employee_table_columns](/assets/tag-based-policies-atlas-ranger/view_employee_table_columns.png)
-
-Press blue `+` button to assign the tag to SSN. Then, Select `PII` from the list of tags and click `Save`.
-
-![assign_pii_ssn_column](/assets/tag-based-policies-atlas-ranger/assign_pii_ssn_column.png)
-
-Repeat the same for the `location` row from the above list. Refresh the page, now you should see both ssn and location columns are marked with PII tag. What essentially it means that we have classified any data in the ssn and location columns as PII.
-
-![assigned_pii_ssn_location](/assets/tag-based-policies-atlas-ranger/assigned_pii_ssn_location.png)
+![new_pii_tag_assigned](/assets/tag-based-policies-atlas-ranger/new_pii_tag_assigned.png)
 
 Now let’s go back to Ranger UI. The tag and entity relationship will be automatically inherited by Ranger. In Ranger, we can create a tag based policy by accessing it from the top menu. Go to `Access Manager → Tag Based Policies`.
 
@@ -267,47 +268,37 @@ Audit logging – Yes
 
 ![pii_column_access_policy](/assets/tag-based-policies-atlas-ranger/pii_column_access_policy.png)
 
-In the `Deny Conditions`, it should have the following values:
+In the Allow Conditions, it should have the following values:
 
 ~~~
-Select Group – public
-Select User – no input
-Component Permission – Hive – Select
+Select Group - blank
+Select User - admin
+Component Permissions - Select Hive
+~~~
+
 You can select the component permission through this popup:
-~~~
 
-![components_permission_public](/assets/tag-based-policies-atlas-ranger/components_permission_public.png)
+![new_allow_permissions](/assets/tag-based-policies-atlas-ranger/new_allow_permissions.png)
 
-In the `Exclude from Deny Conditions`, it should have the following values:
-
-~~~
-Select Group – no input
-Select User – admin
-Component Permission – Hive – Select
-You can select the component permission through this popup:
-~~~
-
-![components_permission_public1](/assets/tag-based-policies-atlas-ranger/components_permission_public.png)
-
-Your whole Deny Conditions section should look like this:
-
-![deny_conditions](/assets/tag-based-policies-atlas-ranger/deny_conditions.png)
-
-This signifies that no user in public group but admin are allowed to do any operation on the columns that are specified by PII tag. Click `Add` to view it created.
+This signifies that only admin is allowed to do any operation on the columns that are specified by PII tag. Click `Add` to view it created.
 
 ![sandbox_tag_policies](/assets/tag-based-policies-atlas-ranger/sandbox_tag_policies.png)
 
-Do not forget to **enable** the first two default policies of Sandbox_hive. Go to `Access Manager → Resource Based Policies → Sandbox_hive`. Go inside to these policies and toggle to enable it. You should see a page like this:
+Now click on `Resource Based Policies` and edit `Sandbox_hive` repository by clicking on the button next to it.
 
-![enable_sandboxhive_policies](/assets/tag-based-policies-atlas-ranger/enable_sandboxhive_policies.png)
+![editing_sandbox_hive](/assets/tag-based-policies-atlas-ranger/editing_sandbox_hive.png)
+
+Click on `Select Tag Service` and select `Sandbox_tag`. Click on `Save`.
+
+![new_edited_sandbox_hive](/assets/tag-based-policies-atlas-ranger/new_edited_sandbox_hive.png)
 
 The Ranger tag based policy is now enabled for **admin** user. You can test it by running the query on all columns in employee table.
 
 ![admin_access_successful](/assets/tag-based-policies-atlas-ranger/admin_access_successful.png)
 
-The query executes successfully. The query can be checked in the Ranger audit log which will show the access granted and associated policy which granted access.
+The query executes successfully. The query can be checked in the Ranger audit log which will show the access granted and associated policy which granted access. Select Service Name as `Sandbox_hive` in the search bar.
 
-![audit_access_events](/assets/tag-based-policies-atlas-ranger/audit_access_events.png)
+![new_audit_results](/assets/tag-based-policies-atlas-ranger/new_audit_results.png)
 
 > **NOTE**: There are 2 policies which provided access to admin user, one is a tag based policy and the other is hive resource based policy. The associated tags (PII) is also denoted in the tags column in the audit record).
 
