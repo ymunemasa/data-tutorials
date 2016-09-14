@@ -15,7 +15,7 @@ In this tutorial, you will replace the section of our dataflow that generates th
 
 In this tutorial, you will build the Ingest NextBus SF Muni Live Stream section of the dataflow:
 
-![](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/complete_dataflow_lab3_live_stream_ingestion.png)
+![complete_dataflow_lab3_live_stream_ingestion](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/complete_dataflow_lab3_live_stream_ingestion.png)
 
 Feel free to download the [Lab3-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab3-template/Lab3-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to the lab.
 
@@ -25,13 +25,13 @@ Feel free to download the [Lab3-NiFi-Learn-Ropes.xml](https://raw.githubusercont
 - Completed Tutorial 2: Enhance the DataFlow with Geo Location Enrichment
 
 ## Outline
-- NextBus Live Feed
-- Step 1: Attach NextBus Live Stream to the DataFlow
-- Step 2: Run the NiFi DataFlow
-- Summary
-- Further Reading
+- [NextBus Live Feed](#nextbus-live-feed)
+- [Step 1: Attach NextBus Live Stream to the DataFlow](#attach-nextbus-live-stream)
+- [Step 2: Run the NiFi DataFlow](#run-nifi-dataflow)
+- [Summary](#summary-tutorial3)
+- [Further Reading](#further-reading-tutorial3)
 
-## NextBus Live Feed
+## NextBus Live Feed <a id="nextbus-live-feed"></a>
 
 NextBus Live Feed provides the public with live information regarding passenger information, such as vehicle location information, prediction times on transit vehicles, routes of vehicles and different agencies (San Francisco Muni, Unitrans City of Davis, etc). We will learn to use NextBus's API to access the XML Live Feed Data and create an URL. In this URL we will specify parameters in a query string. The parameters for the tutorial will include the vehicle location, agency, route and time.
 
@@ -50,7 +50,7 @@ Let’s break apart the parameters, so we can better understand how to create cu
 
 Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf) to learn more about each parameter.
 
-### Step 1: Attach NextBus Live Stream to the DataFlow
+### Step 1: Attach NextBus Live Stream to the DataFlow <a id="attach-nextbus-live-stream"></a>
 
 ### GetHTTP
 
@@ -65,7 +65,7 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 | Property  | Value  |
 |:---|---:|
 | `URL`  | `http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=sf-muni&r=M&t=0` |
-| `Filename`  | `vehicleLoc_SF_OceanView.xml` |
+| `Filename`  | `vehicleLoc_SF_OceanView_${now():format("HHmmssSSS")}.xml` |
 
 ![getHTTP_liveStream_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/getHTTP_liveStream_config_property_tab_window.png)
 
@@ -90,7 +90,7 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 2\. Click **Apply**.
 
 
-### Step 2: Run the NiFi DataFlow
+### Step 2: Run the NiFi DataFlow <a id="run-nifi-dataflow"></a>
 
 Now that we added NextBus San Francisco Muni Live Stream Ingestion to our dataflow , let's run the dataflow and verify if we receive the expected results in our output directory.
 
@@ -110,11 +110,11 @@ Did you receive neighborhoods similar to the image below?
 
 ![nextbus_liveStream_output_lab3](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/nextbus_liveStream_output_lab3.png)
 
-## Summary
+## Summary <a id="summary-tutorial3"></a>
 
 Congratulations! You learned how to use NextBus's API to connect to their XML Live Feed for vehicle location data. You also learned how to use the GetHTTP processor to ingest a live stream from NextBus San Francisco Muni into NiFi!
 
-## Further Reading
+## Further Reading <a id="further-reading-tutorial3"></a>
 
 - [NextBus XML Live Feed](https://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf)
 - [Hortonworks NiFi User Guie](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/index.html)
