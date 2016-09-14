@@ -118,7 +118,7 @@ You should now see a similar dialog box with the names of the header columns as 
 
 Once you have finished setting all the various properties select the `Upload Table` button to start the create and load table process.
 
-![upload_progress](/assets/hello-hdp/upload_progrss_lab2.png)
+![upload_progress](/assets/hello-hdp/upload_progress_lab2.png)
 
 Before reviewing what is happening behind the covers in the Upload Progress let’s learn learn more about Hive File Formats.
 
