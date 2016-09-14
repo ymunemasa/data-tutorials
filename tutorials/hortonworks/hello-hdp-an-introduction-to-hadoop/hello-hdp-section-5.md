@@ -64,11 +64,11 @@ Verify the riskfactor table was created successfully. It will be empty now, but 
 
 ## Step 3.1: Create Pig Script <a id="step3.2"></a>
 
-In this phase of the tutorial, we create and run a Pig script. We will use the Ambari Pig User View. Let’s get started…
+In this phase of the tutorial, we create and run a Pig script. We will use the Ambari Pig View. Let’s get started…
 
 ### 3.1.1 Log in to Ambari Pig User Views
 
-To get to the Ambari Pig User View, click on the User Views icon at top right and select **Pig**:
+To get to the Ambari Pig View, click on the Ambari Views icon at top right and select **Pig**:
 
 
 ![Screen Shot 2015-07-21 at 10.12.41 AM](/assets/hello-hdp/ambari_pig_view_lab3.png)  
@@ -81,7 +81,7 @@ This will bring up the Ambari Pig User View interface. Your Pig View does not ha
 
 On the left is a list of your scripts, and on the right is a composition box for writing scripts. A **special interface feature** is the _Pig helper_ located below the name of your script file. The _Pig helper_ provides us with templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. At the very bottom are status areas that will show the results of our script and log files.
 
-The following screenshot shows and describes the various components and features of the Pig User View:
+The following screenshot shows and describes the various components and features of the Pig View:
 
 
 ![Lab3_5](/assets/hello-hdp/pig_user_view_components_hello_hdp.png)
