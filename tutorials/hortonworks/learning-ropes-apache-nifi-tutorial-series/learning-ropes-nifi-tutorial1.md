@@ -35,18 +35,18 @@ Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercont
 - Completed Tutorial 0: Download, Install and Start NiFi
 
 ## Outline
-- Step 1: Create a NiFi DataFlow
-- Step 2: Build XML Simulator DataFlow Section
-- Step 3: Build Key Attribute Extraction DataFlow Section
-- Step 4: Build Filter and JSON Conversion DataFlow Section
-- Step 5: Run the NiFi DataFlow
-- Summary
-- Appendix A: Review of NiFi DataFlow
-- Appendix B: Create Labels for Processor Groups
-- Further Reading
+- [Step 1: Create a NiFi DataFlow](#create-nifi-dataflow)
+- [Step 2: Build XML Simulator DataFlow Section](#build-xml-simulator-flow)
+- [Step 3: Build Key Attribute Extraction DataFlow Section](#build-key-attributes-extraction)
+- [Step 4: Build Filter and JSON Conversion DataFlow Section](#build-filter-json-conversion)
+- [Step 5: Run the NiFi DataFlow](#run-nifi-dataflow-tutorial1)
+- [Summary](#summary-tutorial1)
+- [Appendix A: Review of NiFi DataFlow](#appendix-a-review-dataflow)
+- [Appendix B: Create Labels for Processor Groups](#appendix-b-create-labels)
+- [Further Reading](#further-reading-tutorial1)
 
 
-### Step 1: Create a NiFi DataFlow
+### Step 1: Create a NiFi DataFlow <a id="create-nifi-dataflow"></a>
 
 The building blocks of every dataflow consist of processors. These tools perform actions on data to ingest, route, extract, split, aggregate or store it. Our dataflow will contain these processors, each processor includes a high level description of their role in the tutorial:
 
@@ -164,7 +164,7 @@ Now that we added some processors, we will configure our processors in the **Con
 
 If you would like to read more about configuring and connecting processors, refer to [Hortonworks Apache NiFi User Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/ch_UserGuide.html), Building a DataFlow: section 6.2 and 6.5.
 
-### Step 2: Build XML Simulator DataFlow Section
+### Step 2: Build XML Simulator DataFlow Section <a id="build-xml-simulator-flow"></a>
 
 ### 2.1 GetFile
 
@@ -266,7 +266,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Connect **ControlRate** to **EvaluateXPath** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
-### Step 3: Build Key Attribute Extraction DataFlow Section
+### Step 3: Build Key Attribute Extraction DataFlow Section <a id="build-key-attributes-extraction"></a>
 
 ### 3.1 EvaluateXPath
 
@@ -345,7 +345,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 3\. Connect **EvaluateXPath** to **RouteOnAttribute** processor. When the Create Connection window appears, verify **matched** checkbox is checked, if not check it. Click Add.
 
 
-### Step 4: Build Filter and JSON Conversion DataFlow Section
+### Step 4: Build Filter and JSON Conversion DataFlow Section <a id="build-filter-json-conversion"></a>
 
 ### 4.1 RouteOnAttribute
 
@@ -439,7 +439,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **success** checkboxes. Click **Apply**.
 
-### Step 5: Run the NiFi DataFlow
+### Step 5: Run the NiFi DataFlow <a id="run-nifi-dataflow-tutorial1"></a>
 
 1\. The processors are valid since the warning symbols disappeared. Notice that the processors have a red stop symbol ![stop_symbol_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/stop_symbol_nifi_iot.png) in the upper left corner and are ready to run. To select all processors, hold down the **shift-key** and drag your mouse across the entire data flow.
 
@@ -492,11 +492,11 @@ Provence Event Window:
 Did you receive the data you expected?
 
 
-## Summary
+## Summary <a id="summary-tutorial1"></a>
 
 Congratulations! You made it to the end of the tutorial and built a NiFi DataFlow that reads in a live stream simulation from NextBus.com, splits the parent’s children elements from the XML file into separate FlowFiles, extracts nodes from the XML file, makes a filtering decision on the attributes and stores that newly modified data into a file. You also learned how to use NiFi's Data Provenance feature to view data from a FlowFile that flows through a processor, a powerful feature that enables users to troubleshoot issues in real-time. Feel free to use this feature in the other tutorials. If you are interested in learning more about NiFi, view the following further reading section.
 
-## Appendix A: Review of the NiFi DataFlow
+## Appendix A: Review of the NiFi DataFlow <a id="appendix-a-review-dataflow"></a>
 
 If you want a more in depth review of the dataflow we just built, read the information below, else continue onto the next tutorial.
 
@@ -509,7 +509,7 @@ Splits XML message into many FlowFiles, updates each FlowFile filename attribute
 Filter Key Attributes to JSON File Section:
 Routes FlowFile based on whether it contains all XPath Expressions (attributes) from the evaluation, writes JSON representation of input attributes to FlowFile as content, merges the FlowFiles by concatenating their content together into a single FlowFile and writes the contents of a FlowFile to a directory on the local filesystem.
 
-## Appendix B: Create Labels for Processor Groups
+## Appendix B: Create Labels for Processor Groups <a id="appendix-b-create-labels"></a>
 
 NiFi DataFlows expand to become enormous pipelines to process data. In large dataflow, it can be difficult to understand what particular actions sections of the dataflow perform on data. Therefore, Labels can be used to make it easier for users to understand the different phases of the dataflow.
 
@@ -524,7 +524,7 @@ Let's create a label to signify the action that happens in the first phase of ou
 Reference the picture of the dataflow in Step 5 if you would like to assign similar labels used in the dataflow for this tutorial. Feel free to create your own as labels for each phase of the dataflow too.
 
 
-## Further Reading
+## Further Reading <a id="further-reading-tutorial1"></a>
 
 - [Apache NiFi](http://hortonworks.com/apache/nifi/)
 - [Hortonworks DataFlow Documentation](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2/bk_UserGuide/content/index.html)
