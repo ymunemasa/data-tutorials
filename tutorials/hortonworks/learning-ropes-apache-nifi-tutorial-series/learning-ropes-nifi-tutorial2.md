@@ -26,14 +26,14 @@ Feel free to download the [Lab2-NiFi-Learn-Ropes.xml](https://raw.githubusercont
 - Completed Tutorial 1: Build A Simple NiFi DataFlow
 
 ## Outline
-- Google Places API
-- Step 1: Obtain API Key for NiFi to Build HTTP URL
-- Step 2: Build Geo Location Enrichment DataFlow Section
-- Step 3: Run NiFi DataFlow
-- Summary
-- Further Reading
+- [Google Places API](#google-places-api)
+- [Step 1: Obtain API Key for NiFi to Build HTTP URL](#obtain-api-key-for-flow)
+- [Step 2: Build Geo Location Enrichment DataFlow Section](#build-geo-loc-enrich)
+- [Step 3: Run NiFi DataFlow](#run-nifi-flow)
+- [Summary](#summary-tutorial2)
+- [Further Reading](#further-reading-tutorial2)
 
-## Google Places API
+## Google Places API <a id="google-places-api"></a>
 
 Google Places API Web Service returns information about places: establishments, geographic locations and prominent points of interest using HTTP requests. The Places API includes six place requests: Place Searches, Place Details, Place Add, Place Photos, Place Autocomplete and Query Autocomplete. Read more about these place requests in [Introducing the API](https://developers.google.com/places/web-service/intro).
 
@@ -43,7 +43,7 @@ What are the necessary components to use the Places API?
 - https:// protocol
 - API Key
 
-### Step 1: Obtain API Key for NiFi to Build HTTP URL
+### Step 1: Obtain API Key for NiFi to Build HTTP URL <a id="obtain-api-key-for-flow"></a>
 
 For our dataflow, our task is to enrich the data by searching for neighborhoods within proximity of a vehicle's varying location. We will retrieve two parameters from this data: name of the neighborhoods and San Francisco Muni Transit Agency. So, we will integrate Nearby Search HTTP request with NiFi.
 
@@ -90,7 +90,7 @@ https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Latitude
 > Note: Your API Key will be different than the one in the URL above.
 
 
-### Step 2: Build Geo Location Enrichment DataFlow Section
+### Step 2: Build Geo Location Enrichment DataFlow Section <a id="build-geo-loc-enrich"></a>
 
 Six processors are needed to add geographic location enrichment to your dataflow. Each processor holds a critical role in transporting the enriched data to a destination:
 
@@ -221,7 +221,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 3\. Navigate  to the **Settings** tab, under Auto terminate relationships check the **success** checkbox. Click **Apply** button. Connect the processor to itself and when the Create Connection window appears, select **failure** checkbox.
 
 
-### Step 3: Run NiFi DataFlow
+### Step 3: Run NiFi DataFlow <a id="run-nifi-flow"></a>
 
 Now that we added geographic location enrichment dataflow section to our previous dataflow, let's run the dataflow and verify if we receive the expected results in our output directory.
 
@@ -240,11 +240,11 @@ vi 38997303004413
 ![output_geoEnrich_nearby_neighborhoods_data](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/output_geoEnrich_nearby_neighborhoods_data.png)
 
 
-## Summary
+## Summary <a id="summary-tutorial2"></a>
 
 Congratulations! For the Geo Enrichment section of the dataflow, you learned to use InvokeHTTP to access geographic location of nearby places with Google Places Search API. You learned to add NiFi expression variables into InvokeHTTP property RemoteURL, so that the values for latitude and longitude constantly change in the URL when new FlowFiles pass through this processor. You learned to use EvaluateJsonPath similar to EvaluateXPath, except JSON Expression is used to extract JSON elements (neighborhoods_nearby & city) from a JSON structure. Now you know how to incorporate external API's into NiFi further enhance the dataflow.
 
-## Further Reading
+## Further Reading <a id="further-reading-tutorial2"></a>
 
 - [Google Places API](https://developers.google.com/places/)
 - [HTTP Protocol Overview](http://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177)
