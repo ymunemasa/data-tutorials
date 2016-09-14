@@ -227,7 +227,7 @@ i.  Local Sandbox VM
 
 ii.  `su hive`  
 
-iii.  `hive` Starts Beeline shell and now you can enter commands and SQL  
+iii.  `beeline` Starts Beeline shell and now you can enter commands and SQL  
 
 iv.  `quit;` Exits out of the Beeline shell.
 
