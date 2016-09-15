@@ -599,7 +599,8 @@ The maven build should succeed.
 
 ## Further Reading <a id="further-reading-tutorial0"></a>
 
-- Refer to Readings below if you want to learn best practices for installing and configuring the NiFi, Kafka, Storm, Simulator, IDE Environments
+Refer to Readings below if you want to learn best practices for installing and configuring the NiFi, Kafka, Storm, Simulator, IDE Environments
+
 - [NiFi System Administrator's Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_AdminGuide/content/ch_administration_guide.html)
 - [Installing and Configuring Kafka](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.3.2/bk_kafka-user-guide/content/ch_installing_kafka.html)
 - [Installing and Configuring Storm](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.3.4/bk_installing_manually_book/content/ch_installing_storm_chapter.html)
