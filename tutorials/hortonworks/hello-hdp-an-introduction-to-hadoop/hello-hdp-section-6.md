@@ -61,7 +61,7 @@ Let's get started!
 
 ### Step 4.1: Configure Spark services using Ambari <a id="step4.1"></a>
 
-1\.  Log on to Ambari Dashboard as `raj_ops`. At the bottom left corner of the services column, check that Spark and Zeppelin are running.
+1\.  Log on to Ambari Dashboard as `maria_dev`. At the bottom left corner of the services column, check that Spark and Zeppelin are running.
 
 **Note:** If these services are disabled, start these services.
 
@@ -89,7 +89,7 @@ Log out of Ambari.
 
 ### 4.1.1 There are two ways to access Zeppelin.
 
-1\. Sign into Ambari as username `maria_dev`. Password is `maria_dev`. The first way, open **Zeppelin View** from Ambari views selector:
+1\. The first way, open **Zeppelin View** from Ambari views selector:
 
 ![zeppelin_view_lab4](/assets/hello-hdp/zeppelin_view_lab4.png)
 
@@ -97,11 +97,12 @@ Log out of Ambari.
 
 ![zeppelin_view_welcome_lab4](/assets/hello-hdp/zeppelin_view_welcome_lab4.png)
 
-3\. The second way is to access Zeppelin at `sandbox.hortonworks.com:9995` through its port number, as you can see both ways require users to submit login credentials:
+3\. The second way is to access Zeppelin at `sandbox.hortonworks.com:9995` through its port number:
 
 ~~~
 <hostname>:9995
 ~~~
+
 > Refer to [Learning the Ropes of Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) if you need assistance figuring out your hostname.
 
 You should see a Zeppelin Welcome Page:
@@ -110,8 +111,6 @@ You should see a Zeppelin Welcome Page:
 
 
 Optionally, if you want to find out how to access the Spark shell to run code on Spark refer to [Appendix A](#run-spark-in-shell).
-
-If you are not logged into Zeppelin by default, refer to [Appendix B](#login-to-zeppelin)
 
 5\.  Create a Zeppelin Notebook
 
@@ -124,11 +123,44 @@ Click on a Notebook tab at the top left and hit **Create new note**. Name your n
 
 ### Step 4.2: Create a HiveContext <a id="step4.2"></a>
 
-For improved Hive integration, HDP 2.4 offers [ORC file](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/) support for Spark. This allows Spark to read data stored in ORC files. Spark can leverage ORC file’s more efficient columnar storage and predicate pushdown capability for even faster in-memory processing. HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
+For improved Hive integration, HDP 2.5 offers [ORC file](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/) support for Spark. This allows Spark to read data stored in ORC files. Spark can leverage ORC file’s more efficient columnar storage and predicate pushdown capability for even faster in-memory processing. HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
 
 #### Import sql libraries:
 
-Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code. We can either run the original `%spark` interpreter or the `%livy` spark interpreter to run spark code. The difference is that livy comes with more security. The default interpreter for spark jobs is `%spark`.
+If you have gone through Pig section, you have to drop the table riskfactor so that you can populate it again using Spark. Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code.
+
+~~~scala
+%hive
+show tables
+~~~
+
+We will see that there is a table called `riskfactor`, let us drop that:
+
+~~~scala
+%hive
+drop table riskfactor
+~~~
+
+To verify, let us do show tables again:
+
+~~~scala
+%hive
+show tables
+~~~
+
+![drop_table_lab4](/assets/hello-hdp/drop_table_lab4.png)
+
+Now create it back with the same DDL that we executed in the Pig section, Write the following query:
+
+~~~scala
+%hive
+CREATE TABLE riskfactor (driverid string,events bigint,totmiles bigint,riskfactor float)
+STORED AS ORC
+~~~
+
+![create_table_riskfactor_lab4](/assets/hello-hdp/create_table_riskfactor_lab4.png)
+
+We can either run the original `%spark` interpreter or the `%livy` spark interpreter to run spark code. The difference is that livy comes with more security. The default interpreter for spark jobs is `%spark`.
 
 ~~~scala
 %spark
@@ -527,13 +559,6 @@ This will load the default Spark Scala API.
 
 The coding exercise we just went through can be also completed using a Spark shell. Just as we did in Zeppelin, you can copy and paste the code.
 
-## Appendix B: Login to Zeppelin (Optional) <a id="#login-to-zeppelin"></a>
-
-If you are not logged into Zeppelin as an anonymous user by default, then review the following instruction.
-
-1\. The login credentials for Zeppelin are: username = `admin` and password = `password1`. Click on the grey **Login** button at the top right corner. Add username and password, then click blue **Login** button in the Login window. The reason we are prompted for this information is because we are using livy, which adds a security component to make Zeppelin more secure. In a production environment users would all have their own login information.
-
-![zeppelin_login_window_lab4](/assets/hello-hdp/zeppelin_login_window_lab4.png)
 
 ## Summary <a id="summary-lab4"></a>
 Congratulations! Let’s summarize the spark coding skills and knowledge we acquired to compute risk factor associated with every driver. Apache Spark is efficient for computation because of its **in-memory data processing engine**. We learned how to integrate hive with spark by creating a **Hive Context**. We used our existing data from Hive to create an **RDD**. We learned to perform **RDD transformations and actions** to create new datasets from existing RDDs. These new datasets include filtered, manipulated and processed data. After we computed **risk factor**, we learned to load and save data into Hive as **ORC**.
