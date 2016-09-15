@@ -29,7 +29,7 @@ Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) t
 *   ***Optional***: Hortonworks ODBC driver installed and configured – see the tutorial on installing the ODBC driver for Windows or OS X. Refer to
     *   [Installing and Configuring the Hortonworks ODBC driver on Windows 7](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/)
     *   [Installing and Configuring the Hortonworks ODBC driver on Mac OS X](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/)
-    <!---*   Microsoft Excel 2013 Professional Plus is required for the Windows 7 or later installation to be able to construct the maps.
+    <!--*   Microsoft Excel 2013 Professional Plus is required for the Windows 7 or later installation to be able to construct the maps.
 -->
 
 *  In this tutorial, the Hortonworks Sandbox is installed on an Oracle VirtualBox virtual machine (VM) – your screens may be different.
@@ -53,7 +53,7 @@ To refine and analyze Geolocation data, we will:
 *   Download and extract the Geolocation data files.
 *   Load the captured data into the Hortonworks Sandbox.
 *   Run Hive, Pig and Spark scripts that compute truck mileage and driver risk factor.
-<!---*   Access the refined sensor data with Microsoft Excel.-->
+<!--- *   Access the refined sensor data with Microsoft Excel.-->
 *   Visualize the geolocation data using Zeppelin.
 
 ## Goals of the Tutorial
