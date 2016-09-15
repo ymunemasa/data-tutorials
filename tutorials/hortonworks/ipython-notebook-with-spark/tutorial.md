@@ -21,7 +21,9 @@ IPython notebook supports tab autocompletion on class names, functions, methods,
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+**Note**: This tutorial only works with **HDP 2.4 Sandbox** or earlier.
+
+*   Downloaded and Installed [HDP 2.4 Sandbox](http://hortonworks.com/downloads/#sandbox-2.4)
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ### Installing and configuring IPython
