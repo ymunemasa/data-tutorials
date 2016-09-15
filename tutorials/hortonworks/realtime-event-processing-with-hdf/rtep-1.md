@@ -415,15 +415,15 @@ git clone -b hdp25experiment https://github.com/james94/iot-truck-streaming.git
 
 ### Step 3: Open Trucking Demo in Intellij
 
-2\. Open Intellij. On the welcome screen, click on the Open button. We will open our **iot-truck-streaming** project.
+1\. Open Intellij. On the welcome screen, click on the Open button. We will open our **iot-truck-streaming** project.
 
 ![welcome_button_intellij](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/welcome_button_intellij.png)
 
-3\. Select **iot-truck-streaming** project.
+2\. Select **iot-truck-streaming** project.
 
 ![open_storm_project](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/open_storm_project.png)
 
-4\. Intellij will display the project in its IDE.
+3\. Intellij will display the project in its IDE.
 
 ![storm_project_not_recognized_initial](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/storm_project_not_recognized_initial.png)
 
@@ -431,7 +431,7 @@ git clone -b hdp25experiment https://github.com/james94/iot-truck-streaming.git
 
 You'll notice, the image icons next to the code files have small red circles on them. Intellij does not recognize the Trucking Demo is a Maven Project. The solution we will use is to run `mvn clean package` from the command line and cause Intellij to warn us that Maven Projects need to be imported to be recognized by the IDE. When the **Enable Auto-Import** box appears in Intellij, we will activate for Maven projects.
 
-5\. Let's begin the process to run maven against our Trucking Demo Project.
+1\. Let's begin the process to run maven against our Trucking Demo Project.
 
 ### 4.1 Specify pom.xml for Maven
 
@@ -453,11 +453,11 @@ Output should show success for each sub project within the overall project.
 
 ![maven_success_for_IDE_storm_project](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/maven_success_for_IDE_storm_project.png)
 
-6\. Switch to the Intellij IDE to see if it recognizes the Maven Project.
-
 ### 4.3 Instruct Intellij to Enable Auto-Import for Maven Projects
 
-7\. As you run maven, you will see in Intellij that a box in the top right corner appears and states **Maven projects need to be imported**. Click on **Enable Auto-Import**.
+1\. Switch to the Intellij IDE to see if it recognizes the Maven Project.
+
+2\. As you run maven, you will see in Intellij that a box in the top right corner appears and states **Maven projects need to be imported**. Click on **Enable Auto-Import**.
 
 ![enable_auto_import_maven](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/enable_auto_import_maven.png)
 
@@ -471,11 +471,11 @@ Output should show success for each sub project within the overall project.
 
 ### 4.5 Intellij Setup To Develop Hadoop Projects Locally
 
-8\. Now we can develop our storm code from the storm-streaming folder directly on our local machine. Feel free to explore the code, modify or add bolts, spouts, or topology.
+1\. Now we can develop our storm code from the storm-streaming folder directly on our local machine. Feel free to explore the code, modify or add bolts, spouts, or topology.
 
 ![develop_hadoop_projects_locally](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/develop_hadoop_projects_locally.png)
 
-9\. Once you've added or modified the code, we can run mvn command used earlier to package our storm project into a jar.
+2\. Once you've added or modified the code, we can run mvn command used earlier to package our storm project into a jar.
 
 ~~~bash
 cd ~/Documents/iot-truck-streaming
@@ -484,7 +484,7 @@ mvn clean package -DskipTests
 
 > Note: If you want to add an enhancement to the demo, all you need to do is re-execute the above steps and the new modifications will be added to the jar.
 
-10\. As you will see, mvn generates a target folder in every sub project folder; for instance, let's view the project we are working on, storm-streaming, it's target folder contains:
+3\. As you will see, mvn generates a target folder in every sub project folder; for instance, let's view the project we are working on, storm-streaming, it's target folder contains:
 
 ~~~
 ls -ltr storm-streaming/target
@@ -494,7 +494,7 @@ ls -ltr storm-streaming/target
 
 > Notice the target folder contains **storm-streaming-1.0-SNAPSHOT.jar** file. This jar is a collection of java classes for our storm project. When you add an enhancement to the demo and maven is executed, the jar file will be removed and replaced with a new version.
 
-11\. Let's send our jar to the sandbox for later use in tutorial 3.
+4\. Let's send our jar to the sandbox for later use in tutorial 3.
 
 ~~~bash
 scp -P 2222 ~/Documents/iot-truck-streaming/storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar root@127.0.0.1:/root/iot-truck-streaming/storm-streaming/target
