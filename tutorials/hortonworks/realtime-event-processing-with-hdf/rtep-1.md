@@ -18,6 +18,7 @@ In this tutorial, we are going to set up all the services required to run the Co
 
 - Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 - If you are new to the sandbox shell, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+- We recommend you have some experience with Java Concepts, Syntax and OOP, refer to this [Intro to Java Programming Course](https://www.udacity.com/course/intro-to-java-programming--cs046) if you are interested in building a strong foundation.
 - Memory must be at least 8GB RAM, preferably 4 processor cores, else errors may occur in fourth tutorial
 - For windows users, to run linux terminal commands in these tutorials, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
 - Read **Table 1** to figure out some basic details about your sandbox
