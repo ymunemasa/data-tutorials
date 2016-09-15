@@ -61,6 +61,7 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 - [Appendix A: Install Kafka](#install-kafka-tutorial0)
 - [Appendix B: Enable Remote Desktop and Set up Storm Topology as an Eclipse Project](#enable-remote-desktop-setup-topology-lab3)
 - [Appendix C: Update iot-truck-streaming Project](#update-iot-truck-streaming-project-lab3)
+- [Further Reading](#further-reading-tutorial0)
 
 ## Section 1: Overview
 
@@ -594,3 +595,13 @@ The maven build should succeed.
 2.  Import code as Eclipse project using steps here:
 
 [https://github.com/hortonworks-gallery/ambari-vnc-service#getting-started-with-storm-and-maven-in-eclipse-environment](https://github.com/hortonworks-gallery/ambari-vnc-service%23getting-started-with-storm-and-maven-in-eclipse-environment)
+
+## Further Reading <a id="further-reading-tutorial0"></a>
+
+- Refer to Readings below if you want to learn best practices for installing and configuring the NiFi, Kafka, Storm, Simulator, IDE Environments
+- [NiFi System Administrator's Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_AdminGuide/content/ch_administration_guide.html)
+- [Installing and Configuring Kafka](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.3.2/bk_kafka-user-guide/content/ch_installing_kafka.html)
+- [Installing and Configuring Storm](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.3.4/bk_installing_manually_book/content/ch_installing_storm_chapter.html)
+- [Stream Simulator Documentation](https://github.com/hortonworks-gallery/iot-truck-streaming/tree/master/stream-simulator)
+- Our Trucking Demo project is a Maven Project, refer to [Working with Build Tools(Maven/Gradle) Intellij](https://www.jetbrains.com/help/idea/2016.2/discover-intellij-idea.html#BuildTools) for more in depth resources on the topic
+- [Meet Inellij IDEA](https://www.jetbrains.com/help/idea/2016.2/meet-intellij-idea.html)
