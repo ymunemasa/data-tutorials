@@ -65,7 +65,7 @@ Let's get started!
 
 **Note:** If these services are disabled, start these services.
 
-![Lab4_2](/assets/hello-hdp/configure_spark_service_hello_hdp_lab4.png)
+![ambari_dashboard_lab4](/assets/hello-hdp/ambari_dashboard_lab4.png)
 
 ### For HDP 2.5 Sandbox Users Activate Livy Server
 
