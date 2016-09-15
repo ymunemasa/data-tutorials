@@ -55,7 +55,7 @@ A single physical machine gets saturated with its storage capacity as the data g
 
 ![Lab2_2](/assets/hello-hdp/root_files_view_folder_lab1.png)
 
-3\. 3. Navigate to `/user/maria_dev` directory by clicking on the directory links.
+3\. Navigate to `/user/maria_dev` directory by clicking on the directory links.
 
 4\.  Let's create a data directory to upload the data that we are going to use for this use case.  Click the ![Lab2_3](/assets/hello-hdp/new_folder_icon_lab1.png) button to create the data directory inside the `maria_dev` directory. Now navigate into the `data` directory.
 
