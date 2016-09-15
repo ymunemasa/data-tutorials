@@ -29,23 +29,12 @@ Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) t
 *   ***Optional***: Hortonworks ODBC driver installed and configured – see the tutorial on installing the ODBC driver for Windows or OS X. Refer to
     *   [Installing and Configuring the Hortonworks ODBC driver on Windows 7](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/)
     *   [Installing and Configuring the Hortonworks ODBC driver on Mac OS X](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/)
-    <!-- *   Microsoft Excel 2013 Professional Plus is required for the Windows 7 or later installation to be able to construct the maps.
--->
 
 *  In this tutorial, the Hortonworks Sandbox is installed on an Oracle VirtualBox virtual machine (VM) – your screens may be different.
 
-<!---
-- Install the ODBC driver that matches the version of Excel you are using (32-bit or 64-bit).
-
-- We will use the Power View feature in Microsoft Excel 2013 to visualize the sensor data. Power View is currently only available in Microsoft Office Professional Plus and Microsoft Office 365 Professional Plus.
-
-- Note, other versions of Excel will work, but the visualizations will be limited to charts or graphs. You can also use other visualization tool, such as Zeppelin and Zoomdata.
--->
 ## Tutorial Overview
 
 In this tutorial, we will provide the collected geolocation and truck data. We will import this data into HDFS and build derived tables in Hive. Then we will process the data using Pig, Hive and Spark. The processed data is then visualized using Apache Zeppelin.
-
-<!---The processed data is then imported into Microsoft Excel where it can be visualized.-->
 
 To refine and analyze Geolocation data, we will:
 
@@ -53,7 +42,6 @@ To refine and analyze Geolocation data, we will:
 *   Download and extract the Geolocation data files.
 *   Load the captured data into the Hortonworks Sandbox.
 *   Run Hive, Pig and Spark scripts that compute truck mileage and driver risk factor.
-<!--- *   Access the refined sensor data with Microsoft Excel.-->
 *   Visualize the geolocation data using Zeppelin.
 
 ## Goals of the Tutorial
@@ -66,9 +54,6 @@ The goal of this tutorial is that you get familiar with the basics of following:
 *   Ambari Pig User Views and Apache Pig
 *   Apache Spark
 *   Data Visualization with Zeppelin (Optional)
-<!---*   Data Visualization with Excel (Optional)-->
-
-<!---*   Data Visualization with Zoomdata (Optional)-->
 
 ## Outline
 
@@ -92,10 +77,8 @@ The goal of this tutorial is that you get familiar with the basics of following:
     2.  [Lab 2: Data Manipulation with Hive](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-4.md) (Ambari User Views)
     3.  [Lab 3: Use Pig to compute Driver Risk Factor](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-5.md)
     4.  [Lab 4: Use Apache Spark to compute Driver Risk Factor](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-6.md)
-    <!---5.  [Lab 5: Optional Visualization and Reporting with Excel](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-7.md)
-        1.  [Configuring ODBC driver](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/)  (Mac and Windows)-->
     5.  [Lab 5: Optional Visualization and Reporting with Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-8.md)  
-    <!---7.  [Lab 7: Optional Visualization and Reporting with Zoomdata](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-9.md)-->
+
 7.  **Next Steps/Try These**
     1.  Practitioner Journey-  As a Hadoop Practitioner you can adopt following learning paths
         *   Hadoop Developer - [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)
