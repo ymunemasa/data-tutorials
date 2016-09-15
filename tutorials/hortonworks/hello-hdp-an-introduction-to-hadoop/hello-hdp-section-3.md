@@ -21,7 +21,7 @@ In this section, you will download the sensor data and load that into HDFS using
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
 *   Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
-*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)[Optional]
 *   Allow yourself around **20 minutes** to complete this tutorial.
 
 ## Outline
@@ -47,30 +47,27 @@ A single physical machine gets saturated with its storage capacity as the data g
 
 ### Step 1.2: Load the Sensor Data into HDFS <a id="step1.2"></a>
 
-1\.   Go to the Ambari Dashboard and open the **HDFS Files** view. Click on the 9 square Ambari User Views icon next to the username button and select the **HDFS Files** menu item.
-
+1\.   Go to Ambari Dashboard and open the **HDFS Files** view. Click on the 9 square Ambari User Views icon next to the username button and select the **HDFS Files** menu item.
 
 ![Screen Shot 2015-07-21 at 10.17.21 AM](/assets/hello-hdp/files_view_lab1.png)
 
-
 2\.  Start from the top root of the HDFS file system, you will see all the files the logged in user (_maria_dev_ in this case) has access to see:
-
 
 ![Lab2_2](/assets/hello-hdp/root_files_view_folder_lab1.png)
 
+3\. 3. Navigate to `/user/maria_dev` directory by clicking on the directory links.
 
-3\.   Click `tmp` folder. Then click  ![Lab2_3](/assets/hello-hdp/new_folder_icon_lab1.png) button to create the `maria_dev` directory inside the `tmp` folder. Then create the `data` directory inside `maria_dev` folder. Now navigate into the `data` folder.
+4\.  Let's create a data directory to upload the data that we are going to use for this use case.  Click the ![Lab2_3](/assets/hello-hdp/new_folder_icon_lab1.png) button to create the data directory inside the `maria_dev` directory. Now navigate into the `data` directory.
 
+![add_new_folder_data_lab1](/assets/hello-hdp/add_new_folder_data_lab1.png)
 
-![new_folder_maria_data_lab1](/assets/hello-hdp/new_folder_maria_data_lab1.png)
+### 1.2.1 Upload Geolocation and Trucks CSV Files to data Folder
 
-### 1.2.1 Upload Geo CSV Files to data Folder
-
-4\.   If your not already in your newly created directory path `/tmp/maria_dev/data`, go to the **data** folder. Then  click on the ![upload_icon_lab1](/assets/hello-hdp/upload_icon_lab1.png) button to upload the corresponding **geolocation.csv** and **trucks.csv** files into it.
+4\.   If you're not already in your newly created directory path `/user/maria_dev/data`, go to the **data** folder. Then  click on the ![upload_icon_lab1](/assets/hello-hdp/upload_icon_lab1.png) button to upload the corresponding **geolocation.csv** and **trucks.csv** files into it.
 
 5\. An **Upload file** window will appear, click on the cloud symbol.
 
-![upload_file_cloud_lab1](/assets/hello-hdp/upload_file_cloud_lab1.png)
+![upload_file_lab1](/assets/hello-hdp/upload_file_lab1.png)
 
 6\. Another window will appear, navigate to the destination the two csv files were downloaded. Click on one at a time, press open to complete the upload. Repeat the process until both files are uploaded.
 
@@ -78,20 +75,18 @@ A single physical machine gets saturated with its storage capacity as the data g
 
 Both files are uploaded to HDFS as shown in the Files View UI:
 
-![uploaded_geo_files_lab1](/assets/hello-hdp/uploaded_geo_files_lab1.png)
-
+![uploaded_files_lab1](/assets/hello-hdp/uploaded_files_lab1.png)
 
 You can also perform the following operations on a file or folder by clicking on the entity's row: **Open**, **Rename**, **Permissions**, **Delete**, **Copy**, **Move**, **Download** and **concatenate**.
 
 ### 1.2.2 Set Write Permissions to Write to data Folder
 
-1\. click on the `data` folder's row, which is contained within the directory path `/tmp/maria_dev`. Click **Permissions**. Make sure that the background of all the **write** boxes are checked (**blue**). Refer to image for a visual explanation.
+1\. click on the `data` folder's row, which is contained within the directory path `/user/maria_dev`. Click **Permissions**. Make sure that the background of all the **write** boxes are checked (**blue**). Refer to image for a visual explanation.
 
-
-![Lab2_5](/assets/hello-hdp/edit_permissions_data_folder_lab1.png)
-
+![edit_permissions_lab1](/assets/hello-hdp/edit_permissions_lab1.png)
 
 ## Summary <a id="summary-lab1"></a>
+
 Congratulations! Let’s summarize the skills and knowledge we acquired from this tutorial. We learned **Hadoop Distributed File System (HDFS)** was built to manage storing data across multiple machines. Now we can upload data into the HDFS using Ambari’s HDFS **Files view**.
 
 
