@@ -1,25 +1,26 @@
 ---
 layout: tutorial
-title: Ingest, Route and Land Real Time Events with Apache NiFi
+title: Set Up Simulator, Apache Services and IDE Environment
 tutorial-id: 220
 tutorial-series: Streaming
-tutorial-version: hdp-2.4.0
+tutorial-version: hdp-2.5.0
 intro-page: false
-components: [ nifi ]
+components: [ nifi, storm ]
 ---
 
-# Lab0: Ingest, Route and Land Real Time Events with Apache NiFi
+# Tutorial 0: Set Up Simulator, Apache Services and IDE Environment
 
 ## Introduction
 
-Apache NiFi can collect and transport data from numerous sources and provide interactive command and control of live flows with full and automated data provenance. We will install NiFi onto our Hortonworks Sandbox and become familiar with the NiFi Web Interface. We will create a flow of data using Hortonworks DataFlow to activate the truck stream simulator to generate truck data, remove the log data, extract the live truck events data and store the events into a file. We will use a file to verify that the correct data is being inserted into the file.
+In this tutorial, we are going to set up all the services required to run the Connected Car Application(Trucking Demo). We will install NiFi onto our Hortonworks Sandbox while activating Kafka and Storm for later use in the tutorial series. We will also walkthrough how to set up an IDE on our local machine for Storm development testing and deploy our Storm project to the Sandbox for further testing.
 
 ## Pre-Requisites
+
 - Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 - If you are new to the sandbox shell, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-- Memory must be at least 8GB RAM, preferably 4 processor cores, else errors may occur in third tutorial
+- Memory must be at least 8GB RAM, preferably 4 processor cores, else errors may occur in fourth tutorial
 - For windows users, to run linux terminal commands in these tutorials, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
-- Read Table 1 to figure out some basic details about your sandbox
+- Read **Table 1** to figure out some basic details about your sandbox
 
 **Table 1: Virtual Machine Information** <a id="table1-virtual-machine-information"></a>
 
@@ -51,136 +52,27 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 
 ![changing-hosts-file.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/changing-hosts-file.png)
 
-
 ## Outline
-- [Stream simulator](#stream-simulator-lab0)
-- [Step 1: Run Simulator By shell](#step1-run-simulator-shell-lab0)
-- [Apache NiFi](#apache-nifi-lab0)
-- [Step 2: Install NiFi](#step2-install-nifi-lab0)
-- [Step 3: Start NiFi](#step3-start-nifi)
-- [Step 4: Explore NiFi Web Interface](#step4-explore-nifi-interface-lab0)
-- [Step 5: Understand NiFi DataFlow Build Process](#step5-create-nifi-dataflow-lab0)
-- [Step 6: Build Stream Simulator DataFlow Section](#step6-build-stream-simulator-dataflow-lab0)
-- [Step 7: Build Filter Logs & Enrich TruckEvents DataFlow Section](#step7-build-filter-logs-enrich-truckevents-lab0)
-- [Step 8: Run NiFi DataFlow](#run-nifi-dataflow-lab0)
-- [Summary](#summary-lab0)
-- [Further Reading](#further-reading-lab0)
+- [Section 1: Setup NiFi Environment](#setup-nifi-environment)
+- [Section 2: Setup Kafka Service](#setup-kafka-service)
+- [Section 3: Setup Storm & HBase Service](#setup-storm-service)
+- [Section 4: Run the Simulator by Terminal](#run-simulator-terminal)
+- [Section 5: Setup Intellij IDE Locally and Run Topologies on Sandbox](#setup-intellij-locally)
+- [Appendix A: Install Kafka](#install-kafka-tutorial0)
+- [Appendix B: Enable Remote Desktop and Set up Storm Topology as an Eclipse Project](#enable-remote-desktop-setup-topology-lab3)
+- [Appendix C: Update iot-truck-streaming Project](#update-iot-truck-streaming-project-lab3)
 
-## Tutorial Overview
-- Understand the Stream Simulator
-- Run Stream Simulator From Terminal
-- Install and Start NiFi
-- Create NiFi DataFlow to Generate and Store Truck events
+## Section 1: Overview
 
-## Stream Simulator <a id="stream-simulator-lab0"></a>
+- Install and Activate NiFi
 
-The stream simulator is a lightweight framework that generates truck event data. The simulator uses [New York City Truck Routes (kml)](http://www.nyc.gov/html/dot/downloads/misc/all_truck_routes_nyc.kml) which defines driver road paths with Latitude and Longitude information.
+## Section 1: Setup NiFi Environment <a id="setup-nifi-environment"></a>
 
-The simulator uses **[Akka](http://akka.io/)** to simplify concurrency, messaging and inheritance. It has two **[Plain Old Java Objects (POJOS)](https://en.wikipedia.org/wiki/Plain_Old_Java_Object)**, one for Trucks and another for Drivers that generate the events. Consequently, the **AbstractEventEmitter** class becomes extended while the **onReceive** method generates events, creates new **[Actors](http://doc.akka.io/docs/akka/snapshot/java/untyped-actors.html)**, sends messages to Actors and delivers those events to an **EventCollector** class. This class’s purpose is to collect events generated from the domain objects and print them to standard output. Let’s run the simulator through the terminal and see the events that are generated.
-
-### Step 1: Run the Simulator By shell <a id="step1-run-simulator-shell-lab0"></a>
-
-Before we run the simulator, we need to perform some shell operations to install and download the stream simulator. The following terminal commands were performed in VirtualBox Sandbox and Mac machine. For VMware and Azure users, refer to [Table 1](#table1-virtual-machine-information) in the pre-requisites section to run ssh command. For windows users, to run the following terminal commands, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash). The other terminal commands should be the same for VirtualBox, VMware and Azure.
-
-### 1.1 Download & Setup The Simulator
-
-1\. Open the terminal, if using VirtualBox copy & paste the following command to access the sandbox through the shell.
-
-~~~
-ssh root@127.0.0.1 -p 2222
-~~~
-
-For VMware and Azure users, insert the appropriate values for username, hostname and port into the SSH Definition:
-
-~~~
-ssh <username>@<hostname> -p <port>
-~~~
-
-> Note: For VMware and Azure users, the hostname is different than VirtualBox and the **hostname** can be found on the welcome screen. Refer to Table 1 for **port** number. Username for VMware and Azure is same as VirtualBox. If you need help, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/).
-
-2\. Clone the github repo to download the truck event simulator.
-
-~~~
-cd ~
-git clone https://github.com/james94/iot-truck-streaming
-~~~
-
-3\. Install Apache Maven, so we can compile the stream simulator code and run the simulator. Run the following commands:
-
-~~~
-./iot-truck-streaming/setup/bin/install_maven.sh
-~~~
-
-> Note: You will be prompted to allow maven to install, type 'y' for yes
-
-After your maven package installs, you should obtain the message: Complete!
-
-4\. Navigate to iot-truck-streaming directory.
-
-~~~
-cd iot-truck-streaming
-~~~
-
-5\. Since we are at the base of our project, let’s export our demo configurations:
-
-~~~
-sudo mkdir /etc/storm_demo
-sudo cp config.properties /etc/storm_demo
-sudo cp -R storm-demo-webapp/routes/ /etc/storm_demo
-~~~
-
-6\. For maven to run, it needs to detect the pom.xml file. Rename pom24.xml to pom.xml, copy/paste the commands:
-
-~~~
-mv -f storm-streaming/pom24.xml storm-streaming/pom.xml
-
-/root/maven/bin/mvn clean package
-~~~
-
-Apache Maven command: mvn clean deletes everying in the target folder. The storm-streaming contains a target folder that is impacted. The package phase of the command compiles the code and packages it into jar files according to the pom file.
-
-> Note: packaging may take around 9 minutes.
-
-### 1.2 Run The Simulator
-
-1\. To test the simulator, run `generate.sh` script. Use the commands:
-
-~~~
-cd stream-simulator
-chmod 750 *.sh
-./generate.sh
-~~~
-
-> Note: press **ctrl+c** stop the simulator
-
-You should see message data generated as in the image. The data includes logs as can be seen in the top portion and truck events bottom portion. We will use NiFi to separate this data.
-
-![generate_sh_data](/assets/realtime-event-processing-with-hdf/lab0-nifi/generateSH_data_logs_truckevents_iot.png)
-
-> Note: generate.sh runs java source code located at `iot-truck-streaming/stream-simulator/src/main/java/com/hortonworks/streaming/impl/collectors/StdOutEventCollector.java`. If you would like to see modify/run the code.
-
-## Apache NiFi <a id="apache-nifi-lab0"></a>
-
-[Apache NiFi](https://nifi.apache.org/docs/nifi-docs/html/overview.html#what-is-apache-nifi) is an open source tool for automating and managing the flow of data between systems. To create an effective dataflow, users must understand the various types of processors ![nifi_processor_mini](/assets/realtime-event-processing-with-hdf/lab0-nifi/processor_grey_background_iot.png). This tool is the most important building block available to NiFi because it enables NiFi to perform:
-
-- Data Transformation
-- Routing and Mediation
-- Database Access
-- Attribute Extraction
-- System Interaction
-- Data Ingestion
-- Data Egress/Sending Data
-- Splitting and Aggregation
-- HTTP
-- Amazon Web Services
-
-NiFi is designed to help tackle modern dataflow challenges, such as system failure, data access exceeds capacity to consume, boundary conditions are mere suggestions, systems evolve at different rates, compliance and security.
-
-### Step 2: Install NiFi <a id="step2-install-nifi-lab0"></a>
+### Step 1: Install NiFi <a id="step1-install-nifi-tutorial0"></a>
 
 NiFi will be installed on the Hortonworks Sandbox VirtualBox image because the sandbox does not come with NiFi preinstalled.
 
-The following instructions will guide you through the NiFi installation process. All the steps throughout the tutorial will be done using the latest Hortonworks Sandbox 2.4 on VirtualBox.
+The following instructions will guide you through the NiFi installation process. All the steps throughout the tutorial will be done using the latest Hortonworks Sandbox on VirtualBox.
 
 1\. Make sure to exit from sandbox shell. Type `exit`. Open a terminal on **local machine**. Download the **install-nifi.sh** file from the github repo. Copy & paste the following commands:
 
@@ -189,11 +81,11 @@ cd ~
 curl -o install-nifi.sh https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-event-processing/install-nifi.sh
 ~~~
 
-2\. Open a browser. Navigate to `http://hortonworks.com/downloads/`, click the DataFlow next Sandbox tab and download HDF(™) 1.2.0.1: Hortonworks DataFlow tar.gz:
+2\. Open a browser. Navigate to `http://hortonworks.com/downloads/`, click the DataFlow next Sandbox tab and download the latest version of Hortonworks DataFlow (HDF(™)):
 
 ![download_hdf_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/download_hdf_iot.png)
 
-3\. Run the install-nifi.sh script. Below is a definition of how the install nifi command works:
+3\. Run the **install-nifi.sh** script. Below is a definition of how the install nifi command works:
 
 ~~~
 install-nifi.sh {location-of-HDF-download} {sandbox-host} {ssh-port} {hdf-version}
@@ -207,11 +99,11 @@ After you provide the file path location to HDF Gzip file, sandbox hostname, ssh
 bash install-nifi.sh ~/Downloads/HDF-1.2.0.1-1.tar.gz localhost 2222 1.2.0.1-1
 ~~~
 
-> Note: You will be asked if you want to continue the download, type `yes`. You will also be asked twice for your ssh password to install NiFi on your Hortonworks Sandbox.
+> Note: You will be asked if you want to continue the download, type `yes`. You will also be asked twice for your ssh password to install NiFi on your Hortonworks Sandbox. You may need to change version number of HDF if yours is different.
 
 The script automatically installs NiFi onto your virtual machine. After successful completion, NiFi is transported onto the Hortonworks Sandbox and the HDF folder will be located at `~` folder.
 
-### Step 3: Start NiFi <a id="step3-start-nifi"></a>
+### Step 2: Start NiFi <a id="step2-start-nifi-tutorial0"></a>
 
 It is time to start Apache NiFi.
 
@@ -251,9 +143,9 @@ nifi.web.http.port=6434
 ~~~
 
 To exit the vi editor, press `esc` and then enter `:wq` to save the file.
-Now that the configuration in the nifi.properties file has been updated, we need to port forward a new port for NiFi through the Port Forward GUI because the virtual machine is not listening for the port **6434**, so NiFi will not load on the browser. If your using VirtualBox Sandbox, refer to section 3.1. For Azure Sandbox users, refer to section 3.2.
+Now that the configuration in the nifi.properties file has been updated, we need to port forward a new port for NiFi through the Port Forward GUI because the virtual machine is not listening for the port **6434**, so NiFi will not load on the browser. If your using VirtualBox Sandbox, refer to section 3.1. For **Azure Sandbox users**, refer to **section 2.2**.
 
-### 3.1 Forward Port with VirtualBox GUI
+### 2.1 Forward Port with VirtualBox GUI
 
 1\. Open VirtualBox Manager
 
@@ -273,7 +165,7 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 4\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. You should be able to access it now. Wait 1 to 2 minutes for NiFi to load.
 
 
-### 3.2 Forward Port with Azure GUI
+### 2.2 Forward Port with Azure GUI
 
 1\. Open Azure Sandbox.
 
@@ -295,285 +187,410 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 6\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. You should be able to access it now. Wait 1 to 2 minutes for NiFi to load.
 
-### Step 4: Explore NiFi Web Interface <a id="step4-explore-nifi-interface-lab0"></a>
+Congratulations, we just installed NiFi onto our Sandbox, now NiFi is set up and we can use it in tutorial 1 to build our DataFlow. Let's set up the remaining services (Kafka, Storm, HBase, IDE), so when we arrive to the other tutorials, we can focus on how to use the tool rather than set up.
 
-NiFi’s web interface consists of 5 components to build data flows: The **components** toolbar, the **actions** toolbar, the **management** toolbar, the **search** bar and the **help** button. View the image below for a visualization of the user interface for orchestrating a dataflow. Near the top of the UI are multiple toolbars essential for building dataflows.
+## Section 2: Overview
 
-![nifi_dataflow_html_interface](/assets/realtime-event-processing-with-hdf/lab0-nifi/nifi_dataflow_html_interface.png)
+- Activate Kafka and Configure with Zookeeper
 
-### Step 5: Understand NiFi DataFlow Build Process <a id="step5-create-nifi-dataflow-lab0"></a>
+## Section 2: Setup Kafka Service <a id="setup-kafka-service"></a>
 
-We can begin to build a data flow by adding, configuring and connecting the processors. We will also troubleshoot common problems that occur when creating data flows.
-By the end of the IoT Lab Series, you will have built the following dataflow. Refer back to this image if you want to replicate the processors positions on the graph:
+We will use Apache Ambari to activate and configure Kafka. Ambari is a graphic user interface for controlling Hadoop services, developing Big Data Applications through the user views (Files View, Hive View, etc) and performing Hadoop Administration. Feel free to explore our Ambari related tutorials.
 
-![dataflow_withKafka_running_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_withKafka_running_iot.png)
+### Step 1: Start Kafka <a id="start-kafka"></a>
 
-**Figure 1:** This [IoT_Lab_Series_DataFlow.xml](https://raw.githubusercontent.com/james94/tutorials/hdp/assets/realtime-event-processing-with-hdf/IoT_Lab_Series_DataFlow.xml) dataflow performs System Interaction, Splitting and Aggregation, Attribute Extraction, Routing and Mediation and Data Egress/Sending Data.
+### 1.1 Access Ambari
 
-### 5.1 Download, Import and Drop the Template onto the Graph (Optional)
+If you haven't reset your Ambari admin password, refer to Section **[2.2 SETUP AMBARI ADMIN PASSWORD MANUALLY](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password)** from Learning the Ropes of the Hortonworks Sandbox. Login to Ambari to activate Kafka. Enter the URL in your browser `http://127.0.0.1:8080:`
 
-If you want to view and run the dataflow from the template, follow the steps below, else skip these two steps and move forward.
+![login_page_ambari](/assets/realtime-event-processing-with-hdf/lab1-kafka/login_page_ambari.png)
 
-1\. To open the template xml in NiFi, hover over to the management toolbar and click on the template icon ![template_icon_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/template_icon_nifi_iot.png). Click on the Browse button and find the dataflow xml file that you downloaded and click open. The template should appear in your NiFi Flow Templates spreadsheet.
+> Note: username for admin is admin. Password is the password you defined.
 
-2\. To display your dataflow template xml onto the screen, drag the template icon from the components toolbar onto the graph. The dataflow should appear as in the dataflow image above, except this dataflow will be missing the PutKafka processor. We will add it in the next lab.
+### 1.2 Use Ambari to Activate Kafka
 
-### 5.2 Overiew of Processors in NiFi DataFlow
+1\. Click on Kafka located in the left sidebar list of installed services. (If Kafka is not installed, refer to [Appendix A: Install Kafka](#appendix-a) instructions.):
 
-Eight processors are needed to ingest, filter and store live stream data relating to truck events into your dataflow. Each processor holds a critical role in transporting the enriched data to a destination:
+![kafka_service_on_off](/assets/realtime-event-processing-with-hdf/lab1-kafka/kafka_service_on_off.png)
 
-[ExecuteProcess](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi.processors.standard.ExecuteProcess/index.html) Runs the operating system command to activate the stream simulator and the StdOut is redirected such that the content is written to StdOut becomes the content of the outbound FlowFile.
+2\. Click on **Service Actions -> Start** located at the top left of the Kafka Services Page:
 
-[SplitText](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi.processors.standard.SplitText/index.html) takes in one FlowFile whose content is textual and splits it into 1 or more FlowFiles based on the configured number of lines. Each FlowFile is 1 line.
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/start_kafka_service_iot.png)
 
-[UpdateAttribute](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi.processors.attributes.UpdateAttribute/index.html) updates each FlowFile with a unique attribute name. ${UUID()}.
+3\. Check the **Turn off Maintenance Mode for Kafka** box and click on **Confirm Start**:
 
-[RouteOnContent](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi.processors.standard.RouteOnContent/index.html) search content of the FlowFile to see if it matches the regex regular expression, such as (Normal), (Overspeed), (“Lane Departure”). The expressions are driving event keywords. If so, the Flowfile is routed to the processor with the configured relationship.
+![Screen Shot 2015-06-04 at 3.06.10 PM.png](/assets/realtime-event-processing-with-hdf/lab1-kafka/confirmation_kafka_service_start.png)
 
-[MergeContent(x2)](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi.processors.standard.MergeContent/index.html) merges many FlowFiles into a single FlowFile. In the tutorial, each FlowFile is merged by concatenating their content together. There will be two processors: one of them will merge all the truck events into a single FlowFile while the other merges all the log data together.
+Wait for Kafka to start.
 
-[PutFile(x2)](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi.processors.standard.PutFile/index.html) writes the contents of a FlowFile to a directory on a local file system. There will be two processors: one that writes the filtered logs data to log_data folder. The other that writes the filtered truck event data to truck_events folder.
+### Step 2: Configure Kafka with Zookeeper <a id="config-kafka-zookeeper"><a>
 
-### 5.3 Troubleshoot Common Processor Issues
+ZooKeeper is the coordination interface between the Kafka broker and consumers:
 
-You will notice each time you add a new processor, it will have a warning symbol ![warning_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/warning_symbol_nifi_iot.png) in the upper left corner of the processor face. These warning symbols indicate the processors are invalid.
+![Single Broker based Kakfa cluster](/assets/realtime-event-processing-with-hdf/lab1-kafka/zookeeper-kafka-producer-broker-consumer.jpg)
 
-1\. Hover over one of the processors to troubleshoot the issue. This message informs us of the requirements to make a processor valid, such as the ExecuteProcess.
+The important Zookeeper properties can be checked in Ambari.
 
-![warning_message_executeprocess_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/warning_message_executeprocess_nifi_iot.png)
+### 2.1  Configure ZooKeeper
 
-The warning message indicates: we need to enter a command into the value field of the **property** command since it is empty and connect this processor to another component to establish a relationship.
-Each Processor will have its own alert message. Let’s configure and connect each processor to remove all the warning messages, so we can have a complete data flow.
+Click on **ZooKeeper** in the list of services, then open the Configs tab. Verify ZooKeeper runs on port 2181:
 
-### 5.4 Add, Configure & Connect processors
+![zookeeper_port_config](/assets/realtime-event-processing-with-hdf/lab1-kafka/zookeeper_port_config.png)
 
-We will build our NiFi DataFlow by adding, configuring and connecting processors. When adding processors, you have three ways to find your desired processor from the **Add Processor** window: **Tags** section left of the table, **Processor List** located in the table and **filter bar** positioned above the table. After we add our processor, we can configure it from the Configure Processor window using the 4 tabs: **Settings**, **Scheduling**, **Properties** and **Commands**. For this lab, we will spend most of our time in the properties tab. The properties in **bold** must contain default or updated values for the processor to run. If you are curious to learn more about a specific property, hover over the help icon next to the Property Name to read a description on that property. Every processor has a relationship on how it transfers data to the next processor, another word for this is connection. Relationships affect how data is transferred between processors. For instance, you can have a **split** relationship that when true transfer a bunch of FlowFiles that were split from one large FlowFile to the next processor.
+If this port 2181 is busy or consumed by other processes, you can change the default port number of ZooKeeper to any other valid port number. If ZooKeeper is not running, you can start the Zookeeper service from Ambari:
 
-If you would like to read more about configuring and connecting processors, refer to [Hortonworks Apache NiFi User Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/ch_UserGuide.html), Building a DataFlow: section 6.2 and 6.5.
+![zookeeper_start_service_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/zookeeper_start_service_iot.png)
 
-### Step 6: Build Stream Simulator DataFlow Section <a id="step6-build-stream-simulator-dataflow-lab0"></a>
+### 2.2 Configure Kafka
 
-### 6.1 ExecuteProcess
+From the Kafka page, click on the **Configs** tab. Verify the `zookeeper.connect` property points to your ZooKeeper server name and port:
 
-1\. Drag and drop the processor icon onto the graph. Add the **ExecuteProcess** processor. Click the **Add** button.
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/verify_zookeeper_connect_pts_zoo_server_kafka.png)
 
-2\. Right click on ExecuteProcess processor and click the **Configure** button. Move to the **Properties** tab. Add the properties listed in Table 1 to the processor's appropriate properties and if their original properties already have values, update them.
+## Section 3: Overview
 
-**Table 1:** Update ExecuteProcess Property Values
+- Activate Storm & HBase
 
-| Property  | Value  |
-|---|---|
-| **Command**  | **sh**  |
-| Command Arguments  | `/root/iot-truck-streaming/stream-simulator/generate.sh`  |
-| Batch Duration  | 10 sec  |
+## Section 3: Setup Storm & HBase Services <a id="setup-storm-service"></a>
 
-**Command** instructs processor on what type of command to run
-**Command Arguments** inform processor which particular directory to look for script files
-**Batch Duration** instructs processor to run a task every 10 seconds
+### Step 1: Start Storm & HBase <a id="step-1-start-hbase-storm-lab3"></a>
 
-![executeProcess_properties_config](/assets/realtime-event-processing-with-hdf/lab0-nifi/executeProcess_properties_config.png)
 
-**Figure 1:** ExecuteProcess Configuration Property Tab Window
+1\.  **View the HBase Services page**
 
-3\. Move to the **Scheduling** tab. Modify the **Run Schedule** field from 0 sec to `1 sec`, which makes the processor every 1 second. Click **Apply**.
+Start by logging into Ambari as an admin user. From the previous tutorials: HDFS, Hive, YARN and Kafka should already be running but HBase may be down. From the Dashboard page of Ambari, click on HBase from the list of installed services.
 
-### 6.2 SplitText
+![hbase_service_on_off_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_service_on_off_iot.png)
 
-1\. Add the **SplitText** processor below ExecuteProcess. Connect ExecuteProcess to SplitText processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click **Add**.
+2\. Start HBase
 
-2\. Open SplitText **Properties Tab**, add the properties listed in Table 2 to the processor's appropriate properties and if their original properties already have values, update them.
+From the HBase page, click on Service Actions -> Start
 
-**Table 2:** Update SplitText Property Values
+![start_hbase_service_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/start_hbase_service_iot.png)
 
-| Property  | Value  |
-|---|---|
-| **Line Split Count**  | **1**  |
-| **Remove Trailing Newlines**  | **false**  |
+Check the box and click on Confirm Start:
 
-**Line Split Count** adds 1 line to each split FlowFile
-**Remove Trailing Newlines** controls whether newlines are removed at the end of each split file. With the value set to false, newlines are not removed.
+![confirm_hbase_start_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/confirm_hbase_start_iot.png)
 
-![splittext_property_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/splittext_property_config_nifi_iot.png)
+Wait for HBase to start (It may take a few minutes to turn green)
 
-**Figure 2:** SplitText Configuration Property Tab Window
+![hbase_started_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_started_iot.png)
 
-3\. Move to the **Settings** tab. Check the **failure** and **original** checkbox under **Auto terminate relationships**. Click the **Apply** button.
 
-### 6.3 UpdateAttribute
+3\. Start Storm the same way we started HBase in the previous steps. We will need it later for streaming real-time event data.
 
-1\. Add the **UpdateAttribute** processor below SplitText. Connect SplitText to UpdateAttribute processor. When the Create Connection window appears, verify **split** checkbox is checked, if not check it. Click **Add**.
+![storm_service_on_off_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_service_on_off_iot.png)
 
-2\. Open SplitText **Properties Tab**, add a new dynamic property for NiFi expression, select the **New property** button. Insert the following property name and value into your properties tab as shown in Table 3 below:
+4\. After starting storm, a green check symbol will be present:
 
-**Table 3:** Update UpdateAttribute Property Value
+![storm_service_started_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_service_started_iot.png)
 
-| Property  | Value  |
-|---|---|
-| filename  | `{UUID()}`  |
 
-**filename** uses NiFi Expression language to assign each FlowFile a unique name
+You can use the Ambari dashboard to check status of other components too. If **HDFS, Hive, YARN** are down, you can start them in the same way: by selecting the service and then using the Service Actions to start it. The remaining components do not have to be up. (Oozie can be stopped to save memory, as it is not needed for this tutorial)
 
-3\. Click **OK**.
+## Section 4: Overview
 
-### Step 7: Build Filter Logs & Enrich TruckEvents DataFlow Section <a id="step7-build-filter-logs-enrich-truckevents-lab0"></a>
+- Understand the Stream Simulator Functionality
+- Run the Simulator By Shell
 
-### 7.1 RouteOnContent
+## Section 4: Run the Simulator by Terminal <a id="run-simulator-terminal"></a>
 
-1\. Add the **RouteOnAttribute** processor onto the right of the ExecuteProcess. Connect the UpdateAttribute processor to RouteOnContent. In the Create Connection window, check the **success** checkbox for the relationship.
+### Stream Simulator <a id="stream-simulator-lab0"></a>
 
-2\. Open SplitText **Properties Tab**, add the properties listed in Table 4 to the processor's appropriate properties and if their original properties already have values, update them. For the second property and onward, add a new dynamic property for NiFi expression, select the **New property** button. Insert the following property name and value, refer to Table 4.
+The stream simulator is a lightweight framework that generates truck event data. The simulator uses [New York City Truck Routes (kml)](http://www.nyc.gov/html/dot/downloads/misc/all_truck_routes_nyc.kml) which defines driver road paths with Latitude and Longitude information.
 
-**Table 4:** Update RouteOnContent Property Values
+The simulator uses **[Akka](http://akka.io/)** to simplify concurrency, messaging and inheritance. It has two **[Plain Old Java Objects (POJOS)](https://en.wikipedia.org/wiki/Plain_Old_Java_Object)**, one for Trucks and another for Drivers that generate the events. Consequently, the **AbstractEventEmitter** class becomes extended while the **onReceive** method generates events, creates new **[Actors](http://doc.akka.io/docs/akka/snapshot/java/untyped-actors.html)**, sends messages to Actors and delivers those events to an **EventCollector** class. This class’s purpose is to collect events generated from the domain objects and print them to standard output. Let’s run the simulator through the terminal and see the events that are generated.
 
-| Property  | Value  |
-|---|---|
-| **Match Requirement**  | `content must contain match`  |
-| search_for_truck_event_data  | `(Normal)|(Overspeed)|(Lane Departure)|(Unsafe tail distance)|(Unsafe following distance)`  |
+### Step 1: Run the Simulator By shell <a id="step1-run-simulator-shell-lab0"></a>
 
-**Match Requirements** specifies condition for FlowFile to be transferred to next processor
-**search_for_truck_event_data** is Regex Expression that searches each FlowFile for the truck event keywords
+Before we run the simulator, let's install and download the simulator. For VMware and Azure users, refer to [Table 1](#table1-virtual-machine-information) for more detials on using ssh for that environment. For windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run the terminal commands.
 
-![routeOnContent_filter_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/routeOnContent_filter_nifi_iot.png)
+### 1.1 Download & Setup The Simulator
 
-**Figure 3:** RouteOnContent Configuration Property Tab Window
-
-3\. Click **OK**. Move to the **Settings** tab, under Auto terminate relationships, check the **unmatched** checkbox. Click **Apply**.
-
-### 7.2 MergeContent(truck_events)
-
-1\. Add the **MergeContent** processor below RouteOnContent. Connect the RouteOnContent processor to this MergeContent processor. In the Create Connection window, check the **search_for_truck_event_data** checkbox for the relationship. All the FlowFiles sent to this processor are truck events.
-
-2\. Open MergeContent **Properties Tab**. Add the properties listed in Table 5 and if their original properties already have values, update them.
-
-**Table 5:** Update MergeContent(truck_events) Property Values
-
-| Property  | Value  |
-|---|---|
-| **Minimum Number of Entries**  | **50**  |
-| Maximum Number of Entries  | 70  |
-
-**Minimum Number of Entries** specifies minimum amount of FlowFiles to gather at the queue before FlowFiles merge together
-**Maximum Number of Entries** specifies maximum amount of FlowFiles to gather at the queue before FlowFiles merge together
-
-![mergeContent_property_configs](/assets/realtime-event-processing-with-hdf/lab0-nifi/mergeContent_property_configs.png)
-
-**Figure 4:** MergeContent(truck_events) Configuration Property Tab Window
-
-3\. Navigate to the **Settings** tab, rename the processor: `MergeContent(truck_events)`. Under Auto terminate relationships, check the **failure** and **original** checkboxes. Click **Apply**.
-
-
-### 7.3 MergeContent(logs)
-
-1\. Right click the MergeContent processor created in the previous step and copy it.  Move the mouse slightly to the right of MergeContent(truck_events) processor and paste it. Connect the RouteOnContent processor to this new MergeContent processor. In the Create Connection window, check the **unmatched** checkbox for the relationship. All the FlowFiles sent to this processor are logs and data we don’t want kafka to receive.
-
-2\. Open configure **Settings** tab, and rename the processor `MergeContent(logs)`. Click **Apply**.
-
-### 7.4 PutFile(truck_events)
-
-1\. Add the **PutFile** processor below MergeContent slightly to the left. Connect the MergeContent(truck_events) to this new PutFile processor. In the Create Connection window, check the **merged** checkbox for the relationship. All the FlowFiles sent to this processor are truck event data we do want kafka to receive.
-
-
-2\. Open PutFile **Properties Tab**. Add the properties listed in Table 6 and if their original properties already have values, update them.
-
-**Table 6:** Update PutFile(truck_events) Property Values
-
-| Property  | Value  |
-|---|---|
-| **Directory**  | `/root/nifi_output/truck_events`  |
-
-**Directory** instructs processor which directory to store the output data files
-
-![putfile_properties_truck_events_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_properties_truck_events_config_nifi_iot.png)
-
-**Figure 5:** PutFile(truck_events) Configuration Property Tab Window
-
-3\. Open configure **Settings** tab, and rename the processor `PutFile(truck_events)`. Then check the **failure** and **success** checkbox below the Auto terminated relationships. Click **Apply**.
-
-### 7.5 PutFile(logs)
-
-1\. Right click the PutFile(truck_events) processor created in the previous step and copy it. Move the mouse slightly above MergeContent(logs) processor and paste it. Connect the MergeContent(logs) to this new PutFile processor. In the Create Connection window, check the **merged** checkbox for the relationship. All the FlowFiles sent to this processor are logs and data we don’t want kafka to receive.
-
-2\. Open PutFile **Properties Tab**. Add the properties listed in Table 7 and if their original properties already have values, update them.
-
-Table 7: Update PutFile(logs) Property Values
-
-| Property  | Value  |
-|---|---|
-| **Directory**  | `/root/nifi_output/log_data`  |
-
-![putfile_properties_config_logs_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_properties_config_logs_nifi_iot.png)
-
-**Figure 6:** PutFile(logs) Configuration Property Tab Window
-
-3\. Open configure **Settings** tab, and rename the processor `PutFile(log_data)`. Click **Apply**.
-
-
-We added, configured and connected all processors, your NiFi DataFlow should look similar as below:
-
-![dataflow_lab0_complete_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/dataflow_lab0_complete_nifi_iot.png)
-
-### Step 8: Run NiFi DataFlow <a id="run-nifi-dataflow-lab0"></a>
-
-1\. The processors are valid since the warning symbols disappeared. Notice the processors have a red stop symbol ![stop_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/stop_symbol_nifi_iot.png) in the upper left corner and are ready to run. To select all processors, hold down the shift-key and drag your mouse across the entire data flow. This step is important if you have different dataflows on the same graph.
-
-![dataflow_selected_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/dataflow_selected_nifi_iot.png)
-
-2\. Now all processors are selected, go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/start_button_nifi_iot.png). Your screen should look like the following:
-
-![run_dataflow_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/run_dataflow_nifi_iot.png)
-
-Note: To run the DataFlow again, you will need to copy & paste the ExecuteProcess processor onto the graph, then delete the old one, and connect the new one to the splittext procesor. You will need to repeat this process each time you want to run the DataFlow. This step will ensure dataflow flows through each processor. Currently,the ExecuteProcess processor is getting a patch to fix this problem.
-
-3\. To quickly see what the processors are doing and the information on their faces, right click on the graph, click the **refresh status** button ![refresh_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/refresh_nifi_iot.png)
-
-![refresh_dataflow_data_increase_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/refresh_dataflow_data_increase_nifi_iot.png)
-
-> Note: On each processor face, the In, Read/Write and Out all have data increasing.
-
-### 5.6 Check Data Stored In Correct Directory
-
-To check that the log and truck event data were written to the correct directory, wait 20 seconds, then open your terminal and navigate to their appropriate directories. Make sure to SSH into your sandbox.
-
-### 5.7 Verify Logs Stored In log_data Directory
-
-1\. Navigate to through directory path: `/root/nifi_output/log_data`, view the files and open two random files to verify only log data is being sent to this directory.
+1\. Type the command to access the sandbox by shell:
 
 ~~~
-cd /root/nifi_output/nifi_output/log_data
-ls
-vi 28863080789498
+ssh root@127.0.0.1 -p 2222
 ~~~
 
-Once the file is opened, you should obtain similar output as below:
-
-![logs_stream_simulator_nifi_output](/assets/realtime-event-processing-with-hdf/lab0-nifi/logs_stream_simulator_nifi_output.png)
-
-> Note: to exit the vi editor, press `esc` and then type `:q`.
-
-### 5.8 Verify Events Stored In truck_events Directory
-
-1\. Navigate to truck events directory: `/root/nifi_output/truck_events`, view the files. Open two random file to verify only event data is being sent to this directory.
+For VMware and Azure users, insert the appropriate values for username, hostname and port into the command definition:
 
 ~~~
-cd /root/nifi_output/truck_events
-ls
-vi 28918091050702
+ssh <username>@<hostname> -p <port>
 ~~~
 
-Once the file is opened, you should obtain similar output as below:
+> Note: For VMware and Azure users, the hostname is different than VirtualBox and the **hostname** can be found on the welcome screen. Refer to Table 1 for **port** number. Username for VMware and Azure is same as VirtualBox. If you need help, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/).
 
-![truck_events_file_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/truck_events_file_nifi_iot.png)
+2\. Clone the github repo to download the truck event simulator.
 
-> Note: to exit the vi editor, press `esc` and then type `:q`.
+~~~
+cd ~
+git clone -b hdp25experiment https://github.com/james94/iot-truck-streaming
+~~~
 
-## Summary <a id="summary-lab0"></a>
+3\. Install Apache Maven, so we can compile the stream simulator code and run the simulator. Run the following commands:
 
-Congratulations! You made it to the end of the tutorial and built a NiFi DataFlow that reads in a simulated stream of data, filters truck events from log data, stores the truck event data into a specific directory and writes that data to a file. You also learned how to use Apache Maven to package and compile code in order to run the simulator through the shell or by NiFi. You even explored troubleshooting common issues that occur when creating a flow of data. If you are interested in learning to integrate NiFi with other technologies, such as Kafka continue onto our next lab in the IoT tutorial series.
+~~~
+./iot-truck-streaming/setup/bin/install_maven.sh
+~~~
 
-## Further Reading <a id="further-reading-lab0"></a>
+> Note: You will be prompted to allow maven to install, type 'y' for yes
 
-- [Apache NiFi Documentation](https://nifi.apache.org/docs.html)
-- [Hortonworks DataFlow Documentation](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2/bk_UserGuide/content/index.html)
-- [Apache NiFi Video Tutorials](https://nifi.apache.org/videos.html)
-- [Apache Maven Documentation](https://maven.apache.org/)
-- [Regex Expression Language](http://regexr.com/)
+After your maven package installs, you should obtain the message: Complete!
+
+4\. Navigate to iot-truck-streaming directory.
+
+~~~
+cd iot-truck-streaming
+~~~
+
+5\. Since we are at the base of our project, let’s export our demo configurations:
+
+~~~
+sudo mkdir /etc/storm_demo
+sudo cp config.properties /etc/storm_demo
+sudo cp -R storm-demo-webapp/routes/ /etc/storm_demo
+~~~
+
+> Note: Storm will refer to the properties in the config.properties file to configure the topology.
+
+
+6\. For maven to run, it needs to detect the pom.xml file. Rename pom25.xml to pom.xml, copy/paste the commands:
+
+~~~
+mv -f storm-streaming/pom25.xml storm-streaming/pom.xml
+
+/root/maven/bin/mvn clean package
+~~~
+
+### Apache Maven command:
+
+mvn clean deletes everything in the target folder. The storm-streaming folder contains a target folder that is impacted. The package phase of the command compiles the code and packages it into jar files according to the pom file.
+
+> Note: packaging may take around 9 minutes. Add -DskipTests to the end of mvn command to speed up process.
+
+### 1.2 Run The Simulator
+
+1\. To test the simulator, run `generate.sh` script.
+
+~~~
+cd stream-simulator
+chmod 750 *.sh
+./generate.sh
+~~~
+
+> Note: press **ctrl+c** stop the simulator
+
+You should see message data generated. The data in the image includes logs as can be seen in the top portion and truck events bottom portion. We will use NiFi to separate this data.
+
+![generate_sh_data](/assets/realtime-event-processing-with-hdf/lab0-nifi/generateSH_data_logs_truckevents_iot.png)
+
+> Note: generate.sh runs java source code located at `iot-truck-streaming/stream-simulator/src/main/java/com/hortonworks/streaming/impl/collectors/StdOutEventCollector.java`. If you would like to see modify/run the code.
+
+## Section 5: Overview
+
+- Setup Intellij For Hadoop Related Development
+- Run Topologies On Sandbox that were built on Local Machine
+
+## Section 5: Setup Intellij IDE Locally and Run Topologies on Sandbox  <a id="setup-intellij-locally"></a>
+
+We will use Intellij as our editor to write and change storm code on our local computer and then send our storm project to the sandbox.
+
+### Step 1: Install Intellij Locally
+
+If you have not installed **Intellij**, refer to JetBrains [Installing and Launching](https://www.jetbrains.com/help/idea/2016.2/installing-and-launching.html) instructions.
+
+### Step 2: Download Trucking Demo for Development with IDE
+
+Earlier we cloned the iot-truck-streaming project from github onto our sandbox. Now we will clone it onto our local machine.
+
+1\. Perform the git clone command. Feel free to clone it in any directory, just remember the location. In the tutorial, let's clone it in our Documents folder.
+
+~~~bash
+cd ~/Documents
+git clone -b hdp25experiment https://github.com/james94/iot-truck-streaming.git
+~~~
+
+> Note: You may receive an error if you don't have git installed on your local machine.
+
+### Step 3: Open Trucking Demo in Intellij
+
+2\. Open Intellij. On the welcome screen, click on the Open button. We will open our **iot-truck-streaming** project.
+
+![welcome_button_intellij](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/welcome_button_intellij.png)
+
+3\. Select **iot-truck-streaming** project.
+
+![open_storm_project](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/open_storm_project.png)
+
+4\. Intellij will display the project in its IDE.
+
+![storm_project_not_recognized_initial](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/storm_project_not_recognized_initial.png)
+
+### Step 4: Configure Intellij To Recognize Maven Project
+
+You'll notice, the image icons next to the code files have small red circles on them. Intellij does not recognize the Trucking Demo is a Maven Project. The solution we will use is to run `mvn clean package` from the command line and cause Intellij to warn us that Maven Projects need to be imported to be recognized by the IDE. When the **Enable Auto-Import** box appears in Intellij, we will activate for Maven projects.
+
+5\. Let's begin the process to run maven against our Trucking Demo Project.
+
+### 4.1 Specify pom.xml for Maven
+
+- For maven to work, we have to tell it which pom file to use from the storm-streaming directory. Let's rename pom25 to pom using shell.
+
+~~~bash
+mv storm-streaming/pom25.xml storm-streaming/pom.xml
+~~~
+
+### 4.2 Compile and Package Demo Files into Jar
+
+- Now that we specified the pom for maven, it knows how to build the project. Let's execute the command:
+
+~~~bash
+mvn clean package -DskipTests
+~~~
+
+Output should show success for each sub project within the overall project.
+
+![maven_success_for_IDE_storm_project](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/maven_success_for_IDE_storm_project.png)
+
+6\. Switch to the Intellij IDE to see if it recognizes the Maven Project.
+
+### 4.3 Instruct Intellij to Enable Auto-Import for Maven Projects
+
+7\. As you run maven, you will see in Intellij that a box in the top right corner appears and states **Maven projects need to be imported**. Click on **Enable Auto-Import**.
+
+![enable_auto_import_maven](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/enable_auto_import_maven.png)
+
+### 4.4 Intellij Recognizes Trucking Demo is Maven Project
+
+- Notice that the icons next to the code files changed to blue circles.
+
+![code_files_recognized_unlock_symbol](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/code_files_recognized_unlock_symbol.png)
+
+> Note: If you want to make commits to github from Intellij, feel free to try out Intellij's git feature, else ignore the "Add Files to Git" Window if it appears.
+
+### 4.5 Intellij Setup To Develop Hadoop Projects Locally
+
+8\. Now we can develop our storm code from the storm-streaming folder directly on our local machine. Feel free to explore the code, modify or add bolts, spouts, or topology.
+
+![develop_hadoop_projects_locally](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/develop_hadoop_projects_locally.png)
+
+9\. Once you've added or modified the code, we can run mvn command used earlier to package our storm project into a jar.
+
+~~~bash
+cd ~/Documents/iot-truck-streaming
+mvn clean package -DskipTests
+~~~
+
+> Note: If you want to add an enhancement to the demo, all you need to do is re-execute the above steps and the new modifications will be added to the jar.
+
+10\. As you will see, mvn generates a target folder in every sub project folder; for instance, let's view the project we are working on, storm-streaming, it's target folder contains:
+
+~~~
+ls -ltr storm-streaming/target
+~~~
+
+![list_files_target_folder](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/list_files_target_folder.png)
+
+> Notice the target folder contains **storm-streaming-1.0-SNAPSHOT.jar** file. This jar is a collection of java classes for our storm project. When you add an enhancement to the demo and maven is executed, the jar file will be removed and replaced with a new version.
+
+11\. Let's send our jar to the sandbox for later use in tutorial 3.
+
+~~~bash
+scp -P 2222 ~/Documents/iot-truck-streaming/storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar root@127.0.0.1:/root/iot-truck-streaming/storm-streaming/target
+~~~
+
+> Note: Each time we update the demo, we have to transport the latest jar file to the sandbox.
+
+### Summary
+
+Since we can build jars on our local machine and have an instance of the **iot-truck-streaming** project on our sandbox with the appropriate configurations, we can make changes to our code locally, and then send the jar to any directory on our sandbox. In our case, we will send it to `storm-streaming/target` folder. This approach makes it easy to develop storm topologies locally, and test it on an HDP environment. Therefore, we can test if our code performs as expected by viewing the topology visually through the Storm View's Visualization. For example, did we connect our spouts and bolts properly. We can also use HBase to view if Storm sending the proper data to the tables. We will **perform these tests in tutorial 3**
+
+
+## Appendix A: Install Kafka <a id="install-kafka-tutorial0"></a>
+
+Follow these steps if your version of the Sandbox does not have Kafka installed:
+
+
+1\.  From the Ambari Dashboard, select Actions -> Add Service:
+
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/add_service_kafka.png)
+
+2\.  Select Kafka from the list of Services and click Next:
+
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/addServiceWizard_kafka_service_iot.png)
+
+3\.  Keep clicking Next with the selected defaults until you reach the following screen:
+
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/log_dirs_kafka_broker_iot.png)
+
+4\.  Set the value of logs.dir to  /tmp/kafka-logs
+
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/change_kafka_broker_log_dirs_iot.png)
+
+5\.  Click the Deploy button:
+
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/deploy_kafka_service_iot.png)
+
+6\.  Wait for Kafka to install:
+
+![](/assets/realtime-event-processing-with-hdf/lab1-kafka/wait_kafka_service_install_iot.png)
+
+
+7\.  After Kafka is installed, you may be asked to restart some dependent Services. Please select the appropriate Services and click Restart.
+
+### Appendix B: Update iot-truck-streaming Project <a id="update-iot-truck-streaming-project-lab3"></a>
+
+*   Copy /etc/hbase/conf/hbase-site.xml to src/main/resources/ directory
+
+~~~bash
+[root@sandbox ~]# cd /iot-truck-streaming
+[root@sandbox ~]# cp /etc/hbase/conf/hbase-site.xml src/main/resources/
+~~~
+
+
+*   Check pom.xml to ensure it includes the below dependencies (check after **line 104**)
+
+
+~~~html
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.9.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+      <version>2.7.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.htrace</groupId>
+      <artifactId>htrace-core</artifactId>
+      <version>3.0.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-hdfs</artifactId>
+      <version>2.6.0</version>
+    </dependency>
+~~~
+
+*   recompile the Maven project. This may run for 10+ min
+
+~~~bash
+[root@sandbox ~]# mvn clean package
+~~~
+
+
+The maven build should succeed.
+
+
+### Appendix C: Enable remote desktop on sandbox and set up Storm topology as Eclipse project <a id="enable-remote-desktop-setup-topology-lab3"></a>
+
+1.  Setup Ambari VNC service on the sandbox to enable remote desktop via VNC and install eclipse using steps here [https://github.com/hortonworks-gallery/ambari-vnc-service#setup-vnc-service](https://github.com/hortonworks-gallery/ambari-vnc-service%23setup-vnc-service)
+2.  Import code as Eclipse project using steps here:
+
+[https://github.com/hortonworks-gallery/ambari-vnc-service#getting-started-with-storm-and-maven-in-eclipse-environment](https://github.com/hortonworks-gallery/ambari-vnc-service%23getting-started-with-storm-and-maven-in-eclipse-environment)
