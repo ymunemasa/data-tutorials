@@ -16,72 +16,71 @@ We will also introduce the necessary steps to get you up and running with Apache
 
 ### Prerequisites
 
-This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks Sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
+Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+There are multiple ways to install and/or launch the HDP Sandbox:
 
-**Note**: if you are attending a Meetup/Crash Course your speaker/instructor may have additional instructions regarding the Sandbox VM image.
+*   Download and Install [HDP Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+
+or
+
+*   Deploy the [HDP Sandbox in the Azure Cloud](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/). (FREE for the first month.)
+
+
+**Note**: If you're attending a Crash Course or a Meetup, the instructor may have additional information on how to get a HDP Sandbox installed.
+
+
+Additional resources to get you started:
 
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ### Concepts
 
-The concepts behind a couple of Spark Machine Learning libraries will be introduced in the lab itself. In this tutorial we will focus instead on how to get you started with Sandbox and explore basics of Apache Zeppelin to get you quickly up and running with the lab.
+The core concepts of Spark DataFrames will be introduced in the lab itself. Here, we will focus on launching Zeppelin, importing and then starting the lab.
 
 ### Setup
 
 #### 1. Start your Sandbox
 
-First, start your Sandbox Virtual Machine (VM) in either a VirtualBox or VMware environment and note your VM IP address.
+First, start your Sandbox Virtual Machine (VM) in either a local VirtualBox/VMware (or Azure cloud) environment and note your VM IP address.
 
 We will refer to your VM IP address as `<HOST IP>` throughout this tutorial.
 
 If you need help finding your `<HOST IP>` checkout [Learning the Ropes](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#learn-host-address-environment).
 
-#### 2. Launch a "Shell in a Box"
+#### 2. Launch Zeppelin
 
-Now that your Sandbox is running, open a web browser and go to: `http://<HOST IP>:4200`
-
-Where `<HOST IP>` is the IP address of your Sandbox machine.
-
-For example, the default address for **VirtualBox** is [http://127.0.0.1:4200](http://127.0.0.1:4200)
-
-Next, log into the "Shell in a Box" using the following *default* credentials:
-
-~~~
-User: root
-Pass: hadoop
-~~~
-
-If you’re logging for the first time you will be required to change your password.
-
-#### 3. Download Latest Zeppelin Notebooks
-
-Now that you are logged into the "Shell in a Box", copy and paste the following script and hit `Enter`:
-
-~~~
-curl -sSL https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/master/update_all_notebooks.sh | sudo -u zeppelin -E sh
-~~~
-
-This will download the latest Zeppelin notebooks from the [Hortonworks Zeppelin Notebook Gallery](https://github.com/hortonworks-gallery/zeppelin-notebooks).
-
-#### 4. Launch Zeppelin
-
-In your web browser, open another tab and go to: `http://<HOST IP>:9995`
+Now that your Sandbox is running, open a web browser and go to: `http://<HOST IP>:9995`
 
 Where `<HOST IP>` is the IP address of your Sandbox machine.
 
 For example, the default address for **VirtualBox** is [http://127.0.0.1:9995](http://127.0.0.1:9995)
 
-#### 5. Open Zeppelin Lab Notebook
+#### 3. Import Lab
 
-At this point you should see the following Zeppelin interface:
+The name of the lab you will be running today is *Lab 201: Intro to Machine Learning with Spark*.
 
-![](/assets/intro-to-ml-with-spark-and-zeppelin/zeppelin-screenshot1.png)
+By now you should see the main Zeppelin screen with a list of notebooks that you can explore later.
 
-Click on "Lab 201: Intro to Machine Learning with Spark" to open the notebook.
+Right now, let's import today's lab.
 
-Once the notebook is open, follow the step-by-step instructions within the notebook to complete the lab.
+Click Import
+
+![scr4-import](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr4-import.png)
+
+Next, click "Add from URL" button.
+
+![src7-click-url](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr7-click-url.png)
+
+Finally, copy and paste the following url: [https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/master/2BNDT63TY/note.json](https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/master/2BNDT63TY/note.json)
+
+and click "Import Note"
+
+![src8-import-url](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr8-import-url.png)
+
+Voila! Now you should have your *Lab 201: Intro to Machine Learning with Spark* listed in the main Zeppelin directory.
+
+Click on the lab to get started and follow the step-by-step instructions in the notebook to complete the lab.
 
 ### Further Resources
 
