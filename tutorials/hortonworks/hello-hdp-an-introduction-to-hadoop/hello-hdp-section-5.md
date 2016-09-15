@@ -291,7 +291,7 @@ The logs section is helpful when debugging code after expected output does not h
 
 Let's verify pig read from these tables successfully and stored the data into our **riskfactor** table. You should receive similar output:
 
-![assets/hello-hdp/debug_through_logs_lab3](/assets/hello-hdp/assets/hello-hdp/debug_through_logs_lab3.png)
+![debug_through_logs_lab3](/assets/hello-hdp/debug_through_logs_lab3.png)
 
 What results do our logs show us about our Pig Script?
 
