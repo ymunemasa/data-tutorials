@@ -20,7 +20,7 @@ In previous tutorial, we have explored generating and capturing streaming data w
 
 In this tutorial, you  will use [**Apache Storm**](http://hortonworks.com/labs/storm/) on the Hortonworks Data Platform to capture these data events and process them in real time for further analysis.
 
-In this tutorial, we will build a solution to ingest real time streaming data into HBase and HDFS using [Storm](http://hortonworks.com/hadoop-tutorial/ingesting-processing-real-time-events-apache-storm/). Storm has a spout that reads truck_events data from Kafka and passes it to bolts, which process and persist the data into Hive & HBase tables.
+In this tutorial, we will build a solution to ingest real time streaming data into HBase using [Storm](http://hortonworks.com/hadoop-tutorial/ingesting-processing-real-time-events-apache-storm/). Storm has a spout that reads truck_events data from Kafka and passes it to bolts, which process and persist the data into Hive & HBase tables.
 
 ## Pre-Requisites
 
@@ -75,7 +75,7 @@ Learn more about Apache Storm at the [Storm Documentation page](http://storm.apa
 *   Create Storm Topology
 *   Configure a Storm Spout and Bolts.
 *   Store Persisting data in HBase and Hive.
-*   Verify Data Stored in HDFS and HBase.
+*   Verify Data Stored in HBase.
 
 
 ### Step 1: Create tables in HBase <a id="step1-create-tables-hbase-lab3"></a>
@@ -107,7 +107,7 @@ exit
 
 ### Step 2: Run the Automation script: Setup Demo Modules <a id="step2-run-auto-script-lab3"></a>
 
-Since this tutorial series is based on part of the trucking demo, there are many modules that need to be setup for the demo outside the scope of the tutorial. We manually setup NiFi, Kafka, HBase and Hive for the demo. Since there are other particular modules in the demo irrelevant from what we are learning in the tutorial series, we will run an automation script to setup the other modules that way we will be able to use storm for ingesting data in HBase and HDFS with no issues.
+Since this tutorial series is based on part of the trucking demo, there are many modules that need to be setup for the demo outside the scope of the tutorial. We manually setup NiFi, Kafka, HBase and Hive for the demo. Since there are other particular modules in the demo irrelevant from what we are learning in the tutorial series, we will run an automation script to setup the other modules that way we will be able to use storm for ingesting data in HBase with no issues.
 
 1\. Update ambari admin login variables defined at the top in **user-env.sh** file, so the automation script can have the privileges to setup the demo modules. Enter the **username and password** you use to login into to Ambari as an admin. Open a terminal, type:
 
@@ -200,7 +200,7 @@ Return to the Storm UI and click on truck-event-processor topology to drill into
 ![](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/topology_spouts_bolts_tuples_increasing.png)
 
 
-Under Topology Visualization: You shall see here that Kafka Spout has started writing to hdfs and hbase along with the other bolts.
+Under Topology Visualization: You shall see here that our 3 HBase bolts started sending data to 3 HBase Tables.
 
 
 ![](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/topology_visualization_storm.png)
