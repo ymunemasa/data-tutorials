@@ -51,25 +51,21 @@ Apache Spark was designed to be a fast, general-purpose, easy-to-use computing p
 
 ## Apache Spark <a id="apache-spark-basics"></a>
 
-[Apache Spark](http://hortonworks.com/hadoop/spark/) is a fast, in-memory data processing engine with elegant and expressive development APIs in [Scala](https://spark.apache.org/docs/1.2.0/api/scala/index.html#org.apache.spark.package),[Java](https://spark.apache.org/docs/1.2.0/api/java/index.html), and [Python](https://spark.apache.org/docs/1.2.0/api/java/index.html) that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets. Spark on [Apache Hadoop YARN](http://hortonworks.com/hadoop/YARN) enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.
+[Apache Spark](http://hortonworks.com/hadoop/spark/) is a fast, in-memory data processing engine with elegant and expressive development [APIs](https://spark.apache.org/docs/1.6.1/api/R/index.html) in [Scala](https://spark.apache.org/docs/1.6.1/api/scala/index.html#package),[Java](https://spark.apache.org/docs/1.6.1/api/java/index.html), and [Python](https://spark.apache.org/docs/1.6.1/api/python/index.html) and [R](https://spark.apache.org/docs/1.6.1/api/R/index.html) that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets. Spark on [Apache Hadoop YARN](http://hortonworks.com/hadoop/YARN) enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.
 
-You can run batch application such as MapReduce types jobs or iterative algorithms that build upon each other. You can also run interactive queries and process streaming data with your application. Spark also provides a number of libraries which you can easily use to expand beyond the basic Spark capabilities such as Machine Learning algorithms, SQL, streaming, and graph processing. Spark runs on Hadoop clusters such as Hadoop YARN or Apache Mesos, or even in a Standalone Mode with its own scheduler.
-
+You can run batch application such as MapReduce types jobs or iterative algorithms that build upon each other. You can also run interactive queries and process streaming data with your application. Spark also provides a number of libraries which you can easily use to expand beyond the basic Spark capabilities such as Machine Learning algorithms, SQL, streaming, and graph processing. Spark runs on Hadoop clusters such as Hadoop YARN or Apache Mesos, or even in a Standalone Mode with its own scheduler. The Sandbox includes both Spark 1.6 and Spark 2.0.
 
 ![Lab4_1](/assets/hello-hdp/Lab4_1.png)  
-Let's get started!
 
+Let's get started!
 
 ### Step 4.1: Configure Spark services using Ambari <a id="step4.1"></a>
 
-1\.  Log on to Ambari Dashboard as `admin`. At the bottom left corner of the services column, check that Spark and Zeppelin are running.
+1\.  Log on to Ambari Dashboard as `raj_ops`. At the bottom left corner of the services column, check that Spark and Zeppelin are running.
 
 **Note:** If these services are disabled, start these services.
 
-
 ![Lab4_2](/assets/hello-hdp/configure_spark_service_hello_hdp_lab4.png)
-
-> Note: if this is your first time logging in as admin, refer to Learning the Ropes of Hortonworks Sandbox to setup your admin password.
 
 ### For HDP 2.5 Sandbox Users Activate Livy Server
 
