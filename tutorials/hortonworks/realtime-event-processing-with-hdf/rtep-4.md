@@ -38,10 +38,13 @@ In this tutorial, we will build a solution to ingest real time streaming data in
 *   [Step 1: Create tables in HBase](#step1-create-tables-hbase-lab3)
 *   [Step 2: Run Automation Script: Setup Demo Modules](#step2-run-auto-script-lab3)
 *   [Step 3: Launch new Storm Topology](#step3-launch-new-storm-topology-lab3)
-*   [Step 4: Verify Data in HDFS and HBase](#step4-verify-data-hdfs-hbase-lab3)
+*   [Step 4: Verify Data in HBase](#step4-verify-data-hdfs-hbase-lab3)
 *   [Conclusion](#conclusion-lab3)
-*   [Appendix A: Run the Trucking Demo with NiFi Integration](#run-the-trucking-demo-lab3)
 *   [Further Reading](#further-reading-lab3)
+
+<!--
+*   [Appendix A: Run the Trucking Demo with NiFi Integration](#run-the-trucking-demo-lab3)
+-->
 
 ## HBase <a id="hbase-concept-lab3"></a>
 
@@ -206,30 +209,9 @@ Note: You can also keep track of several statistics of Spouts and Bolts. For ins
 
 ![spout_statistics_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/spout_statistics_iot.png)
 
-### Step 4: Verify Data in HDFS and HBase <a id="step4-verify-data-hdfs-hbase-lab3"></a>
+### Step 4: Verify Data in HBase <a id="step4-verify-data-hdfs-hbase-lab3"></a>
 
-Since the NiFi DataFlow was activated in the last step, let’s verify that Storm spout has started writing data to HDFS and HBase.
-
-
-*   Verify the data is in HDFS by opening the Ambari Files view: `http://localhost:8080/#/main/views/FILES/0.1.0/MyFiles`
-
-With the default settings for HDFS, users will see the data written to HDFS once every few minutes.
-
-![hdfs_files_view_base_directory](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hdfs_files_view_base_directory.png)
-
-Drill down into `/truck-events-v4/staging` dir in HDFS
-
-![](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_loads_txt_files_events_lab2_iot.png)
-
-Stop the NiFi DataFlow to no longer send messages to Kafka. Now go back to the staging directory, click on one of the txt files and confirm that it contains the events:
-
-![Screen Shot 2015-06-04 at 9.20.24 PM.png](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/verify_hdfs_files_contain_data_iot.png)
-
-> **Note:** It may take a 5-10 minutes, before you can access the txt files to see the data.
-
-*   Verify data in Hive by navigating to the Hive view, expanding the default database and clicking the List icon next to **truck_events_text_partition table**
-
-![Screen Shot 2015-06-04 at 9.13.23 PM.png](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/truck_text_partition_table_load_sample_iot.png)
+Since the NiFi DataFlow was activated in the last step, let’s verify that Storm our 3 HBase bolts started sending data to the 3 HBase Tables.
 
 *   If you haven't done so, you can you can stop the NiFi DataFlow. Press the stop symbol.
 *   Verify that the data is in HBase by executing the following commands in HBase shell:
@@ -262,6 +244,8 @@ storm kill TruckEventKafkaExperimTopology
 ## Conclusion <a id="conclusion-lab3"></a>
 
 Congratulations, you built your first Hortonworks DataFlow Application. When NiFi, Kafka and Storm are combined, they create the Hortonworks DataFlow. You have used the power of NiFi to ingest, route and land real-time streaming data. You learned to capture that data with Kafka and perform instant processing with Storm. A common challenge with many use cases, which is also observed in this tutorial series is ingesting a live stream of random data, and filtering the junk data from the actual data we care about. Through these tutorials, you learned to manipulate, persist and perform many other operations on random data.
+
+<!--Run Trucking Demo Section
 
 ### Appendix A: Run the Trucking Demo with NiFi Integration <a id="run-the-trucking-demo-lab3"></a>
 
@@ -365,6 +349,7 @@ Real-Time Drools Driven Monitoring Application
 
 Congratulations, you just incorporated NiFi into the trucking demo. Notice that each time the rows in the table turn red, it indicates a prediction that the driver committed a violation while driving. On the map, the green dots indicate probability that the driver will not commit a violation while red dots indicate the opposite.
 
+-->
 
 ## Further Reading <a id="further-reading-lab3"></a>
 - [Apache HBase](http://hortonworks.com/hadoop/hbase/)
