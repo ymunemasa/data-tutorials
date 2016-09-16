@@ -43,7 +43,7 @@ If you haven't already, make sure to set `SPARK_HOME` before proceeding:
 export SPARK_HOME=/usr/hdp/current/spark-client
 ~~~
 
-#### Run the Spark Pi Example
+### Run the Spark Pi Example
 
 To test compute intensive tasks in Spark, the Pi example calculates pi by “throwing darts” at a circle. The example points in the unit square ((0,0) to (1,1)) and sees how many fall in the unit circle. The fraction should be pi/4, which is used to estimate Pi.
 
@@ -83,7 +83,7 @@ Pi is roughly 3.143648
 
 ### Perform WordCount with Spark
 
-#### Copy input file for Spark WordCount Example
+**Copy input file for Spark WordCount Example**
 
 Upload the input file you want to use in WordCount to HDFS. You can use any text file as input. In the following example, log4j.properties is used as an example:
 
@@ -93,7 +93,7 @@ As user `spark`:
 hadoop fs -copyFromLocal /etc/hadoop/conf/log4j.properties /tmp/data
 ~~~
 
-#### Run the Spark shell:
+**Run the Spark shell:**
 
 ~~~ bash
 ./bin/spark-shell 
@@ -130,7 +130,8 @@ Save `counts` to a file:
 counts.saveAsTextFile("/tmp/wordcount")
 ~~~
 
-##### Viewing the WordCount output with Scala Shell
+**Viewing the WordCount output with Scala Shell**
+
 
 To view the output, at the `scala>` prompt type:
 
@@ -167,7 +168,7 @@ You should see an output screen similar to:
 scala>
 ~~~
 
-##### Viewing the WordCount output with HDFS
+**Viewing the WordCount output with HDFS**
 
 To read the output of WordCount using HDFS command:  
 Exit the Scala shell.
@@ -196,7 +197,7 @@ Use the HDFS `cat` command to see the WordCount output. For example,
 hadoop fs -cat /tmp/wordcount/part-00000
 ~~~
 
-##### Using the Spark DataFrame API
+**Using the Spark DataFrame API**
 
  DataFrame API provides easier access to data since it looks conceptually like a Table and a lot of developers from Python/R/Pandas are familiar with it.
 
@@ -245,7 +246,7 @@ You should see an output similar to:
 scala>
 ~~~
 
-##### Additional DataFrame API examples
+**Additional DataFrame API examples**
 
 Continuing at the `scala>` prompt, type the following to import sql functions:
 
@@ -314,7 +315,7 @@ This will produce an output similar to the following:
 scala>
 ~~~
 
-##### Programmatically Specifying Schema
+**Programmatically Specifying Schema**
 
 ~~~ js
 import org.apache.spark.sql._ 
@@ -373,7 +374,7 @@ The example below reads and writes to HDFS under Hive directories.
 
 Before running Hive examples run the following steps:
 
-#### Launch Spark Shell on YARN cluster
+**Launch Spark Shell on YARN cluster**
 
 ~~~ bash
 su hdfs
@@ -383,7 +384,7 @@ cd $SPARK_HOME
 ./bin/spark-shell
 ~~~
 
-#### Create Hive Context
+**Create Hive Context**
 
 At a `scala>` REPL prompt type the following:
 
@@ -402,7 +403,7 @@ hiveContext: org.apache.spark.sql.hive.HiveContext = org.apache.spark.sql.hive.H
 scala>
 ~~~
 
-#### Create Hive Table
+**Create Hive Table**
 
 ~~~ js
 hiveContext.sql("CREATE TABLE IF NOT EXISTS TestTable (key INT, value STRING)")
@@ -419,7 +420,7 @@ res0: org.apache.spark.sql.DataFrame = [result: string]
 scala>
 ~~~
 
-#### Load example KV value data into Table
+**Load example KV value data into Table**
 
 ~~~ js
 hiveContext.sql("LOAD DATA LOCAL INPATH 'examples/src/main/resources/kv1.txt' INTO TABLE TestTable")
@@ -435,7 +436,7 @@ res1: org.apache.spark.sql.DataFrame = [result: string]
 scala>
 ~~~
 
-#### Invoke Hive collect_list UDF
+**Invoke Hive collect_list UDF**
 
 ~~~ js
 hiveContext.sql("from TestTable SELECT key, collect_list(value) group by key order by key").collect.foreach(println)
