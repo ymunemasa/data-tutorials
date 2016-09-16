@@ -192,10 +192,10 @@ If you want to search for the host address your sandbox is running on, ssh into 
 |---------|-----:|
 | Sandbox Welcome Page | [http://_host_:8888]()|
 | Ambari Dashboard | [http://_host_:8080]()|
-| Ambari Welcome | [http://_host_:8080/views/ADMIN_VIEW/2.2.1.0/INSTANCE/#/]()|
-| Hive User View | [http://_host_:8080/#/main/views/HIVE/1.0.0/AUTO_HIVE_INSTANCE]()|
-| Pig User View | [http://_host_:8080/#/main/views/PIG/1.0.0/Pig]()|
-| File User View | [http://_host_:8080/#/main/views/FILES/1.0.0/Files]()|
+| Ambari Welcome | [http://_host_:8080/views/ADMIN_VIEW/2.4.0.0/INSTANCE/#/]()|
+| Hive User View | [http://_host_:8080/#/main/views/HIVE/1.5.0/AUTO_HIVE_INSTANCE]()|
+| Pig User View | [http://_host_:8080/#/main/views/PIG/1.0.0/Pig_INSTANCE]()|
+| File User View | [http://_host_:8080/#/main/views/FILES/1.0.0/AUTO_FILES_INSTANCE]()|
 | SSH Web Client | [http://_host_:4200]()|
 | Hadoop Configuration | [http://_host_:50070/dfshealth.html]()   [http://_host_:50070/explorer.html]() |
 
