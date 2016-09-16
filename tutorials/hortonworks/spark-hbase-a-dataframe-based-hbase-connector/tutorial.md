@@ -24,7 +24,7 @@ There are several open source Spark HBase connectors available either as Spark p
 
 The following illustrates the basic procedure on how to use the connector. For more details and advanced use case, such as Avro and composite key support, please refer to the [examples](https://github.com/hortonworks/shc/tree/master/src/main/scala/org/apache/spark/sql/execution/datasources/hbase/examples) in the repository.
 
-## Import and run Apache Zeppelin Notebook
+### Import and run Apache Zeppelin Notebook
 
 For this example, we have prepared and written a fully functional Zeppelin notebook example: "Spark HBase - A DataFrame Based Connector."
 
@@ -34,7 +34,7 @@ You can preview the completed notebook [here](https://www.zeppelinhub.com/viewer
 
 And you can import the notebook using the following url [https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.5/2BRZCAM4E/note.json](https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.5/2BRZCAM4E/note.json)
 
-## Non-Zeppelin Spark Package HBase Configuration
+### Non-Zeppelin Spark Package HBase Configuration
 
 Users can also use the Spark-on-HBase connector as a standard Spark package. To include the package in your Spark application use: spark-shell, pyspark, or spark-submit
 
