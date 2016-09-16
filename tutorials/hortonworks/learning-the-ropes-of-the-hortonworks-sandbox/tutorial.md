@@ -47,7 +47,8 @@ Let's begin our Hadoop journey.
       - [2.1 Setup Ambari admin Password Manually](#setup-ambari-admin-password-azure)
       - [2.2 Explore Ambari Welcome Screen 5 Key Capabilities](#explore-ambari-welcome-screen-azure)
       - [2.3 Explore Ambari Dashboard Links](#explore-ambari-dashboard-azure)
-- [Section 3: Troubleshoot](#section3)      
+- [Section 3: New Users in Sandbox](#new-users-in-sandbox)
+- [Section 4: Troubleshoot](#section3)      
 - [Step 1: Troubleshoot Problems](#troubleshoot-problems)
       - [1.1 Technique for Finding Answers in HCC](#technique-for-finding-answers-hcc)
 - [Further Reading](#further-reading)
@@ -66,9 +67,9 @@ If you want to explore Hortonworks Sandbox in Microsoft Azure, please skip to `S
 
 Start the Hortonworks Sandbox following the [Installation Steps](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM.
 
-![Lab0_1](/assets/learning-the-ropes-of-the-hortonworks-sandbox/install_hortonworks_sandbox_learning_ropes.png)
+![sandbox_download](/assets/learning-the-ropes-of-the-hortonworks-sandbox/sandbox_download.png)
 
-> **Note:** The Sandbox [system requirements](http://hortonworks.com/products/hortonworks-sandbox/#install) include that you have a 64 bit OS with at least 8 GB of RAM and enabled BIOS for virtualization. Find out about the newest features, known and resolved issues along with other updates on HDP 2.4 from the [release notes](http://hortonworks.com/wp-content/uploads/2015/10/ReleaseNotes_10_27_2015.pdf). The Sandbox on Azure is under construction and will update to HDP2.4 soon.
+> **Note:** The Sandbox [system requirements](http://hortonworks.com/products/hortonworks-sandbox/#install) include that you have a 64 bit OS with at least 8 GB of RAM and enabled BIOS for virtualization. Find out about the newest features, known and resolved issues along with other updates on HDP 2.4 from the [release notes](http://hortonworks.com/wp-content/uploads/2015/10/ReleaseNotes_10_27_2015.pdf). The Sandbox on Azure is under construction and will update to HDP2.5 soon.
 
 ### 1.2 Learn the Host Address of Your Environment <a id="learn-host-address-environment"></a>
 
@@ -86,7 +87,9 @@ If you are using a private cluster or a cloud to run sandbox. Please find the ho
 
 Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
 
-![Sandbox Welcome Screen](/assets/learning-the-ropes-of-the-hortonworks-sandbox/sandbox_welcome_page_learning_the_ropes_sandbox.png)
+![new_splashscreen](/assets/learning-the-ropes-of-the-hortonworks-sandbox/new_splashscreen.png)
+
+Click on `Launch Dashboard` to go to Ambari with a [Hello HDP tutorial](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/#section_1) and `Quick Links` to view some services of HDP environment.
 
 ### 1.4 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command"></a>
 
@@ -201,8 +204,13 @@ If you want to search for the host address your sandbox is running on, ssh into 
 
 | Service | User | Password |
 |---------|:------:|----------:|
-| Ambari | maria_dev | maria_dev |
-| Ambari | admin | refer to [step 2.2](#setup-ambari-admin-password) |
+| Ambari, OS | admin | refer to [step 2.1](#setup-ambari-admin-password-azure) |
+| Ambari, OS | maria_dev | maria_dev |
+| Ambari, OS | raj_ops | raj_ops |
+| Ambari, OS | holger_gov | holger_gov |
+| Ambari, OS | amy_ds | amy_ds |
+
+Please go to [Section 3](#new-users-in-sandbox) to know more about these users.
 
 ### 2.2 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password"></a>
 
@@ -249,6 +257,8 @@ and then the
 2.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
 
 ## Section 2: Sandbox in Microsoft Azure <a id="section2"></a>
+
+> NOTE: HDP 2.5 Sandbox on Azure is under construction and will be updated soon. This section addresses to HDP 2.4 Sandbox on Azure
 
 ## Step 1: Explore the Sandbox in Azure <a id="explore-sandbox-azure"></a>
 
@@ -343,8 +353,9 @@ Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 
 | Service | User | Password |
 |---------|:------:|----------:|
-| Ambari | maria_dev | maria_dev |
-| Ambari | admin | refer to [step 2.1](#setup-ambari-admin-password-azure) |
+| Ambari, OS | admin | refer to [step 2.1](#setup-ambari-admin-password-azure) |
+| Ambari, OS | maria_dev | maria_dev |
+
 
 ### 2.1 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password-azure"></a>
 
@@ -396,7 +407,35 @@ and then the
 
 2.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
 
-## Section 3: Troubleshoot <a id="section3"></a>
+## Section 3: New Users in Sandbox <a id="new-users-in-sandbox"></a>
+
+There are **4 users persona** present in Sandbox:
+
+1\. **maria_dev** -  maria_dev is responsible for getting insight from data. She loves to explore different HDP components like Hive, Pig, HBase, Phoenix, etc.
+
+2\. **raj_ops** - raj_ops is responsible for infrastructure build and R&D activites like design, install, configure and run. He serves as a technical expert in the area of system administration for complex operating systems.
+
+3\. **holger_gov** - holger_gov is primarily for the management of data elements, both the content and metadata. He has a specialist role that incorporates processes, policies, guidelines and responsibilities for administering organizations' entire data in compliance with policy and/or regulatory obligations.
+
+4\. **amy_ds** - A data scientist who uses Spark and Zeppelin to do exploratory data analysis, data cleanup and transformation as preparation for analysis.
+
+Some notable differences between these users in the Sandbox is mentioned below:
+
+| Operations     | maria_dev | amy_ds | holger_gov | raj_ops | admin |
+|:--------------:|:---------:|:------:|:----------:|:-------:|:-----:|
+| Sandbox Role | Service Operator | Service Operator | Service Administrator | Cluster Administrator | Ambari Administrator |
+| View Configurations | Yes | Yes | Yes | Yes | Yes |
+| Start/Stop/Restart Service | Yes | Yes | Yes | Yes | Yes |
+| Modify Configurations | No | No | Yes | Yes | Yes |
+| Add/delete services | No | No | No | Yes | Yes |
+| Install Components | No | No | No | Yes | Yes |
+| Manage Users/Groups | No | No | No | No | Yes |
+| Manage Ambari Views | No | No | No | No | Yes |
+| Atlas UI Access | No | No | Yes | No | Yes |
+| Sample Ranger Policy Access | SELECT | SELECT | SELECT, CREATE, DROP | ALL | NA |
+
+
+## Section 4: Troubleshoot <a id="section3"></a>
 
 ## Step 1: Troubleshoot Problems <a id="troubleshoot-problems"></a>
 
