@@ -40,7 +40,7 @@ First, launch **Apache Zeppelin**.
 If you're new to Zeppelin, make sure to checkout the [Getting Started Guide](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md).
 
 
-#### Create Notebook
+**Create a Notebook**
 
 Create a new note, and give it a meaningful name, e.g. *Apache Spark in 5 Minutes*
 
