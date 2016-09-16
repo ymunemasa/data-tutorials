@@ -47,8 +47,8 @@ Let's begin our Hadoop journey.
       - [2.1 Setup Ambari admin Password Manually](#setup-ambari-admin-password-azure)
       - [2.2 Explore Ambari Welcome Screen 5 Key Capabilities](#explore-ambari-welcome-screen-azure)
       - [2.3 Explore Ambari Dashboard Links](#explore-ambari-dashboard-azure)
-- [Section 3: New Users in Sandbox](#new-users-in-sandbox)
-- [Section 4: Troubleshoot](#section3)      
+- [Section 3: New Users in Sandbox](#section3)
+- [Section 4: Troubleshoot](#section4)      
 - [Step 1: Troubleshoot Problems](#troubleshoot-problems)
       - [1.1 Technique for Finding Answers in HCC](#technique-for-finding-answers-hcc)
 - [Further Reading](#further-reading)
@@ -210,7 +210,7 @@ If you want to search for the host address your sandbox is running on, ssh into 
 | Ambari, OS | holger_gov | holger_gov |
 | Ambari, OS | amy_ds | amy_ds |
 
-Please go to [Section 3](#new-users-in-sandbox) to know more about these users.
+Please go to [Section 3](#section3) to know more about these users.
 
 ### 2.2 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password"></a>
 
@@ -407,7 +407,7 @@ and then the
 
 2.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
 
-## Section 3: New Users in Sandbox <a id="new-users-in-sandbox"></a>
+## Section 3: New Users in Sandbox <a id="section3"></a>
 
 There are **4 users persona** present in Sandbox:
 
@@ -435,7 +435,7 @@ Some notable differences between these users in the Sandbox is mentioned below:
 | Sample Ranger Policy Access | SELECT | SELECT | SELECT, CREATE, DROP | ALL | NA |
 
 
-## Section 4: Troubleshoot <a id="section3"></a>
+## Section 4: Troubleshoot <a id="section4"></a>
 
 ## Step 1: Troubleshoot Problems <a id="troubleshoot-problems"></a>
 
