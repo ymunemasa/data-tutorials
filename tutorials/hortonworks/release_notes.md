@@ -1,41 +1,41 @@
 # Release Notes
 
-Sept 2016
-Md5 **VMware** Virtual Appliance - 74b279aaddfa30bb1e3cf65ff4e87855
-Md5 **Virtualbox** Virtual Appliance- 76ea224b28477a74053172bc09e8a005
+- Sept 2016
+- Md5 **VMware** Virtual Appliance - 74b279aaddfa30bb1e3cf65ff4e87855
+- Md5 **Virtualbox** Virtual Appliance- 76ea224b28477a74053172bc09e8a005
 
 HDP Stack and Ambari
 The Sandbox uses the following versions of Ambari and HDP stack.  Please use the following release note links provided to view Ambari and HDP stack specific information.
 
-**HDP 2.5 Build 1245 Release Notes**
-https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.5.0/bk_release-notes/content/ch_relnotes_v250.html
+- **HDP 2.5 Build 1245 Release Notes**
+- https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.5.0/bk_release-notes/content/ch_relnotes_v250.html
 
 **Ambari 2.4 Build 1225 Release Notes**
 https://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.0/bk_ambari-release-notes/content/ch_relnotes-ambari-2.4.0.0.html
 
 ## Behavior Changes
 
-**New splash page**
-**RMP-6196** – Using dockerized containers inside the VM’s
-**RMP-6735** – Using Role based access control to log into Ambari, please look at learning ropes tutorial for more information.
-**RMP-7141** – New sample data in databases used for tutorials
+- **New splash page**
+-**RMP-6196** – Using dockerized containers inside the VM’s
+-**RMP-6735** – Using Role based access control to log into Ambari, please look at learning ropes tutorial for more information.
+-**RMP-7141** – New sample data in databases used for tutorials
 
 ## Known Issues
 
-**BUG-65985** - Some files inside the docker container sandbox will show ????? for the file.
+-**BUG-65985** - Some files inside the docker container sandbox will show ????? for the file.
 
 ## Fixed Issues
 
-**BUG-54706** - HDFS replication set to 3
-**BUG-65555** – opened ports for docker
-**BUG-64968** - Request to disable "yarn.resourcemanager.recovery.enabled"
-**BUG-ATLAS-1147** - UI : column name doesn’t show up in schema tab for hive table
+-**BUG-54706** - HDFS replication set to 3
+-**BUG-65555** – opened ports for docker
+-**BUG-64968** - Request to disable "yarn.resourcemanager.recovery.enabled"
+-**BUG-ATLAS-1147** - UI : column name doesn’t show up in schema tab for hive table
 
 ## Limitations
 
 This is a list of common limitations along with their workarounds.
 
-**RMP-3586** - Due to dependency of the underlying OS and Virtual machine application, the following may occur when suspending the virtual machine:
+-**RMP-3586** - Due to dependency of the underlying OS and Virtual machine application, the following may occur when suspending the virtual machine:
 -Region Server service for HBase may be stopped when returning back from suspended state.  It will need to be restarted.
 -Ambari Metrics may be stopped when returning back from suspended state since it now uses an embedded HBase.
 **Workaround**: Avoid having to suspend your virtual machine.
@@ -43,9 +43,11 @@ This is a list of common limitations along with their workarounds.
 ## System Information
 
 Operating System and Java versions that the Sandbox has installed.
-**OS Version (docker container)**
-CentOS release 6.8 (Final)
-**Java Version (docker container)**
+
+-**OS Version (docker container)**
+-CentOS release 6.8 (Final)
+
+-**Java Version (docker container)**
 java version "1.7.0_111"
 OpenJDK Runtime Environment (rhel-2.6.7.2.el6_8-x86_64 u111-b01)
 OpenJDK 64-Bit Server VM (build 24.111-b01, mixed mode)
