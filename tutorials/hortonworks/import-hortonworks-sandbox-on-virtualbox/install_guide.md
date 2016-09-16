@@ -4,50 +4,50 @@
 
 The Hortonworks Sandbox is delivered as a virtual appliance.  The virtual appliance (indicated by an .ovf or .ova extension in the filename) runs in the context of a virtual machine (VM), a piece of software that appears to be an application to the underlying (host) operating system (OS), but that looks like a bare machine, including CPU, storage, network adapters, and so forth, to the operating system and applications that run on it.
 
-To use the Hortonworks Sandbox, one of the supported virtual machine applications needs to installed on your host machine:
+To use the Hortonworks Sandbox, one of the supported virtual machine applications needs to installed on your host machine:  
 
-1\.      VirtualBox
-2\.     VMware Fusion
-3\.     Hyper-V
+1\. VirtualBox  
+2\. VMware Fusion  
+3\. Hyper-V  
 
-This document describes importing the Hortonworks Sandbox virtual appliance into VirtualBox.
+This document describes importing the Hortonworks Sandbox virtual appliance into VirtualBox.  
 
-## Prerequisites
+## Prerequisites  
 
-To use the Hortonworks Sandbox with VirtualBox the following requirements need to be met:
+To use the Hortonworks Sandbox with VirtualBox the following requirements need to be met:  
 
-**Oracle VirtualBox Installed**
+**Oracle VirtualBox Installed**  
 
-1\.  Version 4.2 or later
-2\.  You can download VirtualBox here: https://www.virtualbox.org/wiki/Downloads
+1\.  Version 4.2 or later  
+2\.  You can download VirtualBox here: https://www.virtualbox.org/wiki/Downloads  
 
-**Host Operating System**
+**Host Operating System**  
 
-1\. Host operating system refers to the operating system of your computer.  The following link gives an exhaustive list of operating systems supported to run VirtualBox [here](https://www.virtualbox.org/manual/ch01.html#hostossupport).
+Host operating system refers to the operating system of your computer.  The following [link](https://www.virtualbox.org/manual/ch01.html#hostossupport) gives an exhaustive list of operating systems supported to run VirtualBox.  
 
-**Hardware** (The newer the hardware the better):
+**Hardware** (The newer the hardware the better):  
 
-1\. **CPU** - A 64-bit machine with a multi-core CPU that supports virtualization.  Please look into your operating system’s documentation to verify if you are running a 64 bit OS.  Below are references for Mac OS X and Windows.
+1\. **CPU** - A 64-bit machine with a multi-core CPU that supports virtualization.  Please look into your operating system’s documentation to verify if you are running a 64 bit OS.  Below are references for Mac OS X and Windows.  
 
-Windows article:
-http://windows.microsoft.com/en-us/windows7/32-bit-and-64-bit-windows-frequently-asked-questions
-Mac OS X:
-https://support.apple.com/en-us/HT3696
+Windows article:  
+http://windows.microsoft.com/en-us/windows7/32-bit-and-64-bit-windows-frequently-asked-questions  
+Mac OS X:  
+https://support.apple.com/en-us/HT3696  
 
-2\. **BIOS** - Has been enabled for virtualization support.  Please contact your specific computer vendor to determine how to enable/verify this feature in your machine’s BIOS.
+2\. **BIOS** - Has been enabled for virtualization support.  Please contact your specific computer vendor to determine how to enable/verify this feature in your machine’s BIOS.  
 
-3\. **RAM** - At least 8 GB of RAM (The more, the better)
-If you wish to enable services such as Ambari, HBase, Storm, Kafka, or Spark please ensure you have at least 10 Gb of physical RAM in order to run the VM using 8 GB.
+3\. **RAM** - At least 8 GB of RAM (The more, the better)  
+If you wish to enable services such as Ambari, HBase, Storm, Kafka, or Spark please ensure you have at least 10 Gb of physical RAM in order to run the VM using 8 GB.  
 
-More information for hardware requirements for VirtualBox can be found here https://www.virtualbox.org/wiki/End-user_documentation
+More information for hardware requirements for VirtualBox can be found here   https://www.virtualbox.org/wiki/End-user_documentation  
 
-4\. **Browsers**
+4\. **Browsers**  
 
-1\.  Chrome 25+,
-2\.  IE 9+ (Sandbox will not run on IE 10)
-3\.  Safari 6+
+1\.  Chrome 25+,  
+2\.  IE 9+ (Sandbox will not run on IE 10)  
+3\.  Safari 6+  
 
-**Hortonworks Sandbox virtual appliance for VirtualBox**
+**Hortonworks Sandbox virtual appliance for VirtualBox**  
 
 Download the correct virtual appliance file for your environment from http://hortonworks.com/products/hortonworks-sandbox/#install
 The file extension for a virtual appliance for VirtualBox should be .ova
@@ -56,7 +56,7 @@ The file extension for a virtual appliance for VirtualBox should be .ova
 
 The steps provided describe how to import the Hortonworks Sandbox virtual appliance into VirtualBox.  The screenshots displayed are taken from Mac OS X and Windows 7 machine running the VirtualBox 4.3.x software.
 
-1\. Open the **Oracle VM VirtualBox Manager**
+1\. Open the **Oracle VM VirtualBox Manager**  
 
 You can do so by double clicking the icon: ![virtualbox_logo](/assets/import-hortonworks-sandbox-on-virtualbox/virtualbox_logo.png)
 
@@ -73,7 +73,7 @@ _Windows 7_
 
 ![virtualbox_windows](/assets/import-hortonworks-sandbox-on-virtualbox/virtualbox_windows.png)
 
-2\. 	Open the **Preferences** dialog window.
+2\. 	Open the **Preferences** dialog window.  
 
 _Mac OS X_:  Select **VirtualBox->Preferences…** from the menu bar while the Oracle VM VirtualBox Manager application is in focus.
 
@@ -85,7 +85,7 @@ Select **File->Preferences…** within the Oracle VM VirtualBox Manager
 
 ![virtualbox_preferences_windows](/assets/import-hortonworks-sandbox-on-virtualbox/virtualbox_preferences_windows.png)
 
-3\. 	Uncheck **Auto-Capture Keyboard** within the Preferences dialog window.
+3\. 	Uncheck **Auto-Capture Keyboard** within the Preferences dialog window.  
 
 _Mac OS X_: Select the **Input** icon button from the top of the window first to get to the window containing the **Auto-Capture Keyboard** checkbox.
 

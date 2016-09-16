@@ -4,47 +4,47 @@
 
 he Hortonworks Sandbox is delivered as a virtual appliance.  The virtual appliance (indicated by an .ovf or .ova extension in the filename) runs in the context of a virtual machine (VM), a piece of software that appears to be an application to the underlying (host) operating system (OS), but that looks like a bare machine, including CPU, storage, network adapters, and so forth, to the operating system and applications that run on it.
 
-To use the Hortonworks Sandbox, one of the supported virtual machine applications needs to installed on your host machine:
+To use the Hortonworks Sandbox, one of the supported virtual machine applications needs to installed on your host machine:  
 
-1\.      VirtualBox
-2\.     VMware Fusion
-3\.     Hyper-V
+1\. VirtualBox  
+2\. VMware Fusion  
+3\. Hyper-V  
 
-This document describes importing the Hortonworks Sandbox virtual appliance into VMware.
+This document describes importing the Hortonworks Sandbox virtual appliance into VMware.  
 
 ## Prerequisites
 
-To use the Hortonworks Sandbox with VMware Fusion the following requirements need to be met:
+To use the Hortonworks Sandbox with VMware Fusion the following requirements need to be met:  
 
-**VMware Fusion Installed**
+**VMware Fusion Installed**  
 
-Version 5 or later (Version 7 recommended). You can download VMware Fusion here:
+Version 5 or later (Version 7 recommended). You can download VMware Fusion here:  
 https://my.vmware.com/web/vmware/info/slug/desktop_end_user_computing/vmware_fusion/7_0#product_downloads
 
-**Host Operating System**
+**Host Operating System**  
 
-Host operating system refers to the operating system of your computer.  The following [link](https://www.vmware.com/support/fusion/faq/requirements) gives an exhaustive list of operating systems supported to run VMware Fusion.
+Host operating system refers to the operating system of your computer.  The following [link](https://www.vmware.com/support/fusion/faq/requirements) gives an exhaustive list of operating systems supported to run VMware Fusion.  
 
-**Hardware** (The newer the hardware the better):
+**Hardware** (The newer the hardware the better):  
 
 1\. A 64-bit machine with a multi-core CPU that supports virtualization. Please look into your operating system’s documentation to verify if you are running a 64 bit OS.
 _Mac OS X_:
-https://support.apple.com/en-us/HT3696
+https://support.apple.com/en-us/HT3696  
 
-2\. **BIOS** - Has been enabled for virtualization support.  Please contact your specific computer vendor to determine how to enable/verify this feature in your machine’s BIOS.
+2\. **BIOS** - Has been enabled for virtualization support.  Please contact your specific computer vendor to determine how to enable/verify this feature in your machine’s BIOS.  
 
 3\. **RAM** - At least 8 GB of RAM (The more, the better)
-If you wish to enable services such as Ambari, HBase, Storm, Kafka, or Spark please ensure you have at least 10 Gb of physical RAM in order to run the VM using 8 GB.
+If you wish to enable services such as Ambari, HBase, Storm, Kafka, or Spark please ensure you have at least 10 Gb of physical RAM in order to run the VM using 8 GB.  
 
 More information for hardware requirements for VMware can be found [here](https://www.vmware.com/support/fusion/faq/requirements).
 
-4\. **Browsers**
+4\. **Browsers**  
 
-1\.  Chrome 25+,
-2\.  IE 9+ (Sandbox will not run on IE 10)
-3\.  Safari 6+
+1\.  Chrome 25+,  
+2\.  IE 9+ (Sandbox will not run on IE 10)  
+3\.  Safari 6+  
 
-**Hortonworks Sandbox virtual appliance for VMware Fusion**
+**Hortonworks Sandbox virtual appliance for VMware Fusion**  
 
 Download the correct virtual appliance file for your environment from http://hortonworks.com/products/hortonworks-sandbox/#install
 The file extension for a virtual appliance for VMware Fusion should be .ova
@@ -54,8 +54,8 @@ The steps provided describe how to import the Hortonworks Sandbox virtual applia
 
 > NOTE:  The instructions provided is for a VMware Fusion application that currently does not have any existing virtual machines imported.
 
-1\.	Open the **VMware Fusion** application.
-You can do so by double clicking the icon:
+1\.	Open the **VMware Fusion** application.  
+You can do so by double clicking the icon:  
 
 ![vmware_logo](/assets/import-hortonworks-sandbox-on-vmware/vmware_logo.png)
 
