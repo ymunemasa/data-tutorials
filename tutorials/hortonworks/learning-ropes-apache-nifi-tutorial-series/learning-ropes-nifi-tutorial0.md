@@ -149,9 +149,9 @@ Choose the NiFi service:
 
 ![select_nifi_service](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/select_nifi_service.png)
 
-3\. Once NiFi box is checked, select the **Next** button. As the the Ambari Wizard transitions to **Assign Masters**, you will see an **Error** window message ignore it. Click on the **OK** button. You will see an indicator that the **Assign Masters** page is loading, keep it's default settings and click **Next**. As the wizard transitions to **Assign Slaves and Clients**, a **Validation Issues** window will appear, select **Continue Anyway**. The wizard will continue onto the next setup settings called **Customize Services**. Keep it's default settings, click **Next**. A Consistency Check Failed window will appear, click **Proceed Anyway** and you will proceed to the next section.
+3\. Once NiFi box is checked, select the **Next** button. As the the Ambari Wizard transitions to **Assign Masters**, you will see an **Error** window message ignore it. Click on the **OK** button. You will see an indicator that the **Assign Masters** page is loading, keep it's default settings and click **Next**. As the wizard transitions to **Assign Slaves and Clients**, a **Validation Issues** window will appear, select **Continue Anyway**. The wizard will continue onto the next setup settings called **Customize Services**. Keep it's default settings, click **Next**. A **Consistency Check Failed** window will appear, click **Proceed Anyway** and you will proceed to the **Review** section.
 
-4\. For the Review section, you will see a list of repositories, select **Deploy->**.
+4\. For the **Review** section, you will see a list of repositories, select **Deploy->**.
 
 ![review_section_nifi](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/review_section_nifi.png)
 
