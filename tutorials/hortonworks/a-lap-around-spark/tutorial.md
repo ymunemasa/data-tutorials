@@ -81,7 +81,7 @@ Pi is roughly 3.143648
 ...
 ~~~
 
-### Using WordCount with Spark
+### Perform WordCount with Spark
 
 #### Copy input file for Spark WordCount Example
 
@@ -92,10 +92,6 @@ As user `spark`:
 ~~~ bash
 hadoop fs -copyFromLocal /etc/hadoop/conf/log4j.properties /tmp/data
 ~~~
-
-### Run Spark WordCount
-
-To run WordCount:
 
 #### Run the Spark shell:
 
@@ -251,14 +247,15 @@ scala>
 
 ##### Additional DataFrame API examples
 
-Continuing at the `scala>` prompt, type the following:
+Continuing at the `scala>` prompt, type the following to import sql functions:
 
 ~~~ js
 import org.apache.spark.sql.functions._ 
 ~~~
 
+and select "name" and "age" columns and increment the "age" column by 1:
+
 ~~~ js
-// Select all, but increment the age by 1
 df.select(df("name"), df("age") + 1).show()
 ~~~
 
@@ -277,8 +274,9 @@ This will produce an output similar to the following:
 scala>
 ~~~
 
+To return people older than 21, use the filter() function:
+
 ~~~ js
-// Select people older than 21
 df.filter(df("age") > 21).show()
 ~~~
 
@@ -295,9 +293,9 @@ This will produce an output similar to the following:
 scala>
 ~~~
 
+Next, to count the number of people of specific age, use groupBy() & count() functions:
 
 ~~~ js
-// Count people by age
 df.groupBy("age").count().show()
 ~~~
 
@@ -325,7 +323,7 @@ import org.apache.spark.sql._ 
 val sqlContext = new org.apache.spark.sql.SQLContext(sc)  
 
 // Create people RDD
-val people = sc.textFile("people.txt")                    
+val people = sc.textFile("people.txt")
 
 // Encode schema in a string
 val schemaString = "name age"
@@ -536,7 +534,7 @@ You should see an output similar to the following:
 
 Type `Ctrl+C` to exit beeline.
 
-*   **Stop Thrift Server**
+**Stop Thrift Server**
 
 ~~~ bash
 ./sbin/stop-thriftserver.sh
@@ -579,15 +577,19 @@ Spark context is available as sc, SQL context is available as sqlContext
 >
 ~~~
 
-Create a DataFrame and list the first few lines:
+Initialize SQL context:
 
 ~~~ js
 sqlContext <- sparkRSQL.init(sc)
 ~~~
 
+Create a DataFrame:
+
 ~~~ js
 df <- createDataFrame(sqlContext, faithful)
 ~~~
+
+List the first few lines:
 
 ~~~ js
 head(df)
@@ -607,11 +609,13 @@ eruptions waiting
 >
 ~~~
 
-Create people DataFrame from 'people.json' and list the first few lines:
+Create people DataFrame from 'people.json':
 
 ~~~ js
 people <- read.df(sqlContext, "people.json", "json")
 ~~~
+
+List the first few lines:
 
 ~~~ js
 head(people)
