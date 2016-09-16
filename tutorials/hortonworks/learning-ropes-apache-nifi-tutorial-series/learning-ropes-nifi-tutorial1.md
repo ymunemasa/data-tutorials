@@ -69,7 +69,7 @@ Refer to [NiFi's Documentation](https://nifi.apache.org/docs.html) to learn more
 - Troubleshoot problems that may occur
 - Run the the NiFi DataFlow
 
-Your dataflow will extract the following XML Attributes from the transit data listed in Table 1. We will learn how to do this extraction with evaluateXPath when we build our dataflow.
+Your dataflow will extract the following XML Attributes from the transit data listed in Table 1. We will learn how to do this extraction with EvaluateXPath when we build our dataflow.
 
 **Table 1: Extracted XML Attributes From Transit Data**
 
