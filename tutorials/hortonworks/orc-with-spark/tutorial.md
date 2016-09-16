@@ -8,8 +8,6 @@ intro-page: true
 components: [ spark, hive, orc ]
 ---
 
-### Introduction
-
 In this tutorial, we will explore how you can access and analyze data on Hive from Spark. In particular, you will learn:
 
 *   How to interact with Apache Spark through an interactive Spark shell

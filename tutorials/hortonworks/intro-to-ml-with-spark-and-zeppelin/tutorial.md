@@ -8,8 +8,6 @@ intro-page: true
 components: [ spark, zeppelin ]
 ---
 
-### Introduction
-
 In this tutorial, we will give you a taste of the powerful Machine Learning libraries in Apache Spark via a hands-on lab.
 
 We will also introduce the necessary steps to get you up and running with Apache Zeppelin on a Hortonworks Data Platform (HDP) Sandbox.

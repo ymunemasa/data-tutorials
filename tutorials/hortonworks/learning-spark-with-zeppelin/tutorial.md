@@ -8,8 +8,6 @@ intro-page: true
 components: [ spark, zeppelin ]
 ---
 
-### Introduction
-
 In this tutorial, we will introduce the basic concepts of Apache Spark DataFrames in a hands-on lab.
 
 We will also introduce the necessary steps to get up and running with Apache Zeppelin on a Hortonworks Data Platform (HDP) Sandbox.

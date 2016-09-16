@@ -8,8 +8,6 @@ intro-page: true
 components: [ spark ]
 ---
 
-### Introduction
-
 This tutorial walks you through many of the newer features of Spark 1.6.2 on YARN.
 
 With YARN, Hadoop can now support many types of data and application workloads; Spark on YARN becomes yet another workload running against the same set of hardware resources.

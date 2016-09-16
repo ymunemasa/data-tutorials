@@ -8,9 +8,6 @@ intro-page: true
 components: [ spark ]
 ---
 
-
-### Introduction
-
 In this tutorial, we will introduce core concepts of Apache Spark Streaming and run a Word Count demo that computes an incoming list of words every two seconds.
 
 ### Prerequisites

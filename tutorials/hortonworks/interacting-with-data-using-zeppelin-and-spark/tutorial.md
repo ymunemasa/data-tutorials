@@ -8,8 +8,6 @@ intro-page: true
 components: [ spark, zeppelin ]
 ---
 
-### Introduction
-
 In this tutorial, we are going to walk through the process of using Apache Zeppelin and Apache Spark to interactively analyze data on a Apache Hadoop Cluster. In particular, you will learn:
 
 1.  How to interact with Apache Spark from Apache Zeppelin
