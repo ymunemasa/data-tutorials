@@ -67,7 +67,7 @@ If you want to explore Hortonworks Sandbox in Microsoft Azure, please skip to `S
 
 Start the Hortonworks Sandbox following the [Installation Steps](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM.
 
-![sandbox_download](/assets/learning-the-ropes-of-the-hortonworks-sandbox/sandbox_download.png)
+![sandbox_download](/assets/learning-the-ropes-of-the-hortonworks-sandbox/sandox_download.png)
 
 > **Note:** The Sandbox [system requirements](http://hortonworks.com/products/hortonworks-sandbox/#install) include that you have a 64 bit OS with at least 8 GB of RAM and enabled BIOS for virtualization. Find out about the newest features, known and resolved issues along with other updates on HDP 2.4 from the [release notes](http://hortonworks.com/wp-content/uploads/2015/10/ReleaseNotes_10_27_2015.pdf). The Sandbox on Azure is under construction and will update to HDP2.5 soon.
 
