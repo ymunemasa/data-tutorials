@@ -1,6 +1,6 @@
 # Hortonworks Tutorials
 
-The tutorials that are currently working with HDP 2.3:
+The tutorials that are currently working with HDP 2.4:
 
 - [Analyzing Social Media Sentiment with Apache NiFi](hortonworks/analyzing-social-media-sentiment-data/tutorial.md)
 
