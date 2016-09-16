@@ -50,9 +50,9 @@ To create a notebook:
 
 1. Under the “Notebook” tab, choose **+Create new note**.
 
-2.  You will see the following window. Type a name for the new note (or accept the default): <br><br>![Screen Shot 2016-03-07 at 4.43.20 PM](http://hortonworks.com/wp-content/uploads/2016/03/Screen-Shot-2016-03-07-at-4.43.20-PM-300x112.png)
+2.  You will see the following window. Type a name for the new note (or accept the default): <br><br>![scr9-create-notebook](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr9-create-notebook.png)
 
-3.  Type sc.version into a paragraph in the note, and click the “Play” button (blue triangle): <br><br>![Screen Shot 2016-03-07 at 4.51.46 PM](http://hortonworks.com/wp-content/uploads/2016/03/Screen-Shot-2016-03-07-at-4.51.46-PM-300x21.png)<br>
+3.  Type sc.version into a paragraph in the note, and click the “Play” button (blue triangle): <br><br>![scr10-check-spark-version](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr10-check-spark-version.png)<br>
 SparkContext, SQLContext, ZeppelinContext will be created automatically. They will be exposed as variable names ‘sc’, ‘sqlContext’ and ‘z’, respectively, in scala and python environments.<br><br>
 **Note:** The first run will take some time, because it is launching a new Spark job to run against YARN. Subsequent paragraphs will run much faster.<br><br>
 
