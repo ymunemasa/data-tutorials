@@ -24,7 +24,7 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 *   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *   Finally, make sure to review a quick tutorial on [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md).
 
-#### Create a Notebook
+**Create a Notebook**
 
 If you're new to Zeppelin, make sure to checkout the [Getting Started Guide](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md) before proceeding.
 
@@ -131,7 +131,7 @@ Then let’s split the line into individual columns separated by `,` and then le
 val keys = fltr.map(_.split(",")).map(a => a(5))
 ~~~
 
-##### Let’s illustrate the query above with an example:
+**Let’s illustrate the query above with an example:**
 
 This is a row of the littlelog.csv file:
 
