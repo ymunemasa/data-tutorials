@@ -40,7 +40,7 @@ The core concepts of Spark DataFrames will be introduced in the lab itself. Here
 
 ### Setup
 
-#### 1. Start your Sandbox
+**1. Start your Sandbox**
 
 First, start your Sandbox Virtual Machine (VM) in either a local VirtualBox/VMware (or Azure cloud) environment and note your VM IP address.
 
@@ -48,7 +48,7 @@ We will refer to your VM IP address as `<HOST IP>` throughout this tutorial.
 
 If you need help finding your `<HOST IP>` checkout [Learning the Ropes](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#learn-host-address-environment).
 
-#### 2. Launch Zeppelin
+**2. Launch Zeppelin**
 
 Now that your Sandbox is running, open a web browser and go to: `http://<HOST IP>:9995`
 
@@ -56,7 +56,7 @@ Where `<HOST IP>` is the IP address of your Sandbox machine.
 
 For example, the default address for **VirtualBox** is [http://127.0.0.1:9995](http://127.0.0.1:9995)
 
-#### 3. Import Lab
+**3. Import Lab**
 
 The name of the lab you will be running today is *Lab 101_DS: Machine Learning with Spark*.
 
