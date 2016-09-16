@@ -189,7 +189,7 @@ You should see that the topology deployed successfully:
 
 This runs the class **TruckEventKafkaExperimTopology**. The main function of the class defines the topology and submits it to Nimbus. The storm jar part takes care of connecting to Nimbus and uploading the jar.
 
-Open your Ambari Dashboard. Click the Storm Service located in the ambari service list. Click the Quick Links Dropdown button at the top middle between Configs and Service Actions, then click the Storm UI button to enter the Storm UI. You should see the new Topology **truck-event-processor**.
+Open your Ambari Dashboard. Click the Storm View located in the Ambari User Views list. You should see the new Topology **truck-event-processor**.
 
 
 ![Topology Summary](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_ui_welcome_screen_iot.png)
