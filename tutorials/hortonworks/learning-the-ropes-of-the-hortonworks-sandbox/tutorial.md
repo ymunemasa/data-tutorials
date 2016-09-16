@@ -409,7 +409,7 @@ and then the
 
 ## Section 3: New Users in Sandbox <a id="section3"></a>
 
-There are **4 users persona** present in Sandbox:
+There are **4 user personas** present in Sandbox:
 
 1\. **maria_dev** -  maria_dev is responsible for getting insight from data. She loves to explore different HDP components like Hive, Pig, HBase, Phoenix, etc.
 
