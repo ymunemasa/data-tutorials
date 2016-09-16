@@ -1,8 +1,8 @@
 # Release Notes
 
-- Sept 2016
-- Md5 **VMware** Virtual Appliance - 74b279aaddfa30bb1e3cf65ff4e87855
-- Md5 **Virtualbox** Virtual Appliance- 76ea224b28477a74053172bc09e8a005
+Sept 2016  
+Md5 **VMware** Virtual Appliance - 74b279aaddfa30bb1e3cf65ff4e87855  
+Md5 **Virtualbox** Virtual Appliance- 76ea224b28477a74053172bc09e8a005
 
 HDP Stack and Ambari
 The Sandbox uses the following versions of Ambari and HDP stack.  Please use the following release note links provided to view Ambari and HDP stack specific information.
@@ -67,8 +67,8 @@ Ambari Views - zeppelin-view-2.4.0.0.1225.jar
 
 **Users / Password**
 Hive
-Database User: hive  
-Database Pass: hive
+Database User: hive   
+Database Pass: hive  
 
 **Databases Used**
 These are a list of databases used within Sandbox along with the corresponding HDP components that use them.
