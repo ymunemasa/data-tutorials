@@ -5,7 +5,7 @@ tutorial-id: 220
 tutorial-series: Streaming
 tutorial-version: hdp-2.5.0
 intro-page: false
-components: [ nifi, storm ]
+components: [ nifi, storm, kafka, hbase ]
 ---
 
 # Tutorial 0: Set Up Simulator, Apache Services and IDE Environment
@@ -76,7 +76,7 @@ NiFi will be installed on the Hortonworks Sandbox VirtualBox image because the s
 
 The following instructions will guide you through the NiFi installation process. All the steps throughout the tutorial will be done using the latest Hortonworks Sandbox on VirtualBox.
 
-1\. Make sure to exit from sandbox shell. Type `exit`. Open a terminal on **local machine**. Download the **install-nifi.sh** file from the github repo. Copy & paste the following commands:
+1\. Make sure to exit from sandbox shell. Type `exit`. Open a terminal on **local machine**. Download the **jdkinstall_nifi.sh** file from the github repo. Copy & paste the following commands:
 
 ~~~
 cd ~
@@ -86,24 +86,6 @@ curl -o install-nifi.sh https://raw.githubusercontent.com/hortonworks/tutorials/
 2\. Open a browser. Navigate to `http://hortonworks.com/downloads/`, click the DataFlow next Sandbox tab and download the latest version of Hortonworks DataFlow (HDF(™)):
 
 ![download_hdf_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/download_hdf_iot.png)
-
-3\. Run the **install-nifi.sh** script. Below is a definition of how the install nifi command works:
-
-~~~
-install-nifi.sh {location-of-HDF-download} {sandbox-host} {ssh-port} {hdf-version}
-~~~
-
-> Note: For VMware and Azure users, sandbox-host can be found at the welcome screen after starting your sandbox and ssh-port can be found in Table 1. hdf-version is the digits in the tar.gz name you downloaded, for example the numbers in bold HDF-**1.2.0.1-1**.tar.gz.
-
-After you provide the file path location to HDF Gzip file, sandbox hostname, ssh port number and HDF version, your command should look similar as follows:
-
-~~~
-bash install-nifi.sh ~/Downloads/HDF-1.2.0.1-1.tar.gz localhost 2222 1.2.0.1-1
-~~~
-
-> Note: You will be asked if you want to continue the download, type `yes`. You will also be asked twice for your ssh password to install NiFi on your Hortonworks Sandbox. You may need to change version number of HDF if yours is different.
-
-The script automatically installs NiFi onto your virtual machine. After successful completion, NiFi is transported onto the Hortonworks Sandbox and the HDF folder will be located at `~` folder.
 
 ### Step 2: Start NiFi <a id="step2-start-nifi-tutorial0"></a>
 
