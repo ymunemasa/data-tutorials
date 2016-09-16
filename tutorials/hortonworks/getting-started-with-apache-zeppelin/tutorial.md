@@ -67,7 +67,7 @@ Alternatively, instead of creating a new notebook, you may want to import an exi
 
 There are two ways to import Zeppelin notebooks, either by pointing to json notebook file local to your environment or by providing a url to raw file hosted elsewhere, e.g. on github. We'll cover both ways of importing those files.
 
-##### 1. Importing a JSON file
+**1. Importing a JSON file**
 
 Click Import.
 
@@ -83,7 +83,7 @@ Finally, select the notebook you want to import.
 
 Now you should see your imported notebook among other notebooks on the main Zeppelin screen.
 
-##### 2. Importing a Notebook with a URL
+**2. Importing a Notebook with a URL**
 
 Click Import.
 
