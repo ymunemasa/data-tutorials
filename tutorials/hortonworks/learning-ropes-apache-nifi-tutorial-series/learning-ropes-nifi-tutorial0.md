@@ -165,7 +165,7 @@ Choose the NiFi service:
 
 ![summary_section_wizard](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/summary_section_wizard.png)
 
-7\. Upon a successful installation, you should see a **green check symbol** next to the service name. This check symbol also indiates that NiFi is running.
+7\. Upon a successful installation, you should see a **green check symbol** next to the service name. This check symbol also indicates that NiFi is running.
 
 ![service_installed_succesfully](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/service_installed_succesfully.png)
 
