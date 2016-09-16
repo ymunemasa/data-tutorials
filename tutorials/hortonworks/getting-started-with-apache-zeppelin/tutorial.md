@@ -14,6 +14,7 @@ With a focus on Enterprise, Zeppelin has the following important features:
 
 * Livy integration (REST interface for interacting with Spark)
 * Security:
+
   * Execute jobs as authenticated user
   * Zeppelin authentication against LDAP
   * Notebook authorization
