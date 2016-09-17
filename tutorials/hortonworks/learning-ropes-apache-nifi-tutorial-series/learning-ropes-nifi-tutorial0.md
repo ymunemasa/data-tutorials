@@ -251,10 +251,10 @@ If you downloaded and installed NiFi on your local machine, use this step to sta
 
 There are 3 methods to start NiFi: launch NiFi in foreground, in the background or as a service. See the [HDF Install and Setup Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_HDF_InstallSetup/content/starting-nifi.html) to learn more.
 
-1\. To start NiFi in the background, open a terminal window or git bash, navigate to NiFi installation directory, and enter:
+1\. To start NiFi in the background, open a terminal window or git bash, navigate to NiFi installation directory ,`Applications` folder, and enter:
 
 ~~~bash
-./HDF-1.2.0.1-1/nifi/bin/nifi.sh start
+./HDF-2.0.0.0/nifi/bin/nifi.sh start
 ~~~
 
 2\. Open NiFi at `http://sandbox.hortonworks.com:8080/nifi/`. Wait 1 to 2 minutes for NiFi to load.
