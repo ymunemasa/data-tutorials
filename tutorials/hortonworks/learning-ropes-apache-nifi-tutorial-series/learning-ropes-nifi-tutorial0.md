@@ -130,7 +130,13 @@ NiFi is installed on the Hortonworks Sandbox VirtualBox image because the Sandbo
 
 Use the following steps to perform the NiFi installation:
 
-1\. Run the following commands to download the latest version of NiFi into the Ambari Stack.
+1\. SSH into the Sandbox VM:
+
+~~~bash
+ssh root@127.0.0.1 -p 2222
+~~~
+
+2\. Run the following commands in Sandbox terminal to download the latest version of NiFi into the Ambari Stack.
 
 ~~~bash
 cd /var/lib/ambari-server/resources/stacks/HDP/2.5/services/NIFI
@@ -141,7 +147,7 @@ service ambari-server restart
 
 > Note: You should receive a success message.
 
-2\. Open Ambari. In the left sidebar of services, click on the **Actions** button. A drop down menu appears, select the **Add Service** button ![add_service](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/add_service.png). The **Add Service Wizard** window will appear.
+3\. Open Ambari. In the left sidebar of services, click on the **Actions** button. A drop down menu appears, select the **Add Service** button ![add_service](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/add_service.png). The **Add Service Wizard** window will appear.
 
 ![add_service_wizard](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/add_service_wizard.png)
 
@@ -149,23 +155,23 @@ Choose the NiFi service:
 
 ![select_nifi_service](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/select_nifi_service.png)
 
-3\. Once NiFi box is checked, select the **Next** button. As the the Ambari Wizard transitions to **Assign Masters**, you will see an **Error** window message ignore it. Click on the **OK** button. You will see an indicator that the **Assign Masters** page is loading, keep it's default settings and click **Next**. As the wizard transitions to **Assign Slaves and Clients**, a **Validation Issues** window will appear, select **Continue Anyway**. The wizard will continue onto the next setup settings called **Customize Services**. Keep it's default settings, click **Next**. A **Consistency Check Failed** window will appear, click **Proceed Anyway** and you will proceed to the **Review** section.
+4\. Once NiFi box is checked, select the **Next** button. As the the Ambari Wizard transitions to **Assign Masters**, you will see an **Error** window message ignore it. Click on the **OK** button. You will see an indicator that the **Assign Masters** page is loading, keep it's default settings and click **Next**. As the wizard transitions to **Assign Slaves and Clients**, a **Validation Issues** window will appear, select **Continue Anyway**. The wizard will continue onto the next setup settings called **Customize Services**. Keep it's default settings, click **Next**. A **Consistency Check Failed** window will appear, click **Proceed Anyway** and you will proceed to the **Review** section.
 
-4\. For the **Review** section, you will see a list of repositories, select **Deploy->**.
+5\. For the **Review** section, you will see a list of repositories, select **Deploy->**.
 
 ![review_section_nifi](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/review_section_nifi.png)
 
 > Note: you should see a preparing to deploy message.
 
-5\. The wizard will transition to the **Install, Start and Test** section. Click **Next**.
+6\. The wizard will transition to the **Install, Start and Test** section. Click **Next**.
 
 ![install_started_service_success](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/install_started_service_success.png)
 
-6\. At the Summary section, you see an **Important** alert, which states that we should restart services that contain **restart indicators** in the left sidebar of Ambari Services on the Ambari Dashboard. Click **Continue->**.
+7\. At the Summary section, you see an **Important** alert, which states that we should restart services that contain **restart indicators** in the left sidebar of Ambari Services on the Ambari Dashboard. Click **Continue->**.
 
 ![summary_section_wizard](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/summary_section_wizard.png)
 
-7\. Upon a successful installation, you should see a **green check symbol** next to the service name. This check symbol also indicates that NiFi is running.
+8\. Upon a successful installation, you should see a **green check symbol** next to the service name. This check symbol also indicates that NiFi is running.
 
 ![service_installed_succesfully](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/service_installed_succesfully.png)
 
