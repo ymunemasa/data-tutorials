@@ -66,112 +66,22 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 
 ## Section 1: Overview
 
-- Install and Activate NiFi
+- Install and Activate NiFi By Ambari Install Wizard
 
 ## Section 1: Setup NiFi Environment <a id="setup-nifi-environment"></a>
 
 ### Step 1: Install NiFi <a id="step1-install-nifi-tutorial0"></a>
 
-NiFi will be installed on the Hortonworks Sandbox VirtualBox image because the sandbox does not come with NiFi preinstalled.
+NiFi will be installed on the Hortonworks Sandbox VirtualBox image because it
+will be used to activate the truck events simulator and transport data to Kafka.
 
-The following instructions will guide you through the NiFi installation process. All the steps throughout the tutorial will be done using the latest Hortonworks Sandbox on VirtualBox.
-
-1\. Make sure to exit from sandbox shell. Type `exit`. Open a terminal on **local machine**. Download the **jdkinstall_nifi.sh** file from the github repo. Copy & paste the following commands:
-
-~~~
-cd ~
-curl -o install-nifi.sh https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/realtime-event-processing/install-nifi.sh
-~~~
-
-2\. Open a browser. Navigate to `http://hortonworks.com/downloads/`, click the DataFlow next Sandbox tab and download the latest version of Hortonworks DataFlow (HDF(™)):
-
-![download_hdf_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/download_hdf_iot.png)
+1\. If you do not have NiFi installed on your sandbox, refer to [Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#download-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
+Learning the Ropes of Apache NiFi for step-by-step instructions.
 
 ### Step 2: Start NiFi <a id="step2-start-nifi-tutorial0"></a>
 
-It is time to start Apache NiFi.
-
-1\. SSH into the Hortonworks Sandbox
-
-~~~
-ssh root@127.0.0.1 -p 2222
-~~~
-
-2\. Navigate to the `bin` directory using the following command:
-
-~~~
-cd hdf/HDF-1.2.0.1-1/nifi/bin
-~~~
-
-3\. Run the `nifi.sh` script to start NiFi:
-
-~~~
-./nifi.sh start
-~~~
-
-> Note: to stop NiFi, type `./nifi.sh stop`
-
-Open the NiFi DataFlow at `http://sandbox.hortonworks.com:6434/nifi/` to verify NiFi started. Wait 1 minute for NiFi to load. If NiFi HTML interface doesn't load, verify the value in the nifi.properties file matches **nifi.web.http.port=6434**.
-
-4\. Navigate to the **conf** folder and open nifi.properties in the vi editor.
-
-~~~
-cd ../conf
-vi nifi.properties
-~~~
-
-5\. Type `/nifi.web.http.port` and press enter. Verify `6434` is the value of nifi.web.http.port as below, else change it to this value:
-
-~~~
-nifi.web.http.port=6434
-~~~
-
-To exit the vi editor, press `esc` and then enter `:wq` to save the file.
-Now that the configuration in the nifi.properties file has been updated, we need to port forward a new port for NiFi through the Port Forward GUI because the virtual machine is not listening for the port **6434**, so NiFi will not load on the browser. If your using VirtualBox Sandbox, refer to section 3.1. For **Azure Sandbox users**, refer to **section 2.2**.
-
-### 2.1 Forward Port with VirtualBox GUI
-
-1\. Open VirtualBox Manager
-
-2\. Right click your running Hortonworks Sandbox, click **settings**
-
-3\. Go to the **Network** Tab
-
-Click the button that says **Port Forwarding**. Overwrite NiFi entry with the following values:
-
-| Name  | Protocol  | Host IP  | Host Port  | Guest IP  | Guest Port  |
-|---|---|---|---|---|---|
-| NiFi  | TCP  | 127.0.0.1  | 6434  |   | 6434  |
-
-![port_forward_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/port_forward_nifi_iot.png)
-
-
-4\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. You should be able to access it now. Wait 1 to 2 minutes for NiFi to load.
-
-
-### 2.2 Forward Port with Azure GUI
-
-1\. Open Azure Sandbox.
-
-2\. Click the sandbox with the **shield icon**.
-
-![shield-icon-security-inbound.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/shield-icon-security-inbound.png)
-
-3\. Under **Settings**, in the **General** section, click **Inbound Security Rules**.
-
-![inbound-security-rule.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/inbound-security-rule.png)
-
-4\. Scroll to **NiFi**, click on the row.
-
-![list-nifi-port.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/list-nifi-port.png)
-
-5\. Change the **Destination Port Range** value from 9090 to 6434.
-
-![change-nifi-port.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/change-nifi-port.png)
-
-6\. Open NiFi at `http://sandbox.hortonworks.com:6434/nifi/`. You should be able to access it now. Wait 1 to 2 minutes for NiFi to load.
-
-Congratulations, we just installed NiFi onto our Sandbox, now NiFi is set up and we can use it in tutorial 1 to build our DataFlow. Let's set up the remaining services (Kafka, Storm, HBase, IDE), so when we arrive to the other tutorials, we can focus on how to use the tool rather than set up.
+1\. To activate the NiFi service, refer to [Step 4: Start NiFi on Sandbox](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
+Learning the Ropes of Apache NiFi for step-by-step instructions.
 
 ## Section 2: Overview
 

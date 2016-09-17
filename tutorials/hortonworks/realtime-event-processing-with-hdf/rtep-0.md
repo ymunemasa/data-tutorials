@@ -5,7 +5,7 @@ tutorial-id: 220
 tutorial-series: Streaming
 tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ nifi, storm, kafka ]
+components: [ nifi, storm, kafka, hbase, hive, hdfs ]
 ---
 
 
