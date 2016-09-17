@@ -173,7 +173,7 @@ Choose the NiFi service:
 
 ### Step 3: Download and Install NiFi on Local Machine (Option 2) <a id="download-nifi-machine"></a>
 
-1\. Open a browser. Download NiFi from [HDF Downloads Page](http://hortonworks.com/downloads/). You will see two HDF download links, both include HDF that only comes with NiFi packaged. There are two package options: one for HDF TAR.GZ file tailored to Linux and zip file more compatible with Windows. Mac can use either option. In this tutorial section, download the zip on a Mac:
+1\. Open a browser. Download NiFi from [HDF Downloads Page](http://hortonworks.com/downloads/). You will see four HDF download links. We will download the **NiFi only** option. There are two package options: one for HDF TAR.GZ file tailored to Linux and zip file more compatible with Windows. Mac can use either option. In this tutorial section, download the zip on a Mac:
 
 ![download_hdf_iot](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
 
