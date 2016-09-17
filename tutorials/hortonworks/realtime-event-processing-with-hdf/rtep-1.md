@@ -89,7 +89,9 @@ Learning the Ropes of Apache NiFi for step-by-step instructions.
 
 ## Section 2: Setup Kafka Service <a id="setup-kafka-service"></a>
 
-We will use Apache Ambari to activate and configure Kafka. Ambari is a graphic user interface for controlling Hadoop services, developing Big Data Applications through the user views (Files View, Hive View, etc) and performing Hadoop Administration. Feel free to explore our Ambari related tutorials.
+We need to setup Kafka because it will be used as secure cluster or the location
+where NiFi transports the data. Storm will pull that data from the cluster and
+push it into it's topology(dataflow).
 
 ### Step 1: Start Kafka <a id="start-kafka"></a>
 
@@ -147,6 +149,10 @@ From the Kafka page, click on the **Configs** tab. Verify the `zookeeper.connect
 
 ## Section 3: Setup Storm & HBase Services <a id="setup-storm-service"></a>
 
+We need to setup the Storm & HBase services because storm will deploy a topology
+that is configured to send data to HBase and HBase is used to create the tables
+that storm populates.
+
 ### Step 1: Start Storm & HBase <a id="step-1-start-hbase-storm-lab3"></a>
 
 
@@ -156,13 +162,15 @@ Start by logging into Ambari as an admin user. From the previous tutorials: HDFS
 
 ![hbase_service_on_off_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_service_on_off_iot.png)
 
+### 1.1 Setup HBase
+
 2\. Start HBase
 
-From the HBase page, click on Service Actions -> Start
+From the HBase page, click on **Service Actions -> Start**
 
 ![start_hbase_service_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/start_hbase_service_iot.png)
 
-Check the box and click on Confirm Start:
+Check the box and click on **Confirm Start**:
 
 ![confirm_hbase_start_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/confirm_hbase_start_iot.png)
 
@@ -170,6 +178,7 @@ Wait for HBase to start (It may take a few minutes to turn green)
 
 ![hbase_started_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_started_iot.png)
 
+### 1.2 Setup Storm
 
 3\. Start Storm the same way we started HBase in the previous steps. We will need it later for streaming real-time event data.
 
@@ -179,6 +188,41 @@ Wait for HBase to start (It may take a few minutes to turn green)
 
 ![storm_service_started_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_service_started_iot.png)
 
+Now that we have storm activated, we need to download a storm demo project for
+later when we use Storm's Visualization feature.
+
+5\. Let's SSH into the sandbox by shell:
+
+~~~
+ssh root@127.0.0.1 -p 2222
+~~~
+
+6\. We will download the demo project because it contains the necessary
+code and configuration properties required for storm to deploy the topology.
+
+~~~
+cd ~
+git clone -b hdp25experiment https://github.com/james94/iot-truck-streaming
+~~~
+
+7\. Navigate to the iot-truck-streaming folder, which is the location where the
+appropriate storm configuration files reside for configuring our topology.
+
+~~~
+cd ~/iot-truck-streaming
+~~~
+
+8\. Since we are at the base of our project, let’s export our storm demo
+configurations. We will create a new folder **storm_demo** as the new location
+where storm will look for instructions on configuring the storm topology:
+
+~~~
+sudo mkdir /etc/storm_demo
+sudo cp config.properties /etc/storm_demo
+sudo cp -R storm-demo-webapp/routes/ /etc/storm_demo
+~~~
+
+> Note: Storm will refer to the properties in the config.properties file to configure the topology.
 
 You can use the Ambari dashboard to check status of other components too. If **HDFS, Hive, YARN** are down, you can start them in the same way: by selecting the service and then using the Service Actions to start it. The remaining components do not have to be up. (Oozie can be stopped to save memory, as it is not needed for this tutorial)
 
@@ -189,6 +233,9 @@ You can use the Ambari dashboard to check status of other components too. If **H
 
 ## Section 4: Run the Simulator by Terminal <a id="run-simulator-terminal"></a>
 
+The simulator must be setup in order for NiFi to pull data from it and push
+that data into the dataflow.
+
 ### Stream Simulator <a id="stream-simulator-lab0"></a>
 
 The stream simulator is a lightweight framework that generates truck event data. The simulator uses [New York City Truck Routes (kml)](http://www.nyc.gov/html/dot/downloads/misc/all_truck_routes_nyc.kml) which defines driver road paths with Latitude and Longitude information.
@@ -197,9 +244,9 @@ The simulator uses **[Akka](http://akka.io/)** to simplify concurrency, messagin
 
 ### Step 1: Run the Simulator By shell <a id="step1-run-simulator-shell-lab0"></a>
 
-Before we run the simulator, let's install and download the simulator. For VMware and Azure users, refer to [Table 1](#table1-virtual-machine-information) for more detials on using ssh for that environment. For windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run the terminal commands.
+Before we run the simulator, let's install and download the simulator. For VMware and Azure users, refer to [Table 1](#table1-virtual-machine-information) for more details on using ssh for that environment. For windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run the terminal commands.
 
-### 1.1 Download & Setup The Simulator
+### 1.1 Setup The Simulator
 
 1\. Type the command to access the sandbox by shell:
 
@@ -207,22 +254,8 @@ Before we run the simulator, let's install and download the simulator. For VMwar
 ssh root@127.0.0.1 -p 2222
 ~~~
 
-For VMware and Azure users, insert the appropriate values for username, hostname and port into the command definition:
-
-~~~
-ssh <username>@<hostname> -p <port>
-~~~
-
-> Note: For VMware and Azure users, the hostname is different than VirtualBox and the **hostname** can be found on the welcome screen. Refer to Table 1 for **port** number. Username for VMware and Azure is same as VirtualBox. If you need help, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/).
-
-2\. Clone the github repo to download the truck event simulator.
-
-~~~
-cd ~
-git clone -b hdp25experiment https://github.com/james94/iot-truck-streaming
-~~~
-
-3\. Install Apache Maven, so we can compile the stream simulator code and run the simulator. Run the following commands:
+3\. Install Apache Maven. We will use it to compile the simulator code,
+so we can activate the simulator by shell or NiFi later. Execute the command:
 
 ~~~
 ./iot-truck-streaming/setup/bin/install_maven.sh
@@ -238,30 +271,14 @@ After your maven package installs, you should obtain the message: Complete!
 cd iot-truck-streaming
 ~~~
 
-5\. Since we are at the base of our project, let’s export our demo configurations:
 
-~~~
-sudo mkdir /etc/storm_demo
-sudo cp config.properties /etc/storm_demo
-sudo cp -R storm-demo-webapp/routes/ /etc/storm_demo
-~~~
-
-> Note: Storm will refer to the properties in the config.properties file to configure the topology.
-
-
-6\. For maven to run, it needs to detect the pom.xml file. Rename pom25.xml to pom.xml, copy/paste the commands:
+5\. For maven to run, it needs to detect the pom.xml file. Rename pom25.xml to pom.xml, copy/paste the commands:
 
 ~~~
 mv -f storm-streaming/pom25.xml storm-streaming/pom.xml
 
 /root/maven/bin/mvn clean package
 ~~~
-
-### Apache Maven command:
-
-mvn clean deletes everything in the target folder. The storm-streaming folder contains a target folder that is impacted. The package phase of the command compiles the code and packages it into jar files according to the pom file.
-
-> Note: packaging may take around 9 minutes. Add -DskipTests to the end of mvn command to speed up process.
 
 ### 1.2 Run The Simulator
 
@@ -332,7 +349,7 @@ You'll notice, the image icons next to the code files have small red circles on 
 - For maven to work, we have to tell it which pom file to use from the storm-streaming directory. Let's rename pom25 to pom using shell.
 
 ~~~bash
-mv storm-streaming/pom25.xml storm-streaming/pom.xml
+mv iot-truck-streaming/storm-streaming/pom25.xml iot-truck-streaming/storm-streaming/pom.xml
 ~~~
 
 ### 4.2 Compile and Package Demo Files into Jar
@@ -340,12 +357,24 @@ mv storm-streaming/pom25.xml storm-streaming/pom.xml
 - Now that we specified the pom for maven, it knows how to build the project. Let's execute the command:
 
 ~~~bash
+cd iot-truck-streaming
 mvn clean package -DskipTests
 ~~~
 
 Output should show success for each sub project within the overall project.
 
 ![maven_success_for_IDE_storm_project](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/maven_success_for_IDE_storm_project.png)
+
+### Apache Maven command:
+
+mvn clean deletes everything in the target folder. For example, if this was the second time you ran the mvn command from iot-truck-streaming folder, the storm-streaming folder as well as other folders that contain pom.xml files will have their target folders impacted. Clean part of the command removes the old target folder, while the package part of the command compiles the code and packages it into jar files according to the pom file.
+
+> Note: packaging may take around 9 minutes. Add -DskipTests to the end of mvn command to speed up process.
+
+**Why is Maven important for development testing?**
+
+It enables developers to test their large software projects that contain many
+java files at fast speeds.
 
 ### 4.3 Instruct Intellij to Enable Auto-Import for Maven Projects
 
