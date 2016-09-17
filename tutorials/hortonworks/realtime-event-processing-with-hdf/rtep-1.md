@@ -75,12 +75,12 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 NiFi will be installed on the Hortonworks Sandbox VirtualBox image because it
 will be used to activate the truck events simulator and transport data to Kafka.
 
-1\. If you do not have NiFi installed on your sandbox, refer to [Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi#download-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
+1\. If you do not have NiFi installed on your sandbox, refer to [Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#download-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
 Learning the Ropes of Apache NiFi for step-by-step instructions.
 
 ### Step 2: Start NiFi <a id="step2-start-nifi-tutorial0"></a>
 
-1\. To activate the NiFi service, refer to [Step 4: Start NiFi on Sandbox](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi#start-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
+1\. To activate the NiFi service, refer to [Step 4: Start NiFi on Sandbox](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
 Learning the Ropes of Apache NiFi for step-by-step instructions.
 
 ## Section 2: Overview
