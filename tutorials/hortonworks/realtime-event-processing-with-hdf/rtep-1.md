@@ -248,37 +248,34 @@ Before we run the simulator, let's install and download the simulator. For VMwar
 
 ### 1.1 Setup The Simulator
 
-1\. Type the command to access the sandbox by shell:
+1\. If you have not already ssh into sandbox shell, type the command to access the sandbox by shell:
 
 ~~~
 ssh root@127.0.0.1 -p 2222
 ~~~
 
-3\. Install Apache Maven. We will use it to compile the simulator code,
+2\. Install Apache Maven. We will use it to compile the simulator code,
 so we can activate the simulator by shell or NiFi later. Execute the command:
 
 ~~~
-./iot-truck-streaming/setup/bin/install_maven.sh
+cd ~/iot-truck-streaming
+./setup/bin/install_maven.sh
 ~~~
 
 > Note: You will be prompted to allow maven to install, type 'y' for yes
 
 After your maven package installs, you should obtain the message: Complete!
 
-4\. Navigate to iot-truck-streaming directory.
 
-~~~
-cd iot-truck-streaming
-~~~
-
-
-5\. For maven to run, it needs to detect the pom.xml file. Rename pom25.xml to pom.xml, copy/paste the commands:
+3\. For maven to run, it needs to detect the pom.xml file. Rename pom25.xml to pom.xml, copy/paste the commands:
 
 ~~~
 mv -f storm-streaming/pom25.xml storm-streaming/pom.xml
 
-/root/maven/bin/mvn clean package
+/usr/maven/bin/mvn clean package -DskipTests
 ~~~
+
+> Note: You should receive that all sub projects compiled successfully.
 
 ### 1.2 Run The Simulator
 
