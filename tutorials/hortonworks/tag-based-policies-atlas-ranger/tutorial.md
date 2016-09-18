@@ -334,7 +334,7 @@ The Ranger tag based policy is now enabled for **raj_ops** user. You can test it
 
 The query executes successfully. The query can be checked in the Ranger audit log which will show the access granted and associated policy which granted access. Select Service Name as `Sandbox_hive` in the search bar.
 
-![new_audit_results](/assets/tag-based-policies-atlas-ranger/new_audit_results.png)
+![audit_results_rajops](/assets/tag-based-policies-atlas-ranger/audit_results_rajops.png)
 
 > **NOTE**: There are 2 policies which provided access to raj_ops user, one is a tag based policy and the other is hive resource based policy. The associated tags (PII) is also denoted in the tags column in the audit record).
 
