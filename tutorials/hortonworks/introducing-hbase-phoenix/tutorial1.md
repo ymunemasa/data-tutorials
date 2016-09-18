@@ -20,7 +20,7 @@ In this tutorial, we are going to walk you through some basic HBase shell comman
 
 ## Prerequisites
 
-- [Download Hortonworks 2.5 Sandbox Technical Preview](http://hortonworks.com/tech-preview-hdp-2-5/)
+- [Download Hortonworks 2.5 Sandbox Technical Preview](http://hortonworks.com/downloads/#sandbox)
 - Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
 
 ## Outline
