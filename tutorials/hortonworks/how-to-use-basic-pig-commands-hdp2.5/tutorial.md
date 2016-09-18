@@ -22,7 +22,7 @@ We will first read in two data files that contain driver data statistics, and th
 *   FILTER and Group the data using `‘GROUP BY’`
 
 ## Pre-Requisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/tech-preview-2-5)
+*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around one hour to complete this tutorial
 
