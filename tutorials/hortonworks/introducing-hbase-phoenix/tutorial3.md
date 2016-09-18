@@ -14,7 +14,7 @@ We can also use **Hive** to perform SQL queries on the data stored in HBase tabl
 
 ## Prerequisites
 
-- [Download Hortonworks 2.5 Sandbox Technical Preview](http://hortonworks.com/tech-preview-hdp-2-5/)
+- [Download Hortonworks 2.5 Sandbox](http://hortonworks.com/downloads/#sandbox)
 - Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
 - Lab 1 : Introduction to HBase Concepts
 
