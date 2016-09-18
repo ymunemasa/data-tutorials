@@ -15,7 +15,7 @@ components: [ ambari, hive ]
 In this tutorial, we will use the [Ambari](http://hortonworks.com/hadoop/ambari/) HDFS file view to store data files of truck drivers statistics. We will implement [Hive](http://hortonworks.com/hadoop/hive/) queries to analyze, process and filter that data.
 
 ## Pre-Requisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/tech-preview-2-5)
+*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around one hour to complete this tutorial
 
