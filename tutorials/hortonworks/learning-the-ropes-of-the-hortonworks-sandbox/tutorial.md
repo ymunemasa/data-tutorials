@@ -417,7 +417,7 @@ and then the
 
 Ambari 2.4 introduced the notion of Role-Based Access Control(RBAC) for the Ambari web  interface.  Ambari now includes additional cluster operation roles providing more granular division of control of the Ambari Dashboard and the various Ambari Views.  The image below illustrates the various Ambari Roles.  Only the admin id has access to view or change these roles.  Please refer to the [HDP Ambari roles documentation](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.1/bk_ambari-administration/content/cluster_roles.html) for more information.
 
-![AmbariRBAC](/assets/hello-hdp/AmbariRBAC.png)
+![AmbariRBAC](/assets/learning-the-ropes-of-the-hortonworks-sandbox/AmbariRBAC.png)
 
 There are **4 user personas** present in Sandbox:
 
