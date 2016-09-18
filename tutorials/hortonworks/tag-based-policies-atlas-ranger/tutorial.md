@@ -16,8 +16,8 @@ This tutorial walks through an example of tagging data in Atlas and building a s
 
 ## Prerequisites
 
-- [Download Hortonworks 2.5 Sandbox Technical Preview](http://hortonworks.com/tech-preview-hdp-2-5/)
-- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
+- [Download Hortonworks 2.5 Sandbox Technical Preview](http://hortonworks.com/downloads/#sandbox)
+- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
 
 ## Outline
 
@@ -173,7 +173,7 @@ You need to create a Ranger policy which allows for access to name column except
 Go to Ranger UI on:
 `127.0.0.1:6080`
 
-![ranger_home_page_rajops](/assets/tag-based-policies-atlas-ranger/ranger_home_page_rajops.png)
+![ranger_homepage_rajops](/assets/tag-based-policies-atlas-ranger/ranger_homepage_rajops.png)
 
 Go back to `Sandbox_hive` and then `Add New Policy`:
 
@@ -201,11 +201,11 @@ Permissions – Click on the + sign next to Add Permissions and click on select 
 
 You should have your policy configured like this:
 
-![policy_configured](/assets/tag-based-policies-atlas-ranger/policy_configured.png)
+![employee_policy_rajops](/assets/tag-based-policies-atlas-ranger/employee_policy_rajops.png)
 
 Click on `Add` and you can see the list of policies that are present in `Sandbox_hive`.
 
-![new_policy_added](/assets/tag-based-policies-atlas-ranger/new_policy_added.png)
+![employee_policy_added_rajops](/assets/tag-based-policies-atlas-ranger/employee_policy_added_rajops.png)
 
 You have to disable the `Hive Global Tables Allow` to test out the one that you just created. Go inside to this policy and toggle to disable it.
 
@@ -234,7 +234,7 @@ SELECT name from employee LIMIT 100;
 The query runs successfully.
 Even, **raj_ops** user cannot not see all the columns the location and SSN. We would provide access to this user to all columns later.
 
-![admin_access_error](/assets/tag-based-policies-atlas-ranger/admin_access_error.png)
+![restrict_policy_rajops](/assets/tag-based-policies-atlas-ranger/restrict_policy_rajops.png)
 
 ## 5. Create Tag and Tag Based Policy <a id="create-tag-based-policy"></a>
 
@@ -272,7 +272,7 @@ Now let’s go back to Ranger UI. The tag and entity relationship will be automa
 
 ![select_tag_based_policies_rajops](/assets/tag-based-policies-atlas-ranger/select_tag_based_policies_rajops.png)
 
-You will see a page like this:
+You will see a page like given below.
 
 ![new_tag_rajops](/assets/tag-based-policies-atlas-ranger/new_tag_rajops.png)
 
