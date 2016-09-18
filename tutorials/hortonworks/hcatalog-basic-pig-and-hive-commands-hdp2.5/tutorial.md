@@ -17,7 +17,7 @@ In this tutorial, we will learn to use Hive and Pig along with other tools to pr
 ## Pre-Requisites
 
 *  [Apache HCatalog Video (running time: about 9 minutes)](http://www.youtube.com/watch?v=_dVlNu4lqpE)
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/tech-preview-2-5)
+*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around one hour to complete this tutorial
 
