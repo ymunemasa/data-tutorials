@@ -3,7 +3,7 @@ layout: tutorial
 title: Learning the Ropes of the Hortonworks Sandbox
 tutorial-id: 160
 tutorial-series: Introduction
-tutorial-version: hdp-2.4.0
+tutorial-version: hdp-2.5.0
 intro-page: true
 components: [ ambari ]
 ---
@@ -192,7 +192,7 @@ If you want to search for the host address your sandbox is running on, ssh into 
 |---------|-----:|
 | Sandbox Welcome Page | [http://_host_:8888]()|
 | Ambari Dashboard | [http://_host_:8080]()|
-| Ambari Welcome | [http://_host_:8080/views/ADMIN_VIEW/2.4.0.0/INSTANCE/#/]()|
+| ManageAmbari | [http://_host_:8080/views/ADMIN_VIEW/2.4.0.0/INSTANCE/#/]()|
 | Hive User View | [http://_host_:8080/#/main/views/HIVE/1.5.0/AUTO_HIVE_INSTANCE]()|
 | Pig User View | [http://_host_:8080/#/main/views/PIG/1.0.0/Pig_INSTANCE]()|
 | File User View | [http://_host_:8080/#/main/views/FILES/1.0.0/AUTO_FILES_INSTANCE]()|
@@ -339,7 +339,7 @@ Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 |---------|-----:|
 | Sandbox Welcome Page | [http://_host_:8888]()|
 | Ambari Dashboard | [http://_host_:8080]()|
-| Ambari Welcome | [http://_host_:8080/views/ADMIN_VIEW/2.2.1.0/INSTANCE/#/]()|
+| Manage Ambari | [http://_host_:8080/views/ADMIN_VIEW/2.2.1.0/INSTANCE/#/]()|
 | Hive User View | [http://_host_:8080/#/main/views/HIVE/1.0.0/AUTO_HIVE_INSTANCE]()|
 | Pig User View | [http://_host_:8080/#/main/views/PIG/1.0.0/Pig]()|
 | File User View | [http://_host_:8080/#/main/views/FILES/1.0.0/Files]()|
@@ -382,9 +382,15 @@ ambari-agent restart
 
 ### 2.2 Explore Ambari Welcome Screen 5 Key Capabilities <a id="explore-ambari-welcome-screen-azure"></a>
 
-Enter the **Ambari Welcome URL** and then you should see a similar screen:
+Enter the `Manage Ambari` page using the link above or click on the Ambari id pull down and select `Manage Ambari`:
+
+![ManageAmbari](/assets/learning-the-ropes-of-the-hortonworks-sandbox/ManageAmbari.png)
+
+and then you should see a similar screen:
 
 ![Lab0_3](/assets/learning-the-ropes-of-the-hortonworks-sandbox/ambari_welcome_learning_the_ropes_sandbox.png)
+
+> NOTE: only the Ambari admin id has access to this page
 
 1.  “**Operate Your Cluster**” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators
 2.  “**Manage Users + Groups**” allows you to add & remove Ambari users and groups
@@ -409,15 +415,19 @@ and then the
 
 ## Section 3: New Users in Sandbox <a id="section3"></a>
 
+Ambari 2.4 introduced the notion of Role-Based Access Control(RBAC) for the Ambari web  interface.  Ambari now includes additional cluster operation roles providing more granular division of control of the Ambari Dashboard and the various Ambari Views.  The image below illustrates the various Ambari Roles.  Only the admin id has access to view or change these roles.  Please refer to the [HDP Ambari roles documentation](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.1/bk_ambari-administration/content/cluster_roles.html) for more information.
+
+![AmbariRBAC](/assets/hello-hdp/AmbariRBAC.png)
+
 There are **4 user personas** present in Sandbox:
 
-1\. **maria_dev** -  maria_dev is responsible for getting insight from data. She loves to explore different HDP components like Hive, Pig, HBase, Phoenix, etc.
+1\. **maria_dev** -  maria_dev is responsible for preparing and getting insight from data. She loves to explore different HDP components like Hive, Pig, HBase, Phoenix, etc.
 
-2\. **raj_ops** - raj_ops is responsible for infrastructure build and R&D activites like design, install, configure and run. He serves as a technical expert in the area of system administration for complex operating systems.
+2\. **raj_ops** - raj_ops is responsible for infrastructure build and R&D activities like design, install, configure and administration. He serves as a technical expert in the area of system administration for complex operating systems.
 
 3\. **holger_gov** - holger_gov is primarily for the management of data elements, both the content and metadata. He has a specialist role that incorporates processes, policies, guidelines and responsibilities for administering organizations' entire data in compliance with policy and/or regulatory obligations.
 
-4\. **amy_ds** - A data scientist who uses Spark and Zeppelin to do exploratory data analysis, data cleanup and transformation as preparation for analysis.
+4\. **amy_ds** - A data scientist who uses Hive, Spark and Zeppelin to do exploratory data analysis, data cleanup and transformation as preparation for analysis.
 
 Some notable differences between these users in the Sandbox is mentioned below:
 
@@ -432,7 +442,7 @@ Some notable differences between these users in the Sandbox is mentioned below:
 | Manage Users/Groups | No | No | No | No | Yes |
 | Manage Ambari Views | No | No | No | No | Yes |
 | Atlas UI Access | No | No | Yes | No | Yes |
-| Sample Ranger Policy Access | SELECT | SELECT | SELECT, CREATE, DROP | ALL | NA |
+| [Sample Ranger Policy Access](http://hortonworks.com/hadoop-tutorial/tag-based-policies-atlas-ranger/#sample-ranger-policy) | SELECT | SELECT | SELECT, CREATE, DROP | ALL | NA |
 
 
 ## Section 4: Troubleshoot <a id="section4"></a>
