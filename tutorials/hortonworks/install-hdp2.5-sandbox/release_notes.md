@@ -97,7 +97,11 @@ These components are offered by the Hortonworks distribution, but not included i
 
 **Newly Added HDP Supported Packages**  
 
-These are packages that have recently been included into the Sandbox for this release.  
+These are packages that have recently been included into the Sandbox for this release. 
+
+**Ambari Infra**
+
+**HDP Supported Packages**
 
 **Apache Ambari**  
 ambari-metrics-grafana-2.4.0.0-1225.x86_64  
