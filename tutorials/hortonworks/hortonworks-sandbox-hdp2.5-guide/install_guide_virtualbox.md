@@ -49,7 +49,7 @@ https://support.apple.com/en-us/HT3696
 3\. **RAM** - At least 8 GB of RAM (The more, the better)  
 If you wish to enable services such as Ambari, HBase, Storm, Kafka, or Spark please ensure you have at least 10 Gb of physical RAM in order to run the VM using 8 GB.  
 
-More information for hardware requirements for VirtualBox can be found here   https://www.virtualbox.org/wiki/End-user_documentation  
+More information for hardware requirements for VirtualBox can be found [here](https://www.virtualbox.org/wiki/End-user_documentation).   
 
 4\. **Browsers**  
 
@@ -59,8 +59,7 @@ More information for hardware requirements for VirtualBox can be found here   ht
 
 **Hortonworks Sandbox virtual appliance for VirtualBox**  
 
-Download the correct virtual appliance file for your environment from http://hortonworks.com/products/hortonworks-sandbox/#install
-The file extension for a virtual appliance for VirtualBox should be .ova
+Download the correct virtual appliance file for your environment from [here](http://hortonworks.com/products/hortonworks-sandbox/#install). The file extension for a virtual appliance for VirtualBox should be .ova
 
 ## Procedure
 
