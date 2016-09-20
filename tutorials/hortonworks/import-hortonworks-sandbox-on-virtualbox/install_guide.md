@@ -1,6 +1,6 @@
 ---
 layout: tutorial
-title: How to Import Hortonworks Sandbox on VirtualBox
+title: Hortonworks Sandbox Guide
 tutorial-id: 730
 tutorial-series: Hello World
 tutorial-version: hdp-2.5.0

@@ -1,3 +1,13 @@
+---
+layout: tutorial
+title: Hortonworks Sandbox Guide
+tutorial-id: 730
+tutorial-series: Hello World
+tutorial-version: hdp-2.5.0
+intro-page: true
+components: [ sandbox ]
+---
+
 # Hortonworks Sandbox with VirtualBox
 
 ## Overview
