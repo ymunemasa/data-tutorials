@@ -17,8 +17,8 @@ he Hortonworks Sandbox is delivered as a virtual appliance.  The virtual applian
 To use the Hortonworks Sandbox, one of the supported virtual machine applications needs to installed on your host machine:  
 
 1\. VirtualBox  
-2\. VMware Fusion  
-3\. Hyper-V  
+2\. VMware Fusion
+
 
 This document describes importing the Hortonworks Sandbox virtual appliance into VMware.  
 
@@ -28,8 +28,7 @@ To use the Hortonworks Sandbox with VMware Fusion the following requirements nee
 
 **VMware Fusion Installed**  
 
-Version 5 or later (Version 7 recommended). You can download VMware Fusion here:  
-https://my.vmware.com/web/vmware/info/slug/desktop_end_user_computing/vmware_fusion/7_0#product_downloads
+Version 5 or later (Version 7 recommended). You can download VMware Fusion [link here:](https://my.vmware.com/web/vmware/info/slug/desktop_end_user_computing/vmware_fusion/7_0#product_downloads)
 
 **Host Operating System**  
 
@@ -43,7 +42,7 @@ https://support.apple.com/en-us/HT3696
 
 2\. **BIOS** - Has been enabled for virtualization support.  Please contact your specific computer vendor to determine how to enable/verify this feature in your machine’s BIOS.  
 
-3\. **RAM** - At least 8 GB of RAM (The more, the better)
+3\. **RAM** - At least 8 GB of RAM for the VM (The more, the better)
 If you wish to enable services such as Ambari, HBase, Storm, Kafka, or Spark please ensure you have at least 10 Gb of physical RAM in order to run the VM using 8 GB.  
 
 More information for hardware requirements for VMware can be found [here](https://www.vmware.com/support/fusion/faq/requirements).
@@ -53,6 +52,8 @@ More information for hardware requirements for VMware can be found [here](https:
 1\.  Chrome 25+,  
 2\.  IE 9+ (Sandbox will not run on IE 10)  
 3\.  Safari 6+  
+
+NOTE: Please allow popup-blockers
 
 **Hortonworks Sandbox virtual appliance for VMware Fusion**  
 
@@ -109,16 +110,12 @@ Click the **Finish** button.
 
 ![vmware_play](/assets/hortonworks-sandbox-hdp2.5-guide/vmware_play.png)
 
-9\.	After clicking on the play button, you should see the console display boot up information.
+9\. Eventually you will see the screen below indicating Hortonworks Sandbox is fully booted and displays login instructions.
 
-![vmware_booted](/assets/hortonworks-sandbox-hdp2.5-guide/vmware_booted.png)
-
-10\. Eventually you will see the screen below indicating Hortonworks Sandbox is fully booted and displays login instructions.
-
-![vmware_console](/assets/hortonworks-sandbox-hdp2.5-guide/vmware_console.png)
+![vmware_console](/assets/hortonworks-sandbox-hdp2.5-guide/vmware_booted.png)
 
 > NOTE: Because what is being displayed is a conceptually separate machine, control of the mouse and the keyboard must be passed back and forth between the host and the VM. This is particularly useful when the VM has a GUI.  If you accidently let the console “capture” your mouse or keyboard, you can release them back to the host machine by pressing the Ctrl and Command keys. A reminder appears in the upper right corner of the console window if you forget.
 
-11\. Use one of the supported browsers mentioned in the prerequisites section of this document within your host machine.  Enter the URL displayed on the console which brings you to the Splash page.  That’s it. Read over the information and links to get started in exploring HDP with the Hortonworks Sandbox!
+10\. Use one of the supported browsers mentioned in the prerequisites section of this document within your host machine.  Enter the URL displayed on the console which brings you to the Splash page.  That’s it. Read over the information and links to get started in exploring HDP with the Hortonworks Sandbox!
 
 ![new_splashscreen](/assets/hortonworks-sandbox-hdp2.5-guide/new_splashscreen.png)
