@@ -16,11 +16,9 @@ The Trucking business is a high-risk business in which truck drivers venture in
 
 This system can take into consideration adverse weather conditions, the driver's driving patterns, current traffic conditions and other criteria to alert and inform the management staff and the drivers themselves when risk factors run high.
 
-In previous tutorial, we have explored generating and capturing streaming data with [Apache NiFi](#rtep-1.md) and [Apache Kafka](http://hortonworks.com/hadoop-tutorial/simulating-transporting-realtime-events-stream-apache-kafka/).
+In previous tutorial, we have explored generating and capturing streaming data with [Apache NiFi](http://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm#section_4) and [Apache Kafka](http://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm#section_5).
 
-In this tutorial, you  will use [**Apache Storm**](http://hortonworks.com/labs/storm/) on the Hortonworks Data Platform to capture these data events and process them in real time for further analysis.
-
-In this tutorial, we will build a solution to ingest real time streaming data into HBase using [Storm](http://hortonworks.com/hadoop-tutorial/ingesting-processing-real-time-events-apache-storm/). Storm has a spout that reads truck_events data from Kafka and passes it to bolts, which process and persist the data into Hive & HBase tables.
+In this tutorial, we will build a solution to ingest real time streaming data into HBase using Storm. Storm has a spout that reads truck_events data from Kafka and passes it to bolts, which process and persist the data into Hive & HBase tables.
 
 ## Pre-Requisites
 
@@ -36,10 +34,9 @@ In this tutorial, we will build a solution to ingest real time streaming data in
 
 *   [HBase](#hbase-concept-lab3)
 *   [Apache Storm](#apache-storm-concept-lab3)
-*   [Step 1: Create tables in HBase](#step1-create-tables-hbase-lab3)
-*   [Step 2: Run Automation Script: Setup Demo Modules](#step2-run-auto-script-lab3)
-*   [Step 3: Launch new Storm Topology](#step3-launch-new-storm-topology-lab3)
-*   [Step 4: Verify Data in HBase](#step4-verify-data-hdfs-hbase-lab3)
+*   [Step 1: Create Tables in HBase](#step1-create-tables-hbase-lab3)
+*   [Step 2: Launch new Storm Topology](#step3-launch-new-storm-topology-lab3)
+*   [Step 3: Verify Data in HBase](#step4-verify-data-hdfs-hbase-lab3)
 *   [Conclusion](#conclusion-lab3)
 *   [Further Reading](#further-reading-lab3)
 
@@ -64,18 +61,18 @@ It's used for:
 *   And, to enforce Extract, Transform, and Load (ETL) paradigms.
 
 
-A Storm Topology is network of Spouts and Bolts. The Spouts generate streams, which contain sequences of tuples (data) while the Bolts process input streams and produce output streams. Hence, the Storm Toplogy can talk to databases, run functions, filter, merge or join data.
+A Storm Topology is network of Spouts and Bolts. The Spouts generate streams, which contain sequences of tuples (data) while the Bolts process input streams and produce output streams. Hence, the Storm Topology can talk to databases, run functions, filter, merge or join data. We will be using Storm parse data, perform complex computations on truck events and send data to HBase Tables.
 *   **Spout**: Works on the source of data streams. In the "Truck Events" use case, Spout will read data from Kafka topics.
-*   **Bolt**: Spout passes streams of data to Bolt which processes and persists  it to a data store or sends it downstream to another Bolt.
+*   **Bolt**: Spout passes streams of data to Bolt which processes and persists  it to a data store or sends it downstream to another Bolt. We have a RouteBolt that transforms the tuple and passes that data onto the other for further processing. We have 3 HBase bolts that write to 3 tables.
 
 Learn more about Apache Storm at the [Storm Documentation page](http://storm.apache.org/releases/1.0.0/index.html).
 
 ## Tutorial Overview
 
-*   Create HBase & Hive Tables
-*   Create Storm Topology
-*   Configure a Storm Spout and Bolts.
-*   Store Persisting data in HBase and Hive.
+*   Create HBase Tables
+*   Deploy Storm Topology
+*   Analyze a Storm Spout and several Bolts.
+*   Store Persisting data into HBase.
 *   Verify Data Stored in HBase.
 
 
@@ -83,9 +80,10 @@ Learn more about Apache Storm at the [Storm Documentation page](http://storm.apa
 
 *   Create HBase tables
 
-We will be working with 3 Hbase tables in this tutorial.
+We will work with 3 Hbase tables in this tutorial.
 
-The first table stores all events generated, the second stores the 'driverId' and non-normal events count and third stores number of non-normal events for each driverId.
+The first table stores **all events** generated, the second stores only
+**dangerous events** and third stores the **number of incidents per driverId**.
 
 ~~~
 su hbase
@@ -99,13 +97,23 @@ list  
 exit
 ~~~
 
-> Note: 'driver_events' is the table name and 'allevents' is column family. In the script above, we have one column family. Yet, if we want we can have multiple column families. We just need to include more arguments.
+- **driver_events** can be thought of as **All Events** table
+
+- **driver_dangerous_events** can be thought of as **Dangerous Events** Table
+
+- **driver_dangerous_events_count** can be thought of as
+**Incidents Per Driver** Table
+
+> Note: 'driver_events' is the table name and 'allevents' is column family.
+In the script above, we have one column family. Yet, if we want we can have
+multiple column families. We just need to include more arguments.
 
 
 ![Screen Shot 2015-06-04 at 7.03.00 PM.png](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_tables_iot.png)
 
 
-
+<!--
+*   [Step 2: Run the Automation script: Setup Demo Modules](#step2-run-auto-script-lab3)
 ### Step 2: Run the Automation script: Setup Demo Modules <a id="step2-run-auto-script-lab3"></a>
 
 Since this tutorial series is based on part of the trucking demo, there are many modules that need to be setup for the demo outside the scope of the tutorial. We manually setup NiFi, Kafka, HBase and Hive for the demo. Since there are other particular modules in the demo irrelevant from what we are learning in the tutorial series, we will run an automation script to setup the other modules that way we will be able to use storm for ingesting data in HBase with no issues.
@@ -149,10 +157,9 @@ cd iot-truck-streaming/
 ~~~
 
 Once we build and install the necessary modules for the demo, we are ready to deploy our storm topology.
-
+-->
 
 ### Step 3: Launch Storm Topology <a id="step3-launch-new-storm-topology-lab3"></a>
-
 
 Recall that the source code is under directory path
 `iot-truck-streaming/storm-streaming/src/`.
@@ -160,22 +167,19 @@ Recall that the source code is under directory path
 The pre-compiled jars are under the directory path
 `iot-truck-streaming/storm-streaming/target/`.
 
-**(Optional)** If you would like to modify/run the code:
+> Note: Back in Tutorial 0 in which we set up the Trucking Demo, we used maven
+to create the target folder.
 
-*   refer to [Appendix B](#update-iot-truck-streaming-project-lab3) for the steps to run maven to compile the jars to the target subdir from terminal command line
-*   refer to [Appendix C](#enable-remote-desktop-setup-topology) for the steps to enable VNC (i.e. 'remote desktop') access on your sandbox and open/compile the code using Eclipse
+### 3.1 Verify Kafka is Running & Deploy Topology
 
-### 3.1 Verify Kafka is Running & Create Topology
+1\. Verify that Kafka service is running using Ambari dashboard. If not, start the Kafka service as we did in tutorial 3.
 
-1\. Verify that Kafka service is running using Ambari dashboard. If not, start the Kafka service as we did in tutorial 2.
-
-
-2\. Create Storm Topology
+2\. Deploy Storm Topology
 
 We now have 'supervisor' daemon and Kafka processes running.
 To do real-time computation on Storm, you create what are called "topologies". A topology is a Directed Acyclic Graph (DAG) of spouts and bolts with streams of tuples representing the edges. Each node in a topology contains processing logic, and links between nodes indicate how data should be passed around between nodes.
 
-Running a topology is straightforward. First, you package all your code and dependencies into a single jar like we did in the tutorial 1 with mvn clean package. Then, you run a command like the following: The command below will start a new Storm Topology for Truck Events.
+Running a topology is straightforward. First, you package all your code and dependencies into a single jar. In tutorial 0 when we set up our IDE environment, we ran mvn clean package after we were satisfied with the state of our code for the topology, which packaged our storm project into a **storm...SNAPSHOT.jar**. The command below will deploy a new Storm Topology for Truck Events.
 
 
 ~~~bash
@@ -189,30 +193,55 @@ You should see that the topology deployed successfully:
 
 This runs the class **TruckEventKafkaExperimTopology**. The main function of the class defines the topology and submits it to Nimbus. The storm jar part takes care of connecting to Nimbus and uploading the jar.
 
-Open your Ambari Dashboard. Click the Storm View located in the Ambari User Views list. You should see the new Topology **truck-event-processor**.
+Open your Ambari Dashboard. Click the **Storm View** located in the Ambari User Views list.
 
+![storm_view_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_view_iot.png)
 
-![Topology Summary](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_ui_welcome_screen_iot.png)
+You should see the new Topology **truck-event-processor**.
+
+![storm_view_topology_listing](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_view_topology_listing_iot.png)
 
 Run the NiFi DataFlow to generate events.
-Return to the Storm UI and click on truck-event-processor topology to drill into it.  Under Spouts, after 6-10 minutes, you should see that numbers of emitted and transferred tuples is increasing which shows that the messages are processed in real time by Spout
+Return to the Storm View and click on **truck-event-processor** topology in the list of topologies to drill into it.  
 
+As you scroll down the page, let's analyze a Visualization of our truck-event-processor topology:
+
+![storm_topology_new_stormAPI_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_topology_new_stormAPI_iot.png)
+
+After 6-10 minutes, you should see that numbers of emitted and transferred tuples for each node(Spout or Bolt) in the topology is increasing, which shows that the messages are processed in real time by Spout and Bolts.
 
 ![](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/topology_spouts_bolts_tuples_increasing.png)
 
+Overview of truck-event-processor in Storm View:
+- Topology Summary
+- Topology Stats
+- truck-event-processor Visualization
+- Spout
+- Bolts
+- Topology Configuration
 
-Under Topology Visualization: You shall see here that our 3 HBase bolts started sending data to 3 HBase Tables.
+### 3.2 Analysis of Topology Visualization:
+- RouteBolt processes the data received by KafkaSpout
+
+- CountBolt takes the data from RoutBolt and counts the incidents per driver
+- 1 HBaseBolt performs complex transformations on the data received by CountBolt
+to write to **Incidents Per Driver** Table
+
+- 2 HBase Bolts perform complex transformations on the data from RouteBolt to
+write to **All Events** and **Dangerous Event** Tables.
 
 
 ![](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/topology_visualization_storm.png)
 
-Note: You can also keep track of several statistics of Spouts and Bolts. For instance, to find Spouts Statistics, click on **kafkaSpout** located in the Spouts section.
+>Note: You can also keep track of several statistics of Spouts and Bolts.
+For instance, to find Spout's Statistics, click on **kafkaSpout** located in
+the Spouts section.
 
 ![spout_statistics_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/spout_statistics_iot.png)
 
 ### Step 4: Verify Data in HBase <a id="step4-verify-data-hdfs-hbase-lab3"></a>
 
-Since the NiFi DataFlow was activated in the last step, let’s verify that Storm our 3 HBase bolts started sending data to the 3 HBase Tables.
+Let’s verify that Storm's 3 HBase bolts successfully sent data to the 3 HBase Tables.
 
 *   If you haven't done so, you can you can stop the NiFi DataFlow. Press the stop symbol.
 *   Verify that the data is in HBase by executing the following commands in HBase shell:
@@ -227,7 +256,7 @@ count 'driver_dangerous_events_count'
 exit
 ~~~
 
-The `driver_dangerous_events` table is updated upon every violation.
+The `driver_dangerous_events` table is updated upon every violation event.
 
 ![verify_data_in_hbase_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/verify_data_in_hbase_iot.png)
 
@@ -244,7 +273,17 @@ storm kill TruckEventKafkaExperimTopology
 
 ## Conclusion <a id="conclusion-lab3"></a>
 
-Congratulations, you built your first Hortonworks DataFlow Application. When NiFi, Kafka and Storm are combined, they create the Hortonworks DataFlow. You have used the power of NiFi to ingest, route and land real-time streaming data. You learned to capture that data with Kafka and perform instant processing with Storm. A common challenge with many use cases, which is also observed in this tutorial series is ingesting a live stream of random data, and filtering the junk data from the actual data we care about. Through these tutorials, you learned to manipulate, persist and perform many other operations on random data.
+Congratulations, you built your first Hortonworks DataFlow Application.
+When NiFi, Kafka and Storm are combined, they create the Hortonworks DataFlow.
+You have used the power of NiFi to ingest, route and land real-time streaming
+data. You learned to capture that data with Kafka and perform instant processing
+with Storm. A common challenge with many use cases, which is also observed in
+this tutorial series is ingesting a live stream of random data, and filtering
+the junk data from the actual data we care about. Through these tutorials, you
+learned to manipulate, persist and perform many other operations on random data.
+We have a working application that shows us a visualization of driver behavior,
+normal and dangerous events per city. Can you brainstorm ways to further enhance
+this application?
 
 <!--Run Trucking Demo Section
 
@@ -349,7 +388,6 @@ Real-Time Drools Driven Monitoring Application
 ![drools_driven_driver_alerts_app_table](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/drools_driven_driver_alerts_app_table.png)
 
 Congratulations, you just incorporated NiFi into the trucking demo. Notice that each time the rows in the table turn red, it indicates a prediction that the driver committed a violation while driving. On the map, the green dots indicate probability that the driver will not commit a violation while red dots indicate the opposite.
-
 -->
 
 ## Further Reading <a id="further-reading-lab3"></a>
