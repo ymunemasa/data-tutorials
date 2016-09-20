@@ -342,14 +342,14 @@ The following are Ambari settings that one should be aware of.
 
 1\. By default Ambari Metrics service is off.  
 2\.  Maintenance Mode is on for  
--HDFS  
--HBase  
--Falcon  
--Storm  
--Ambari Metrics  
--Ambari Infra  
--Atlas  
--Kafka  
--Knox  
--Spark  
--Spark2  
+*HDFS  
+*HBase  
+*Falcon  
+*Storm  
+*Ambari Metrics  
+*Ambari Infra  
+*Atlas  
+*Kafka  
+*Knox  
+*Spark  
+*Spark2  
