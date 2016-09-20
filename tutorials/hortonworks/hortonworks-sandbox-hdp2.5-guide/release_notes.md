@@ -17,9 +17,9 @@ Md5 **Virtualbox** Virtual Appliance- 76ea224b28477a74053172bc09e8a005
 HDP Stack and Ambari  
 The Sandbox uses the following versions of Ambari and HDP stack.  Please use the following release note links provided to view Ambari and HDP stack specific information.
 
-[link HDP 2.5 Product Release Notes]https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.5.0/bk_release-notes/content/ch_relnotes_v250.html
+[HDP 2.5 Product Release Notes](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.5.0/bk_release-notes/content/ch_relnotes_v250.html)
 
-[link Ambari 2.4 Release Notes]https://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.0/bk_ambari-release-notes/content/ch_relnotes-ambari-2.4.0.0.html
+[Ambari 2.4 Release Notes](https://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.0/bk_ambari-release-notes/content/ch_relnotes-ambari-2.4.0.0.html)
 
 ## Behavior Changes
 
