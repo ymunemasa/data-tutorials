@@ -17,11 +17,9 @@ Md5 **Virtualbox** Virtual Appliance- 76ea224b28477a74053172bc09e8a005
 HDP Stack and Ambari  
 The Sandbox uses the following versions of Ambari and HDP stack.  Please use the following release note links provided to view Ambari and HDP stack specific information.
 
-**HDP 2.5 Build 1245 Release Notes**  
-https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.5.0/bk_release-notes/content/ch_relnotes_v250.html
+[link HDP 2.5 Product Release Notes]https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.5.0/bk_release-notes/content/ch_relnotes_v250.html
 
-**Ambari 2.4 Build 1225 Release Notes**  
-https://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.0/bk_ambari-release-notes/content/ch_relnotes-ambari-2.4.0.0.html
+[link Ambari 2.4 Release Notes]https://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.0/bk_ambari-release-notes/content/ch_relnotes-ambari-2.4.0.0.html
 
 ## Behavior Changes
 
@@ -76,18 +74,13 @@ Ambari Views- hueambarimigration-2.4.0.0.1225.jar
 Ambari Views - wfmanager-2.4.0.0.1225.jar  
 Ambari Views - zeppelin-view-2.4.0.0.1225.jar  
 
-**Users / Password**  
-Hive  
-Database User: hive     
-Database Pass: hive    
-
 **Databases Used**  
 These are a list of databases used within Sandbox along with the corresponding HDP components that use them.  
 
 1\. Ambari: postgres  
 2\.  Hive Metastore : Mysql  
 3\.  Ranger: Mysql  
-4].  Oozie: derby (embedded)  
+4\.  Oozie: derby (embedded)  
 
 **HDP Supported Components Not Installed**  
 These components are offered by the Hortonworks distribution, but not included in the Sandbox.  
@@ -349,14 +342,14 @@ The following are Ambari settings that one should be aware of.
 
 1\. By default Ambari Metrics service is off.  
 2\.  Maintenance Mode is on for  
-HDFS  
-HBase  
-Falcon  
-Storm  
-Ambari Metrics  
-Ambari Infra  
-Atlas  
-Kafka  
-Knox  
-Spark  
-Spark2  
+-HDFS  
+-HBase  
+-Falcon  
+-Storm  
+-Ambari Metrics  
+-Ambari Infra  
+-Atlas  
+-Kafka  
+-Knox  
+-Spark  
+-Spark2  
