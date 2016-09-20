@@ -7,7 +7,7 @@ tutorial-version: hdp-2.5.0
 intro-page: true
 components: [ atlas, sqoop, hive, kafka, storm ]
 ---
-## Do not move ahead with the tutorial, some editing needs to be done
+
 ## Introduction
 
 Hortonworks introduced [Apache Atlas](http://hortonworks.com/blog/apache-atlas-project-proposed-for-hadoop-governance/) as part of the [Data Governance Initiative](http://hortonworks.com/press-releases/hortonworks-establishes-data-governance-initiative/), and has continued to deliver on the vision for open source solution for centralized metadata store, data classification, data lifecycle management and centralized security.
@@ -98,10 +98,14 @@ Run the following command to get to the scripts for the tutorial.
 ~~~
 mkdir crosscomponent_demo
 cd crosscomponent_demo
-wget
-unzip crosscomponent_scripts.zip
+wget https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/cross-component-lineage-using-atlas/crosscomponent_scripts.zip?raw=true
+unzip crosscomponent_scripts.zip\?raw\=true 
 cd crosscomponent_scripts/sqoop-demo
 ~~~
+
+![download_and_extract](/assets/cross-component-lineage-using-atlas/download_and_extract.png)
+
+![download_and_extract2](/assets/cross-component-lineage-using-atlas/download_and_extract2.png)
 
 ### 3.3: Create a mysql table
 
