@@ -7,7 +7,7 @@ tutorial-version: hdp-2.5.0
 intro-page: true
 components: [ atlas, sqoop, hive, kafka, storm ]
 ---
-
+## Do not move ahead with the tutorial, some editing needs to be done
 ## Introduction
 
 Hortonworks introduced [Apache Atlas](http://hortonworks.com/blog/apache-atlas-project-proposed-for-hadoop-governance/) as part of the [Data Governance Initiative](http://hortonworks.com/press-releases/hortonworks-establishes-data-governance-initiative/), and has continued to deliver on the vision for open source solution for centralized metadata store, data classification, data lifecycle management and centralized security.
