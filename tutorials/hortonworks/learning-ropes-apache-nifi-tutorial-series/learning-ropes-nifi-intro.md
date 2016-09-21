@@ -10,7 +10,7 @@ components: [ nifi ]
 
 # Learning the Ropes of Apache NiFi
 
-Version 1.1 for HDF 2.0 updated Sept 14, 2016
+Version 1.1 for HDF 2.0 updated Sept 20, 2016
 
 ## Introduction
 
