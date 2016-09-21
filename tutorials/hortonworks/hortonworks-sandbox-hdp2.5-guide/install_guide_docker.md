@@ -64,7 +64,7 @@ To check that the image was successfully imported try running the docker images 
 
 3\. Download and run the start sandbox script  
 
-You can download the start script [here](https://github.com/hortonworks/sandbox-shared/blob/master/deploy/packer/docker_resources/singlenode/scripts/start_scripts/start_sandbox.sh) **EDIT ME**  
+You can download the start script [here](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hortonworks-sandbox-hdp2.5-guide/start_sandbox.sh) 
 
 Save it to your computer and execute it, you can ignore the $TERM warnings:  
 
