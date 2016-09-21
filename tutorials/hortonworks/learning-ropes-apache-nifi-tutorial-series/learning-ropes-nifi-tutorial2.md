@@ -3,7 +3,7 @@ layout: tutorial
 title: Tutorial 2 Enhance the DataFlow with Geo Location Enrichment
 tutorial-id: 640
 tutorial-series: Basic Development
-tutorial-version: hdf-2.0
+tutorial-version: hdf-2.0.0
 intro-page: false
 components: [ nifi ]
 ---
