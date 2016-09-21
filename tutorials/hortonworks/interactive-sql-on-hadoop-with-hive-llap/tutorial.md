@@ -10,16 +10,16 @@ components: [ hive, ambari, tableau ]
 
 ##Introduction
 
-**Hive LLAP** combines persistent query servers and intelligent in-memory caching to deliver blazing-fast SQL queries without sacrificing the scalability Hive and Hadoop are known for. This tutorial will show you how to try LLAP on your HDP 2.5 Sandbox and experience its interactive performance firsthand using a BI tool of your choice (`Tableau` will be show in the demo but others will work fine).
+**Hive LLAP** combines persistent query servers and intelligent in-memory caching to deliver blazing-fast SQL queries without sacrificing the scalability Hive and Hadoop are known for. This tutorial will show you how to try LLAP on your HDP 2.5 Sandbox and experience its interactive performance firsthand using a BI tool of your choice (`Tableau` will be show in the demo but others will work as well).
 
 ![hive_llap_architecture](/assets/interactive-sql-on-hadoop-with-hive-llap/hive_llap_architecture.png)
 
 ## Benefits of Hive LLAP include:
 
-1. LLAP uses persistent query servers to avoid long startup times and deliver fast SQL.
-2. LLAP shares its in-memory cache among all SQL users, maximizing the use of this scarce resource.
-3. LLAP has fine-grained resource management and preemption, making it great for highly concurrent access across many users.
-4. LLAP is 100% compatible with existing Hive SQL and Hive tools.
+1\. LLAP uses persistent query servers to avoid long startup times and deliver fast SQL.  
+2\. LLAP shares its in-memory cache among all SQL users, maximizing the use of this scarce resource.  
+3\. LLAP has fine-grained resource management and preemption, making it great for highly concurrent access across many users.  
+4\. LLAP is 100% compatible with existing Hive SQL and Hive tools.  
 
 This tutorial assumes you have a **16GB** (or more) laptop and does its best to maximize available resources. Since this is relatively limited, if you’re looking to try Hive LLAP at big data scales, check out the LLAP template on the cloud.
 
@@ -29,14 +29,14 @@ The goal of this tutorial is to learn how to enable interactive SQL query perfor
 
 ## Pre-requisites
 
-1. This tutorial requires the HDP 2.5 Sandbox.  The HDP 2.5 Sandbox can be downloaded at http://hortonworks.com/products/sandbox/
+1\. This tutorial requires the HDP 2.5 Sandbox.  The HDP 2.5 Sandbox can be downloaded at http://hortonworks.com/products/sandbox/  
 
-2. If you are not familiar HDP 2.5 Sandbox, the following tutorial provides an introduction:
-[Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+2\. If you are not familiar HDP 2.5 Sandbox, the following tutorial provides an introduction:
+[Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)  
 
 `Hive LLAP` is a Technical Preview feature in the HDP 2.5 Sandbox. This tutorial requires making some configurations to the Sandbox and allocating additional resources. In order to run this tutorial you will need to be able to allocate **12 GB RAM** to the Sandbox VM.
 
-This tutorial also requires **Tableau version 9.X** or later.
+This tutorial also requires **Tableau version 9.X** or later.  
 
 
 ## Outline
@@ -61,7 +61,7 @@ When you press `Continue` you have the opportunity to change the amount of VM RA
 
 ![change_ram](/assets/interactive-sql-on-hadoop-with-hive-llap/change_ram.png)
 
-This assumes you have a `16 GB` system. If your system has more than 16 GB total memory, feel free to increase RAM even further for better performance.
+This assumes you have a `16 GB` system. If your system has more than 16 GB total memory, feel free to increase RAM even further for better performance. When the import is done, boot the Sandbox and wait for the welcome screen to appear.
 
 ### Enable Ambari Admin Login
 
@@ -76,45 +76,45 @@ The Sandbox ships with a few small tables, but to get a more substantial feel of
 
 To get started, log into the console by navigating your browser to http://127.0.0.1:4200/, then follow these steps:
 
-1. Log in to the console as root.
+1\. Log in to the console as root.  
 
-2. Become the hive user:
+2\. Become the hive user:  
 
 ~~~
 su - hive
 ~~~
 
-3. Download the data generator bundle:
+3\. Download the data generator bundle:  
 
 ~~~
 wget  https://github.com/cartershanklin/sandbox-datagen/blob/master/datagen.tgz?raw=true
 ~~~
 
-4. Extract the bundle:
+4\. Extract the bundle:  
 
 ~~~
-tar -zxf datagen.tgz
+tar -zxf datagen.tgz?raw=true
 ~~~
 
-5. Enter the datagen directory:
+5\. Enter the datagen directory:  
 
 ~~~
 cd datagen
 ~~~
 
-6. Generate the data:
+6\. Generate the data:  
 
 ~~~
 sh datagen.sh 2
 ~~~
 
-This step will take up to a few minutes.
+This step will take up to a few minutes.  
 
 ### Stop Services We Don’t Need
 
 Ambari enables a number of HDP services we don’t need to try Hive LLAP. Since LLAP relies heavily on caching and in-memory processing we will stop these to free memory to improve performance.
 
-When you first login you will see these services:
+When you first login you will see these services. If the services show up as yellow rather than green, wait a moment until you see green checkmarks next to these services.
 
 ![initial_services](/assets/interactive-sql-on-hadoop-with-hive-llap/initial_services.png)
 
@@ -123,8 +123,6 @@ To free up a bit more resources we can stop stop Oozie, Flume and Zeppelin Noteb
 ![service_actions](/assets/interactive-sql-on-hadoop-with-hive-llap/service_actions.png)
 
 Then press `Stop`. After the service is stopped, select `Turn On Maintenance Mode` from Service Actions.
-
-You will also need to delete the Atlas service. After this is done your services will look like:
 
 ![final_services](/assets/interactive-sql-on-hadoop-with-hive-llap/final_services.png)
 
@@ -139,6 +137,8 @@ First select `YARN`:
 Then Configs -> Settings. We will increase YARN Memory to `8GB (8192MB)`
 
 ![yarn_memory](/assets/interactive-sql-on-hadoop-with-hive-llap/yarn_memory.png)
+
+> NOTE: If you see a maximum value of 256 TB, reload your tab until you see a smaller value.
 
 After that, set the Minimum Container Size to `512MB`.
 
@@ -170,11 +170,11 @@ You should see these settings before you save:
 
 ![cluster_capacity](/assets/interactive-sql-on-hadoop-with-hive-llap/cluster_capacity.png)
 
-Next, enable Fetch column stats at compiler:
+Next, confirm your HiveServer2 Heap Size and Metastore Heap Size are both set to 1024 MB. If they are set to something larger, reset them to 1024 MB.
 
 ![cbo](/assets/interactive-sql-on-hadoop-with-hive-llap/cbo.png)
 
-Then increase the per Map memory threshold to `350 MB` (doesn’t need to be exact):
+Next, increase the per Map memory threshold to about `350 MB` (doesn’t need to be exact):
 
 ![memory_map_join](/assets/interactive-sql-on-hadoop-with-hive-llap/memory_map_join.png)
 
@@ -182,7 +182,9 @@ Next switch to the Advanced configuration tab and set hive.tez.java.opts to `-se
 
 ![hive_tez_java_opts](/assets/interactive-sql-on-hadoop-with-hive-llap/hive_tez_java_opts.png)
 
-Then set hive.llap.io.memory.mode to `cache`:
+Finallty press Save, Hive LLAP will automatically start, wait until Ambari has zero active operations before continuing.  
+
+Note that to connect to Hive LLAP you use a dedicated HiveServer2 instance which, by default, runs on port 10500. You can also use Zookeeper-based service discovery to connect beeline to Hive LLAP. The connection information is listed on the Hive Summary tab, under HiveServer2 Interactive JDBC URL.
 
 ![hive_llap_io_memory_mode](/assets/interactive-sql-on-hadoop-with-hive-llap/hive_llap_io_memory_mode.png)
 
@@ -198,9 +200,11 @@ First we need to install the Hive ODBC driver. If you are querying the large dat
 
 Start by downloading the `ODBC driver` from the Add-Ons section in http://hortonworks.com/downloads/
 
-If you are on Windows, create a DSN using the ODBC Driver Manager and point it to host `127.0.0.1`, port 10500, use Username/Password authentication with the credentials `hive/hive`.
+If you are on Windows: Create a DSN using the ODBC Driver Manager and point it to host `127.0.0.1`, port 10500, use Username/Password authentication with the credentials `hive/hive`.
 
 ![odbc_driver_setup](/assets/interactive-sql-on-hadoop-with-hive-llap/odbc_driver_setup.png)
+
+> **If you are on Mac**: Note that connecting using Tableau does not require the use of an ODBC Driver Manager, the driver will be loaded automatically. Other BI tools may require the use of an ODBC Driver Manager.
 
 ### Connect Tableau to LLAP and a Small Dataset
 
@@ -232,27 +236,27 @@ This table has data on professions, numbers of people within those professions a
 
 To reproduce this chart:
 
-1. Drag the `Total Emp` measure to the bottom right section of the main pallette:
+1\. Drag the `Total Emp` measure to the bottom right section of the main pallette:  
 
 ![measures](/assets/interactive-sql-on-hadoop-with-hive-llap/measures.png)
 
 You should see a value of 405,555,870.
 
-2. Drag the Description Dimension to the Rows shelf. The result should look like:
+2\. Drag the Description Dimension to the Rows shelf. The result should look like:  
 
 ![description_dimension](/assets/interactive-sql-on-hadoop-with-hive-llap/description_dimension.png)
 
-3. Select the packed bubble visualization:
+3\. Select the packed bubble visualization:  
 
 ![packed_bubble_visualization](/assets/interactive-sql-on-hadoop-with-hive-llap/packed_bubble_visualization.png)
 
 This will give a visualization that makes it very easy to spot ratios. Unfortunately the All Occupations value is included, so let’s filter it out.
 
-4. Drag the Description Dimensions to the Filters section. Unselect “All Occupations” from the Filter and press Ok.
+4\. Drag the Description Dimensions to the Filters section. Unselect “All Occupations” from the Filter and press Ok.  
 
 ![filter_description](/assets/interactive-sql-on-hadoop-with-hive-llap/filter_description.png)
 
-Your visualization should now look like the diagram above.
+Your visualization should now look like the diagram above. You can continue to explore this dataset interactively if you want. For example, see if you can recreate this visualization, which sorts job categories by average salary and mentions how many individuals belong to each profession.
 
 ## 3. Connect LLAP to the Large Dataset (Optional, Advanced) <a id="connect_llap"></a>
 
@@ -260,8 +264,8 @@ If you generated the large dataset above, here’s how to load it into Tableau a
 
 First we optimize the dataset for analytics. This means 2 things:
 
-1. We convert the data to ORCFile format.
-2. We create primary and foreign keys for the dataset. This allows BI tools to do what’s called “join elimination” to greatly improve performance.
+1\. We convert the data to ORCFile format.  
+2\. We create primary and foreign keys for the dataset. This allows BI tools to do what’s called “join elimination” to greatly improve performance.  
 
 To load the data, navigate back to `http://127.0.0.1:4200/` and run:
 
