@@ -47,7 +47,7 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
   - [4.1 Forward Port with VirtualBox GUI](#forward-port-virtualbox)
   - [4.2 Forward Port with Azure GUI](#forward-port-azure)
 - [Step 5: Start NiFi on Local Machine](#start-nifi-locally)
-- [Conclusion](#conclusion-lab0)
+- [Summary](#summary-lab0)
 
 ### Step 1: Explore NiFi Environment Before NiFi Installation <a id="explore-nifi-environment"></a>
 
@@ -158,7 +158,7 @@ scp -P 2222 HDF-2.0.0.0-579.tar.gz root@127.0.0.1:/root
 
 > Note: For VMware and Azure users, the sandbox IP address may be different, so replace 127.0.0.1 with your appropriate IP. Use the ssh-port provided in Table 1. hdf-version is the digits in the tar.gz name you downloaded, for example the numbers in bold HDF-**2.0.0.0-579**.tar.gz. If your HDF version number is different, replace the number in the example with the number you have.
 
-5\. Now the nifi install script we downloaded earlier, comes back. Run the script:
+5\. Now the nifi install script we downloaded earlier, comes back. Run the script from your sandbox terminal:
 
 ~~~
 ./jdkinstall_nifi.sh
@@ -278,7 +278,7 @@ There are 3 methods to start NiFi: launch NiFi in foreground, in the background 
 
 2\. Open NiFi at `http://sandbox.hortonworks.com:8080/nifi/`. Wait 1 to 2 minutes for NiFi to load.
 
-## Conclusion <a id="conclusion-lab0"></a>
+## Summary <a id="summary-lab0"></a>
 
 Congratulations! You learned that NiFi can be installed on a VM or directly on your computer. You also learned to download, install, and start NiFi. Now that you have NiFi is up and running, you are ready to build a dataflow.
 
