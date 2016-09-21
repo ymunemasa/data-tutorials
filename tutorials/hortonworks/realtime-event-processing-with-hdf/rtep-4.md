@@ -97,6 +97,8 @@ list  
 exit
 ~~~
 
+Now let's exit from hbase user,  type `exit`.
+
 - **driver_events** can be thought of as **All Events** table
 
 - **driver_dangerous_events** can be thought of as **Dangerous Events** Table
@@ -159,7 +161,7 @@ cd iot-truck-streaming/
 Once we build and install the necessary modules for the demo, we are ready to deploy our storm topology.
 -->
 
-### Step 3: Launch Storm Topology <a id="step3-launch-new-storm-topology-lab3"></a>
+### Step 2: Launch Storm Topology <a id="step3-launch-new-storm-topology-lab3"></a>
 
 Recall that the source code is under directory path
 `iot-truck-streaming/storm-streaming/src/`.
@@ -170,7 +172,7 @@ The pre-compiled jars are under the directory path
 > Note: Back in Tutorial 0 in which we set up the Trucking Demo, we used maven
 to create the target folder.
 
-### 3.1 Verify Kafka is Running & Deploy Topology
+### 2.1 Verify Kafka is Running & Deploy Topology
 
 1\. Verify that Kafka service is running using Ambari dashboard. If not, start the Kafka service as we did in tutorial 3.
 
@@ -221,7 +223,7 @@ Overview of truck-event-processor in Storm View:
 - Bolts
 - Topology Configuration
 
-### 3.2 Analysis of Topology Visualization:
+### 2.2 Analysis of Topology Visualization:
 - RouteBolt processes the data received by KafkaSpout
 
 - CountBolt takes the data from RoutBolt and counts the incidents per driver
@@ -240,7 +242,7 @@ the Spouts section.
 
 ![spout_statistics_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/spout_statistics_iot.png)
 
-### Step 4: Verify Data in HBase <a id="step4-verify-data-hdfs-hbase-lab3"></a>
+### Step 3: Verify Data in HBase <a id="step4-verify-data-hdfs-hbase-lab3"></a>
 
 Let’s verify that Storm's 3 HBase bolts successfully sent data to the 3 HBase Tables.
 
