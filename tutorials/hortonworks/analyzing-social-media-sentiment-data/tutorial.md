@@ -211,7 +211,7 @@ The first thing you'll need to do here is download the NiFi data flow template f
 
 Make note of where you download this file. You'll need it in the next step.
 
-Open up the NiFi user interface found at [http://sandbox.hortonworks.com:6434/nifi](http://sandbox.hortonworks.com:6434/nifi). Then you'll need to import the template you just downloaded into NiFi.
+Open up the NiFi user interface found at [http://sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi). Then you'll need to import the template you just downloaded into NiFi.
 
 Import the template by clicking `Templates` icon in the right of the Operate box.
 
