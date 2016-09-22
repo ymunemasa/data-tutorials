@@ -33,9 +33,9 @@ This tutorial will not cover setup for HDInsight or Amazon EMR.
 * ODBC driver for your platform  
 
   * [Windows (32-bit)](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC32.msi)  
-  * [Windows (64-bit)(http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC64.msi)  
-  * [Linux (32-bit)(http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/linux/HortonworksPhoenixODBC-32bit-1.0.0.1000-1.rpm)  
-  * [Linux (64-bit)(http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/linux/HortonworksPhoenixODBC-64bit-1.0.0.1000-1.rpm)  
+  * [Windows (64-bit)](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC64.msi)  
+  * [Linux (32-bit)](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/linux/HortonworksPhoenixODBC-32bit-1.0.0.1000-1.rpm)  
+  * [Linux (64-bit)](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/linux/HortonworksPhoenixODBC-64bit-1.0.0.1000-1.rpm)  
 
 ### Getting and launching the HDP sandbox  
 
