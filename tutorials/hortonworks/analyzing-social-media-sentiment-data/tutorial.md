@@ -58,7 +58,7 @@ The first thing you're going to need if you haven't done it already is install t
 
 Make sure that Ambari Infra is stopped, we now need to install HDP Search.
 
-Login to Ambari user credentials: Username - **raj_ops** and Password - **raj_ops**. Click on Actions button at the bottom:
+Login to Ambari user credentials: Username - **raj_ops** and Password - **raj_ops**. Click on Actions button at the bottom and then Add Service:
 
 ![actions_button](/assets/nifi-sentiment-analytics/images/actions_button.png)
 
