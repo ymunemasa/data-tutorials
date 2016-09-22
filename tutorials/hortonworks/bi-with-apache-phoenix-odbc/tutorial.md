@@ -235,7 +235,7 @@ Next, in control panel, open ODBC Data Sources Administration(64-bit). Alternati
 
 Pick `User DSN`->`Add`  
 
-![user_dsn](/assets/bi-with-apache-phoenix-odbc/user_dsn.png)
+![user_dsn_add](/assets/bi-with-apache-phoenix-odbc/user_dsn_add.png)
 
 User DSN means only you have access to this data source, System DSN means anyone else on this computer can use this data source.  
 Pick `Hortonworks Phoenix ODBC Driver` in next screen:
@@ -279,7 +279,7 @@ This file informs Tableau how to communicate with Phoenix Query Server. Tableau 
 
 Open Tableau, select **“Connect”->”More Servers…”->”Other Databases (ODBC)”**
 
-![connecct_more_servers](/assets/bi-with-apache-phoenix-odbc/connecct_more_servers.png)
+![connect_more_servers](/assets/bi-with-apache-phoenix-odbc/connect_more_servers.png)
 
 Pick the DSN you’ve just created and hit `Connect`
 
