@@ -11,8 +11,9 @@ components: [ sandbox ]
 # Release Notes
 
 Sept 2016  
-Md5 **VMware** Virtual Appliance - 74b279aaddfa30bb1e3cf65ff4e87855  
-Md5 **Virtualbox** Virtual Appliance- 76ea224b28477a74053172bc09e8a005
+Md5 **VMware** Virtual Appliance - fe1e91bc26e6879fdc6dde6e3778c262  
+Md5 **Virtualbox** Virtual Appliance- b08f1dce17ab3ae2431532be74bdbbbb
+Md5 **Docker** 2a710f236135e620ec8488a1229af07e
 
 HDP Stack and Ambari  
 The Sandbox uses the following versions of Ambari and HDP stack.  Please use the following release note links provided to view Ambari and HDP stack specific information.
