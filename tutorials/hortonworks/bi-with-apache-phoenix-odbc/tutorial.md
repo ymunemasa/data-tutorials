@@ -10,7 +10,7 @@ components: [ hbase, phoenix, odbc, tableau  ]
 
 ## Overview
 
-**Apache HBase** is a NoSQL columnar database in the Hadoop eco-system. Many business intelligence tool and data analytic tools lack the ability to work with HBase data directly. **Apache Phoenix** enables you to interact with HBase using SQL. In **HDP 2.5**, we have introduced support for **ODBC drivers**. With this, you can connect any ODBC applications to HBase via Apache Phoenix. This enables you to use familiar business intelligence tools to run analysis on big datasets.  This tutorial is designed to help you learn how to use business intelligence tool such as Tableau to create data visualization using data in Apache Phoenix. This tutorial goes over the details on how to setup an end to end workflow.
+**Apache HBase** is a NoSQL database in the Hadoop eco-system. Many business intelligence tool and data analytic tools lack the ability to work with HBase data directly. **Apache Phoenix** enables you to interact with HBase using SQL. In **HDP 2.5**, we have introduced support for **ODBC drivers**. With this, you can connect any ODBC applications to HBase via Apache Phoenix. This enables you to use familiar business intelligence tools to run analysis on big datasets.  This tutorial is designed to help you learn how to use business intelligence tool such as Tableau to create data visualization using data in Apache Phoenix. This tutorial goes over the details on how to setup an end to end workflow.
 
 ## What you’ll learn from this tutorial
 
