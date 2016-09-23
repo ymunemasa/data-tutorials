@@ -429,8 +429,29 @@ There are **4 user personas** present in Sandbox:
 
 4\. **amy_ds** - A data scientist who uses Hive, Spark and Zeppelin to do exploratory data analysis, data cleanup and transformation as preparation for analysis.
 
-Some notable differences between these users in the Sandbox is mentioned below:
+Some notable differences between these users in the Sandbox are mentioned below:
 
+| Name id(s) | Role | Services |
+|:----:|:----:|:--------:|
+| Sam Admin | Ambari Admin | Ambari |
+| Raj (raj_ops) | Hadoop Warehouse Operator | Hive/Tez, Ranger, Falcon, Knox, Sqoop, Oozie, Flume, Zookeeper |
+| Maria (maria_dev) | Spark and SQL Developer | Hive, Zeppelin, MapReduce/Tez/Spark, Pig, Solr, HBase/Phoenix, Sqoop, NiFi, Storm, Kafka, Flume |
+| Amy (amy_ds) | Data Scientist | Spark, Hive, R, Python, Scala
+| Holger (holger_gov) | Data Steward | Atlas |
+
+**OS Level Authorization**
+
+| Name id(s) | HDFS Authorization | Ambari Authorization | Ranger Authorization |
+|:----:|:----:|:--------:|
+| Sam Admin | Max Ops | Ambari Admin | Admin access |
+| Raj (raj_ops) | Access to Hive, Hbase, Atlas, Falcon, Ranger, Knox, Sqoop, Oozie, Flume, Operations | Cluster Administrator | Admin Access |
+| Maria (maria_dev) | Access to Hive, Hbase, Falcon, Oozie and Spark | Service Operator | Normal User Access |
+| Amy (amy_ds) | Access to Hive, Spark and Zeppelin | Service Operator | Normal User Access |
+| Holger (holger_gov) | Access to Atlas | Service Administrator | Normal User Access |
+
+**Other Differences**
+
+<!---
 | Operations     | maria_dev | amy_ds | holger_gov | raj_ops | admin |
 |:--------------:|:---------:|:------:|:----------:|:-------:|:-----:|
 | Sandbox Role | Service Operator | Service Operator | Service Administrator | Cluster Administrator | Ambari Administrator |
@@ -443,7 +464,15 @@ Some notable differences between these users in the Sandbox is mentioned below:
 | Manage Ambari Views | No | No | No | No | Yes |
 | Atlas UI Access | No | No | Yes | No | Yes |
 | [Sample Ranger Policy Access](http://hortonworks.com/hadoop-tutorial/tag-based-policies-atlas-ranger/#sample-ranger-policy) | SELECT | SELECT | SELECT, CREATE, DROP | ALL | NA |
+-->
 
+| Name id(s) | Sandbox Role | View Configurations | Start/Stop/Restart Service | Modify Configurations | Add/delete services | Install Components | Manage Users/Groups | Manage Ambari Views | Atlas UI Access | [Sample Ranger Policy Access](http://hortonworks.com/hadoop-tutorial/tag-based-policies-atlas-ranger/#sample-ranger-policy) |
+|:----------:|:------------:|:-------------------:|:--------------------------:|:---------------------:|:-------------------:|:------------------:|:-------------------:|:-------------------:|:---------------:|:--------------------:|
+| Sam Admin | Ambari Admin | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | NA |
+| Raj (raj_ops) | Cluster Administrator | Yes | Yes | Yes | Yes | Yes | No | No | No | ALL |
+| Maria (maria_dev) | Service Operator | Yes | Yes | No | No | No | No | No | No | SELECT |
+| Amy (amy_ds) | Service Operator | Yes | Yes | No | No | No | No | No | No | SELECT |
+| Holger (holger_gov) | Service Administrator | Yes | Yes | Yes | No | No | No | No | Yes | SELECT, CREATE, DROP |
 
 ## Section 4: Troubleshoot <a id="section4"></a>
 
