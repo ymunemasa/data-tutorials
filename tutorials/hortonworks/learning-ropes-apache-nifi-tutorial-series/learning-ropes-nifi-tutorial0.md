@@ -42,10 +42,14 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
   - [1.1 Plan to Install HDF 2.0 on Sandbox](#install-hdf-on-sandbox)
   - [1.2 Plan to Install HDF 2.0 on Local Machine](#install-hdf-on-machine)
 - [Step 2: Download and Install NiFi on Sandbox (Option 1)](#download-nifi-sandbox)
+  - [2.1 Install NiFi By Ambari Wizard (Option 1)](#install-NiFi-ambari)
+  - [2.2 Install NiFi By Command Line (Option 2)](#install-NiFi-cli)
 - [Step 3: Download and Install NiFi on Local Machine (Option 2)](#download-nifi-machine)
 - [Step 4: Start NiFi on Sandbox](#start-nifi-sandbox)
-  - [4.1 Forward Port with VirtualBox GUI](#forward-port-virtualbox)
-  - [4.2 Forward Port with Azure GUI](#forward-port-azure)
+  - [4.1 Start NiFi via Ambari Service (Option 1)](#start-nifi-ambari)
+  - [4.2 Start NiFi via Command Line (Option 2)](#start-nifi-cli)
+  - [4.3 Forward Port with VirtualBox GUI](#forward-port-virtualbox)
+  - [4.4 Forward Port with Azure GUI](#forward-port-azure)
 - [Step 5: Start NiFi on Local Machine](#start-nifi-locally)
 - [Conclusion](#conclusion-lab0)
 - [Appendix A: Troubleshoot NiFi Installation](#troubleshoot-nifi-installation)
@@ -126,7 +130,11 @@ Version 2 comes with NiFi, Kafka, Storm and Zookeeper
 ### Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1) <a id="download-nifi-sandbox"></a>
 This tutorial uses Hortonworks Sandbox 2.5.
 
-NiFi is installed on the Hortonworks Sandbox VirtualBox image because the Sandbox does not come with NiFi preinstalled.
+There are two ways to install the NiFi Service by command line or Ambari Install Wizard.
+
+The following section 2.1 will go through the process of installing NiFi by Ambari Install Wizard. We want to inform you that as you install the service with this approach you will encounter error messages, ignore them because they will not affect the NiFi installation. If you do not want to install by section 2.1 approach, jump to section 2.2, which goes in depth on how to install NiFi via the command line.
+
+### 2.1 Install NiFi By Ambari Wizard (Option 1) <a id="install-NiFi-ambari"></a>
 
 Use the following steps to perform the NiFi installation:
 
@@ -136,18 +144,9 @@ Use the following steps to perform the NiFi installation:
 ssh root@127.0.0.1 -p 2222
 ~~~
 
-2\. Run the following commands in Sandbox terminal to download the latest version of NiFi into the Ambari Stack.
-
-~~~bash
-cd /var/lib/ambari-server/resources/stacks/HDP/2.5/services/NIFI
-git fetch --all
-git reset --hard origin/master
-service ambari-server restart
-~~~
-
 > Note: You should receive a success message.
 
-3\. Open Ambari. In the left sidebar of services, click on the **Actions** button. A drop down menu appears, select the **Add Service** button ![add_service](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/add_service.png). The **Add Service Wizard** window will appear.
+2\. Open Ambari. In the left sidebar of services, click on the **Actions** button. A drop down menu appears, select the **Add Service** button ![add_service](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/add_service.png). The **Add Service Wizard** window will appear.
 
 ![add_service_wizard](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/add_service_wizard.png)
 
@@ -155,27 +154,70 @@ Choose the NiFi service:
 
 ![select_nifi_service](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/select_nifi_service.png)
 
-4\. Once NiFi box is checked, select the **Next** button. As the the Ambari Wizard transitions to **Assign Masters**, you will see an **Error** window message ignore it. Click on the **OK** button. You will see an indicator that the **Assign Masters** page is loading, keep it's default settings and click **Next**. As the wizard transitions to **Assign Slaves and Clients**, a **Validation Issues** window will appear, select **Continue Anyway**. The wizard will continue onto the next setup settings called **Customize Services**. Keep it's default settings, click **Next**. A **Consistency Check Failed** window will appear, click **Proceed Anyway** and you will proceed to the **Review** section.
+3\. Once NiFi box is checked, select the **Next** button. As the the Ambari Wizard transitions to **Assign Masters**, you will see an **Error** window message ignore it. Click on the **OK** button. You will see an indicator that the **Assign Masters** page is loading, keep it's default settings and click **Next**. As the wizard transitions to **Assign Slaves and Clients**, a **Validation Issues** window will appear, select **Continue Anyway**. The wizard will continue onto the next setup settings called **Customize Services**. Keep it's default settings, click **Next**. A **Consistency Check Failed** window will appear, click **Proceed Anyway** and you will proceed to the **Review** section.
 
-5\. For the **Review** section, you will see a list of repositories, select **Deploy->**.
+4\. For the **Review** section, you will see a list of repositories, select **Deploy->**.
 
 ![review_section_nifi](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/review_section_nifi.png)
 
 > Note: you should see a preparing to deploy message.
 
-6\. The wizard will transition to the **Install, Start and Test** section. Click **Next**.
+5\. The wizard will transition to the **Install, Start and Test** section. Click **Next**.
 
 ![install_started_service_success](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/install_started_service_success.png)
 
-7\. At the Summary section, you see an **Important** alert, which states that we should restart services that contain **restart indicators** in the left sidebar of Ambari Services on the Ambari Dashboard. Click **Continue->**.
+6\. At the Summary section, you see an **Important** alert, which states that we should restart services that contain **restart indicators** in the left sidebar of Ambari Services on the Ambari Dashboard. Click **Continue->**.
 
 ![summary_section_wizard](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/summary_section_wizard.png)
 
-8\. Upon a successful installation, you should see a **green check symbol** next to the service name. This check symbol also indicates that NiFi is running.
+7\. Upon a successful installation, you should see a **green check symbol** next to the service name. This check symbol also indicates that NiFi is running.
 
 ![service_installed_succesfully](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/service_installed_succesfully.png)
 
 > Note: If you run into any issues installing NiFi using the Ambari Wizard, refer to Appendix A.
+
+If you installed NiFi using Ambari Wizard approach, you can move onto **Step 3**.
+
+### 2.2 Install NiFi By Command Line (Option 2)<a id="install-NiFi-cli"></a>
+
+Use the following steps to guide you through the NiFi installation:
+
+1\. Open a terminal window (Mac and Linux) or git bash (Windows) on **sandbox**.
+
+~~~
+ssh root@127.0.0.1 -p 2222
+~~~
+
+2\. Download the **jdkinstall_nifi.sh** file from the github repo. Copy & paste the following commands:
+
+~~~
+cd
+wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/automation-scripts/jdkinstall_nifi.sh
+chmod +x ./jdkinstall_nifi.sh
+~~~
+
+3\. Let's navigate back to our local machine. Open a browser. Download NiFi from [HDF Downloads Page](http://hortonworks.com/downloads/). There are two package options: one for HDF TAR.GZ file tailored to Linux and ZIP file more compatible with Windows. Mac can use either option. For the tutorial,  download the latest HDF TAR.GZ:
+
+![download_hdf_iot](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
+
+4\. Now we need to send NiFi from our local machine to the sandbox virtual machine.
+Open a terminal for your local machine. If your HDF program was downloaded to the
+**Downloads** folder, navigate to it. `cd ~/Downloads`, then we can perform
+the transport.
+
+~~~
+scp -P 2222 HDF-2.0.0.0-579.tar.gz root@127.0.0.1:/root
+~~~
+
+> Note: For VMware and Azure users, the sandbox IP address may be different, so replace 127.0.0.1 with your appropriate IP. Use the ssh-port provided in Table 1. hdf-version is the digits in the tar.gz name you downloaded, for example the numbers in bold HDF-**2.0.0.0-579**.tar.gz. If your HDF version number is different, replace the number in the example with the number you have.
+
+5\. Now the nifi install script we downloaded earlier, comes back. Run the script from your sandbox terminal:
+
+~~~
+./jdkinstall_nifi.sh
+~~~
+
+If you installed NiFi using command line approach, you can move onto **Step 3**.
 
 ### Step 3: Download and Install NiFi on Local Machine (Option 2) <a id="download-nifi-machine"></a>
 
@@ -193,6 +235,10 @@ The image below shares NiFi downloaded and installed in the Applications folder:
 
 Use the following steps to start NiFi if you downloaded and installed it on Hortonworks Sandbox. For information about how to start NiFi on your local machine, go to step 5.
 
+If you installed NiFi via Ambari Install Wizard, refer to section 4.1, else if you installed NiFi via the Command Line, refer to section 4.2.
+
+### 4.1 Start NiFi via Ambari Service (Option 1) <a id="start-nifi-ambari"></a>
+
 If NiFi is not already running, we will use Ambari Service Tool to launch NiFi.
 
 1\. Click on NiFi located in the left sidebar of Ambari Services on the Dashboard.
@@ -207,7 +253,53 @@ If NiFi is not already running, we will use Ambari Service Tool to launch NiFi.
 
 ![open_nifi_html_interface](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/open_nifi_html_interface.png)
 
-### 4.1 Forward Port with VirtualBox GUI <a id="forward-port-virtualbox"></a>
+Now that you started NiFi, review the conclusion and then we can move onto the tutorial 1.
+
+### 4.2 Start NiFi via Command Line (Option 2) <a id="start-nifi-cli"></a>
+
+Use the following steps to start NiFi if you downloaded and installed it on Hortonworks Sandbox. For information about how to start NiFi on your local machine, go to step 5.
+
+In this tutorial, launch NiFi in the background.
+
+1\. Open a terminal (Mac and Linux) or git bash (Windows). SSH into the Hortonworks Sandbox:
+
+~~~
+ssh root@127.0.0.1 -p 2222
+~~~
+
+2\. Navigate to the `bin` directory using the following command:
+
+~~~
+cd hdf/HDF-2.0.0.0/nifi/bin
+~~~
+
+3\. Run the `nifi.sh` script to start NiFi:
+
+~~~
+./nifi.sh start
+~~~
+
+> Note: To stop NiFi, type `./nifi.sh stop`
+
+Open the NiFi DataFlow at `http://sandbox.hortonworks.com:9090/nifi/` to verify NiFi started. Wait 1 minute for NiFi to load. If NiFi HTML interface does not load, verify the value in the nifi.properties file matches **nifi.web.http.port=9090**.
+
+4\. Navigate to the **conf** folder and open nifi.properties in the vi editor.
+
+~~~
+cd ../conf
+vi nifi.properties
+~~~
+
+5\. Type `/nifi.web.http.port` and press enter. Verify `9090` is the value of nifi.web.http.port as below, else change it to this value:
+
+~~~
+nifi.web.http.port=9090
+~~~
+
+To exit the vi editor, press `esc` and then enter `:wq` to save the file.
+Now that the configuration in the nifi.properties file is updated, port forward a new NiFi port because the VM is not listening for the port **9090**, so NiFi does not load on the browser. If you are using VirtualBox Sandbox, refer to section 4.1. For Azure Sandbox users, refer to section 4.2.
+
+### 4.3 Forward Port with VirtualBox GUI <a id="forward-port-virtualbox"></a>
 
 1\. Open VirtualBox Manager
 
@@ -228,7 +320,7 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 > Note: If you have not configured the `sandbox.hortonworks.com` alias in `/etc/hosts`, try the `http://localhost:9090/nifi` URL as well.
 
-### 4.2 Forward Port with Azure GUI <a id="forward-port-azure"></a>
+### 4.4 Forward Port with Azure GUI <a id="forward-port-azure"></a>
 
 1\. Open Azure Sandbox.
 
