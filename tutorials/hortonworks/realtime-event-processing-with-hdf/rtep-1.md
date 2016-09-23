@@ -72,7 +72,7 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 
 ### Step 1: Install NiFi <a id="step1-install-nifi-tutorial0"></a>
 
-NiFi will be installed on the Hortonworks Sandbox VirtualBox image because it
+NiFi will be installed into the Ambari Stack of the Hortonworks Sandbox VirtualBox image because it
 will be used to activate the truck events simulator and transport data to Kafka.
 
 1\. If you do not have NiFi installed on your sandbox, refer to [Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#download-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
