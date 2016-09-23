@@ -1,6 +1,6 @@
 ---
 layout: tutorial
-title: BI with Apache Phoenix ODBC
+title: HBase Reporitng with Apache Phoenix via ODBC
 tutorial-id: 740
 tutorial-series: Hello World
 tutorial-version: hdp-2.5.0
