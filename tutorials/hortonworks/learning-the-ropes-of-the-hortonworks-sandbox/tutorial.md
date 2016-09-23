@@ -442,7 +442,7 @@ Some notable differences between these users in the Sandbox are mentioned below:
 **OS Level Authorization**
 
 | Name id(s) | HDFS Authorization | Ambari Authorization | Ranger Authorization |
-|:----:|:----:|:--------:|
+|:----------:|:------------------:|:--------------------:|:--------------------:|
 | Sam Admin | Max Ops | Ambari Admin | Admin access |
 | Raj (raj_ops) | Access to Hive, Hbase, Atlas, Falcon, Ranger, Knox, Sqoop, Oozie, Flume, Operations | Cluster Administrator | Admin Access |
 | Maria (maria_dev) | Access to Hive, Hbase, Falcon, Oozie and Spark | Service Operator | Normal User Access |
