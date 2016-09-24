@@ -285,7 +285,19 @@ exit
 
 The `driver_dangerous_events` table is updated upon every violation event.
 
-![verify_data_in_hbase_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/verify_data_in_hbase_iot.png)
+![verify_data_in_hbase_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_dangerous_events_data.png)
+
+### 3.1 Troubleshoot Unexpected Data in HBase Table
+
+If the data in the HBase table is displayed in hexadecimal values, you can perform the following special operation on a table to display the data in the correct format. For instance, if your **driver_dangerous_events** had unexpected data, run the following hbase query:
+
+~~~
+scan 'driver_dangerous_events_count' , {COLUMNS => ['counters:driverId:toInt', 'counters:incidentTotalCount:toLong']}
+~~~
+
+Your data should look as follows:
+
+![hbase_dangerous_correct_format](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_dangerous_correct_format.png)
 
 *   Once done, stop the Storm topology
 
