@@ -178,10 +178,11 @@ If **NiFi is on Sandbox**, SSH into the shell. Else move to the next section:
 ssh root@127.0.0.1 -p 2222
 ~~~
 
-Let's create a new `/tmp/nifi/input` directory, then send the zip file to the sandbox with the command:
+Let's create a new `/tmp/nifi/input` directory, modify permissions for nifi directory that way NiFi can write to output, then send the zip file to the sandbox with the command:
 
 ~~~bash
 mkdir -p /tmp/nifi/input
+chmod -R 777 /tmp/nifi
 exit
 scp -P 2222 ~/Downloads/trafficLocs_data_for_simulator.zip root@localhost:/tmp/nifi/input
 ~~~
@@ -192,6 +193,7 @@ If **NiFi is on local machine**, create a new folder named `/tmp/nifi/input` in 
 
 ~~~bash
 mkdir -p /tmp/nifi/input
+chmod -R 777 /tmp/nifi
 cp ~/Downloads/trafficLocs_data_for_simulator.zip /tmp/nifi/input
 ~~~  
 
@@ -458,7 +460,7 @@ There are two options for checking that the data stored in the destination is co
 ~~~
 cd /tmp/nifi/output/filtered_transitLoc_data
 ls
-vi 22169558941607
+vi traffic-location-data-020855346-.xml
 ~~~
 
 ![commands_enter_sandbox_shell_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/commands_enter_sandbox_shell_lab1.png)
