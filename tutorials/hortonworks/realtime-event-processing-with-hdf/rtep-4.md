@@ -211,18 +211,6 @@ As you scroll down the page, let's analyze a Visualization of our truck-event-pr
 
 ![storm_topology_new_stormAPI_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_topology_new_stormAPI_iot.png)
 
-After 6-10 minutes, you should see that numbers of emitted and transferred tuples for each node(Spout or Bolt) in the topology is increasing, which shows that the messages are processed in real time by Spout and Bolts.
-
-![](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/topology_spouts_bolts_tuples_increasing.png)
-
-Overview of truck-event-processor in Storm View:
-- Topology Summary
-- Topology Stats
-- truck-event-processor Visualization
-- Spout
-- Bolts
-- Topology Configuration
-
 ### 2.2 Analysis of Topology Visualization:
 - RouteBolt processes the data received by KafkaSpout
 
@@ -233,14 +221,50 @@ to write to **Incidents Per Driver** Table
 - 2 HBase Bolts perform complex transformations on the data from RouteBolt to
 write to **All Events** and **Dangerous Event** Tables.
 
+### 2.3 Overview of the Storm View
+After 6-10 minutes, you should see that numbers of emitted and transferred tuples for each node(Spout or Bolt) in the topology is increasing, which shows that the messages are processed in real time by Spout and Bolts. If we hover over one of the spouts or bolts, we can see how much data they process and their latency.
 
-![](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/topology_visualization_storm.png)
+Here is an example of the data that goes through the kafkaSpout and RouteBolt in the topology:
 
->Note: You can also keep track of several statistics of Spouts and Bolts.
-For instance, to find Spout's Statistics, click on **kafkaSpout** located in
-the Spouts section.
+![analysis_of_dive_into_storm_view](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/analysis_of_dive_into_storm_view.png)
+
+Overview of truck-event-processor in Storm View:
+- Topology Summary
+- Topology Stats
+- truck-event-processor Visualization
+- Spout
+- Bolts
+- Topology Configuration
+
+### 2.4 Overview of Spout Statistics:
+
+To see statistics of a particular component or node in the storm topology, click on that component located in the Spouts or Bolts section. For instance, let's dive into the KafkaSpout's statistics.
+
+**Overview of Spout Statistics**
+
+- Component Summary
+- Spout Stats
+- Output Stats ( All time )
+- Executor Stats ( All time )
+- Error Stats ( All time )
 
 ![spout_statistics_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/spout_statistics_iot.png)
+
+### 2.5 Overview of Bolt Statistics:
+
+Follow similar process in section 2.4 to see the statistics of a particular bolt in your topology. Let's dive into the RouteBolt statistics.
+
+**Overview of Bolt Statistics**
+- Component Summary
+- Bolt Stats
+- Input Stats ( All time )
+- Output Stats ( All time )
+- Executor Stats ( All time )
+- Error Stats ( All time )
+
+![bolt_statistics_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/bolt_statistics_iot.png)
+
+What differences do you notice about the spout statistics compared to the bolt statistics?
 
 ### Step 3: Verify Data in HBase <a id="step4-verify-data-hdfs-hbase-lab3"></a>
 
