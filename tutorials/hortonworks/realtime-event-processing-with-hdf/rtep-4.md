@@ -289,7 +289,7 @@ The `driver_dangerous_events` table is updated upon every violation event.
 
 *   Once done, stop the Storm topology
 
-The Storm topology can be deactivated/killed from the Storm UI or shell
+Open the terminal of your sandbox:, then we can deactivate/kill the Storm topology from the Storm View or shell. 
 
 ~~~bash
 storm kill TruckEventKafkaExperimTopology
