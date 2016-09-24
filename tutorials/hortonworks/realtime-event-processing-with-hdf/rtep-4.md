@@ -228,7 +228,7 @@ Here is an example of the data that goes through the kafkaSpout and RouteBolt in
 
 ![analysis_of_dive_into_storm_view](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/analysis_of_dive_into_storm_view.png)
 
-Overview of truck-event-processor in Storm View:
+**Overview of truck-event-processor in Storm View**
 - Topology Summary
 - Topology Stats
 - truck-event-processor Visualization
@@ -289,7 +289,7 @@ The `driver_dangerous_events` table is updated upon every violation event.
 
 *   Once done, stop the Storm topology
 
-Open the terminal of your sandbox:, then we can deactivate/kill the Storm topology from the Storm View or shell. 
+Open the terminal of your sandbox:, then we can deactivate/kill the Storm topology from the Storm View or shell.
 
 ~~~bash
 storm kill TruckEventKafkaExperimTopology
