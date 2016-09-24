@@ -3,7 +3,7 @@ layout: tutorial
 title: How to Refine and Visualize Server Log Data
 tutorial-id: 200
 tutorial-series: Real-World End to End Examples
-tutorial-version: hdp-2.4.0
+tutorial-version: hdp-2.5.0
 intro-page: true
 components: [ nifi, ambari ]
 ---
@@ -22,14 +22,42 @@ In this demo, we demonstrate how an enterprise security breach analysis and resp
 *   Stream server logs into Hadoop with [Hortonworks Dataflow](http://hortonworks.com/hdf/) powered by **Apache NiFi**
 *   Use [Hive](http://hortonworks.com/hadoop/hive) to build a relational view of the data
 *   Use Elastic Search for high-level visualization
-*   Import the data into Microsoft Excel with the [ODBC connector](http://hortonworks.com/products/hdp-2/#add_ons)
-*   Visualize data with Powerview
+<!--*   Import the data into Microsoft Excel with the [ODBC connector](http://hortonworks.com/products/hdp-2/#add_ons)
+*   Visualize data with Powerview-->
 *   Use [Oozie](http://hortonworks.com/hadoop/oozie) to automatically update a firewall
 *   Visualize the data with [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin)
 
-This Hadoop tutorial can be performed with the [Hortonworks Sandbox](http://hortonworks.com/products/sandbox) – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series. The tutorial presented here is for Sandbox v2.0
+This Hadoop tutorial can be performed with the [Hortonworks Sandbox](http://hortonworks.com/products/sandbox) – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series. The tutorial presented here is for Sandbox HDP 2.5.
 
-## Background
+## Prerequisites:
+
+- Hortonworks Sandbox (installed and running)
+- Hortonworks DataFlow - [Download here](http://hortonworks.com/downloads/#dataflow)
+<!--
+- Hortonworks ODBC driver installed and configured – See Tutorial "Installing and Configuring the Hortonworks ODBC Driver"
+- Microsoft Excel 2013 Professional Plus (optional)
+  - Note, Excel 2013 is not available on a Mac. However, you can still connect the Sandbox to your version of Excel via the ODBC driver, and you can explore the data through the standard charting capabilities of Excel.
+  -->
+- If you'd like to use Tableau to explore the data, please see this HOWTO on the Hortonworks website: [HOWTO: Connect Tableau to the Hortonworks Sandbox](http://hortonworks.com/kb/how-to-connect-tableau-to-hortonworks-sandbox/)
+- Server log tutorial files (included in this tutorial)
+
+## Outline
+- [Background](#background)
+- [Step 1 – Configure and Install Hortonworks DataFlow](#install-hdf)
+- [Step 2 - Import the Flow](#import-flow)
+- [Step 3: Generate the Server Log Data](#generate-server-log-ata)
+- [Visualize Server Log Data with Apache Zeppelin](#visualize-log-data-zeppelin)
+
+## Overview
+
+- Understand Server Log Data, Become familiar with Server Log Data Use Cases, Hortonworks DataFlow and Apache NiFi
+- Download and configure the script which will generate our server log data
+- Install, configure, and start Hortonworks DataFlow
+- Generate the server log data.
+- Import the server log data into Excel.
+- Visualize the server log data using Excel Power View and Apache Zeppelin.
+
+### Background <a id="background"></a>
 
 ### Server Log Data
 
@@ -64,16 +92,6 @@ In this tutorial, we will focus on a network security use case. Specifically, we
 
 A FlowFile can originate from a processor in NiFi. Processors can also receive the flowfiles and transmit them to many other processors. These processors can then drop the data in the flowfile into various places depending on the function of the processor.
 
-### Prerequisites:
-
-- Hortonworks Sandbox (installed and running)
-- A copy of Hortonworks DataFlow - [Download here](http://hortonworks.com)
-- Hortonworks ODBC driver installed and configured – See Tutorial "Installing and Configuring the Hortonworks ODBC Driver"
-- Microsoft Excel 2013 Professional Plus (optional)
-  - Note, Excel 2013 is not available on a Mac. However, you can still connect the Sandbox to your version of Excel via the ODBC driver, and you can explore the data through the standard charting capabilities of Excel.
-- If you'd like to use Tableau to explore the data, please see this HOWTO on the Hortonworks website: [HOWTO: Connect Tableau to the Hortonworks Sandbox](http://hortonworks.com/kb/how-to-connect-tableau-to-hortonworks-sandbox/)
-- Server log tutorial files (included in this tutorial)
-
 **Notes:**
 
 - In this tutorial, the Hortonworks Sandbox is installed on an Oracle VirtualBox virtual machine (VM).
@@ -81,72 +99,30 @@ A FlowFile can originate from a processor in NiFi. Processors can also receive t
 - In this tutorial, we will use the Power View feature in Excel 2013 to visualize the server log data. Power View is currently only available in Microsoft Office Professional Plus and Microsoft Office 365 Professional Plus.
 - We're going to install Hortonworks DataFlow (HDF) on the Sandbox, so you'll need to download the latest HDF release
 
-### Overview
+* * *
 
-To refine and visualize server log data, we will:
+### Step 1 – Configure and Install Hortonworks DataFlow
 
-- Download and configure the script which will generate our server log data
-- Install, configure, and start Hortonworks DataFlow
-- Generate the server log data.
-- Import the server log data into Excel.
-- Visualize the server log data using Excel Power View and Apache Zeppelin.
+### 1.1 - Install NiFi <a id="step1-install-nifi-tutorial0"></a>
+
+NiFi will be installed into the Ambari Stack of the Hortonworks Sandbox VirtualBox image because it
+will be used to activate server log simulator and transport data to HDFS.
+
+1\. If you do not have NiFi installed on your sandbox, refer to [Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#download-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
+Learning the Ropes of Apache NiFi for step-by-step instructions.
+
+### 1.2 - Start NiFi <a id="step2-start-nifi-tutorial0"></a>
+
+1\. To activate the NiFi service, refer to [Step 4: Start NiFi on Sandbox](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
+Learning the Ropes of Apache NiFi for step-by-step instructions.
+
+Once you enter the NiFi HTML Interface, you should see a canvas as below:
+
+![nifi-html-interface](/)
 
 * * *
 
-## Step 1 – Configure and Install Hortonworks DataFlow
-
-First thing's you'll need to do is to make sure you've [downloaded the gzipped version of Hortonworks DataFlow](http://hortonworks.com/hdp/downloads/#hdf)
-
-Once you've downloaded HDF let's get it on the sandbox. If you're on a Mac or Unix system with the scp command available on your terminal you can simply run
-
-~~~
-scp -P 2122 $HDF_DOWNLOAD root@localhost:/root/
-~~~
-
-> Password for sandbox terminal: **hadoop**
-
-If you're on a windows system you can use the program [WinSCP](https://winscp.net/eng/index.php) to transfer files to the Sandbox.
-
-After sending the HDF file to the Sandbox make sure you SSH into the Sandbox **using the instructions from step 1**.
-
-![](../../../assets/server-logs/scp-hdf-sandbox.png)
-
-Now that we have SSH'd into the sandbox we can run the following set of commands to set up and install HDF.
-
-You can copy and paste these commands below, just make sure to **first set the correct `HDF_FILE` and `HDF_VERSION` environment variables** for the version of HDF that you downloaded.
-
-~~~
-export HDF_FILE=HDF-1.2.0.0-91.tar.gz
-export HDF_VERSION=HDF-1.2.0.0
-cd /root
-mkdir hdf
-mv $HDF_FILE ./hdf
-cd hdf
-tar -xvf $HDF_FILE
-cd $HDF_VERSION/nifi
-sed -i s/nifi.web.http.port=8080/nifi.web.http.port=6434/g conf/nifi.properties
-cd bin/
-sh nifi.sh install
-cd ~
-~~~
-
-Great! HDF is now set up for our needs. You can now start NiFi with the following command:
-
-~~~
-service nifi start
-~~~
-
-First, we'll need to open up the NiFi interface in our web browser. During installation we set the port that NiFi listens on to `6434`. You'll need to forward this port in the virtual machine settings.
-
-For a guide on forwarding a port on your VM please [see the guide in this tutorial](http://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-sentiment-data/)
-
-After forwarding port `6434` for NiFi you should be able to access the interface at [https://localhost:6434/nifi](https://localhost:6434/nifi)
-
-It should look something like below:
-
-![Nifi Interface](../../../assets/server-logs/nifi-interface.png)
-
-## Step 2: Import the Flow
+### Step 2 - Import the Flow <a id="import-flow"></a>
 
 We're going to import a pre-made data flow from a template which you can [**download ServerLogGeneratorSecurity.xml**](/assets/server-logs/templates/ServerLogGeneratorSecurity.xml).
 
@@ -162,9 +138,9 @@ Once you've uploaded the template into NiFi you can instantiate it by dragging t
 
 * * *
 
-## Step 3: Generate the Server Log Data
+### Step 3 - Generate the Server Log Data <a id="generate-server-log-ata"></a>
 
-Now that you've imported the data flow and everything it set up, simply click the **Run** at the top of the screen. (Make you you haven't selected a specific processor, or  else only one of the processors will start)
+Now that you've imported the data flow and everything it set up, simply click the **Run** at the top of the screen. (Make sure you haven't selected a specific processor, or  else only one of the processors will start)
 
 ![Instantiate NiFi Template](../../../assets/server-logs/start-flow.png)
 
@@ -172,13 +148,17 @@ Now that everything is running we can check in the places where we see the data 
 
 Log into the Ambari interface which can be found at [http://localhost:8080](http://localhost:8080)
 
+### 3.1 Verify NiFi Populates HDFS with Data Files
+
 Open up the **HDFS Files** view, and then navigate to `/tmp/server-logs/`. Files should start appearing a few seconds after you start the flow. You can click on them to view the content.
 
 ![Explore Output](../../../assets/server-logs/explore-output-files.png)
 
 *   Next we will create an Hive table from the log file.
 
-Open the Ambari UI and head to the views dropdown list. Select **Hive** and then past the following query.
+### 3.2 Format the Data with Hive
+
+Open the Ambari UI and head to the views dropdown list. Select **Hive** and then paste the following query.
 
 
 	CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, success BOOLEAN)
@@ -200,9 +180,12 @@ When the table has been created you should now be able to query the data table f
 
 ![](../../../assets/server-logs/test-query-results.png)
 
+<!--
+Omitting Excel Visulization
+
 * * *
 
-## Step 4: Import the Server Log Data into Excel
+## Step 4 - Import the Server Log Data into Excel
 
 In this section, we will use Excel Professional Plus 2013 to access the generated server log data. Note: if you do not have Excel 2013, you can still bring the data into other versions of Excel and explore the data through other charts. The screens may be slightly different in your version, but the actions are the same. You can complete Step 5 and then explore the data on your own.
 
@@ -242,7 +225,7 @@ Now that we have successfully imported Hortonworks Sandbox data into Microsoft E
 
 * * *
 
-## Step 5: Visualize the Sentiment Data Using Excel Power View
+## Step 5 - Visualize the Sentiment Data Using Excel Power View
 
 Data visualization can help you analyze network data and determine effective responses to network issues. In this section, we will analyze data for a denial-of-service attack:
 
@@ -292,9 +275,11 @@ We've shown how the Hortonworks Data Platform can help system administrators cap
 
 With log data flowing continuously into the Hortonworks Data Platform "data lake," we can protect the company network from similar attacks in the future. The data can be refreshed frequently and accessed to respond to security threats, or to prepare for compliance audits.
 
-----
+-->
 
-### Visualize Server Log Data with Apache Zeppelin
+* * *
+
+### Step 4 - Visualize Server Log Data with Apache Zeppelin <a id="visualize-log-data-zeppelin"></a>
 
 First, make sure that the Apache Zeppelin service is started in Ambari. Then use the **Views Dropdown Menu** and select the Zeppelin View.
 
@@ -302,20 +287,31 @@ You should be greeted by the following screen where you can choose to view notes
 
 ![](../../../assets/server-logs/zeppelin_create_note.png)
 
-You can choose to import the note from this tutorial using the following URL:
+You can choose to **Import note** from this tutorial using the following URL:
 
 	https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.4/data/zeppelin-notes/FlumeServerLogs.json
 
 Once you've opened the note you can use the following commands to generate charts to visualize the data
 
+~~~
 	%hive
 	select country from firewall_logs
+~~~
 
 and
 
+~~~
 	%hive
 	select time, country from firewall_logs
-
+~~~
 
 
 ![](../../../assets/server-logs/sample_zeppelin_charts.png)
+
+## Summary
+
+We learned the process of how enterprise security breach analysis and response may be performed when using NiFi for Data Ingestion, Enrichment and Transportation to HDFS. We further analyzed the data through Hive by performing transformations on the format of the data. Zeppelin was the Data Science Notebook in which we wrote hive queries and utilized it's feature to generate visualizations of the data from global view of the network traffic by country. 
+
+## Further Reading
+- [Zeppelin Overview Video](https://www.youtube.com/watch?v=_PQbVH_aO5E&feature=youtu.be)
+- []()
