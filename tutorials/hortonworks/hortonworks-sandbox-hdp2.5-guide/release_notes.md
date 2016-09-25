@@ -247,7 +247,7 @@ postgresql-8.4.20-6.el6.x86_64
 postgresql-libs-8.4.20-6.el6.x86_64  
 postgresql-server-8.4.20-6.el6.x86_64  
 
-**HDP Services Started Automatically on Startup**  
+##HDP Services Started Automatically on Startup*
 When the virtual machine is booted up, the following services are started. If not specified, assume all are java processes.  The users that launch the process are the corresponding names of the component.  The processes are listed with their main class.  
 
 **Ambari**  
@@ -296,8 +296,8 @@ QuorumPeerMain - org.apache.zookeeper.server.quorum.QuorumPeerMain
 **Zeppelin**    
 ZeppelinServer - org.apache.zeppelin.server.ZeppelinServer  
 
-**HDP Services not started automatically**  
-In order to utilize the functionality of these services, they need to be turned on and require more memory to be added to the virtual machine.  
+##HDP Services NOT Started Automatically on Startup*
+Because of the limited resources avaialble in the sandbox virtual machine environment, the following services are in maintenance mode and will not automatically start.  To fully use these services, you must allocate more memory to the sandbox virtual machine.  If you want these services to automatically start, turn off maintenance mode.  The processes are listed with their main class.  
 
 **Ambari Infra**  
 **Ambari Metrics**  
@@ -337,20 +337,3 @@ nimbus - backtype.storm.daemon.nimbus
 logviewer - backtype.storm.daemon.logviewer  
 core - backtype.storm.ui.core  
 drpc -  backtype.storm.daemon.drpc  
-
-As Designed  
-The following are Ambari settings that one should be aware of.  
-
-1\. By default Ambari Metrics service is off.  
-2\.  Maintenance Mode is on for  
-* HDFS  
-* HBase  
-* Falcon  
-* Storm  
-* Ambari Metrics  
-* Ambari Infra  
-* Atlas  
-* Kafka  
-* Knox  
-* Spark  
-* Spark2  
