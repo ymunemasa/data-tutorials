@@ -76,7 +76,7 @@ You can now connect to the sandbox tutorials page at http://localhost:8888
 
 ## Run notes for Mac users:
 
-1. Ensure the Docker daemon is running.  You can verify by typing:
+1\. Ensure the Docker daemon is running.  You can verify by typing:
 
 ```
 $ docker images
@@ -96,13 +96,13 @@ $ docker images
 Error response from daemon: Bad response from Docker engine
 ```
 
-2. Before loading the Docker image, you need to uncompress it:
+2\. Before loading the Docker image, you need to uncompress it:
 
 ```
 $ gunzip HDP_2.5_docker.tar.gz
 ```
 
-3. Load the Hortonworks sandbox image into Docker:
+3\. Load the Hortonworks sandbox image into Docker:
 
 ```
 $ docker load < HDP_2.5_docker.tar
@@ -123,7 +123,7 @@ fd5c10f2f1a1: Loading layer [==================================================>
 Loaded image: sandbox:latest
 ```
 
-4. Verify the image was successfully imported:
+4\. Verify the image was successfully imported:
 
 ```
 $ docker images
@@ -137,7 +137,7 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 sandbox             latest              fc813bdc4bdd        3 days ago          14.57 GB
 ```
 
-5. Start the container:
+5\. Start the container:
 The first time you start the container, you need to create it via the run command.  The run command both creates and starts the container.
 
 ```
@@ -217,7 +217,7 @@ $ docker start sandbox
 
 Notice that `sandbox` is the name of the container in the run command used above.
 
-6. Verify the container is running:
+6\. Verify the container is running:
 
 ```
 $ docker ps
@@ -235,14 +235,14 @@ CONTAINER ID        IMAGE               COMMAND               CREATED           
 Notice the CONTAINER ID is the shortened version of the ID displayed when you ran the run command.
 
 
-7. To stop the container
+7\. To stop the container
 Once the container is running, you stop it using the following command:
 
 ```
 $ docker stop sandbox
 ```
 
-8. To connect to the container
+8\. To connect to the container
 You connect to the container via ssh using the following command:
 
 ```
@@ -251,7 +251,7 @@ $ ssh -p 2222 root@localhost
 
 The first time you log into the container, you will be prompted to change the root password.  The root password for the container is `hadoop`.
 
-9. Start sandbox services
+9\. Start sandbox services
 The Ambari and HDP services do not start automatically when you start the Docker container.  You need to start the processes with a script.
 
 ```
@@ -294,7 +294,7 @@ Starting sandbox...
 Starting shellinaboxd:                                     [  OK  ]
 ```
 
-10. You can now connect to your machine at http://localhost:8888
+10\. You can now connect to your machine at http://localhost:8888
 
 ## Run notes for non-linux/mac users:
 
