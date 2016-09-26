@@ -141,7 +141,7 @@ sandbox             latest              fc813bdc4bdd        3 days ago          
 The first time you start the container, you need to create it via the run command.  The run command both creates and starts the container.
 
 ```
-docker run -v hadoop:/hadoop --name sandbox --hostname "sandbox.hortonworks.com" --privileged -d \
+$ docker run -v hadoop:/hadoop --name sandbox --hostname "sandbox.hortonworks.com" --privileged -d \
 -p 6080:6080 \
 -p 9090:9090 \
 -p 9000:9000 \
@@ -214,6 +214,8 @@ For all future container starts, you only need to run the docker start command:
 ```
 $ docker start sandbox
 ```
+
+Notice that `sandbox` is the name of the container in the run command used above.
 
 6\. Verify the container is running:
 
