@@ -88,6 +88,7 @@ These components are offered by the Hortonworks distribution, but not included i
 
 1\.  Apache Accumulo  
 2\.  Apache Mahout  
+3\.  Hue
 
 **Newly Added HDP Supported Packages**  
 
