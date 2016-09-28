@@ -215,7 +215,7 @@ First, make sure that the Apache Zeppelin service is started in Ambari. Then use
 
 You should be greeted by the following screen where you can choose to view notes, or create a new one.
 
-![](../../../assets/server-logs/zeppelin_create_note.png)
+![zeppelin_create_note](/assets/server-logs/zeppelin_create_note.png)
 
 ### 4.1 Import notebook NiFiServerLogs (Option 1)
 
