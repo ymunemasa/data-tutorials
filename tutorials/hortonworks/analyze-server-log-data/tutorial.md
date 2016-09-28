@@ -22,8 +22,6 @@ In this demo, we demonstrate how an enterprise security breach analysis and resp
 *   Stream server logs into Hadoop with [Hortonworks Dataflow](http://hortonworks.com/hdf/) powered by **Apache NiFi**
 *   Use [Hive](http://hortonworks.com/hadoop/hive) to build a relational view of the data
 *   Use Elastic Search for high-level visualization
-<!--Import the data into Microsoft Excel with the [ODBC connector](http://hortonworks.com/products/hdp-2/#add_ons)
-*   Visualize data with Powerview-->
 *   Use [Oozie](http://hortonworks.com/hadoop/oozie) to automatically update a firewall
 *   Visualize the data with [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin)
 
@@ -33,9 +31,6 @@ This Hadoop tutorial can be performed with the [Hortonworks Sandbox](http://hort
 
 - Hortonworks Sandbox (installed and running)
 - Hortonworks DataFlow - [Download here](http://hortonworks.com/downloads/#dataflow)
-<!--Hortonworks ODBC driver installed and configured – See Tutorial "Installing and Configuring the Hortonworks ODBC Driver"
-- Microsoft Excel 2013 Professional Plus (optional)
-  - Note, Excel 2013 is not available on a Mac. However, you can still connect the Sandbox to your version of Excel via the ODBC driver, and you can explore the data through the standard charting capabilities of Excel.-->
 - If you'd like to use Tableau to explore the data, please see this HOWTO on the Hortonworks website: [HOWTO: Connect Tableau to the Hortonworks Sandbox](http://hortonworks.com/kb/how-to-connect-tableau-to-hortonworks-sandbox/)
 - Server log tutorial files (included in this tutorial)
 
@@ -208,103 +203,6 @@ SELECT time, ip, country, cast(status as BOOLEAN) FROM firewall_logs LIMIT 100;
 ![test-query-results](/assets/server-logs/step3/test-query-results.png)
 
 > Note: In the table above, 1 is for true, 0 is for false.
-
-<!--
-Omitting Excel Visulization
-
-* * *
-
-## Step 4 - Import the Server Log Data into Excel
-
-In this section, we will use Excel Professional Plus 2013 to access the generated server log data. Note: if you do not have Excel 2013, you can still bring the data into other versions of Excel and explore the data through other charts. The screens may be slightly different in your version, but the actions are the same. You can complete Step 5 and then explore the data on your own.
-
-*   In Windows, open a new Excel workbook, then select **Data > From Other Sources > From Microsoft Query**.
-
-![](../../../assets/server-logs/17_open_query.jpg)
-
-*   On the Choose Data Source pop-up, select the Hortonworks ODBC data source you installed previously, then click **OK**.
-
-    The Hortonworks ODBC driver enables you to access Hortonworks data with Excel and other Business Intelligence (BI) applications that support ODBC.
-
-![](../../../assets/server-logs/18_choose_data_source.jpg)
-
-*   After the connection to the Sandbox is established, the Query Wizard appears. Select the "firewall_logs" table in the Available tables and columns box, then click the right arrow button to add the entire "firewall_logs" table to the query. Click **Next** to continue.
-
-![](../../../assets/server-logs/19_query_wizard1.jpg)
-
-*   On the Filter Data screen, click **Next** to continue without filtering the data.
-
-![](../../../assets/server-logs/20_query_wizard2.jpg)
-
-*   On the Sort Order screen, click **Next** to continue without setting a sort order.
-
-![](../../../assets/server-logs/21_query_wizard3.jpg)
-
-*   Click **Finish** on the Query Wizard Finish screen to retrieve the query data from the Sandbox and import it into Excel.
-
-![](../../../assets/server-logs/22_query_wizard4.jpg)
-
-*   On the Import Data dialog box, click **OK** to accept the default settings and import the data as a table.
-
-![](../../../assets/server-logs/23_import_data.jpg)
-
-*   The imported query data should then appear in the Excel workbook.
-
-Now that we have successfully imported Hortonworks Sandbox data into Microsoft Excel, we can use the Excel Power View feature to analyze and visualize the data.
-
-* * *
-
-## Step 5 - Visualize the Sentiment Data Using Excel Power View
-
-Data visualization can help you analyze network data and determine effective responses to network issues. In this section, we will analyze data for a denial-of-service attack:
-
-*   Review the network traffic by country
-*   Zoom in on one particular country
-*   Generate a list of attacking IP addresses
-
-We'll start by reviewing the network traffic by country.
-
-*   In the Excel worksheet with the imported "<firewall_logs>" table, select **Insert > Power View** to open a new Power View report. (note: if this is your first time running PowerView it will prompt you to [install Silverlight](#Excel%20configuration%20for%20PowerView).
-
-![](../../../assets/server-logs/25_open_powerview_firewall_logs.jpg)
-
-*   The Power View Fields area appears on the right side of the window, with the data table displayed on the left.
-
-    Drag the handles or click the Pop Out icon to maximize the size of the data table, and close the Filters area.
-
-![](../../../assets/server-logs/26_powerview_firewall_logs.jpg)
-
-*   In the Power View Fields area, clear checkboxes next to the **ip** and **time** fields, then click **Map** on the Design tab in the top menu. (**Note:** If you do not get data plotted on your map look at [Geolocation of data using Bing](#Geolocation%20of%20data%20using%20Bing))
-
-![](../../../assets/server-logs/27_open_map.jpg)
-
-*   Drag the **status** field into the **SIZE** box.
-
-![](../../../assets/server-logs/28_status_to_size.jpg)
-
-*   The map view displays a global view of the network traffic by country. The color orange represents successful, authorized network connections. Blue represents connections from unauthorized sources.
-
-![](../../../assets/server-logs/29_network_traffic_by_country.jpg)
-
-*   Let's assume that recent denial-of-service attacks have originated in Pakistan. We can use the map controls to zoom in and take a closer look at traffic from that country.
-
-![](../../../assets/server-logs/30_network_traffic_pakistan.jpg)
-
-    It's obvious that this is a coordinated attack, originating from many countries. Now we can use Excel to generate a list of the unauthorized IP addresses.
-
-*   Use the tabs at the bottom of the Excel window to navigate back to the Excel worksheet with the imported "<firewall_logs>" table.
-
-    Click the arrow next to the **status** column header. Clear the **Select all** check box, select the **ERROR** check box, then click **OK**.
-
-![](../../../assets/server-logs/31_excel_error_list.jpg)
-
-*   Now that we have a list of the unauthorized IP addresses, we can update the network firewall to deny requests from those attacking IP addresses.
-
-We've shown how the Hortonworks Data Platform can help system administrators capture, store, and analyze server log data. With real-time access to massive amounts of data on the Hortonworks Data Platform, we were able to block unauthorized access, restore VPN access to authorized users.
-
-With log data flowing continuously into the Hortonworks Data Platform "data lake," we can protect the company network from similar attacks in the future. The data can be refreshed frequently and accessed to respond to security threats, or to prepare for compliance audits.
-
--->
 
 * * *
 
