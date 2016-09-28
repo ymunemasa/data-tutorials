@@ -45,8 +45,9 @@ This Hadoop tutorial can be performed with the [Hortonworks Sandbox](http://hort
 - [Background](#background)
 - [Step 1 – Configure and Install Hortonworks DataFlow](#install-hdf)
 - [Step 2 - Import the Flow](#import-flow)
-- [Step 3: Generate the Server Log Data](#generate-server-log-ata)
-- [Visualize Server Log Data with Apache Zeppelin](#visualize-log-data-zeppelin)
+- [Step 3 - Generate the Server Log Data](#generate-server-log-ata)
+- [Step 4 - Visualize Server Log Data with Apache Zeppelin](#visualize-log-data-zeppelin)
+- [Summary](#summary-server-logs)
 
 ## Overview
 
@@ -116,9 +117,9 @@ Learning the Ropes of Apache NiFi for step-by-step instructions.
 1\. To activate the NiFi service, refer to [Step 4: Start NiFi on Sandbox](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
 Learning the Ropes of Apache NiFi for step-by-step instructions.
 
-Once you enter the NiFi HTML Interface, you should see a canvas as below:
+Once you enter the NiFi HTML Interface at [http://localhost:9090/nifi](http://localhost:9090/nifi), you should see a canvas as below:
 
-![nifi-html-interface](/)
+![nifi-html-interface](/assets/server-logs/step1/nifi_html_interface.png)
 
 * * *
 
@@ -126,15 +127,13 @@ Once you enter the NiFi HTML Interface, you should see a canvas as below:
 
 We're going to import a pre-made data flow from a template which you can [**download ServerLogGeneratorSecurity.xml**](/assets/server-logs/templates/ServerLogGeneratorSecurity.xml).
 
-Use the NiFi inteface to upload the flow, and then drag it onto your workspace.
+Use the NiFi interface to upload the flow, and then drag it onto your workspace.
 
-![Upload NiFi Template](../../../assets/server-logs/upload-template-1.png)
+![Upload NiFi Template](/assets/server-logs/step2/upload_template.png)
 
-![Upload NiFi Template](../../../assets/server-logs/upload-template-2.png)
+Once you've uploaded the template into NiFi you can instantiate it by dragging the template icon ![template_icon](/assets/server-logs/step2/template_icon.png) onto the screen. It will ask you to select your template's name and the flow will appear as in the image below.
 
-Once you've uploaded the template into NiFi you can instantiate it by dragging the template icon onto the screen. It will ask you to select your template's name and the flow will appear as in the image below.
-
-![Instantiate NiFi Template](../../../assets/server-logs/instantiate-template.png)
+![Instantiate NiFi Template](/assets/server-logs/step2/instantiate-template.png)
 
 * * *
 
@@ -142,17 +141,46 @@ Once you've uploaded the template into NiFi you can instantiate it by dragging t
 
 Now that you've imported the data flow and everything it set up, simply click the **Run** at the top of the screen. (Make sure you haven't selected a specific processor, or  else only one of the processors will start)
 
-![Instantiate NiFi Template](../../../assets/server-logs/start-flow.png)
+![start-flow](/assets/server-logs/step3/start-flow.png)
 
-Now that everything is running we can check in the places where we see the data being deposited in HDFS.
 
-Log into the Ambari interface which can be found at [http://localhost:8080](http://localhost:8080)
+If you receive an error message stating "LzoCodec not found" and "LzopCodec not found" similar to the image below,
+
+![error_puthdfs_troubleshoot](/assets/server-logs/step3/error_puthdfs_troubleshoot.png)
+
+Login to Ambari Dashboard at [http://localhost:8080](http://localhost:8080) as raj_ops user. The login credentials are **raj_ops/raj_ops**. Once inside Ambari, click **HDFS** in the left hand sidebar, then click on the **Configs** tab. Scroll down the page, next to Settings tab, click on the **Advanced** tab to open the Advanced configs. Navigate to **Advanced core-site** file, we will need to change property value for the **io.compression.codecs** setting.
+
+![advanced_core_site_change_config](/assets/server-logs/step3/advanced_core_site_change_config.png)
+
+when you find the **LzoCodec** and **LzopCodec**, which are values within the **io.compression.codecs** property, the line will look as below:
+
+~~~
+org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.SnappyCodec,com.hadoop.compression.lzo.LzoCodec,com.hadoop.compression.lzo.LzopCodec
+~~~
+
+Remove **com.hadoop.compression.lzo.LzoCodec** and **com.hadoop.compression.lzo.LzopCodec** from the config values.
+
+You should see the updated content in the **io.compression.codecs** value field as below:
+
+~~~
+org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.SnappyCodec
+~~~
+
+Save the configuration change. Ambari will notify us that we need to restart HDFS, scroll to the top of HDFS Configs page, you should see a **Orange Restart** button, select **Restart All Affected**.
+
+![restart_all_affected](/assets/server-logs/step3/restart_all_affected.png)
+
+Now that we are done setting configuration changes, navigate back to the dataflow at [http://localhost:9090/nifi](http://localhost:9090/nifi) Now that we made the change, let's rerun the DataFlow, those errors should be resolved.
+
+![start-flow](/assets/server-logs/step3/start-flow.png)
+
+Now that everything is running we can check in the places where we see the data being deposited in HDFS. Since we will be checking if the NiFi DataFlow performs as expected, log out of raj_ops user, then login to Ambari as maria_dev user. Login to the Ambari Dashboard at [http://localhost:8080](http://localhost:8080). Login credentials are **maria_dev/maria_dev**.
 
 ### 3.1 Verify NiFi Populates HDFS with Data Files
 
-Open up the **HDFS Files** view, and then navigate to `/tmp/server-logs/`. Files should start appearing a few seconds after you start the flow. You can click on them to view the content.
+Open up the **Files View**, and then navigate to `/tmp/server-logs/`. Files should start appearing a few seconds after you start the flow. You can click on them to view the content.
 
-![Explore Output](../../../assets/server-logs/explore-output-files.png)
+![Explore Output](/assets/server-logs/step3/explore-output-files.png)
 
 *   Next we will create an Hive table from the log file.
 
@@ -160,25 +188,28 @@ Open up the **HDFS Files** view, and then navigate to `/tmp/server-logs/`. Files
 
 Open the Ambari UI and head to the views dropdown list. Select **Hive** and then paste the following query.
 
+~~~sql
+CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, status INT)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '|'
+LOCATION '/tmp/server-logs';
+~~~
 
-	CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, success BOOLEAN)
-	ROW FORMAT DELIMITED
-	FIELDS TERMINATED BY '|'
-	LOCATION '/tmp/server-logs';
+**Note** if the query doesn't run successfully due to a permissions error you then might need to update the permission on the directory. Run the following commands over SSH on the Sandbox
 
-
-**Note** if the query doesn't run successfully due to a permissions error you then you might need to update the permission on the directory. Run the following commands over SSH on the Sandbox
-
-
-    sudo -u hdfs hadoop fs -chmod -R 777 /tmp
-    sudo -u hdfs hadoop fs -chown -R admin /tmp
-
+~~~bash
+sudo -u hdfs hadoop fs -chmod -R 777 /tmp
+~~~
 
 When the table has been created you should now be able to query the data table for data using a query like
 
-    Select * from FIREWALL_LOGS LIMIT 100;
+~~~bash
+SELECT time, ip, country, cast(status as BOOLEAN) FROM firewall_logs LIMIT 100;
+~~~
 
-![](../../../assets/server-logs/test-query-results.png)
+![test-query-results](/assets/server-logs/step3/test-query-results.png)
+
+> Note: In the table above, 1 is for true, 0 is for false.
 
 <!--
 Omitting Excel Visulization
@@ -281,37 +312,98 @@ With log data flowing continuously into the Hortonworks Data Platform "data lake
 
 ### Step 4 - Visualize Server Log Data with Apache Zeppelin <a id="visualize-log-data-zeppelin"></a>
 
-First, make sure that the Apache Zeppelin service is started in Ambari. Then use the **Views Dropdown Menu** and select the Zeppelin View.
+Why is Data Visualization important?
+Helps you analyze network data and determine effective responses to network issues.
+
+First, make sure that the Apache Zeppelin service is started in Ambari. Then use the **Views Dropdown Menu** and select the **Zeppelin View**.
 
 You should be greeted by the following screen where you can choose to view notes, or create a new one.
 
 ![](../../../assets/server-logs/zeppelin_create_note.png)
 
-You can choose to **Import note** from this tutorial using the following URL:
+### 4.1 Import notebook NiFiServerLogs (Option 1)
 
-	https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.4/data/zeppelin-notes/FlumeServerLogs.json
-
-Once you've opened the note you can use the following commands to generate charts to visualize the data
+You can choose to **Import note** from this tutorial. Click on **Import note**, an **Import new note** window will appear, select **Add from URL**. The window will transition to a new window that has two fields: **Import AS** and **URL**. Copy & Paste the following URL into the **URL** field:
 
 ~~~
-	%hive
-	select country from firewall_logs
+https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/data/zeppelin-notes/NiFiServerLogs.json
 ~~~
 
-and
+Then click the **Import note** button.
 
+### 4.2 Create notebook NiFiServerLogs (Option 2)
+
+If you prefer to go through the steps to create the notebook, follow the steps below. Click on the **Create new note** in the Zeppelin Welcome page. Enter **NiFiServerLogs** as the notebook name and create the notebook. Click on the new notebook you created in the list of notebooks to open the **NiFiServerLogs** notebook. Our notebook will have 3 sections in which we will analyze data for denial-of-service attack:
+
+- review network traffic by country
+- zoom in one particular country
+- generate list of attacking IP addresses
+
+### Find Network Traffic Per Country
+
+Let’s filter the data in our hive table, so it only shows **country** and **status**. Copy & Paste the query into Zeppelin:
+
+~~~sql
+%jdbc(hive)
+SELECT country, cast(status as BOOLEAN) FROM firewall_logs
 ~~~
-	%hive
-	select time, country from firewall_logs
+
+We were able to generate a table in zeppelin that shows us country associated with whether the network connection status was a success or not. Let’s visualize this table as a Bar Graph, select the option that looks like a Bar Graph. Now let’s setup the Advanced settings: **Keys**, **Groups**, **Values**. You should have two fields: country and success. Drag the country field into the **Keys** box, then do the same operation for the **status** field. To sum up the **status** values for true and false,  drag another status field into the **Values**. Now the countries will have true or false association and when you hover over a piece of the bar graph, you should see the sum value for status: false or true.
+
+![network_traffic_per_country](/assets/server-logs/step4/network_traffic_per_country.png)
+
+Legend:
+Blue represents successful, authorized network connections
+Light Blue represents connections from unauthorized sources
+
+### Zoom into One Particular Country
+
+Let’s assume the recent denial-of-service attacks originated in INDIA. Let’s further filter the data by selecting the country with value IND. Copy & Paste the query into the second text space available:
+
+~~~sql
+%jdbc(hive)
+SELECT country, cast(status as BOOLEAN) FROM firewall_logs WHERE country = ‘IND’
 ~~~
 
+Let’s make an assumption that the recent denial-service attacks originate in INDIA, we will use Zeppelin’s data visualization feature to zoom in on the status errors or unauthorized network connections for INDIA. Under the query, there are 6 visualization choices, we will choose 2 leftmost choice, a bar graph.
 
-![](../../../assets/server-logs/sample_zeppelin_charts.png)
+Remember we want to know the total for unauthorized network connections, so drag the success square into the **Values** box. Since there are multiple values for success, “true” or “false”, let’s drag another success box into the groups box. The key that is associated with both types of values for success is “IND”, so drag the country square into the **Keys** box. Refer to the image as below:
 
-## Summary
+![network_traffic_by_one_country](/assets/server-logs/step4/network_traffic_by_one_country.png)
 
-We learned the process of how enterprise security breach analysis and response may be performed when using NiFi for Data Ingestion, Enrichment and Transportation to HDFS. We further analyzed the data through Hive by performing transformations on the format of the data. Zeppelin was the Data Science Notebook in which we wrote hive queries and utilized it's feature to generate visualizations of the data from global view of the network traffic by country. 
+Legend:
+Blue represents successful, authorized network connections
+Light Blue represents connections from unauthorized sources
+
+### Generate List of Attacking IP Addresses
+
+Let's generate a record of unauthorized IP addresses. We will need to query the table with the parameters time, ip, country, success. Copy & Paste the following query into Zeppelin:
+
+Run the following query:
+
+~~~sql
+%jdbc(hive)
+SELECT time, ip, country, cast(status as BOOLEAN) FROM firewall_logs WHERE status = '0'
+~~~
+
+Generates List of IP Address Attacks Per Country. The ‘0’ signifies connections from unauthorized sources. Therefore, we can update the network firewall to deny requests from those attacking IP addresses
+
+Let’s visualize the IP Address Attacks in a Pie Chart.
+
+Drag country into the **Keys** box and move **ip** field into the **values** box. Make sure that you selected the count option for the **ip**.
+
+![generate_list_unauthorized_ip_addresses](/assets/server-logs/step4/generate_list_unauthorized_ip_addresses.png)
+
+Our visualization counts the number of unauthorized IP Addresses per country.
+As you can see each piece of the pie represents a country and when you hover over one slice, you can see the total count for unauthorized IP addresses.
+
+## Summary <a id="summary-server-logs"></a>
+
+We’ve shown how the Hortonworks Data Platform can help system administrators capture, store, and analyze server log data. With real-time access to massive amounts of data on the Hortonworks Data Platform, we were able to block unauthorized access, restore VPN access to authorized users.
+
+With log data flowing continuously into the Hortonworks Data Platform “data lake,” we can protect the company network from similar attacks in the future. The data can be refreshed frequently and accessed to respond to security threats, or to prepare for compliance audits.
 
 ## Further Reading
+- [Collecting Logs with Apache NiFi](http://bryanbende.com/development/2015/05/17/collecting-logs-with-apache-nifi)
+- [Hive LanguageManual Select](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Select)
 - [Zeppelin Overview Video](https://www.youtube.com/watch?v=_PQbVH_aO5E&feature=youtu.be)
-- []()
