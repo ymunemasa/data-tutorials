@@ -22,7 +22,7 @@ In this demo, we demonstrate how an enterprise security breach analysis and resp
 *   Stream server logs into Hadoop with [Hortonworks Dataflow](http://hortonworks.com/hdf/) powered by **Apache NiFi**
 *   Use [Hive](http://hortonworks.com/hadoop/hive) to build a relational view of the data
 *   Use Elastic Search for high-level visualization
-<!--*   Import the data into Microsoft Excel with the [ODBC connector](http://hortonworks.com/products/hdp-2/#add_ons)
+<!--Import the data into Microsoft Excel with the [ODBC connector](http://hortonworks.com/products/hdp-2/#add_ons)
 *   Visualize data with Powerview-->
 *   Use [Oozie](http://hortonworks.com/hadoop/oozie) to automatically update a firewall
 *   Visualize the data with [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin)
@@ -33,11 +33,9 @@ This Hadoop tutorial can be performed with the [Hortonworks Sandbox](http://hort
 
 - Hortonworks Sandbox (installed and running)
 - Hortonworks DataFlow - [Download here](http://hortonworks.com/downloads/#dataflow)
-<!--
-- Hortonworks ODBC driver installed and configured – See Tutorial "Installing and Configuring the Hortonworks ODBC Driver"
+<!--Hortonworks ODBC driver installed and configured – See Tutorial "Installing and Configuring the Hortonworks ODBC Driver"
 - Microsoft Excel 2013 Professional Plus (optional)
-  - Note, Excel 2013 is not available on a Mac. However, you can still connect the Sandbox to your version of Excel via the ODBC driver, and you can explore the data through the standard charting capabilities of Excel.
-  -->
+  - Note, Excel 2013 is not available on a Mac. However, you can still connect the Sandbox to your version of Excel via the ODBC driver, and you can explore the data through the standard charting capabilities of Excel.-->
 - If you'd like to use Tableau to explore the data, please see this HOWTO on the Hortonworks website: [HOWTO: Connect Tableau to the Hortonworks Sandbox](http://hortonworks.com/kb/how-to-connect-tableau-to-hortonworks-sandbox/)
 - Server log tutorial files (included in this tutorial)
 
