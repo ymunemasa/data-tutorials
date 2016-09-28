@@ -15,8 +15,6 @@ Security breaches happen. And when they do, your server logs may be your best li
 
 In this demo, we demonstrate how an enterprise security breach analysis and response might be performed.
 
-<!--<iframe width="700" height="394" src="https://www.youtube.com/embed/BPC_mClNSXk?feature=oembed" frameborder="0" allowfullscreen="" id="player0"></iframe>-->
-
 ### In this tutorial, learn how to:
 
 *   Stream server logs into Hadoop with [Hortonworks Dataflow](http://hortonworks.com/hdf/) powered by **Apache NiFi**
@@ -303,3 +301,4 @@ With log data flowing continuously into the Hortonworks Data Platform “data la
 - [Collecting Logs with Apache NiFi](http://bryanbende.com/development/2015/05/17/collecting-logs-with-apache-nifi)
 - [Hive LanguageManual Select](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Select)
 - [Zeppelin Overview Video](https://www.youtube.com/watch?v=_PQbVH_aO5E&feature=youtu.be)
+- [Manage Server Log Data with HDP Video](https://www.youtube.com/embed/BPC_mClNSXk?feature=oembed)
