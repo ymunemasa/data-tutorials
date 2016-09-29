@@ -1,272 +1,217 @@
 ---
 layout: tutorial
-title: Securing Data Lake Resources and Auditing User Access with Apache Ranger Security
+title: Securing Data Lake Resources and Auditing User Access with Apache Ranger
 tutorial-id: 570
 tutorial-series: Security
-tutorial-version: hdp-2.4.0
-intro-page:
+tutorial-version: hdp-2.5.0
+intro-page: true
 components: [ ranger ]
 ---
 
 
-### Introduction
+## Introduction
 
 In this tutorial we will explore how you can use policies in Apache Ranger to protect your enterprise data lake and audit access by users to resources on HDFS, Hive and HBase from a centralized Ranger Administration Console.
 
-### Prerequisites
+## Prerequisites
 
 *   Download [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 *   Complete the [Learning the Ropes of the HDP Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) tutorial.
 
+## Outline
 
-### Login to the Ranger Administration Console
+- [1: Start HBase and Ambari Infra Services](#start-hbase-infra)
+- [2: Login to Ranger Administration Console](#login-ranger)
+- [3: Review Existing HDFS Policies](#review-hdfs-policies)
+- [4: Exercise HDFS Access Scenarios](#exercise-hdfs-access)
+- [5: Review Hive Policies](#review-hive-policies)
+- [6: Exercise Hive Access Scenarios](#exercise-hive-access)
+- [7: Review HBase Policies](#review-hbase-policies)
+- [8: Exercise HBase Access Scenarios](#exercise-hbase-access)
+- [9: Summary](#summary)
 
-Once the VM is running in VirtualBox, login to the Ranger Administration console at [http://localhost:6080/](http://localhost:6080/) from your host machine. The username is `admin` and the password is `admin`.
+### 1: Start HBase and Ambari Infra Services <a id="start-hbase-infra"></a>
 
-![](/assets/securing-data-lake-with-ranger/ranger-login.png)
+Go to Ambari and login  with user credentials **raj_ops/raj_ops**. If HBase is switched off go to `Service Actions` button on top right and `Start` the service
 
+![start_hbase](/assets/securing-data-lake-with-ranger/start_hbase.png)
 
-As soon as you login, you should see list of repositories as shown below:  
+Check the box for **Maintenance Mode**.
 
-![](/assets/securing-data-lake-with-ranger/main-policies.png)
+![hbase_maintenance_mode](/assets/securing-data-lake-with-ranger/hbase_maintenance_mode.png)
 
-### Review existing HDFS policies
+Next, click `Confirm Start`. Wait for 30 seconds and your HBase will start running.
+Similarly, start **Ambari Infra** to record all the audits through Ranger. Your **Ambari dashboard** should look like this:
+
+![ambari_dashboard_rajops_infra](/assets/securing-data-lake-with-ranger/ambari_dashboard_rajops_infra.png)
+
+### 2: Login to Ranger Administration Console <a id="login_ranger"></a>
+
+Once the VM is running in VirtualBox, login to the Ranger Administration console at **http://localhost:6080/** from your host machine. The username is **raj_ops** and the password is **raj_ops**.
+
+![ranger_login_rajops](/assets/securing-data-lake-with-ranger/ranger_login_rajops.png)
+
+As soon as you login, you should see list of repositories as shown below:
+
+![list_repositories](/assets/securing-data-lake-with-ranger/list_repositories.png)
+
+### 3: Review Existing HDFS Policies <a id="review-hdfs-policies"></a>
 
 Please click on `Sandbox_hadoop` link under HDFS section
 
-![](/assets/securing-data-lake-with-ranger/hdfs-policies.png)
+![sandbox_hadoop_policies](/assets/securing-data-lake-with-ranger/sandbox_hadoop_policies.png)
 
-User can review policy details by a single click on the policy. The policy details will appear on the right.
+User can review policy details by a single click on the box right to the policy. Click on the `HDFS Global Allow policy`. Click the slider so it is in **disable** position.
 
-Click on the **HDFS Global Allow** policy. Click the slider so it is in **disable** position. Then click **Save**.
+![click_hdfs_global_allow_disable](/assets/securing-data-lake-with-ranger/click_hdfs_global_allow_disable.png)
 
-![](/assets/securing-data-lake-with-ranger/disable-hdfs-policy.png)
+ Then click `Save`.  
 
-### Exercise HDFS access scenarios
+### 4. Exercise HDFS Access Scenarios <a id="exercise-hdfs-access"></a>
 
-To validate the policy, please login into the sandbox using username `it1`. User `it1` belongs to the `IT` group.
+Login to the Ambari by the following credentials:
 
-Login to the Sandbox VM.
+Username - **raj_ops**
+Password - **raj_ops**
 
-You can SSH:
+Click on 9 square menu icon and select `Files view:`
 
-    ssh -p 2222 root@127.0.0.1
+![select_files_view](/assets/securing-data-lake-with-ranger/select_files_view.png)
 
-Or you could choose to use the VirtualBox Shell
+ You will see a home page like the one given below. Click on `demo` folder
 
-use the password `hadoop`.
+![files_view_home_page](/assets/securing-data-lake-with-ranger/files_view_home_page.png)
 
-Try running the following commands:
+Next, click on `data`. You will see a message like this:
 
-	su it1
-	id
-	hdfs dfs -cat /demo/data/Customer/acct.txt
+![demo_data_error](/assets/securing-data-lake-with-ranger/demo_data_error.png)
 
-You should get a result similar to the following
+Click on `details`, that will lead you to the page that shows the permission denied for the user **raj_ops**:
 
-	[root@sandbox ~]# su - it1
-	[it1@sandbox ~]$ id uid=1018(it1)  gid=1018(IT)  groups=1018(IT)
-	[it1@sandbox ~]$ hdfs dfs -cat /demo/data/Customer/acct.txt
-	cat:  Permission denied:  user=it1,  access=READ,  inode="/demo/data/Customer/acct.txt":hdfs:hdfs:-rwx------
+![demo_data_message](/assets/securing-data-lake-with-ranger/demo_data_message.png)
 
+Go back to Ranger and then to the `Audits Tab` and check that its event (denied) being audited. You can filter by searching **Result as Denied**
 
+![audit_results_hdfs](/assets/securing-data-lake-with-ranger/audit_results_hdfs.png)
 
-Go to the Auditing Tab and check that its access (denied) being audited. You can filter
+Now, go back to the **HDFS Global Allow Policy**. Click the switch to enable it and try running the command again
 
-![](/assets/securing-data-lake-with-ranger/audit-deny-1.png)
+![click_hdfs_global_allow_enable](/assets/securing-data-lake-with-ranger/click_hdfs_global_allow_enable.png)
 
-Now, go back to the HDFS Global Allow Policy. Click the switch to enable it and try running the command again
+Click `Save`.  
+Now let us go back to Files view and Navigate back to `/demo/data/`. You will see three folders under data due to enabled HDFS global policy.  
 
-![](/assets/securing-data-lake-with-ranger/enable-hdfs-global-allow.png)
+Now head back to the Audit tab in Ranger and search by `User: raj_ops`. Here you can see that the request was allowed through
 
-	hdfs dfs -cat /demo/data/Customer/acct.txt
+![audit_result_hdfs_allowed](/assets/securing-data-lake-with-ranger/audit_result_hdfs_allowed.png)
 
-You should be greeted with many rows of data after running the command with the policy enabled.
+### 5. Review Hive Policies <a id="review-hive-policies"></a>
 
-Now head back to the audit tab in Ranger and search by user: `it1`. Here you can see that the request was Allowed through
+Click on `Access Manager=>Resource Based Policies` section on the top menu, then click on `Sandbox_hive` link under HIVE section to view list of Hive Policies:
 
-![](/assets/securing-data-lake-with-ranger/audit-it1.png)
+![sandbox_hive_policies](/assets/securing-data-lake-with-ranger/sandbox_hive_policies.png)
 
+User can review policy details by a single click on the box right to the policy.  
+Disable the **Hive Global Tables Allow Policy** :
 
-### Review Hive Policies
+![click_hive_global_allow_disable](/assets/securing-data-lake-with-ranger/click_hive_global_allow_disable.png)
 
-Click on PolicyManager section on the top menu, then click on `Sandbox_hive` link under HIVE section to view list of Hive Policies
+Also disable the `policy for raj_ops, holger_gov, maria_dev and amy_ds`.  
+You should see a page like this:
 
-![](/assets/securing-data-lake-with-ranger/hive-policies.png)
+![sandbox_hive_policies_disabled](/assets/securing-data-lake-with-ranger/sandbox_hive_policies_disabled.png)
 
+### 6. Exercise Hive Access Scenarios <a id="exercise-hive-access"></a>
 
-User can review policy details by a single click on the policy. The policy details will appear on the right.
+Go back to Ambari and click on 9 square menu icon and select `Hive view`:
 
-_Disable_ the **Hive Global Tables Allow Policy** like
+![select_hive_view](/assets/securing-data-lake-with-ranger/select_hive_view.png)
 
-### Exercise Hive Access Scenarios
+Run the following query:  
 
-Run the `beeline` command to validate access for `mktg1` user to see if he can run `select  *  from  xademo.customer_details`
+~~~
+select * from foodmart.product;
+~~~
 
-You can copy and paste the following commands to start beeline:
+You will come across error message which states that **Permission denied for raj_ops because it does not have a SELECT privilege**.  
 
-Make sure you first run `exit` to log out of the `it1` user, then run the following:
+![foodmart_product_message](/assets/securing-data-lake-with-ranger/foodmart_product_message.png)
 
-	su mktg1
-	beeline -u "jdbc:hive2://localhost:10000/default" -n mktg1 -p mktg1 -d org.apache.hive.jdbc.HiveDriver
+Next, go back to Ranger and then Audits and see its access (denied) being audited. You can do this the same way that we checked for the raj_ops user. Just search the audit log by user to see.
 
-Then once beeline is started run:
+![audit_results_hive](/assets/securing-data-lake-with-ranger/audit_results_hive.png)
 
-	select * from xademo.customer_details
+Re-Enable the **Global Hive Tables Allow** policy and **Policy for raj_ops, holger_gov, maria_dev and amy_ds**.  
+Go back to **Hive View** and run the same query again:
 
-You should get an error like:
+~~~
+select * from foodmart.product;
+~~~
 
-	0: jdbc:hive2://localhost:10000/default> select * from xademo.customer_details;
-	Error: Error while compiling statement: FAILED: HiveAccessControlException Permission denied: user [mktg1] does not have [SELECT] privilege on [xademo/customer_details/balance,imei,phone_number,plan,rec_date,region,status] (state=42000,code=40000)
+![foodmart_product_successful](/assets/securing-data-lake-with-ranger/foodmart_product_successful.png)
 
-Go to Policy Administrator tool and see its access (denied) being audited. You can do this the same way that we checked for the `it1` user. Just search the audit log by user to see.
+This time, the query runs successfully and you can see all data in product table. Go back to Ranger and then Audits to see its access (granted) being audited.  
 
-![](/assets/securing-data-lake-with-ranger/hive-audit-1.png)
+![audit_results_hive_allowed](/assets/securing-data-lake-with-ranger/audit_results_hive_allowed.png)
 
-Re-Enable the **Global Hive Tables Allow** policy. Then try running the same beeline command again.
+### 7. Review HBase Policies <a id="review-hbase-policies"></a>
 
-Go to Policy Administrator tool and see its access (granted) being audited.
+Click on `Access Manager=>Resource Based Policies` section on the top menu, then click on the `Sandbox_hbase` to view list of hbase Policies.
 
-![](/assets/securing-data-lake-with-ranger/hive-audit-2.png)
+![sandbox_hbase_policies](/assets/securing-data-lake-with-ranger/sandbox_hbase_policies.png)
 
+User can review policy details by a single click on the box right to the policy. Disable the **HBase Global Allow Policy** in the same manner that we did before.
 
-### Review HBase Policies
+### 8. Exercise HBase Access Scenarios <a id="exercise-hbase-access"></a>
 
-Click on PolicyManager section on the top menu, then click on the `Sandbox_hbase` link under **HBASE** section to view list of hbase Policies.
+First you’re going to need to log in to your Sandbox via SSH. If you’re using Virtualbox you can log in with the command:
 
-![](/assets/securing-data-lake-with-ranger/hbase-policies.png)
+~~~
+ssh root@127.0.0.1 -p 2222
+~~~
 
-User can review policy details by a single click on the policy. The policy details will appear on the right.
+The first time password to log in is: **hadoop**  
 
-Disable the **HBase Global Allow** Policy in the same manner that we did before.
+![sshTerminal](/assets/securing-data-lake-with-ranger/sshTerminal.png)
 
-### Exercise HBase access scenarios
+Login into HBase shell as **raj_ops** user:
 
-Log out of user `mktg1` by typing `exit` into the terminal. Make sure that the prompt shows
-`[root@sandbox ~]#`.
+~~~
+su raj_ops
+hbase shell
+~~~
 
-Run the following command to start HBase
+![hbase_shell_rajops](/assets/securing-data-lake-with-ranger/hbase_shell_rajops.png)
 
-	./start_hbase.sh
+Run the hbase shell command to validate access for raj_ops user-id, to see if he can view table data from the iemployee table:
 
-You will get something like:
+~~~
+get 'iemployee', '1'
+~~~
 
-	[root@sandbox ~]# ./start_hbase.sh
-	Starting HBase...
-	Starting Postgre SQL                                      [  OK  ]
-	Starting name node                                        [  OK  ]
-	Starting zookeeper nodes                                  [  OK  ]
-	Starting hbase master                                     [  OK  ]
-	Starting hbase stargate                                   [  OK  ]
-	Starting hbase thrift                                     [  OK  ]
-	Starting hbase regionservers                              [  OK  ]
-	====================================
+Then you should get an Access Denied Exception like:
 
-	HBase autostart enabled
-	To disable auto-start of HBase do
-	  # chkconfig hbase-starter off
+![iemployee_message](/assets/securing-data-lake-with-ranger/iemployee_message.png)
 
-	====================================
+Let us check the audit log in Ranger too:
 
+![audit_results_hbase](/assets/securing-data-lake-with-ranger/audit_results_hbase.png)
 
-Run the hbase shell command to validate access for `it1` user-id, who belongs to `IT` group to see if he can view table data from the `iemployee` table:
+Next, enable the **HBase Global Allow Policy**.  
+After making a change in the policy, go back to HBase shell and run the same query again:
 
-	su it1
-	hbase shell
+~~~
+get 'iemployee','1'
+~~~
 
-Once at the HBase Shell, run:
+![iemployee_successful](/assets/securing-data-lake-with-ranger/iemployee_successful.png)
 
-	get 'iemployee', '1'
+Now, you can view all the data in **iemployee** table under **rowkey 1**. Go to Ranger to check audit logs:
 
-You should get a message similar to:
+![audit_results_hbase_allowed](/assets/securing-data-lake-with-ranger/audit%20_results_hbase_allowed.png)
 
-	COLUMN                      CELL
+### 9. Summary <a id="summary"></a>
 
-	ERROR: org.apache.hadoop.hbase.security.AccessDeniedException: Insufficient permissions for user ‘it1',action: get, tableName:iemployee, family:payroll.
+Hopefully by following this tutorial, you got a taste of the power and ease of securing your key enterprise resources using Apache Ranger.  
 
-	Here is some help for this command:
-	Get row or cell contents; pass table name, row, and optionally
-	a dictionary of column(s), timestamp, timerange and versions. Examples:
-
-	  hbase> get 'ns1:t1', 'r1'
-	  hbase> get 't1', 'r1'
-	  hbase> get 't1', 'r1', {TIMERANGE => [ts1, ts2]}
-	  hbase> get 't1', 'r1', {COLUMN => 'c1'}
-	  hbase> get 't1', 'r1', {COLUMN => ['c1', 'c2', 'c3']}
-	  hbase> get 't1', 'r1', {COLUMN => 'c1', TIMESTAMP => ts1}
-	  hbase> get 't1', 'r1', {COLUMN => 'c1', TIMERANGE => [ts1, ts2], VERSIONS => 4}
-	  hbase> get 't1', 'r1', {COLUMN => 'c1', TIMESTAMP => ts1, VERSIONS => 4}
-	  hbase> get 't1', 'r1', {FILTER => "ValueFilter(=, 'binary:abc')"}
-	  hbase> get 't1', 'r1', 'c1'
-	  hbase> get 't1', 'r1', 'c1', 'c2'
-	  hbase> get 't1', 'r1', ['c1', 'c2']
-	  hbase> get 't1', 'r1', {COLUMN => 'c1', ATTRIBUTES => {'mykey'=>'myvalue'}}
-	  hbase> get 't1', 'r1', {COLUMN => 'c1', AUTHORIZATIONS => ['PRIVATE','SECRET']}
-	  hbase> get 't1', 'r1', {CONSISTENCY => 'TIMELINE'}
-	  hbase> get 't1', 'r1', {CONSISTENCY => 'TIMELINE', REGION_REPLICA_ID => 1}
-
-	Besides the default 'toStringBinary' format, 'get' also supports custom formatting by
-	column.  A user can define a FORMATTER by adding it to the column name in the get
-	specification.  The FORMATTER can be stipulated:
-
-	 1. either as a org.apache.hadoop.hbase.util.Bytes method name (e.g, toInt, toString)
-	 2. or as a custom class followed by method name: e.g. 'c(MyFormatterClass).format'.
-
-	Example formatting cf:qualifier1 and cf:qualifier2 both as Integers:
-	  hbase> get 't1', 'r1' {COLUMN => ['cf:qualifier1:toInt',
-	    'cf:qualifier2:c(org.apache.hadoop.hbase.util.Bytes).toInt'] }
-
-	Note that you can specify a FORMATTER by column only (cf:qualifier).  You cannot specify
-	a FORMATTER for all columns of a column family.
-
-	The same commands also can be run on a reference to a table (obtained via get_table or
-	create_table). Suppose you had a reference t to table 't1', the corresponding commands
-	would be:
-
-	  hbase> t.get 'r1'
-	  hbase> t.get 'r1', {TIMERANGE => [ts1, ts2]}
-	  hbase> t.get 'r1', {COLUMN => 'c1'}
-	  hbase> t.get 'r1', {COLUMN => ['c1', 'c2', 'c3']}
-	  hbase> t.get 'r1', {COLUMN => 'c1', TIMESTAMP => ts1}
-	  hbase> t.get 'r1', {COLUMN => 'c1', TIMERANGE => [ts1, ts2], VERSIONS => 4}
-	  hbase> t.get 'r1', {COLUMN => 'c1', TIMESTAMP => ts1, VERSIONS => 4}
-	  hbase> t.get 'r1', {FILTER => "ValueFilter(=, 'binary:abc')"}
-	  hbase> t.get 'r1', 'c1'
-	  hbase> t.get 'r1', 'c1', 'c2'
-	  hbase> t.get 'r1', ['c1', 'c2']
-	  hbase> t.get 'r1', {CONSISTENCY => 'TIMELINE'}
-	  hbase> t.get 'r1', {CONSISTENCY => 'TIMELINE', REGION_REPLICA_ID => 1}
-
-
-
-Now go ahead and re-enable the **HBASE Global Allow** policy. Run the same command at the hbase shell
-
-	get 'iemployee', '1'
-
-Then you should get an output like:
-
-	hbase(main):016:0> get 'iemployee', '1'
-	COLUMN                      CELL
-	 insurance:dental           timestamp=1456405966724, value=metlife
-	 insurance:health           timestamp=1456405966696, value=anthem
-	 insurance:life             timestamp=1456405966778, value=metlife
-	 insurance:vision           timestamp=1456405966751, value=visionOne
-	 payroll:grade              timestamp=1456405966585, value=G16
-	 payroll:salary             timestamp=1456405966613, value=250000.00
-	 personal:city              timestamp=1456405966479, value=San Fransisco
-	 personal:fname             timestamp=1456405966352, value=Mike
-	 personal:lname             timestamp=1456405966436, value=Young
-	 personal:zip               timestamp=1456405966553, value=12345
-	 skills:interpersonal-ratin timestamp=1456405966669, value=medium
-	 g
-	 skills:management          timestamp=1456405966642, value=executive,creator,innovative
-	12 row(s) in 0.0280 seconds
-
-Don't forget to check the audit logs for this too!
-
-
-### Summary
-
-Hopefully by following this tutorial, you got a taste of the power and ease of securing your key enterprise resources using Apache Ranger.
-
-Happy Hadooping!!!
+**Happy Hadooping!!!**
