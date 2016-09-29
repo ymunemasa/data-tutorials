@@ -208,7 +208,7 @@ get 'iemployee','1'
 
 Now, you can view all the data in **iemployee** table under **rowkey 1**. Go to Ranger to check audit logs:
 
-![audit_results_hbase_allowed](/assets/securing-data-lake-with-ranger/audit_results_hbase_allowed.png)
+![audit_results_hbase_allowed1](/assets/securing-data-lake-with-ranger/audit_results_hbase_allowed.png)
 
 ### 9. Summary <a id="summary"></a>
 
