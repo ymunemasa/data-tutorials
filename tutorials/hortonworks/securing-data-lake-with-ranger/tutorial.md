@@ -4,7 +4,7 @@ title: Securing Data Lake Resources and Auditing User Access with Apache Ranger
 tutorial-id: 570
 tutorial-series: Security
 tutorial-version: hdp-2.5.0
-intro-page:
+intro-page: true
 components: [ ranger ]
 ---
 
@@ -208,7 +208,7 @@ get 'iemployee','1'
 
 Now, you can view all the data in **iemployee** table under **rowkey 1**. Go to Ranger to check audit logs:
 
-![audit_results_hbase_allowed1](/assets/securing-data-lake-with-ranger/audit_results_hbase_allowed.png)
+![audit_results_hbase_allowed](/assets/securing-data-lake-with-ranger/audit%20_results_hbase_allowed.png)
 
 ### 9. Summary <a id="summary"></a>
 
