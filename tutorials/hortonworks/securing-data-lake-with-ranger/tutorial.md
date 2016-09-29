@@ -63,7 +63,7 @@ Please click on `Sandbox_hadoop` link under HDFS section
 
 User can review policy details by a single click on the box right to the policy. Click on the `HDFS Global Allow policy`. Click the slider so it is in **disable** position.
 
- ![click_hdfs_global_allow_disable](/assets/securing-data-lake-with-ranger/click_hdfs_global_allow_disable.png)
+![click_hdfs_global_allow_disable](/assets/securing-data-lake-with-ranger/click_hdfs_global_allow_disable.png)
 
  Then click `Save`.  
 
@@ -103,7 +103,7 @@ Now let us go back to Files view and Navigate back to `/demo/data/`. You will se
 
 Now head back to the Audit tab in Ranger and search by `User: raj_ops`. Here you can see that the request was allowed through
 
-![audit_results_hdfs_allowed](/assets/securing-data-lake-with-ranger/audit_results_hdfs_allowed.png)
+![audit_result_hdfs_allowed](/assets/securing-data-lake-with-ranger/audit_result_hdfs_allowed.png)
 
 ### 5. Review Hive Policies <a id="review-hive-policies"></a>
 
@@ -206,9 +206,9 @@ get 'iemployee','1'
 
 ![iemployee_successful](/assets/securing-data-lake-with-ranger/iemployee_successful.png)
 
- Now, you can view all the data in **iemployee** table under **rowkey 1**. Go to Ranger to check audit logs:
+Now, you can view all the data in **iemployee** table under **rowkey 1**. Go to Ranger to check audit logs:
 
- ![audit_results_hbase_allowed](/assets/securing-data-lake-with-ranger/audit_results_hbase_allowed.png)
+![audit_results_hbase_allowed](/assets/securing-data-lake-with-ranger/audit_results_hbase_allowed.png)
 
 ### 9. Summary <a id="summary"></a>
 
