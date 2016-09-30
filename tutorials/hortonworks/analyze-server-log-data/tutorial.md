@@ -180,10 +180,23 @@ Open up the **Files View**, and then navigate to `/tmp/server-logs/`. Files shou
 Open the Ambari UI and head to the views dropdown list. Select **Hive** and then paste the following query.
 
 ~~~sql
-CREATE TABLE FIREWALL_LOGS(time STRING, ip STRING, country STRING, status INT)
-ROW FORMAT DELIMITED
+CREATE TABLE FIREWALL_LOGS(
+  time STRING,
+  ip STRING,
+  country STRING,
+  status INT
+)
+CLUSTERED BY (time) into 25 buckets
+STORED AS ORC
+TBLPROPERTIES("transactional"="true")
 FIELDS TERMINATED BY '|'
 LOCATION '/tmp/server-logs';
+~~~
+
+We will define an ORC Table in Hive Create table using Apache ORC file format.
+
+~~~sql
+CREATE TABLE FIREWALL AS STORED AS ORC SELECT * FROM FIREWALL_LOGS;
 ~~~
 
 **Note** if the query doesn't run successfully due to a permissions error you then might need to update the permission on the directory. Run the following commands over SSH on the Sandbox
