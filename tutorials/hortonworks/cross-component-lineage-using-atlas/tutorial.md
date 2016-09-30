@@ -26,6 +26,7 @@ This tutorial walks through the steps for creating data in Apache Hive through A
 - [3: Sqoop – Hive Lineage](#sqoop-hive-lineage)
 - [4: Kafka - Storm Lineage](#kafka-storm-lineage)
 - [5: Summary](#summary)
+- [6: HCC Articles](#articles)
 
 ## 1: Configure Hive to work with Atlas <a id="configure-hive-with-atlas"></a>
 
@@ -230,6 +231,13 @@ Scroll down and you will see a lineage of all the operations from Kafka to Storm
 
 ![kafka_storm_lineage](/assets/cross-component-lineage-using-atlas/kafka_storm_lineage.png)
 
-## Step 5: Summary <a id="summary"></a>
+## 5: Summary <a id="summary"></a>
 
 **Apache Atlas** is the only governance solution for Hadoop that has native hooks within multiple Hadoop components and delivers lineage across these components. With the new preview release, Atlas now supports lineage across data movement in Apache Sqoop, Hive, Kafka, Storm and in Falcon.
+
+## 6: HCC Articles <a id="articles"></a>
+
+Please go through following Hortonworks Community articles to know more about Apache Atlas:
+
+1\. [Understanding Taxonomy in Apache Atlas](https://community.hortonworks.com/articles/58932/understanding-taxonomy-in-apache-atlas.html)
+2\. [Hive Data Lineage using Apache Atlas](https://community.hortonworks.com/content/kbentry/58885/hive-data-lineage-using-apache-atlas.html)
