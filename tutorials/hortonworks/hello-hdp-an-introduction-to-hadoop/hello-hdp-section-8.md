@@ -130,7 +130,7 @@ dropping the different table fields to see what kind of results you can obtain.
 8\. Let' try a different query to find which cities and states contain the drivers with the highest riskfactors.
 
 ~~~
-%jdbc
+%jdbc(hive)
 
 SELECT a.driverid, a.riskfactor, b.city, b.state
 FROM riskfactor a, geolocation b where a.driverid=b.driverid
