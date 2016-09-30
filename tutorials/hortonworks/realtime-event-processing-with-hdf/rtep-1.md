@@ -218,8 +218,8 @@ where storm will look for instructions on configuring the storm topology:
 
 ~~~
 sudo mkdir /etc/storm_demo
-sudo cp config.properties /etc/storm_demo
-sudo cp -R storm-demo-webapp/routes/ /etc/storm_demo
+sudo cp config.properties /etc/storm_demo/
+sudo cp -R storm-demo-webapp/routes/ /etc/storm_demo/
 ~~~
 
 > Note: Storm will refer to the properties in the config.properties file to configure the topology.
