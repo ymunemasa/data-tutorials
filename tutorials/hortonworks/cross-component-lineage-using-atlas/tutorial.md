@@ -239,5 +239,5 @@ Scroll down and you will see a lineage of all the operations from Kafka to Storm
 
 Please go through following Hortonworks Community articles to know more about Apache Atlas:
 
-1\. [Understanding Taxonomy in Apache Atlas](https://community.hortonworks.com/articles/58932/understanding-taxonomy-in-apache-atlas.html)
+1\. [Understanding Taxonomy in Apache Atlas](https://community.hortonworks.com/articles/58932/understanding-taxonomy-in-apache-atlas.html)  
 2\. [Hive Data Lineage using Apache Atlas](https://community.hortonworks.com/content/kbentry/58885/hive-data-lineage-using-apache-atlas.html)
