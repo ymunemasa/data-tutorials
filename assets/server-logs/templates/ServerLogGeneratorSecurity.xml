@@ -4,12 +4,12 @@
 {Data | IP | Country | Success }
 For use in conjunction with Hortonworks Tutorial
 “Refine and Visualize Server Log Data”</description>
-  <groupId>58df7f60-0157-1000-aaad-f58cdf9d49eb</groupId>
+  <groupId>7cff76da-0157-1000-e468-4b719dc69bf3</groupId>
   <name>ServerLogGeneratorSecurity</name>
   <snippet>
     <processors>
-      <id>fc7da0e1-a3bc-4c55-0000-000000000000</id>
-      <parentGroupId>58df7f60-0157-1000-0000-000000000000</parentGroupId>
+      <id>c49860c3-7309-410f-0000-000000000000</id>
+      <parentGroupId>7cff76da-0157-1000-0000-000000000000</parentGroupId>
       <position>
         <x>0.0</x>
         <y>0.0</y>
@@ -103,7 +103,7 @@ For use in conjunction with Hortonworks Tutorial
         <properties>
           <entry>
             <key>Hadoop Configuration Resources</key>
-            <value>/etc/hadoop/conf/core-site.xml, /etc/hadoop/conf/hdfs-site.xml</value>
+            <value>/etc/hadoop/2.5.0.0-1245/0/core-site.xml, /etc/hadoop/2.5.0.0-1245/0/hdfs-site.xml</value>
           </entry>
           <entry>
             <key>Kerberos Principal</key>
@@ -117,7 +117,7 @@ For use in conjunction with Hortonworks Tutorial
           </entry>
           <entry>
             <key>Directory</key>
-            <value>/tmp/server-logs/info</value>
+            <value>/tmp/server-logs</value>
           </entry>
           <entry>
             <key>Conflict Resolution Strategy</key>
@@ -164,5 +164,5 @@ For use in conjunction with Hortonworks Tutorial
       <type>org.apache.nifi.processors.hadoop.PutHDFS</type>
     </processors>
   </snippet>
-  <timestamp>09/27/2016 17:06:26 UTC</timestamp>
+  <timestamp>10/01/2016 23:01:41 UTC</timestamp>
 </template>
