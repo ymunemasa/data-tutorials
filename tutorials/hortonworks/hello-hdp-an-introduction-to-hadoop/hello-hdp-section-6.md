@@ -421,8 +421,6 @@ hiveContext.sql("create table riskfactor as select * from finalresults")
 
 ![create_table_riskfactor_spark](/assets/hello-hdp/create_table_riskfactor_spark.png)
 
-> Note: loads the first 10 rows from finalresults table
-
 #### 4.5.5 Verify Data Successfully Populated Hive Table in Hive (Check 2)
 
 Execute a select query to verify your table has been successfully stored. You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
