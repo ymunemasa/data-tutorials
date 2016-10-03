@@ -412,7 +412,7 @@ hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 
 ![load_data_to_finalresults](/assets/hello-hdp/load_data_to_finalresults_hello_hdp_lab4.png)
 
-#### 4.5.4 Create the final table Riskfacctor using CTAS
+#### 4.5.4 Create the final table Riskfactor using CTAS
 
 ~~~scala
 %spark
