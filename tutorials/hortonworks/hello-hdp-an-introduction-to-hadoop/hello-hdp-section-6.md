@@ -502,7 +502,7 @@ risk_factor_spark.take(10).foreach(println)
 ~~~
 
 **Create table finalresults in Hive, save it as ORC, load data into it,
-print the first 10 lines from the Hive table in Spark**
+and then create the final table called riskfactor using CTAS**
 
 ~~~scala
 hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
