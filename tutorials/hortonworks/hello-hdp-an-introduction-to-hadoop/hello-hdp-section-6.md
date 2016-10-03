@@ -152,14 +152,6 @@ show tables
 
 Now create it back with the same DDL that we executed in the Pig section, Write the following query:
 
-~~~scala
-%hive
-CREATE TABLE riskfactor (driverid string,events bigint,totmiles bigint,riskfactor float)
-STORED AS ORC
-~~~
-
-![create_table_riskfactor_lab4](/assets/hello-hdp/create_table_riskfactor_lab4.png)
-
 We can either run the original `%spark` interpreter or the `%livy` spark interpreter to run spark code. The difference is that livy comes with more security. The default interpreter for spark jobs is `%spark`.
 
 ~~~scala
@@ -420,16 +412,14 @@ hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 
 ![load_data_to_finalresults](/assets/hello-hdp/load_data_to_finalresults_hello_hdp_lab4.png)
 
-### 4.5.4 Verify Data Successfully Populated Hive Table by Spark (Check 1)
+#### 4.5.4 Create the final table Riskfacctor using CTAS
 
 ~~~scala
 %spark
-val riskfactor = hiveContext.sql("select * from finalresults")
-riskfactor.registerTempTable("riskfactor")
-riskfactor.take(10).foreach(println)
+hiveContext.sql("create table riskfactor as select * from finalresults")
 ~~~
 
-![load_data_finalresults_table_lab4](/assets/hello-hdp/load_data_finalresults_table_lab4.png)
+![create_table_riskfactor_spark](/assets/hello-hdp/create_table_riskfactor_spark.png)
 
 > Note: loads the first 10 rows from finalresults table
 
@@ -437,9 +427,9 @@ riskfactor.take(10).foreach(println)
 
 Execute a select query to verify your table has been successfully stored. You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
 
-![verify_table_populated](/assets/hello-hdp/hive_finalresults_hello_hdp_lab4.png)
+![riskfactor_table_populated](/assets/hello-hdp/riskfactor_table_populated.png)
 
-> Hive finalresults table populated
+> Hive riskfactor table populated
 
 Did both tables have the same data up to 10 rows?
 
@@ -523,11 +513,7 @@ risk_factor_spark.write.format("orc").save("risk_factor_spark")
 
 hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 
-val riskfactor = hiveContext.sql("select * from finalresults")
-
-riskfactor.registerTempTable("riskfactor")
-
-riskfactor.take(10).foreach(println)
+hiveContext.sql("create table riskfactor as select * from finalresults")
 ~~~
 
 ## Appendix A: Run Spark Code in the Spark Interactive Shell <a id="run-spark-in-shell"></a>
