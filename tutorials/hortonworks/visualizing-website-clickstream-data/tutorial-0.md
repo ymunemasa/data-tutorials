@@ -3,9 +3,9 @@ layout: tutorial
 title: How to Visualize Website Clickstream Data
 tutorial-id: 250
 tutorial-series: Real-World End to End Examples
-tutorial-version: hdp-2.4.0
+tutorial-version: hdp-2.5.0
 intro-page: true
-components: [ ambari, hive, flume ]
+components: [ ambari, hive, hdfs, zeppelin ]
 ---
 
 # How to Visualize and Analyze Website Clickstream Data
@@ -18,11 +18,12 @@ In this demo, we demonstrate how an online retailer can optimize buying paths to
 
 ### In this tutorial, learn how to:
 
-*   Stream twitter feeds into [HDFS](http://hortonworks.com/hadoop/hdfs) with [Flume](http://hortonworks.com/hadoop/flume)
+*   Upload twitter feeds into [HDFS](http://hortonworks.com/hadoop/hdfs)
 *   Use [HCatalog](http://hortonworks.com/hadoop/hcatalog) to build a relational view of the data
 *   Use [Hive](http://hortonworks.com/hadoop/hive) to query and refine the data
-*   Import the data into Microsoft Excel with the [ODBC connector](http://hortonworks.com/hdp/add_ons)
-*   Visualize data with Powerview
+*   Import the data into Microsoft Excel with the [ODBC Driver for Apache Hive (v2.1.5)](http://hortonworks.com/downloads/#data-platform)
+*   Visualize Data with Powerview
+*   Visualize Data with Apache Zeppelin
 
 This demo can be completed with the [Hortonworks Sandbox](http://hortonworks.com/products/sandbox) – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series.
 
@@ -53,14 +54,14 @@ In this tutorial, we will focus on the “path optimization” use case. Specifi
 *   Hortonworks sample data files uploaded and refined as described in “Loading Data into the Hortonworks Sandbox”
   - If you haven't loaded this data yet, please [download it here](https://s3.amazonaws.com/hw-sandbox/tutorial8/RefineDemoData.zip)  and import it by following this tutorial: [http://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox/](http://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox/)
 *   Microsoft Excel 2013 Professional Plus 64-bit
-*   Windows 7 or later(Optional - to run Microsoft Excel 2013 Professional Plus edition) 
+*   Windows 7 or later(Optional - to run Microsoft Excel 2013 Professional Plus edition)
   - Note this tutorial can still be run with any version of Excel, but your visualizaitons will be limited to the built in charts. You may wish to attempt this with another visualization tool that can accept data via an ODBC connection, like Tableau, Lumira, etc.
 
 There are two options for setting up the Hortonworks Sandbox:
 
 1. **Download & Install [Hortonworks Sandbox](http://hortonworks.com/sandbox)** on your local machine (recommended 8GB of dedicated RAM for the Virtual Machine)
 2. **Deploy [Hortonworks Sandbox on Microsoft Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)**
- 
+
 
 ### Overview
 
