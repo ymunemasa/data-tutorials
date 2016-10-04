@@ -3,12 +3,14 @@ layout: tutorial
 title: How to Visualize Website Clickstream Data
 tutorial-id: 250
 tutorial-series: Real-World End to End Examples
-tutorial-version: hdp-2.4.0
+tutorial-version: hdp-2.5.0
 intro-page: false
-components: [ ambari, hive, flume ]
+components: [ ambari, hive, zeppelin, excel ]
 ---
 
-## Lab 2: Visualizing Clickstream Logs with Excel
+# Lab 2: Visualize Clickstream Logs with Excel
+
+## Introduction
 
 In this section, You can choose to use  Excel Professional Plus 2013  or Apache Zeppelin (built in to the sandbox) to access the refined clickstream data.
 
@@ -142,11 +144,6 @@ After setting these fields and filters, select **Column Chart > Clustered Column
 
 ![](/assets/clickstream/35_urls_for_age_group_sorted.jpg)
 
-Now that you have successfully analyzed and visualized Hortonworks Sandbox data with Microsoft Excel, you can see how Excel and other BI tools can be used with the Hortonworks platform to derive insights about customers from various data sources.
-
-The data in the Hortonworks platform can be refreshed frequently and used for basket analysis, A/B testing, personalized product recommendations, and other sales optimization activities.
-
-
 ------------------------------------------------
 
 ## Analyzing Clickstream Data with Apache Zeppelin
@@ -180,6 +177,12 @@ Once the Zeppelin view is open you can either create a new note and run the comm
 
 **Feedback**
 
-We are eager to hear your feedback on this tutorial. Please let us know what you think. 
+We are eager to hear your feedback on this tutorial. Please let us know what you think.
 
 [Click here](https://www.surveymonkey.com/s/Clickstream_Tutorial) to take survey
+
+### Summary
+
+Now that you have successfully analyzed and visualized Hortonworks Sandbox data with Microsoft Excel, you can see how Excel and other BI tools can be used with the Hortonworks platform to derive insights about customers from various data sources.
+
+The data in the Hortonworks platform can be refreshed frequently and used for basket analysis, A/B testing, personalized product recommendations, and other sales optimization activities.
