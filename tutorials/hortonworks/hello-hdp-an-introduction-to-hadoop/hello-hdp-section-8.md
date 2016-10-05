@@ -73,7 +73,7 @@ In the previous Spark and Pig tutorials you already created a table finalresults
 1) Copy and paste the code below into your Zeppelin note.
 
 ~~~
-%jbdc(hive)
+%jdbc(hive)
 
 SELECT * FROM riskfactor
 ~~~
