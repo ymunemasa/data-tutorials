@@ -24,7 +24,7 @@ In this lab of the Apache Ranger tutorial, we will use Ranger to set access poli
 - [2: Upload the data files](#upload-data-files)
 - [3: Create the tables in Hive](#create-table-hive)
 - [4: Row level filtering in Hive](#row-level-filtering)
-- [5: Dynamic Column Masking in Hive](#-dynamic-column-masking)
+- [5: Dynamic Column Masking in Hive](#dynamic-column-masking)
 - [6: Summary](#summary)
 
 ### 1: Download the sample data <a id="download-sample-data"></a>
