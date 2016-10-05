@@ -117,7 +117,7 @@ Next, click on Refresh sign next to Database explorer, you will see two new tabl
 
 Click on the box next to the table name to view the data:
 
-![select_data_drivers](/assets/securing-data-lake-with-ranger/select_data_drivers.png)
+![select_drivers_data](/assets/securing-data-lake-with-ranger/select_drivers_data.png)
 
 Now that we have the tables ready, let us explore the row level filtering and masking capabilities of Apache ranger.
 
@@ -283,7 +283,7 @@ Please note that the location column values has been hashed by random alphanumer
 
 Next, let us see the data from the another user **amy_ds**. Sign out from Ambari and re-login as amy_ds. Credentials are **amy_ds/amy_ds**.
 
-![select_data_drivers_amy_ds1](/assets/securing-data-lake-with-ranger/select_data_drivers_amy_ds1.png)
+![select_data_drivers_amy_ds](/assets/securing-data-lake-with-ranger/select_data_drivers_amy_ds.png)
 
 There is no masking in either SSN or location location because amy_ds is not a part of the policy so it gets unmasked results.
 
