@@ -56,7 +56,7 @@ Wait for Kafka to start (It may take a few minutes to turn green)
 
 ![new_started_kafka](/assets/tag-based-policies-atlas-ranger/new_started_kafka.png)
 
-Now start other required services as well and restart Ranger. Start Atlas at the end. Your Ambari dashboard page should look like this:
+Now start other required services as well. Ranger Tagsync is stopped by default so please restart Ranger as well. Finally, start Atlas at the end. Your Ambari dashboard page should look like this:
 
 ![new_ambari_dashboard](/assets/tag-based-policies-atlas-ranger/new_ambari_dashboard.png)
 
