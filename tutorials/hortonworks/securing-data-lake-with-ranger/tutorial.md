@@ -8,6 +8,7 @@ intro-page: true
 components: [ ranger ]
 ---
 
+## Lab 1: Securing HDFS, Hive, HBase Data using Apache Ranger
 
 ## Introduction
 
