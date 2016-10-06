@@ -168,7 +168,7 @@ You will see the lineage like given below. You can hover at each one of them to 
 
 ## 4: Kafka – Storm Lineage <a id="kafka-storm-lineage"></a>
 
-The following steps will show the lineage of data between Kafka topic **my-topic-01** to Storm topology **storm-demo-topology-01**, which stores the output in the HDFS folder (/user/storm/storm-hdfs-test). The VM contains script for creating a mySQL tables, then importing the table using Sqoop into Hive.
+The following steps will show the lineage of data between Kafka topic **my-topic-01** to Storm topology **storm-demo-topology-01**, which stores the output in the HDFS folder (/user/storm/storm-hdfs-test). 
 
 ### 4.1: Create a Kafka topic to be used in the demo
 
