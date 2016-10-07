@@ -10,6 +10,8 @@ components: [ ambari, hive, hdfs, zeppelin ]
 
 # How to Visualize and Analyze Website Clickstream Data
 
+Version 1 for HDP 2.5 updated October 7, 2016
+
 Your home page looks great. But how do you move customers on to bigger things—like submitting a form or completing a purchase? Get more granular with customer segmentation. Hadoop makes it easier to analyze, visualize and ultimately change how visitors behave on your website.
 
 In this demo, we demonstrate how an online retailer can optimize buying paths to reduce bounce rate and improve conversion.
