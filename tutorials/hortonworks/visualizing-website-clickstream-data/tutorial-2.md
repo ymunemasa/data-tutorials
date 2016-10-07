@@ -8,13 +8,107 @@ intro-page: false
 components: [ ambari, hive, zeppelin, excel ]
 ---
 
-# Lab 2: Visualize Clickstream Logs with Excel
+# Lab 2: Visualize Clickstream Log Data
 
 ## Introduction
 
 In this section, You can choose to use  Excel Professional Plus 2013  or Apache Zeppelin (built in to the sandbox) to access the refined clickstream data.
 
-### Step 1: Connecting Microsoft Excel
+### Prerequisites:
+
+* Hortonworks Sandbox 2.5 (installed and running)
+* Completed Lab 1
+
+## Outline
+- [Section 1: Visualize Data with Apache Zeppelin](visualize-data-zeppelin)
+- [Step 1: Identify from which State's Customers Visit the Website Most](identify-customers-website)
+- [Step 2: Understand Demographics from Data to Pull in More Customers](demographics-pull-customers)
+- [Step 3: Analyze the Interest Category Distribution for Users](interest-category-distribution)
+- [Section 2: Visualize Data with Excel](visualize-data-excel)
+- [Step 1: Connect Microsoft Excel](connect-excel)
+- [Step 2: Visualize the Website Clickstream Data Using Excel Power View](visualize-web-clickstream-excel)
+- [Summary](summary-clickstream)
+
+* * *
+
+## Section 1: Visualize Data with Apache Zeppelin <a id="visualize-data-zeppelin"></a>
+
+### Analyze Clickstream Data with Apache Zeppelin
+
+If you don't have access to Microsoft Excel Professional Plus, you can also utilize Apache Zeppelin to do you data visualization as well.
+
+
+Open up Ambari and make sure Zeppelin is running. If not, start the service. Then use the dropdown menu to access the views and select **Zeppelin**
+
+![Zeppelin View](/assets/clickstream/36_zeppelin_create_note.png)
+
+Once the Zeppelin view is open you can either create a new note and run the commands, or import the following notebook from this URL: `
+
+`https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.4/data/zeppelin-notes/ClickstreamAnalytics.json`
+
+* * *
+
+### Step 1: Identify from which State's Customers Visit the Website Most <a id="identify-customers-website"></a>
+
+- Write the query to filter states
+- open **settings**, make sure `state COUNT` is in the **Values** field
+- select `bar graph` to represent the data visually
+
+~~~sql
+%jdbc(hive)
+select state from webloganalytics
+~~~
+
+![Zeppelin Bar Graph](/assets/clickstream/zeppelin-chart-1.png)
+
+Therefore, we have better idea of where our customers are coming from.
+Which are the top three states that have customers who view the website most?
+
+* * *
+
+### Step 2: Understand Demographics from Data to Pull in More Customers <a id="demographics-pull-customers"></a>
+- Write the query to filter demographics (age, gender, category)
+- open **settings**, make sure
+	- `age` is in **Keys** field,
+	- `gender_cd` is in **Groups** field,
+	- `category COUNT` is in **Values** field
+- select `area chart`
+
+~~~sql
+%jdbc(hive)
+select age, gender_cd, category from webloganalytics where age is not NULL LIMIT 1000
+~~~
+
+![Zeppelin Area Chart](/assets/clickstream/zeppelin-chart-2.png)
+
+Thus, the majority of users who come into the website are within age range of 20-30. Additionally, there seems to be an even split between both genders.
+Which gender seems to dominate the website views for the older age?
+
+* * *
+
+### Step 3: Analyze the Interest Category Distribution for Users <a id="interest-category-distribution"></a>
+
+- Write the query to find the number of users interested toward particular categories
+- open **settings**, make sure
+	- `category` is in **Keys** field
+	- `category SUM` is in **Values** field
+- select `pie chart`
+
+~~~sql
+%jdbc(hive)
+select category from webloganalytics
+~~~
+
+![Zeppelin Pie Chart](/assets/clickstream/zeppelin-chart-3.png)
+
+Hence, clothing is clearly the most popular reason customers visit the website.
+What are the next two interest categories that are most popular?
+
+* * *
+
+## Section 2: Visualize Data with Excel <a id="visualize-data-excel"></a>
+
+### Step 1: Connect Microsoft Excel <a id="connect-excel"></a>
 
 *   In Windows, open a new Excel workbook, then select **Data > From Other Sources > From Microsoft Query**.
 
@@ -52,7 +146,7 @@ Now that we have successfully imported Hortonworks Sandbox data into Microsoft E
 
 * * *
 
-## Step 2: Visualize the Website Clickstream Data Using Excel Power View
+### Step 2: Visualize the Website Clickstream Data Using Excel Power View <a id="visualize-web-clickstream-excel"></a>
 
 Data visualization can help you optimize your website and convert more visits into sales and revenue. In this section we will:
 
@@ -146,43 +240,14 @@ After setting these fields and filters, select **Column Chart > Clustered Column
 
 ------------------------------------------------
 
-## Analyzing Clickstream Data with Apache Zeppelin
-
-If you don't have access to Microsoft Excel Professional Plus, you can also utilize Apache Zeppelin to do you data visualization as well.
-
-
-Open up Ambari and make sure Zeppelin is running. If not, start the service. Then use the dropdown menu to access the views and select **Zeppelin**
-
-![Zeppelin View](/assets/clickstream/36_zeppelin_create_note.png)
-
-Once the Zeppelin view is open you can either create a new note and run the commands, or import the following notebook from this URL: `
-
-`https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.4/data/zeppelin-notes/ClickstreamAnalytics.json`
-
-		%hive
-		select state from webloganalytics
-
-![Zeppelin Chart 1](/assets/clickstream/zeppelin-chart-1.png)
-
-		%hive
-		select age, gender_cd, category from webloganalytics where age is not NULL LIMIT 1000
-
-![Zeppelin Chart 2](/assets/clickstream/zeppelin-chart-2.png)
-
-		%hive
-		select category from webloganalytics
-
-![Zeppelin Chart 3](/assets/clickstream/zeppelin-chart-3.png)
-
-
-**Feedback**
-
-We are eager to hear your feedback on this tutorial. Please let us know what you think.
-
-[Click here](https://www.surveymonkey.com/s/Clickstream_Tutorial) to take survey
-
-### Summary
+## Summary <a id="summary-clickstream"></a>
 
 Now that you have successfully analyzed and visualized Hortonworks Sandbox data with Microsoft Excel, you can see how Excel and other BI tools can be used with the Hortonworks platform to derive insights about customers from various data sources.
 
 The data in the Hortonworks platform can be refreshed frequently and used for basket analysis, A/B testing, personalized product recommendations, and other sales optimization activities.
+
+------------------------------------------------
+
+## Further Reading <a id="further-reading"></a>
+- [Zeppelin Notebook for Analysing Web Server Logs](https://community.hortonworks.com/content/repo/56765/zeppelin-notebook-for-analysing-web-server-logs.html)
+- [Zeppelin in Hortonworks Blog](http://hortonworks.com/apache/zeppelin/#blog)
