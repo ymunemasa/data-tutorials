@@ -19,6 +19,23 @@ Let's begin our Hadoop journey.
 ## Pre-Requisites
 - Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 - Allow yourself around one hour to complete this tutorial
+- If on mac or linux, added `sandbox.hortonworks.com` to your `/private/etc/hosts` file
+- If on windows 7, added `sandbox.hortonworks.com` to your `/c/Windows/System32/Drivers/etc/hosts` file
+
+If on mac or linux, to add `sandbox.hortonworks.com` to your list of hosts, open the terminal, enter the following command, replace {Host-Name} with the appropriate host for your sandbox:
+
+~~~
+echo '{Host-Name} sandbox.hortonworks.com' | sudo tee -a /private/etc/hosts
+~~~
+> NOTE: In single machine, just replace {Host-Name} with 127.0.0.1
+
+If on windows 7, to add `sandbox.hortonworks.com` to your list of hosts, open git bash, enter the following command, replace {Host-Name} with the appropriate host for your sandbox:
+
+~~~bash
+echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/etc/hosts
+~~~
+
+![changing-hosts-file.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/changing-hosts-file.png)
 
 ## Outline
 - [What is the Sandbox?](#what-is-the-sandbox)
