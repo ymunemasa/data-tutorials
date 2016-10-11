@@ -196,7 +196,7 @@ The results of the query look like this:
 
 ![group_data](/assets/how-to-process-data-with-apache-hive-hdp2.5/group_data.png)
 
-### 3.8 Create Query to Filter The Data (driverId, name, hours_logged, miles_logged)
+### 3.8 Create Query to Join The Data (driverId, name, hours_logged, miles_logged)
 
 Now we need to go back and get the `driverId(s)` so we know who the driver(s) was. We can take the previous query and join it with the `drivers` records to get the final table which will have the `driverId, name and the sum of hours and miles logged`.
 
