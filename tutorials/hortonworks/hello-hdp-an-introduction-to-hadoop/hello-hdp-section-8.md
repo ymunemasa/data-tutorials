@@ -8,7 +8,7 @@ intro-page: false
 components: [ ambari, hive, pig, spark, zeppelin, technical-preview ]
 ---
 
-# Lab 6: Data Reporting With Zeppelin
+# Lab 5: Data Reporting With Zeppelin
 
 ## Data Visualization using Apache Zeppelin
 
@@ -17,7 +17,7 @@ components: [ ambari, hive, pig, spark, zeppelin, technical-preview ]
 In this tutorial you will be introduced to Apache Zeppelin. In the earlier section of lab, you learned how to perform data visualization
 using Excel. This section will teach you to visualize data using Zeppelin.
 
-## Pre-Requisites
+## Prerequisites
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -32,11 +32,11 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 ## Outline
 
 *   [Apache Zeppelin](#apache-zeppelin)
-*   [Step 6.1: Create a Zeppelin Notebook](#step6.1)
-*   [Step 6.2: Execute a Hive Query](#step6.2)
-*   [Step 6.3: Build Charts Using Zeppelin](#step6.3)
-*   [Summary](#summary-lab6)
-*   [Suggested Readings](#suggested-readings-lab6)
+*   [Step 5.1: Create a Zeppelin Notebook](#step5.1)
+*   [Step 5.2: Execute a Hive Query](#step5.2)
+*   [Step 5.3: Build Charts Using Zeppelin](#step5.3)
+*   [Summary](#summary-lab5)
+*   [Suggested Readings](#suggested-readings-lab5)
 
 ## Apache Zeppelin <a id="apache-zeppelin"></a>
 
@@ -48,9 +48,9 @@ riskfactor data that we've collected earlier and visualize the result through gr
 
 NOTE: We can also run queries via various interpreters for the following (but not limited to) spark, hawq and postgresql.
 
-## Step 6.1: Create a Zeppelin Notebook <a id="step6.1"></a>
+## Step 5.1: Create a Zeppelin Notebook <a id="step5.1"></a>
 
-### 6.1.1 Navigate to Zeppelin Notebook
+### 5.1.1 Navigate to Zeppelin Notebook
 
 1) Navigate to http://sandbox.hortonworks.com:9995 directly to open the Zeppelin interface.
 
@@ -64,9 +64,9 @@ NOTE: We can also run queries via various interpreters for the following (but no
 ![Zeppelin Create New Notebook](/assets/hello-hdp/zeppelin_create_new_notebook.png)
 
 
-## Step 6.2: Execute a Hive Query <a id="step6.2"></a>
+## Step 5.2: Execute a Hive Query <a id="step5.2"></a>
 
-### 6.2.1 Visualize finalresults Data in Tabular Format
+### 5.2.1 Visualize finalresults Data in Tabular Format
 
 In the previous Spark and Pig tutorials you already created a table finalresults or riskfactor which gives the risk factor associated with every driver. We will use the data we generated in this table to visualize which drivers have the highest risk factor. We will use the jdbc hive interpreter to write queries in Zeppelin. jdbc by default runs hive.
 
@@ -87,9 +87,9 @@ Initially, the query will produce the data in tabular format as shown in the scr
 ![play_button_zeppelin_workbook](/assets/hello-hdp/output_riskfactor_zeppelin_lab6.png)
 
 
-## Step 6.3: Build Charts using Zeppelin <a id="step6.3"></a>
+## Step 5.3: Build Charts using Zeppelin <a id="step5.3"></a>
 
-### 6.3.1 Visualize finalresults Data in Chart Format
+### 5.3.1 Visualize finalresults Data in Chart Format
 
 1\. Iterate through each of the tabs that appear underneath the query.
 Each one will display a different type of chart depending on the data that is returned in the query.
@@ -154,13 +154,13 @@ The chart should look similar to the following.
 
 The graph shows that driver id number A39 has a high risk factor of 652417 and drives in Santa Maria.  
 
-## Summary <a id="summary-lab6"></a>
+## Summary <a id="summary-lab5"></a>
 
 Now that we know how to use Apache Zeppelin to obtain and visualize our data, we can use the skills
 we've learned from our Hive, Pig, and Spark labs, as well and apply them to new kinds of data to
 try to make better sense and meaning from the numbers!
 
-## Suggested Readings <a id="suggested-readings-lab6"></a>
+## Suggested Readings <a id="suggested-readings-lab5"></a>
 
 - [Zeppelin on HDP](http://hortonworks.com/hadoop/zeppelin/)
 - [Apache Zeppelin Docs](https://zeppelin.incubator.apache.org/docs/)
