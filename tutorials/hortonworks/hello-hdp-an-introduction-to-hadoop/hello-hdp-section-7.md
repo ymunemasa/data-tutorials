@@ -1,4 +1,4 @@
-# Lab 5: Reporting
+# Lab 6: Reporting
 
 ## Data Visualization using Microsoft Excel
 
@@ -16,59 +16,45 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor
 *   Please configure ODBC drivers on your system with the help of following tutorial:
     *   [Installing and Configuring the Hortonworks ODBC driver on Windows 7](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/)
-    *   [Installing and Configuring the Hortonworks ODBC driver on Mac OS X](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/)
 
 *   Allow yourself around half an hour to complete this tutorial.
 
 ## Outline
 
-*   [Step 5.b.1: Access Data in Microsoft Excel](#step5.b.1)
-*   [Step 5.b.2: Visualize data with Excel](#step5.b.2)
+*   [Step 6.b.1: Access Data in Microsoft Excel](#step6.b.1)
+*   [Step 6.b.2: Visualize data with Excel](#step6.b.2)
 *   [Suggested readings](#suggested-reading)
 *   [Resources](#resources)
 
-### Step 5.b.1: Access the Refined Data with Microsoft Excel <a id="step5.b.1"></a>
+### Step 6.b.1: Access the Refined Data with Microsoft Excel <a id="step6.b.1"></a>
 
-The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions and these are the [Mac ODBC driver setup](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/) instructions.   Open the ODBC connection manager and open the connection you setup up. It should look like this. Click on the test button and it should report success. If the test fails you will need to troubleshoot the connection before you can go on.
-
-**For Mac Users**:-
-
-1)  Open a new blank workbook. Select Data tab at the top then select “Get External Data” and then select “New Database query”.
-2)  Chose Sample Hortonworks Hive DSN and hit Ok.
-
-![Lab5_1](/assets/hello-hdp/Lab5_1.png)
-
-3)  Next prompt shall ask you to enter login and password. Type “sandbox” in login and the leave the password empty. Hit Ok.
-
-![Lab5_2](/assets/hello-hdp/Lab5_2.png)
-
-4)   Choose the data table avg_mileage table from the table chart on the right and hit      Add Table. avg_mileage should now appear under Query View tab on the left. Choose avg_mileage.* in the Field column. You are set to import data from your Hive table. As a final step, Hit Test!
-
-![Lab5_3](/assets/hello-hdp/Lab5_3.png)
-
-5)  Click on Return Data to import your table into an excel. Submit OK to populate your excel.
-
-![Lab5_4](/assets/hello-hdp/Lab5_4.png)
-
-6)  Once the data is placed you will see the avg_mileage table imported into your spreadsheet.
+The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions. Open the ODBC connection manager and open the connection you setup up. It should look like this.
 
 **For Windows users**:-
 
-1)  Open a new blank workbook. Select Data tab at the top then select “Get External Data” and then select “From Other Data Sources”. Then at the bottom select “From Microsoft Query”. Choose your data source and ours is called Hadoop and you will then see the Query Wizard. We will import the avg_mileage table.
+1) Open a new blank workbook. Select **Data > From Other Sources > From Microsoft Query**.
 
-![Lab5_6](/assets/hello-hdp/Lab5_6.png)
+![open_query](/assets/hello-hdp/17_open_query.png)
 
-2)  Accept the defaults for everything and click through till you hit the Finish button. After you click on Finish, Excel will send the data request over to Hadoop. It will take awhile for this to happen. When the data is returned it will ask you to place the data in the workbook. We want to be in cell \$A\$1 like this.
+2) On the Choose Data Source pop-up, select the Hortonworks ODBC data source you installed previously, then click **OK**.
+
+The Hortonworks ODBC driver enables you to access Hortonworks data with Excel and other Business Intelligence (BI) applications that support ODBC.
+
+![data_source](/assets/hello-hdp/18_choose_data_source.jpg)
+
+ We will import the avg_mileage table.
+
+3)  Accept the defaults for everything and click through till you hit the Finish button. After you click on Finish, Excel will send the data request over to Hadoop. It will take awhile for this to happen. When the data is returned it will ask you to place the data in the workbook. We want to be in cell \$A\$1 like this.
 
 ![Lab5_6](/assets/hello-hdp/Lab5_61.png)
 
-3)  The data is placed you will see the avg_mileage table imported into your spreadsheet.
+4)  The data is placed you will see the avg_mileage table imported into your spreadsheet.
 
 ![Lab5_7](/assets/hello-hdp/Lab5_7.jpg)
 
-### Step 5.b.2: Visualize Data with Microsoft Excel <a id="step5.b.2"></a>
+### Step 6.b.2: Visualize Data with Microsoft Excel <a id="step6.b.2"></a>
 
-1)  So now we are going to insert a Power View report. We do this by selecting the “Insert” tab at the top and select “Power View Reports” button in the middle. This will create a new tab in your workbook with the data inserted in the Power View page.”
+1)  So now we are going to insert a Power View report. Follow this [link](https://support.office.com/en-us/article/Turn-on-Power-View-in-Excel-2016-for-Windows-f8fc21a6-08fc-407a-8a91-643fa848729a) to set up the Power View Report if you do not have it. This will create a new tab in your workbook with the data inserted in the Power View page.
 
 ![Lab5_14](/assets/hello-hdp/Lab5_14.jpg)
 
@@ -92,7 +78,7 @@ select driverid, city, state from geolocation;
 
 ![Lab5_11](/assets/hello-hdp/Lab5_11.png)
 
-7)  Since my results look fine I now need to capture the result in a table. So I will use the select statement as part of my CTAS (create table select as) pattern. I will call the table events and the query now looks like this. 
+7)  Since my results look fine I now need to capture the result in a table. So I will use the select statement as part of my CTAS (create table select as) pattern. I will call the table events and the query now looks like this.
 
 **Create table avg_mileage from existing trucks_mileage data**
 
@@ -139,70 +125,3 @@ Learn more about Hadoop through these case studies:
 
 *   [The Definitive Guide by O`Reilly](http://hadoopbook.com/)
 *   [Hadoop for Dummies](http://www.wiley.com/WileyCDA/WileyTitle/productCd-1118607554.html)
-
-## Resources <a id="resources"></a>
-*   [Hortonworks Community Connection](https://community.hortonworks.com/answers/index.html)
-
-~~~
-risk_factor_spark.write.orc("risk_factor_spark")
-~~~
-
-**Load the data into Hive table using load data command.**
-
-~~~
-hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
-~~~
-
-*   Execute a select query to verify your table has been successfully stored.You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
-
-~~~
-hiveContext.sql("select * from finalresults")
-~~~
-
-## Full Spark Code for Lab
-
-~~~
-import org.apache.spark.sql.hive.orc._
-import org.apache.spark.sql._
-
-val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
-
-hiveContext.sql("show tables").collect.foreach(println)
-
-val geolocation_temp1 = hiveContext.sql("select * from geolocation”)
-
-val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
-
-geolocation_temp1.take(10) 
-drivermileage_temp1.take(10)
-
-geolocation_temp1.registerTempTable("geolocation_temp1")
-drivermileage_temp1.registerTempTable("drivermileage_temp1”)
-
-val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from geolocation_temp1  where event!='normal' group by driverid")
-
-geolocation_temp2.registerTempTable("geolocation_temp2")
-
-geolocation_temp2.collect.foreach(println)
-
-val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geolocation_temp2 a,drivermileage_temp1 b where a.driverid=b.driverid")
-
-joined.registerTempTable("joined")
-
-joined.collect.foreach(println)
-
-val risk_factor_spark=hiveContext.sql("select driverid, totmiles,occurance, totmiles/occurance riskfactor from joined")
-
-risk_factor_spark.registerTempTable("risk_factor_spark")
-
-risk_factor_spark.collect.foreach(println)
-
-hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
-
-risk_factor_spark.write.orc("risk_factor_spark")
-
-hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
-
-hiveContext.sql("select * from finalresults")
-
-~~~
