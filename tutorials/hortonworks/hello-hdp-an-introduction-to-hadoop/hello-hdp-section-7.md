@@ -40,7 +40,7 @@ The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the H
 
 The Hortonworks ODBC driver enables you to access Hortonworks data with Excel and other Business Intelligence (BI) applications that support ODBC.
 
-![data_source](/assets/hello-hdp/18_choose_data_source.jpg)
+![data_source](/assets/hello-hdp/18_choose_data_source.png)
 
  We will import the avg_mileage table.
 
