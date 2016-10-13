@@ -211,7 +211,13 @@ scp -P 2222 HDF-2.0.0.0-579.tar.gz root@127.0.0.1:/root
 
 > Note: For VMware and Azure users, the sandbox IP address may be different, so replace 127.0.0.1 with your appropriate IP. Use the ssh-port provided in Table 1. hdf-version is the digits in the tar.gz name you downloaded, for example the numbers in bold HDF-**2.0.0.0-579**.tar.gz. If your HDF version number is different, replace the number in the example with the number you have.
 
-5\. Now the nifi install script we downloaded earlier, comes back. Run the script from your sandbox terminal:
+5\. Next, we have to extract the HDF gzipped tar file. Run the following command from the Sandbox terminal:
+
+~~~
+tar xvf /root/HDF-2.0.0.0-579.tar.gz
+~~~
+
+6\. Now the nifi install script we downloaded earlier, comes back. Run the script from your sandbox terminal:
 
 ~~~
 ./jdkinstall_nifi.sh
