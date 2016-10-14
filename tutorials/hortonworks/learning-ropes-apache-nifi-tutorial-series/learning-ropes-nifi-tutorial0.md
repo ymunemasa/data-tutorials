@@ -38,9 +38,9 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 ![changing-hosts-file.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/changing-hosts-file.png)
 
 ## Outline
-- [Step 1: Explore NiFi Environment Before NiFi Installation](#explore-nifi-environment)
-  - [1.1 Plan to Install HDF 2.0 on Sandbox](#install-hdf-on-sandbox)
-  - [1.2 Plan to Install HDF 2.0 on Local Machine](#install-hdf-on-machine)
+- [Section 0: Explore NiFi Environment Before NiFi Installation](#explore-nifi-environment)
+  - [0.A Plan to Install HDF 2.0 on Sandbox](#install-hdf-on-sandbox)
+  - [0.B Plan to Install HDF 2.0 on Local Machine](#install-hdf-on-machine)
 - [Section 1: Setup NiFi on Local Machine](#setup-nifi-locally)
   - [Step 1: Download and Install NiFi Locally](#download-nifi-machine)
   - [Step 2: Start NiFi](#start-nifi-locally)
@@ -55,13 +55,15 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 - [Conclusion](#conclusion-lab0)
 - [Appendix A: Troubleshoot NiFi Installation](#troubleshoot-nifi-installation)
 
-### Step 1: Explore NiFi Environment Before NiFi Installation <a id="explore-nifi-environment"></a>
+* * *
+
+### Section 0: Explore NiFi Environment Before NiFi Installation <a id="explore-nifi-environment"></a>
 
 You can run NiFi inside a single virtual machine or on your local computer. This version of the tutorial instructions are based on [Hortonworks DataFlow 2.0 GZipped](http://hortonworks.com/downloads/). There are 2 ways to download and install HDF 2.0: Option 1 on a Hortonworks Sandbox 2.4 Virtual Image or Option 2 on your local machine. HDF comes in 2 versions with only NiFi or with NiFi, Kafka, Storm, and Zookeeper. For this tutorial series, you should download HDF with NiFi only. The necessary components are:
 - HDF 2.0 (NiFi only)
 - Internet Access
 
-### 1.1 Plan to Install HDF 2.0 on Sandbox <a id="install-hdf-on-sandbox"></a>
+### 0.A Plan to Install HDF 2.0 on Sandbox <a id="install-hdf-on-sandbox"></a>
 
 If you plan to install HDF on Hortonworks Sandbox, review the table, and proceed to step 2.
 
@@ -91,7 +93,7 @@ Retype new password:
 [root@sandbox ~]#
 ~~~
 
-### 1.2 Plan to Install HDF 2.0 on Local Machine <a id="install-hdf-on-machine"></a>
+### 0.B Plan to Install HDF 2.0 on Local Machine <a id="install-hdf-on-machine"></a>
 
 You should read this section if you plan to install NiFi on your local machine. Once you have verified that your machine meets system requirements, proceed to Step 3.
 
