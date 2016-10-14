@@ -211,7 +211,7 @@ Choose the NiFi service:
 
 If you installed NiFi using Ambari Wizard approach, you can move onto **Step 3**.
 
-### Step 2: Start NiFi via Ambari Service <a id="start-nifi-ambari)
+### Step 2: Start NiFi via Ambari Service <a id="start-nifi-ambari"></a>
 
 If NiFi is not already running, we will use Ambari Service Tool to launch NiFi.
 
