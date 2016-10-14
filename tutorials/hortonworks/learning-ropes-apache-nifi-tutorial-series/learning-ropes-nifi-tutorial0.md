@@ -41,16 +41,17 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 - [Step 1: Explore NiFi Environment Before NiFi Installation](#explore-nifi-environment)
   - [1.1 Plan to Install HDF 2.0 on Sandbox](#install-hdf-on-sandbox)
   - [1.2 Plan to Install HDF 2.0 on Local Machine](#install-hdf-on-machine)
-- [Step 2: Download and Install NiFi on Sandbox (Option 1)](#download-nifi-sandbox)
-  - [2.1 Install NiFi By Ambari Wizard (Option 1)](#install-NiFi-ambari)
-  - [2.2 Install NiFi By Command Line (Option 2)](#install-NiFi-cli)
-- [Step 3: Download and Install NiFi on Local Machine (Option 2)](#download-nifi-machine)
-- [Step 4: Start NiFi on Sandbox](#start-nifi-sandbox)
-  - [4.1 Start NiFi via Ambari Service (Option 1)](#start-nifi-ambari)
-  - [4.2 Start NiFi via Command Line (Option 2)](#start-nifi-cli)
-  - [4.3 Forward Port with VirtualBox GUI](#forward-port-virtualbox)
-  - [4.4 Forward Port with Azure GUI](#forward-port-azure)
-- [Step 5: Start NiFi on Local Machine](#start-nifi-locally)
+- [Section 1: Setup NiFi on Local Machine](#setup-nifi-locally)
+  - [Step 1: Download and Install NiFi Locally](#download-nifi-machine)
+  - [Step 2: Start NiFi](#start-nifi-locally)
+- [Section 2: Setup NiFi on Sandbox by Ambari Wizard](#nifi-ambari-wizard)
+  - [Step 1: Install NiFi By Ambari Wizard](#install-NiFi-ambari)
+  - [Step 2: Start NiFi via Ambari Service](#start-nifi-ambari)
+- [Section 3: Setup NiFi on Sandbox By CLI](#setup-nifi-sandbox)
+  - [Step 1: Install NiFi By Command Line](#install-NiFi-cli)
+  - [Step 2: Start NiFi via Command Line](#start-nifi-cli)
+  - [Step 3A: Forward Port with VirtualBox GUI](#forward-port-virtualbox)
+  - [Step 3B: Forward Port with Azure GUI](#forward-port-azure)
 - [Conclusion](#conclusion-lab0)
 - [Appendix A: Troubleshoot NiFi Installation](#troubleshoot-nifi-installation)
 
@@ -127,14 +128,44 @@ Version 1 only comes with NiFi.
 Version 2 comes with NiFi, Kafka, Storm and Zookeeper
 - This version is available in Hortonworks Documentation
 
-### Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1) <a id="download-nifi-sandbox"></a>
-This tutorial uses Hortonworks Sandbox 2.5.
+There are three ways to install the NiFi Service by local machine, Hortonworks
+Sandbox Ambari Service Wizard and Sandbox Shell.
 
-There are two ways to install the NiFi Service by command line or Ambari Install Wizard.
+* * *
 
-The following section 2.1 will go through the process of installing NiFi by Ambari Install Wizard. We want to inform you that as you install the service with this approach you will encounter error messages, ignore them because they will not affect the NiFi installation. If you do not want to install by section 2.1 approach, jump to section 2.2, which goes in depth on how to install NiFi via the command line.
+### Section 1: Setup NiFi on Local Machine <a id="setup-nifi-locally"></a>
 
-### 2.1 Install NiFi By Ambari Wizard (Option 1) <a id="install-NiFi-ambari"></a>
+### Step 1: Download and Install NiFi Locally <a id="download-nifi-machine"></a>
+
+1\. Open a browser. Download NiFi from [HDF Downloads Page](http://hortonworks.com/downloads/). You will see four HDF download links. We will download the **NiFi only** option. There are two package options: one for HDF TAR.GZ file tailored to Linux and zip file more compatible with Windows. Mac can use either option. In this tutorial section, download the zip on a Mac:
+
+![download_hdf_iot](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
+
+2\. After downloading NiFi, it will be in a compressed format. To install NiFi, extract the files from the compressed file to a location in which you want to run the application. For the tutorial, we moved the extracted HDF folder to the `Applications` folder.
+
+The image below shares NiFi downloaded and installed in the Applications folder:
+
+![download_install_nifi](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download_install_nifi.png)
+
+### Step 2: Start NiFi Locally <a id="start-nifi-locally"></a>
+
+If you downloaded and installed NiFi on your local machine, use this step to start NiFi.
+
+There are 3 methods to start NiFi: launch NiFi in foreground, in the background or as a service. See the [HDF Install and Setup Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_HDF_InstallSetup/content/starting-nifi.html) to learn more.
+
+1\. To start NiFi in the background, open a terminal window or git bash, navigate to NiFi installation directory ,`Applications` folder, and enter:
+
+~~~bash
+./HDF-2.0.0.0/nifi/bin/nifi.sh start
+~~~
+
+2\. Open NiFi at `http://sandbox.hortonworks.com:8080/nifi/`. Wait 1 to 2 minutes for NiFi to load.
+
+* * *
+
+### Section 2: Setup NiFi on Sandbox by Ambari Wizard <a id="nifi-ambari-wizard"></a>
+
+### Step 1: Install NiFi By Ambari Wizard <a id="install-NiFi-ambari"></a>
 
 Use the following steps to perform the NiFi installation:
 
@@ -178,7 +209,30 @@ Choose the NiFi service:
 
 If you installed NiFi using Ambari Wizard approach, you can move onto **Step 3**.
 
-### 2.2 Install NiFi By Command Line (Option 2)<a id="install-NiFi-cli"></a>
+### Step 2: Start NiFi via Ambari Service <a id="start-nifi-ambari)
+
+If NiFi is not already running, we will use Ambari Service Tool to launch NiFi.
+
+1\. Click on NiFi located in the left sidebar of Ambari Services on the Dashboard.
+
+2\. Select the **Action Services** button, click **Start** to activate NiFi.
+
+![start_nifi_button](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/start_nifi_button.png)
+
+>Note: Once the service successfully started you should see a **green check symbol** next to the name of the service.
+
+3\. Open NiFi at `http://sandbox.hortonworks.com:9090/nifi/`. Wait 1 to 2 minutes for NiFi to load.
+
+![open_nifi_html_interface](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/open_nifi_html_interface.png)
+
+Now that you started NiFi, review the conclusion and then we can move onto the tutorial 1.
+
+
+* * *
+
+### Section 3: Setup NiFi on Sandbox By CLI <a id="setup-nifi-sandbox"></a>
+
+### Step 1: Install NiFi By Sandbox Shell <a id="install-NiFi-cli"></a>
 
 Use the following steps to guide you through the NiFi installation:
 
@@ -225,45 +279,7 @@ tar xvf /root/HDF-2.0.0.0-579.tar.gz
 
 If you installed NiFi using command line approach, you can move onto **Step 3**.
 
-### Step 3: Download and Install NiFi on Local Machine (Option 2) <a id="download-nifi-machine"></a>
-
-1\. Open a browser. Download NiFi from [HDF Downloads Page](http://hortonworks.com/downloads/). You will see four HDF download links. We will download the **NiFi only** option. There are two package options: one for HDF TAR.GZ file tailored to Linux and zip file more compatible with Windows. Mac can use either option. In this tutorial section, download the zip on a Mac:
-
-![download_hdf_iot](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
-
-2\. After downloading NiFi, it will be in a compressed format. To install NiFi, extract the files from the compressed file to a location in which you want to run the application. For the tutorial, we moved the extracted HDF folder to the `Applications` folder.
-
-The image below shares NiFi downloaded and installed in the Applications folder:
-
-![download_install_nifi](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download_install_nifi.png)
-
-### Step 4: Start NiFi on Sandbox <a id="start-nifi-sandbox"></a>
-
-Use the following steps to start NiFi if you downloaded and installed it on Hortonworks Sandbox. For information about how to start NiFi on your local machine, go to step 5.
-
-If you installed NiFi via Ambari Install Wizard, refer to section 4.1, else if you installed NiFi via the Command Line, refer to section 4.2.
-
-### 4.1 Start NiFi via Ambari Service (Option 1) <a id="start-nifi-ambari"></a>
-
-If NiFi is not already running, we will use Ambari Service Tool to launch NiFi.
-
-1\. Click on NiFi located in the left sidebar of Ambari Services on the Dashboard.
-
-2\. Select the **Action Services** button, click **Start** to activate NiFi.
-
-![start_nifi_button](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/start_nifi_button.png)
-
->Note: Once the service successfully started you should see a **green check symbol** next to the name of the service.
-
-3\. Open NiFi at `http://sandbox.hortonworks.com:9090/nifi/`. Wait 1 to 2 minutes for NiFi to load.
-
-![open_nifi_html_interface](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/open_nifi_html_interface.png)
-
-Now that you started NiFi, review the conclusion and then we can move onto the tutorial 1.
-
-### 4.2 Start NiFi via Command Line (Option 2) <a id="start-nifi-cli"></a>
-
-Use the following steps to start NiFi if you downloaded and installed it on Hortonworks Sandbox. For information about how to start NiFi on your local machine, go to step 5.
+### Step 2: Start NiFi via Sandbox Shell <a id="start-nifi-cli"></a>
 
 In this tutorial, launch NiFi in the background.
 
@@ -305,7 +321,7 @@ nifi.web.http.port=9090
 To exit the vi editor, press `esc` and then enter `:wq` to save the file.
 Now that the configuration in the nifi.properties file is updated, port forward a new NiFi port because the VM is not listening for the port **9090**, so NiFi does not load on the browser. If you are using VirtualBox Sandbox, refer to section 4.1. For Azure Sandbox users, refer to section 4.2.
 
-### 4.3 Forward Port with VirtualBox GUI <a id="forward-port-virtualbox"></a>
+### Step 3A: Forward Port with VirtualBox GUI <a id="forward-port-virtualbox"></a>
 
 1\. Open VirtualBox Manager
 
@@ -326,7 +342,7 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 > Note: If you have not configured the `sandbox.hortonworks.com` alias in `/etc/hosts`, try the `http://localhost:9090/nifi` URL as well.
 
-### 4.4 Forward Port with Azure GUI <a id="forward-port-azure"></a>
+### Step 3B: Forward Port with Azure GUI <a id="forward-port-azure"></a>
 
 1\. Open Azure Sandbox.
 
@@ -349,19 +365,8 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 6\. Open NiFi at `http://sandbox.hortonworks.com:9090/nifi/`. Wait 1 to 2 minutes for NiFi to load.
 
 
-### Step 5: Start NiFi on Local Machine <a id="start-nifi-locally"></a>
+* * *
 
-If you downloaded and installed NiFi on your local machine, use this step to start NiFi.
-
-There are 3 methods to start NiFi: launch NiFi in foreground, in the background or as a service. See the [HDF Install and Setup Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_HDF_InstallSetup/content/starting-nifi.html) to learn more.
-
-1\. To start NiFi in the background, open a terminal window or git bash, navigate to NiFi installation directory ,`Applications` folder, and enter:
-
-~~~bash
-./HDF-2.0.0.0/nifi/bin/nifi.sh start
-~~~
-
-2\. Open NiFi at `http://sandbox.hortonworks.com:8080/nifi/`. Wait 1 to 2 minutes for NiFi to load.
 
 ## Conclusion <a id="conclusion-lab0"></a>
 
