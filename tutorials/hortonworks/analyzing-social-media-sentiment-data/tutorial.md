@@ -52,7 +52,7 @@ Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) 
 ## Install Apache Nifi <a id="install-apache-nifi"></a>
 -----------------
 
-The first thing you're going to need if you haven't done it already is install the Apache Nifi service on your Sandbox. Follow the [Set up Nifi Environment section](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#section_3) of [Learning the ropes of Apache Nifi tutorial](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/).
+The first thing you're going to need if you haven't done it already is install the Apache Nifi service on your Sandbox. Follow the [Set up Nifi Environment section](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#section_3) of [Analyze Traffic Pattern with Apache Nifi](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/).
 
 ## Configure and Start Solr <a id="configure-and-start-solr"></a>
 
