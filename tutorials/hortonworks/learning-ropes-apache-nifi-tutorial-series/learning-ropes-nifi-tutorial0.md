@@ -16,7 +16,7 @@ In this tutorial, you learn about the NiFi environment, how to install NiFi onto
 
 ## Pre-Requisites
 - Completed Learning the Ropes of Apache NiFi-Introduction.
-- Downloaded and installed [Hortonworks Sandbox](http://hortonworks.com/products/sandbox/). (Required for Step 2, Option 1 for NiFi installation.)
+- Downloaded and installed [Hortonworks Sandbox](http://hortonworks.com/products/sandbox/). (Required for Section 2 and 3 for NiFi installation.)
 - For Windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run Linux terminal commands in these tutorials.
 - If on mac or linux, added `sandbox.hortonworks.com` to your `/private/etc/hosts` file
 - If on windows 7, added `sandbox.hortonworks.com` to your `/c/Windows/System32/Drivers/etc/hosts` file
@@ -59,7 +59,7 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 
 ### Section 0: Explore NiFi Environment Before NiFi Installation <a id="explore-nifi-environment"></a>
 
-You can run NiFi inside a single virtual machine or on your local computer. This version of the tutorial instructions are based on [Hortonworks DataFlow 2.0 GZipped](http://hortonworks.com/downloads/). There are 2 ways to download and install HDF 2.0: Option 1 on a Hortonworks Sandbox 2.4 Virtual Image or Option 2 on your local machine. HDF comes in 2 versions with only NiFi or with NiFi, Kafka, Storm, and Zookeeper. For this tutorial series, you should download HDF with NiFi only. The necessary components are:
+You can run NiFi inside a single virtual machine or on your local computer. This version of the tutorial instructions are based on [Hortonworks DataFlow 2.0 GZipped](http://hortonworks.com/downloads/). There are 2 ways to download and install HDF 2.0: Option 1 on a Hortonworks Sandbox 2.5 Virtual Image (via Ambari Wizard, Sandbox Shell) or Option 2 on your local machine. HDF comes in 2 versions with only **NiFi** or with **NiFi, Kafka, Storm, and Zookeeper**. For this tutorial series, you should download HDF with NiFi only. The necessary components are:
 - HDF 2.0 (NiFi only)
 - Internet Access
 
@@ -130,8 +130,8 @@ Version 1 only comes with NiFi.
 Version 2 comes with NiFi, Kafka, Storm and Zookeeper
 - This version is available in Hortonworks Documentation
 
-There are three ways to install the NiFi Service by local machine, Hortonworks
-Sandbox Ambari Service Wizard and Sandbox Shell.
+There are 2 ways to install the NiFi Service by local machine, Hortonworks
+Sandbox via Ambari Service Wizard or Sandbox Shell.
 
 * * *
 
@@ -162,6 +162,8 @@ There are 3 methods to start NiFi: launch NiFi in foreground, in the background 
 ~~~
 
 2\. Open NiFi at `http://sandbox.hortonworks.com:8080/nifi/`. Wait 1 to 2 minutes for NiFi to load.
+
+Now that you started NiFi, review the [conclusion](#conclusion-lab0) and then we can move onto the tutorial 1.
 
 * * *
 
@@ -209,8 +211,6 @@ Choose the NiFi service:
 
 > Note: If you run into any issues installing NiFi using the Ambari Wizard, refer to Appendix A.
 
-If you installed NiFi using Ambari Wizard approach, you can move onto **Step 3**.
-
 ### Step 2: Start NiFi via Ambari Service <a id="start-nifi-ambari"></a>
 
 If NiFi is not already running, we will use Ambari Service Tool to launch NiFi.
@@ -227,7 +227,7 @@ If NiFi is not already running, we will use Ambari Service Tool to launch NiFi.
 
 ![open_nifi_html_interface](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/open_nifi_html_interface.png)
 
-Now that you started NiFi, review the conclusion and then we can move onto the tutorial 1.
+Now that you started NiFi, review the [conclusion](#conclusion-lab0) and then we can move onto the tutorial 1.
 
 
 * * *
@@ -240,13 +240,13 @@ Use the following steps to guide you through the NiFi installation:
 
 1\. Open a terminal window (Mac and Linux) or git bash (Windows) on **sandbox**.
 
-~~~
+~~~bash
 ssh root@127.0.0.1 -p 2222
 ~~~
 
 2\. Download the **jdkinstall_nifi.sh** file from the github repo. Copy & paste the following commands:
 
-~~~
+~~~bash
 cd
 wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/automation-scripts/jdkinstall_nifi.sh
 chmod +x ./jdkinstall_nifi.sh
@@ -261,7 +261,7 @@ Open a terminal for your local machine. If your HDF program was downloaded to th
 **Downloads** folder, navigate to it. `cd ~/Downloads`, then we can perform
 the transport.
 
-~~~
+~~~bash
 scp -P 2222 HDF-2.0.0.0-579.tar.gz root@127.0.0.1:/root
 ~~~
 
@@ -269,13 +269,13 @@ scp -P 2222 HDF-2.0.0.0-579.tar.gz root@127.0.0.1:/root
 
 5\. Next, we have to extract the HDF gzipped tar file. Run the following command from the Sandbox terminal:
 
-~~~
+~~~bash
 tar xvf /root/HDF-2.0.0.0-579.tar.gz
 ~~~
 
 6\. Now the nifi install script we downloaded earlier, comes back. Run the script from your sandbox terminal:
 
-~~~
+~~~bash
 ./jdkinstall_nifi.sh
 ~~~
 
@@ -287,19 +287,19 @@ In this tutorial, launch NiFi in the background.
 
 1\. Open a terminal (Mac and Linux) or git bash (Windows). SSH into the Hortonworks Sandbox:
 
-~~~
+~~~bash
 ssh root@127.0.0.1 -p 2222
 ~~~
 
 2\. Navigate to the `bin` directory using the following command:
 
-~~~
+~~~bash
 cd hdf/HDF-2.0.0.0/nifi/bin
 ~~~
 
 3\. Run the `nifi.sh` script to start NiFi:
 
-~~~
+~~~bash
 ./nifi.sh start
 ~~~
 
@@ -309,19 +309,19 @@ Open the NiFi DataFlow at `http://sandbox.hortonworks.com:9090/nifi/` to verify 
 
 4\. Navigate to the **conf** folder and open nifi.properties in the vi editor.
 
-~~~
+~~~bash
 cd ../conf
 vi nifi.properties
 ~~~
 
 5\. Type `/nifi.web.http.port` and press enter. Verify `9090` is the value of nifi.web.http.port as below, else change it to this value:
 
-~~~
+~~~bash
 nifi.web.http.port=9090
 ~~~
 
 To exit the vi editor, press `esc` and then enter `:wq` to save the file.
-Now that the configuration in the nifi.properties file is updated, port forward a new NiFi port because the VM is not listening for the port **9090**, so NiFi does not load on the browser. If you are using VirtualBox Sandbox, refer to section 4.1. For Azure Sandbox users, refer to section 4.2.
+Now that the configuration in the nifi.properties file is updated, port forward a new NiFi port because the VM is not listening for the port **9090**, so NiFi does not load on the browser. If you are a **VirtualBox Sandbox user, refer to step 3A**. For **Azure Sandbox users, refer to step 3B**.
 
 ### Step 3A: Forward Port with VirtualBox GUI <a id="forward-port-virtualbox"></a>
 
@@ -343,6 +343,8 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 4\. Open NiFi at `http://sandbox.hortonworks.com:9090/nifi/`. Wait 1 to 2 minutes for NiFi to load.
 
 > Note: If you have not configured the `sandbox.hortonworks.com` alias in `/etc/hosts`, try the `http://localhost:9090/nifi` URL as well.
+
+Now that you started NiFi, review the [conclusion](#conclusion-lab0) and then we can move onto the tutorial 1.
 
 ### Step 3B: Forward Port with Azure GUI <a id="forward-port-azure"></a>
 
@@ -366,6 +368,7 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 6\. Open NiFi at `http://sandbox.hortonworks.com:9090/nifi/`. Wait 1 to 2 minutes for NiFi to load.
 
+Now that you started NiFi, review the [conclusion](#conclusion-lab0) and then we can move onto the tutorial 1.
 
 * * *
 
