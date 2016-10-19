@@ -219,7 +219,7 @@ and the standard output of each component.
 
 Wait for some time for the installation. Once it gets completed, you will see the Ambari Dashboard:
 
-![ambari_dashboard](/assets/introducing-apache-ambari-deploying-managing-hadoop/ambari_dashboard.png)
+![ambari-dashboard](/assets/introducing-apache-ambari-deploying-managing-hadoop/ambari-dashboard.png)
 
 Voila!!! We have our very own Hadoop VM.
 Happy Hadooping!
