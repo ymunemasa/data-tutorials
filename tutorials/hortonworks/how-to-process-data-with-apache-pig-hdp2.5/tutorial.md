@@ -71,6 +71,15 @@ Now that we have our data files, we can start writing our `Pig script`. Click on
 
 ![select_pig_view](/assets/how-to-process-data-with-apache-pig-hdp2.5/select_pig_view.png)
 
+You can also explore **Grunt shell** from the terminal which is used to write Pig Latin scripts. There are 3 execute modes of accessing Grunt shell:
+
+1\. local - Type `pig -x local` to enter the shell  
+2\. mapreduce - Type `pig -x mapreduce` to enter the shell  
+3\. tez - Type `pig -x tez` to enter the shell  
+
+Default is mapreduce, so if you just type `pig`, it will use mapreduce as the execution mode.  
+Explore this [link](https://pig.apache.org/docs/r0.16.0/cmds.html) to explore more about the grunt shell.
+
 #### 3.1 Explore the Pig User Interface
 
 We see the `Pig user interface` in our browser window. On the left we can choose between our `saved Pig  Scripts`,  `UDFs`  and the `Pig  Jobs` executed in the past. To the right of this menu bar we see our `saved Pig  Scripts`.
