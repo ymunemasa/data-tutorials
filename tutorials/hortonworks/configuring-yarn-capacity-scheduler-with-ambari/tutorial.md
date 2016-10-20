@@ -33,8 +33,9 @@ To provide further control and predictability on sharing of resources, the Capac
 ## Outline
 
 - [1: Configuring the Capacity Scheduler](#configure-scheduler)
-- [2: Summary](#summary)
-- [3: HCC Articles](#hcc)
+- [2: Rollback the Configuration Version](#rollback-version)
+- [Summary](#summary)
+- [HCC Articles](#hcc)
 
 
 ### 1. Configuring the Capacity Scheduler <a id="configure-scheduler"></a>
@@ -173,11 +174,17 @@ and then go back to the Resource Manager UI  and refresh the page. Voila! Thereâ
 
 Now restart other services from Ambari which need a restart.
 
-### 2. Summary <a id="summary"></a>
+### 2. Rollback the Configuration Version <a id="rollback-version"></a>
+
+You can also rollback to the previous set of configurations.  Just hover on the previous version and click `Make Current`.
+
+![make_current](/assets/configuring-yarn-capacity-scheduler-with-ambari/make_current.png)
+
+## Summary <a id="summary"></a>
 
 So in this tutorial, you learned how to configure different queues and allotment of resources to those queues. Hope this brief tour of using YARN's Capacity Scheduler gave you some ideas on how to achieve better utilization of Hadoop clusters.
 
-### 3. HCC Articles <a id="hcc"></a>
+## HCC Articles <a id="hcc"></a>
 
 Check out some Hortonworks Community Connection articles to explore more about Capacity Scheduler:
 
