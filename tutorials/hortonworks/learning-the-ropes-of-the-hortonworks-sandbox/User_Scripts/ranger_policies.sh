@@ -1,4 +1,4 @@
-#curl -u admin:admin -v -i -s -X PUT -H "Accept: application/json" -H "Content-Type: application/json" http://sandbox.hortonworks.com:6080/service/xusers/secure/users/50 -d '{"id":50,"name":"raj_ops","firstName":"raj_ops","lastName":"raj_ops","emailAddress":"HDP@sandbox.hortonworks.com","description":"raj_ops - add from Unix box","userRoleList":["ROLE_SYS_ADMIN"]}'
+#!/bin/bash
 echo "Creating a Ranger Policy for raj_ops"
 curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -u admin:admin http://sandbox.hortonworks.com:6080/service/public/api/policy -d '{"policyName":"Policy for raj_ops","databases":"foodmart","tables":"*","columns":"*","udfs":"","description":"Hive Policy","repositoryName":"Sandbox_hive","repositoryType":"hive","tableType":"Inclusion","columnType":"Inclusion","isEnabled":"true","isAuditEnabled":"true","permMapList":[{"userList":["raj_ops"],"permList":["All"]}]}'
 echo "Updating a sample Hive Ranger policy for holger_gov"
