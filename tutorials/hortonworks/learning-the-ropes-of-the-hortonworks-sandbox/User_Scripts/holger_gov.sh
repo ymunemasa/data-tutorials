@@ -1,3 +1,4 @@
+#!/bin/bash
 USERNAME=holger_gov
 PASSWORD=holger_gov
 user_exists=$(id -u $USERNAME > /dev/null 2>&1; echo $?)
