@@ -1,14 +1,14 @@
-cd
-wget https://github.com/hortonworks/tutorials/tree/hdp-2.5/tutorials/hortonworks/learning-the-ropes-of-the-hortonworks-sandbox/Foodmart_Data/foodmart_data.zip
-wget https://github.com/hortonworks/tutorials/tree/hdp-2.5/tutorials/hortonworks/learning-the-ropes-of-the-hortonworks-sandbox/Foodmart_Data/create_table_script.hql
-cp /root/foodmart_data.zip /home/hive/
-cp /root/create_table_script.hql /home/hive/
-#cp /root/data_copyto_hdfs /home/hive/
-chown hive /home/hive/create_table_script.hql
-chown hive /home/hive/foodmart_data.zip
-#chown hive /home/hive/data_copyto_hdfs
-#chmod 744 /home/hive/data_copyto_hdfs
-sudo -u hive unzip /home/hive/foodmart_data.zip
+#!/bin/bash
+
+cd ~
+wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/tutorials/hortonworks/learning-the-ropes-of-the-hortonworks-sandbox/Foodmart_Data/foodmart_data.zip
+wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/tutorials/hortonworks/learning-the-ropes-of-the-hortonworks-sandbox/Foodmart_Data/create_table_script.hql
+sudo cp ~/foodmart_data.zip /home/hive/
+sudo cp ~/create_table_script.hql /home/hive/
+
+sudo chown hive /home/hive/create_table_script.hql
+sudo chown hive /home/hive/foodmart_data.zip
+sudo -u hive unzip /home/hive/foodmart_data.zip -d /home/hive
 
 # creating HDFS directories for foodamrt tables
 sudo -u hive hdfs dfs -mkdir /apps/hive/warehouse/foodmart.db
@@ -27,6 +27,3 @@ sudo -u hive hdfs dfs -copyFromLocal /home/hive/foodmart_data/inventory_fact_199
 sudo -u hive hdfs dfs -chmod -R 777 /apps/hive/warehouse/foodmart.db
 
 sudo -u hive hive -f /home/hive/create_table_script.hql
-
-
- 
