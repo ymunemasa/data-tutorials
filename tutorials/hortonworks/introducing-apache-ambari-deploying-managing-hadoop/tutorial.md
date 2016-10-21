@@ -77,7 +77,7 @@ Type `hostname` on command line to find out the hostname of the machine.
 
 ![hostname](/assets/introducing-apache-ambari-deploying-managing-hadoop/hostname.png)
 
-Edit /etc/hosts file to map the IP address with the hostname.
+Edit /etc/hosts file to map the IP address with the hostname. The hosts file is used to recognize the mapping of hostnames to the IP addresses of the host. So the Ambari server consults this file to determine the IP address that corresponds to a host name. So in this case, the leftmost column is the IP address to be resolved, the second one is the hostname and the third one is just the alias for the host name.
 
 ![hosts_file](/assets/introducing-apache-ambari-deploying-managing-hadoop/hosts_file.png)
 
@@ -88,6 +88,7 @@ yum install ntp
 yum install wget
 ~~~
 
+NTP(Network Time Protocol) service is required when the computer clocks in servers are set manually, it gets drifted by each passing day if not closely monitored. So to avoid this, it is advisable to enable NTP to synchronize the time of all hosts within the cluster with Ambari server.  
 Start the **ntpd** service through:
 
 ~~~
@@ -99,6 +100,7 @@ service ntpd start
 
 ### 3. Setting up Passwordless SSH <a id="passwordless-ssh"></a>
 
+It is required so that the Ambari server installed on one host can communicate with other hosts within the cluster to install Ambari agents. The server uses the key pair to access other hosts.  
 Generate the key using ssh-keygen
 
 ![ssh_keygen](/assets/introducing-apache-ambari-deploying-managing-hadoop/ssh_keygen.png)
