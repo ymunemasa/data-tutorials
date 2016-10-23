@@ -56,7 +56,7 @@ Kafka Producer-Broker-Consumer
 SSH into the Sandbox to define the Kafka topic. Type the following command:
 
 ~~~bash
-ssh root@127.0.0.1 -p 2222
+ssh root@sandbox.hortonworks.com -p 2222
 ~~~
 
 ![ssh_into_sandbox_shell_kafka_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/ssh_into_sandbox_shell_kafka_iot.png)
@@ -68,7 +68,7 @@ ssh root@127.0.0.1 -p 2222
 Use the `kafka-topics.sh` script (which should be in your PATH), create a new topic named `truck_events`:
 
 ~~~bash
-[root@sandbox ~]# kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic truck_events
+[root@sandbox ~]# kafka-topics.sh --create --zookeeper sandbox.hortonworks.com:2181 --replication-factor 1 --partitions 2 --topic truck_events
 ~~~
 
 If the `kafka-topics.sh` script is not in your PATH and you get a command not found error, then change directories to where the Kafka scripts are installed:
@@ -80,10 +80,10 @@ If the `kafka-topics.sh` script is not in your PATH and you get a command not f
 You will need to **add a dot and a slash (./)** to the beginning of the commands:
 
 ~~~bash
-[root@sandbox bin]# ./kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 2 --topic truck_events
+[root@sandbox bin]# ./kafka-topics.sh --create --zookeeper sandbox.hortonworks.com:2181 --replication-factor 1 --partitions 2 --topic truck_events
 ~~~
 
-Also note that sometimes ZooKeeper does not listen on `localhost`, so you may need to use the Sandbox’s IP address instead.
+Also note that sometimes ZooKeeper does not listen on `localhost`, so you may need to use `sandbox.hortonworks.com` or the Sandbox’s IP address instead.
 
 
 The output should show your topic was created:
@@ -96,7 +96,7 @@ The output should show your topic was created:
 Check if topic `truck_events` was created successfully with the following command:
 
 ~~~bash
-[root@sandbox ~]# ./kafka-topics.sh --list --zookeeper localhost:2181
+[root@sandbox ~]# ./kafka-topics.sh --list --zookeeper sandbox.hortonworks.com:2181
 ~~~
 
 You should see `truck_events` in the list of topics (and probably your only topic):
@@ -108,7 +108,7 @@ You should see `truck_events` in the list of topics (and probably your only top
 
 In the previous tutorial, we stored the truck event data into a file. Now we can use the [PutKafka](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi.processors.kafka.PutKafka/index.html) processor since the Kafka service is running, we have access to the "Known Broker", "Topic Name" and "Client Name." We will send the truck event contents of a FlowFile to Kafka as a message. Similar to the Kafka Producer, NiFi acts as a producer since it creates messages and publishes them to the Kafka broker for further consumption.
 
-1\. If not already open, navigate to the NiFi Web Interface at `http://127.0.0.1:6434/nifi/`. For vmware and azure, the host and port may be different.
+1\. If not already open, navigate to the NiFi Web Interface at `http://sandbox.hortonworks.com:9090/nifi/`. For vmware and azure, the port may be different.
 
 2\. If your data flow is still running, click on the stop button ![stop_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/stop_symbol_nifi_iot.png) in the **actions** toolbar to stop the flow.
 
@@ -134,7 +134,7 @@ Client Name = truck_events_client
 
 **Known Brokers** can be found in **Kafka** configs under listeners
 
-**Topic Name** is the name you created earlier for Kafka. Type the following command to see your topic name: ./kafka-topics.sh --list --zookeeper localhost:2181.
+**Topic Name** is the name you created earlier for Kafka. Type the following command to see your topic name: ./kafka-topics.sh --list --zookeeper sandbox.hortonworks.com:2181.
 
 **Message Delimiter** set as "Shift+enter" in the value field makes each line of incoming FlowFile a single message, so kafka does not receive an enormous flowfile as a single message.
 
