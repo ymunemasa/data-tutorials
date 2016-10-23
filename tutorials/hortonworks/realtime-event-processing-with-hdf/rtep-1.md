@@ -75,12 +75,12 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 NiFi will be installed into the Ambari Stack of the Hortonworks Sandbox VirtualBox image because it
 will be used to activate the truck events simulator and transport data to Kafka.
 
-1\. If you do not have NiFi installed on your sandbox, refer to [Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#download-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
+1\. If you do not have NiFi installed on your sandbox, refer to [Section 2: Setup NiFi on Sandbox by Ambari Wizard](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi#nifi-ambari-wizard) from Tutorial 0: Download, Install, and Start NiFi of
 Learning the Ropes of Apache NiFi for step-by-step instructions.
 
 ### Step 2: Start NiFi <a id="step2-start-nifi-tutorial0"></a>
 
-1\. To activate the NiFi service, refer to [Step 4: Start NiFi on Sandbox](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
+1\. To activate the NiFi service, refer to [Section 2: Start NiFi via Ambari Service](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi#start-nifi-sandbox) from Tutorial 0: Set Up NiFi Environment of
 Learning the Ropes of Apache NiFi for step-by-step instructions.
 
 ## Section 2: Overview
@@ -97,7 +97,7 @@ push it into it's topology(dataflow).
 
 ### 1.1 Access Ambari
 
-If you haven't reset your Ambari admin password, refer to Section **[2.2 SETUP AMBARI ADMIN PASSWORD MANUALLY](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password)** from Learning the Ropes of the Hortonworks Sandbox. Login to Ambari to activate Kafka. Enter the URL in your browser `http://127.0.0.1:8080:`
+If you haven't reset your Ambari admin password, refer to Section **[2.2 SETUP AMBARI ADMIN PASSWORD MANUALLY](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password)** from Learning the Ropes of the Hortonworks Sandbox. Login to Ambari to activate Kafka. Enter the URL in your browser `http://sandbox.hortonworks.com:8080`
 
 ![login_page_ambari](/assets/realtime-event-processing-with-hdf/lab1-kafka/login_page_ambari.png)
 
@@ -105,7 +105,7 @@ If you haven't reset your Ambari admin password, refer to Section **[2.2 SETUP A
 
 ### 1.2 Use Ambari to Activate Kafka
 
-1\. Click on Kafka located in the left sidebar list of installed services. (If Kafka is not installed, refer to [Appendix A: Install Kafka](#appendix-a) instructions.):
+1\. Click on Kafka located in the left sidebar list of installed services. (If Kafka is not installed, refer to [Appendix A: Install Kafka](http://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm/#install-kafka-tutorial0) instructions.):
 
 ![kafka_service_on_off](/assets/realtime-event-processing-with-hdf/lab1-kafka/kafka_service_on_off.png)
 
@@ -158,7 +158,7 @@ that storm populates.
 
 1\.  **View the HBase Services page**
 
-Start by logging into Ambari as an admin user. From the previous tutorials: HDFS, Hive, YARN and Kafka should already be running but HBase may be down. From the Dashboard page of Ambari, click on HBase from the list of installed services.
+From the previous tutorials: HDFS, Hive, YARN and Kafka should already be running but HBase may be down. From the Dashboard page of Ambari, click on HBase from the list of installed services.
 
 ![hbase_service_on_off_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_service_on_off_iot.png)
 
@@ -194,7 +194,7 @@ later when we use Storm's Visualization feature.
 5\. Let's SSH into the sandbox by shell:
 
 ~~~
-ssh root@127.0.0.1 -p 2222
+ssh root@sandbox.hortonworks.com -p 2222
 ~~~
 
 6\. We will download the demo project because it contains the necessary
@@ -251,7 +251,7 @@ Before we run the simulator, let's install and download the simulator. For VMwar
 1\. If you have not already ssh into sandbox shell, type the command to access the sandbox by shell:
 
 ~~~
-ssh root@127.0.0.1 -p 2222
+ssh root@sandbox.hortonworks.com -p 2222
 ~~~
 
 2\. Install Apache Maven. We will use it to compile the simulator code,
@@ -312,7 +312,7 @@ If you have not installed **Intellij**, refer to JetBrains [Installing and Launc
 
 Earlier we cloned the iot-truck-streaming project from github onto our sandbox. Now we will clone it onto our local machine.
 
-1\. Perform the git clone command. Feel free to clone it in any directory, just remember the location. In the tutorial, let's clone it in our Documents folder.
+1\. Perform the git clone command on the local machine. Feel free to clone it in any directory, just remember the location. In the tutorial, let's clone it in our Documents folder.
 
 ~~~bash
 cd ~/Documents
@@ -417,7 +417,7 @@ ls -ltr storm-streaming/target
 4\. Let's send our jar to the sandbox for later use in tutorial 3.
 
 ~~~bash
-scp -P 2222 ~/Documents/iot-truck-streaming/storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar root@127.0.0.1:/root/iot-truck-streaming/storm-streaming/target
+scp -P 2222 ~/Documents/iot-truck-streaming/storm-streaming/target/storm-streaming-1.0-SNAPSHOT.jar root@sandbox.hortonworks.com:/root/iot-truck-streaming/storm-streaming/target
 ~~~
 
 > Note: Each time we update the demo, we have to transport the latest jar file to the sandbox.
@@ -524,4 +524,4 @@ Refer to Readings below if you want to learn best practices for installing and c
 - [Installing and Configuring Storm](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.3.4/bk_installing_manually_book/content/ch_installing_storm_chapter.html)
 - [Stream Simulator Documentation](https://github.com/hortonworks-gallery/iot-truck-streaming/tree/master/stream-simulator)
 - Our Trucking Demo project is a Maven Project, refer to [Working with Build Tools(Maven/Gradle) Intellij](https://www.jetbrains.com/help/idea/2016.2/discover-intellij-idea.html#BuildTools) for more in depth resources on the topic
-- [Meet Inellij IDEA](https://www.jetbrains.com/help/idea/2016.2/meet-intellij-idea.html)
+- [Meet Intellij IDEA](https://www.jetbrains.com/help/idea/2016.2/meet-intellij-idea.html)
