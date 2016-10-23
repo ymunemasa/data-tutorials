@@ -106,7 +106,7 @@ Each Processor will have its own alert message. Let’s configure and connect ea
 
 We will build our NiFi DataFlow by adding, configuring and connecting processors. When adding processors, you have three ways to find your desired processor from the **Add Processor** window: **Tags** section left of the table, **Processor List** located in the table and **filter bar** positioned above the table. After we add our processor, we can configure it from the Configure Processor window using the 4 tabs: **Settings**, **Scheduling**, **Properties** and **Commands**. For this tutorial, we will spend most of our time in the properties tab. The properties in **bold** must contain default or updated values for the processor to run. If you are curious to learn more about a specific property, hover over the help icon next to the Property Name to read a description on that property. Every processor has a relationship on how it transfers data to the next processor, another word for this is connection. Relationships affect how data is transferred between processors. For instance, you can have a **split** relationship that when true transfer a bunch of FlowFiles that were split from one large FlowFile to the next processor.
 
-If you would like to read more about configuring and connecting processors, refer to [Hortonworks Apache NiFi User Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/ch_UserGuide.html), Building a DataFlow: section 6.2 and 6.5.
+If you would like to read more about configuring and connecting processors, refer to [Hortonworks Apache NiFi User Guide](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html), Building a DataFlow: section 6.2 and 6.5.
 
 ### Step 3: Build Stream Simulator DataFlow Section <a id="step3-build-stream-simulator-dataflow-lab0"></a>
 
@@ -158,7 +158,7 @@ If you would like to read more about configuring and connecting processors, refe
 
 ### 3.3 UpdateAttribute
 
-1\. Add the **UpdateAttribute** processor below SplitText. Connect SplitText to UpdateAttribute processor. When the Create Connection window appears, verify **split** checkbox is checked, if not check it. Click **Add**.
+1\. Add the **UpdateAttribute** processor below SplitText. Connect SplitText to UpdateAttribute processor. When the Create Connection window appears, verify **splits** checkbox is checked, if not check it. Click **Add**.
 
 2\. Open SplitText **Properties Tab**, add a new dynamic property for NiFi expression, select the **New property** button. Insert the following property name and value into your properties tab as shown in Table 3 below:
 
@@ -170,15 +170,15 @@ If you would like to read more about configuring and connecting processors, refe
 
 **filename** uses NiFi Expression language to assign each FlowFile a unique name
 
-3\. Click **OK**.
+3\. Click **Apply**.
 
 ### Step 4: Build Filter Logs & Enrich TruckEvents DataFlow Section <a id="step4-build-filter-logs-enrich-truckevents-lab0"></a>
 
 ### 4.1 RouteOnContent
 
-1\. Add the **RouteOnAttribute** processor onto the right of the ExecuteProcess. Connect the UpdateAttribute processor to RouteOnContent. In the Create Connection window, check the **success** checkbox for the relationship.
+1\. Add the **RouteOnContent** processor onto the right of the ExecuteProcess. Connect the UpdateAttribute processor to RouteOnContent. In the Create Connection window, check the **success** checkbox for the relationship.
 
-2\. Open SplitText **Properties Tab**, add the properties listed in Table 4 to the processor's appropriate properties and if their original properties already have values, update them. For the second property and onward, add a new dynamic property for NiFi expression, select the **New property** button. Insert the following property name and value, refer to Table 4.
+2\. Open RouteOnContent **Properties Tab**, add the properties listed in Table 4 to the processor's appropriate properties and if their original properties already have values, update them. For the second property and onward, add a new dynamic property for NiFi expression, select the **New property** button. Insert the following property name and value, refer to Table 4.
 
 **Table 4:** Update RouteOnContent Property Values
 
@@ -262,7 +262,7 @@ Table 7: Update PutFile(logs) Property Values
 
 **Figure 6:** PutFile(logs) Configuration Property Tab Window
 
-3\. Open configure **Settings** tab, and rename the processor `PutFile(log_data)`. Click **Apply**.
+3\. Open configure **Settings** tab, and rename the processor `PutFile(log)`. Click **Apply**.
 
 
 We added, configured and connected all processors, your NiFi DataFlow should look similar as below:
@@ -271,7 +271,7 @@ We added, configured and connected all processors, your NiFi DataFlow should loo
 
 ### Step 5: Run NiFi DataFlow <a id="run-nifi-dataflow-lab0"></a>
 
-1\. The processors are valid since the warning symbols disappeared. Notice the processors have a red stop symbol ![stop_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/stop_symbol_nifi_iot.png) in the upper left corner and are ready to run. To select all processors, hold down the shift-key and drag your mouse across the entire data flow. This step is important if you have different dataflows on the same graph.
+1\. The processors are valid since the warning symbols disappeared. Notice the processors have a stop symbol ![stop_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/stop_symbol_nifi_iot.png) in the upper left corner and are ready to run. To select all processors, hold down the shift-key and drag your mouse across the entire data flow. This step is important if you have different dataflows on the same graph.
 
 ![dataflow_selected_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/dataflow_selected_nifi_iot.png)
 
@@ -279,7 +279,7 @@ We added, configured and connected all processors, your NiFi DataFlow should loo
 
 ![run_dataflow_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/run_dataflow_nifi_iot.png)
 
-Note: To run the DataFlow again, you will need to copy & paste the ExecuteProcess processor onto the graph, then delete the old one, and connect the new one to the splittext procesor. You will need to repeat this process each time you want to run the DataFlow. This step will ensure dataflow flows through each processor. Currently,the ExecuteProcess processor is getting a patch to fix this problem.
+Note: To run the DataFlow again, you will need to copy & paste the ExecuteProcess processor onto the graph, then delete the old one, and connect the new one to the splittext processor. You will need to repeat this process each time you want to run the DataFlow. This step will ensure dataflow flows through each processor. Currently,the ExecuteProcess processor is getting a patch to fix this problem.
 
 3\. To quickly see what the processors are doing and the information on their faces, right click on the graph, click the **refresh status** button ![refresh_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/refresh_nifi_iot.png)
 
@@ -296,14 +296,13 @@ To check that the log and truck event data were written to the correct directory
 ~~~
 cd /root/nifi_output/nifi_output/log_data
 ls
-vi 28863080789498
+cat 28863080789498
 ~~~
 
 Once the file is opened, you should obtain similar output as below:
 
 ![logs_stream_simulator_nifi_output](/assets/realtime-event-processing-with-hdf/lab0-nifi/logs_stream_simulator_nifi_output.png)
 
-> Note: to exit the vi editor, press `esc` and then type `:q`.
 
 ### 5.3 Verify Events Stored In truck_events Directory
 
@@ -312,14 +311,13 @@ Once the file is opened, you should obtain similar output as below:
 ~~~
 cd /root/nifi_output/truck_events
 ls
-vi 28918091050702
+cat 28918091050702
 ~~~
 
 Once the file is opened, you should obtain similar output as below:
 
 ![truck_events_file_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/truck_events_file_nifi_iot.png)
 
-> Note: to exit the vi editor, press `esc` and then type `:q`.
 
 ## Summary <a id="summary-lab0"></a>
 
@@ -328,7 +326,7 @@ Congratulations! You made it to the end of the tutorial and built a NiFi DataFlo
 ## Further Reading <a id="further-reading-lab0"></a>
 
 - [Apache NiFi Documentation](https://nifi.apache.org/docs.html)
-- [Hortonworks DataFlow Documentation](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2/bk_UserGuide/content/index.html)
+- [Hortonworks DataFlow Documentation](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html)
 - [Apache NiFi Video Tutorials](https://nifi.apache.org/videos.html)
 - [Apache Maven Documentation](https://maven.apache.org/)
 - [Regex Expression Language](http://regexr.com/)
