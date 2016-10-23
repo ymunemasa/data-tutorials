@@ -432,7 +432,7 @@ Congratulations, you just incorporated NiFi into the trucking demo. Notice that 
 ## Further Reading <a id="further-reading-lab3"></a>
 - [Apache HBase](http://hortonworks.com/hadoop/hbase/)
 - [Getting Started with HBase](https://hbase.apache.org/book.html#quickstart)
-- [Storm Hive Integration](http://storm.apache.org/documentation/storm-hive.html)
+- [Storm Hive Integration](https://storm.apache.org/releases/1.0.1/storm-hive.html)
 - [Storm Tutorials](http://hortonworks.com/hadoop/storm/#tutorials)
-- [Getting Started with Apache Storm](http://storm.apache.org/documentation.html)
+- [Getting Started with Apache Storm](http://storm.apache.org/releases/1.0.1/index.html)
 - [Apache Storm](http://hortonworks.com/hadoop/storm/)
