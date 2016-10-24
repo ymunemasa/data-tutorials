@@ -222,7 +222,11 @@ SELECT time, ip, country, cast(status as BOOLEAN) FROM firewall_logs LIMIT 100;
 Why is Data Visualization important?
 Helps you analyze network data and determine effective responses to network issues.
 
+<!---
 First, make sure that the Apache Zeppelin service is started in Ambari. Then use the **Views Dropdown Menu** and select the **Zeppelin View**.
+--->
+
+Go to browser and type `sandbox.hortonworks.com:9995` to open Zeppelin UI
 
 You should be greeted by the following screen where you can choose to view notes, or create a new one.
 
