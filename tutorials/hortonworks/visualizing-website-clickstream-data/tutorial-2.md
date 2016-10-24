@@ -37,12 +37,12 @@ In this section, You can choose to use  Excel Professional Plus 2013  or Apache 
 
 If you don't have access to Microsoft Excel Professional Plus, you can also utilize Apache Zeppelin to do you data visualization as well.
 
-
-Open up Ambari and make sure Zeppelin is running. If not, start the service. Then use the dropdown menu to access the views and select **Zeppelin**
+Open up Ambari and make sure Zeppelin is running. If not, start the service. Go to browser and type `sandbox.hortonworks.com:9995` to open Zeppelin UI.
+<!---Then use the dropdown menu to access the views and select **Zeppelin**--->
 
 ![Zeppelin View](/assets/clickstream/36_zeppelin_create_note.png)
 
-Once the Zeppelin view is open you can either create a new note and run the commands, or import the following notebook from this URL: `
+Once the Zeppelin UI is open you can either create a new note and run the commands, or import the following notebook from this URL: `
 
 `https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.4/data/zeppelin-notes/ClickstreamAnalytics.json`
 
