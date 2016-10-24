@@ -87,7 +87,7 @@ Livy Server Started:
 
 Log out of Ambari.
 
-### 4.1.1 There are two ways to access Zeppelin.
+<### 4.1.1 There are two ways to access Zeppelin.>
 
 1\. The first way, open **Zeppelin View** from Ambari views selector:
 
