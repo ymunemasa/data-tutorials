@@ -87,7 +87,7 @@ Livy Server Started:
 
 Log out of Ambari.
 
-<!---### 4.1.1 There are two ways to access Zeppelin.--->
+<!---### 4.1.1 There are two ways to access Zeppelin.
 
 1\. The first way, open **Zeppelin View** from Ambari views selector:
 
@@ -96,6 +96,7 @@ Log out of Ambari.
 2\. Below is an image of the welcome screen from Zeppelin View, as you can see users must login to create notebooks:
 
 ![zeppelin_view_welcome_lab4](/assets/hello-hdp/zeppelin_view_welcome_lab4.png)
+--->
 
 3\. The second way is to access Zeppelin at `sandbox.hortonworks.com:9995` through its port number:
 
