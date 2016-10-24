@@ -96,7 +96,7 @@ Log out of Ambari.
 2\. Below is an image of the welcome screen from Zeppelin View, as you can see users must login to create notebooks:
 
 ![zeppelin_view_welcome_lab4](/assets/hello-hdp/zeppelin_view_welcome_lab4.png)
---->
+
 
 3\. The second way is to access Zeppelin at `sandbox.hortonworks.com:9995` through its port number:
 
@@ -109,11 +109,23 @@ Log out of Ambari.
 You should see a Zeppelin Welcome Page:
 
 ![zeppelin_welcome_page](/assets/hello-hdp/zeppelin_welcome_page_lab4.png)
+--->
 
+5\. Access Zeppelin at `sandbox.hortonworks.com:9995` through its port number:
+
+~~~
+<hostname>:9995
+~~~
+
+> Refer to [Learning the Ropes of Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) if you need assistance figuring out your hostname.
+
+You should see a Zeppelin Welcome Page:
+
+![zeppelin_welcome_page](/assets/hello-hdp/zeppelin_welcome_page_lab4.png)
 
 Optionally, if you want to find out how to access the Spark shell to run code on Spark refer to [Appendix A](#run-spark-in-shell).
 
-5\.  Create a Zeppelin Notebook
+6\.  Create a Zeppelin Notebook
 
 Click on a Notebook tab at the top left and hit **Create new note**. Name your notebook `Compute Riskfactor with Spark`. By the default, the notebook will load Spark Scala API.
 
