@@ -82,7 +82,7 @@ If you plan to install HDF on Hortonworks Sandbox, review the table, and proceed
 If it is your first time using the Sandbox VM, you might be prompted to change the default 'hadoop' password. Run the following command and provide a stronger password:
 
 ~~~
-ssh -p 2222 root@localhost
+ssh -p 2222 root@sandbox.hortonworks.com
 root@localhost's password:
 You are required to change your password immediately (root enforced)
 Last login: Wed Jun 15 19:47:44 2016 from 10.0.2.2
