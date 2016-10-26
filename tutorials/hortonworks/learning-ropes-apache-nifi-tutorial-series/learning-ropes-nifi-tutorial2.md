@@ -65,7 +65,7 @@ Let's obtain the **required parameters** to initiate a Nearby Search request.
 
 4\. Now a screen with your unique API key will appear similar to the screen below:
 
-![api_key](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/aapi_key.png)
+![api_key](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/api_key.png)
 
 Now we have the API Key parameter for our HTTP request. We also have the other required parameters: **location** thanks to tutorial 1 in which we extracted longitude & latitude attributes and **radius**, which can be a distance that does not surpass 50,000 meters. We will use one optional parameter **type** to signify what type of place we are interested in searching for.
 
