@@ -42,7 +42,7 @@ Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercont
 - [Step 2.2: Build XML Simulator DataFlow Section](#build-xml-simulator-flow)
 - [Step 2.3: Build Key Attribute Extraction DataFlow Section](#build-key-attributes-extraction)
 - [Step 2.4: Build Filter and JSON Conversion DataFlow Section](#build-filter-json-conversion)
-- [Step 2.55: Run the NiFi DataFlow](#run-nifi-dataflow-tutorial1)
+- [Step 2.5: Run the NiFi DataFlow](#run-nifi-dataflow-tutorial1)
 - [Summary](#summary-tutorial1)
 - [Appendix A: Review of NiFi DataFlow](#appendix-a-review-dataflow)
 - [Appendix B: Create Labels for Processor Groups](#appendix-b-create-labels)
