@@ -103,7 +103,8 @@ The topics covered in the concepts section were brief and tailored toward the tu
 - If there is a particular feature you want to learn more about, view our [Hortonworks NiFi User Guide](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html)
 
 
-Interesting NiFi Use Cases Blogs:
+### Interesting NiFi Use Cases Blogs:  
+
 - [CREDIT CARD FRAUD PREVENTION ON A CONNECTED DATA PLATFORM](http://hortonworks.com/blog/credit-card-fraud-prevention-on-a-connected-data-platform/)
 - [QUALCOMM, HORTONWORKS SHOWCASE CONNECTED CAR PLATFORM AT TU-AUTOMOTIVE DETROIT](http://hortonworks.com/blog/qualcomm-hortonworks-showcase-connected-car-platform-tu-automotive-detroit/)
 - [CYBERSECURITY: CONCEPTUAL ARCHITECTURE FOR ANALYTIC RESPONSE](http://hortonworks.com/blog/cybersecurity-conceptual-architecture-for-analytic-response/)
