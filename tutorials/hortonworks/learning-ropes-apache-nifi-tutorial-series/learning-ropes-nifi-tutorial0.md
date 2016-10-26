@@ -17,9 +17,9 @@ In this tutorial, you learn about the NiFi environment, how to install NiFi onto
 ## Pre-Requisites
 - Completed Learning the Ropes of Apache NiFi-Introduction.
 - Downloaded and installed [Hortonworks Sandbox](http://hortonworks.com/products/sandbox/). (Required for Section 2 and 3 for NiFi installation.)
+- If on mac or linux, add an IP and `sandbox.hortonworks.com` to your `/private/etc/hosts` file
+- If on windows 7, add an IP and `sandbox.hortonworks.com` to your `C://Windows/System32/Drivers/etc/hosts` file
 - For Windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run Linux terminal commands in these tutorials.
-- If on mac or linux, added `sandbox.hortonworks.com` to your `/private/etc/hosts` file
-- If on windows 7, added `sandbox.hortonworks.com` to your `/c/Windows/System32/Drivers/etc/hosts` file
 
 The following terminal commands in the tutorial instructions are performed in VirtualBox Sandbox and Mac machine. For windows users, to run the following terminal commands, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
 
@@ -59,11 +59,11 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 
 ### Section 0: Explore NiFi Environment Before NiFi Installation <a id="explore-nifi-environment"></a>
 
-You can run NiFi inside a single virtual machine or on your local computer. This version of the tutorial instructions are based on [Hortonworks DataFlow 2.0 GZipped](http://hortonworks.com/downloads/). There are 2 ways to download and install HDF 2.0: Option 1 on a Hortonworks Sandbox 2.5 Virtual Image (via Ambari Wizard, Sandbox Shell) or Option 2 on your local machine. HDF comes in 2 versions with only **NiFi** or with **NiFi, Kafka, Storm, and Zookeeper**. For this tutorial series, you should download HDF with NiFi only. The necessary components are:
+FOr this tutorial you can run NiFi inside a single virtual machine or on your local computer. This version of the tutorial instructions are based on [Hortonworks DataFlow 2.0 GZipped](http://hortonworks.com/downloads/). There are 2 ways to download and install HDF 2.0: Option 1 on a Hortonworks Sandbox 2.5 Virtual Image (via Ambari Wizard, Sandbox Shell) or Option 2 on your local machine. HDF comes in 2 versions with only **NiFi** or with **NiFi, Kafka, Storm, and Zookeeper**. For this tutorial series, you should download HDF with NiFi only. The necessary components are:
 - HDF 2.0 (NiFi only)
 - Internet Access
 
-### 0.A Plan to Install HDF 2.0 on Sandbox <a id="install-hdf-on-sandbox"></a>
+### 0.A Plan to Install HDF 2.0 on HDP Sandbox <a id="install-hdf-on-sandbox"></a>
 
 If you plan to install HDF on Hortonworks Sandbox, review the table, and proceed to step 2.
 
@@ -77,7 +77,7 @@ If you plan to install HDF on Hortonworks Sandbox, review the table, and proceed
 | Terminal Password  | hadoop  | hadoop  | {password-of-azure}  |
 
 
-> Note: **Host Name** values are unique for VMware & Azure Sandbox compared to the table. For VMware and VirtualBox, **Host Name** is located on the Welcome screen. For Azure, **Host Name** is located under **Public IP Address** on the Sandbox Dashboard. For Azure users, you created the terminal **username** and **password** while deploying the Sandbox on Azure. For VMware and VirtualBox users, you change the terminal password after first login.
+> Note: **Host Name** values are unique for VMware & Azure Sandbox compared to the table. For VMware and VirtualBox, **Host Name** is located on the Sandbox Welcome screen. For Azure, **Host Name** is located under **Public IP Address** on the Sandbox Dashboard. For Azure users, you created the terminal **username** and **password** while deploying the Sandbox on Azure. For VMware and VirtualBox users, you change the terminal password after first login.
 
 If it is your first time using the Sandbox VM, you might be prompted to change the default 'hadoop' password. Run the following command and provide a stronger password:
 
@@ -127,7 +127,7 @@ Two Versions of HDF
 Version 1 only comes with NiFi.
 - On the Hortonworks HDF downloads page, version 1 is available.
 
-Version 2 comes with NiFi, Kafka, Storm and Zookeeper
+Version 2 comes with Ambari, Ranger, NiFi, Kafka, Storm and Zookeeper
 - This version is available in Hortonworks Documentation
 
 There are 2 ways to install the NiFi Service by local machine, Hortonworks
@@ -176,12 +176,12 @@ Use the following steps to perform the NiFi installation:
 1\. SSH into the Sandbox VM:
 
 ~~~bash
-ssh root@127.0.0.1 -p 2222
+ssh root@sandbox.hortonworks.com -p 2222
 ~~~
 
 > Note: You should receive a success message.
 
-2\. Open Ambari. In the left sidebar of services, click on the **Actions** button. A drop down menu appears, select the **Add Service** button ![add_service](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/add_service.png). The **Add Service Wizard** window will appear.
+2\. Login into Ambari as admin. In the left sidebar of services, click on the **Actions** button. A drop down menu appears, select the **Add Service** button ![add_service](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/add_service.png). The **Add Service Wizard** window will appear.
 
 ![add_service_wizard](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/add_service_wizard.png)
 
@@ -205,7 +205,7 @@ Choose the NiFi service:
 
 ![summary_section_wizard](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/summary_section_wizard.png)
 
-7\. Upon a successful installation, you should see a **green check symbol** next to the service name. This check symbol also indicates that NiFi is running.
+7\. Upon a successful installation, you should see a new services listed with a **green check symbol** next to the service name. This check symbol also indicates that NiFi is running.
 
 ![service_installed_succesfully](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/service_installed_succesfully.png)
 
@@ -241,7 +241,7 @@ Use the following steps to guide you through the NiFi installation:
 1\. Open a terminal window (Mac and Linux) or git bash (Windows) on **sandbox**.
 
 ~~~bash
-ssh root@127.0.0.1 -p 2222
+ssh root@sandbox.hortonworks.com -p 2222
 ~~~
 
 2\. Download the **jdkinstall_nifi.sh** file from the github repo. Copy & paste the following commands:
@@ -262,7 +262,7 @@ Open a terminal for your local machine. If your HDF program was downloaded to th
 the transport.
 
 ~~~bash
-scp -P 2222 HDF-2.0.0.0-579.tar.gz root@127.0.0.1:/root
+scp -P 2222 HDF-2.0.0.0-579.tar.gz root@sandbox.hortonworks.com:/root
 ~~~
 
 > Note: For VMware and Azure users, the sandbox IP address may be different, so replace 127.0.0.1 with your appropriate IP. Use the ssh-port provided in Table 1. hdf-version is the digits in the tar.gz name you downloaded, for example the numbers in bold HDF-**2.0.0.0-579**.tar.gz. If your HDF version number is different, replace the number in the example with the number you have.

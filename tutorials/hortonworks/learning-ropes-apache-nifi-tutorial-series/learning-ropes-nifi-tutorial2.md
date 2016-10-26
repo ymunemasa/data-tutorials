@@ -18,8 +18,8 @@ In this tutorial, you will build the Geo Location Enrichment section of the data
 
 ![complete_dataflow_lab2_geoEnrich](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/complete_dataflow_lab2_geoEnrich.png)
 
-Feel free to download the [Lab2-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab2-template/Lab2-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to the tutorial.
-
+Feel free to download the [Lab2-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab2-template/Lab2-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to the tutorial.  
+Refer Step 1 to obtain the API key to build HTTP URL.
 
 ## Pre-Requisites
 - Completed Tutorial 0: Download, Install and Start NiFi
@@ -61,21 +61,15 @@ Let's obtain the **required parameters** to initiate a Nearby Search request.
 
 2\. We will use a standard Google Places API. Click on the blue **Get A Key** button to activate the API Web Service.
 
-3\. A window will appear that says **Select a project where your application will be registered**. In the dropdown menu, you should have `Create a new project` as the option. We will create a project for this application. Click on **Continue**. Wait a few seconds for the new window to load.
+3\. A window will appear that says **Select or create project**. In the dropdown menu, you should have `Create a new project` as the option. We will create a project for this application. Click on **Click And Enable**. Wait a few seconds for the new window to load.
 
-4\. A screen with **Server key 1** in the Name field will appear, click on the blue **Create** button.
+4\. Now a screen with your unique API key will appear similar to the screen below:
 
-5\. Now a screen with your unique API key in a table will appear similar to the Table below:
-
-**Table 1: Example of the API Key Table**
-
-| Name  | Creation date  | Type  | Key  |
-|:---|:---:|:---:|---:|
-| `Server Key 1`  | `June 14, 2016`  | `Server`  | `AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug`  |
+![api_key](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/aapi_key.png)
 
 Now we have the API Key parameter for our HTTP request. We also have the other required parameters: **location** thanks to tutorial 1 in which we extracted longitude & latitude attributes and **radius**, which can be a distance that does not surpass 50,000 meters. We will use one optional parameter **type** to signify what type of place we are interested in searching for.
 
-6\. Let's build our HTTP URL with the parameters below, so we can insert the URL as a property value into **InvokeHTTP** later in the tutorial.
+5\. Let's build our HTTP URL with the parameters below, so we can insert the URL as a property value into **InvokeHTTP** later in the tutorial.
 
 - API Key = AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug
 - Latitude = ${Latitude}
@@ -126,7 +120,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 ### EvaluateJsonPath
 
-1\. Add the EvaluateJsonPath processor onto the NiFi graph. Connect InvokeHTTP to EvaluateJsonPath processor. When the Create Connection window appears, select **Response** checkbox. Click Apply.
+1\. Add the EvaluateJsonPath processor onto the NiFi graph. Connect InvokeHTTP to EvaluateJsonPath processor. When the Create Connection window appears, select **Response** checkbox. Click Add.
 
 2\ Open EvaluateJsonPath configure properties tab and update the original properties with the properties listed in **Table 2**. Note: add `city` and `neighborhoods_nearby` property by clicking the **New property** button, then insert their values into the properties tab.
 
@@ -150,7 +144,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 ### RouteOnAttribute
 
-1\. Add the EvaluateJsonPath processor onto the NiFi graph. Connect EvaluateJsonPath to RouteOnAttribute processor. When the Create Connection window appears, select **matched** checkbox. Click Apply.
+1\. Add the RouteOnAttribute processor onto the NiFi graph. Connect EvaluateJsonPath to RouteOnAttribute processor. When the Create Connection window appears, select **matched** checkbox. Click Add.
 
 2\. Open RouteOnAttribute configure properties tab and click on **New property** button to add `RouteNearbyNeighborhoods` to property name and insert its NiFi expression value listed in **Table 3**.
 
@@ -168,7 +162,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 ### AttributesToJSON
 
-1\. Add the EvaluateJsonPath processor onto the NiFi graph. Connect RouteOnAttribute to AttributesToJSON processor. When the Create Connection window appears, select **RouteNearbyNeighborhoods** checkbox. Click Apply.
+1\. Add the AttributesToJSON processor onto the NiFi graph. Connect RouteOnAttribute to AttributesToJSON processor. When the Create Connection window appears, select **RouteNearbyNeighborhoods** checkbox. Click Add.
 
 2\. Open AttributesToJSON configure properties tab and update the properties with the information listed in **Table 4**.
 
@@ -185,7 +179,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 ### MergeContent
 
-1\. Add the MergeContent processor onto the NiFi graph. Connect AttributesToJSON to MergeContent processor. When the Create Connection window appears, select **success** checkbox. Click Apply.
+1\. Add the MergeContent processor onto the NiFi graph. Connect AttributesToJSON to MergeContent processor. When the Create Connection window appears, select **success** checkbox. Click Add.
 
 2\. Open MergeContent configure properties tab and update the properties with the information listed in **Table 5**. For the Demarcator property, type `,` then press `shift+enter`.
 
@@ -206,7 +200,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 ### PutFile
 
-1\. Add the PutFile processor onto the NiFi graph. Connect MergeContent to PutFile processor. When the Create Connection window appears, select **merged** checkbox. Click Apply.
+1\. Add the PutFile processor onto the NiFi graph. Connect MergeContent to PutFile processor. When the Create Connection window appears, select **merged** checkbox. Click Add.
 
 2\. Open PutFile configure properties tab and update the property with the information listed in **Table 6**.
 

@@ -20,6 +20,7 @@ In this tutorial, you will build the following dataflow:
 
 **Figure 1:** The completed dataflow contains three sections: ingest data from vehicle location XML Simulator, extract vehicle location detail attributes from FlowFiles and route these detail attributes to a JSON file as long as they are not empty strings. You will learn more in depth about each processors particular responsibility in each section of the dataflow.
 
+<!---
 Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab1-template/Lab1-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to **Step 1**.
 
 1\. Click on the template icon ![nifi_template_icon](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/nifi_template_icon.png) located in the actions toolbar.
@@ -29,24 +30,66 @@ Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercont
 3\. Hover over to the top left of the NiFi HTML interface, drag the template icon ![nifi_template_icon](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/add_nifi_template.png) onto the graph and select the **NiFi-DataFlow-Lab1.xml** template file.
 
 4\. Hit the **start** button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). to activate the dataflow. We highly recommend you read through the lab, so you become familiar with the process of building a dataflow.
-
+--->
 ## Pre-Requisites
 - Completed Learning the Ropes of Apache NiFi
 - Completed Tutorial 0: Download, Install and Start NiFi
 
 ## Outline
-- [Step 1: Create a NiFi DataFlow](#create-nifi-dataflow)
-- [Step 2: Build XML Simulator DataFlow Section](#build-xml-simulator-flow)
-- [Step 3: Build Key Attribute Extraction DataFlow Section](#build-key-attributes-extraction)
-- [Step 4: Build Filter and JSON Conversion DataFlow Section](#build-filter-json-conversion)
-- [Step 5: Run the NiFi DataFlow](#run-nifi-dataflow-tutorial1)
+- [Approach 1](#approach1)
+- [Approach 2](#approach2)
+- [Step 2.1: Create a NiFi DataFlow](#create-nifi-dataflow)
+- [Step 2.2: Build XML Simulator DataFlow Section](#build-xml-simulator-flow)
+- [Step 2.3: Build Key Attribute Extraction DataFlow Section](#build-key-attributes-extraction)
+- [Step 2.4: Build Filter and JSON Conversion DataFlow Section](#build-filter-json-conversion)
+- [Step 2.55: Run the NiFi DataFlow](#run-nifi-dataflow-tutorial1)
 - [Summary](#summary-tutorial1)
 - [Appendix A: Review of NiFi DataFlow](#appendix-a-review-dataflow)
 - [Appendix B: Create Labels for Processor Groups](#appendix-b-create-labels)
 - [Further Reading](#further-reading-tutorial1)
 
+## Approach 1 <a id="approach1"></a>
 
-### Step 1: Create a NiFi DataFlow <a id="create-nifi-dataflow"></a>
+Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab1-template/Lab1-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to **Step 1**.
+
+1\. Click on the template icon ![nifi_template_icon](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/nifi_template_icon.png) located in the actions toolbar.
+
+2\. Click **Browse**, find the template file, click **Open** and hit **Import**.
+
+3\. Hover over to the top left of the NiFi HTML interface, drag the template icon ![nifi_template_icon](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/add_nifi_template.png) onto the graph and select the **NiFi-DataFlow-Lab1.xml** template file.
+
+4\.  Download [trafficLocs_data_for_simulator.zip](https://github.com/hortonworks/tutorials/blob/hdp/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip?raw=true) which is our input data.
+
+If **NiFi is on Sandbox**, SSH into the shell:
+
+~~~
+ssh root@sandbox.hortonworks.com -p 2222
+~~~
+
+Let’s create a new `/tmp/nifi/input` directory, modify permissions for nifi directory that way NiFi can write to output, then send the zip file to the sandbox with the command:
+
+~~~
+mkdir -p /tmp/nifi/input
+chmod -R 777 /tmp/nifi
+exit
+scp -P 2222 ~/Downloads/trafficLocs_data_for_simulator.zip root@sandbox.hortonworks.com:/tmp/nifi/input
+~~~
+
+If **NiFi is on local machine**, create a new folder named `/tmp/nifi/input` in the `/` directory, modify permissions and then copy the input dataset to this new folder:
+
+~~~
+mkdir -p /tmp/nifi/input
+chmod -R 777 /tmp/nifi
+cp ~/Downloads/trafficLocs_data_for_simulator.zip /tmp/nifi/input
+~~~
+
+5\. Hit the **start** button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). to activate the dataflow. We highly recommend you read through the lab, so you become familiar with the process of building a dataflow.
+
+
+
+## Approach 2 <a id="approach2"></a>
+
+### Step 2.1: Create a NiFi DataFlow <a id="create-nifi-dataflow"></a>
 
 The building blocks of every dataflow consist of processors. These tools perform actions on data to ingest, route, extract, split, aggregate or store it. Our dataflow will contain these processors, each processor includes a high level description of their role in the tutorial:
 
@@ -63,13 +106,13 @@ The building blocks of every dataflow consist of processors. These tools perform
 
 Refer to [NiFi's Documentation](https://nifi.apache.org/docs.html) to learn more about each processor described above.
 
-### 1.1 Learning Objectives: Overview of DataFlow Build Process
+### 2.1.1 Learning Objectives: Overview of DataFlow Build Process
 - Build a NiFi DataFlow to ingest, filter, convert and store moving data
-- Establish relationships or connections for each processors
+- Establish connections and relationships between processors
 - Troubleshoot problems that may occur
 - Run the the NiFi DataFlow
 
-Your dataflow will extract the following XML Attributes from the transit data listed in Table 1. We will learn how to do this extraction with EvaluateXPath when we build our dataflow.
+Your dataflow will extract the following XML Attributes from the transit data listed in Table 1. We will learn how to do this extraction with the EvaluateXPath processor when we build our dataflow.
 
 **Table 1: Extracted XML Attributes From Transit Data**
 
@@ -97,7 +140,7 @@ Let's build our dataflow to fetch, filter, convert and store transit sensor data
 
 ![sf_ocean_view_route_nifi_streaming](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/live_stream_sf_muni_nifi_learning_ropes.png)
 
-### 1.2 Add processors
+### 2.1.2 Add processors
 
 1\. Go to the **components** toolbar, drag and drop the processor icon ![processor_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/processor_nifi_iot.png) onto the graph.
 
@@ -107,9 +150,13 @@ An **Add Processor** window will appear with 3 ways to find our desired processo
 - tag cloud: reduces list by category
 - filter bar: search for desired processor
 
-2\. Select the **GetFile** processor and a short description of the processor's function will appear.
+2\. Select the **GetFile** processor and a short description of the processor's function will appear.  
 
+Creates FlowFiles from files in a directory. NiFI will ignore files it doesn’t have at least read permissions for.
+
+<!---
 - **GetFile** fetches the vehicle location simulator data for files in a directory.
+--->
 
 Click the **Add** button to add the processor to the graph.
 
@@ -118,6 +165,8 @@ Click the **Add** button to add the processor to the graph.
 3\. Add the **UnpackContent, ControlRate, EvaluateXPath, SplitXML, UpdateAttribute, EvaluateXPath, RouteOnAttribute, AttributesToJSON, MergeContent** and **PutFile** processors using the processor icon.
 
 Overview of Each Processor's Role in our DataFlow:
+
+- **GetFile** fetches the vehicle location simulator data for files in a directory.  
 
 - **UnpackContent** decompresses the contents of FlowFiles from the traffic simulator zip file.
 
@@ -139,16 +188,15 @@ Overview of Each Processor's Role in our DataFlow:
 
 - **PutFile** writes the contents of the FlowFile to a desired directory on the local filesystem.
 
-
 Follow the step above to add these processors. You should obtain the image below:
 
 ![added_processors_nifi_part1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/added_processors_nifi_part1.png)
 
-> Note: To find more information on the processor, right click ExecuteProcess and click **usage**. An in app window will appear with that processor’s documentation. Also if you want to create color coded labels that act as a background for a processor group, refer to **Appendix B**.
+> Note: To find more information on the processor, right click ExecuteProcess and click **usage**. An in app window will appear with that processor’s documentation. Also if you want to create color coded labels that act as a background for a processor group, refer to **Appendix B** at the bottom of the page.
 
-### 1.3 Troubleshoot Common Processor Issues
+### 2.1.3 Troubleshoot Common Processor Issues
 
-Notice the nine processors in the image above have warning symbols ![warning_symbol_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/warning_symbol_nifi_iot.png) in the upper left corner of the processor face. These warning symbols indicate the processors are invalid.
+Notice the eleven processors in the image above have warning symbols ![warning_symbol_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/warning_symbol_nifi_iot.png) in the upper left corner of the processor face. These warning symbols indicate the processors are invalid.
 
 1\. To troubleshoot, hover over one of the processors, for instance the **GetFile** processor, and a warning symbol will appear. This message informs us of the requirements needed, so we can run this processor.
 
@@ -158,24 +206,24 @@ The warning message indicates: we need to specify a directory path to tell the p
 Each Processor will have its own alert message. Let’s configure and connect each processor to remove all the warning messages, so we can have a live data flow.
 
 
-### 1.4 Configure & Connect processors
+### 2.1.4 Configure & Connect processors
 
 Now that we added some processors, we will configure our processors in the **Configure Processor** window, which contains 4 tabs: **Settings**, **Scheduling**, **Properties** and **Comments**. We will spend most of our time in the properties tab since it is the main place to configure specific information that the processor needs to run properly. The properties that are in bold are required for the processor to be valid. If you want more information on a particular property, hover over the help icon ![question_mark_symbol_properties_config_iot.png](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/question_mark_symbol_properties_config_iot.png) located next to the Property Name with the mouse to read a description of the property. While we configure each processor, we will also connect each processor together and establish a relationship for them to make the dataflow complete.
 
 If you would like to read more about configuring and connecting processors, refer to [Hortonworks Apache NiFi User Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/ch_UserGuide.html), Building a DataFlow: section 6.2 and 6.5.
 
-### Step 2: Build XML Simulator DataFlow Section <a id="build-xml-simulator-flow"></a>
+### Step 2.2: Build XML Simulator DataFlow Section <a id="build-xml-simulator-flow"></a>
 
-### 2.1 GetFile
+### 2.2.1 GetFile
 
-1\. Download [trafficLocs_data_for_simulator.zip](https://github.com/hortonworks/tutorials/blob/hdp/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip?raw=true).
+1\. If you have not yet downloaded the input data set, click here [trafficLocs_data_for_simulator.zip](https://github.com/hortonworks/tutorials/blob/hdp/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip?raw=true).
 
 ### NiFi on Sandbox (Option 1)
 
 If **NiFi is on Sandbox**, SSH into the shell. Else move to the next section:
 
 ~~~bash
-ssh root@127.0.0.1 -p 2222
+ssh root@sandbox.hortonworks.com -p 2222
 ~~~
 
 Let's create a new `/tmp/nifi/input` directory, modify permissions for nifi directory that way NiFi can write to output, then send the zip file to the sandbox with the command:
@@ -184,7 +232,7 @@ Let's create a new `/tmp/nifi/input` directory, modify permissions for nifi dire
 mkdir -p /tmp/nifi/input
 chmod -R 777 /tmp/nifi
 exit
-scp -P 2222 ~/Downloads/trafficLocs_data_for_simulator.zip root@localhost:/tmp/nifi/input
+scp -P 2222 ~/Downloads/trafficLocs_data_for_simulator.zip root@sandbox.hortonworks.com:/tmp/nifi/input
 ~~~
 
 ### NiFi on Local Machine (Option 2)
@@ -197,7 +245,7 @@ chmod -R 777 /tmp/nifi
 cp ~/Downloads/trafficLocs_data_for_simulator.zip /tmp/nifi/input
 ~~~  
 
-Right click on the **GetFile** processor and click **configure** from dropown menu
+Right click on the **GetFile** processor and click **configure** from dropdown menu
 
 ![configure_processor_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/configure_processor_nifi_iot.png)
 
@@ -222,7 +270,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 4\. Now that each required item is updated, click **Apply**. Connect **GetFile** to **UnpackContent** processor by dragging the arrow icon from the first processor to the next component. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
-### 2.2 UnpackContent
+### 2.2.2 UnpackContent
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 4 and if their original properties already have values, update them.
 
@@ -242,7 +290,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Connect **UnpackContent** to **ControlRate** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
-### 2.3 ControlRate
+### 2.2.3 ControlRate
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 5 and if their original properties already have values, update them.
 
@@ -268,9 +316,9 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Connect **ControlRate** to **EvaluateXPath** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
-### Step 3: Build Key Attribute Extraction DataFlow Section <a id="build-key-attributes-extraction"></a>
+### Step 2.3: Build Key Attribute Extraction DataFlow Section <a id="build-key-attributes-extraction"></a>
 
-### 3.1 EvaluateXPath
+### 2.3.1 EvaluateXPath
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 6 and if the original properties already have values, update them. For the second property in Table 6, add a new dynamic property for XPath expression, select the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
 
@@ -293,7 +341,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 4\. Connect **EvaluateXPath** to **SplitXML** processor. When the Create Connection window appears, verify **matched** checkbox is checked, if not check it. Click Add.
 
-### 3.2 SplitXML
+### 2.3.2 SplitXML
 
 1\. Keep SplitXML configuration **properties** as default.
 
@@ -301,7 +349,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Connect **SplitXML** to **UpdateAttribute** processor. When the Create Connection window appears, verify **split** checkbox is checked, if not check it. Click Add.
 
-### 3.3 UpdateAttribute
+### 2.3.3 UpdateAttribute
 
 1\. Add a new dynamic property for NiFi expression, click on the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
 
@@ -319,7 +367,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 2\. Connect **UpdateAttribute** to **EvaluateXPath** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
-### 3.4 EvaluateXPath
+### 2.3.4 EvaluateXPath
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 8 and if their original properties already have values, update them. For the remaining properties in Table 8, add new dynamic properties for XPath expressions, click on the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
 
@@ -347,9 +395,9 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 3\. Connect **EvaluateXPath** to **RouteOnAttribute** processor. When the Create Connection window appears, verify **matched** checkbox is checked, if not check it. Click Add.
 
 
-### Step 4: Build Filter and JSON Conversion DataFlow Section <a id="build-filter-json-conversion"></a>
+### Step 2.4: Build Filter and JSON Conversion DataFlow Section <a id="build-filter-json-conversion"></a>
 
-### 4.1 RouteOnAttribute
+### 2.4.1 RouteOnAttribute
 
 1\. Open the processor configuration **properties** tab. Add a new dynamic property for NiFi expression, select the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
 
@@ -369,7 +417,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Connect **RouteOnAttribute** to **AttributesToJSON** processor. When the Create Connection window appears, verify **Filter_Attributes** checkbox is checked, if not check it. Click Add.
 
-### 4.2 AttributesToJSON
+### 2.4.2 AttributesToJSON
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 10 and if their original properties already have values, update them.
 
@@ -392,7 +440,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 4\. Connect **AttributesToJSON** to **MergeContent** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
 
-### 4.3 MergeContent
+### 2.4.3 MergeContent
 
 1\. Open the processor configuration **properties** tab. Add the properties listed in Table 11 and if their original properties already have values, update them.
 
@@ -425,7 +473,7 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 4\. Connect **MergeContent** to **PutFile** processor. When the Create Connection window appears, verify **merged** checkbox is checked, if not check it. Click Add.
 
-### 4.4 PutFile
+### 2.4.4 PutFile
 
 1\. Open the processor configuration **properties** tab. Add the property listed in Table 12 and if their original property already has a value, update it.
 
@@ -441,11 +489,11 @@ Right click on the **GetFile** processor and click **configure** from dropown me
 
 3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **success** checkboxes. Click **Apply**.
 
-### Step 5: Run the NiFi DataFlow <a id="run-nifi-dataflow-tutorial1"></a>
+### Step 2.5: Run the NiFi DataFlow <a id="run-nifi-dataflow-tutorial1"></a>
 
 1\. The processors are valid since the warning symbols disappeared. Notice that the processors have a red stop symbol ![stop_symbol_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/stop_symbol_nifi_iot.png) in the upper left corner and are ready to run. To select all processors, hold down the **shift-key** and drag your mouse across the entire data flow.
 
-2\. Now that all processors are selected, go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). Your screen should look like the following:
+2\. Now that all processors are selected, go to the actions toolbar in the left window labeled Operate and click the start button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). Your screen should look like the following:
 
 ![run_dataflow_lab1_nifi_learn_ropes](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/run_dataflow_lab1_nifi_learn_ropes.png)
 
@@ -529,7 +577,7 @@ Reference the picture of the dataflow in Step 5 if you would like to assign simi
 ## Further Reading <a id="further-reading-tutorial1"></a>
 
 - [Apache NiFi](http://hortonworks.com/apache/nifi/)
-- [Hortonworks DataFlow Documentation](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2/bk_UserGuide/content/index.html)
+- [Hortonworks DataFlow Documentation](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html)
 - [NiFi Expression Language Guide](https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html)
 - [XPath Expression Tutorial](http://www.w3schools.com/xsl/xpath_intro.asp)
 - [JSON Tutorial](http://www.w3schools.com/json/)
