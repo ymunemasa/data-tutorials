@@ -61,7 +61,7 @@ Let's obtain the **required parameters** to initiate a Nearby Search request.
 
 2\. We will use a standard Google Places API. Click on the blue **Get A Key** button to activate the API Web Service.
 
-3\. A window will appear that says **Select or create project**. In the dropdown menu, you should have `Create a new project` as the option. We will create a project for this application. Click on **Click And Enable**. Wait a few seconds for the new window to load.
+3\. A window will appear that says **Enable Google Places API Web Service**. Select **Yes**. Then **Create And Enable API**. Wait a few seconds for the new window to load.
 
 4\. Now a screen with your unique API key will appear similar to the screen below:
 
@@ -219,7 +219,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 Now that we added geographic location enrichment dataflow section to our previous dataflow, let's run the dataflow and verify if we receive the expected results in our output directory.
 
-1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). Your screen should look like the following:
+1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/start_button_nifi_iot.png). Your screen should look like the following:
 
 ![complete_dataflow_lab2_geoEnrich](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/running_dataflow_lab2_geoEnrich.png)
 
