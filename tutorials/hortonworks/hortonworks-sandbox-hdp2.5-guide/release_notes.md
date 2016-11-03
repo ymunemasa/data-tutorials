@@ -11,10 +11,9 @@ components: [ sandbox ]
 # Release Notes
 
 Sept 2016  
-Md5 **VMware** Virtual Appliance - fe1e91bc26e6879fdc6dde6e3778c262  
-Md5 **Virtualbox** Virtual Appliance- b08f1dce17ab3ae2431532be74bdbbbb
-Md5 **Docker** 2a710f236135e620ec8488a1229af07e
-
+Md5 **VMware** Virtual Appliance - f1d45e93ab9f2a655db559be5b2f2f43 
+Md5 **Virtualbox** Virtual Appliance- d42a9bd11f29775cc5b804ce82a72efd
+Md5 **Docker** c613fab7ed21e15886ab23d7a28aec8a
 HDP Stack and Ambari  
 The Sandbox uses the following versions of Ambari and HDP stack.  Please use the following release note links provided to view Ambari and HDP stack specific information.
 
@@ -25,6 +24,13 @@ The Sandbox uses the following versions of Ambari and HDP stack.  Please use the
 ## Behavior Changes
 
 **New splash page**  
+**-JDK updated to 1.8
+-Virtualbox no longer prompts for a new network adapter
+-Yum installation module now fixed
+-Fixed errors “No such directory or file ATLAS-ENTITIES/000000000000.log
+-Port mapping missing for Namenode UI:50070, 8090, 8091,8082, 8086
+-Add service error pop up within Ambari**
+
 **RMP-6196** – Using dockerized containers inside the VM’s  
 **RMP-6735** – Using Role based access control to log into Ambari, please look at learning ropes tutorial for more information.  
 **RMP-7141** – New sample data in databases used for tutorials  
@@ -58,18 +64,16 @@ Operating System and Java versions that the Sandbox has installed.
 CentOS release 6.8 (Final)  
 
 **Java Version (docker container)**  
-java version "1.7.0_111"  
-OpenJDK Runtime Environment (rhel-2.6.7.2.el6_8-x86_64 u111-b01)  
-OpenJDK 64-Bit Server VM (build 24.111-b01, mixed mode)  
+openjdk version "1.8.0_111"                                                                                                  OpenJDK Runtime Environment (build 1.8.0_111-b15)                                                                           OpenJDK 64-Bit Server VM (build 25.111-b15, mixed mode)
 Updated from previous version  
 
 **OS Version (Hosting Virtual Machine)**  
 CentOS Linux release 7.2.1511 (Core)  
 
 **Image File Sizes**  
-VMware – 11.9 GB  
+VMware – 11.1 GB  
 Virtualbox – 11.7 GB  
-
+Docker - 10.2 GB
 **Tech Preview Packages**  
 Ambari Views- hueambarimigration-2.4.0.0.1225.jar  
 Ambari Views - wfmanager-2.4.0.0.1225.jar  
