@@ -76,7 +76,8 @@ CentOS Linux release 7.2.1511 (Core)
 **Image File Sizes**  
 VMware – 11.1 GB  
 Virtualbox – 11.7 GB  
-Docker - 10.2 GB
+Docker - 10.2 GB  
+
 **Tech Preview Packages**  
 Ambari Views- hueambarimigration-2.4.0.0.1225.jar  
 Ambari Views - wfmanager-2.4.0.0.1225.jar  
