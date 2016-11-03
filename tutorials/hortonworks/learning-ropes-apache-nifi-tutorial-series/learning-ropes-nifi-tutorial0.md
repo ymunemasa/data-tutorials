@@ -8,7 +8,7 @@ intro-page: false
 components: [ nifi ]
 ---
 
-# Tutorial 0: Download, Install, and Start NiFi
+# Tutorial 0: Set-Up NiFi Environment
 
 ## Introduction
 
