@@ -24,7 +24,7 @@ The Sandbox uses the following versions of Ambari and HDP stack.  Please use the
 ## Behavior Changes
 
 **New splash page**  
--JDK updated to 1.8  
+- JDK updated to 1.8  
 - Virtualbox no longer prompts for a new network adapter   
 - Yum installation module now fixed  
 - Fixed errors “No such directory or file ATLAS-ENTITIES/000000000000.log  
