@@ -19,13 +19,13 @@ The concepts section is tailored toward enriching your hands-on experience in th
 - 2\. Who Uses NiFi, and for what?
 - 3\. Understand NiFi DataFlow Build Process
 - 4\. The Core Concepts of NiFi
-- 5\. A Brief History of NiFi
+- 5\. NiFi Architecture
+- 6\. A Brief History of NiFi
 - Further Reading
 
 ### 1\. What is Apache NiFi?
 
-[Apache NiFi](https://nifi.apache.org/docs/nifi-docs/html/overview.html#what-is-apache-nifi) is an open source tool for automating and managing the flow of data between systems. In the tutorial, we will use NiFi to process the flow of data between sensors, web services (NextBus and Google Places API), various locations and our local file system. NiFi will solve our dataflow challenges since it can adapt. Problems we may face include data access exceeds capacity to consume, systems evolve at different rates, compliance and security.
-
+[Apache NiFi](https://nifi.apache.org/docs/nifi-docs/html/overview.html#what-is-apache-nifi) is an open source tool for automating and managing the flow of data between systems (Databases, Sensors, Hadoop, Data Platform). In the tutorial, we will use NiFi to process the flow of data between sensors, web services (NextBus and Google Places API), various locations and our local file system.
 
 ### 2\. Who Uses NiFi, and for what?
 
@@ -87,10 +87,27 @@ When we learned the process of building a dataflow, we crossed paths with many o
 | `Flow Controller` | `Acts as a Broker to facilitate the exchange of FlowFiles between processors.` |
 | `Process Group` | `Enables the creation of new components based on the composition of processors, funnels, etc.` |
 
+### 5\. NiFi Architecture
 
+Let's dive deeper into the infrastructure that enables NiFi to perform so well when it comes to building DataFlows that address various use cases.
 
-### 5\. A Brief History of NiFi
+![nifi_architecture_diagram](/assets/learning-ropes-nifi-lab-series/lab-concepts-nifi/nifi_architecture_diagram.png)
 
+NiFi executes within the Java Virtual Machine (JVM) located in the Host Operating System (OS/Host).
+
+Inside the JVM,
+
+- The Web Server enables us to access NiFi's User Interface from the web browser.
+
+- The Flow Controller acts as the brains of the operation, it gives threads to extensions (custom processors), and keeps track of all the operations being executed by extensions
+
+- The FlowFile Repository is the area NiFi keeps track of all the status updates regarding FlowFiles as they travel throughout the DataFlow
+
+- The Content Repository is the location the content bytes of FlowFiles reside.
+
+- The Provenance Repository consists of all the provenance event data.
+
+### 6\. A Brief History of NiFi
 
 Apache NiFi originated from the NSA Technology Transfer Program in Autumn of 2014. NiFi became an official Apache Project in July of 2015. NiFi has been in development for 8 years. NiFi was built with the idea to make it easier for people to automate and manage data-in-motion without having to write numerous lines of code. Therefore, the user interface comes with pallet of data flow components that can be dropped onto the graph and connected together. NiFi was also created to solve many challenges of data-in-motion, such as multi-way dataflows, data ingestion from any data source, data distribution with the required security and governance. NiFi can be used by a wide variety of users who come from a variety of backgrounds(development, business) and want to tackle the challenges stated above.
 
