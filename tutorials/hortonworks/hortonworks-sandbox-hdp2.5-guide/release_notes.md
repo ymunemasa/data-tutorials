@@ -24,12 +24,12 @@ The Sandbox uses the following versions of Ambari and HDP stack.  Please use the
 ## Behavior Changes
 
 **New splash page**  
-**-JDK updated to 1.8  
+-JDK updated to 1.8  
 - Virtualbox no longer prompts for a new network adapter   
 - Yum installation module now fixed  
 - Fixed errors “No such directory or file ATLAS-ENTITIES/000000000000.log  
 - Port mapping missing for Namenode UI:50070, 8090, 8091,8082, 8086  
-- Add service error pop up within Ambari**  
+- Add service error pop up within Ambari
 
 **RMP-6196** – Using dockerized containers inside the VM’s  
 **RMP-6735** – Using Role based access control to log into Ambari, please look at learning ropes tutorial for more information.  
