@@ -228,7 +228,7 @@ Now that we added geographic location enrichment dataflow section to our previou
 ~~~
 cd /tmp/nifi/output/nearby_neighborhoods_search
 ls
-vi 38997303004413
+vi 2ae30f7d-5ffe-4e29-92f0-8f0e7c9224b6
 ~~~
 
 ![output_geoEnrich_nearby_neighborhoods_data](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/output_geoEnrich_nearby_neighborhoods_data.png)

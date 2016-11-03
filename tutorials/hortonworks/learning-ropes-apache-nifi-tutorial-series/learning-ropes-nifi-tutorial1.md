@@ -497,7 +497,7 @@ There are two options for checking that the data stored in the destination is co
 ~~~
 cd /tmp/nifi/output/filtered_transitLoc_data
 ls
-vi traffic-location-data-020855346-.xml
+vi 19bad9c1-ae98-439f-8a8b-543fb3ab0ab0
 ~~~
 
 ![commands_enter_sandbox_shell_lab1](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/commands_enter_sandbox_shell_lab1.png)
