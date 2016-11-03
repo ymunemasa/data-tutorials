@@ -8,7 +8,7 @@ intro-page: false
 components: [ nifi ]
 ---
 
-# Introduction to DataFlow Automation with Apache NiFi Concepts
+# NiFi DataFlow Automation Concepts
 
 ## Introduction
 
