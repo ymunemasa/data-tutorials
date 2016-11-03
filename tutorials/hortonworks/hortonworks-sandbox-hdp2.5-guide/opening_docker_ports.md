@@ -90,11 +90,11 @@ The “-p” flag is what is responsible for the port forwardings. All we need t
 
 ### 2. Forwarding ports from the VM to the outside world
 
-2.1.\ **VMWare**:
+2.1\. **VMWare**:
 
 For vmware all port forwardings are done automatically to the 172.x.x.x IP so there’s nothing else you need to do!  
 
-2.2.\ **Virtualbox**:
+2.2\. **Virtualbox**:
 
 For virtualbox the ports need to be added in manually. Open the virtualbox interface:
 
