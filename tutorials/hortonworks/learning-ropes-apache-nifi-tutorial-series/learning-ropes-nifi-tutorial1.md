@@ -20,17 +20,6 @@ In this tutorial, you will build the following dataflow:
 
 **Figure 1:** The completed dataflow contains three sections: ingest data from vehicle location XML Simulator, extract vehicle location detail attributes from FlowFiles and route these detail attributes to a JSON file as long as they are not empty strings. You will learn more in depth about each processors particular responsibility in each section of the dataflow.
 
-<!---
-Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab1-template/Lab1-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to **Step 1**.
-
-1\. Click on the template icon ![nifi_template_icon](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/nifi_template_icon.png) located in the actions toolbar.
-
-2\. Click **Browse**, find the template file, click **Open** and hit **Import**.
-
-3\. Hover over to the top left of the NiFi HTML interface, drag the template icon ![nifi_template_icon](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/add_nifi_template.png) onto the graph and select the **NiFi-DataFlow-Lab1.xml** template file.
-
-4\. Hit the **start** button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). to activate the dataflow. We highly recommend you read through the lab, so you become familiar with the process of building a dataflow.
---->
 ## Pre-Requisites
 - Completed Learning the Ropes of Apache NiFi
 - Completed Tutorial 0: Download, Install and Start NiFi
@@ -176,8 +165,6 @@ Overview of Each Processor's Role in our DataFlow:
 
 - **SplitXML** splits the parent's child elements into separate FlowFiles. Since vehicle is a child element in our xml file, each new vehicle element is stored separately.
 
-- **UpdateAttribute** updates the attribute name for each FlowFile.
-
 - **EvaluateXPath** extracts attributes: vehicle id, direction latitude, longitude and speed from vehicle element in each FlowFile.
 
 - **RouteOnAttribute** transfers FlowFiles to follow-on processors only if vehicle ID, speed, latitude, longitude, timestamp and direction match the filter conditions.
@@ -185,6 +172,8 @@ Overview of Each Processor's Role in our DataFlow:
 - **AttributesToJSON** generates a JSON representation of the attributes extracted from the FlowFiles and converts XML to JSON format this less attributes.
 
 - **MergeContent** merges a group of JSON FlowFiles together based on a number of FlowFiles and packages them into a single FlowFile.
+
+- **UpdateAttribute** updates the attribute name for each FlowFile.
 
 - **PutFile** writes the contents of the FlowFile to a desired directory on the local filesystem.
 
@@ -347,31 +336,13 @@ Right click on the **GetFile** processor and click **configure** from dropdown m
 
 2\.  Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **original** checkboxes. Click Apply.
 
-3\. Connect **SplitXML** to **UpdateAttribute** processor. When the Create Connection window appears, verify **split** checkbox is checked, if not check it. Click Add.
+3\. Connect **SplitXML** to **EvaluateXPath** processor. When the Create Connection window appears, verify **split** checkbox is checked, if not check it. Click Add.
 
-### 2.3.3 UpdateAttribute
+### 2.3.3 EvaluateXPath
 
-1\. Add a new dynamic property for NiFi expression, click on the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
+1\. Open the processor configuration **properties** tab. Add the properties listed in Table 7 and if their original properties already have values, update them. For the remaining properties in Table 7, add new dynamic properties for XPath expressions, click on the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
 
-**Table 7:** Add UpdateAttribute Property Value
-
-| Property  | Value  |
-|:---|---:|
-| `filename`  | `${UUID()}`  |
-
-- **filename** updates each FlowFile with a unique identifier
-
-![updateAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/updateAttribute_config_property_tab_window.png)
-
-**Figure 7:** UpdateAttribute Configuration Property Tab Window
-
-2\. Connect **UpdateAttribute** to **EvaluateXPath** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
-
-### 2.3.4 EvaluateXPath
-
-1\. Open the processor configuration **properties** tab. Add the properties listed in Table 8 and if their original properties already have values, update them. For the remaining properties in Table 8, add new dynamic properties for XPath expressions, click on the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
-
-**Table 8:** Update EvaluateXPath Property Values
+**Table 7:** Update EvaluateXPath Property Values
 
 | Property  | Value  |
 |:---|---:|
@@ -401,7 +372,7 @@ Right click on the **GetFile** processor and click **configure** from dropdown m
 
 1\. Open the processor configuration **properties** tab. Add a new dynamic property for NiFi expression, select the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
 
-**Table 9:** Add RouteOnAttribute Property Value
+**Table 8:** Add RouteOnAttribute Property Value
 
 | Property  | Value  |
 |:---|---:|
@@ -419,9 +390,9 @@ Right click on the **GetFile** processor and click **configure** from dropdown m
 
 ### 2.4.2 AttributesToJSON
 
-1\. Open the processor configuration **properties** tab. Add the properties listed in Table 10 and if their original properties already have values, update them.
+1\. Open the processor configuration **properties** tab. Add the properties listed in Table 9 and if their original properties already have values, update them.
 
-**Table 10:** Update AttributesToJSON Property Values
+**Table 9:** Update AttributesToJSON Property Values
 
 | Property  | Value  |
 |:---|---:|
@@ -442,9 +413,9 @@ Right click on the **GetFile** processor and click **configure** from dropdown m
 
 ### 2.4.3 MergeContent
 
-1\. Open the processor configuration **properties** tab. Add the properties listed in Table 11 and if their original properties already have values, update them.
+1\. Open the processor configuration **properties** tab. Add the properties listed in Table 10 and if their original properties already have values, update them.
 
-**Table 11:** Update MergeContent Property Values
+**Table 10:** Update MergeContent Property Values
 
 | Property  | Value  |
 |:---|---:|
@@ -471,11 +442,29 @@ Right click on the **GetFile** processor and click **configure** from dropdown m
 3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **original** checkboxes. Click **Apply**.
 
 
-4\. Connect **MergeContent** to **PutFile** processor. When the Create Connection window appears, verify **merged** checkbox is checked, if not check it. Click Add.
+4\. Connect **MergeContent** to **UpdateAttribute** processor. When the Create Connection window appears, verify **merged** checkbox is checked, if not check it. Click Add.
 
-### 2.4.4 PutFile
+### 2.4.4 UpdateAttribute
 
-1\. Open the processor configuration **properties** tab. Add the property listed in Table 12 and if their original property already has a value, update it.
+1\. Add a new dynamic property for NiFi expression, click on the **New property** button. Insert the following property name and value into your properties tab as shown in the table below:
+
+**Table 11:** Add UpdateAttribute Property Value
+
+| Property  | Value  |
+|:---|---:|
+| `filename`  | `${UUID()}`  |
+
+- **filename** updates each FlowFile with a unique identifier
+
+![updateAttribute_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/updateAttribute_config_property_tab_window.png)
+
+**Figure 7:** UpdateAttribute Configuration Property Tab Window
+
+2\. Connect **UpdateAttribute** to **PutFile** processor. When the Create Connection window appears, verify **success** checkbox is checked, if not check it. Click Add.
+
+### 2.4.5 PutFile
+
+1\. Open the processor configuration **properties** tab. Add the property listed in Table 11 and if their original property already has a value, update it.
 
 **Table 12:** Update PutFile Property Value
 
