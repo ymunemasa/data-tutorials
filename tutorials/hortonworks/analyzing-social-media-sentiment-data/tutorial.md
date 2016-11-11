@@ -343,7 +343,7 @@ From this you should be able to view all of the tweet data that is collected. Tr
 Now let's do a real query and see if we can find some valuable data.
 
 - For **q** type `language_s:en`
-- For **sort** type `screeName_s asc`
+- For **sort** type `screenName_s asc`
 - For **rows** type `150`
 - For **fl** type `screenName_s, text_t`
 - For **wt** choose `csv`
