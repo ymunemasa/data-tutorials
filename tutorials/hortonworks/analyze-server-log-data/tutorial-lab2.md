@@ -396,7 +396,7 @@ Let us view the same data in the form of table
 SELECT * FROM success_logs_by_hours_df ORDER BY Hour
 ~~~
 
-![select_success_logs_by_hours_df](/assets/server-logs/lab2/select_success_logs_by_hours_df.png)
+![select_success_logs_by_hour_df](/assets/server-logs/lab2/select_success_logs_by_hour_df.png)
 
 #### 7.7 Data Cleansing in Request_Path
 
