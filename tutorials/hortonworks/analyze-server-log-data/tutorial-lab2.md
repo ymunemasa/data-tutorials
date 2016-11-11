@@ -276,10 +276,10 @@ def parse_timestamp(time):
       int(time[18:20])
     )
 
-u_parse_timestamp = udf(parse_timestamp)
+udf_parse_timestamp = udf(parse_timestamp)
 
 parsed_df = logs_df.select('*',             
-                u_parse_timestamp(logs_df['Time'])  
+                udf_parse_timestamp(logs_df['Time'])  
                 .cast('timestamp')              
                 .alias('Timestamp')).drop('Time')   # Assigning the Timestamp name to the new column and dropping the old Time column                       
 parsed_df.cache()                                   # Stores the dataframe in cache for the future use
