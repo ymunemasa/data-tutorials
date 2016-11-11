@@ -207,7 +207,7 @@ Please make note of your **Consumer Key**, **Consumer Secret**, **Access Token**
 
 ## Create a Data Flow with NiFi <a id="creating-a-data-flow-with-nifi"></a>
 
-The first thing you'll need to do here is download the NiFi data flow template for the [Twitter Dashboard here](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/Twitter_Flow.xml)
+The first thing you'll need to do here is download the NiFi data flow template for the [Twitter Dashboard here](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/Twitter_JSON_Flow.xml)
 
 Make note of where you download this file. You'll need it in the next step.
 
