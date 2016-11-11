@@ -207,7 +207,7 @@ Please make note of your **Consumer Key**, **Consumer Secret**, **Access Token**
 
 ## Create a Data Flow with NiFi <a id="creating-a-data-flow-with-nifi"></a>
 
-The first thing you'll need to do here is download the NiFi data flow template for the [Twitter Dashboard here](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/Twitter_JSON_Flow.xml)
+The first thing you'll need to do here is download the NiFi data flow template for the [Twitter Dashboard here](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/nifi-sentiment-analytics/assets/Twitter_JSON_Flow.xml)
 
 Make note of where you download this file. You'll need it in the next step.
 
@@ -461,7 +461,7 @@ Then create two new directories inside of `/tmp/data/tables`. One named **time_z
 
 ![Data Table Folders](/assets/nifi-sentiment-analytics/images/two_new_tweet_dir_sentiment_analysis.png)
 
-In each of the folders respectively you'll need to upload the [`dictionary.tsv` file](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/dictionary.tsv), and the [`time_zone_map.tsv` file](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.3/assets/nifi-sentiment-analytics/assets/time_zone_map.tsv) to each of their respective directories.
+In each of the folders respectively you'll need to upload the [`dictionary.tsv` file](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/nifi-sentiment-analytics/assets/dictionary.tsv), and the [`time_zone_map.tsv` file](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/nifi-sentiment-analytics/assets/time_zone_map.tsv) to each of their respective directories.
 
 After doing so, you'll need to run the following command on the Sandbox:
 
