@@ -227,7 +227,7 @@ Next, let us create a dataframe in Spark using PySpark. Using **sqlContext.read.
 %pyspark
 from pyspark.sql.types import StructType, StructField, DoubleType, StringType
 schema = StructType([       
-// Represents a field in a StructType                    
+# Represents a field in a StructType                    
   StructField("IP",             StringType()),  
   StructField("Time",           StringType()),
   StructField("Request_Type",   StringType()),
