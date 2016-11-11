@@ -319,7 +319,7 @@ Next, we want to know which hosts has hit the server most times
 ~~~
 %pyspark
 most_frequent_hosts = parsed_df.groupBy("IP").count()           # Groups the dataframe by IP column and then counting
-most_frequent_hosts.show()		                                  # Displays the results
+most_frequent_hosts.show()		                        # Displays the results
 most_frequent_hosts.registerTempTable("most_frequent_hosts")    # Registering most_frequest_hosts variable as a temporary table
 ~~~
 
@@ -499,17 +499,17 @@ SELECT city, count(city) AS count from path_df where country='United States' GRO
 
 ![select_city](/assets/server-logs/lab2/select_city.png)
 
-### Summary <a =id"summary"></a>
+### Summary <a id = "summary"></a>
 
 In this tutorial, we learned how to use Apache Nifi for data preparation and how to convert the raw server logs to the readable form. Next we learned about how Apache Spark can be used for further cleansing of data. We also used Apache Zeppelin interpreters which allows any language/data-processing-backend to be plugged into it. Currently Apache Zeppelin supports many interpreters such as Apache Spark, Python, JDBC, Markdown and Shell. We used pyspark and sql in this tutorial.  
 
-### Further Reading <a =id"further-reading"></a>
+### Further Reading <a id = "further-reading"></a>
 
 1\. [Regular Expression Wiki](https://en.wikipedia.org/wiki/Regular_expression)  
 2\. [Apache Nifi User Guide](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html)  
 3\. [PySpark SQL Module](https://spark.apache.org/docs/1.6.2/api/python/pyspark.sql.html)  
 
-#### HCC Articles <a =id"hcc"></a>
+#### HCC Articles <a id = "hcc"></a>
 
 1\. [Nifi Server Logs Geo-Enrichment and Routing](https://community.hortonworks.com/articles/56559/nifi-log-geoenrichment-and-routing.html)  
 2\. [Spark RDDs vs Dataframes vs SparkSQL](https://community.hortonworks.com/articles/42027/rdd-vs-dataframe-vs-sparksql.html)  
