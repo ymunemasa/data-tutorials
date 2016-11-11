@@ -319,7 +319,7 @@ Next, we want to know which hosts has hit the server most times
 ~~~
 %pyspark
 most_frequent_hosts = parsed_df.groupBy("IP").count()           # Groups the dataframe by IP column and then counting
-most_frequent_hosts.show()		                              # Displays the results
+most_frequent_hosts.show()		                                # Displays the results
 most_frequent_hosts.registerTempTable("most_frequent_hosts")    # Registering most_frequest_hosts variable as a temporary table
 ~~~
 
