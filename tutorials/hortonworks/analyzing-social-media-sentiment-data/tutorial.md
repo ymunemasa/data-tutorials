@@ -368,6 +368,54 @@ Let's try one last query. This time you can omit the **sort** field and chooses 
 
 Now that we've taken a look at some of our data and searched it with Solr, let's see if we can refine it a bit more.
 
+But before moving ahead, let us setup **Hive-JSON-Serde** to read the data in **JSON** format.  
+We have to use the maven to compile the serde. Go back to the terminal and follow the below steps to setup the maven:  
+
+~~~
+wget http://mirror.olnevhost.net/pub/apache/maven/binaries/apache-maven-3.2.1-bin.tar.gz
+~~~
+
+Now, extract this file:
+
+~~~
+tar xvf apache-maven-3.2.1-bin.tar.gz
+~~~
+
+![install_maven](/assets/nifi-sentiment-analytics/images/install_maven.png)
+
+Now since our maven is installed, let us download the Hive-JSON-Serde. Type the following command:  
+
+~~~
+git clone https://github.com/rcongiu/Hive-JSON-Serde
+~~~
+
+This command must have created the new directory, go inside to that directory using cd:  
+
+~~~
+cd Hive-JSON-Serde
+~~~
+
+Next, run the command to compile the serde:  
+
+~~~
+./../apache-maven-3.2.1/bin/mvn -Phdp23 clean package
+~~~
+
+![install_json_serde](/assets/nifi-sentiment-analytics/images/install_json_serde.png)
+
+Wait for its completion, and then you have to copy the serde jar to the Hive lib:
+
+~~~
+cp json-serde/target/json-serde-1.3.8-SNAPSHOT-jar-with-dependencies.jar /usr/hdp/2.5.0.0-1245/hive/lib
+cp json-serde/target/json-serde-1.3.8-SNAPSHOT-jar-with-dependencies.jar /usr/hdp/2.5.0.0-1245/hive2/lib
+~~~
+
+![copy_jars](/assets/nifi-sentiment-analytics/images/copy_jars.png)
+
+**DO NOT** forget to Restart Hive from Ambari,
+
+![restart_hive](/assets/nifi-sentiment-analytics/images/restart_hive.png)
+
 We're going to attempt to get the sentiment of each tweet by matching the words in the tweets with a sentiment dictionary. From this we can determine the sentiment of each tweet and analyze it from there.
 
 First off, if your Twitter flow on the NiFi instance is still running, you'll need to shut it off. Open up the NiFi dashboard at [sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi) and click stop square ![stop_signal](/assets/nifi-sentiment-analytics/images/stop_signal.png) at the top of the screen.
@@ -390,7 +438,7 @@ After the commands complete let's go to the Hive view. Head over to [http://sand
 
 Execute the following command to create a table for the tweets
 
-~~~sql
+~~~
 CREATE EXTERNAL TABLE IF NOT EXISTS tweets_text(
   tweet_id bigint,
   created_unixtime bigint,
@@ -398,14 +446,12 @@ CREATE EXTERNAL TABLE IF NOT EXISTS tweets_text(
   lang string,
   displayname string,
   time_zone string,
-  msg string,
-  fulltext string)
-ROW FORMAT DELIMITED
-FIELDS TERMINATED BY "|"
-LOCATION "/tmp/tweets_staging";
+  msg string)
+ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe'
+LOCATION '/tmp/tweets_staging';
 ~~~
 
-![Hive Tweets Table](/assets/nifi-sentiment-analytics/images/create_tweets_text_table_sentiment_analysis.png)
+![create_table_json](/assets/nifi-sentiment-analytics/images/create_table_json.png)
 
 Now we're going to need to do some data analysis.
 
@@ -468,7 +514,7 @@ Next we'll need to create two table views from our tweets which will simplify th
 CREATE VIEW IF NOT EXISTS tweets_simple AS
 SELECT
   tweet_id,
-  cast ( from_unixtime( unix_timestamp(concat( '2015 ', substring(created_time,5,15)), 'yyyy MMM dd hh:mm:ss')) as timestamp) ts,
+  cast ( from_unixtime( unix_timestamp(concat( '2016 ', substring(created_time,5,15)), 'yyyy MMM dd hh:mm:ss')) as timestamp) ts,
   msg,
   time_zone
 FROM tweets_text;
@@ -477,6 +523,8 @@ FROM tweets_text;
 ![create tweets simple view](/assets/nifi-sentiment-analytics/images/create_tweets_simple_view_sentiment_analysis.png)
 
 ~~~sql
+ADD JAR /usr/hdp/2.5.0.0-1245/hive/lib/json-serde-1.3.8-SNAPSHOT-jar-with-dependencies.jar;
+
 CREATE VIEW IF NOT EXISTS tweets_clean AS
 SELECT
   t.tweet_id,
@@ -486,7 +534,7 @@ SELECT
  FROM tweets_simple t LEFT OUTER JOIN time_zone_map m ON t.time_zone = m.time_zone;
 ~~~
 
-![create tweets clean view](/assets/nifi-sentiment-analytics/images/create_tweets_clean_sentiment_analysis.png)
+![add_jar](/assets/nifi-sentiment-analytics/images/add_jar.png)
 
 After running the above commands you should be able run `SELECT * FROM tweets_clean LIMIT 100;` which should yield results:
 
