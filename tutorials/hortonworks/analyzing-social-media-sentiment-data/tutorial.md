@@ -217,13 +217,13 @@ Import the template by clicking `Templates` icon in the right of the Operate box
 
 ![click_import_template](/assets/nifi-sentiment-analytics/images/click_import_template.png)
 
-Then click **on the search sign** to select the template and navigate to the `twitter_JSON_Flow.xml` file that you just previously downloaded.
+Then click **on the search sign** to select the template and navigate to the `Twitter_JSON_Flow.xml` file that you just previously downloaded.
 
 ![search_template](/assets/nifi-sentiment-analytics/images/search_template.png)
 
 Once you've selected the file you can click **UPLOAD**.
 
-![upload_template_json](/assets/nifi-sentiment-analytics/images/searched_template_json.png)
+![upload_template_json](/assets/nifi-sentiment-analytics/images/upload_template_json.png)
 
 You should now see the Success message that your file is uploaded, press **OK**
 
@@ -235,7 +235,7 @@ Now that we've got the template imported into NiFi we can instantiate it. Drag t
 
 Then a dialog box should appear. Make sure that **Twitter_JSON_Flow** is selected and click **Add**.
 
-![add_flow_json](/assets/nifi-sentiment-analytics/images/add_flow_json.png)
+![add_template_json](/assets/nifi-sentiment-analytics/images/add_template_json.png)
 
 After clicking **ADD** you should have a screen similar to the following:
 
