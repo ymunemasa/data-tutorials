@@ -113,6 +113,7 @@ Click on `Launch Dashboard` to go to Ambari with a [Hello HDP tutorial](http://h
 > **Note:** For all methods below, the login credential instructions will be the same to access the Sandbox through the terminal.
 - Login using username as **root** and password as **hadoop**.
 - After first time login, you will be prompted to retype your current password, then change your password.
+- If you are using Putty on Windows then go to terminal of your sandbox in oracle virtualBox --> Press `Alt+F5` --> enter username - **root** --> enter password - **hadoop** --> it will ask you to set new password --> set new password.
 
 #### Secure Shell (SSH) Method:
 
