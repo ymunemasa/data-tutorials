@@ -17,7 +17,7 @@ We will install and explore the Sandbox on virtual machine and cloud environment
 Let's begin our Hadoop journey.
 
 ## Pre-Requisites
-- Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+- Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
 - Allow yourself around one hour to complete this tutorial
 - If on mac or linux, added `sandbox.hortonworks.com` to your `/private/etc/hosts` file
 - If on windows 7, added `sandbox.hortonworks.com` to your `/c/Windows/System32/Drivers/etc/hosts` file
