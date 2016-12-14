@@ -82,7 +82,7 @@ Your Ambari dashboard page should look like this:
 
 We need a script for creating a MySQL table, then importing the table using Sqoop into Hive.
 
-### 3.1: Log into the VM.
+### 3.1: Log into the Sandbox.
 
 First do ssh into the terminal by the user **root**. The first time password for root user is `hadoop` :
 
