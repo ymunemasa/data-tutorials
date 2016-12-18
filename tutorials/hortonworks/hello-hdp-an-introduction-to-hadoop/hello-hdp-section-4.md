@@ -222,8 +222,10 @@ i.  Local Sandbox VM
     Open up shell in the box to ssh into HDP with
 
     ~~~
-    ssh maria_dev@127.0.0.1 -p 2222 maria_dev
+    ssh maria_dev@127.0.0.1 -p 2222
     ~~~
+
+    Enter the default password "maria_dev"
 
 ii.  `su hive`  
 
