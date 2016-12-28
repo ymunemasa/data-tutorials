@@ -105,13 +105,13 @@ Name the script **riskfactor.pig**, then click the **Create** button:
 
 We will use **HCatalog** to _load data into Pig_. HCatalog allows us to _share schema across tools_ and users within our Hadoop environment. It also allows us to _factor out schema_ and _location information from_ our _queries and scripts_ and _centralize them in a common repository_. Since it is in HCatalog we can use the **HCatLoader() function**. Pig allows us to give the table a name or alias and not have to worry about allocating space and defining the structure. We just have to worry about how we are processing the table.
 
-* We can use the Pig helper located below the name of your script file to give us a template for the line. Click on **Pig helper -> HCatalog->load template**
+* We can use the Pig helper located below the name of your script file to give us a template for the line. Click on the **Pig helper -> HCatalog -> LOAD** template
 * The entry **%TABLE%** is highlighted in red for us. Type the name of the table which is geolocation.
 * Remember to add the **a =** before the template. This saves the results into a. Note the **‘=’** has to have a space before and after it.
 * Our completed line of code will look like:
 
 ~~~
-a = LOAD 'geolocation' using org.apache.hive.hcatalog.pig.HCatLoader();
+a = LOAD 'geolocation' USING org.apache.hive.hcatalog.pig.HCatLoader();
 ~~~
 
 The script above loads data, in our case, from a file named **geolocation** using the _HCatLoader()_ function. Copy-and-paste the above Pig code into the riskfactor.pig window.
@@ -122,9 +122,9 @@ The script above loads data, in our case, from a file named **geolocation** usin
 
 The next step is to **select a subset of the records**, so we have the records of drivers _for which the event is not normal_. To do this in Pig we **use the Filter operator**. We **instruct Pig to Filter** our table and keep _all records where event !=“normal”_ and store this in b. With this one simple statement, Pig will look at each record in the table and filter out all the ones that do not meet our criteria.
 
-* We can use Pig Help again by clicking on **Pig helper->Relational Operators->FILTER template**
+* We can use Pig Help again by clicking on the **Pig helper-> Relational Operators -> FILTER** template
 * We can replace **%VAR%** with **“a”** (hint: tab jumps you to the next field)
-* Our **%COND%** is “**event !=’normal’;** ” (note: single quotes are needed around normal and don’t forget the trailing semi-colon)
+* Our **%COND%** is “**event !='normal';** ” (note: single quotes are needed around normal and don’t forget the trailing semi-colon)
 * Complete line of code will look like:
 
 ~~~
@@ -139,8 +139,8 @@ Copy-and-paste the above Pig code into the riskfactor.pig window.
 
 Since we have the right set of records, let's iterate through them. We use the **“foreach”** operator on the grouped data to iterate through all the records. We would also like to **know the number of non normal events associated with a driver**, so to achieve this we _add ‘1’ to every row_ in the data set.
 
-* Pig helper ->Relational Operators->FOREACH template will get us the code
-* Our **%DATA%** is **b** and the second **%NEW_DATA%** is “**driverid,event,(int) ‘1’ as occurance;**”
+* Use Pig Help again by clicking on the **Pig helper -> Relational Operators -> FOREACH** template
+* Our **%DATA%** is **b** and the second **%NEW_DATA%** is “**driverid, event, (int) ‘1’ as occurance;**”
 * Complete line of code will look like:
 
 ~~~
@@ -155,7 +155,7 @@ Copy-and-paste the above Pig code into the riskfactor.pig window:
 
 The **group** statement is important because it _groups the records by one or more relations_. In our case, we want to group by driver id and iterate over each row again to sum the non normal events.
 
-* **Pig helper ->Relational Operators->GROUP %VAR% BY %VAR%** template will get us the code
+* Use the template **Pig helper -> Relational Operators -> GROUP %VAR% BY %VAR%**
 * First **%VAR%** takes **“c”** and second **%VAR%** takes “**driverid;**”
 * Complete line of code will look like:
 
@@ -183,7 +183,7 @@ In this section, we will load drivermileage table into Pig using **Hcatlog** and
 g = LOAD 'drivermileage' using org.apache.hive.hcatalog.pig.HCatLoader();
 ~~~
 
-* **Pig helper ->Relational Operators->JOIN %VAR% BY** template will get us the code
+* Use the template **Pig helper ->Relational Operators->JOIN %VAR% BY**
 * Replace **%VAR%** by ‘**e**’ and after **BY** put ‘**driverid, g by driverid;**’
 * Complete line of code will look like:
 
