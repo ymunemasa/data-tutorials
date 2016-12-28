@@ -477,7 +477,7 @@ visualization, which will show the user
 
 ![hive_explorer](/assets/hello-hdp/hive_explorer_lab2.png)
 
-3\. You can also explore some custom Data Visualizations by click the tab and then dragging 2 columns into the Positional fields.  Note that you can not save these graphs.  Explore the following [HCC article](https://community.hortonworks.com/articles/2947/new-visualization-feature-in-hive-view.html) for more info.
+3\. You can also explore some custom Data Visualizations by clicking the tab and then dragging 2 columns into the Positional fields.  Note that you can not save these graphs.  Explore the following [HCC article](https://community.hortonworks.com/articles/2947/new-visualization-feature-in-hive-view.html) for more info.
 
 ![hive_visualization](/assets/hello-hdp/hive_visualization_lab2.png)
 
