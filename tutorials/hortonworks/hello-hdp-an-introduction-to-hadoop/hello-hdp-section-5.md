@@ -122,9 +122,11 @@ The script above loads data, in our case, from a file named **geolocation** usin
 
 The next step is to **select a subset of the records**, so we have the records of drivers _for which the event is not normal_. To do this in Pig we **use the Filter operator**. We **instruct Pig to Filter** our table and keep _all records where event !=“normal”_ and store this in b. With this one simple statement, Pig will look at each record in the table and filter out all the ones that do not meet our criteria.
 
+
 * We can use Pig Help again by clicking on the **Pig helper-> Relational Operators -> FILTER** template
 * We can replace **%VAR%** with **“a”** (hint: tab jumps you to the next field)
 * Our **%COND%** is “**event !='normal';** ” (note: single quotes are needed around normal and don’t forget the trailing semi-colon)
+hdp-2.5
 * Complete line of code will look like:
 
 ~~~
