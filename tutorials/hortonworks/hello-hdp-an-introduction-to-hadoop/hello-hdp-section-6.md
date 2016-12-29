@@ -546,7 +546,7 @@ Optionally, if you don’t have an SSH client installed and configured you can u
 spark-shell
 ~~~
 
-This will load the default Spark Scala API.
+This will load the default Spark Scala API. Issue the command `exit` to drop out of the Spark Shell.
 
 
 ![spark_shell_welcome_page](/assets/hello-hdp/spark_shell_hello_hdp_lab4.png)
