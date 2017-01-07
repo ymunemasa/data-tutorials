@@ -1,53 +1,10 @@
 <?xml version="1.0" ?>
 <template encoding-version="1.0">
-  <description>Ingests Raw Sensor Data from MiNiFi.
-
-NiFi at the core sends the data to HBase.</description>
+  <description>Ingests Raw Sensor data form MiNiFi.
+NiFi at the core sends data to HBase.</description>
   <groupId>478a8e5e-0159-1000-d5d2-6d8644ccf2c7</groupId>
   <name>WeatherDataMiNiFiToHbase</name>
   <snippet>
-    <connections>
-      <id>01591018-2fcf-1820-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
-      <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-      <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-      <destination>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
-        <id>01591017-2fcf-1820-0000-000000000000</id>
-        <type>PROCESSOR</type>
-      </destination>
-      <flowFileExpiration>0 sec</flowFileExpiration>
-      <labelIndex>1</labelIndex>
-      <name></name>
-      <selectedRelationships>matched</selectedRelationships>
-      <source>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
-        <id>47af3e12-0159-1000-0000-000000000000</id>
-        <type>PROCESSOR</type>
-      </source>
-      <zIndex>0</zIndex>
-    </connections>
-    <connections>
-      <id>01591019-2fcf-1820-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
-      <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-      <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-      <destination>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
-        <id>481b8b1f-0159-1000-0000-000000000000</id>
-        <type>PROCESSOR</type>
-      </destination>
-      <flowFileExpiration>0 sec</flowFileExpiration>
-      <labelIndex>1</labelIndex>
-      <name></name>
-      <selectedRelationships>success</selectedRelationships>
-      <source>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
-        <id>01591017-2fcf-1820-0000-000000000000</id>
-        <type>PROCESSOR</type>
-      </source>
-      <zIndex>0</zIndex>
-    </connections>
     <connections>
       <id>47b712f3-0159-1000-0000-000000000000</id>
       <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
@@ -65,48 +22,6 @@ NiFi at the core sends the data to HBase.</description>
         <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
         <id>479b7c3d-0159-1000-0000-000000000000</id>
         <type>INPUT_PORT</type>
-      </source>
-      <zIndex>0</zIndex>
-    </connections>
-    <connections>
-      <id>47b7264e-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
-      <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-      <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-      <destination>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
-        <id>47af3e12-0159-1000-0000-000000000000</id>
-        <type>PROCESSOR</type>
-      </destination>
-      <flowFileExpiration>0 sec</flowFileExpiration>
-      <labelIndex>1</labelIndex>
-      <name></name>
-      <selectedRelationships>matched</selectedRelationships>
-      <source>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
-        <id>479c63d7-0159-1000-0000-000000000000</id>
-        <type>PROCESSOR</type>
-      </source>
-      <zIndex>0</zIndex>
-    </connections>
-    <connections>
-      <id>4822be08-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
-      <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-      <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-      <destination>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
-        <id>4822242e-0159-1000-0000-000000000000</id>
-        <type>PROCESSOR</type>
-      </destination>
-      <flowFileExpiration>0 sec</flowFileExpiration>
-      <labelIndex>1</labelIndex>
-      <name></name>
-      <selectedRelationships>success</selectedRelationships>
-      <source>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
-        <id>48202fcf-0159-1000-0000-000000000000</id>
-        <type>PROCESSOR</type>
       </source>
       <zIndex>0</zIndex>
     </connections>
@@ -148,6 +63,69 @@ NiFi at the core sends the data to HBase.</description>
       <source>
         <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
         <id>48202fcf-0159-1000-0000-000000000000</id>
+        <type>PROCESSOR</type>
+      </source>
+      <zIndex>0</zIndex>
+    </connections>
+    <connections>
+      <id>70f29b78-0159-1000-0000-000000000000</id>
+      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+      <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+      <destination>
+        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <id>47af3e12-0159-1000-0000-000000000000</id>
+        <type>PROCESSOR</type>
+      </destination>
+      <flowFileExpiration>0 sec</flowFileExpiration>
+      <labelIndex>1</labelIndex>
+      <name></name>
+      <selectedRelationships>found</selectedRelationships>
+      <source>
+        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <id>70d02107-0159-1000-0000-000000000000</id>
+        <type>PROCESSOR</type>
+      </source>
+      <zIndex>0</zIndex>
+    </connections>
+    <connections>
+      <id>70f2abe8-0159-1000-0000-000000000000</id>
+      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+      <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+      <destination>
+        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <id>70d02107-0159-1000-0000-000000000000</id>
+        <type>PROCESSOR</type>
+      </destination>
+      <flowFileExpiration>0 sec</flowFileExpiration>
+      <labelIndex>1</labelIndex>
+      <name></name>
+      <selectedRelationships>matched</selectedRelationships>
+      <source>
+        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <id>479c63d7-0159-1000-0000-000000000000</id>
+        <type>PROCESSOR</type>
+      </source>
+      <zIndex>0</zIndex>
+    </connections>
+    <connections>
+      <id>70f2c1cc-0159-1000-0000-000000000000</id>
+      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+      <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+      <destination>
+        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <id>481b8b1f-0159-1000-0000-000000000000</id>
+        <type>PROCESSOR</type>
+      </destination>
+      <flowFileExpiration>0 sec</flowFileExpiration>
+      <labelIndex>1</labelIndex>
+      <name></name>
+      <selectedRelationships>matched</selectedRelationships>
+      <source>
+        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <id>47af3e12-0159-1000-0000-000000000000</id>
         <type>PROCESSOR</type>
       </source>
       <zIndex>0</zIndex>
@@ -231,6 +209,7 @@ NiFi at the core sends the data to HBase.</description>
         </entry>
         <entry>
           <key>HBase Client Retries</key>
+          <value>1</value>
         </entry>
         <entry>
           <key>Phoenix Client JAR Location</key>
@@ -243,8 +222,8 @@ NiFi at the core sends the data to HBase.</description>
       <id>479b7c3d-0159-1000-0000-000000000000</id>
       <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
       <position>
-        <x>193.3215667724609</x>
-        <y>26.752603149414085</y>
+        <x>0.0</x>
+        <y>38.17270312116375</y>
       </position>
       <comments></comments>
       <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
@@ -254,61 +233,11 @@ NiFi at the core sends the data to HBase.</description>
       <type>INPUT_PORT</type>
     </inputPorts>
     <processors>
-      <id>01591017-2fcf-1820-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
-      <position>
-        <x>701.811996459961</x>
-        <y>192.644287109375</y>
-      </position>
-      <config>
-        <bulletinLevel>WARN</bulletinLevel>
-        <comments></comments>
-        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
-        <descriptors>
-          <entry>
-            <key>Delete Attributes Expression</key>
-            <value>
-              <name>Delete Attributes Expression</name>
-            </value>
-          </entry>
-          <entry>
-            <key>WeatherTimeID</key>
-            <value>
-              <name>WeatherTimeID</name>
-            </value>
-          </entry>
-        </descriptors>
-        <executionNode>ALL</executionNode>
-        <lossTolerant>false</lossTolerant>
-        <penaltyDuration>30 sec</penaltyDuration>
-        <properties>
-          <entry>
-            <key>Delete Attributes Expression</key>
-          </entry>
-          <entry>
-            <key>WeatherTimeID</key>
-            <value>${Time} ${UUID()}</value>
-          </entry>
-        </properties>
-        <runDurationMillis>0</runDurationMillis>
-        <schedulingPeriod>0 sec</schedulingPeriod>
-        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
-        <yieldDuration>1 sec</yieldDuration>
-      </config>
-      <name>UpdateHBaseWeatherID</name>
-      <relationships>
-        <autoTerminate>false</autoTerminate>
-        <name>success</name>
-      </relationships>
-      <style></style>
-      <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
-    </processors>
-    <processors>
       <id>479c63d7-0159-1000-0000-000000000000</id>
       <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
       <position>
-        <x>702.1216583251952</x>
-        <y>0.0</y>
+        <x>552.8473175048828</x>
+        <y>10.085322139718414</y>
       </position>
       <config>
         <bulletinLevel>WARN</bulletinLevel>
@@ -412,6 +341,12 @@ NiFi at the core sends the data to HBase.</description>
             </value>
           </entry>
           <entry>
+            <key>Public_IP</key>
+            <value>
+              <name>Public_IP</name>
+            </value>
+          </entry>
+          <entry>
             <key>Sealevel_Pressure_Pa</key>
             <value>
               <name>Sealevel_Pressure_Pa</name>
@@ -433,6 +368,12 @@ NiFi at the core sends the data to HBase.</description>
             <key>Time</key>
             <value>
               <name>Time</name>
+            </value>
+          </entry>
+          <entry>
+            <key>Timestamp</key>
+            <value>
+              <name>Timestamp</name>
             </value>
           </entry>
         </descriptors>
@@ -505,6 +446,10 @@ NiFi at the core sends the data to HBase.</description>
             <value>(?&lt;=Pressure = )([\w+.-]+)</value>
           </entry>
           <entry>
+            <key>Public_IP</key>
+            <value>(?&lt;=Public_IP: )([\w+.-]+)</value>
+          </entry>
+          <entry>
             <key>Sealevel_Pressure_Pa</key>
             <value>(?&lt;=Sealevel_Pressure = )([\w+.-]+)</value>
           </entry>
@@ -520,9 +465,13 @@ NiFi at the core sends the data to HBase.</description>
             <key>Time</key>
             <value>(?&lt;=")([^\"]+)</value>
           </entry>
+          <entry>
+            <key>Timestamp</key>
+            <value>(?&lt;=")([^\"]+)</value>
+          </entry>
         </properties>
         <runDurationMillis>0</runDurationMillis>
-        <schedulingPeriod>5 sec</schedulingPeriod>
+        <schedulingPeriod>0 sec</schedulingPeriod>
         <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
         <yieldDuration>1 sec</yieldDuration>
       </config>
@@ -542,8 +491,8 @@ NiFi at the core sends the data to HBase.</description>
       <id>47af3e12-0159-1000-0000-000000000000</id>
       <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
       <position>
-        <x>1318.8207550048828</x>
-        <y>1.2000305175781136</y>
+        <x>771.7861602783205</x>
+        <y>238.19555468366372</y>
       </position>
       <config>
         <bulletinLevel>WARN</bulletinLevel>
@@ -560,6 +509,18 @@ NiFi at the core sends the data to HBase.</description>
             <key>Check_Altitude</key>
             <value>
               <name>Check_Altitude</name>
+            </value>
+          </entry>
+          <entry>
+            <key>Check_City</key>
+            <value>
+              <name>Check_City</name>
+            </value>
+          </entry>
+          <entry>
+            <key>Check_IP</key>
+            <value>
+              <name>Check_IP</name>
             </value>
           </entry>
           <entry>
@@ -581,9 +542,21 @@ NiFi at the core sends the data to HBase.</description>
             </value>
           </entry>
           <entry>
+            <key>Check_State</key>
+            <value>
+              <name>Check_State</name>
+            </value>
+          </entry>
+          <entry>
             <key>Check_Temp</key>
             <value>
               <name>Check_Temp</name>
+            </value>
+          </entry>
+          <entry>
+            <key>Check_Time</key>
+            <value>
+              <name>Check_Time</name>
             </value>
           </entry>
         </descriptors>
@@ -598,6 +571,14 @@ NiFi at the core sends the data to HBase.</description>
           <entry>
             <key>Check_Altitude</key>
             <value>${Altitude_m:lt(6267)}</value>
+          </entry>
+          <entry>
+            <key>Check_City</key>
+            <value>${Public_IP.geo.city:isEmpty():not()}</value>
+          </entry>
+          <entry>
+            <key>Check_IP</key>
+            <value>${Public_IP:isEmpty():not()}</value>
           </entry>
           <entry>
             <key>Check_Pressure</key>
@@ -618,8 +599,18 @@ NiFi at the core sends the data to HBase.</description>
 )}</value>
           </entry>
           <entry>
+            <key>Check_State</key>
+            <value>${Public_IP.geo.subdivision.isocode.0:isEmpty():not()}</value>
+          </entry>
+          <entry>
             <key>Check_Temp</key>
             <value>${Temp_C:lt(88)}</value>
+          </entry>
+          <entry>
+            <key>Check_Time</key>
+            <value>${Time:isEmpty():not():and(
+	${Timestamp:isEmpty():not()}
+)}</value>
           </entry>
         </properties>
         <runDurationMillis>0</runDurationMillis>
@@ -643,8 +634,8 @@ NiFi at the core sends the data to HBase.</description>
       <id>481b8b1f-0159-1000-0000-000000000000</id>
       <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
       <position>
-        <x>48.227719116211006</x>
-        <y>259.32745971679685</y>
+        <x>127.19834289550792</x>
+        <y>242.71742358014808</y>
       </position>
       <config>
         <bulletinLevel>WARN</bulletinLevel>
@@ -682,7 +673,7 @@ NiFi at the core sends the data to HBase.</description>
         <properties>
           <entry>
             <key>Attributes List</key>
-            <value>WeatherTimeID, Sensor_ID, Temp_C, Pressure_Pa, Sealevel_Pressure_Pa, Altitude_m </value>
+            <value>Time, Timestamp, Public_IP.geo.city, Public_IP.geo.subdivision.isocode.0, Sensor_ID, Temp_C, Pressure_Pa, Sealevel_Pressure_Pa, Altitude_m</value>
           </entry>
           <entry>
             <key>Destination</key>
@@ -698,7 +689,7 @@ NiFi at the core sends the data to HBase.</description>
           </entry>
         </properties>
         <runDurationMillis>0</runDurationMillis>
-        <schedulingPeriod>1 sec</schedulingPeriod>
+        <schedulingPeriod>0 sec</schedulingPeriod>
         <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
         <yieldDuration>1 sec</yieldDuration>
       </config>
@@ -718,8 +709,8 @@ NiFi at the core sends the data to HBase.</description>
       <id>48202fcf-0159-1000-0000-000000000000</id>
       <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
       <position>
-        <x>721.8251190185547</x>
-        <y>383.95849609375</y>
+        <x>988.9977996826173</x>
+        <y>471.460215328195</y>
       </position>
       <config>
         <bulletinLevel>WARN</bulletinLevel>
@@ -748,11 +739,11 @@ NiFi at the core sends the data to HBase.</description>
           </entry>
           <entry>
             <key>filename</key>
-            <value>weatherdata-${now():format("yyyy-MM-dd-HHmmssSSS")}.json</value>
+            <value>weatherdata-${now():format("yyyy-MM-dd-HHmmssSSS")}-${UUID()}.json</value>
           </entry>
         </properties>
         <runDurationMillis>0</runDurationMillis>
-        <schedulingPeriod>0 sec</schedulingPeriod>
+        <schedulingPeriod>3 sec</schedulingPeriod>
         <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
         <yieldDuration>1 sec</yieldDuration>
       </config>
@@ -765,121 +756,11 @@ NiFi at the core sends the data to HBase.</description>
       <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
     </processors>
     <processors>
-      <id>4822242e-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
-      <position>
-        <x>1351.7837921142577</x>
-        <y>249.55552368164058</y>
-      </position>
-      <config>
-        <bulletinLevel>WARN</bulletinLevel>
-        <comments></comments>
-        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
-        <descriptors>
-          <entry>
-            <key>Directory</key>
-            <value>
-              <name>Directory</name>
-            </value>
-          </entry>
-          <entry>
-            <key>Conflict Resolution Strategy</key>
-            <value>
-              <name>Conflict Resolution Strategy</name>
-            </value>
-          </entry>
-          <entry>
-            <key>Create Missing Directories</key>
-            <value>
-              <name>Create Missing Directories</name>
-            </value>
-          </entry>
-          <entry>
-            <key>Maximum File Count</key>
-            <value>
-              <name>Maximum File Count</name>
-            </value>
-          </entry>
-          <entry>
-            <key>Last Modified Time</key>
-            <value>
-              <name>Last Modified Time</name>
-            </value>
-          </entry>
-          <entry>
-            <key>Permissions</key>
-            <value>
-              <name>Permissions</name>
-            </value>
-          </entry>
-          <entry>
-            <key>Owner</key>
-            <value>
-              <name>Owner</name>
-            </value>
-          </entry>
-          <entry>
-            <key>Group</key>
-            <value>
-              <name>Group</name>
-            </value>
-          </entry>
-        </descriptors>
-        <executionNode>ALL</executionNode>
-        <lossTolerant>false</lossTolerant>
-        <penaltyDuration>30 sec</penaltyDuration>
-        <properties>
-          <entry>
-            <key>Directory</key>
-            <value>/tmp/nifi/weather</value>
-          </entry>
-          <entry>
-            <key>Conflict Resolution Strategy</key>
-            <value>fail</value>
-          </entry>
-          <entry>
-            <key>Create Missing Directories</key>
-            <value>true</value>
-          </entry>
-          <entry>
-            <key>Maximum File Count</key>
-          </entry>
-          <entry>
-            <key>Last Modified Time</key>
-          </entry>
-          <entry>
-            <key>Permissions</key>
-          </entry>
-          <entry>
-            <key>Owner</key>
-          </entry>
-          <entry>
-            <key>Group</key>
-          </entry>
-        </properties>
-        <runDurationMillis>0</runDurationMillis>
-        <schedulingPeriod>1 sec</schedulingPeriod>
-        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
-        <yieldDuration>1 sec</yieldDuration>
-      </config>
-      <name>PutFile</name>
-      <relationships>
-        <autoTerminate>true</autoTerminate>
-        <name>failure</name>
-      </relationships>
-      <relationships>
-        <autoTerminate>true</autoTerminate>
-        <name>success</name>
-      </relationships>
-      <style></style>
-      <type>org.apache.nifi.processors.standard.PutFile</type>
-    </processors>
-    <processors>
       <id>482370c3-0159-1000-0000-000000000000</id>
       <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
       <position>
-        <x>0.0</x>
-        <y>459.2207153320312</y>
+        <x>4.22376708984379</x>
+        <y>471.97554735944493</y>
       </position>
       <config>
         <bulletinLevel>WARN</bulletinLevel>
@@ -959,7 +840,7 @@ NiFi at the core sends the data to HBase.</description>
           </entry>
           <entry>
             <key>Row Identifier Field Name</key>
-            <value>WeatherTimeID</value>
+            <value>Timestamp</value>
           </entry>
           <entry>
             <key>Row Identifier Encoding Strategy</key>
@@ -999,6 +880,61 @@ NiFi at the core sends the data to HBase.</description>
       <style></style>
       <type>org.apache.nifi.hbase.PutHBaseJSON</type>
     </processors>
+    <processors>
+      <id>70d02107-0159-1000-0000-000000000000</id>
+      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <position>
+        <x>1222.8648773974805</x>
+        <y>0.0</y>
+      </position>
+      <config>
+        <bulletinLevel>WARN</bulletinLevel>
+        <comments></comments>
+        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+        <descriptors>
+          <entry>
+            <key>Geo Database File</key>
+            <value>
+              <name>Geo Database File</name>
+            </value>
+          </entry>
+          <entry>
+            <key>IP Address Attribute</key>
+            <value>
+              <name>IP Address Attribute</name>
+            </value>
+          </entry>
+        </descriptors>
+        <executionNode>ALL</executionNode>
+        <lossTolerant>false</lossTolerant>
+        <penaltyDuration>30 sec</penaltyDuration>
+        <properties>
+          <entry>
+            <key>Geo Database File</key>
+            <value>/root/GeoFile/GeoLite2-City.mmdb</value>
+          </entry>
+          <entry>
+            <key>IP Address Attribute</key>
+            <value>Public_IP</value>
+          </entry>
+        </properties>
+        <runDurationMillis>0</runDurationMillis>
+        <schedulingPeriod>0 sec</schedulingPeriod>
+        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+        <yieldDuration>1 sec</yieldDuration>
+      </config>
+      <name>GeoEnrichIP</name>
+      <relationships>
+        <autoTerminate>false</autoTerminate>
+        <name>found</name>
+      </relationships>
+      <relationships>
+        <autoTerminate>true</autoTerminate>
+        <name>not found</name>
+      </relationships>
+      <style></style>
+      <type>org.apache.nifi.processors.GeoEnrichIP</type>
+    </processors>
   </snippet>
-  <timestamp>12/30/2016 02:20:23 UTC</timestamp>
+  <timestamp>01/05/2017 23:49:14 UTC</timestamp>
 </template>
