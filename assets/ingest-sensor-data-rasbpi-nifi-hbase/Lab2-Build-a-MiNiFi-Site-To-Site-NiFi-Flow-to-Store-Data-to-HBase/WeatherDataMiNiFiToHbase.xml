@@ -2,16 +2,16 @@
 <template encoding-version="1.0">
   <description>Ingests Raw Sensor data form MiNiFi.
 NiFi at the core sends data to HBase.</description>
-  <groupId>478a8e5e-0159-1000-d5d2-6d8644ccf2c7</groupId>
+  <groupId>8b8557ee-0159-1000-c905-cd1ef25e3ca1</groupId>
   <name>WeatherDataMiNiFiToHbase</name>
   <snippet>
     <connections>
       <id>47b712f3-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
       <backPressureObjectThreshold>10000</backPressureObjectThreshold>
       <destination>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <groupId>8b8557ee-0159-1000-0000-000000000000</groupId>
         <id>479c63d7-0159-1000-0000-000000000000</id>
         <type>PROCESSOR</type>
       </destination>
@@ -19,7 +19,7 @@ NiFi at the core sends data to HBase.</description>
       <labelIndex>1</labelIndex>
       <name></name>
       <source>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <groupId>8b8557ee-0159-1000-0000-000000000000</groupId>
         <id>479b7c3d-0159-1000-0000-000000000000</id>
         <type>INPUT_PORT</type>
       </source>
@@ -27,11 +27,11 @@ NiFi at the core sends data to HBase.</description>
     </connections>
     <connections>
       <id>4d40318b-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
       <backPressureObjectThreshold>10000</backPressureObjectThreshold>
       <destination>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <groupId>8b8557ee-0159-1000-0000-000000000000</groupId>
         <id>48202fcf-0159-1000-0000-000000000000</id>
         <type>PROCESSOR</type>
       </destination>
@@ -40,7 +40,7 @@ NiFi at the core sends data to HBase.</description>
       <name></name>
       <selectedRelationships>success</selectedRelationships>
       <source>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <groupId>8b8557ee-0159-1000-0000-000000000000</groupId>
         <id>481b8b1f-0159-1000-0000-000000000000</id>
         <type>PROCESSOR</type>
       </source>
@@ -48,11 +48,11 @@ NiFi at the core sends data to HBase.</description>
     </connections>
     <connections>
       <id>4d40999e-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
       <backPressureObjectThreshold>10000</backPressureObjectThreshold>
       <destination>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <groupId>8b8557ee-0159-1000-0000-000000000000</groupId>
         <id>482370c3-0159-1000-0000-000000000000</id>
         <type>PROCESSOR</type>
       </destination>
@@ -61,7 +61,7 @@ NiFi at the core sends data to HBase.</description>
       <name></name>
       <selectedRelationships>success</selectedRelationships>
       <source>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <groupId>8b8557ee-0159-1000-0000-000000000000</groupId>
         <id>48202fcf-0159-1000-0000-000000000000</id>
         <type>PROCESSOR</type>
       </source>
@@ -69,11 +69,11 @@ NiFi at the core sends data to HBase.</description>
     </connections>
     <connections>
       <id>70f29b78-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
       <backPressureObjectThreshold>10000</backPressureObjectThreshold>
       <destination>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <groupId>8b8557ee-0159-1000-0000-000000000000</groupId>
         <id>47af3e12-0159-1000-0000-000000000000</id>
         <type>PROCESSOR</type>
       </destination>
@@ -82,7 +82,7 @@ NiFi at the core sends data to HBase.</description>
       <name></name>
       <selectedRelationships>found</selectedRelationships>
       <source>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <groupId>8b8557ee-0159-1000-0000-000000000000</groupId>
         <id>70d02107-0159-1000-0000-000000000000</id>
         <type>PROCESSOR</type>
       </source>
@@ -90,11 +90,11 @@ NiFi at the core sends data to HBase.</description>
     </connections>
     <connections>
       <id>70f2abe8-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
       <backPressureObjectThreshold>10000</backPressureObjectThreshold>
       <destination>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <groupId>8b8557ee-0159-1000-0000-000000000000</groupId>
         <id>70d02107-0159-1000-0000-000000000000</id>
         <type>PROCESSOR</type>
       </destination>
@@ -103,7 +103,7 @@ NiFi at the core sends data to HBase.</description>
       <name></name>
       <selectedRelationships>matched</selectedRelationships>
       <source>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <groupId>8b8557ee-0159-1000-0000-000000000000</groupId>
         <id>479c63d7-0159-1000-0000-000000000000</id>
         <type>PROCESSOR</type>
       </source>
@@ -111,11 +111,11 @@ NiFi at the core sends data to HBase.</description>
     </connections>
     <connections>
       <id>70f2c1cc-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
       <backPressureObjectThreshold>10000</backPressureObjectThreshold>
       <destination>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <groupId>8b8557ee-0159-1000-0000-000000000000</groupId>
         <id>481b8b1f-0159-1000-0000-000000000000</id>
         <type>PROCESSOR</type>
       </destination>
@@ -124,7 +124,7 @@ NiFi at the core sends data to HBase.</description>
       <name></name>
       <selectedRelationships>matched</selectedRelationships>
       <source>
-        <groupId>478a8e5e-0159-1000-0000-000000000000</groupId>
+        <groupId>8b8557ee-0159-1000-0000-000000000000</groupId>
         <id>47af3e12-0159-1000-0000-000000000000</id>
         <type>PROCESSOR</type>
       </source>
@@ -132,7 +132,7 @@ NiFi at the core sends data to HBase.</description>
     </connections>
     <controllerServices>
       <id>4d4142fa-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <comments></comments>
       <descriptors>
         <entry>
@@ -197,7 +197,7 @@ NiFi at the core sends data to HBase.</description>
         </entry>
         <entry>
           <key>ZooKeeper Quorum</key>
-          <value>localhost</value>
+          <value>10.11.4.120</value>
         </entry>
         <entry>
           <key>ZooKeeper Client Port</key>
@@ -215,12 +215,12 @@ NiFi at the core sends data to HBase.</description>
           <key>Phoenix Client JAR Location</key>
         </entry>
       </properties>
-      <state>ENABLED</state>
+      <state>ENABLING</state>
       <type>org.apache.nifi.hbase.HBase_1_1_2_ClientService</type>
     </controllerServices>
     <inputPorts>
       <id>479b7c3d-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <position>
         <x>0.0</x>
         <y>38.17270312116375</y>
@@ -228,13 +228,13 @@ NiFi at the core sends data to HBase.</description>
       <comments></comments>
       <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
       <name>IngestSensorReadings</name>
-      <state>STOPPED</state>
+      <state>RUNNING</state>
       <transmitting>false</transmitting>
       <type>INPUT_PORT</type>
     </inputPorts>
     <processors>
       <id>479c63d7-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <position>
         <x>552.8473175048828</x>
         <y>10.085322139718414</y>
@@ -489,7 +489,7 @@ NiFi at the core sends data to HBase.</description>
     </processors>
     <processors>
       <id>47af3e12-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <position>
         <x>771.7861602783205</x>
         <y>238.19555468366372</y>
@@ -632,9 +632,9 @@ NiFi at the core sends data to HBase.</description>
     </processors>
     <processors>
       <id>481b8b1f-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <position>
-        <x>127.19834289550792</x>
+        <x>127.19834289550795</x>
         <y>242.71742358014808</y>
       </position>
       <config>
@@ -707,9 +707,9 @@ NiFi at the core sends data to HBase.</description>
     </processors>
     <processors>
       <id>48202fcf-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <position>
-        <x>988.9977996826173</x>
+        <x>988.9977996826174</x>
         <y>471.460215328195</y>
       </position>
       <config>
@@ -757,9 +757,9 @@ NiFi at the core sends data to HBase.</description>
     </processors>
     <processors>
       <id>482370c3-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <position>
-        <x>4.22376708984379</x>
+        <x>4.223767089843818</x>
         <y>471.97554735944493</y>
       </position>
       <config>
@@ -882,7 +882,7 @@ NiFi at the core sends data to HBase.</description>
     </processors>
     <processors>
       <id>70d02107-0159-1000-0000-000000000000</id>
-      <parentGroupId>478a8e5e-0159-1000-0000-000000000000</parentGroupId>
+      <parentGroupId>8b8557ee-0159-1000-0000-000000000000</parentGroupId>
       <position>
         <x>1222.8648773974805</x>
         <y>0.0</y>
@@ -911,7 +911,7 @@ NiFi at the core sends data to HBase.</description>
         <properties>
           <entry>
             <key>Geo Database File</key>
-            <value>/root/GeoFile/GeoLite2-City.mmdb</value>
+            <value>/tmp/nifi/GeoFile/GeoLite2-City.mmdb</value>
           </entry>
           <entry>
             <key>IP Address Attribute</key>
@@ -936,5 +936,5 @@ NiFi at the core sends data to HBase.</description>
       <type>org.apache.nifi.processors.GeoEnrichIP</type>
     </processors>
   </snippet>
-  <timestamp>01/05/2017 23:49:14 UTC</timestamp>
+  <timestamp>01/11/2017 05:19:01 UTC</timestamp>
 </template>
