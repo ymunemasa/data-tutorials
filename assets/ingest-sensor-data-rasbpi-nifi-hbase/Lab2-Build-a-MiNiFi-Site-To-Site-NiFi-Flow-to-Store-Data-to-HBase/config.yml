@@ -55,7 +55,7 @@ Processors:
     Argument Delimiter: ' '
     Batch Duration:
     Command: sh
-    Command Arguments: /home/pi/sensordata.sh
+    Command Arguments: /home/pi/sensor_readings.sh
     Redirect Error Stream: 'false'
 Process Groups: []
 Input Ports: []
