@@ -16,9 +16,9 @@ You will learn to refine HVAC data into a useful format. You will gain a practic
 
 ### Prerequisites
 
-- Read through **Analyze Machine and Sensor Data Introduction**
+Read through **Analyze Machine and Sensor Data Introduction**
 
-- **Download and Extract the Sensor Data Files**
+**Download and Extract the Sensor Data Files**
 
 1\. Download the sample sensor data contained in a compressed (.zip) folder here:
   - [SensorFiles.zip](http://s3.amazonaws.com/hw-sandbox/tutorial14/SensorFiles.zip)   
