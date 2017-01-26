@@ -11,7 +11,7 @@ components: [ hive, zeppelin, ambari ]
 
 ## Analyze Machine and Sensor Data
 
-**Version 1.0 for HDP 2.5 January 25, 2016**
+**Version 1.0 for HDP 2.5 January 25, 2017**
 
 ### Introduction
 
