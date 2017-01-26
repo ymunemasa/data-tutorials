@@ -128,7 +128,7 @@ Open your terminal (mac and linux) or putty (windows). Type the following comman
 
 ![Mac Terminal SSH](/assets/learning-the-ropes-of-the-hortonworks-sandbox/secure_shell_sandbox_learning_the_ropes_sandbox.png)
 
-> Mac OS Terminal
+> Mac OS Terminal. When you type the password, the entry doesn't echo on the screen, it hides the user input. Carefully type correct password.
 
 #### Shell Web Client Method:
 
@@ -143,7 +143,7 @@ Example:
 
 ![Shell in the Browser Sandbox](/assets/learning-the-ropes-of-the-hortonworks-sandbox/browser_shell_learning_ropes_sandbox.png)
 
-> Appearance of Web Shell
+> Appearance of Web Shell. When you type the password, the entry doesn't echo on the screen, it hides the user input. Carefully type correct password.
 
 #### VM Terminal Method:
 
@@ -151,7 +151,7 @@ Open the Sandbox through Virtualbox or VMware. The Sandbox VM Welcome Screen wil
 
 ![Shell VM Terminal Sandbox](/assets/learning-the-ropes-of-the-hortonworks-sandbox/vm_terminal_sandbox_learning_ropes_sandbox.png)
 
-> VirtualBox VM Terminal
+> VirtualBox VM Terminal. When you type the password, the entry doesn't echo on the screen, it hides the user input. Carefully type correct password.
 
 ### 1.5 Learn Your Sandbox Version <a id="learn-sandbox-version"></a>
 
@@ -304,7 +304,7 @@ Open your terminal (mac and linux) or putty (windows). Here again, `host` is the
 
 ![Mac Terminal SSH Azure 1](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_secure_shell_learning_ropes_sandbox_1.png)
 
-> Mac OS Terminal
+> Mac OS Terminal. When you type the password, the entry doesn't echo on the screen, it hides the user input. Carefully type correct password.
 
 #### Shell Web Client Method:
 
@@ -318,7 +318,7 @@ Open your web browser. Replace the following text by your `host` into your brows
 
 ![Shell in the Browser Sandbox Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_browser_shell_learning_ropes_sandbox.png)
 
-> Appearance of Web Shell
+> Appearance of Web Shell. When you type the password, the entry doesn't echo on the screen, it hides the user input. Carefully type correct password.
 
 ### 1.4 Send Data Between Azure Sandbox & Local Machine <a id="send-data-btwn-sandbox-local-machine-azure"></a>
 
