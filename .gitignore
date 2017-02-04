@@ -1,5 +1,2 @@
-_site/*
-.sass-cache/*
-util/build/_site
-util/build/assets
-util/build/tutorials
+# Common files that contributors' machines may try to commit
+#*.DS_Store
