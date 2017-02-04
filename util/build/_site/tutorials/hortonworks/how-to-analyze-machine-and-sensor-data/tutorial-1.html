@@ -1,0 +1,204 @@
+
+
+<div class="tutorial-content">
+  <h2 id="lab-1---upload-and-refine-data-with-hive">Lab 1 - Upload and Refine Data with Hive</h2>
+
+<h3 id="introduction">Introduction</h3>
+
+<p>You will learn to refine HVAC data into a useful format. You will gain a practical experience with creating Hive tables that run on ORC files for fast and efficient data processing. You will gain insight to writing Hive scripts that enrich our data to reveal to us when temperature is at a cold, normal or hot state. Additionally, you will learn to write Hive queries on the data to determine which particular buildings are associated with these temperature states.</p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<p>Read through <strong>Analyze Machine and Sensor Data Introduction</strong></p>
+
+<p><strong>Download and Extract the Sensor Data Files</strong></p>
+
+<p>1. Download the sample sensor data contained in a compressed (.zip) folder here:</p>
+<ul>
+  <li><a href="http://s3.amazonaws.com/hw-sandbox/tutorial14/SensorFiles.zip">SensorFiles.zip</a></li>
+</ul>
+
+<p>2. Save the <code class="highlighter-rouge">SensorFiles.zip</code> file to your computer, then extract the files. You should see a SensorFiles folder that contains the following files:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">HVAC.csv</code> – contains the targeted building temperatures, along with the actual (measured) building temperatures. The building temperature data was obtained using Apache Flume. Flume can be usedas a log aggregator, collecting log data from many diverse sources and moving it to a centralized data store. In this case, Flume was used to capture the sensor log data, which we can now load into the Hadoop Distributed File System (HFDS).  For more details on Flume, refer to Tutorial 13: Refining and Visualizing Sentiment Data</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">building.csv</code> – contains the "building" database table. Apache Sqoop can be used to transfer this type of data from a structured database into HFDS.</p>
+  </li>
+</ul>
+
+<h3 id="outline">Outline</h3>
+
+<ul>
+  <li><a href="#upload-hvac-data-table">Step 1: Upload HVAC Data To Hive Table</a></li>
+  <li><a href="#create-hvac-buildings-orc">Step 2: Create hvac and buildings ORC Hive Tables</a></li>
+  <li><a href="#enrich-sensor-data-hive">Step 3: Enrich Sensor Data Via Hive Scripts</a></li>
+  <li><a href="#summary-lab1">Summary</a></li>
+  <li><a href="#further-reading-lab1">Further Reading</a></li>
+</ul>
+
+<h3 id="step-1-upload-hvac-data-to-hive-table-">Step 1: Upload HVAC Data To Hive Table <a id="upload-hvac-data-table"></a></h3>
+
+<p>1. Login to Ambari login at <a href="http://localhost:8080"><code class="highlighter-rouge">http://localhost:8080</code></a></p>
+<ul>
+  <li>username: <code class="highlighter-rouge">maria_dev</code></li>
+  <li>password <code class="highlighter-rouge">maria_dev</code></li>
+</ul>
+
+<p>2. Use the dropdown menu in the top right corner to access the Hive view:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/hive_view_icon.png" alt="" /></p>
+
+<p>Navigate to the <strong>Upload Table</strong> tab, upload the two csv files contained within <code class="highlighter-rouge">SensorFiles.zip</code></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/upload_table_hive.png" alt="" /></p>
+
+<p>When uploading the two tables we'll need to change a few things.</p>
+
+<p>For <code class="highlighter-rouge">HVAC.csv</code></p>
+
+<p>1. Change the table name to <code class="highlighter-rouge">hvac_raw</code>
+2. Change the name of the <code class="highlighter-rouge">Date</code> column to <code class="highlighter-rouge">date_str</code>
+3. If <code class="highlighter-rouge">TargetTemp's</code> type is <code class="highlighter-rouge">STRING</code>, change it to <code class="highlighter-rouge">INT</code>
+4. If <code class="highlighter-rouge">ActualTemp's</code> type is <code class="highlighter-rouge">STRING</code>, change it to <code class="highlighter-rouge">INT</code></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/upload_table_hvac_raw.png" alt="" /></p>
+
+<p>As the table uploads, you'll notice a progress window appear.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/upload_progress_hive_table.png" alt="" /></p>
+
+<p>For <code class="highlighter-rouge">buildings.csv</code></p>
+
+<p>1. Change the table name to <code class="highlighter-rouge">building_raw</code></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/upload_table_building_raw.png" alt="" /></p>
+
+<p>We have both tables loaded in, we want to get better performance in Hive, so we're going to create new tables that utilize the highly efficient <a href="http://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/"><strong>ORC</strong> file format</a>. This will allow for faster queries when our datasets are much much larger.</p>
+
+<h3 id="step-2-create-hvac-and-buildings-orc-hive-tables-">Step 2: Create HVAC and Buildings ORC Hive Tables <a id="create-hvac-buildings-orc"></a></h3>
+
+<p>1. Create a new table <code class="highlighter-rouge">hvac</code> that is stored as an ORC file.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CREATE TABLE hvac STORED AS ORC AS SELECT * FROM hvac_raw;
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/create_hive_hvac_raw.png" alt="" /></p>
+
+<p>2. Use a similar Hive query to create the <code class="highlighter-rouge">buildings</code> table.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CREATE TABLE buildings STORED AS ORC AS SELECT * FROM building_raw;
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/create_hive_building_raw.png" alt="" /></p>
+
+<h3 id="step-3-enrich-sensor-data-via-hive-scripts-">Step 3: Enrich Sensor Data Via Hive Scripts <a id="enrich-sensor-data-hive"></a></h3>
+
+<p>We will use two Hive scripts to refine the sensor data. The knowledge we seek to acquire from this data:</p>
+
+<ul>
+  <li>Reduce heating and cooling expenses.</li>
+  <li>Keep indoor temperatures in a comfortable range between 65-70 degrees.</li>
+  <li>Identify which HVAC products are reliable, and replace unreliable equipment with those models.</li>
+</ul>
+
+<p>We will identify whether the actual temperature was more than five degrees different from the target temperature with a Hive script.</p>
+
+<p>1. Create a new worksheet in the Hive view and paste the following Hive query into the editor:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CREATE TABLE hvac_temperatures as
+select *, targettemp - actualtemp as temp_diff,
+IF((targettemp - actualtemp) &gt; 5, 'COLD',
+IF((targettemp - actualtemp) &lt; -5, 'HOT', 'NORMAL'))
+AS temprange,
+IF((targettemp - actualtemp) &gt; 5, '1',
+IF((targettemp - actualtemp) &lt; -5, '1', 0))
+AS extremetemp from hvac;
+</code></pre>
+</div>
+
+<p>What's this query does?</p>
+
+<ul>
+  <li>Creates a new table <code class="highlighter-rouge">hvac_temperatures</code> and copies data from the <code class="highlighter-rouge">hvac</code> table</li>
+</ul>
+
+<p>2. Use <strong>Execute</strong> to create the new table.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/create_hvac_temperature_table_hive.png" alt="" /></p>
+
+<ul>
+  <li>On the Query Results page, use the slider to scroll to the right. You will notice that two new attributes appear in the <code class="highlighter-rouge">hvac_temperatures</code> table.</li>
+</ul>
+
+<p>What are the two new attributes?</p>
+
+<ul>
+  <li>temprange and extremetemp</li>
+</ul>
+
+<p>The data in the <strong>temprange</strong> column indicates whether the actual temperature was:</p>
+
+<ul>
+  <li><strong>NORMAL</strong> <strong>–</strong> within 5 degrees of the target temperature.</li>
+  <li><strong>COLD</strong> <strong>–</strong> more than five degrees colder than the target temperature.</li>
+  <li><strong>HOT</strong> <strong>–</strong> more than 5 degrees warmer than the target temperature.</li>
+</ul>
+
+<p>If the temperature is outside of the normal range, <code class="highlighter-rouge">extremetemp</code> is assigned a value of 1; otherwise its value is 0.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/load_hvac_temperature_data.png" alt="" /></p>
+
+<p>3. Let's combine the <strong>hvac</strong> and <strong>hvac_temperatures</strong> data sets.</p>
+
+<p>Create a new worksheet in the hive view and use the following query to create a new table <code class="highlighter-rouge">hvac_building</code> that contains data from the <code class="highlighter-rouge">hvac_temperatures</code> table and the <code class="highlighter-rouge">buildings</code> table.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>create table if not exists hvac_building
+as select h.*, b.country, b.hvacproduct, b.buildingage, b.buildingmgr
+from buildings b join hvac_temperatures h on b.buildingid = h.buildingid;
+</code></pre>
+</div>
+
+<p>Which tables is <strong>hvac_building's</strong> data coming from?</p>
+
+<ul>
+  <li><strong>hvac_temperature</strong> and <strong>buildings</strong></li>
+</ul>
+
+<p>Use <strong>Execute</strong> to run the query:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/create_hive_hvac_building_table.png" alt="" /></p>
+
+<p>After you've successfully executed the query, use the database explorer to load a sample of the data from the new <code class="highlighter-rouge">hvac_building</code> table.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/load_hvac_building_data.png" alt="" /></p>
+
+<p>The aggregated data shows us the buildings that are associated with a certain <strong>temprange</strong>.</p>
+
+<h3 id="summary-">Summary <a id="summary-lab1"></a></h3>
+
+<p>We've successfully refined the data into a useful format. We learned to create Hive tables that run on ORC files for fast and efficient data processing. We learned to write Hive scripts to enrich our data to reveal to us when temperature is at a cold, normal or hot state. Additionally, we used the data to bring us insight into which particular buildings are associated with these temperature states. Our next step is to use different reporting tools to analyze the results.</p>
+
+<h3 id="further-reading-">Further Reading <a id="further-reading-lab1"></a></h3>
+
+<ul>
+  <li><a href="https://community.hortonworks.com/questions/47594/how-can-i-upload-ocr-files-to-hive.html">How can I upload ORC files to Hive?</a></li>
+  <li><a href="https://community.hortonworks.com/articles/68631/optimizing-hive-queries-for-orc-formatted-tables.html">Optimizing Hive queries for ORC formatted tables</a></li>
+</ul>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-310.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-310&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>How to Analyze Machine and Sensor Data</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-310</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

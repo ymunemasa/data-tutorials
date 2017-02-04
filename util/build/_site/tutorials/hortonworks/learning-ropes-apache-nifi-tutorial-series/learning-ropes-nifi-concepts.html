@@ -1,0 +1,168 @@
+
+
+<div class="tutorial-content">
+  <h1 id="nifi-dataflow-automation-concepts">NiFi DataFlow Automation Concepts</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The concepts section is tailored toward enriching your hands-on experience in the tutorials. By the end of this section, you will be able to define NiFi, know how to create dataflows for specific use cases, acquire knowledge on how to build a NiFi DataFlow and become familiar with the core concepts of NiFi. The goal of this section is to help NiFi practitioners know how to use the NiFi documentation for their advantage.</p>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li>1. What is Apache NiFi?</li>
+  <li>2. Who Uses NiFi, and for what?</li>
+  <li>3. Understand NiFi DataFlow Build Process</li>
+  <li>4. The Core Concepts of NiFi</li>
+  <li>5. NiFi Architecture</li>
+  <li>6. A Brief History of NiFi</li>
+  <li>Further Reading</li>
+</ul>
+
+<h3 id="1-what-is-apache-nifi">1. What is Apache NiFi?</h3>
+
+<p><a href="https://nifi.apache.org/docs/nifi-docs/html/overview.html#what-is-apache-nifi">Apache NiFi</a> is an open source tool for automating and managing the flow of data between systems (Databases, Sensors, Hadoop, Data Platform). In the tutorial, we will use NiFi to process the flow of data between sensors, web services (NextBus and Google Places API), various locations and our local file system.</p>
+
+<h3 id="2-who-uses-nifi-and-for-what">2. Who Uses NiFi, and for what?</h3>
+
+<p>NiFi is used for <strong>data ingestion</strong> to pull data into NiFi, from numerous different data sources and create FlowFiles. For the tutorial, GetFile, GetHTTP, InvokeHTTP are processors you will use to stream data into NiFi from the local file system and ingest data from the internet. Once the data is ingested, a DataFlow Manager (DFM), the user, will perform <strong>data management</strong> by monitoring and obtaining feedback about the current status of the NiFi DataFlow. The DFM also has the ability to add, remove and modify components of dataflow. You will use bulletins, located on the processor and management toolbar, which provide a tool-tip of the time, severity and message of the alert to troubleshoot problems in the dataflow. While the data is being managed, you will create <strong>data enrichment</strong> to enhance, refine and improve the quality of data to make it meaningful and valuable for users. NiFi enables users to filter out unnecessary information from data to make easier to understand. You will use NiFi to geographically enrich real-time data to show neighborhoods nearby locations as the locations change.</p>
+
+<h3 id="3-understand-nifi-dataflow-build-process">3. Understand NiFi DataFlow Build Process</h3>
+
+<h3 id="31-explore-nifi-web-interface">3.1 Explore NiFi WEB Interface</h3>
+
+<p>When NiFi is accessed at <code class="highlighter-rouge">localhost:6434/nifi</code> by users who run NiFi from Hortonworks Sandbox or <code class="highlighter-rouge">localhost:8080/nifi</code> by users who run NiFi from their local machine, <a href="http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/User_Interface.html">NiFi's User Interface (UI)</a> appears on the screen. The UI is where dataflows will be developed. It includes a canvas and <em>mechanisms</em> to build, visualize, monitor, edit, and administer our dataflows in the tutorials. The <strong>components</strong> toolbar contains all tools for building the dataflow. The <strong>actions</strong> toolbar consists of buttons that manipulate the components on the canvas. The <strong>management</strong> toolbar has buttons for the DFM to manage the flow and a NiFi administrator to manage user access &amp; system properties. The <strong>search</strong> toolbar enables users to search for any component in the dataflow. The image below shows a visualization of where each mechanism is located.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/learning-ropes-nifi-lab-series/lab-concepts-nifi/nifi_dataflow_html_interface.png" alt="nifi_dataflow_html_interface" /></p>
+
+<h3 id="32-find-and-add-processor-overview">3.2 Find and Add Processor Overview</h3>
+
+<p>Every dataflow requires a set of processors. In the tutorials, you will use the processor icon <img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/processor_nifi_iot.png" alt="processor_nifi_iot" /> to add processors to the dataflow. Let's view the add processor window. There are 3 options to find our desired processor. The <strong>processor list</strong> contains almost 180 items with descriptions for each processor. The <strong>tag cloud</strong> reduces the list by category, so if you know what particular use case your desired processor is associated with, select the tag and find the appropriate processor faster. The <strong>filter bar</strong> searches for the processor based on the keyword entered. The image below illustrates where each option is located on the add processor window.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/learning-ropes-nifi-lab-series/lab-concepts-nifi/add_processor_window.png" alt="add_processor_window" /></p>
+
+<h3 id="33-configure-processor-dialog">3.3 Configure Processor Dialog</h3>
+
+<p>As we add each processor to our dataflow, we must make sure they are properly configured. DataFlow Managers navigate around the 4 configuration tabs to control the processor's specific behavior and instruct the processor on how to process the data that is flowing. Let's explore these tabs briefly. The <strong>Settings</strong> tab allows users to change the processor's name, define relationships &amp; includes many different parameters. The <strong>Scheduling</strong> tab affects how the processor is scheduled to run. The <strong>Properties</strong> tab affects the processor's specific behavior. The <strong>Comments</strong> tab provides a place for DFMs to include useful information about the processor's use-case. For the tutorial series, you will spend most of time modifying properties.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/learning-ropes-nifi-lab-series/lab-concepts-nifi/putfile_logs_nifi_iot.png" alt="putfile_logs_nifi_iot" /></p>
+
+<h3 id="34-configure-processor-properties-tab">3.4 Configure Processor Properties Tab</h3>
+
+<p>Let's further explore the properties tab, so we can be familiar with this tab in advance for the tutorials. If you want to know more about what a particular property does, hover over the <strong>help symbol</strong> <img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/question_mark_symbol_properties_config_iot.png" alt="question_mark_symbol_properties_config_iot" /> located next to the property name to find additional details about that property, its value and history. Some processors enable the DFM to add new properties into the property table. For the tutorials, you will add user-defined properties into processors, such as <strong>UpdateAttribute</strong>. The custom user-defined property you create will assign unique filenames to each FlowFile that transfer through this processor. View the processor properties tab below:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/learning-ropes-nifi-lab-series/lab-concepts-nifi/updateAttribute_config_property_tab_window.png" alt="updateAttribute_config_property_tab_window" /></p>
+
+<h3 id="35-connections--relationships">3.5 Connections &amp; relationships</h3>
+
+<p>As each processor configuration is completed, we must <a href="http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/Connecting_Components.html">connect</a> it to another component. A connection is a linkage between processors (or components) that contain at least one relationship. The user selects the relationship and based on the processing outcome that will determine where the data is routed. Processors can have zero or more auto-terminate relationships. If the processing outcome for FlowFile is true for a processor with a relationship tied to itself, the FlowFile will be removed from the flow. For instance, if <strong>EvaluateXPath</strong> has an unmatched relationship defined to itself and when that outcome is true, then a FlowFile is removed from the flow. Else a FlowFile is routed to the next processor based on matched. View the visual to see the objects that define connections and relationships.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/learning-ropes-nifi-lab-series/lab-concepts-nifi/completed-data-flow-lab1-connection_relationship_concepts.png" alt="completed-data-flow-lab1-connection_relationship_concepts" /></p>
+
+<h3 id="36-running-the-nifi-dataflow">3.6 Running the NiFi DataFlow</h3>
+
+<p>Once we finish connecting and configuring the components in our dataflow, there are at least 3 conditions we should check to ensure our dataflow successfully runs. We must verify that all relationships are established, the components are valid, stopped, enabled and have no active tasks. After you complete the verification process, you can select the processors, click the play symbol <img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png" alt="start_button_nifi_iot" /> in the actions toolbar to run the dataflow. View the image of a dataflow that is active.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/learning-ropes-nifi-lab-series/lab-concepts-nifi/run_dataflow_lab1_nifi_learn_ropes_concepts_section.png" alt="run_dataflow_lab1_nifi_learn_ropes_concepts_section" /></p>
+
+<h3 id="4-the-core-concepts-of-nifi">4. The Core Concepts of NiFi</h3>
+
+<p>When we learned the process of building a dataflow, we crossed paths with many of the core concepts of NiFi. You may be wondering what is the meaning behind a FlowFile, processor, connection, and other terms? Let's learn briefly about these terms because they will appear throughout the tutorial series. We want you to have the best experience in the tutorial. <strong>Table 1</strong> summarizes each term.</p>
+
+<p><strong>Table 1</strong>: NiFi Core Concepts</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">NiFi Term</th>
+      <th style="text-align: right">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">FlowFile</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">Data brought into NiFi that moves through the system. This data holds attributes and can contain content.</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><a href="http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/processor_anatomy.html">Processor</a></td>
+      <td style="text-align: right"><code class="highlighter-rouge">Tool that pulls data from external sources, performs actions on attributes and content of FlowFiles and publishes data to external source.</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Connection</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">Linkage between processors that contain a queue and relationship(s) that effect where data is routed.</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Flow Controller</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">Acts as a Broker to facilitate the exchange of FlowFiles between processors.</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Process Group</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">Enables the creation of new components based on the composition of processors, funnels, etc.</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="5-nifi-architecture">5. NiFi Architecture</h3>
+
+<p>Let's dive deeper into the infrastructure that enables NiFi to perform so well when it comes to building DataFlows that address various use cases.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/learning-ropes-nifi-lab-series/lab-concepts-nifi/nifi_architecture_diagram.png" alt="nifi_architecture_diagram" /></p>
+
+<p>NiFi executes within the Java Virtual Machine (JVM) located in the Host Operating System (OS/Host).</p>
+
+<p>Inside the JVM,</p>
+
+<ul>
+  <li>
+    <p>The Web Server enables us to access NiFi's User Interface from the web browser.</p>
+  </li>
+  <li>
+    <p>The Flow Controller acts as the brains of the operation, it gives threads to extensions (custom processors), and keeps track of all the operations being executed by extensions</p>
+  </li>
+  <li>
+    <p>The FlowFile Repository is the area NiFi keeps track of all the status updates regarding FlowFiles as they travel throughout the DataFlow</p>
+  </li>
+  <li>
+    <p>The Content Repository is the location the content bytes of FlowFiles reside.</p>
+  </li>
+  <li>
+    <p>The Provenance Repository consists of all the provenance event data.</p>
+  </li>
+</ul>
+
+<h3 id="6-a-brief-history-of-nifi">6. A Brief History of NiFi</h3>
+
+<p>Apache NiFi originated from the NSA Technology Transfer Program in Autumn of 2014. NiFi became an official Apache Project in July of 2015. NiFi has been in development for 8 years. NiFi was built with the idea to make it easier for people to automate and manage data-in-motion without having to write numerous lines of code. Therefore, the user interface comes with pallet of data flow components that can be dropped onto the graph and connected together. NiFi was also created to solve many challenges of data-in-motion, such as multi-way dataflows, data ingestion from any data source, data distribution with the required security and governance. NiFi can be used by a wide variety of users who come from a variety of backgrounds(development, business) and want to tackle the challenges stated above.</p>
+
+<h3 id="further-reading">Further Reading</h3>
+
+<p>The topics covered in the concepts section were brief and tailored toward the tutorial series.</p>
+
+<ul>
+  <li>
+    <p>If you are interested in learning more in depth about these concepts, view <a href="https://nifi.apache.org/docs/nifi-docs/html/getting-started.html">Getting Started with NiFi</a>.</p>
+  </li>
+  <li>
+    <p>If there is a particular feature you want to learn more about, view our <a href="https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html">Hortonworks NiFi User Guide</a></p>
+  </li>
+</ul>
+
+<h3 id="interesting-nifi-use-cases-blogs">Interesting NiFi Use Cases Blogs:</h3>
+
+<ul>
+  <li><a href="http://hortonworks.com/blog/credit-card-fraud-prevention-on-a-connected-data-platform/">CREDIT CARD FRAUD PREVENTION ON A CONNECTED DATA PLATFORM</a></li>
+  <li><a href="http://hortonworks.com/blog/qualcomm-hortonworks-showcase-connected-car-platform-tu-automotive-detroit/">QUALCOMM, HORTONWORKS SHOWCASE CONNECTED CAR PLATFORM AT TU-AUTOMOTIVE DETROIT</a></li>
+  <li><a href="http://hortonworks.com/blog/cybersecurity-conceptual-architecture-for-analytic-response/">CYBERSECURITY: CONCEPTUAL ARCHITECTURE FOR ANALYTIC RESPONSE</a></li>
+</ul>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-640.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-640&topics=hdf-2.0.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Introduction to DataFlow Automation with Apache NiFi Concepts</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-640</strong> and <strong>hdf-2.0.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

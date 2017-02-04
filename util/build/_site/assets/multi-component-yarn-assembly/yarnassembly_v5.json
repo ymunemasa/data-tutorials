@@ -1,0 +1,327 @@
+{
+    "name": "truck-demo",
+    "lifetime": "24000",
+    "resource": {
+    "cpus": 8,
+    "memory": "8192"
+  },
+    "components": [
+		{
+        "name": "td-zk",
+        "dependencies": [ ],
+        "number_of_containers": 1,
+        "artifact": {
+          "id": "hortonworks/ycloud-zookeeper:0.2",
+          "type": "DOCKER"
+        },
+        "launch_command": "/wait_for_hosts.sh y7001 53 td-zk1.truck-demo.root.ycloud.dev td-zk2.truck-demo.root.ycloud.dev td-zk3.truck-demo.root.ycloud.dev; JVMFLAGS=-Djava.net.preferIPv4Stack=true /opt/zookeeper/bin/zkServer.sh start-foreground",
+        "resource": {
+          "cpus": 1,
+          "memory": "512"
+        },
+      
+  "configuration": {
+    "properties": {
+      "site.zookeeper-id.dataDir": "${@//site/zookeeper-site/dataDir}",
+      "site.zookeeper-id.content": "${COMPONENT_ID}",
+      "site.zookeeper-id.per.component": "true",
+      "component.unique.names": "true",
+      "site.zookeeper-site.tickTime": "2000",
+      "site.zookeeper-site.initLimit": "10",
+      "site.zookeeper-site.syncLimit": "5",
+      "site.zookeeper-site.dataDir": "/tmp/zookeeper",
+      "site.zookeeper-site.clientPort": "2181",
+      "site.zookeeper-site.maxClientCnxns": "100",
+      "site.zookeeper-site.server.1": "zk1.${CLUSTER_NAME}.${USER}.ycloud.dev:2888:3888",
+      "site.zookeeper-site.server.2": "zk2.${CLUSTER_NAME}.${USER}.ycloud.dev:2888:3888",
+      "site.zookeeper-site.server.3": "zk3.${CLUSTER_NAME}.${USER}.ycloud.dev:2888:3888"
+  },
+        "files": [
+            {
+              "type": "PROPERTIES",
+              "dest_file": "/opt/zookeeper/conf/zoo.cfg",
+              "src_file": "zookeeper-site"
+            },
+            {
+              "type": "ENV",
+              "dest_file": "${dataDir}/myid",
+              "src_file": "zookeeper-id"
+            }
+          ]
+        
+        
+      }
+},
+      	{
+        	"name": "NIFI",
+            "dependencies": ["td-zk", "KAFKABROKER"],
+            "number_of_containers": 1,
+            "artifact": {
+                "id": "hortonworks/ycloud-nifi:0.1",
+                "type": "DOCKER"
+            },
+            "launch_command": "/HDF-1.2.0.0/nifi/bin/nifi.sh run",
+            "resource": {
+                "cpus": 1,
+                "memory": "1024"
+            },
+            "configuration": {
+          		"properties": {
+            		"env.ZK_HOST": "td-zk1.truck-demo.root.ycloud.dev",
+            		"env.ZK_PORT": "2181",            		
+            		"env.KAFKA_BROKER": "kafkabroker1.${CLUSTER_NAME}.${USER}.ycloud.dev",
+            		"env.KAFKA_BROKER_PORT": "9092"            		
+          		}
+          	}
+        },
+        {
+            "name": "KAFKABROKER",
+            "dependencies": ["td-zk"],
+            "number_of_containers": 1,
+            "artifact": {
+                "id": "mrizvi/ycloud-kafka-master:0.1",
+                "type": "DOCKER"
+            },
+            "launch_command": "sleep 60; /usr/hdp/current/kafka-broker/bin/kafka start 2>&1 >/tmp/kafka_broker.out; sleep 30; /usr/hdp/current/kafka-broker/bin/kafka-topics.sh --create --zookeeper $ZK_KAFKA_CONNECT --replication-factor 1 --partitions 2 --topic truck_events; sleep 5",
+            "resource": {
+                "cpus": 1,
+                "memory": "512"
+            },
+            "configuration": {
+                "properties": {
+                    "component.unique.names": "true",
+                    "site.global.dns.dependency": "true",
+                    "site.global.kafka-site.destDir": "/etc/kafka/conf/",
+                    "site.kafka-site.zookeeper.connect": "td-zk1.truck-demo.root.ycloud.dev:2181,td-zk2.truck-demo.root.ycloud.dev:2181,td-zk3.truck-demo.root.ycloud.dev:2181/kafka/${CLUSTER_NAME}",
+                    "site.kafka-site.listeners": "PLAINTEXT://kafkabroker${COMPONENT_ID}.${CLUSTER_NAME}.${USER}.ycloud.dev:9092",
+                    "site.kafka-site.zookeeper.session.timeout.ms": "80000",
+                    "site.kafka-site.zookeeper.connection.timeout.ms": "80000",
+                  	"env.ZK_KAFKA_CONNECT": "td-zk1.truck-demo.root.ycloud.dev:2181,td-zk2.truck-demo.root.ycloud.dev:2181,td-zk3.truck-demo.root.ycloud.dev:2181/kafka/${CLUSTER_NAME}"
+                },
+                "files": [
+                    {
+                        "type": "PROPERTIES",
+                        "src_file": "kafka-site",
+                        "dest_file": "/etc/kafka/conf/server.properties"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "NIMBUS",
+            "dependencies": ["td-zk","HBASEMASTER","REGIONSERVER","KAFKABROKER"],
+            "number_of_containers": 1,
+            "artifact": {
+                "id": "mrizvi/ycloud-storm-master:0.1",
+                "type": "DOCKER"
+            },
+            "launch_command": "/properties_file_to_yaml.sh /etc/storm/conf/storm.properties; sleep 60; /usr/hdp/current/storm-nimbus/bin/storm nimbus 2>&1 >/tmp/storm_nimbus.out",
+            "resource": {
+                "cpus": 1,
+                "memory": "256"
+            },
+            "configuration": {
+                "properties": {
+                    "site.global.dns.dependency": "true",
+                    "site.global.storm-site.destDir": "/etc/storm/conf/",
+                    "site.storm-site.storm.zookeeper.servers": "[td-zk1.truck-demo.root.ycloud.dev]",
+                    "site.storm-site.storm.zookeeper.root": "/storm-${CLUSTER_NAME}",
+                    "site.storm-site.nimbus.host": "nimbus.${CLUSTER_NAME}.${USER}.ycloud.dev",
+                    "site.storm-site.nimbus.seeds": "[nimbus.${CLUSTER_NAME}.${USER}.ycloud.dev]",
+                    "site.storm-site.storm.local.dir": "/tmp/storm",
+                    "site.storm-site.logview.port": "8081"
+          		},
+                "files": [
+                    {
+                        "type": "PROPERTIES",
+                        "src_file": "storm-site",
+                        "dest_file": "/etc/storm/conf/storm.properties"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "SUPERVISOR",
+            "dependencies": ["td-zk","HBASEMASTER","REGIONSERVER","KAFKABROKER","NIMBUS"],
+            "number_of_containers": 1,
+            "artifact": {
+                "id": "mrizvi/ycloud-storm-master:0.1",
+                "type": "DOCKER"
+            },
+            "launch_command": "/properties_file_to_yaml.sh /etc/storm/conf/storm.properties; /usr/hdp/current/storm-nimbus/bin/storm supervisor 2>&1 >/tmp/storm_supervisor.out",
+            "resource": {
+                "cpus": 1,
+                "memory": "256"
+            },
+            "configuration": {
+                "properties": {
+                    "site.global.storm-site.destDir": "/etc/storm/conf/",
+                    "site.storm-site.storm.zookeeper.servers": "[td-zk1.truck-demo.root.ycloud.dev]",
+                    "site.storm-site.storm.zookeeper.root": "/storm-${CLUSTER_NAME}",
+                    "site.storm-site.nimbus.seeds": "[nimbus.${CLUSTER_NAME}.${USER}.ycloud.dev]",
+                    "site.storm-site.storm.local.dir": "/tmp/storm",
+                    "site.storm-site.logview.port": "8081",
+                  	"env.ZK_HOST": "zk-zk1.${CLUSTER_NAME}.${USER}.ycloud.dev",
+            		"env.ZK_PORT": "2181",
+            		"env.ZK_KAFKA_PATH": "/kafka/${CLUSTER_NAME}/brokers",
+            		"env.ZK_HBASE_PATH": "/hbase/${CLUSTER_NAME}",                  	
+            		"env.COMETD_HOST": "cometd.${CLUSTER_NAME}.${USER}.ycloud.dev",
+            		"env.COMETD_PORT": "8091"
+                },
+                "files": [
+                    {
+                        "type": "PROPERTIES",
+                        "src_file": "storm-site",
+                        "dest_file": "/etc/storm/conf/storm.properties"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "STORMUI",
+            "dependencies": ["td-zk","HBASEMASTER","REGIONSERVER","KAFKABROKER","NIMBUS"],
+            "number_of_containers": 1,
+            "artifact": {
+                "id": "mrizvi/ycloud-storm-master:0.1",
+                "type": "DOCKER"
+            },
+            "launch_command": "/properties_file_to_yaml.sh /etc/storm/conf/storm.properties; /usr/hdp/current/storm-nimbus/bin/storm ui 2>&1 >/tmp/storm_ui.out",
+            "resource": {
+                "cpus": 1,
+                "memory": "256"
+            },
+            "configuration": {
+                "properties": {
+                    "site.global.dns.dependency": "true",
+                    "site.global.storm-site.destDir": "/etc/storm/conf/",
+                    "site.storm-site.storm.zookeeper.servers": "[td-zk1.truck-demo.root.ycloud.dev]",
+                    "site.storm-site.storm.zookeeper.root": "/storm-${CLUSTER_NAME}",
+                    "site.storm-site.nimbus.seeds": "[nimbus.${CLUSTER_NAME}.${USER}.ycloud.dev]",
+                    "site.storm-site.ui.host": "stormui.${CLUSTER_NAME}.${USER}.ycloud.dev",
+                    "site.storm-site.storm.local.dir": "/tmp/storm",
+                    "site.storm-site.logview.port": "8081"
+                },
+                "files": [
+                    {
+                        "type": "PROPERTIES",
+                        "src_file": "storm-site",
+                        "dest_file": "/etc/storm/conf/storm.properties"
+                    }
+                ]
+            }
+         },
+		 {
+            "name": "HBASEMASTER",
+            "dependencies": [],
+            "number_of_containers": 1,
+            "artifact": {
+            "id": "mrizvi/ycloud-hbase-master:0.1",
+            "type": "DOCKER"
+        },
+        "launch_command": "sleep 60; hbase master start",
+        "resource": {
+            "cpus": 1,
+            "memory": "512"
+        },
+            "configuration": {
+            "properties": {
+                "site.core-site.fs.defaultFS": "hdfs://y7001.ycloud.hortonworks.com:8020",
+                "site.hdfs-site.dfs.namenode.rpc-address": "y7001.ycloud.hortonworks.com:8020",
+                "site.hbase-site.hbase.cluster.distributed": "true",
+                "site.hbase-site.hbase.zookeeper.quorum": "y7001.ycloud.hortonworks.com",
+                "site.hbase-site.hbase.rootdir": "${DEFAULT_DATA_DIR}/hbase",
+                "site.hbase-site.zookeeper.znode.parent": "/hbase/${CLUSTER_NAME}",
+                "site.hbase-site.hbase.master.hostname": "hbasemaster.${CLUSTER_NAME}.ycloud.dev",
+                "site.hbase-site.hbase.master.dns.nameserver": "y7001.ycloud.hortonworks.com",
+                "site.hbase-site.hbase.master.info.port": "16010"
+            },
+        "files": [
+                    {
+            "type": "XML",
+            "src_file": "core-site",
+            "dest_file": "/etc/hadoop/conf/core-site.xml"
+            },
+            {
+            "type": "XML",
+            "src_file": "hdfs-site",
+            "dest_file": "/etc/hadoop/conf/hdfs-site.xml"
+            },
+            {
+            "type": "XML",
+            "src_file": "hbase-site",
+            "dest_file": "/etc/hbase/conf/hbase-site.xml"
+            }
+            ]
+            }
+    
+        },
+        {
+            
+        "name": "REGIONSERVER",
+        "dependencies": [
+        ],
+        "number_of_containers": 1,
+        "artifact": {
+        "id": "mrizvi/ycloud-hbase-master:0.1",
+        "type": "DOCKER"
+        },
+        "launch_command": "sleep 120; hbase regionserver start",
+        "resource": {
+            "cpus": 1,
+            "memory": "512"
+            },
+            "configuration": {
+        "properties": {
+            "component.unique.names": "true",
+            "site.core-site.fs.defaultFS": "hdfs://y7001.ycloud.hortonworks.com:8020",
+            "site.hbase-site.hbase.cluster.distributed": "true",
+            "site.hbase-site.hbase.zookeeper.quorum": "${ZK_HOST}",
+            "site.hbase-site.hbase.master.hostname": "hbasemaster.${CLUSTER_NAME}.ycloud.dev",
+            "site.hbase-site.hbase.master.info.port": "16010",
+            "site.hbase-site.hbase.regionserver.hostname": "regionserver${COMPONENT_ID}.${CLUSTER_NAME}.ycloud.dev",
+            "site.hbase-site.hbase.rootdir": "${DEFAULT_DATA_DIR}/hbase",
+            "site.hbase-site.zookeeper.znode.parent": "/hbase/${CLUSTER_NAME}",
+            "site.hbase-site.per.component": "true",
+            "site.hbase-metrics.hbase.extendedperiod": "3600",
+            "site.hbase-metrics.*.timeline.plugin.urls": "file:///ambari-metrics-hadoop-sink.jar",
+            "site.hbase-metrics.hbase.class": "org.apache.hadoop.metrics2.sink.timeline.HadoopTimelineMetricsSink",
+            "site.hbase-metrics.hbase.period": "10",
+            "site.hbase-metrics.hbase.collector": "http://y7001.ycloud.hortonworks.com:6188",
+            "site.hbase-metrics.jvm.class": "org.apache.hadoop.metrics2.sink.timeline.HadoopTimelineMetricsSink",
+            "site.hbase-metrics.jvm.period": "10",
+            "site.hbase-metrics.jvm.collector": "y7001.ycloud.hortonworks.com:6188",
+            "site.hbase-metrics.rpc.class": "org.apache.hadoop.metrics2.sink.timeline.HadoopTimelineMetricsSink",
+            "site.hbase-metrics.rpc.period": "10",
+            "site.hbase-metrics.rpc.collector": "y7001.ycloud.hortonworks.com:6188",
+            "site.hbase-metrics.hbase.sink.timeline.class": "org.apache.hadoop.metrics2.sink.timeline.HadoopTimelineMetricsSink",
+            "site.hbase-metrics.hbase.sink.timeline.period": "10",
+            "site.hbase-metrics.hbase.sink.timeline.collector": "y7001.ycloud.hortonworks.com:6188",
+            "site.hbase-metrics.hbase.sink.timeline.serviceName": "${CLUSTER_NAME}"
+            },
+                "files": [
+                    {
+                        "type": "XML",
+                        "src_file": "core-site",
+                        "dest_file": "/etc/hadoop/conf/core-site.xml"
+                    },
+                    {
+                        "type": "XML",
+                        "src_file": "hdfs-site",
+                        "dest_file": "/etc/hadoop/conf/hdfs-site.xml"
+                    },
+                    {
+                        "type": "XML",
+                        "src_file": "hbase-site",
+                        "dest_file": "/etc/hbase/conf/hbase-site.xml"
+                    },
+                    {
+                        "type": "PROPERTIES",
+                        "src_file": "hbase-metrics",
+                        "dest_file": "/etc/hbase/conf/hadoop-metrics2-hbase.properties"
+                    }
+                ]
+            }
+        }
+    ]
+   
+}

@@ -1,0 +1,112 @@
+<h1 id="storm---0">Storm - 0</h1>
+
+<h2 id="introduction">Introduction</h2>
+<p>This tutorial will cover the core concepts of Storm, and walk through setting up Storm on the sandbox.  We will also run a small Storm application, which we’ll take a closer look at in the next tutorial.</p>
+
+<h2 id="pre-requisites">Pre-Requisites</h2>
+<ul>
+  <li><a href="https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox">Learning the Ropes of the Hortonworks Sandbox</a></li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li>Our use case</li>
+  <li>What is Storm?</li>
+  <li>Benefits of Storm</li>
+  <li>Storm components</li>
+  <li>Starting Storm</li>
+  <li>Deploying a Storm topology</li>
+  <li>Exploring a running topology</li>
+  <li>Next up: Building a topology</li>
+</ul>
+
+<h2 id="our-use-case">Our use case</h2>
+
+<p>Imagine a trucking company that dispatches trucks across the country.  The trucks are outfitted with sensors that collect data - data like the name of the driver, the route the truck is bound for, the speed of the truck, and even what event recently occured (speeding, the truck weaving out of its lane, following too closely, etc).  Data like this is generated very often, say once per second and is then streamed back to the company’s servers.</p>
+
+<p>Additionally, the company is also polling an internet service for information about traffic congestion on the different trucking routes.  However, since congestion changes gradually, this information is being generated only once a minute.</p>
+
+<p>The company needs a way to process both these streams of data, and combine them in such a way that data from the truck is combined with the most up-to-date congestion data.  Additionally, they want to run some analysis on the data so that it can make sure trucks are traveling on time but also keeping cargo safe.  Oh, and this also needs to be done in real-time!</p>
+
+<p>Why real-time?  The trucking company benefits by having a system in place that injests data from multiple sources, correlates these independant sources of data, runs analysis and intelligently reports on important events going on and even actions that the company can do to immediately improve the situation.  This even includes catching imminent truck breakdowns before they occur and analyzing driving habits to predit accidents before the driver gets into one!</p>
+
+<p>Sounds like an important task - this is where Storm comes in.</p>
+
+<h2 id="what-is-storm">What is Storm?</h2>
+<p><a href="https://hortonworks.com/apache/storm">Apache Storm</a> is a free and open source data processing engine.  It can process and act on massive volumes of data in real-time, performing virtually any type of operation or computation as data flows through its components.</p>
+
+<p>Storm exposes a set of components for doing real-time computation. Like how MapReduce greatly eases the writing of parallel batch processing, Storm’s components greatly ease the writing of parallel, real-time computation.</p>
+
+<p>Storm can be used for processing messages and updating databases (stream processing), doing a continuous query on data streams and streaming the results into clients (continuous computation), parallelizing an intense query like a search query on the fly (distributed RPC), and more.</p>
+
+<h2 id="benefits-of-storm">Benefits of Storm</h2>
+
+<ul>
+  <li><strong>Broad set of use cases</strong>:  Storm’s small set of primitives satisfy a stunning number of use cases.  From processing messages and updating databases to doing continuous query and computation on datastreams to parallelizing a traditionally resource-intensive job like search queries.</li>
+  <li><strong>Scalable</strong>: Storm scales to handle massive numbers of messages per second.  To scale a topology, one can add machines to the cluster or increase the number of parallel threads spawned by Storm.</li>
+  <li><strong>Guarantee no data loss</strong>: Real-time systems must have strong guarantees about data being processed successfully and not allow data to be lost.  Storm guarantees processing of every message.</li>
+  <li><strong>Robust</strong>: It is an explicit goal of the Storm project to make the user experience of managing Storm clusters as painless as possible.  This is in contract to other systems that are difficult to manage and deploy, especially in secured environments.</li>
+  <li><strong>Fault-tolerant</strong>: Storm makes sure that a computation can run forever, resassigning tasks as necessary if something in the system fails.</li>
+  <li><strong>Development language agnostic</strong>: Storm jobs and components can be defined in any language, making Storm accessible to nearly any developer.</li>
+</ul>
+
+<h2 id="storm-components">Storm components</h2>
+
+<p>Now that we have a general idea of the power of Storm, let’s look at its different components, our building blocks when defining a Storm process, and what they’re used for.</p>
+
+<ul>
+  <li><strong>Tuple</strong>: A list of values.  The main data structure in Storm.</li>
+  <li><strong>Stream</strong>: An unbounded sequence of tuples.</li>
+  <li><strong>Spout</strong>: A source of streams.  Spouts will read tuples in from an external source and emit them into streams for the rest of the system to process.</li>
+  <li><strong>Bolt</strong>: Processes the tuples from an input stream and produces an output stream of results.  This process is also called stream transformation.  Bolts can do filtering, run custom functions, aggregations, joins, database operations, and much more.</li>
+  <li><strong>Topology</strong>: A network of spouts and bolts that are connected together by streams.  In other words, the overall process for Storm to perform.</li>
+</ul>
+
+<p><img src="assets/storm-100_topology.png" alt="A Storm topology: spouts, streams and bolts" /></p>
+
+<h2 id="starting-storm">Starting Storm</h2>
+
+<p>Log into Ambari (by default the URL is <code class="highlighter-rouge">sandbox.hortonworks.com:8080</code> if you’ve been following the tutorials) and look for Storm in the services list.  If Storm is not started, select it from the services list and click on “<strong>Start</strong>” under the “<strong>Service Actions</strong>” button.</p>
+
+<p><img src="assets/storm-100_start-storm.jpg" alt="Starting Storm" />
+<img src="assets/storm-100_start-storm_2.jpg" alt="Starting Storm" /></p>
+
+<h2 id="deploying-a-storm-topology">Deploying a Storm topology</h2>
+<p>Now that we’re sure Storm is up and running, let’s download a file onto the sandbox.  Open up a terminal and make sure you are SSH’d into the sandbox for these next few commands.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>wget https://github.com/orendain/storm-tutorial-100/raw/master/storm-tutorial-100-1.0.jar
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Note: Don’t worry about not knowing what this topology does just yet.  We’ll cover this in the next section and even learn to build out this Storm topology from scratch!</p>
+</blockquote>
+
+<p>Included in this JAR is a JVM class file that defines a Storm topology.  The name of the class is <code class="highlighter-rouge">TruckingTopology100</code> with the full path of <code class="highlighter-rouge">hortonworks.tutorial.storm-100.TruckingTopology100</code>.  Let’s direct Storm to deploy this topology.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>storm jar storm-demo-100.jar hortonworks.tutorial.TruckingTopology100
+</code></pre>
+</div>
+
+<p>Here, we’re telling storm to use the specified JAR to deploy the specified topology that is stored inside that JAR.  Storm automatically handles deploying the topology and starts running the different components (spouts and bolts).</p>
+
+<p>Alright!  You’ve just deployed a Storm topology!  Next, let’s take a look at what this topology looks like and how we explore information about that running topology.</p>
+
+<h2 id="exploring-a-running-topology">Exploring a running topology</h2>
+
+<p>Open up the Storm View by navigating to Ambari’s Views icon and selecting “<strong>Storm View</strong>.”</p>
+
+<p><img src="assets/storm-100_open-storm-view.jpg" alt="Open the Storm View" />
+<img src="assets/storm-100_open-storm-view_2.jpg" alt="Open the Storm View" /></p>
+
+<p>This opens up the Storm View where you’ll be able to see all of the running topologies, configurations and metrics relating to Storm.</p>
+
+<p>Select “<strong>truckingTopology100</strong>” from the “<strong>Topology Listing”</strong> panel to get a closer look at the topology we just deployed.</p>
+
+<p><img src="assets/storm-100_open-topology-view.jpg" alt="Open the topology View" /></p>
+
+<p>Using the view that comes up, you’d be able to read and navigate through useful metrics, as well as perform operations like deactivating or killing the topology.</p>
+
+<h2 id="next-up-building-a-topology">Next up: Building a topology</h2>
+
+<p>Now that we’ve learned about what Storm is, how to run a topology, and where to go to view information about the running topology, let’s shift our attention to the Storm API.  In the next section, we’ll learn a bit more about the different Storm components (spouts, bolts, streams) and walk through how to use them to build out a topology using the Scala programming language.</p>

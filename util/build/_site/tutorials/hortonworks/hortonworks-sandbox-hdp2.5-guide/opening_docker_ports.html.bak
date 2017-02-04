@@ -1,0 +1,117 @@
+
+
+<div class="tutorial-content">
+  <h1 id="opening-docker-ports-in-hortonworks-sandbox">Opening Docker Ports in Hortonworks Sandbox</h1>
+
+<p>As of HDP 2.5, the Hortonworks Sandbox comes in docker form as to make it more easily distributable across multiple environments and it is offered as a native docker image as well as a Virtualbox / Vmware download for easy deploy on most standard local setups.</p>
+
+<p>While introducing docker into the mix has made the sandbox more portable, it has also introduced a new layer of complexity which is apparent when working with port forwardings.</p>
+
+<p>In order to explain the port forwardings it’s first a good idea to understand a top level view of what’s happening. Have a look at the picture below which explains how data is forwarded from the sandbox to the outside world:</p>
+
+<p><img src="/assets/hortonworks-sandbox-hdp2.5-guide/docker_architecture.png" alt="docker_architecture" /></p>
+
+<p>At a glance, the first thing to notice is that there are 2 sets of port forwardings being applied marked on the picture with the two large blue arrows. <br />
+The first ( marked with orange ) is responsible for forwarding information from the container to the virtual machine, while the second is responsible for forwarding ports to the outside world from the virtual machine.</p>
+
+<h2 id="procedure">Procedure</h2>
+
+<h3 id="1-forwarding-ports-from-the-docker-container-the-virtual-machine">1. Forwarding ports from the docker container the virtual machine</h3>
+
+<p><strong>Important</strong>:</p>
+
+<p>Docker containers have their metadata( such as port forwardings ) saved alongside their state, thus making it impossible to assign new forwardings on-the-fly. This means that containers need to be removed and respawned if new forwardings are required.</p>
+
+<p>In the case of the Hortonworks Sandbox this implies by default losing all previous work done on the container unless actions are taken. Let’s assume you have done work on your sandbox instance but want to add port forwardings without losing your data.</p>
+
+<p>The first thing we need to do is to stop the docker sandbox container and save our work:</p>
+
+<p><strong>Note</strong>:</p>
+
+<p>There is a known bug where the shellinabox service hangs when told to shut down from outside the container, so for safety we will be stopping it manually.</p>
+
+<p><strong>Steps</strong>:</p>
+
+<p>1.1. Login into your sandbox container via port 2222 or point your browser to port 4200 of the sandbox.
+Stop shellinabox</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[root@sandbox ~]# /etc/init.d/shellinaboxd stop
+Stopping shellinaboxd:
+</code></pre>
+</div>
+
+<p>1.2. Logout from the sandbox container</p>
+
+<p>1.3. Login to the Docker VM host ( port 2122 on virtualbox, 22 on vmware )</p>
+
+<p>1.4. Stop the sandbox container:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[root@sandbox ~]# docker stop sandbox
+sandbox
+</code></pre>
+</div>
+
+<p>1.5. Commit the changes you’ve made in the container to the docker image:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[root@sandbox ~]# docker commit sandbox sandbox
+Sha256:671010ad961f83db70c7541f4b7df317c13474bcfb37a5f69e24a061c28d8c79
+</code></pre>
+</div>
+
+<p>1.6. Great! Now we have all the changes we made in the docker container saved on the docker image, it is now safe for us to remove the docker container:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[root@sandbox ~]# docker rm sandbox
+sandbox
+</code></pre>
+</div>
+
+<p>1.7. Let’s have a look at how to forward ports from the docker container to the virtual machines first; as you can see the port forwarding is handled by the /root/start_scripts/start_sandbox.sh script and as such this is where we want to add our ports. Open the file for edit and find the below mentioned code:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>-p 6080:6080 \
+</code></pre>
+</div>
+
+<p>The “-p” flag is what is responsible for the port forwardings. All we need to do here is add another line similar to the one above after it with the port we want forwarded and where we want forwarded to. For example, if we were looking to forward port 4888, we would add after:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>-p 4888:4888 \
+</code></pre>
+</div>
+
+<p>1.8. Save and close the file, then run the /root/start_scripts/start_sandbox.sh script. This script reattaches the container Sandbox with your new port added in the list. and Our new port will be visible if we run a “docker ps” command:</p>
+
+<p><img src="/assets/hortonworks-sandbox-hdp2.5-guide/docker_ps.png" alt="docker_ps" /></p>
+
+<h3 id="2-forwarding-ports-from-the-vm-to-the-outside-world">2. Forwarding ports from the VM to the outside world</h3>
+
+<p>2.1. <strong>VMWare</strong>:</p>
+
+<p>For vmware all port forwardings are done automatically to the 172.x.x.x IP so there’s nothing else you need to do!</p>
+
+<p>2.2. <strong>Virtualbox</strong>:</p>
+
+<p>For virtualbox the ports need to be added in manually. Open the virtualbox interface:</p>
+
+<p><img src="/assets/hortonworks-sandbox-hdp2.5-guide/open_virtualbox.png" alt="open_virtualbox" /></p>
+
+<p>Click the <code class="highlighter-rouge">Settings</code> button and go to the <code class="highlighter-rouge">Network</code> tab, click <code class="highlighter-rouge">Advanced</code> and <code class="highlighter-rouge">Port Forwarding</code>:</p>
+
+<p><img src="/assets/hortonworks-sandbox-hdp2.5-guide/port_forwarding.png" alt="port_forwarding" /></p>
+
+<p>Click the + button on the top right of the dialogue box and add in the new rule, similar to how the other lines look:</p>
+
+<p><img src="/assets/hortonworks-sandbox-hdp2.5-guide/port_added.png" alt="port_added" /></p>
+
+<p>Click OK and you’re done!</p>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-730.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-730&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Hortonworks Sandbox Guide</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-730</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

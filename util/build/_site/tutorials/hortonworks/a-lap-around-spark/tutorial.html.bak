@@ -1,0 +1,710 @@
+
+
+<div class="tutorial-content">
+  <p>This tutorial walks you through many of the newer features of Spark 1.6.2 on YARN.</p>
+
+<p>With YARN, Hadoop can now support many types of data and application workloads; Spark on YARN becomes yet another workload running against the same set of hardware resources.</p>
+
+<p>The tutorial describes how to:</p>
+
+<ul>
+  <li>Run Spark on YARN and run the canonical Spark examples: SparkPi and Wordcount.</li>
+  <li>Run Spark 1.6.2 on HDP 2.5</li>
+  <li>Use the Spark DataFrame API.</li>
+  <li>Read/write data from Hive.</li>
+  <li>Use SparkSQL Thrift Server for JDBC/ODBC access.</li>
+  <li>Use ORC files with Spark, with examples.</li>
+  <li>Use SparkR.</li>
+  <li>Use the DataSet API.</li>
+</ul>
+
+<p>When you are ready to go beyond these tasks, checkout the <a href="http://spark.apache.org/docs/latest/mllib-guide.html">Apache Spark Machine Learning Library (MLlib) Guide</a>.</p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<p>This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.</p>
+
+<ul>
+  <li>Downloaded and Installed <a href="http://hortonworks.com/products/sandbox/">Hortonworks Sandbox 2.5</a></li>
+  <li><a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox</a></li>
+</ul>
+
+<p><strong>Set SPARK_HOME</strong></p>
+
+<p>If you haven’t already, make sure to set <code class="highlighter-rouge">SPARK_HOME</code> before proceeding:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">export </span><span class="nv">SPARK_HOME</span><span class="o">=</span>/usr/hdp/current/spark-client
+</code></pre>
+</div>
+
+<h3 id="run-the-spark-pi-example">Run the Spark Pi Example</h3>
+
+<p>To test compute intensive tasks in Spark, the Pi example calculates pi by “throwing darts” at a circle. The example points in the unit square ((0,0) to (1,1)) and sees how many fall in the unit circle. The fraction should be pi/4, which is used to estimate Pi.</p>
+
+<p>To calculate Pi with Spark in yarn-client mode.</p>
+
+<p>Assuming you start as <code class="highlighter-rouge">root</code> user follow these steps depending on your Spark version.</p>
+
+<p><strong>Spark 2.0+</strong></p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">root@sandbox# </span><span class="nb">export </span><span class="nv">SPARK_MAJOR_VERSION</span><span class="o">=</span>2
+<span class="gp">root@sandbox# </span><span class="nb">cd</span> /usr/hdp/current/spark2-client
+root@sandbox spark2-client# su spark
+spark@sandbox spark2-client<span class="nv">$ </span>./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 examples/jars/spark-examples<span class="k">*</span>.jar 10
+</code></pre>
+</div>
+
+<p><strong>Spark 1.6.x</strong></p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">root@sandbox# </span><span class="nb">export </span><span class="nv">SPARK_MAJOR_VERSION</span><span class="o">=</span>1
+<span class="gp">root@sandbox# </span><span class="nb">cd</span> /usr/hdp/current/spark-client
+root@sandbox spark-client# su spark
+spark@sandbox spark-client<span class="nv">$ </span>./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 lib/spark-examples<span class="k">*</span>.jar 10
+</code></pre>
+</div>
+
+<p><strong>Note:</strong> The Pi job should complete without any failure messages and produce output similar to below, note the value of Pi in the output message:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="p">...</span>
+<span class="mi">16</span><span class="o">/</span><span class="mi">02</span><span class="o">/</span><span class="mi">25</span> <span class="mi">21</span><span class="err">:</span><span class="mi">27</span><span class="err">:</span><span class="mi">11</span> <span class="nx">INFO</span> <span class="nx">YarnScheduler</span><span class="err">:</span> <span class="nx">Removed</span> <span class="nx">TaskSet</span> <span class="mf">0.0</span><span class="p">,</span> <span class="nx">whose</span> <span class="nx">tasks</span> <span class="nx">have</span> <span class="nx">all</span> <span class="nx">completed</span><span class="p">,</span> <span class="nx">from</span> <span class="nx">pool</span>
+<span class="mi">16</span><span class="o">/</span><span class="mi">02</span><span class="o">/</span><span class="mi">25</span> <span class="mi">21</span><span class="err">:</span><span class="mi">27</span><span class="err">:</span><span class="mi">11</span> <span class="nx">INFO</span> <span class="nx">DAGScheduler</span><span class="err">:</span> <span class="nx">Job</span> <span class="mi">0</span> <span class="nx">finished</span><span class="err">:</span> <span class="nx">reduce</span> <span class="nx">at</span> <span class="nx">SparkPi</span><span class="p">.</span><span class="nx">scala</span><span class="err">:</span><span class="mi">36</span><span class="p">,</span> <span class="nx">took</span> <span class="mf">19.346544</span> <span class="nx">s</span>
+<span class="nx">Pi</span> <span class="nx">is</span> <span class="nx">roughly</span> <span class="mf">3.143648</span>
+<span class="mi">16</span><span class="o">/</span><span class="mi">02</span><span class="o">/</span><span class="mi">25</span> <span class="mi">21</span><span class="err">:</span><span class="mi">27</span><span class="err">:</span><span class="mi">12</span> <span class="nx">INFO</span> <span class="nx">ContextHandler</span><span class="err">:</span> <span class="nx">stopped</span> <span class="nx">o</span><span class="p">.</span><span class="nx">s</span><span class="p">.</span><span class="nx">j</span><span class="p">.</span><span class="nx">s</span><span class="p">.</span><span class="nx">ServletContextHandler</span><span class="p">{</span><span class="sr">/metrics/</span><span class="nx">json</span><span class="p">,</span><span class="kc">null</span><span class="p">}</span>
+<span class="p">...</span>
+</code></pre>
+</div>
+
+<h3 id="perform-wordcount-with-spark">Perform WordCount with Spark</h3>
+
+<p><strong>Copy input file for Spark WordCount Example</strong></p>
+
+<p>Upload the input file you want to use in WordCount to HDFS. You can use any text file as input. In the following example, log4j.properties is used as an example:</p>
+
+<p>As user <code class="highlighter-rouge">spark</code>:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>hadoop fs -copyFromLocal /etc/hadoop/conf/log4j.properties /tmp/data
+</code></pre>
+</div>
+
+<p><strong>Run the Spark shell:</strong></p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>./bin/spark-shell 
+</code></pre>
+</div>
+
+<p>Output similar to the following will be displayed, followed by a <code class="highlighter-rouge">scala&gt;</code> REPL prompt:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>Welcome to
+     ____              __
+    / __/__  ___ _____/ /__
+   _<span class="se">\ \/</span> _ <span class="se">\/</span> _ <span class="sb">`</span>/ __/  <span class="s1">'_/
+  /___/ .__/\_,_/_/ /_/\_\   version 1.6.2
+     /_/
+Using Scala version 2.10.5 (OpenJDK 64-Bit Server VM, Java 1.7.0_101)
+Type in expressions to have them evaluated.
+Type :help for more information.
+15/12/16 13:21:57 INFO SparkContext: Running Spark version 1.6.2
+...
+
+scala&gt;
+</span></code></pre>
+</div>
+
+<p>At the <code class="highlighter-rouge">scala</code> REPL prompt enter:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">val</span><span class="err"> </span><span class="nx">file</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="nx">sc</span><span class="p">.</span><span class="nx">textFile</span><span class="p">(</span><span class="s2">"/tmp/data"</span><span class="p">)</span>
+<span class="nx">val</span><span class="err"> </span><span class="nx">counts</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="nx">file</span><span class="p">.</span><span class="nx">flatMap</span><span class="p">(</span><span class="nx">line</span><span class="err"> </span><span class="o">=&gt;</span><span class="err"> </span><span class="nx">line</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">" "</span><span class="p">)).</span><span class="nx">map</span><span class="p">(</span><span class="nx">word</span><span class="err"> </span><span class="o">=&gt;</span><span class="err"> </span><span class="p">(</span><span class="nx">word</span><span class="p">,</span><span class="err"> </span><span class="mi">1</span><span class="p">)).</span><span class="nx">reduceByKey</span><span class="p">(</span><span class="nx">_</span><span class="err"> </span><span class="o">+</span><span class="err"> </span><span class="nx">_</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Save <code class="highlighter-rouge">counts</code> to a file:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">counts</span><span class="p">.</span><span class="nx">saveAsTextFile</span><span class="p">(</span><span class="s2">"/tmp/wordcount"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p><strong>Viewing the WordCount output with Scala Shell</strong></p>
+
+<p>To view the output, at the <code class="highlighter-rouge">scala&gt;</code> prompt type:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">counts</span><span class="p">.</span><span class="nx">count</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<p>You should see an output screen similar to:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="p">...</span>
+<span class="mi">16</span><span class="o">/</span><span class="mi">02</span><span class="o">/</span><span class="mi">25</span> <span class="mi">23</span><span class="err">:</span><span class="mi">12</span><span class="err">:</span><span class="mi">20</span> <span class="nx">INFO</span> <span class="nx">DAGScheduler</span><span class="err">:</span> <span class="nx">Job</span> <span class="mi">1</span> <span class="nx">finished</span><span class="err">:</span> <span class="nx">count</span> <span class="nx">at</span> <span class="o">&lt;</span><span class="nx">console</span><span class="o">&gt;</span><span class="err">:</span><span class="mi">32</span><span class="p">,</span> <span class="nx">took</span> <span class="mf">0.541229</span> <span class="nx">s</span>
+<span class="nl">res1</span><span class="p">:</span> <span class="nx">Long</span> <span class="o">=</span> <span class="mi">341</span>
+
+<span class="nx">scala</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<p>To print the full output of the WordCount job type:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">counts</span><span class="p">.</span><span class="nx">toArray</span><span class="p">().</span><span class="nx">foreach</span><span class="p">(</span><span class="nx">println</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>You should see an output screen similar to:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="p">...</span>
+<span class="p">((</span><span class="nx">Hadoop</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="nx">compliance</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="nx">log4j</span><span class="p">.</span><span class="nx">appender</span><span class="p">.</span><span class="nx">RFAS</span><span class="p">.</span><span class="nx">layout</span><span class="p">.</span><span class="nx">ConversionPattern</span><span class="o">=%</span><span class="nx">d</span><span class="p">{</span><span class="nx">ISO8601</span><span class="p">},</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="nx">additional</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="k">default</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="nx">scala</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<p><strong>Viewing the WordCount output with HDFS</strong></p>
+
+<p>To read the output of WordCount using HDFS command:<br />
+Exit the Scala shell.</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">exit</span>
+</code></pre>
+</div>
+
+<p>View WordCount Results:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>hadoop fs -ls /tmp/wordcount
+</code></pre>
+</div>
+
+<p>You should see an output similar to:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>/tmp/wordcount/_SUCCESS
+/tmp/wordcount/part-00000
+/tmp/wordcount/part-00001
+</code></pre>
+</div>
+
+<p>Use the HDFS <code class="highlighter-rouge">cat</code> command to see the WordCount output. For example,</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>hadoop fs -cat /tmp/wordcount/part-00000
+</code></pre>
+</div>
+
+<p><strong>Using the Spark DataFrame API</strong></p>
+
+<p>DataFrame API provides easier access to data since it looks conceptually like a Table and a lot of developers from Python/R/Pandas are familiar with it.</p>
+
+<p>As a <code class="highlighter-rouge">spark</code> user, upload people.txt and people.json files to HDFS:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/hdp/current/spark-client
+su spark
+hadoop fs -copyFromLocal examples/src/main/resources/people.txt people.txt
+hadoop fs -copyFromLocal examples/src/main/resources/people.json people.json
+</code></pre>
+</div>
+
+<p>As a <code class="highlighter-rouge">spark</code> user, launch the Spark Shell:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/hdp/current/spark-client
+su spark
+./bin/spark-shell
+</code></pre>
+</div>
+
+<p>At a <code class="highlighter-rouge">scala&gt;</code> REPL prompt, type the following:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">val</span><span class="err"> </span><span class="nx">df</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="nx">sqlContext</span><span class="p">.</span><span class="nx">jsonFile</span><span class="p">(</span><span class="s2">"people.json"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Using <code class="highlighter-rouge">df.show</code>, display the contents of the DataFrame:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">df</span><span class="p">.</span><span class="nx">show</span>
+</code></pre>
+</div>
+
+<p>You should see an output similar to:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="p">...</span>
+<span class="mi">15</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">16</span> <span class="mi">13</span><span class="err">:</span><span class="mi">28</span><span class="err">:</span><span class="mi">15</span> <span class="nx">INFO</span> <span class="nx">YarnScheduler</span><span class="err">:</span> <span class="nx">Removed</span> <span class="nx">TaskSet</span> <span class="mf">2.0</span><span class="p">,</span> <span class="nx">whose</span> <span class="nx">tasks</span> <span class="nx">have</span> <span class="nx">all</span> <span class="nx">completed</span><span class="p">,</span> <span class="nx">from</span> <span class="nx">pool</span>
+<span class="o">+----+-------+</span>
+<span class="o">|</span> <span class="nx">age</span><span class="o">|</span>   <span class="nx">name</span><span class="o">|</span>
+<span class="o">+----+-------+</span>
+<span class="o">|</span><span class="kc">null</span><span class="o">|</span><span class="nx">Michael</span><span class="o">|</span>
+<span class="o">|</span>  <span class="mi">30</span><span class="o">|</span>   <span class="nx">Andy</span><span class="o">|</span>
+<span class="o">|</span>  <span class="mi">19</span><span class="o">|</span> <span class="nx">Justin</span><span class="o">|</span>
+<span class="o">+----+-------+</span>
+
+<span class="nx">scala</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<p><strong>Additional DataFrame API examples</strong></p>
+
+<p>Continuing at the <code class="highlighter-rouge">scala&gt;</code> prompt, type the following to import sql functions:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span><span class="err"> </span><span class="nx">org</span><span class="p">.</span><span class="nx">apache</span><span class="p">.</span><span class="nx">spark</span><span class="p">.</span><span class="nx">sql</span><span class="p">.</span><span class="nx">functions</span><span class="p">.</span><span class="nx">_</span><span class="err"> </span>
+</code></pre>
+</div>
+
+<p>and select “name” and “age” columns and increment the “age” column by 1:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">df</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="nx">df</span><span class="p">(</span><span class="s2">"name"</span><span class="p">),</span><span class="err"> </span><span class="nx">df</span><span class="p">(</span><span class="s2">"age"</span><span class="p">)</span><span class="err"> </span><span class="o">+</span><span class="err"> </span><span class="mi">1</span><span class="p">).</span><span class="nx">show</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<p>This will produce an output similar to the following:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>...
++-------+---------+
+|   name|<span class="o">(</span>age + 1<span class="o">)</span>|
++-------+---------+
+|Michael|     null|
+|   Andy|       31|
+| Justin|       20|
++-------+---------+
+
+scala&gt;
+</code></pre>
+</div>
+
+<p>To return people older than 21, use the filter() function:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">df</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">df</span><span class="p">(</span><span class="s2">"age"</span><span class="p">)</span><span class="err"> </span><span class="o">&gt;</span><span class="err"> </span><span class="mi">21</span><span class="p">).</span><span class="nx">show</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<p>This will produce an output similar to the following:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>...
++---+----+
+|age|name|
++---+----+
+| 30|Andy|
++---+----+
+
+scala&gt;
+</code></pre>
+</div>
+
+<p>Next, to count the number of people of specific age, use groupBy() &amp; count() functions:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">df</span><span class="p">.</span><span class="nx">groupBy</span><span class="p">(</span><span class="s2">"age"</span><span class="p">).</span><span class="nx">count</span><span class="p">().</span><span class="nx">show</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<p>This will produce an output similar to the following:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>...
++----+-----+
+| age|count|
++----+-----+
+|null|    1|
+|  19|    1|
+|  30|    1|
++----+-----+
+
+scala&gt;
+</code></pre>
+</div>
+
+<p><strong>Programmatically Specifying Schema</strong></p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span><span class="err"> </span><span class="nx">org</span><span class="p">.</span><span class="nx">apache</span><span class="p">.</span><span class="nx">spark</span><span class="p">.</span><span class="nx">sql</span><span class="p">.</span><span class="nx">_</span><span class="err"> </span>
+
+<span class="c1">// Create sql context from an existing SparkContext (sc)</span>
+<span class="nx">val</span><span class="err"> </span><span class="nx">sqlContext</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="k">new</span><span class="err"> </span><span class="nx">org</span><span class="p">.</span><span class="nx">apache</span><span class="p">.</span><span class="nx">spark</span><span class="p">.</span><span class="nx">sql</span><span class="p">.</span><span class="nx">SQLContext</span><span class="p">(</span><span class="nx">sc</span><span class="p">)</span>  
+
+<span class="c1">// Create people RDD</span>
+<span class="nx">val</span><span class="err"> </span><span class="nx">people</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="nx">sc</span><span class="p">.</span><span class="nx">textFile</span><span class="p">(</span><span class="s2">"people.txt"</span><span class="p">)</span>
+
+<span class="c1">// Encode schema in a string</span>
+<span class="nx">val</span><span class="err"> </span><span class="nx">schemaString</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="s2">"name age"</span>
+
+<span class="c1">// Import Spark SQL data types and Row</span>
+<span class="kr">import</span><span class="err"> </span><span class="nx">org</span><span class="p">.</span><span class="nx">apache</span><span class="p">.</span><span class="nx">spark</span><span class="p">.</span><span class="nx">sql</span><span class="p">.</span><span class="nx">types</span><span class="p">.{</span><span class="nx">StructType</span><span class="p">,</span><span class="nx">StructField</span><span class="p">,</span><span class="nx">StringType</span><span class="p">}</span><span class="err"> </span>
+
+<span class="c1">// Generate the schema based on the string of schema</span>
+<span class="nx">val</span><span class="err"> </span><span class="nx">schema</span><span class="err"> </span><span class="o">=</span><span class="err"> </span>
+  <span class="nx">StructType</span><span class="p">(</span>
+    <span class="nx">schemaString</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">" "</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">fieldName</span><span class="err"> </span><span class="o">=&gt;</span> <span class="nx">StructField</span><span class="p">(</span><span class="nx">fieldName</span><span class="p">,</span><span class="err"> </span><span class="nx">StringType</span><span class="p">,</span><span class="err"> </span><span class="kc">true</span><span class="p">)))</span>
+
+<span class="c1">// Convert records of people RDD to Rows</span>
+<span class="nx">val</span><span class="err"> </span><span class="nx">rowRDD</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="nx">people</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">_</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)).</span><span class="nx">map</span><span class="p">(</span><span class="nx">p</span><span class="err"> </span><span class="o">=&gt;</span><span class="err"> </span><span class="nx">Row</span><span class="p">(</span><span class="nx">p</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="err"> </span><span class="nx">p</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="nx">trim</span><span class="p">))</span>
+
+<span class="c1">// Apply the schema to the RDD</span>
+<span class="nx">val</span><span class="err"> </span><span class="nx">peopleSchemaRDD</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="nx">sqlContext</span><span class="p">.</span><span class="nx">createDataFrame</span><span class="p">(</span><span class="nx">rowRDD</span><span class="p">,</span><span class="err"> </span><span class="nx">schema</span><span class="p">)</span>
+
+<span class="c1">// Register the SchemaRDD as a table</span>
+<span class="nx">peopleSchemaRDD</span><span class="p">.</span><span class="nx">registerTempTable</span><span class="p">(</span><span class="s2">"people"</span><span class="p">)</span>
+
+<span class="c1">// Execute a SQL statement on the 'people' table</span>
+<span class="nx">val</span><span class="err"> </span><span class="nx">results</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="nx">sqlContext</span><span class="p">.</span><span class="nx">sql</span><span class="p">(</span><span class="s2">"SELECT name FROM people"</span><span class="p">)</span>
+
+<span class="c1">// The results of SQL queries are SchemaRDDs and support all the normal RDD operations.</span>
+<span class="c1">// The columns of a row in the result can be accessed by ordinal</span>
+<span class="nx">results</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">t</span><span class="err"> </span><span class="o">=&gt;</span><span class="err"> </span><span class="s2">"Name: "</span><span class="err"> </span><span class="o">+</span><span class="err"> </span><span class="nx">t</span><span class="p">(</span><span class="mi">0</span><span class="p">)).</span><span class="nx">collect</span><span class="p">().</span><span class="nx">foreach</span><span class="p">(</span><span class="nx">println</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>This will produce an output similar to the following:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="mi">15</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">16</span> <span class="mi">13</span><span class="err">:</span><span class="mi">29</span><span class="err">:</span><span class="mi">19</span> <span class="nx">INFO</span> <span class="nx">DAGScheduler</span><span class="err">:</span> <span class="nx">Job</span> <span class="mi">9</span> <span class="nx">finished</span><span class="err">:</span> <span class="nx">collect</span> <span class="nx">at</span> <span class="err">:</span><span class="mi">39</span><span class="p">,</span> <span class="nx">took</span> <span class="mf">0.251161</span> <span class="nx">s</span>
+<span class="mi">15</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">16</span> <span class="mi">13</span><span class="err">:</span><span class="mi">29</span><span class="err">:</span><span class="mi">19</span> <span class="nx">INFO</span> <span class="nx">YarnHistoryService</span><span class="err">:</span> <span class="nx">About</span> <span class="nx">to</span> <span class="nx">POST</span> <span class="nx">entity</span> <span class="nx">application_1450213405513_0012</span> <span class="kd">with</span> <span class="mi">10</span> <span class="nx">events</span> <span class="nx">to</span> <span class="nx">timeline</span> <span class="nx">service</span> <span class="nx">http</span><span class="err">:</span><span class="c1">//green3:8188/ws/v1/timeline/</span>
+<span class="nl">Name</span><span class="p">:</span> <span class="nx">Michael</span>
+<span class="nl">Name</span><span class="p">:</span> <span class="nx">Andy</span>
+<span class="nl">Name</span><span class="p">:</span> <span class="nx">Justin</span>
+
+<span class="nx">scala</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="running-hive-udf">Running Hive UDF</h3>
+
+<p>Hive has a built-in UDF collection <code class="highlighter-rouge">collect_list(col)</code>, which returns a list of objects with duplicates.</p>
+
+<p>The example below reads and writes to HDFS under Hive directories.</p>
+
+<p>Before running Hive examples run the following steps:</p>
+
+<p><strong>Launch Spark Shell on YARN cluster</strong></p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>su hdfs
+
+<span class="c"># If not already in spark-client directory, change to that directory</span>
+<span class="nb">cd</span> <span class="nv">$SPARK_HOME</span>
+./bin/spark-shell
+</code></pre>
+</div>
+
+<p><strong>Create Hive Context</strong></p>
+
+<p>At a <code class="highlighter-rouge">scala&gt;</code> REPL prompt type the following:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">val</span><span class="err"> </span><span class="nx">hiveContext</span><span class="err"> </span><span class="o">=</span><span class="err"> </span><span class="k">new</span><span class="err"> </span><span class="nx">org</span><span class="p">.</span><span class="nx">apache</span><span class="p">.</span><span class="nx">spark</span><span class="p">.</span><span class="nx">sql</span><span class="p">.</span><span class="nx">hive</span><span class="p">.</span><span class="nx">HiveContext</span><span class="p">(</span><span class="nx">sc</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>You should see an output similar to the following:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>...
+16/02/25 20:13:33 INFO SessionState: Created <span class="nb">local </span>directory: /tmp/root/f3b7d0fb-031f-4e69-a792-6f12ed7ffa03
+16/02/25 20:13:33 INFO SessionState: Created HDFS directory: /tmp/hive/root/f3b7d0fb-031f-4e69-a792-6f12ed7ffa03/_tmp_space.db
+hiveContext: org.apache.spark.sql.hive.HiveContext <span class="o">=</span> org.apache.spark.sql.hive.HiveContext@30108473
+
+scala&gt;
+</code></pre>
+</div>
+
+<p><strong>Create Hive Table</strong></p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">hiveContext</span><span class="p">.</span><span class="nx">sql</span><span class="p">(</span><span class="s2">"CREATE TABLE IF NOT EXISTS TestTable (key INT, value STRING)"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>You should see an output similar to the following:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="p">...</span>
+<span class="mi">16</span><span class="o">/</span><span class="mi">02</span><span class="o">/</span><span class="mi">25</span> <span class="mi">20</span><span class="err">:</span><span class="mi">15</span><span class="err">:</span><span class="mi">10</span> <span class="nx">INFO</span> <span class="nx">PerfLogger</span><span class="err">:</span> <span class="o">&lt;</span><span class="sr">/PERFLOG method=releaseLocks start=1456431310152 end=1456431310153 duration=1 from=org.apache.hadoop.hive.ql.Driver</span><span class="err">&gt;
+</span><span class="mi">16</span><span class="o">/</span><span class="mi">02</span><span class="o">/</span><span class="mi">25</span> <span class="mi">20</span><span class="err">:</span><span class="mi">15</span><span class="err">:</span><span class="mi">10</span> <span class="nx">INFO</span> <span class="nx">PerfLogger</span><span class="err">:</span> <span class="o">&lt;</span><span class="sr">/PERFLOG method=Driver.run start=1456431295549 end=1456431310153 duration=14604 from=org.apache.hadoop.hive.ql.Driver</span><span class="err">&gt;
+</span><span class="nx">res0</span><span class="err">:</span> <span class="nx">org</span><span class="p">.</span><span class="nx">apache</span><span class="p">.</span><span class="nx">spark</span><span class="p">.</span><span class="nx">sql</span><span class="p">.</span><span class="nx">DataFrame</span> <span class="o">=</span> <span class="p">[</span><span class="nx">result</span><span class="err">:</span> <span class="nx">string</span><span class="p">]</span>
+
+<span class="nx">scala</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<p><strong>Load example KV value data into Table</strong></p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">hiveContext</span><span class="p">.</span><span class="nx">sql</span><span class="p">(</span><span class="s2">"LOAD DATA LOCAL INPATH 'examples/src/main/resources/kv1.txt' INTO TABLE TestTable"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>You should see an output similar to the following:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="mi">16</span><span class="o">/</span><span class="mi">02</span><span class="o">/</span><span class="mi">25</span> <span class="mi">20</span><span class="err">:</span><span class="mi">19</span><span class="err">:</span><span class="mi">17</span> <span class="nx">INFO</span> <span class="nx">PerfLogger</span><span class="err">:</span> <span class="o">&lt;</span><span class="sr">/PERFLOG method=releaseLocks start=1456431557360 end=1456431557360 duration=0 from=org.apache.hadoop.hive.ql.Driver</span><span class="err">&gt;
+</span><span class="mi">16</span><span class="o">/</span><span class="mi">02</span><span class="o">/</span><span class="mi">25</span> <span class="mi">20</span><span class="err">:</span><span class="mi">19</span><span class="err">:</span><span class="mi">17</span> <span class="nx">INFO</span> <span class="nx">PerfLogger</span><span class="err">:</span> <span class="o">&lt;</span><span class="sr">/PERFLOG method=Driver.run start=1456431555555 end=1456431557360 duration=1805 from=org.apache.hadoop.hive.ql.Driver</span><span class="err">&gt;
+</span><span class="nx">res1</span><span class="err">:</span> <span class="nx">org</span><span class="p">.</span><span class="nx">apache</span><span class="p">.</span><span class="nx">spark</span><span class="p">.</span><span class="nx">sql</span><span class="p">.</span><span class="nx">DataFrame</span> <span class="o">=</span> <span class="p">[</span><span class="nx">result</span><span class="err">:</span> <span class="nx">string</span><span class="p">]</span>
+
+<span class="nx">scala</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<p><strong>Invoke Hive collect_list UDF</strong></p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">hiveContext</span><span class="p">.</span><span class="nx">sql</span><span class="p">(</span><span class="s2">"from TestTable SELECT key, collect_list(value) group by key order by key"</span><span class="p">).</span><span class="nx">collect</span><span class="p">.</span><span class="nx">foreach</span><span class="p">(</span><span class="nx">println</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>You should see output similar to the following:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="p">...</span>
+<span class="p">[</span><span class="mi">496</span><span class="p">,</span><span class="nx">WrappedArray</span><span class="p">(</span><span class="nx">val_496</span><span class="p">)]</span>
+<span class="p">[</span><span class="mi">497</span><span class="p">,</span><span class="nx">WrappedArray</span><span class="p">(</span><span class="nx">val_497</span><span class="p">)]</span>
+<span class="p">[</span><span class="mi">498</span><span class="p">,</span><span class="nx">WrappedArray</span><span class="p">(</span><span class="nx">val_498</span><span class="p">,</span> <span class="nx">val_498</span><span class="p">,</span> <span class="nx">val_498</span><span class="p">)]</span>
+
+<span class="nx">scala</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="reading--writing-orc-files">Reading &amp; Writing ORC Files</h3>
+
+<p>Hortonworks worked in the community to bring full ORC support to Spark. Recently we blogged about using <a href="http://hortonworks.com/blog/bringing-orc-support-into-apache-spark/">ORC with Spark</a>. See the blog post for all ORC examples, with advances such as partition pruning and predicate pushdown.</p>
+
+<h3 id="using-sparksql-thrift-server-for-jdbcodbc-access">Using SparkSQL Thrift Server for JDBC/ODBC Access</h3>
+
+<p>SparkSQL’s thrift server provides JDBC access to SparkSQL.</p>
+
+<p><strong>Create logs directory</strong></p>
+
+<p>Change ownership of <code class="highlighter-rouge">logs</code> directory from <code class="highlighter-rouge">root</code> to <code class="highlighter-rouge">spark</code> user:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> <span class="nv">$SPARK_HOME</span>
+chown spark:hadoop logs
+</code></pre>
+</div>
+
+<p><strong>Start Thrift Server</strong></p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>su spark
+./sbin/start-thriftserver.sh --master yarn-client --executor-memory 512m --hiveconf hive.server2.thrift.port<span class="o">=</span>10015
+</code></pre>
+</div>
+
+<p><strong>Connect to the Thrift Server over Beeline</strong></p>
+
+<p>Launch Beeline:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>./bin/beeline
+</code></pre>
+</div>
+
+<p><strong>Connect to Thrift Server and issue SQL commands</strong></p>
+
+<p>On the <code class="highlighter-rouge">beeline&gt;</code> prompt type:</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="o">!</span><span class="k">connect</span><span class="err"> </span><span class="n">jdbc</span><span class="p">:</span><span class="n">hive2</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">10015</span>
+</code></pre>
+</div>
+
+<p><strong><em>Notes</em></strong></p>
+<ul>
+  <li>This example does not have security enabled, so any username-password combination should work.</li>
+  <li>The connection may take a few seconds to be available in a Sandbox environment.</li>
+</ul>
+
+<p>You should see an output similar to the following:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>beeline&gt; !connect jdbc:hive2://localhost:10015
+Connecting to jdbc:hive2://localhost:10015
+Enter username for jdbc:hive2://localhost:10015:
+Enter password for jdbc:hive2://localhost:10015:
+...
+Connected to: Spark SQL (version 1.6.2)
+Driver: Spark Project Core (version 1.6.1.2.5.0.0-817)
+Transaction isolation: TRANSACTION_REPEATABLE_READ
+0: jdbc:hive2://localhost:10015&gt;
+</code></pre>
+</div>
+
+<p>Once connected, try <code class="highlighter-rouge">show tables</code>:</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">show</span><span class="err"> </span><span class="n">tables</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>You should see an output similar to the following:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>+------------+--------------+--+
+| tableName  | isTemporary  |
++------------+--------------+--+
+| sample_07  | <span class="nb">false</span>        |
+| sample_08  | <span class="nb">false</span>        |
+| testtable  | <span class="nb">false</span>        |
++------------+--------------+--+
+3 rows selected <span class="o">(</span>2.399 seconds<span class="o">)</span>
+0: jdbc:hive2://localhost:10015&gt;
+</code></pre>
+</div>
+
+<p>Type <code class="highlighter-rouge">Ctrl+C</code> to exit beeline.</p>
+
+<p><strong>Stop Thrift Server</strong></p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>./sbin/stop-thriftserver.sh
+</code></pre>
+</div>
+
+<h3 id="running-sparkr">Running SparkR</h3>
+
+<p><strong>Prerequisites</strong></p>
+
+<p>Before you can run SparkR, you need to install R linux distribution by following these steps as a <code class="highlighter-rouge">root</code> user:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> <span class="nv">$SPARK_HOME</span>
+su -c <span class="s1">'rpm -Uvh http://download.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm'</span>
+sudo yum update
+sudo yum install R
+</code></pre>
+</div>
+
+<p><strong>Launch SparkR</strong></p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>su spark
+<span class="nb">cd</span> <span class="nv">$SPARK_HOME</span>
+./bin/sparkR
+</code></pre>
+</div>
+
+<p>You should see an output similar to the following:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="p">...</span>
+<span class="nx">Welcome</span> <span class="nx">to</span>
+   <span class="nx">____</span>              <span class="nx">__</span>
+  <span class="sr">/ __/</span><span class="nx">__</span>  <span class="nx">___</span> <span class="nx">_____</span><span class="o">/</span> <span class="sr">/_</span><span class="err">_
+</span> <span class="nx">_</span><span class="err">\</span> <span class="err">\</span><span class="o">/</span> <span class="nx">_</span> <span class="err">\</span><span class="o">/</span> <span class="nx">_</span> <span class="err">`</span><span class="o">/</span> <span class="nx">__</span><span class="o">/</span>  <span class="err">'</span><span class="nx">_</span><span class="o">/</span>
+<span class="sr">/___/</span> <span class="p">.</span><span class="nx">__</span><span class="o">/</span><span class="err">\</span><span class="nx">_</span><span class="p">,</span><span class="nx">_</span><span class="o">/</span><span class="nx">_</span><span class="o">/</span> <span class="sr">/_/</span><span class="err">\</span><span class="nx">_</span><span class="err">\</span>   <span class="nx">version</span>  <span class="mf">1.6</span><span class="p">.</span><span class="mi">2</span>
+   <span class="sr">/_/</span>
+
+
+<span class="nx">Spark</span> <span class="nx">context</span> <span class="nx">is</span> <span class="nx">available</span> <span class="nx">as</span> <span class="nx">sc</span><span class="p">,</span> <span class="nx">SQL</span> <span class="nx">context</span> <span class="nx">is</span> <span class="nx">available</span> <span class="nx">as</span> <span class="nx">sqlContext</span>
+<span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<p>Initialize SQL context:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">sqlContext</span> <span class="o">&lt;-</span> <span class="nx">sparkRSQL</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">sc</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>Create a DataFrame:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">df</span> <span class="o">&lt;-</span> <span class="nx">createDataFrame</span><span class="p">(</span><span class="nx">sqlContext</span><span class="p">,</span> <span class="nx">faithful</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>List the first few lines:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">head</span><span class="p">(</span><span class="nx">df</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>You should see an output similar to the following:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="p">...</span>
+<span class="nx">eruptions</span> <span class="nx">waiting</span>
+<span class="mi">1</span>     <span class="mf">3.600</span>      <span class="mi">79</span>
+<span class="mi">2</span>     <span class="mf">1.800</span>      <span class="mi">54</span>
+<span class="mi">3</span>     <span class="mf">3.333</span>      <span class="mi">74</span>
+<span class="mi">4</span>     <span class="mf">2.283</span>      <span class="mi">62</span>
+<span class="mi">5</span>     <span class="mf">4.533</span>      <span class="mi">85</span>
+<span class="mi">6</span>     <span class="mf">2.883</span>      <span class="mi">55</span>
+<span class="o">&gt;</span>
+</code></pre>
+</div>
+
+<p>Create people DataFrame from ‘people.json’:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">people</span> <span class="o">&lt;-</span> <span class="nx">read</span><span class="p">.</span><span class="nx">df</span><span class="p">(</span><span class="nx">sqlContext</span><span class="p">,</span> <span class="s2">"people.json"</span><span class="p">,</span> <span class="s2">"json"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>List the first few lines:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">head</span><span class="p">(</span><span class="nx">people</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>You should see an output similar to the following:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="p">...</span>
+<span class="nx">age</span>    <span class="nx">name</span>
+<span class="mi">1</span>  <span class="nx">NA</span> <span class="nx">Michael</span>
+<span class="mi">2</span>  <span class="mi">30</span>    <span class="nx">Andy</span>
+<span class="mi">3</span>  <span class="mi">19</span>  <span class="nx">Justin</span>
+</code></pre>
+</div>
+
+<p>For additional SparkR examples, see https://spark.apache.org/docs/latest/sparkr.html.</p>
+
+<p>To exit SparkR type:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">quit</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<h3 id="using-the-dataset-api">Using the DataSet API</h3>
+
+<p>The Spark Dataset API brings the best of RDD and Data Frames together, for type safety and user functions that run directly on existing JVM types.</p>
+
+<p><strong>Launch Spark</strong></p>
+
+<p>As <code class="highlighter-rouge">spark</code> user, launch the Spark Shell:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> <span class="nv">$SPARK_HOME</span>
+su spark
+./bin/spark-shell
+</code></pre>
+</div>
+
+<p>At the <code class="highlighter-rouge">scala&gt;</code> prompt, copy &amp; paste the following:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">val</span> <span class="nx">ds</span> <span class="o">=</span> <span class="nx">Seq</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">).</span><span class="nx">toDS</span><span class="p">()</span>
+<span class="nx">ds</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">_</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="nx">collect</span><span class="p">()</span> <span class="c1">// Returns: Array(2, 3, 4)</span>
+
+<span class="c1">// Encoders are also created for case classes.</span>
+<span class="k">case</span> <span class="kr">class</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="err">:</span> <span class="nb">String</span><span class="p">,</span> <span class="nx">age</span><span class="err">:</span> <span class="nx">Long</span><span class="p">)</span>
+<span class="nx">val</span> <span class="nx">ds</span> <span class="o">=</span> <span class="nx">Seq</span><span class="p">(</span><span class="nx">Person</span><span class="p">(</span><span class="s2">"Andy"</span><span class="p">,</span> <span class="mi">32</span><span class="p">)).</span><span class="nx">toDS</span><span class="p">()</span>
+
+<span class="c1">// DataFrames can be converted to a Dataset by providing a class. Mapping will be done by name.</span>
+<span class="nx">val</span> <span class="nx">path</span> <span class="o">=</span> <span class="s2">"people.json"</span>
+<span class="nx">val</span> <span class="nx">people</span> <span class="o">=</span> <span class="nx">sqlContext</span><span class="p">.</span><span class="nx">read</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">path</span><span class="p">).</span><span class="nx">as</span><span class="p">[</span><span class="nx">Person</span><span class="p">]</span>
+</code></pre>
+</div>
+<p>To view contents of people type:</p>
+
+<div class="language-js highlighter-rouge"><pre class="highlight"><code><span class="nx">people</span><span class="p">.</span><span class="nx">show</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<p>You should see an output similar to the following:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>...
++----+-------+
+| age|   name|
++----+-------+
+|null|Michael|
+|  30|   Andy|
+|  19| Justin|
++----+-------+
+
+scala&gt;
+</code></pre>
+</div>
+
+<p>To exit type <code class="highlighter-rouge">exit</code>.</p>
+
+<h3 id="running-the-machine-learning-spark-application">Running the Machine Learning Spark Application</h3>
+
+<p>To optimize MLlib performance, install the <a href="https://github.com/fommil/netlib-java">netlib-java</a> native library. If this native library is not available at runtime, you will see a warning message and a pure JVM implementation will be used instead.</p>
+
+<p>To use MLlib in Python, you will need <a href="http://www.numpy.org/">NumPy</a> version 1.4 or later.</p>
+
+<p>For Spark ML examples, visit: http://spark.apache.org/docs/latest/mllib-guide.html.</p>
+
+<h3 id="additional-resources">Additional Resources</h3>
+<p>For more tutorials on Spark, visit: <a href="http://hortonworks.com/tutorials">http://hortonworks.com/tutorials</a>.</p>
+
+<p>If you have questions about Spark and Data Science, checkout the <a href="https://community.hortonworks.com/spaces/85/data-science.html?type=question">Hortonworks Community Connection</a>.</p>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-390.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-390&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>A Lap Around Apache Spark</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-390</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

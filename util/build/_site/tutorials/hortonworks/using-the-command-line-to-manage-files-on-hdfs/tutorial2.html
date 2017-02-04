@@ -1,0 +1,197 @@
+
+
+<div class="tutorial-content">
+  <h1 id="manage-files-on-hdfs-with-ambari-files-view">Manage Files on HDFS with Ambari Files View</h1>
+
+<h3 id="introduction">Introduction</h3>
+
+<p>In the previous tutorial, we learned to manage files on the Hadoop Distributed File System (HDFS) with the command line. Now we will use Ambari Files View to perform many of the file management operations on HDFS that we learned with CLI, but through the web-based interface.</p>
+
+<h2 id="pre-requisites">Pre-Requisites</h2>
+<ul>
+  <li>Downloaded and Installed latest <a href="http://hortonworks.com/products/hortonworks-sandbox/#install">Hortonworks Sandbox</a></li>
+  <li>If you're planning to deploy your sandbox on Azure, refer to this tutorial: <a href="http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/">Deploying the Sandbox on Azure</a></li>
+  <li><a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox</a></li>
+  <li>Allow yourself around <strong>1 hour</strong> to complete this tutorial.</li>
+</ul>
+
+<h3 id="download-san-francisco-salary-related-datasets">Download San Francisco Salary Related Datasets</h3>
+
+<p>We will download <strong>sf-salaries-2011-2013.csv</strong> and <strong>sf-salaries-2014.csv</strong> data onto our local filesystems of our computer. The commands are tailored for mac and linux users.</p>
+
+<p>1. Open a terminal on your local machine, copy and paste the commands to download the <strong>sf-salaries-2011-2013.csv</strong> and <strong>sf-salaries-2014.csv</strong> files. We will use them while we learn file management operations.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd ~/Downloads
+# download sf-salaries-2011-2013
+wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/using-the-command-line-to-manage-hdfs/sf-salary-datasets/sf-salaries-2011-2013.csv
+# download sf-salaries-2014
+wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/using-the-command-line-to-manage-hdfs/sf-salary-datasets/sf-salaries-2014.csv
+mkdir sf-salary-datasets
+mv sf-salaries-2011-2013.csv sf-salaries-2014.csv sf-salary-datasets/
+</code></pre>
+</div>
+
+<h2 id="goals-for-this-module">Goals for this Module:</h2>
+<ul>
+  <li>Learn how to use HDFS from Ambari Files View</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li><a href="#create-a-directory-in-hdfs-upload-a-file-and-list-contents">Step 1: Create a Directory in HDFS, Upload a file and List Contents</a></li>
+  <li><a href="#find-out-space-utilization-in-a-hdfs-directory">Step 2: Find Out Space Utilization in a HDFS Directory</a></li>
+  <li><a href="#download-files-hdfs-to-local-file-system">Step 3: Download Files From HDFS to Local Machine() </a></li>
+  <li><a href="#explore-two-advanced-features">Step 4: Explore Two Advanced Features</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+</ul>
+
+<h3 id="step-1-create-directories-in-hdfs-upload-files-and-list-contents-">Step 1: Create Directories in HDFS, Upload files and List Contents <a id="create-a-directory-in-hdfs-upload-a-file-and-list-contents"></a></h3>
+
+<h3 id="create-directory-tree-in-user">Create Directory Tree in User</h3>
+
+<p>1. Login to Ambari Interface at <code class="highlighter-rouge">127.0.0.1:8080</code>. Use the following login credentials in <strong>Table 1</strong>.</p>
+
+<p><strong>Table 1</strong>: Ambari Login credentials</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Username</th>
+      <th style="text-align: center">Password</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">admin</td>
+      <td style="text-align: center">**setup process</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p><strong>Ambari password setup process</strong>, refer to step <a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password">2.2 Setup Ambari Admin Password Manually</a> of Learning the Ropes of the Hortonworks Sandbox.</p>
+</blockquote>
+
+<p>2. Now that we have admin privileges, we can manage files on HDFS using Files View. Hover over the Ambari Selector Icon <img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/ambari_selector_icon.png" alt="ambari_selector_icon" />, enter the Files
+View web-interface.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/files_view.png" alt="files_view" /></p>
+
+<p>The Files View Interface will appear with the following default folders.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/files_view_web_interface.png" alt="files_view_web_interface" /></p>
+
+<p>3. We will create 4 folders using the Files View web-interface. All <em>three folders</em>: <strong>sf-salaries-2011-2013, sf-salaries and sf-salaries-2014</strong> will reside in the <strong>hadoop</strong> folder, which resides in <strong>user</strong>. Navigate into the <strong>user</strong> folder. Click the <strong>new folder</strong> button <img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/new_folder_button.png" alt="new_folder_button" />, an add new folder window appears and name the folder <code class="highlighter-rouge">hadoop</code>. Press <strong>enter</strong> or <strong>Add</strong></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/folder_name.png" alt="folder_name" /></p>
+
+<p>4. Navigate into the <strong>hadoop</strong> folder. Create the <em>three folders</em>: <strong>sf-salaries-2011-2013, sf-salaries and sf-salaries-2014</strong> following the process stated in the previous instruction.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/hadoop_internal_folders.png" alt="hadoop_internal_folders" /></p>
+
+<h3 id="upload-local-machine-files-to-hdfs">Upload Local Machine Files to HDFS</h3>
+
+<p>We will upload two files from our local machine: <strong>sf-salaries-2011-2013.csv</strong> and <strong>sf-salaries-2014.csv</strong> to appropriate HDFS directories.</p>
+
+<p>1. Navigate through the path <code class="highlighter-rouge">/user/hadoop/sf-salaries-2011-2013</code> or if you're already in <strong>hadoop</strong>, enter the <strong>sf-salaries-2011-2013</strong> folder. Click the upload button <img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/upload.png" alt="upload-button" /> to transfer <strong>sf-salaries-2011-2013.csv</strong> into HDFS.</p>
+
+<p>An Upload file window appears:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/upload_file_window.png" alt="upload_file_window" /></p>
+
+<p>2. Click on the cloud with an arrow. A window with files from your local machine appears, find <strong>sf-salaries-2011-2013.csv</strong> in the <strong>Downloads/sf-salary-datasets</strong> folder, select it and then press <strong>open</strong> button.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/sf_salaries_2011_2013_csv.png" alt="sf_salaries_2011_2013_csv" /></p>
+
+<p>3. In Files View, navigate to the <strong>hadoop</strong> folder and enter the <strong>sf-salaries-2014</strong> folder. Repeat the upload file process to upload <strong>sf-salaries-2014.csv</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/sf_salaries_2014_csv.png" alt="sf_salaries_2014_csv" /></p>
+
+<h3 id="view-and-examine-directory-contents">View and Examine Directory Contents</h3>
+
+<p>Each time we open a directory, the Files View automatically lists the contents. Earlier we started in the <strong>user</strong> directory.</p>
+
+<p>1. Let's navigate back to the <strong>user</strong> directory to examine the details given by the contents. Reference the image below while you read the Directory Contents Overview.</p>
+
+<p><strong>/</strong> Directory Contents Overview of Columns</p>
+
+<ul>
+  <li><strong>Name</strong> are the files/folders</li>
+  <li><strong>Size</strong> contains bytes for the Contents</li>
+  <li><strong>Last Modified</strong> includes the date/time the content was created or Modified</li>
+  <li><strong>Owner</strong> is who owns that contents</li>
+  <li><strong>Group</strong> is who can make changes to the files/folders</li>
+  <li><strong>Permissions</strong> establishes who can read, write and execute data</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/files_view_web_interface.png" alt="files_view_web_interface" /></p>
+
+<h3 id="step-2-find-out-space-utilization-in-a-hdfs-directory-">Step 2: Find Out Space Utilization in a HDFS Directory <a id="find-out-space-utilization-in-a-hdfs-directory"></a></h3>
+
+<p>In the command line when the directories and files are listed with the <code class="highlighter-rouge">hadoop fs -du /user/hadoop/</code>, the size of the directory and file is shown. In Files View, we must navigate to the file to see the size, we are not able to see the <strong>size</strong> of the directory even if it contains files.</p>
+
+<p>1.  Let's view the size of <strong>sf-salaries-2011-2013.csv</strong> file. Navigate through <code class="highlighter-rouge">/user/hadoop/sf-salaries-2011-2013</code>. How much space has the file utilized? Files View shows <strong>11.2 MB</strong> for <strong>sf-salaries-2011-2013.csv</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/sf_salaries_2011_2013_csv.png" alt="sf_salaries_2011_2013_csv" /></p>
+
+<h3 id="step-3-download-file-from-hdfs-to-local-machinemac-windows-linux-">Step 3: Download File From HDFS to Local Machine(Mac, Windows, Linux) <a id="download-files-hdfs-to-local-file-system"></a></h3>
+
+<p>Files View enables users to download files and folders to their local machine with ease.</p>
+
+<p>1.  Let's download the <strong>sf-salaries-2011-2013.csv</strong> file to our computer. Click on the file's row, the row's color becomes blue, a group of file operations will appear, select the Download button. The default directory the file downloads to is our <strong>Download</strong> folder on our local machine.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/download_file_hdfs_local_machine.png" alt="download_file_hdfs_local_machine" /></p>
+
+<h3 id="step-4-explore-two-advanced-features-">Step 4: Explore Two Advanced Features <a id="explore-two-advanced-features"></a></h3>
+
+<h3 id="concatenate-files">Concatenate Files</h3>
+
+<p>File Concatenation merges two files together. If we concatenate <strong>sf-salaries-2011-2013.csv</strong> with <strong>sf-salaries-2014.csv</strong>, the data from <strong>sf-salaries-2014.csv</strong> will be appended to the end of <strong>sf-salaries-2011-2013.csv</strong>. A typical use case for a user to use this feature is when they have similar large datasets that they want to merge together. The manual process to combine large datasets is inconvenient, so file concatenation was created to do the operation instantly.</p>
+
+<p>1. Before we merge the csv files, we must place them in the same folder. Click on <strong>sf-salaries-2011-2013.csv</strong> row, it will highlight in blue, then press copy and in the copy window appears, select the <strong>sf-salaries-2014</strong> folder and press <strong>Copy</strong> to copy the csv file to it.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/copy_to_sf_salaries_2014.png" alt="copy_to_sf_salaries_2014" /></p>
+
+<p>2. We will merge two large files together by selecting them both and performing concatenate operation. Navigate to the <strong>sf-salaries-2014</strong> folder. Select <strong>sf-salaries-2011-2013.csv</strong>, hold shift and click on <strong>sf-salaries-2014.csv</strong>. Click the concatenate button. The files will be downloaded into the <strong>Download</strong> folder on your local machine.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/concatenate_csv_files.png" alt="concatenate_csv_files" /></p>
+
+<p>3. By default, Files View saves the merged files as a txt file, we can open the file and save it as a csv file. Then open the csv file and you will notice that all the salaries from 2014 are appended to the salaries from 2011-2013.</p>
+
+<h3 id="copy-files-or-directories-recursively">Copy Files or Directories recursively</h3>
+
+<p>Copy file or directories recursively means all the directory's files and subdirectories to the bottom of the directory tree are copied. For instance, we will copy the <strong>hadoop</strong> directory and all of its contents to a new location within our hadoop cluster. In production, the copy operation is used to copy large datasets within the hadoop cluster or between 2 or more clusters.</p>
+
+<p>1. Navigate to the <strong>user</strong> directory. Click on the row of the <strong>hadoop</strong> directory. Select the Copy button <img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/copy_button.png" alt="copy_button" />.</p>
+
+<p>2. The <strong>Copy to</strong> window will appear. Select the <strong>tmp</strong> folder, the row will turn blue. If you select the folder icon, the contents of <strong>tmp</strong> become visible. Make sure the row is highlighted blue to do the copy. Click the blue <strong>Copy</strong> button to copy the <strong>hadoop</strong> folder recursively to this new location.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/copy_hadoop_to_tmp.png" alt="copy_hadoop_to_tmp" /></p>
+
+<p>3. A new copy of the <strong>hadoop</strong> folder and all of its contents can be found in the <strong>tmp</strong> folder. Navigate to <strong>tmp</strong> for verification. Check that all of the <strong>hadoop</strong> folder's contents copied successfully.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/using-the-command-line-to-manage-hdfs/tutorial2/hadoop_copied_to_tmp.png" alt="hadoop_copied_to_tmp" /></p>
+
+<h2 id="summary-">Summary <a id="summary-lab2"></a></h2>
+
+<p>Congratulations! We just learned to use the Files View to manage our <strong>sf-salaries-2011-2013.csv</strong> and <strong>sf-salaries-2014.csv</strong> dataset files in HDFS. We learned to create, upload and list the the contents in our directories. We also acquired the skills to download files from HDFS to our local file system and explored a few advanced features of HDFS file management.</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+  <li><a href="http://hortonworks.com/apache/hdfs/">HDFS Overview</a></li>
+</ul>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-120.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-120&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Using the Command Line to Manage Files on HDFS</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-120</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

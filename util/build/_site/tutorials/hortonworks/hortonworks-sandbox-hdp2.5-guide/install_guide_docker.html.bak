@@ -1,0 +1,318 @@
+
+
+<div class="tutorial-content">
+  <h2 id="overview">Overview</h2>
+
+<p>The <strong>Hortonworks Sandbox</strong> can now be imported as a docker image on those systems that support docker. It works on a virtualization layer on top of your existing hardware and allocates resources from the existing pool offered by the physical machine but without the extra overhead typically associated with virtual machines.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>To use Hortonworks Sandbox with Docker the following requirements need to be met:</p>
+
+<h3 id="docker-daemon-installed">Docker Daemon Installed:</h3>
+
+<p>1. Docker version 1.12.1 or newer   <br />
+2. You can find install instructions <a href="https://docs.docker.com/engine/installation/">here</a>.</p>
+
+<h3 id="host-operating-system">Host Operating System:</h3>
+
+<p>The docker version of the Hortonworks Sandbox was developed on a native linux platform and thus it’s easiest to launch it on a <strong>Linux Distro</strong>. The following tutorial will be Linux centered and will work on any popular distro that has a functional bash shell.</p>
+
+<p>Information on launching the sandbox on Windows/ Mac OS-boxes without bash will be summarily provided at the end of the tutorials.</p>
+
+<p>Host operating system refers to the operating system of your computer. You can find the list of supported operating systems <a href="https://docs.docker.com/v1.8/installation/">here</a>.</p>
+
+<h3 id="hardware--the-newer-the-hardware-the-better-">Hardware ( The newer the hardware the better )</h3>
+
+<p>1. At least 8GB of RAM available on your machine for launching the application. <br />
+2. At least 15GB free for the initial image,  30+ GB recommended.</p>
+
+<h3 id="browsers">Browsers:</h3>
+
+<p>1. Chrome 25+<br />
+2. IE 9+ (Sandbox will not run on IE 10)<br />
+3. Safari 6+</p>
+
+<h3 id="hortonworks-sandbox-virtual-appliance-for-sandbox">Hortonworks Sandbox virtual appliance for Sandbox:</h3>
+
+<p>Download the Docker <a href="http://hortonworks.com/products/hortonworks-sandbox/#install">here</a>. The file extension for docker should be .gz.  Once you download the file, uncompress it.  The file extension will then be a .tar file.</p>
+
+<h2 id="procedure">Procedure</h2>
+
+<p>The steps provided describe how to import the Hortonworks Sandbox Docker image. The screenshots displayed are taken from a <strong>Centos7</strong> Linux machine running <strong>Docker 1.12.1</strong>:</p>
+
+<p>1. Ensure that docker daemon is running. On linux you can check this with the following command:</p>
+
+<p><img src="/assets/hortonworks-sandbox-hdp2.5-guide/docker_images.png" alt="docker_images" /></p>
+
+<p>If docker daemon is running on your machine and you have no other images imported this is what the successful output of the command will look like.</p>
+
+<p>2. Load the Hortonworks Sandbox Docker image with the following command:</p>
+
+<p><img src="/assets/hortonworks-sandbox-hdp2.5-guide/docker_load.png" alt="docker_load" /></p>
+
+<p>To check that the image was successfully imported try running the docker images command again.</p>
+
+<p><img src="/assets/hortonworks-sandbox-hdp2.5-guide/docker_images2.png" alt="docker_images2" /></p>
+
+<p>3. Download and run the start sandbox script</p>
+
+<p>You can download the start script <a href="https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hortonworks-sandbox-hdp2.5-guide/start_sandbox.sh">here</a></p>
+
+<p>Save it to your computer and execute it, you can ignore the $TERM warnings:</p>
+
+<p><img src="/assets/hortonworks-sandbox-hdp2.5-guide/bash_start.png" alt="bash_start" /></p>
+
+<p>You can now connect to the sandbox tutorials page at http://localhost:8888</p>
+
+<p><img src="/assets/hortonworks-sandbox-hdp2.5-guide/splash_screen.png" alt="splash_screen.png" /></p>
+
+<h2 id="run-notes-for-mac-users">Run notes for Mac users:</h2>
+
+<p>1. Ensure the Docker daemon is running.  You can verify by typing:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker images
+</code></pre>
+</div>
+
+<p>You should see something similar to this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+</code></pre>
+</div>
+
+<p>If your Docker daemon is not running, you may see the following:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker images
+Error response from daemon: Bad response from Docker engine
+</code></pre>
+</div>
+
+<p>2. Before loading the Docker image, you need to uncompress it:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ gunzip HDP_2.5_docker.tar.gz
+</code></pre>
+</div>
+
+<p>3. Load the Hortonworks sandbox image into Docker:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker load &lt; HDP_2.5_docker.tar
+</code></pre>
+</div>
+
+<p>You should see something similar to this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker load &lt; HDP_2.5_docker.tar
+b1b065555b8a: Loading layer [==================================================&gt;] 202.2 MB/202.2 MB
+0b547722f59f: Loading layer [==================================================&gt;] 13.84 GB/13.84 GB
+99d7327952e0: Loading layer [==================================================&gt;] 234.8 MB/234.8 MB
+294b1c0e07bd: Loading layer [==================================================&gt;] 207.5 MB/207.5 MB
+fd5c10f2f1a1: Loading layer [==================================================&gt;] 387.6 kB/387.6 kB
+6852ef70321d: Loading layer [==================================================&gt;]   163 MB/163 MB
+517f170bbf7f: Loading layer [==================================================&gt;] 20.98 MB/20.98 MB
+665edb80fc91: Loading layer [==================================================&gt;] 337.4 kB/337.4 kB
+Loaded image: sandbox:latest
+</code></pre>
+</div>
+
+<p>4. Verify the image was successfully imported:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker images
+</code></pre>
+</div>
+
+<p>You should see something similar to this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+sandbox             latest              fc813bdc4bdd        3 days ago          14.57 GB
+</code></pre>
+</div>
+
+<p>5. Start the container:
+The first time you start the container, you need to create it via the run command.  The run command both creates and starts the container.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker run -v hadoop:/hadoop --name sandbox --hostname "sandbox.hortonworks.com" --privileged -d \
+-p 6080:6080 \
+-p 9090:9090 \
+-p 9000:9000 \
+-p 8000:8000 \
+-p 8020:8020 \
+-p 42111:42111 \
+-p 10500:10500 \
+-p 16030:16030 \
+-p 8042:8042 \
+-p 8040:8040 \
+-p 2100:2100 \
+-p 4200:4200 \
+-p 4040:4040 \
+-p 8050:8050 \
+-p 9996:9996 \
+-p 9995:9995 \
+-p 8080:8080 \
+-p 8088:8088 \
+-p 8886:8886 \
+-p 8889:8889 \
+-p 8443:8443 \
+-p 8744:8744 \
+-p 8888:8888 \
+-p 8188:8188 \
+-p 8983:8983 \
+-p 1000:1000 \
+-p 1100:1100 \
+-p 11000:11000 \
+-p 10001:10001 \
+-p 15000:15000 \
+-p 10000:10000 \
+-p 8993:8993 \
+-p 1988:1988 \
+-p 5007:5007 \
+-p 50070:50070 \
+-p 19888:19888 \
+-p 16010:16010 \
+-p 50111:50111 \
+-p 50075:50075 \
+-p 50095:50095 \
+-p 18080:18080 \
+-p 60000:60000 \
+-p 8090:8090 \
+-p 8091:8091 \
+-p 8005:8005 \
+-p 8086:8086 \
+-p 8082:8082 \
+-p 60080:60080 \
+-p 8765:8765 \
+-p 5011:5011 \
+-p 6001:6001 \
+-p 6003:6003 \
+-p 6008:6008 \
+-p 1220:1220 \
+-p 21000:21000 \
+-p 6188:6188 \
+-p 61888:61888 \
+-p 2222:22 \
+sandbox /usr/sbin/sshd -D
+</code></pre>
+</div>
+
+<p>Once the container is created and running, Docker will display a CONTAINER ID for the container.  You should see something similar to this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>fe57fe79f795905daa50191f92ad1f589c91043a30f7153899213a0cadaa5631
+</code></pre>
+</div>
+
+<p>For all future container starts, you only need to run the docker start command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker start sandbox
+</code></pre>
+</div>
+
+<p>Notice that <code class="highlighter-rouge">sandbox</code> is the name of the container in the run command used above.</p>
+
+<p>6. Verify the container is running:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker ps
+</code></pre>
+</div>
+
+<p>You should see something similar to this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker ps
+CONTAINER ID        IMAGE               COMMAND               CREATED             STATUS              PORTS             NAMES
+
+85d7ec7201d8        sandbox             "/usr/sbin/sshd -D"   31 seconds ago      Up 27 seconds       0.0.0.0:1000-&gt;1000/tcp, 0.0.0.0:1100-&gt;1100/tcp, 0.0.0.0:1220-&gt;1220/tcp, 0.0.0.0:1988-&gt;1988/tcp, 0.0.0.0:2100-&gt;2100/tcp, 0.0.0.0:4040-&gt;4040/tcp, 0.0.0.0:4200-&gt;4200/tcp, 0.0.0.0:5007-&gt;5007/tcp, 0.0.0.0:5011-&gt;5011/tcp, 0.0.0.0:6001-&gt;6001/tcp, 0.0.0.0:6003-&gt;6003/tcp, 0.0.0.0:6008-&gt;6008/tcp, 0.0.0.0:6080-&gt;6080/tcp, 0.0.0.0:6188-&gt;6188/tcp, 0.0.0.0:8000-&gt;8000/tcp, 0.0.0.0:8005-&gt;8005/tcp, 0.0.0.0:8020-&gt;8020/tcp, 0.0.0.0:8040-&gt;8040/tcp, 0.0.0.0:8042-&gt;8042/tcp, 0.0.0.0:8050-&gt;8050/tcp, 0.0.0.0:8080-&gt;8080/tcp, 0.0.0.0:8082-&gt;8082/tcp, 0.0.0.0:8086-&gt;8086/tcp, 0.0.0.0:8088-&gt;8088/tcp, 0.0.0.0:8090-8091-&gt;8090-8091/tcp, 0.0.0.0:8188-&gt;8188/tcp, 0.0.0.0:8443-&gt;8443/tcp, 0.0.0.0:8744-&gt;8744/tcp, 0.0.0.0:8765-&gt;8765/tcp, 0.0.0.0:8886-&gt;8886/tcp, 0.0.0.0:8888-8889-&gt;8888-8889/tcp, 0.0.0.0:8983-&gt;8983/tcp, 0.0.0.0:8993-&gt;8993/tcp, 0.0.0.0:9000-&gt;9000/tcp, 0.0.0.0:9090-&gt;9090/tcp, 0.0.0.0:9995-9996-&gt;9995-9996/tcp, 0.0.0.0:10000-10001-&gt;10000-10001/tcp, 0.0.0.0:10500-&gt;10500/tcp, 0.0.0.0:11000-&gt;11000/tcp, 0.0.0.0:15000-&gt;15000/tcp, 0.0.0.0:16010-&gt;16010/tcp, 0.0.0.0:16030-&gt;16030/tcp, 0.0.0.0:18080-&gt;18080/tcp, 0.0.0.0:19888-&gt;19888/tcp, 0.0.0.0:21000-&gt;21000/tcp, 0.0.0.0:42111-&gt;42111/tcp, 0.0.0.0:50070-&gt;50070/tcp, 0.0.0.0:50075-&gt;50075/tcp, 0.0.0.0:50095-&gt;50095/tcp, 0.0.0.0:50111-&gt;50111/tcp, 0.0.0.0:60000-&gt;60000/tcp, 0.0.0.0:60080-&gt;60080/tcp, 0.0.0.0:61888-&gt;61888/tcp, 0.0.0.0:2222-&gt;22/tcp   sandbox
+</code></pre>
+</div>
+
+<p>Notice the CONTAINER ID is the shortened version of the ID displayed when you ran the run command.</p>
+
+<p>7. To stop the container
+Once the container is running, you stop it using the following command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker stop sandbox
+</code></pre>
+</div>
+
+<p>8. To connect to the container
+You connect to the container via ssh using the following command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ ssh -p 2222 root@localhost
+</code></pre>
+</div>
+
+<p>The first time you log into the container, you will be prompted to change the root password.  The root password for the container is <code class="highlighter-rouge">hadoop</code>.</p>
+
+<p>9. Start sandbox services
+The Ambari and HDP services do not start automatically when you start the Docker container.  You need to start the processes with a script.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ ssh -p 2222 root@localhost
+$ /etc/init.d/startup_script start
+</code></pre>
+</div>
+
+<p>You should see something similar to this (you can ignore any warnings):</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># /etc/init.d/startup_script start
+Starting tutorials...                                      [  Ok  ]
+Starting startup_script...
+Starting HDP ...
+Starting mysql                                            [  OK  ]
+Starting Flume                                            [  OK  ]
+Starting Postgre SQL                                      [  OK  ]
+Starting Ranger-admin                                     [  OK  ]
+Starting name node                                        [  OK  ]
+Starting Ranger-usersync                                  [  OK  ]
+Starting data node                                        [  OK  ]
+Starting Zookeeper nodes                                  [  OK  ]
+Starting Oozie                                            [  OK  ]
+Starting Ambari server                                    [  OK  ]
+Starting NFS portmap                                      [  OK  ]
+Starting Hdfs nfs                                         [  OK  ]
+Starting Hive server                                      [  OK  ]
+Starting Hiveserver2                                      [  OK  ]
+Starting Ambari agent                                     [  OK  ]
+Starting Node manager                                     [  OK  ]
+Starting Yarn history server                              [  OK  ]
+Starting Resource manager                                 [  OK  ]
+Starting Webhcat server                                   [  OK  ]
+Starting Spark                                            [  OK  ]
+Starting Mapred history server                            [  OK  ]
+Starting Zeppelin                                         [  OK  ]
+Safe mode is OFF
+Starting sandbox...
+./startup_script: line 97: /proc/sys/kernel/hung_task_timeout_secs: No such file or directory
+Starting shellinaboxd:                                     [  OK  ]
+</code></pre>
+</div>
+
+<p>10. You can now connect to your machine at http://localhost:8888</p>
+
+<h2 id="run-notes-for-non-linuxmac-users">Run notes for non-linux/mac users:</h2>
+
+<p>In order to launch the sandbox in a non-linux environment, proceed to import the sandbox.tar image as instructed by the version of docker you are using.</p>
+
+<p>You then need to spawn a container with the –privileged flag from the image making sure to forward the following ports: 6080 , 9090 , 9000 , 8000 , 8020 , 42111 , 10500 , 16030 , 8042 , 8040 , 2100 , 4200 , 4040 , 8050 , 9996 , 9995 , 8080 , 8088 , 8886 , 8889 , 8443 , 8744 , 8888 , 8188 , 8983 , 1000 , 1100 , 11000 , 10001 , 15000 , 10000 , 8993 , 1988 , 5007 , 50070 , 19888 , 16010 , 50111 , 50075 , 50095 , 18080 , 60000 , 8090 , 8091 , 8005 , 8086 , 8082 , 60080 , 8765 , 5011 , 6001 , 6003 , 6008 , 1220 , 21000 , 6188 , 22</p>
+
+<p>Once this is achieved, use the ssh port you forwarded to to login into the sandbox. It will prompt you for a password change, continue to change it ( the in-place password is <code class="highlighter-rouge">hadoop</code> ):</p>
+
+<p><img src="/assets/hortonworks-sandbox-hdp2.5-guide/ssh_root.png" alt="ssh_root" /></p>
+
+<p>Once this is achieved, run the startup script and ignore any warnings:</p>
+
+<p><img src="/assets/hortonworks-sandbox-hdp2.5-guide/startup_script.png" alt="startup_script" /></p>
+
+<p>You can now connect to your machine at http://localhost:8888</p>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-730.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-730&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Hortonworks Sandbox Guide</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-730</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

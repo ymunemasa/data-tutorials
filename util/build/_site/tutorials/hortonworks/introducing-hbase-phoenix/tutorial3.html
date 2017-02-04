@@ -1,0 +1,120 @@
+
+
+<div class="tutorial-content">
+  <h2 id="introduction">Introduction</h2>
+
+<p>We can also use <strong>Hive</strong> to perform SQL queries on the data stored in HBase tables. We will use storage handler mechanism to create HBase tables via hive. <strong>HBaseStorageHandler</strong> allows Hive DDL for managing table definitions in both Hive metastore and HBase catalog simultaneously and consistently.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li><a href="http://hortonworks.com/downloads/#sandbox">Download Hortonworks 2.5 Sandbox</a></li>
+  <li>Complete the <a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox tutorial,</a> you will need it for logging into Ambari as an administrator user.</li>
+  <li>Lab 1 : Introduction to HBase Concepts</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#setup-hbase-hive-integration">1: Setup HBase and Hive Integration</a></li>
+  <li><a href="#mapping-hbase-tables-hive">2: Mapping Existing HBase tables to Hive</a></li>
+  <li><a href="#summary">3: Summary</a></li>
+</ul>
+
+<h3 id="1-setup-hbase-and-hive-integration-">1. Setup HBase and Hive Integration <a id="setup-hbase-hive-integration"></a></h3>
+
+<p>To set up the integration, there are some jar files which need to be added to value of hive.aux.jars.path property. There are 3 jars in the lib directory of Hive:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>zookeeper-*.jar
+guava-*.jar
+hive-hbase-handler-*.jar
+</code></pre>
+</div>
+
+<p>And 6 jars in the lib directory of HBase:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>hbase-client-*.jar,
+hbase-common-*.jar,
+hbase-protocol-*.jar,
+hbase-server-*.jar,
+hbase-shell-*.jar,
+hbase-thrift-*.jar
+</code></pre>
+</div>
+
+<p>Let's go to <code class="highlighter-rouge">Ambari</code> to add this property:</p>
+
+<p>Click on <code class="highlighter-rouge">Hive → Configs → Advanced</code></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/introducing-hbase-phoenix/hive_config_page.png" alt="hive_config_page" /></p>
+
+<p>Scroll down to find <strong>Custom hive-site</strong> section, click on <code class="highlighter-rouge">Add Property</code> button, following pop up will come:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/introducing-hbase-phoenix/add_property.png" alt="add_property" /></p>
+
+<p>Type <code class="highlighter-rouge">hive.aux.jars.path</code> in key. Check your HDP version and give the jar names as per your version. I am adding following jars in value:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>file:///usr/hdp/2.5.0.0-817/hive/lib/zookeeper-3.4.6.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hive/lib/hive-hbase-handler-1.2.1000.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hive/lib/guava-14.0.1.jar,
+file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-client-1.1.2.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-common-1.1.2.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-protocol-1.1.2.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-server-1.1.2.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-shell-1.1.2.2.5.0.0-817.jar,
+file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-thrift-1.1.2.2.5.0.0-817.jar
+</code></pre>
+</div>
+
+<p>Your popup should look like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/introducing-hbase-phoenix/added_property.png" alt="added_property" /></p>
+
+<p>Click <code class="highlighter-rouge">Add</code> and then <code class="highlighter-rouge">Save</code>. You have to restart <code class="highlighter-rouge">Hive</code> and <code class="highlighter-rouge">Oozie</code> to get your change reflected.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/introducing-hbase-phoenix/restart_hive.png" alt="restart_hive" /></p>
+
+<h3 id="2-mapping-existing-hbase-tables-to-hive-">2. Mapping Existing HBase tables to Hive <a id="mapping-hbase-tables-hive"></a></h3>
+
+<p>We need to use External table to give Hive access to an existing HBase table with multiple columns and families. External tables are used when you want your tables to point to data files in place, therefore it has to be a folder you point to. In normal internal table in hive, data gets stored in default location in HDFS which is <code class="highlighter-rouge">/apps/hive/warehouse</code>.</p>
+
+<p>Let's create a corresponding Hive table for the HBase table <code class="highlighter-rouge">driver_dangerous_events</code>.
+Select <code class="highlighter-rouge">Hive view</code> from the <code class="highlighter-rouge">menu</code> button next to <code class="highlighter-rouge">admin</code> button, type the following DDL:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CREATE EXTERNAL TABLE hbase_table_driver_dangerous_event(key string, driverId  string, driverName string, eventTime string, eventType string, latitudeColumn string, longitudeColumn string, routeId string, routeName string, truckId string)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+WITH SERDEPROPERTIES ("hbase.columns.mapping" = "events:driverId,events:driverName,events:eventTime,events:eventType,events:latitudeColumn,events:longitudeColumn,events:routeId,events:routeName,events:truckId")
+TBLPROPERTIES("hbase.table.name" = "driver_dangerous_event");
+</code></pre>
+</div>
+
+<p>This statement registers the HBase table named <code class="highlighter-rouge">driver_dangerous_event</code> in the Hive metastore, accessible from Hive by the name <code class="highlighter-rouge">hbase_table_driver_dangerous_event</code>.
+<strong>HBaseStorageHandler</strong> is used to register the HBase table with the Hive metastore.
+<strong>hbase.columns.mapping</strong> is used to link Hive column names to the HBase table's row key and columns. Your view should look like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/introducing-hbase-phoenix/create_external_table.png" alt="create_external_table" /></p>
+
+<p>Click on green <code class="highlighter-rouge">Execute</code> to run the query. Your table will be created. Now let's verify the content of this table. Refresh the database explorer and click you will see your table created. Click on menu button next to it to view its data.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/introducing-hbase-phoenix/view_table.png" alt="view_table" /></p>
+
+<p>Wait for 10 seconds, you will see the data of the table.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/introducing-hbase-phoenix/view_data.png" alt="view_data" /></p>
+
+<h2 id="3-summary-">3. Summary <a id="summary"></a></h2>
+
+<p>Congratulations! Lets summarize what we learned in this tutorial. Now we know how to integrate Hive with HBase and you can run any SQL query using Hive. Check out Lab 4 of this tutorial series where we will discuss about new HBase Backup and Restore utility.</p>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-650.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-650&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Accessing HBase data with Hive</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-650</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

@@ -1,0 +1,139 @@
+bin/bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+OpenJDK 64-Bit Server VM warning: ignoring option PermSize=128m; support was removed in 8.0
+OpenJDK 64-Bit Server VM warning: ignoring option MaxPermSize=128m; support was removed in 8.0
+log4j:ERROR setFile(null,true) call failed.
+java.io.FileNotFoundException: /usr/hdp/2.5.0.0-1245/hbase/logs/SecurityAuth.audit (Permission denied)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:133)
+	at org.apache.log4j.FileAppender.setFile(FileAppender.java:294)
+	at org.apache.log4j.RollingFileAppender.setFile(RollingFileAppender.java:207)
+	at org.apache.log4j.FileAppender.activateOptions(FileAppender.java:165)
+	at org.apache.log4j.config.PropertySetter.activate(PropertySetter.java:307)
+	at org.apache.log4j.config.PropertySetter.setProperties(PropertySetter.java:172)
+	at org.apache.log4j.config.PropertySetter.setProperties(PropertySetter.java:104)
+	at org.apache.log4j.PropertyConfigurator.parseAppender(PropertyConfigurator.java:842)
+	at org.apache.log4j.PropertyConfigurator.parseCategory(PropertyConfigurator.java:768)
+	at org.apache.log4j.PropertyConfigurator.parseCatsAndRenderers(PropertyConfigurator.java:672)
+	at org.apache.log4j.PropertyConfigurator.doConfigure(PropertyConfigurator.java:516)
+	at org.apache.log4j.PropertyConfigurator.doConfigure(PropertyConfigurator.java:580)
+	at org.apache.log4j.helpers.OptionConverter.selectAndConfigure(OptionConverter.java:526)
+	at org.apache.log4j.LogManager.<clinit>(LogManager.java:127)
+	at org.apache.log4j.Logger.getLogger(Logger.java:104)
+	at org.apache.commons.logging.impl.Log4JLogger.getLogger(Log4JLogger.java:262)
+	at org.apache.commons.logging.impl.Log4JLogger.<init>(Log4JLogger.java:108)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.apache.commons.logging.impl.LogFactoryImpl.createLogFromClass(LogFactoryImpl.java:1025)
+	at org.apache.commons.logging.impl.LogFactoryImpl.discoverLogImplementation(LogFactoryImpl.java:844)
+	at org.apache.commons.logging.impl.LogFactoryImpl.newInstance(LogFactoryImpl.java:541)
+	at org.apache.commons.logging.impl.LogFactoryImpl.getInstance(LogFactoryImpl.java:292)
+	at org.apache.commons.logging.impl.LogFactoryImpl.getInstance(LogFactoryImpl.java:269)
+	at org.apache.commons.logging.LogFactory.getLog(LogFactory.java:655)
+	at org.apache.hadoop.hbase.regionserver.HRegionServer.<clinit>(HRegionServer.java:205)
+2017-01-06 01:23:06,533 INFO  [main] util.VersionInfo: HBase 1.1.2.2.5.0.0-1245
+2017-01-06 01:23:06,534 INFO  [main] util.VersionInfo: Source code repository git://c66-slave-20176e25-8/grid/0/jenkins/workspace/HDP-parallel-centos6/SOURCES/hbase revision=53538b8ab6749cbb6fdc0fe448b89aa82495fb3f
+2017-01-06 01:23:06,534 INFO  [main] util.VersionInfo: Compiled by jenkins on Fri Aug 26 01:32:27 UTC 2016
+2017-01-06 01:23:06,534 INFO  [main] util.VersionInfo: From source with checksum 03d27818c9dcc72c2be1ac3a0bbe3bed
+2017-01-06 01:23:06,904 INFO  [main] util.ServerCommandLine: env:PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+2017-01-06 01:23:06,904 INFO  [main] util.ServerCommandLine: env:HADOOP_CONF_DIR=/usr/hdp/current/hadoop-client/conf
+2017-01-06 01:23:06,904 INFO  [main] util.ServerCommandLine: env:YARN_CONTAINER_RUNTIME_TYPE=docker
+2017-01-06 01:23:06,904 INFO  [main] util.ServerCommandLine: env:HBASE_REGIONSERVER_OPTS= -XX:PermSize=128m -XX:MaxPermSize=128m
+2017-01-06 01:23:06,904 INFO  [main] util.ServerCommandLine: env:JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk
+2017-01-06 01:23:06,904 INFO  [main] util.ServerCommandLine: env:YARN_CONTAINER_RUNTIME_DOCKER_IMAGE=mrizvi/ycloud-hbase-master:0.1
+2017-01-06 01:23:06,904 INFO  [main] util.ServerCommandLine: env:HDP_VERSION=2.5.0.0-1245
+2017-01-06 01:23:06,904 INFO  [main] util.ServerCommandLine: env:XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt
+2017-01-06 01:23:06,904 INFO  [main] util.ServerCommandLine: env:LANG=en_US.UTF-8
+2017-01-06 01:23:06,904 INFO  [main] util.ServerCommandLine: env:NM_HOST=y7001.ycloud.hortonworks.com
+2017-01-06 01:23:06,904 INFO  [main] util.ServerCommandLine: env:HADOOP_USER_NAME=root
+2017-01-06 01:23:06,904 INFO  [main] util.ServerCommandLine: env:LD_LIBRARY_PATH=::/usr/hdp/2.5.0.0-1245/hadoop/lib/native/Linux-amd64-64:/usr/hdp/2.5.0.0-1245/hadoop/lib/native
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:LOGNAME=root
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:JVM_PID=1
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:HBASE_REST_OPTS=
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:PWD=/hadoop/yarn/local/usercache/root/appcache/application_1483493165319_0010/container_e01_1483493165319_0010_01_000009
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:LANGUAGE=en_US.UTF-8
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:LOCAL_DIRS=/hadoop/yarn/local/usercache/root/appcache/application_1483493165319_0010
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:HBASE_CLASSPATH=/usr/hdp/2.5.0.0-1245/hadoop/conf:/usr/hdp/2.5.0.0-1245/hadoop/*:/usr/hdp/2.5.0.0-1245/hadoop/lib/*:/usr/hdp/2.5.0.0-1245/zookeeper/*:
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:NM_HTTP_PORT=8042
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:HBASE_ENV_INIT=true
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:LOG_DIRS=/hadoop/yarn/log/application_1483493165319_0010/container_e01_1483493165319_0010_01_000009
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:NM_AUX_SERVICE_mapreduce_shuffle=AAA0+gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:NM_PORT=45454
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:HADOOP_YARN_HOME=/usr/hdp/current/hadoop-yarn-nodemanager
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:USER=root
+2017-01-06 01:23:06,905 INFO  [main] util.ServerCommandLine: env:CLASSPATH=/usr/hdp/2.5.0.0-1245/hbase/conf:/usr/lib/jvm/jre-1.8.0-openjdk/lib/tools.jar:/usr/hdp/2.5.0.0-1245/hbase:/usr/hdp/2.5.0.0-1245/hbase/lib/activation-1.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/aopalliance-1.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/apacheds-i18n-2.0.0-M15.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/apacheds-kerberos-codec-2.0.0-M15.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/api-asn1-api-1.0.0-M20.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/api-util-1.0.0-M20.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/asm-3.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/avro-1.7.4.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-beanutils-1.7.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-beanutils-core-1.8.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-cli-1.2.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-codec-1.9.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-collections-3.2.2.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-compress-1.4.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-configuration-1.6.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-daemon-1.0.13.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-digester-1.8.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-el-1.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-io-2.4.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-lang-2.6.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-logging-1.2.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-math-2.2.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-math3-3.1.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/commons-net-3.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/curator-client-2.7.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/curator-framework-2.7.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/curator-recipes-2.7.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/disruptor-3.3.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/findbugs-annotations-1.3.9-1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/gson-2.2.4.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/guava-12.0.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/guice-3.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/guice-servlet-3.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-annotations-1.1.2.2.5.0.0-1245-tests.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-annotations-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-annotations.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-client-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-client.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-common-1.1.2.2.5.0.0-1245-tests.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-common-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-common.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-examples-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-examples.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-hadoop-compat-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-hadoop-compat.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-hadoop2-compat-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-hadoop2-compat.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-it-1.1.2.2.5.0.0-1245-tests.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-it-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-it.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-prefix-tree-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-prefix-tree.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-procedure-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-procedure.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-protocol-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-protocol.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-resource-bundle-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-resource-bundle.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-rest-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-rest.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-rsgroup-1.1.2.2.5.0.0-1245-tests.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-rsgroup-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-rsgroup.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-server-1.1.2.2.5.0.0-1245-tests.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-server-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-server.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-shell-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-shell.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-thrift-1.1.2.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/hbase-thrift.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/htrace-core-3.1.0-incubating.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jackson-core-2.2.3.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jackson-core-asl-1.9.13.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jackson-jaxrs-1.9.13.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jackson-mapper-asl-1.9.13.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jackson-xc-1.9.13.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jamon-runtime-2.4.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jasper-compiler-5.5.23.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jasper-runtime-5.5.23.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/java-xmlbuilder-0.4.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/javax.inject-1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jaxb-api-2.2.2.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jaxb-impl-2.2.3-1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jcip-annotations-1.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jcodings-1.0.8.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jersey-client-1.9.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jersey-core-1.9.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jersey-guice-1.9.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jersey-json-1.9.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jersey-server-1.9.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jets3t-0.9.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jettison-1.3.3.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jetty-6.1.26.hwx.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jetty-sslengine-6.1.26.hwx.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jetty-util-6.1.26.hwx.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/joni-2.1.2.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jruby-complete-1.6.8.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jsch-0.1.42.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/json-smart-1.1.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jsp-2.1-6.1.14.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jsp-api-2.1-6.1.14.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/jsr305-1.3.9.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/junit-4.12.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/leveldbjni-all-1.8.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/libthrift-0.9.3.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/log4j-1.2.17.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/metrics-core-2.2.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/microsoft-windowsazure-storage-sdk-0.6.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/netty-3.2.4.Final.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/netty-all-4.0.23.Final.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/nimbus-jose-jwt-3.9.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/ojdbc6.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/okhttp-2.4.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/okio-1.4.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/paranamer-2.3.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/phoenix-server.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/protobuf-java-2.5.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/ranger-hbase-plugin-shim-0.6.0.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/ranger-plugin-classloader-0.6.0.2.5.0.0-1245.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/servlet-api-2.5-6.1.14.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/servlet-api-2.5.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/slf4j-api-1.7.7.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/snappy-java-1.0.4.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/spymemcached-2.11.6.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/xercesImpl-2.9.1.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/xml-apis-1.3.04.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/xmlenc-0.52.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/xz-1.0.jar:/usr/hdp/2.5.0.0-1245/hbase/lib/zookeeper.jar:/usr/hdp/2.5.0.0-1245/hadoop/conf:/usr/hdp/2.5.0.0-1245/hadoop/lib/*:/usr/hdp/2.5.0.0-1245/hadoop/.//*:/usr/hdp/2.5.0.0-1245/hadoop-hdfs/./:/usr/hdp/2.5.0.0-1245/hadoop-hdfs/lib/*:/usr/hdp/2.5.0.0-1245/hadoop-hdfs/.//*:/usr/hdp/2.5.0.0-1245/hadoop-yarn/lib/*:/usr/hdp/2.5.0.0-1245/hadoop-yarn/.//*:/usr/hdp/2.5.0.0-1245/hadoop-mapreduce/lib/*:/usr/hdp/2.5.0.0-1245/hadoop-mapreduce/.//*:/usr/hdp/2.5.0.0-1245/hadoop/conf:/usr/hdp/2.5.0.0-1245/hadoop/*:/usr/hdp/2.5.0.0-1245/hadoop/lib/*:/usr/hdp/2.5.0.0-1245/zookeeper/*:
+2017-01-06 01:23:06,906 INFO  [main] util.ServerCommandLine: env:HBASE_MASTER_OPTS= -XX:PermSize=128m -XX:MaxPermSize=128m
+2017-01-06 01:23:06,906 INFO  [main] util.ServerCommandLine: env:LOG_DIR=/hadoop/yarn/log/application_1483493165319_0010/container_e01_1483493165319_0010_01_000009
+2017-01-06 01:23:06,906 INFO  [main] util.ServerCommandLine: env:WORK_DIR=/hadoop/yarn/local/usercache/root/appcache/application_1483493165319_0010/container_e01_1483493165319_0010_01_000009
+2017-01-06 01:23:06,906 INFO  [main] util.ServerCommandLine: env:HADOOP_CONF=/usr/hdp/2.5.0.0-1245/hadoop/conf
+2017-01-06 01:23:06,906 INFO  [main] util.ServerCommandLine: env:HADOOP_TOKEN_FILE_LOCATION=/hadoop/yarn/local/usercache/root/appcache/application_1483493165319_0010/container_e01_1483493165319_0010_01_000009/container_tokens
+2017-01-06 01:23:06,906 INFO  [main] util.ServerCommandLine: env:HOSTNAME=ctr-e01-1483493165319-0010-01-000009.ycloud.dev
+2017-01-06 01:23:06,906 INFO  [main] util.ServerCommandLine: env:LC_ALL=en_US.UTF-8
+2017-01-06 01:23:06,906 INFO  [main] util.ServerCommandLine: env:YARN_CONTAINER_RUNTIME_DOCKER_LOCAL_RESOURCE_MOUNTS=resources/hdfs-site.xml:/etc/hadoop/conf/hdfs-site.xml,resources/hbase-site.xml:/etc/hbase/conf/hbase-site.xml,resources/core-site.xml:/etc/hadoop/conf/core-site.xml,resources/hadoop-metrics2-hbase.properties:/etc/hbase/conf/hadoop-metrics2-hbase.properties
+2017-01-06 01:23:06,906 INFO  [main] util.ServerCommandLine: env:NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat
+2017-01-06 01:23:06,907 INFO  [main] util.ServerCommandLine: env:LOCAL_USER_DIRS=/hadoop/yarn/local/usercache/root/
+2017-01-06 01:23:06,907 INFO  [main] util.ServerCommandLine: env:HADOOP_HOME=/usr/hdp/2.5.0.0-1245/hadoop
+2017-01-06 01:23:06,907 INFO  [main] util.ServerCommandLine: env:HBASE_OPTS=-XX:+UseConcMarkSweepGC   -XX:PermSize=128m -XX:MaxPermSize=128m -Dhbase.log.dir=/usr/hdp/2.5.0.0-1245/hbase/logs -Dhbase.log.file=hbase.log -Dhbase.home.dir=/usr/hdp/2.5.0.0-1245/hbase -Dhbase.id.str= -Dhbase.root.logger=INFO,console -Djava.library.path=:/usr/hdp/2.5.0.0-1245/hadoop/lib/native/Linux-amd64-64:/usr/hdp/2.5.0.0-1245/hadoop/lib/native -Dhbase.security.logger=INFO,RFAS
+2017-01-06 01:23:06,907 INFO  [main] util.ServerCommandLine: env:HBASE_THRIFT_OPTS=
+2017-01-06 01:23:06,907 INFO  [main] util.ServerCommandLine: env:HBASE_HOME=/usr/hdp/2.5.0.0-1245/hbase
+2017-01-06 01:23:06,907 INFO  [main] util.ServerCommandLine: env:SHLVL=1
+2017-01-06 01:23:06,907 INFO  [main] util.ServerCommandLine: env:HOME=/home/
+2017-01-06 01:23:06,907 INFO  [main] util.ServerCommandLine: env:YARN_CONTAINER_RUNTIME_DOCKER_CONTAINER_NETWORK=bridge
+2017-01-06 01:23:06,907 INFO  [main] util.ServerCommandLine: env:YARN_CONTAINER_RUNTIME_DOCKER_RUN_PRIVILEGED_CONTAINER=false
+2017-01-06 01:23:06,907 INFO  [main] util.ServerCommandLine: env:CONTAINER_ID=container_e01_1483493165319_0010_01_000009
+2017-01-06 01:23:06,907 INFO  [main] util.ServerCommandLine: env:ZOOKEEPER_HOME=/usr/hdp/2.5.0.0-1245/zookeeper
+2017-01-06 01:23:06,907 INFO  [main] util.ServerCommandLine: env:MALLOC_ARENA_MAX=4:4
+2017-01-06 01:23:06,908 INFO  [main] util.ServerCommandLine: vmName=OpenJDK 64-Bit Server VM, vmVendor=Oracle Corporation, vmVersion=25.111-b15
+2017-01-06 01:23:06,908 INFO  [main] util.ServerCommandLine: vmInputArguments=[-Dproc_regionserver, -XX:OnOutOfMemoryError=kill -9 %p, -XX:+UseConcMarkSweepGC, -XX:PermSize=128m, -XX:MaxPermSize=128m, -Dhbase.log.dir=/usr/hdp/2.5.0.0-1245/hbase/logs, -Dhbase.log.file=hbase.log, -Dhbase.home.dir=/usr/hdp/2.5.0.0-1245/hbase, -Dhbase.id.str=, -Dhbase.root.logger=INFO,console, -Djava.library.path=:/usr/hdp/2.5.0.0-1245/hadoop/lib/native/Linux-amd64-64:/usr/hdp/2.5.0.0-1245/hadoop/lib/native, -Dhbase.security.logger=INFO,RFAS]
+2017-01-06 01:23:07,037 INFO  [main] regionserver.RSRpcServices: regionserver/ctr-e01-1483493165319-0010-01-000009.ycloud.dev/172.17.0.9:16020 server-side HConnection retries=350
+2017-01-06 01:23:07,131 INFO  [main] ipc.SimpleRpcScheduler: Using fifo as user call queue, count=3
+2017-01-06 01:23:07,150 INFO  [main] ipc.RpcServer: regionserver/ctr-e01-1483493165319-0010-01-000009.ycloud.dev/172.17.0.9:16020: started 10 reader(s).
+2017-01-06 01:23:07,216 INFO  [main] impl.MetricsConfig: loaded properties from hadoop-metrics2-hbase.properties
+2017-01-06 01:23:07,236 INFO  [main] timeline.HadoopTimelineMetricsSink: Initializing Timeline metrics sink.
+2017-01-06 01:23:07,236 INFO  [main] timeline.HadoopTimelineMetricsSink: Identified hostname = ctr-e01-1483493165319-0010-01-000009.ycloud.dev, serviceName = truck-demo
+2017-01-06 01:23:27,331 INFO  [main] timeline.HadoopTimelineMetricsSink: Collector Uri: y7001.ycloud.hortonworks.com:6188/ws/v1/timeline/metrics
+2017-01-06 01:23:27,340 INFO  [main] impl.MetricsSinkAdapter: Sink timeline started
+2017-01-06 01:23:27,401 INFO  [main] impl.MetricsSystemImpl: Scheduled snapshot period at 10 second(s).
+2017-01-06 01:23:27,401 INFO  [main] impl.MetricsSystemImpl: HBase metrics system started
+2017-01-06 01:23:27,713 INFO  [main] hfile.CacheConfig: Allocating LruBlockCache size=856.60 MB, blockSize=64 KB
+2017-01-06 01:23:27,717 INFO  [main] hfile.CacheConfig: blockCache=LruBlockCache{blockCount=0, currentSize=922368, freeSize=897287872, maxSize=898210240, heapSize=922368, minSize=853299712, minFactor=0.95, multiSize=426649856, multiFactor=0.5, singleSize=213324928, singleFactor=0.25}, cacheDataOnRead=true, cacheDataOnWrite=false, cacheIndexesOnWrite=false, cacheBloomsOnWrite=false, cacheEvictOnClose=false, cacheDataCompressed=false, prefetchOnOpen=false
+2017-01-06 01:23:27,719 INFO  [main] hfile.CacheConfig: blockCache=LruBlockCache{blockCount=0, currentSize=922368, freeSize=897287872, maxSize=898210240, heapSize=922368, minSize=853299712, minFactor=0.95, multiSize=426649856, multiFactor=0.5, singleSize=213324928, singleFactor=0.25}, cacheDataOnRead=true, cacheDataOnWrite=false, cacheIndexesOnWrite=false, cacheBloomsOnWrite=false, cacheEvictOnClose=false, cacheDataCompressed=false, prefetchOnOpen=false
+2017-01-06 01:23:27,721 INFO  [main] mob.MobFileCache: MobFileCache is initialized, and the cache size is 1000
+2017-01-06 01:23:27,887 ERROR [main] regionserver.HRegionServerCommandLine: Region server exiting
+java.lang.RuntimeException: Failed construction of Regionserver: class org.apache.hadoop.hbase.regionserver.HRegionServer
+	at org.apache.hadoop.hbase.regionserver.HRegionServer.constructRegionServer(HRegionServer.java:2666)
+	at org.apache.hadoop.hbase.regionserver.HRegionServerCommandLine.start(HRegionServerCommandLine.java:64)
+	at org.apache.hadoop.hbase.regionserver.HRegionServerCommandLine.run(HRegionServerCommandLine.java:87)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:76)
+	at org.apache.hadoop.hbase.util.ServerCommandLine.doMain(ServerCommandLine.java:126)
+	at org.apache.hadoop.hbase.regionserver.HRegionServer.main(HRegionServer.java:2681)
+Caused by: java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.apache.hadoop.hbase.regionserver.HRegionServer.constructRegionServer(HRegionServer.java:2664)
+	... 5 more
+Caused by: java.lang.IllegalArgumentException: java.net.UnknownHostException: y7001.ycloud.hortonworks.com
+	at org.apache.hadoop.security.SecurityUtil.buildTokenService(SecurityUtil.java:411)
+	at org.apache.hadoop.hdfs.NameNodeProxies.createNonHAProxy(NameNodeProxies.java:311)
+	at org.apache.hadoop.hdfs.NameNodeProxies.createProxy(NameNodeProxies.java:176)
+	at org.apache.hadoop.hdfs.DFSClient.<init>(DFSClient.java:688)
+	at org.apache.hadoop.hdfs.DFSClient.<init>(DFSClient.java:629)
+	at org.apache.hadoop.hdfs.DistributedFileSystem.initialize(DistributedFileSystem.java:159)
+	at org.apache.hadoop.fs.FileSystem.createFileSystem(FileSystem.java:2761)
+	at org.apache.hadoop.fs.FileSystem.access$200(FileSystem.java:99)
+	at org.apache.hadoop.fs.FileSystem$Cache.getInternal(FileSystem.java:2795)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:2777)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:386)
+	at org.apache.hadoop.fs.Path.getFileSystem(Path.java:295)
+	at org.apache.hadoop.hbase.util.FSUtils.getRootDir(FSUtils.java:1014)
+	at org.apache.hadoop.hbase.regionserver.HRegionServer.<init>(HRegionServer.java:578)
+	... 10 more
+Caused by: java.net.UnknownHostException: y7001.ycloud.hortonworks.com
+	... 24 more

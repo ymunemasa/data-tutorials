@@ -1,0 +1,306 @@
+
+
+<div class="tutorial-content">
+  <h2 id="introduction">Introduction</h2>
+
+<p>In this lab of the Apache Ranger tutorial, we will use Ranger to set access policies for row level filtering in Apache Hive tables. We will also cover Ranger masking capabilities to protect sensitive data like SSN or salary.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>Download <a href="http://hortonworks.com/products/hortonworks-sandbox/#install">Hortonworks Sandbox</a></li>
+  <li>Complete the <a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the HDP Sandbox</a> tutorial.</li>
+  <li>Complete the Lab 1 of this tutorial to get used to the Ranger UI and its features.</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#download-sample-data">1: Download the sample data</a></li>
+  <li><a href="#upload-data-files">2: Upload the data files</a></li>
+  <li><a href="#create-table-hive">3: Create the tables in Hive</a></li>
+  <li><a href="#row-level-filtering">4: Row level filtering in Hive</a></li>
+  <li><a href="#dynamic-column-masking">5: Dynamic Column Masking in Hive</a></li>
+  <li><a href="#summary">6: Summary</a></li>
+</ul>
+
+<h3 id="1-download-the-sample-data-">1: Download the sample data <a id="download-sample-data"></a></h3>
+
+<p>Download the driver data file from <a href="https://github.com/hortonworks/tutorials/blob/hdp-2.5/driver_data.zip">here</a>.
+Once you have the file you will need to unzip the file into a directory. We will be uploading two csv files - <strong>drivers.csv</strong> and <strong>truck_event_text_partition.csv</strong>.</p>
+
+<h3 id="2-upload-the-data-files-">2. Upload the data files <a id="upload-data-files"></a></h3>
+
+<p>Login to the Ambari by the following credentials:<br />
+Username - <strong>raj_ops</strong><br />
+Password - <strong>raj_ops</strong><br />
+Click on 9 square menu icon and select Files view:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/select_files_view.png" alt="select_files_view" /></p>
+
+<p>Navigate to <code class="highlighter-rouge">/user/raj_ops</code>and click on the <code class="highlighter-rouge">Upload</code> button to select the files we want to upload into the Hortonworks Sandbox environment.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/upload_button_filesview.png" alt="upload_button_filesview" /></p>
+
+<p>Click on the <code class="highlighter-rouge">browse</code> button to open a dialog box. Navigate to where you stored the <strong>drivers.csv</strong> file on your local disk and select drivers.csv and click again upload. Do the same thing for <strong>truck_event_text_partition.csv</strong>. When you are done you will see there are two new files in your directory.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/uploaded_files.png" alt="uploaded_files" /></p>
+
+<h3 id="3-create-the-tables-in-hive-">3. Create the tables in Hive <a id="create-table-hive"></a></h3>
+
+<p>Let's open the <strong>Hive View</strong> by clicking on the Hive button in the top bar as previously when we selected the HDFS Files view.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/select_hive_view.png" alt="select_hive_view" /></p>
+
+<p>Next, run the following query to create the drivers table:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>create table drivers
+(driverId int,
+ name string,
+ ssn bigint,
+ location string,
+ certified string,
+ wageplan string)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+TBLPROPERTIES("skip.header.line.count"="1");
+</code></pre>
+</div>
+
+<p>Click on green <code class="highlighter-rouge">Execute</code> button, after few seconds, you will see the <strong>SUCCEEDED</strong> message:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/create_table_drivers.png" alt="create_table_drivers" /></p>
+
+<p>Time to load the data into this newly created table, type:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>LOAD DATA INPATH '/user/raj_ops/drivers.csv' OVERWRITE INTO TABLE drivers;
+</code></pre>
+</div>
+
+<p>And then click <code class="highlighter-rouge">Execute</code>:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/load_data_drivers.png" alt="load_data_drivers" /></p>
+
+<p>Similarly, let us create the table timesheet and then load the data using following commands:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>create table truck_events
+(driverId int,
+truckId int,
+eventTime string,
+eventType string,
+longitude double,
+latitude double,
+eventKey string,
+correlationId bigint,
+driverName string,
+routeId int,
+routeName string)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+STORED AS TEXTFILE
+TBLPROPERTIES("skip.header.line.count"="1");
+</code></pre>
+</div>
+
+<p>Next, load the data:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>LOAD DATA INPATH '/user/raj_ops/truck_event_text_partition.csv' OVERWRITE INTO TABLE truck_events;
+</code></pre>
+</div>
+
+<p>Next, click on Refresh sign next to Database explorer, you will see two new tables created.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/database_explorer.png" alt="database_explorer" /></p>
+
+<p>Click on the box next to the table name to view the data:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/select_drivers_data.png" alt="select_drivers_data" /></p>
+
+<p>Now that we have the tables ready, let us explore the row level filtering and masking capabilities of Apache ranger.</p>
+
+<h3 id="4-row-level-filtering-in-hive-">4. Row level filtering in Hive <a id="row-level-filtering"></a></h3>
+
+<p>By providing row level filtering to Hive tables, Hive data access can be restricted to specific rows based on user role in the organization. <strong>Row-level filter policies</strong> are similar to other Ranger access policies. You can set filters for specific users, groups, and conditions. The filter expression should be a valid <strong>WHERE</strong> clause. Let us start with some use cases of row level filtering.</p>
+
+<h4 id="41-restrict-access-as-per-different-types-of-wage-plan-in-drivers-table">4.1 Restrict access as per different types of wage plan in drivers table</h4>
+
+<p>There are only two values for wage plan attribute in drivers table - <strong>miles</strong> and <strong>hours</strong>. We are going to use two users for this use case - <strong>maria_dev</strong> and <strong>amy_ds</strong>. Let us restrict these users to access records based on the wage plan. User maria_dev should only view records corresponding to hours wage plan and amy_ds should view records corresponding to miles wage plan.</p>
+
+<p>Go back to Ranger UI with the user credentials <strong>raj_ops/raj_ops</strong>. Click on <code class="highlighter-rouge">Access Manager=&gt;Resource Based Policies=&gt;Sandbox_hive</code>. Switch to <strong>Row level Filter</strong> tab.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/click_row_level_filter.png" alt="click_row_level_filter" /></p>
+
+<p>Click on <code class="highlighter-rouge">Add New Policy</code> button on the right. Enter the following details:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Policy Name - Row Filter to access drivers data
+Hive Database - default
+Hive Table - drivers
+</code></pre>
+</div>
+
+<p>In Row filter Conditions:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Select Group - Leave it blank
+Select User - maria_dev
+Access Type - select
+Row level filter - wageplan='hours'
+</code></pre>
+</div>
+
+<blockquote>
+  <p>NOTE - Do not forget to click on tick mark to save the row filter expression.</p>
+</blockquote>
+
+<p>Next, click on + button to add one more row for <strong>amy_ds</strong> user, enter the following details in the row filter conditions:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Select Group - Leave it blank
+Select User - amy_ds
+Access Type - select
+Row level filter - wageplan='miles'
+</code></pre>
+</div>
+
+<p>Your Row Filter Conditions table should look like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/row_filter_conditions.png" alt="row_filter_conditions" /></p>
+
+<p>Please verify whether you have put the correct values.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/row_level_filter_policy1.png" alt="row_level_filter_policy1" /></p>
+
+<p>Click <code class="highlighter-rouge">Add</code>. Next, login to Ambari as <strong>maria_dev</strong> user.</p>
+
+<p>Credentials: <strong>maria_dev/maria_dev</strong>. Go to Hive View and let us try to see the data in drivers table. Click on default database and then the square next to drivers table:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/select_data_drivers_maria_dev.png" alt="select_data_drivers_maria_dev" /></p>
+
+<p>You can clearly see that there are only records where the wage plan is hours. Next, sign out from Ambari and then re-login as amy_ds user.</p>
+
+<p>Credentials: <strong>amy_ds/amy_ds</strong>. Repeat the same operation as above</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/select_data_drivers_amy_ds.png" alt="select_data_drivers_amy_ds" /></p>
+
+<p>There are records corresponding to miles wage plan only.</p>
+
+<h4 id="42-restrict-access-on-the-drivers-table-data-based-on-truck_events-table-data">4.2 Restrict Access on the drivers table data based on truck_events table data</h4>
+
+<p>Let us create one more Row level filter policy which makes sure that maria_dev view records only for those drivers whose <strong>route is from Saint Louis to Memphis</strong>. The information for route name is present in another table <strong>truck_events</strong>.</p>
+
+<p>We have to edit the same policy which we created in the previous use case. Go back to the policy - <code class="highlighter-rouge">Row filter to access drivers data</code> and edit the first row of <strong>Row Filter Conditions</strong> like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Row level filter expression - wageplan='hours' AND driverid in (select t.driverid from truck_events t where t.routename = 'Saint Louis to Memphis')
+</code></pre>
+</div>
+
+<p>This makes sure that maria_dev only view those records whose wageplan is hours and the route name is 'Saint Louis to Memphis'. Your condition section should look like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/row_level_conditions_1.png" alt="row_level_conditions_1" /></p>
+
+<p>Click <code class="highlighter-rouge">Add</code> and go back to Hive View as <strong>maria_dev</strong> user. Run the query to view records in drivers table.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/select_data_drivers_maria_dev_1.png" alt="select_data_drivers_maria_dev_1" /></p>
+
+<h3 id="5-dynamic-column-masking-in-hive-">5. Dynamic Column Masking in Hive <a id="dynamic-column-masking"></a></h3>
+
+<p><strong>Column masking policy</strong> allows ranger to specify masking condition in hive policy to mask the sensitive data for specific users. A variety of masking types are available, such as show last 4 characters, show first 4 characters, Hash, Nullify, and date masks (show only year). Let us use drivers table data for data masking use cases as well.</p>
+
+<h4 id="51-show-only-last-4-digits-of-ssn-column">5.1 Show only last 4 digits of SSN column</h4>
+
+<p>Go back to Ranger and click on <code class="highlighter-rouge">Masking</code> tab:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/click_masking.png" alt="click_masking" /></p>
+
+<p>Click on <code class="highlighter-rouge">Add New Policy</code> on the right . Enter the following details:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Policy Name - Masking in ssn column of drivers data
+Hive Database - default
+Hive Tables - drivers
+Hive Column - ssn
+</code></pre>
+</div>
+
+<p>In mask conditions,</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Select Group - Leave blank
+Select User - maria_dev
+Access Type - select
+Select Masking Options - Partial mask: show last 4
+</code></pre>
+</div>
+
+<p>Your mask conditions section should look like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/mask_conditions_ssn.png" alt="mask_conditions_ssn" /></p>
+
+<p>And the entire policy should look like:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/mask_policy_1.png" alt="mask_policy_1" /></p>
+
+<p>Click <code class="highlighter-rouge">Add</code>. Now wait for 20 seconds and go back to Hive view to see the records of driver table.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/select_data_drivers_mask_1.png" alt="select_data_drivers_mask_1" /></p>
+
+<p>Ranger replaces the first 5 digits of SSN to value 1 and retained the last 4.</p>
+
+<blockquote>
+  <p>NOTE: If SSN would have been in a proper format(111-22-3333) it would have given xxx-xx-3333</p>
+</blockquote>
+
+<h4 id="52-convert-location-column-values-to-hash-values">5.2 Convert location column values to hash values</h4>
+
+<p>In this use case, we will see how Ranger effectively hashes the values of location column through the masking policy.</p>
+
+<p>Go back to <code class="highlighter-rouge">Masking</code> tab of Ranger console and click on <code class="highlighter-rouge">Add New Policy</code> button. Enter the following details:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Policy Name - Masking in location column of drivers data
+Hive Database - default
+Hive Tables - drivers
+Hive Column - location
+</code></pre>
+</div>
+
+<p>In mask conditions,</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Select Group - Leave blank
+Select User - maria_dev
+Access Type - select
+Select Masking Options - Hash
+</code></pre>
+</div>
+
+<p>Your mask conditions section should look like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/mask_conditions_location.png" alt="mask_conditions_location" /></p>
+
+<p>And the overall policy should look like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/mask_policy_2.png" alt="mask_policy_2" /></p>
+
+<p>Click <code class="highlighter-rouge">Add</code>. Now wait for 20 seconds and go back to Hive view to see the records of driver table.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/select_data_drivers_mask2.png" alt="select_data_drivers_mask2" /></p>
+
+<p>Please note that the location column values has been hashed by random alphanumeric characters.</p>
+
+<p>Next, let us see the data from the another user <strong>amy_ds</strong>. Sign out from Ambari and re-login as amy_ds. Credentials are <strong>amy_ds/amy_ds</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/securing-data-lake-with-ranger/select_data_drivers_amy_ds.png" alt="select_data_drivers_amy_ds" /></p>
+
+<p>There is no masking in either SSN or location location because amy_ds is not a part of the policy so it gets unmasked results.</p>
+
+<h3 id="6-summary-">6. Summary <a id="summary"></a></h3>
+
+<p>In this tutorial, we learned how to create row level filter and masking policies in Apache Ranger to restrict access to Hive tables or columns.</p>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-570.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-570&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Securing Data Lake Resources and Auditing User Access with Apache Ranger</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-570</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

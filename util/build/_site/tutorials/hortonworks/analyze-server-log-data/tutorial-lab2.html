@@ -1,0 +1,563 @@
+
+
+<div class="tutorial-content">
+  <h2 id="introduction">Introduction</h2>
+
+<p>In the previous lab, you learned how to use Nifi, Hive and Zeppelin to analyze server logs. In this lab, you will explore Apache Spark to analyze the server logs. Using Spark, we can enhance the power of the log data which come from web servers, files and even user generated data.</p>
+
+<h2 id="in-this-tutorial-learn-how-to">In this tutorial, learn how to:</h2>
+
+<ul>
+  <li>Stream server logs and and preparation of data into Hadoop with Hortonworks Dataflow powered by Apache NiFi</li>
+  <li>Use <a href="https://spark.apache.org/docs/1.6.2/api/python/pyspark.sql.html">PySpark</a> to clean the data</li>
+  <li>Visualize the data with <a href="http://hortonworks.com/hadoop/zeppelin">Apache Zeppelin</a></li>
+  <li>Tableau to visualize the geolocation in the world map</li>
+</ul>
+
+<h2 id="prerequisites">Prerequisites:</h2>
+
+<ul>
+  <li>Hortonworks Sandbox (installed and running)</li>
+  <li>Hortonworks DataFlow - <a href="http://hortonworks.com/downloads/#dataflow">Download here</a></li>
+  <li>If you'd like to use Tableau to explore the data, download a <a href="http://www.tableau.com/products/trial">free trial version</a></li>
+  <li>Server log tutorial files (included in this tutorial)</li>
+  <li><a href="http://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-server-log-data/">Lab 1</a> of this tutorial</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#dataset">Dataset</a></li>
+  <li><a href="#install-hdf">Step 1 – Configure and Install Hortonworks DataFlow</a></li>
+  <li><a href="#download-data">Step 2 - Download Input Data</a></li>
+  <li><a href="#import-flow">Step 3 - Import the Worklow</a></li>
+  <li><a href="#run-flow">Step 4 - Run the Workflow</a></li>
+  <li><a href="#nifi-output-data">Step 5 - Verify NiFi Output Data in HDFS</a></li>
+  <li><a href="#turn-off">Step 6 - Turn OFF Maintenance Mode and Open Zeppelin UI</a></li>
+  <li><a href="#visualize-log-data-zeppelin">Step 7 - Logs Analysis using Spark with Zeppelin</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+  <li><a href="#hcc">HCC Articles</a></li>
+</ul>
+
+<h3 id="dataset-">Dataset <a id="dataset"></a></h3>
+
+<p>Download the dataset <a href="https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/analyze-server-log-data/logsample.txt">here</a>.</p>
+
+<p>The dataset which we are going to use in this lab is of NASA-HTTP. It has HTTP requests to the NASA Kennedy Space Center WWW server in Florida.<br />
+The logs are an ASCII file with one line per request, with the following columns:</p>
+
+<p>1. <strong>host</strong> making the request. A hostname when possible, otherwise the Internet address if the name could not be looked up.<br />
+2. <strong>timestamp</strong> in the format "DAY MON DD HH:MM:SS YYYY", where <strong>DAY</strong> is the day of the week, <strong>MON</strong> is the name of the       month, <strong>DD</strong> is the day of the month, <strong>HH:MM:SS</strong> is the time of day using a 24-hour clock, and <strong>YYYY</strong> is the year. The timezone is -0400.<br />
+3. <strong>request</strong> given in quotes.<br />
+4. <strong>HTTP reply code</strong>.
+5. <strong>bytes in the reply</strong>.</p>
+
+<h3 id="step-1--configure-and-install-hortonworks-dataflow-">Step 1 – Configure and Install Hortonworks DataFlow <a id="install-hdf"></a></h3>
+
+<h4 id="11---install-nifi">1.1 - Install NiFi</h4>
+
+<p>NiFi needs to be installed into the Ambari Stack of the Hortonworks Sandbox VirtualBox image because it will be used to activate server log simulator and transport data to HDFS.<br />
+If you do not have NiFi installed on your sandbox, refer to <a href="http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#download-nifi-sandbox">Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)</a> from Tutorial 0: Download, Install, and Start NiFi of Analyze Traffic Patterns using Apache Nifi for step-by-step instructions.</p>
+
+<h4 id="12--start-nifi">1.2 – Start NiFi</h4>
+
+<p>To activate the NiFi service, refer to <a href="http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox">Step 4: Start NiFi on Sandbox</a> from Tutorial 0: Download, Install, and Start NiFi of Analyze Traffic Patterns using Apache Nifi for step-by-step instructions.
+Once you enter the NiFi HTML Interface at <a href="http://sandbox.hortonworks.com:9090/nifi">http://sandbox.hortonworks.com:9090/nifi</a>, you should see a canvas as below:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/nifi_html_interface.png" alt="nifi_html_interface" /></p>
+
+<h3 id="step-2---download-input-data-">Step 2 - Download Input Data <a id="download-data"></a></h3>
+
+<p>First you're going to need to login to your Sandbox via SSH. If you're using Virtualbox you can log in with the command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh root@127.0.0.1 -p 2222
+</code></pre>
+</div>
+
+<p>The first time password to log in is: <strong>hadoop</strong></p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/sshTerminal.png" alt="sshTerminal" /></p>
+
+<p>Now we have to create a directory from where Nifi would pick up the data. There will be two different directories, one is for sample input dataset and other is for <strong>GeoLite</strong> dataset that Nifi would use to provide Geolocation attributes.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mkdir -p /tmp/nifi/input
+mkdir /tmp/nifi/GeoFile
+chmod 777 -R /tmp/nifi
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/mkdir.png" alt="mkdir" /></p>
+
+<p>Download files using wget utility:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /tmp/nifi/input
+wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/tutorials/hortonworks/analyze-server-log-data/logsample.txt
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/download_logsample.png" alt="download_logsample" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /tmp/nifi/GeoFile
+wget https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/analyze-server-log-data/GeoLite2-City.mmdb?raw=true
+mv GeoLite2-City.mmdb?raw=true GeoLite2-City.mmdb
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/download_geofile.png" alt="download_geofile" /></p>
+
+<h3 id="step-3---import-the-workflow-">Step 3 - Import the Workflow <a id="import-flow"></a></h3>
+
+<p>We're going to import a data flow from a template which you can download <a href="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/tutorials/hortonworks/analyze-server-log-data/WebServerLogs.xml">WebServerLogs.xml</a>.<br />
+Use the NiFi interface to upload the flow, and then drag it onto your workspace.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/upload_template.png" alt="upload_template" /></p>
+
+<p>Once you've uploaded the template into NiFi you can instantiate it by dragging the template icon <img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/template_icon.png" alt="template_icon" /> onto the screen. It will ask you to select your template's name and the flow will appear as in the image below.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/nifi_workflow.png" alt="nifi_workflow" /></p>
+
+<p>Let's us give some time to explain the role of each processor here:</p>
+
+<p>1. <strong>GetFile Processor</strong> - It creates Flow Files from files in a directory. We specify the input path of the file here.</p>
+
+<p>2. <strong>SplitText Processor</strong> - It splits a text file into smaller text files limited by maximum number of lines or total size of fragment. In our case, the value of line split count  is 1, that means each split file will have 1 record.</p>
+
+<p>3. <strong>ExtractText Processor</strong> - It evaluates the regular expression to extract the content of a Flow File and the result will be placed in the attribute which can be utilized in other processors of the workflow. If there is no match it will be sent to the 'unmatched' result which is a simple way of filtering out different logs. The regular expressions that are used to extract different attributes are as follows:</p>
+
+<ul>
+  <li>
+    <p>IP - (\b(?:\d{1,3}.){3}\d{1,3}\b) - Captures everything which has 4 numbers separated by dots.
+  Example - 130.104.51.7</p>
+  </li>
+  <li>
+    <p>Time - [(.*?)]  - Captures everything between double square brackets.
+  Example - 01/Aug/1995:02:56:28 -0400</p>
+  </li>
+  <li>
+    <p>Request_Type -  "(.*?)" - Captures everything between double quotes
+  Example - GET /images/NASA-logosmall.gif HTTP/1.0</p>
+  </li>
+  <li>
+    <p>Response_Code - HTTP\/\d.\d" (\d{3}) - Captures the next 3 digit number after it finds HTTP 1.0 in the text of Flow File.
+  Example - 200</p>
+  </li>
+</ul>
+
+<p>4. <strong>RouteOnAttribute Processor</strong> - It routes flow based on their attributes. Routing flow fioles if IP attribute starts with 1 or 2, Time and Request_Type are not empty.</p>
+
+<p>5. <strong>GeoEnrichIP Processor</strong> - This processor takes the IP attribute generated in the previous processor and compares it to a geo-database('mmdb'). It adds the Geo information like Latitude, Longitude, City, Country and Isocode to the Flow Files attributes. It generates these attributes and give them names like IP.geo.latitude, IP.ge.longitude, IP.geo.city, IP.geo.country and IP.geo.isocode.</p>
+
+<p>6. <strong>RouteOnAttribute Processor</strong> - There might be a possibility that GeoEnrichIP Processor is not able to find all geo details for an IP so this processor checks whether the IP.geo.city exists or not. It routes only those Flow Files further which has values for city attribute.</p>
+
+<p>7. <strong>ReplaceText Processor</strong> - It updates the content of Flow File by evaluating a regular expression against it and replacing the section of the content that matches the Regular Expression with some alternate value. In this case, we are replacing the content with his format -</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>${IP}</td>
+      <td>${Time}</td>
+      <td>${Request_Type}</td>
+      <td>${Response_Code}</td>
+      <td>${IP.geo.city}</td>
+      <td>${IP.geo.country}</td>
+      <td>${IP.geo.country.isocode}</td>
+      <td>${IP.geo.latitude}</td>
+      <td>${IP.geo.longitude}</td>
+    </tr>
+    <tr>
+      <td>$ character extracts the value of the attribute and</td>
+      <td>is being used as a delimiter between these attributes.</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>8. <strong>MergeContent Processor</strong> - It merges a group of Flow Files into a single Flow Files. The minimum number of entries to make a single file is 20 in our case. That means, the processor is merging 20 Flow Files into 1.</p>
+
+<p>9. <strong>UpdateAttribute Processor</strong> - It update the Flow Files' attributes by using the Attribute Expression Language of NiFi. We are giving each FlowFile a unique name using the timestamp. The expression used here is</p>
+
+<p>logsample-${now():format("HHmmssSSS")}-.txt</p>
+
+<p>10. <strong>PutHDFS Processor</strong> - It writes Flow File to the HDFS directory. The output HDFS directory used here is <strong>/tmp/nifioutput</strong>.</p>
+
+<h3 id="step-4--run-the-workflow-">Step 4 : Run the Workflow <a id="run-flow"></a></h3>
+
+<p>Make sure you have removed Lzo and Lzop Codec from the list of compression codecs. Refer <a href="http://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-server-log-data/#generate-server-log-ata">this</a> step to do that.
+Now click <code class="highlighter-rouge">SHIFT</code> and select the entire workflow, then locate <code class="highlighter-rouge">Start</code> button in the Operate box and click it.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/start_all.png" alt="start_all" /></p>
+
+<p>You can see your workflow running.</p>
+
+<p>Keep the workflow running for next <strong>10 minutes</strong> so that we have enough data to ingest into Spark.</p>
+
+<h3 id="step-5--verify-nifi-output-data-in-hdfs-">Step 5 : Verify NiFi Output Data in HDFS <a id="nifi-output-data"></a></h3>
+
+<p>Next, logout from <strong>raj_ops</strong> user from Ambari and re-login to Ambari using user credentials <strong>maria_dev/maria_dev</strong>. Click on 9 square menu and select <code class="highlighter-rouge">Files View</code>:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/select_files_view.png" alt="select_files_view" /></p>
+
+<p>After just 30 seconds, you will start seeing the output files coming to <strong>/tmp/nifioutput</strong> directory, so navigate to that directory. Click on one of the row and then <code class="highlighter-rouge">Open</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/open_file.png" alt="open_file" /></p>
+
+<p>You would see some content like the one given below. You can easily locate its attributes - IP address, Time, Request Type, Response Code, City, Country, Isocode, Latitude and Longitude.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/file_preview.png" alt="file_preview" /></p>
+
+<p>Wait for 10 minutes to store more files like this in the folder. In the meantime, you can re-open Ambari in a new tab and start Spark.</p>
+
+<h3 id="step-6---turn-off-maintenance-mode-and-open-zeppelin-ui-">Step 6 - Turn OFF Maintenance Mode and Open Zeppelin UI <a id="turn-off"></a></h3>
+
+<p>We will be using Spark version 1.6.2 in this tutorial. Go to <strong>Ambari dashboard</strong>, and follow the steps as mentioned below:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/turn_off_maintenance_mode.png" alt="turn_off_maintenance_mode" /></p>
+
+<p>Next, click on <code class="highlighter-rouge">Zeppelin Notebook</code> and then <code class="highlighter-rouge">Quick Links -&gt; Zeppelin UI</code> to open the Zeppelin UI on the browser:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/quick_links_zeppelin.png" alt="quick_links_zeppelin" /></p>
+
+<p>You will see a Zeppelin UI with a bunch of already loaded notebooks. Click on <code class="highlighter-rouge">Create New Note</code> and give the name <strong>Web Server Log Analysis using Spark</strong>:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/create_new_note.png" alt="create_new_note" /></p>
+
+<p>Before moving ahead, <strong>do not forget</strong> to stop the workflow in Nifi. Go back to Nifi UI, select all components and click <code class="highlighter-rouge">Stop</code> button in the Operate box:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/stop_all.png" alt="stop_all" /></p>
+
+<h3 id="step-7---logs-analysis-using-spark-and-zeppelin-">Step 7 - Logs Analysis using Spark and Zeppelin <a id="visualize-log-data-zeppelin"></a></h3>
+
+<h4 id="71---loading-external-library">7.1 - Loading External Library</h4>
+
+<p>As you explore Zeppelin you will probably want to use one or more external libraries.
+We are going to use the %dep interpreter to import the library. Copy paste the following set of lines in your Zeppelin notebook:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%dep
+z.reset()
+z.load("com.databricks:spark-csv_2.11:1.4.0")
+</code></pre>
+</div>
+
+<p>Then click on <code class="highlighter-rouge">Play</code> button next to Ready. Alternatively, you can press <code class="highlighter-rouge">Shift+Enter</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/dep.png" alt="dep" /></p>
+
+<h4 id="72-load-the-dataframe-from-hdfs-directory">7.2 Load the DataFrame from HDFS directory</h4>
+
+<p>Next, let us create a dataframe in Spark using PySpark. Using <strong>sqlContext.read.format()</strong> here to load the dataframe from the HDFS directory <strong>/tmp/nifioutput</strong>. show() function shows the content of the dataframe,</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+from pyspark.sql.types import StructType, StructField, DoubleType, StringType
+schema = StructType([       
+# Represents a field in a StructType                    
+  StructField("IP",             StringType()),  
+  StructField("Time",           StringType()),
+  StructField("Request_Type",   StringType()),
+  StructField("Response_Code",  StringType()),
+  StructField("City",           StringType()),
+  StructField("Country",        StringType()),
+  StructField("Isocode",        StringType()),
+  StructField("Latitude",       DoubleType()),
+  StructField("Longitude",      DoubleType())
+])
+
+logs_df = sqlContext.read\
+                    .format("com.databricks.spark.csv")\
+                    .schema(schema)\
+                    .option("header", "false")\
+                    .option("delimiter", "|")\
+                    .load("/tmp/nifioutput")
+logs_df.show(truncate=False)
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/load_dataframe.png" alt="load_dataframe" /></p>
+
+<p>In my case, there are 700 rows in the dataframe. Your count might differ.</p>
+
+<h4 id="73-parse-the-timestamp">7.3 Parse the Timestamp</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+
+from pyspark.sql.functions import udf
+
+months = {
+  'Jan': 1, 'Feb': 2, 'Mar':3, 'Apr':4, 'May':5, 'Jun':6, 'Jul':7, 'Aug':8,  'Sep': 9, 'Oct':10, 'Nov': 11, 'Dec': 12
+}
+
+def parse_timestamp(time):
+    """ This function takes a Time string parameter of logs_df dataframe
+    Returns a string suitable for passing to CAST('timestamp') in the format YYYY-MM-DD hh:mm:ss
+    """
+    return "{0:04d}-{1:02d}-{2:02d} {3:02d}:{4:02d}:{5:02d}".format(
+      int(time[7:11]),
+      months[time[3:6]],
+      int(time[0:2]),
+      int(time[12:14]),
+      int(time[15:17]),
+      int(time[18:20])
+    )
+
+udf_parse_timestamp = udf(parse_timestamp)
+
+parsed_df = logs_df.select('*',             
+                udf_parse_timestamp(logs_df['Time'])  
+                .cast('timestamp')              
+                .alias('Timestamp')).drop('Time')   # Assigning the Timestamp name to the new column and dropping the old Time column                       
+parsed_df.cache()                                   # Stores the dataframe in cache for the future use
+parsed_df.show()                                    # Displays the results
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/parse_timestamp.png" alt="parse_timestamp" /></p>
+
+<h4 id="74-data-cleaning-in-request_type-column">7.4 Data Cleaning in Request_Type Column</h4>
+
+<p>Let us try to do some data cleaning in <strong>Request_Type</strong> column of the parsed_df dataframe. Run the following line to find out how Request_type looks like right now:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+parsed_df.select('Request_type').show(truncate=False)
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/show_request_type.png" alt="show_request_type" /></p>
+
+<p>We will remove GET from the beginning and HTTP/1.0 at the end. Using <strong>regexp_extract</strong> to extract these two groups identified by a java regex, from the Request_Type string column.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+from pyspark.sql.functions import split, regexp_extract
+path_df = parsed_df.select('*',regexp_extract('Request_Type', r'^.*\w+\s+([^\s]+)\s+HTTP.*', 1)
+                   .alias('Request_Path')).drop('Request_Type')                                                                       
+path_df.cache()                                                        # Cache the dataframe
+path_df.show(truncate=False)                                           # Displays the results
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/show_pathdf.png" alt="show_pathdf" /></p>
+
+<h4 id="75-analysis-of-most-frequent-hosts">7.5 Analysis of Most Frequent Hosts</h4>
+
+<p>Next, we want to know which hosts has hit the server most times</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+most_frequent_hosts = parsed_df.groupBy("IP").count()           # Groups the dataframe by IP column and then counting
+most_frequent_hosts.show()		                                # Displays the results
+most_frequent_hosts.registerTempTable("most_frequent_hosts")    # Registering most_frequest_hosts variable as a temporary table
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/show_most_frequent_hosts.png" alt="show_most_frequent_hosts" /></p>
+
+<p>Let us view the data from the temporary table using the %sql interpreter:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%sql
+SELECT * FROM most_frequent_hosts ORDER BY count DESC LIMIT 20
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/select_most_frequent_hosts.png" alt="select_most_frequent_hosts" /></p>
+
+<p>You can also view this data in the form of charts, click the button which shows pie chart. You will see something like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/piechart_most_frequent_hosts.png" alt="piechart_most_frequent_hosts" /></p>
+
+<p>You can hover in the circle to find out actual count of each hosts. Zeppelin provides other charts like bar chart, area chart, scatter chart, etc. as well.</p>
+
+<h4 id="76-analysis-of-response-code">7.6 Analysis of Response Code</h4>
+
+<p>Next, we want to know which response code has occurred how many times in the dataframe. Further, we also store the result in the temporary table called <strong>status_count</strong>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+status_count = path_df.groupBy('Response_Code').count()      # Groups the dataframe by Response_Code column and then counting
+status_count.show()                                          # Displays the results
+status_count.registerTempTable("status_count")               # Registering status_count variable as a temporary table
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/show_statuscount.png" alt="show_statuscount" /></p>
+
+<p>Let us view the data from the temporary table:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%sql
+SELECT * FROM status_count ORDER BY Response_Code
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/select_status_count.png" alt="select_status_count" /></p>
+
+<p>Click the bar chart button:</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/barchart_status_count.png" alt="barchart_status_count" /></p>
+
+<p>Next, let us analyze only those records where the Response_Code is 200.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+success_logs_df = parsed_df.select('*').filter(path_df['Response_Code'] == 200)       # Creating dataframe where Response Code is 200  
+success_logs_df.cache()                                                               # Cache the dataframe
+success_logs_df.show()                                                                # Displays the results
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/show_success_logs_df.png" alt="show_success_logs_df" /></p>
+
+<p>So now we have all the records where the Response_Code is 200. We will count the number of successful hits per hour.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+from pyspark.sql.functions import hour
+success_logs_by_hours_df = success_logs_df.select(hour('Timestamp').alias('Hour')).groupBy('Hour').count()      # Extracting the Hour
+success_logs_by_hours_df.show()                                                                                 # Displays the results
+success_logs_by_hours_df.registerTempTable("success_logs_by_hours_df")                                           
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/show_success_logs_by_hours_df.png" alt="show_success_logs_by_hours_df" /></p>
+
+<p>Let us view the same data in the form of table</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%sql
+SELECT * FROM success_logs_by_hours_df ORDER BY Hour
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/select_success_logs_by_hour_df.png" alt="select_success_logs_by_hour_df" /></p>
+
+<h4 id="77-data-cleansing-in-request_path">7.7 Data Cleansing in Request_Path</h4>
+
+<p>Next, let us find out the extension of resource that was requested by the server or given to the server. We have to extract the <strong>extension</strong> from the Request_Path column. As earlier, we will make use of regular expression:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+from pyspark.sql.functions import split, regexp_extract
+extension_df = path_df.select(regexp_extract('Request_Path','(\\.[^.]+)$',1).alias('Extension'))
+extension_df.show(truncate=False)
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/show_extension_df.png" alt="show_extension_df" /></p>
+
+<p>As you can see here, there is a lot of data cleansing required. Let's start with removing the dot from the extension format first. We will use <strong>regexp_replace</strong> to do this operation. It will look for dot character(.) in the records and replace it with the blank character('')</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+from pyspark.sql.functions import split, regexp_replace
+extension_df = extension_df.select(regexp_replace('Extension','\.','').alias('Extension'))  # Replace the dot character with the blank character
+extension_df.show(truncate=False)                                                           # Displays the results
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/show_extension_df1.png" alt="show_extension_df1" /></p>
+
+<p>There is still some cleansing required. As you can observe that there are some blank rows, we are going to replace those blank rows with the value <strong>None</strong>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+from pyspark.sql.functions import *
+extension_df = extension_df.replace('','None','Extension').alias('Extension')   # Replaces the blank value with the value 'None' in Extension
+extension_df.cache()
+extension_df.show(truncate=False)                                               # Shows the results
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/show_extension_df2.png" alt="show_extension_df2" /></p>
+
+<h4 id="78-analysis-of-type-of-extensions">7.8 Analysis of Type of Extensions</h4>
+
+<p>Now since we have the type of extensions available with us, we can find out the number of different extensions available in our data set. We will use the same approach of grouping the column and then counting the records in each group</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+from pyspark.sql.functions import *
+extension_df_count = extension_df.groupBy('Extension').count()                  # Groups the dataframe by Extension and then count the rows
+extension_df_count.show()                                                       # Displays the results
+extension_df_count.registerTempTable('extension_df_count')                      # Registers the temporary table
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/show_extension_df_count.png" alt="show_extension_df_count" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%sql
+SELECT * FROM extension_df_count ORDER BY count DESC
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/select_extension_df_count.png" alt="select_extension_df_count" /></p>
+
+<blockquote>
+  <p>EXERCISE FOR YOU - If you see clearly, the gif extension is in both uppercase and lowercase. Try to replace either one of them to make the data more accurate.</p>
+</blockquote>
+
+<h5 id="79-analysis-of-network-traffic-per-location">7.9 Analysis of Network Traffic per Location</h5>
+
+<p>Let us create a temporary table for the dataframe path_df so that we can visualize from which location, the hits are coming from.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%pyspark
+path_df.registerTempTable("path_df")
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/register_path_df.png" alt="register_path_df" /></p>
+
+<p>Next, create a <strong>Hive table</strong> from this dataframe so that we can use it for the visualization using external tools like Tableau, Microsoft Excel, etc</p>
+
+<p>Run the following query in the new paragraph of the notebook:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%sql
+CREATE TABLE path_df AS SELECT * FROM path_df
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/create_table_path_df.png" alt="create_table_path_df" /></p>
+
+<blockquote>
+  <p>EXERCISE FOR YOU - Verify whether this table is created in Hive or not.</p>
+</blockquote>
+
+<p>Next, run the query given below to analyze the network traffic per each country:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%sql
+SELECT country,count(country) AS count from path_df GROUP BY country ORDER BY count
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/select_country.png" alt="select_country" /></p>
+
+<p>We can also find out the network traffic for cities within just United States, run the following and switch over to Pie Chart:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%sql
+SELECT city, count(city) AS count from path_df where country='United States' GROUP BY city ORDER BY count
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/server-logs/lab2/select_city.png" alt="select_city" /></p>
+
+<h3 id="summary-">Summary <a id="summary"></a></h3>
+
+<p>In this tutorial, we learned how to use Apache Nifi for data preparation and how to convert the raw server logs to the readable form. Next we learned about how Apache Spark can be used for further cleansing of data. We also used Apache Zeppelin interpreters which allows any language/data-processing-backend to be plugged into it. Currently Apache Zeppelin supports many interpreters such as Apache Spark, Python, JDBC, Markdown and Shell. We used pyspark and sql in this tutorial.</p>
+
+<h3 id="further-reading-">Further Reading <a id="further-reading"></a></h3>
+
+<p>1. <a href="https://en.wikipedia.org/wiki/Regular_expression">Regular Expression Wiki</a><br />
+2. <a href="https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html">Apache Nifi User Guide</a><br />
+3. <a href="https://spark.apache.org/docs/1.6.2/api/python/pyspark.sql.html">PySpark SQL Module</a></p>
+
+<h4 id="hcc-articles-">HCC Articles <a id="hcc"></a></h4>
+
+<p>1. <a href="https://community.hortonworks.com/articles/56559/nifi-log-geoenrichment-and-routing.html">Nifi Server Logs Geo-Enrichment and Routing</a><br />
+2. <a href="https://community.hortonworks.com/articles/42027/rdd-vs-dataframe-vs-sparksql.html">Spark RDDs vs Dataframes vs SparkSQL</a><br />
+3. <a href="https://community.hortonworks.com/articles/52866/hive-on-tez-vs-pyspark-for-weblogs-parsing.html">Hive on Tez vs PySpark for Web Logs Parsing</a></p>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-200.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-200&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>How to Refine and Visualize Server Log Data</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-200</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

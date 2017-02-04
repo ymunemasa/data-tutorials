@@ -1,0 +1,357 @@
+
+
+<div class="tutorial-content">
+  <h1 id="release-notes">Release Notes</h1>
+
+<p>Sept 2016<br />
+Md5 <strong>VMware</strong> Virtual Appliance - f1d45e93ab9f2a655db559be5b2f2f43 <br />
+Md5 <strong>Virtualbox</strong> Virtual Appliance- d42a9bd11f29775cc5b804ce82a72efd<br />
+Md5 <strong>Docker</strong> c613fab7ed21e15886ab23d7a28aec8a<br />
+HDP Stack and Ambari<br />
+The Sandbox uses the following versions of Ambari and HDP stack.  Please use the following release note links provided to view Ambari and HDP stack specific information.</p>
+
+<p><a href="https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.5.0/bk_release-notes/content/ch_relnotes_v250.html">HDP 2.5 Product Release Notes</a></p>
+
+<p><a href="https://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.0/bk_ambari-release-notes/content/ch_relnotes-ambari-2.4.0.0.html">Ambari 2.4 Release Notes</a></p>
+
+<h2 id="behavior-changes">Behavior Changes</h2>
+
+<ul>
+  <li>New splash page</li>
+  <li>JDK updated to 1.8</li>
+  <li>Virtualbox no longer prompts for a new network adapter</li>
+  <li>Yum installation module now fixed</li>
+  <li>Fixed errors “No such directory or file ATLAS-ENTITIES/000000000000.log</li>
+  <li>Port mapping missing for Namenode UI:50070, 8090, 8091,8082, 8086</li>
+  <li>
+    <p>Add service error pop up within Ambari</p>
+  </li>
+  <li><strong>RMP-6196</strong> – Using dockerized containers inside the VM’s</li>
+  <li><strong>RMP-6735</strong> – Using Role based access control to log into Ambari, please look at learning ropes tutorial for more information.</li>
+  <li><strong>RMP-7141</strong> – New sample data in databases used for tutorials</li>
+</ul>
+
+<h2 id="known-issues">Known Issues</h2>
+
+<p><strong>BUG-65985</strong> - Some files inside the docker container sandbox will show ????? for the file.</p>
+
+<h2 id="fixed-issues">Fixed Issues</h2>
+
+<p><strong>BUG-54706</strong> - HDFS replication set to 3<br />
+<strong>BUG-65555</strong> – opened ports for docker<br />
+<strong>BUG-64968</strong> - Request to disable “yarn.resourcemanager.recovery.enabled”<br />
+<strong>BUG-ATLAS-1147</strong> - UI : column name doesn’t show up in schema tab for hive table</p>
+
+<h2 id="limitations">Limitations</h2>
+
+<p>This is a list of common limitations along with their workarounds.</p>
+
+<p><strong>RMP-3586</strong> - Due to dependency of the underlying OS and Virtual machine application, the following may occur when suspending the virtual machine:<br />
+Region Server service for HBase may be stopped when returning back from suspended state.  It will need to be restarted.<br />
+Ambari Metrics may be stopped when returning back from suspended state since it now uses an embedded HBase.</p>
+
+<p><strong>Workaround</strong>: Avoid having to suspend your virtual machine.</p>
+
+<h2 id="system-information">System Information</h2>
+
+<p>Operating System and Java versions that the Sandbox has installed.</p>
+
+<p><strong>OS Version (docker container)</strong><br />
+CentOS release 6.8 (Final)</p>
+
+<p><strong>Java Version (docker container)</strong><br />
+openjdk version “1.8.0_111”                                                                                                 <br />
+OpenJDK Runtime Environment (build 1.8.0_111-b15)<br />
+OpenJDK 64-Bit Server VM (build 25.111-b15, mixed mode)</p>
+
+<p>Updated from previous version</p>
+
+<p><strong>OS Version (Hosting Virtual Machine)</strong><br />
+CentOS Linux release 7.2.1511 (Core)</p>
+
+<p><strong>Image File Sizes</strong><br />
+VMware – 11.1 GB<br />
+Virtualbox – 11.7 GB<br />
+Docker - 10.2 GB</p>
+
+<p><strong>Tech Preview Packages</strong><br />
+Ambari Views- hueambarimigration-2.4.0.0.1225.jar<br />
+Ambari Views - wfmanager-2.4.0.0.1225.jar<br />
+Ambari Views - zeppelin-view-2.4.0.0.1225.jar</p>
+
+<p><strong>Databases Used</strong><br />
+These are a list of databases used within Sandbox along with the corresponding HDP components that use them.</p>
+
+<p>1. Ambari: postgres<br />
+2.  Hive Metastore : Mysql<br />
+3.  Ranger: Mysql<br />
+4.  Oozie: derby (embedded)</p>
+
+<p><strong>HDP Supported Components Not Installed</strong><br />
+These components are offered by the Hortonworks distribution, but not included in the Sandbox.</p>
+
+<p>1.  Apache Accumulo<br />
+2.  Apache Mahout<br />
+3.  Hue</p>
+
+<p><strong>Newly Added HDP Supported Packages</strong></p>
+
+<p>These are packages that have recently been included into the Sandbox for this release.</p>
+
+<p><strong>Ambari Infra</strong></p>
+
+<p><strong>HDP Supported Packages</strong></p>
+
+<p><strong>Apache Ambari</strong><br />
+ambari-metrics-grafana-2.4.0.0-1225.x86_64<br />
+ambari-agent-2.4.0.0-1225.x86_64<br />
+ambari-infra-solr-client-2.4.0.0-1225.x86_64<br />
+ambari-infra-solr-2.4.0.0-1225.x86_64<br />
+ambari-metrics-collector-2.4.0.0-1225.x86_64<br />
+ambari-metrics-hadoop-sink-2.4.0.0-1225.x86_64<br />
+ambari-server-2.4.0.0-1225.x86_64              	
+ambari-metrics-monitor-2.4.0.0-1225.x86_64</p>
+
+<p><strong>Apache Ambari Views</strong><br />
+ambari-admin-2.4.0.0.1225.jar<br />
+capacity-scheduler-2.4.0.0.1225.jar<br />
+files-2.4.0.0.1225.jar<br />
+hive-2.4.0.0.1225.jar<br />
+hive-jdbc-2.4.0.0.1225.jar<br />
+hueambarimigration-2.4.0.0.1225.jar<br />
+pig-2.4.0.0.1225.jar<br />
+slider-2.4.0.0.1225.jar<br />
+storm-view-2.4.0.0.1225.jar<br />
+tez-view-2.4.0.0.1225.jar<br />
+wfmanager-2.4.0.0.1225.jar<br />
+zeppelin-view-2.4.0.0.1225.jar</p>
+
+<p><strong>Apache Hadoop (HDFS, YARN, Mapreduce)</strong><br />
+hadoop_2_5_0_0_1245-mapreduce-2.7.3.2.5.0.0-1245.el6.x86_64<br />
+hadoop_2_5_0_0_1245-libhdfs-2.7.3.2.5.0.0-1245.el6.x86_64<br />
+hadoop-lzo-native-0.6.0-1.x86_64<br />
+hadoop_2_5_0_0_1245-yarn-2.7.3.2.5.0.0-1245.el6.x86_64<br />
+hadooplzo_2_5_0_0_1245-native-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ambari-metrics-hadoop-sink-2.4.0.0-1225.x86_64<br />
+hadoop_2_5_0_0_1245-2.7.3.2.5.0.0-1245.el6.x86_64<br />
+hadoop_2_5_0_0_1245-hdfs-2.7.3.2.5.0.0-1245.el6.x86_64<br />
+hadoop_2_5_0_0_1245-client-2.7.3.2.5.0.0-1245.el6.x86_64<br />
+hadooplzo_2_5_0_0_1245-0.6.0.2.5.0.0-1245.el6.x86_64</p>
+
+<p><strong>Apache Falcon</strong><br />
+falcon_2_5_0_0_1245-0.10.0.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Hive</strong><br />
+hive_2_5_0_0_1245-1.2.1000.2.5.0.0-1245.el6.noarch<br />
+hive2_2_5_0_0_1245-jdbc-2.1.0.2.5.0.0-1245.el6.noarch<br />
+atlas-metadata_2_5_0_0_1245-hive-plugin-0.7.0.2.5.0.0-1245.el6.noarch<br />
+hive_2_5_0_0_1245-jdbc-1.2.1000.2.5.0.0-1245.el6.noarch<br />
+hive_2_5_0_0_1245-hcatalog-1.2.1000.2.5.0.0-1245.el6.noarch<br />
+tez_hive2_2_5_0_0_1245-0.8.4.2.5.0.0-1245.el6.noarch<br />
+hive_2_5_0_0_1245-webhcat-1.2.1000.2.5.0.0-1245.el6.noarch<br />
+hive2_2_5_0_0_1245-2.1.0.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Hbase</strong><br />
+hbase_2_5_0_0_1245-1.1.2.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Flume</strong><br />
+flume_2_5_0_0_1245-1.5.2.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Kafka</strong><br />
+kafka_2_5_0_0_1245-0.10.0.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Knox</strong><br />
+knox_2_5_0_0_1245-0.9.0.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Oozie</strong><br />
+oozie_2_5_0_0_1245-4.2.0.2.5.0.0-1245.el6.noarch<br />
+oozie_2_5_0_0_1245-client-4.2.0.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Phoenix</strong><br />
+phoenix_2_5_0_0_1245-4.7.0.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Pig</strong><br />
+pig_2_5_0_0_1245-0.16.0.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Ranger</strong><br />
+ranger_2_5_0_0_1245-kafka-plugin-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ranger_2_5_0_0_1245-usersync-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ranger_2_5_0_0_1245-hdfs-plugin-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ranger_2_5_0_0_1245-atlas-plugin-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ranger_2_5_0_0_1245-hive-plugin-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ranger_2_5_0_0_1245-kms-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ranger_2_5_0_0_1245-admin-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ranger_2_5_0_0_1245-tagsync-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ranger_2_5_0_0_1245-solr-plugin-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ranger_2_5_0_0_1245-yarn-plugin-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ranger_2_5_0_0_1245-storm-plugin-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ranger_2_5_0_0_1245-hbase-plugin-0.6.0.2.5.0.0-1245.el6.x86_64<br />
+ranger_2_5_0_0_1245-knox-plugin-0.6.0.2.5.0.0-1245.el6.x86_64</p>
+
+<p><strong>Apache Solr</strong>  (Included in the Hadoop Search package)<br />
+ambari-infra-solr-client-2.4.0.0-1225.x86_64  (embedded used for Ambari)                                                                                                          <br />
+ambari-infra-solr-2.4.0.0-1225.x86_64   (embedded used for Ambari)</p>
+
+<p><strong>Apache Slider</strong><br />
+storm_2_5_0_0_1245-slider-client-1.0.1.2.5.0.0-1245.el6.x86_64                                                                     slider_2_5_0_0_1245-0.91.0.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Spark</strong><br />
+spark_2_5_0_0_1245-1.6.2.2.5.0.0-1245.el6.noarch<br />
+spark_2_5_0_0_1245-yarn-shuffle-1.6.2.2.5.0.0-1245.el6.noarch<br />
+spark_2_5_0_0_1245-python-1.6.2.2.5.0.0-1245.el6.noarch<br />
+spark2_2_5_0_0_1245-2.0.0.2.5.0.0-1245.el6.noarch<br />
+spark2_2_5_0_0_1245-yarn-shuffle-2.0.0.2.5.0.0-1245.el6.noarch<br />
+spark2_2_5_0_0_1245-python-2.0.0.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Sqoop</strong><br />
+sqoop_2_5_0_0_1245-1.4.6.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Storm</strong><br />
+storm_2_5_0_0_1245-1.0.1.2.5.0.0-1245.el6.x86_64<br />
+storm_2_5_0_0_1245-slider-client-1.0.1.2.5.0.0-1245.el6.x86_64</p>
+
+<p><strong>Apache Tez</strong><br />
+tez_hive2_2_5_0_0_1245-0.8.4.2.5.0.0-1245.el6.noarch<br />
+tez_2_5_0_0_1245-0.7.0.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Apache Zookeeper</strong><br />
+zookeeper_2_5_0_0_1245-server-3.4.6.2.5.0.0-1245.el6.noarch<br />
+zookeeper_2_5_0_0_1245-3.4.6.2.5.0.0-1245.el6.noarch</p>
+
+<p><strong>Other Packages</strong><br />
+These are some of the installed packages in the Sandbox that the HDP components may depend on.</p>
+
+<p><strong>Python</strong><br />
+python-lxml-2.2.3-1.1.el6.x86_64<br />
+rpm-python-4.8.0-55.el6.x86_64<br />
+python-pycurl-7.19.0-9.el6.x86_64<br />
+python-iniparse-0.3.1-2.1.el6.noarch<br />
+python-argparse-1.2.1-2.1.el6.noarch<br />
+python-2.6.6-66.el6_8.x86_64<br />
+dbus-python-0.83.0-6.1.el6.x86_64<br />
+python-dateutil-1.4.1-6.el6.noarch<br />
+python-nose-0.10.4-3.1.el6.noarch<br />
+python-beaker-1.3.1-7.el6.noarch<br />
+python-mako-0.3.4-1.el6.noarch<br />
+python-urlgrabber-3.9.1-11.el6.noarch<br />
+python-devel-2.6.6-66.el6_8.x86_64<br />
+python-libs-2.6.6-66.el6_8.x86_64<br />
+python-setuptools-0.6.10-3.el6.noarch<br />
+python-markupsafe-0.9.2-4.el6.x86_64<br />
+python-matplotlib-0.99.1.2-1.el6.x86_64</p>
+
+<p><strong>mysql</strong><br />
+mysql-community-common-5.6.33-2.el6.x86_64<br />
+mysql-community-libs-5.6.33-2.el6.x86_64<br />
+mysql-connector-java-5.1.17-6.el6.noarch<br />
+mysql-community-client-5.6.33-2.el6.x86_64<br />
+mysql-community-server-5.6.33-2.el6.x86_64</p>
+
+<p><strong>Postgres</strong><br />
+postgresql-8.4.20-6.el6.x86_64<br />
+postgresql-libs-8.4.20-6.el6.x86_64<br />
+postgresql-server-8.4.20-6.el6.x86_64</p>
+
+<h2 id="hdp-services-started-automatically-on-startup">HDP Services Started Automatically on Startup</h2>
+<p>When the virtual machine is booted up, the following services are started. If not specified, assume all are java processes.  The users that launch the process are the corresponding names of the component.  The processes are listed with their main class.</p>
+
+<p><strong>Ambari</strong><br />
+AmbariServer - org.apache.ambari.server.controller.AmbariServer run as root user<br />
+Ambari Agent (non java process)</p>
+
+<p><strong>Flume</strong><br />
+Application - org.apache.flume.node.Application</p>
+
+<p><strong>HDFS</strong><br />
+Portmap - org.apache.hadoop.portmap.Portmap<br />
+NameNode - org.apache.hadoop.hdfs.server.namenode.NameNode<br />
+DataNode - org.apache.hadoop.hdfs.server.datanode.DataNode<br />
+Nfs</p>
+
+<p>Portmap - Unlike the other processes that are launched by hdfs user, these are run as root user.<br />
+The nfs process doesn’t show up as a name for jps output</p>
+
+<p><strong>HIVE</strong><br />
+RunJar - webhcat - org.apache.hadoop.util.RunJar Run as hcat user<br />
+RunJar - metastore - org.apache.hadoop.util.RunJar<br />
+RunJar - hiveserver2 - org.apache.hadoop.util.RunJar</p>
+
+<p><strong>Mapreduce</strong><br />
+JobHistoryServer - org.apache.hadoop.mapreduce.v2.hs.JobHistoryServer<br />
+mapred is the user used to launch this process</p>
+
+<p><strong>Oozie</strong><br />
+Bootstrap - org.apache.catalina.startup.Bootstrap</p>
+
+<p><strong>Ranger</strong><br />
+UnixAuthenticationService- org.apache.ranger.authentication.UnixAuthenticationService Run as root user<br />
+EmbededServer- org.apache.ranger.server.tomcat.EmbeddedServer</p>
+
+<p><strong>Spark</strong><br />
+HistoryServer - org.apache.spark.deploy.history.HistoryServer</p>
+
+<p><strong>YARN</strong>                                                             	
+ApplicationHistoryServer - org.apache.hadoop.yarn.server.applicationhistoryservice.ApplicationHistoryServer<br />
+ResourceManager -  org.apache.hadoop.yarn.server.resourcemanager.ResourceManager<br />
+NodeManager - org.apache.hadoop.yarn.server.nodemanager.NodeManager</p>
+
+<p><strong>Zookeeper</strong><br />
+QuorumPeerMain - org.apache.zookeeper.server.quorum.QuorumPeerMain</p>
+
+<p><strong>Zeppelin</strong>  <br />
+ZeppelinServer - org.apache.zeppelin.server.ZeppelinServer</p>
+
+<h2 id="hdp-services-not-started-automatically-on-startup">HDP Services NOT Started Automatically on Startup</h2>
+<p>Because of the limited resources avaialble in the sandbox virtual machine environment, the following services are in maintenance mode and will not automatically start.  To fully use these services, you must allocate more memory to the sandbox virtual machine.  If you want these services to automatically start, turn off maintenance mode.  The processes are listed with their main class.</p>
+
+<p><strong>Ambari Infra</strong><br />
+<strong>Ambari Metrics</strong></p>
+
+<p><strong>Atlas</strong><br />
+Main - org.apache.atlas.Main</p>
+
+<p><strong>HDFS</strong><br />
+SecondaryNameNode - org.apache.hadoop.hdfs.server.namenode.SecondaryNameNode<br />
+Since on a single node, secondary namenode is not needed, it is not started.</p>
+
+<p><strong>Falcon</strong><br />
+Main - org.apache.falcon.Main</p>
+
+<p><strong>HBase</strong><br />
+HRegionServer - org.apache.hadoop.hbase.regionserver.HRegionServer<br />
+HMaster - org.apache.hadoop.hbase.master.HMaster</p>
+
+<p><strong>Kafka</strong><br />
+Kafka - kafka.Kafka</p>
+
+<p><strong>Knox</strong><br />
+gateway.jar - /usr/hdp/current/knox-server/bin/gateway.jar<br />
+ldap.jar - /usr/hdp/current/knox-server/bin/ldap.jar This process is a mini ldap server</p>
+
+<p><strong>Spark</strong><br />
+Livy server run as livy<br />
+Thrift Server - org.apache.spark.deploy.SparkSubmit run as hive user</p>
+
+<p><strong>Spark2</strong><br />
+Livy server run as livy<br />
+Thrift server - org.apache.spark.deploy.SparkSubmit run as hive user</p>
+
+<p><strong>Storm</strong><br />
+supervisor - backtype.storm.daemon.supervisor<br />
+nimbus - backtype.storm.daemon.nimbus<br />
+logviewer - backtype.storm.daemon.logviewer<br />
+core - backtype.storm.ui.core<br />
+drpc -  backtype.storm.daemon.drpc</p>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-730.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-730&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Hortonworks Sandbox Guide</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-730</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>

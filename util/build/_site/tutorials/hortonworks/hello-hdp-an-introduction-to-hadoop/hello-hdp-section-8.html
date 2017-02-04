@@ -1,0 +1,159 @@
+
+
+<div class="tutorial-content">
+  <h1 id="lab-5-data-reporting-with-zeppelin">Lab 5: Data Reporting With Zeppelin</h1>
+
+<h2 id="data-visualization-using-apache-zeppelin">Data Visualization using Apache Zeppelin</h2>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In this tutorial you will be introduced to Apache Zeppelin. In the earlier section of lab, you learned how to perform data visualization
+using Excel. This section will teach you to visualize data using Zeppelin.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>The tutorial is a part of series of hands on tutorial to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.</p>
+
+<ul>
+  <li>Hortonworks Sandbox</li>
+  <li><a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox</a></li>
+  <li>Lab 1: Load sensor data into HDFS</li>
+  <li>Lab 2: Data Manipulation with Apache Hive</li>
+  <li>Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor</li>
+  <li>Working Zeppelin installation</li>
+  <li>Allow yourself approximately one hour to complete this tutorial.</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#apache-zeppelin">Apache Zeppelin</a></li>
+  <li><a href="#step5.1">Step 5.1: Create a Zeppelin Notebook</a></li>
+  <li><a href="#step5.2">Step 5.2: Execute a Hive Query</a></li>
+  <li><a href="#step5.3">Step 5.3: Build Charts Using Zeppelin</a></li>
+  <li><a href="#summary-lab5">Summary</a></li>
+  <li><a href="#suggested-readings-lab5">Suggested Readings</a></li>
+</ul>
+
+<h2 id="apache-zeppelin-">Apache Zeppelin <a id="apache-zeppelin"></a></h2>
+
+<p>Apache Zeppelin provides a powerful web-based notebook platform for data analysis and discovery.<br />
+Behind the scenes it supports Spark distributed contexts as well as other language bindings on top of Spark.</p>
+
+<p>In this tutorial we will be using Apache Zeppelin to run SQL queries on our geolocation, trucks, and
+riskfactor data that we've collected earlier and visualize the result through graphs and charts.</p>
+
+<p>NOTE: We can also run queries via various interpreters for the following (but not limited to) spark, hawq and postgresql.</p>
+
+<h2 id="step-51-create-a-zeppelin-notebook-">Step 5.1: Create a Zeppelin Notebook <a id="step5.1"></a></h2>
+
+<h3 id="511-navigate-to-zeppelin-notebook">5.1.1 Navigate to Zeppelin Notebook</h3>
+
+<p>1) Navigate to http://sandbox.hortonworks.com:9995 directly to open the Zeppelin interface.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/hello-hdp/zeppelin_welcome_page_hello_hdp_lab4.png" alt="Zeppelin Dashboard" /></p>
+
+<p>2) Click on create note, name the notebook <strong>Driver Risk Factor</strong> and a new notebook shall get started.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/hello-hdp/zeppelin_create_new_notebook.png" alt="Zeppelin Create New Notebook" /></p>
+
+<h2 id="step-52-execute-a-hive-query-">Step 5.2: Execute a Hive Query <a id="step5.2"></a></h2>
+
+<h3 id="521-visualize-finalresults-data-in-tabular-format">5.2.1 Visualize finalresults Data in Tabular Format</h3>
+
+<p>In the previous Spark and Pig tutorials you already created a table finalresults or riskfactor which gives the risk factor associated with every driver. We will use the data we generated in this table to visualize which drivers have the highest risk factor. We will use the jdbc hive interpreter to write queries in Zeppelin. jdbc by default runs hive.</p>
+
+<p>1) Copy and paste the code below into your Zeppelin note.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%jdbc(hive)
+
+SELECT * FROM riskfactor
+</code></pre>
+</div>
+
+<p>2) Click the play button next to "ready" or "finished" to run the query in the Zeppelin notebook.
+Alternative way to run query is "shift+enter."</p>
+
+<p>Initially, the query will produce the data in tabular format as shown in the screenshot.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/hello-hdp/output_riskfactor_zeppelin_lab6.png" alt="play_button_zeppelin_workbook" /></p>
+
+<h2 id="step-53-build-charts-using-zeppelin-">Step 5.3: Build Charts using Zeppelin <a id="step5.3"></a></h2>
+
+<h3 id="531-visualize-finalresults-data-in-chart-format">5.3.1 Visualize finalresults Data in Chart Format</h3>
+
+<p>1. Iterate through each of the tabs that appear underneath the query.
+Each one will display a different type of chart depending on the data that is returned in the query.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/hello-hdp/charts_tab_jdbc_lab6.png" alt="charts_tab_under_query_lab6" /></p>
+
+<p>2. After clicking on a chart, we can view extra advanced settings to tailor the view of the data we want</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/hello-hdp/bar_graph_zeppelin_lab6.png" alt="Chart Advanced Settings" /></p>
+
+<p>3. Click settings to open the advanced chart features.</p>
+
+<p>4. To make a chart with <code class="highlighter-rouge">riskfactor.driverid</code> and <code class="highlighter-rouge">riskfactor.riskfactor SUM</code>, drag the table relations into the boxes as shown in the image below.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/hello-hdp/fields_set_keys_values_chart_lab6.png" alt="Advanced Settings Boxes" /></p>
+
+<p>5. You should now see an image like the one below.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/hello-hdp/driverid_riskfactor_chart_lab6.png" alt="Bar Graph Example Image" /></p>
+
+<p>6. If you hover on the peaks, each will give the driverid and riskfactor.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/hello-hdp/hover_over_peaks_lab6.png" alt="driverid_riskfactor_peak" /></p>
+
+<p>7. Try experimenting with the different types of charts as well as dragging and
+dropping the different table fields to see what kind of results you can obtain.</p>
+
+<p>8. Let' try a different query to find which cities and states contain the drivers with the highest riskfactors.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>%jdbc(hive)
+
+SELECT a.driverid, a.riskfactor, b.city, b.state
+FROM riskfactor a, geolocation b where a.driverid=b.driverid
+</code></pre>
+</div>
+
+<p>9. Run the query above using the keyboard shortcut Shift+Enter.
+You should eventually end up with the results in a table below.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/hello-hdp/queryFor_cities_states_highest_driver_riskfactor.png" alt="Filter City and States" /></p>
+
+<p>10. After changing a few of the settings we can figure out which of the cities have the high risk factors.
+Try changing the chart settings by clicking the <strong>scatterplot</strong> icon. Then make sure that the keys a.driverid
+is within the xAxis field, a.riskfactor is in the yAxis field, and b.city is in the group field.
+The chart should look similar to the following.</p>
+
+<p><img src="https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/hello-hdp/visualize_cities_highest_driver_riskfactor_lab6.png" alt="Scatter Plot Graph" /></p>
+
+<p>The graph shows that driver id number A39 has a high risk factor of 652417 and drives in Santa Maria.</p>
+
+<h2 id="summary-">Summary <a id="summary-lab5"></a></h2>
+
+<p>Now that we know how to use Apache Zeppelin to obtain and visualize our data, we can use the skills
+we've learned from our Hive, Pig, and Spark labs, as well and apply them to new kinds of data to
+try to make better sense and meaning from the numbers!</p>
+
+<h2 id="suggested-readings-">Suggested Readings <a id="suggested-readings-lab5"></a></h2>
+
+<ul>
+  <li><a href="http://hortonworks.com/hadoop/zeppelin/">Zeppelin on HDP</a></li>
+  <li><a href="https://zeppelin.incubator.apache.org/docs/">Apache Zeppelin Docs</a></li>
+  <li><a href="https://zeppelin.incubator.apache.org/">Zeppelin Homepage</a></li>
+</ul>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-100.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-100&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Hello HDP An Introduction to Hadoop with Hive and Pig</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-100</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>
