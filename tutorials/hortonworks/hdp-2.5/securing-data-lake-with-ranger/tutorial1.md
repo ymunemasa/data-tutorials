@@ -26,7 +26,7 @@ In this lab of the Apache Ranger tutorial, we will use Ranger to set access poli
 
 ### 1: Download the sample data <a id="download-sample-data"></a>
 
-Download the driver data file from [here](https://github.com/hortonworks/tutorials/blob/hdp-2.5/driver_data.zip).
+Download the driver data file from [here](assets/driver_data.zip).
 Once you have the file you will need to unzip the file into a directory. We will be uploading two csv files - **drivers.csv** and **truck_event_text_partition.csv**.
 
 ### 2. Upload the data files <a id="upload-data-files"></a>

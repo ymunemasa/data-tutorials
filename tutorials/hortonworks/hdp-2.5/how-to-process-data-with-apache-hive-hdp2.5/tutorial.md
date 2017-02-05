@@ -41,7 +41,7 @@ We are going to do the same data processing task as we just did with Pig in the 
 
 ## Step 1: Download The Data <a id="download-the-data"></a>
 
-Download the driver data file from [here](LINKME](assets/driver_data.zip)).
+Download the driver data file from [here](assets/driver_data.zip).
 Once you have the file you will need to unzip the file into a directory. We will be uploading two csv files - `drivers.csv` and `timesheet.csv`.
 
 ## Step 2: Upload The Data Files <a id="upload-the-data-files"></a>

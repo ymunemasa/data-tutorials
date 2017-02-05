@@ -52,7 +52,7 @@ Pig scripts are translated into a series of MapReduce jobs that are run on the A
 
 ### Step 1: Download the Data <a id="download-the-data"></a>
 
-Download the driver data file from [here](https://github.com/hortonworks/tutorials/blob/hdp-2.5/driver_data.zip).
+Download the driver data file from [here](assets/driver_data.zip).
 Once you have the file you will need to unzip the file into a directory. We will be uploading two csv files - `truck_event_text_partition.csv` and `drivers.csv`.
 
 ### Step 2: Upload the data files <a id="step-2-upload-the-data-files"></a>

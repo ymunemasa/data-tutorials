@@ -270,7 +270,7 @@ First you'll need to SSH into the sandbox execute the following command
 ~~~bash
 wget https://raw.githubusercontent.com/hortonworks/tutorials/tutorials/hortonworks/hdp-2.5/analyzing-social-media-sentiment-data/assets/twitter-gen.sh
 
-wget LINKME](assets/twitter-gen.sh)
+wget LINKME(assets/twitter-gen.sh)
 ~~~
 
 Then run the command with your specified number of tweets that you would like to generate.

@@ -41,7 +41,7 @@ In this tutorial, we’ll focus on taking advantage of the improvements to [Apac
 
 ### Step 1: Download Data <a id="download-data"></a>
 
-Download the driver data file from [here](https://github.com/hortonworks/tutorials/blob/hdp-2.5/driver_data.zip).
+Download the driver data file from [here](assets/driver_data.zip).
 
 Once you have the file you will need to unzip the file into a directory. We will be uploading two csv files - drivers.csv and timesheet.csv.
 

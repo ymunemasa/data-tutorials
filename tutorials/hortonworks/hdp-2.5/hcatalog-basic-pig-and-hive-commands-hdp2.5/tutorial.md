@@ -31,7 +31,7 @@ In this tutorial, we will learn to use Hive and Pig along with other tools to pr
 
 ### Step 1: Download Example Data <a id="download-example-data"></a>
 
-Download the `driver data` file from [here](https://github.com/hortonworks/tutorials/blob/hdp-2.5/driver_data.zip).
+Download the `driver data` file from [here](assets/driver_data.zip).
 Once you have the file you will need to unzip the file into a directory. We will be uploading two csv files - `drivers.csv` and `truck_event_text_partition.csv`.
 
 ### Step 2: Upload the data files Into HDFS <a id="upload-data-files"></a>
