@@ -1,0 +1,89 @@
+<div class="tutorial-content">
+  <h1 id="how-to-visualize-and-analyze-website-clickstream-data">How to Visualize and Analyze Website Clickstream Data</h1>
+
+<p>Version 1 for HDP 2.5 updated October 7, 2016</p>
+
+<p>Your home page looks great. But how do you move customers on to bigger things—like submitting a form or completing a purchase? Get more granular with customer segmentation. Hadoop makes it easier to analyze, visualize and ultimately change how visitors behave on your website.</p>
+
+<p>In this demo, we demonstrate how an online retailer can optimize buying paths to reduce bounce rate and improve conversion.</p>
+
+<iframe width="700" height="394" src="https://www.youtube.com/embed/weJI6Lp9Vw0?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player0"></iframe>
+
+<h3 id="in-this-tutorial-learn-how-to">In this tutorial, learn how to:</h3>
+
+<ul>
+  <li>Upload twitter feeds into <a href="http://hortonworks.com/hadoop/hdfs">HDFS</a></li>
+  <li>Use <a href="http://hortonworks.com/hadoop/hcatalog">HCatalog</a> to build a relational view of the data</li>
+  <li>Use <a href="http://hortonworks.com/hadoop/hive">Hive</a> to query and refine the data</li>
+  <li>Import the data into Microsoft Excel with the <a href="http://hortonworks.com/downloads/#data-platform">ODBC Driver for Apache Hive (v2.1.5)</a></li>
+  <li>Visualize Data with Powerview</li>
+  <li>Visualize Data with Apache Zeppelin</li>
+</ul>
+
+<p>This demo can be completed with the <a href="http://hortonworks.com/products/sandbox">Hortonworks Sandbox</a> – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series.</p>
+
+<p>The Hortonworks sandbox is a fully contained Hortonworks Data Platform (HDP) environment. The sandbox includes the core Hadoop components (HDFS and MapReduce), as well as all the tools needed for data ingestion and processing. You can access and analyze sandbox data with many Business Intelligence (BI) applications.</p>
+
+<p>In this tutorial, we will load and review data for a fictitious web retail store in what has become an established use case for Hadoop: deriving insights from large data sources such as web logs. By combining web logs with more traditional customer data, we can better understand our customers, and also understand how to optimize future promotions and advertising.</p>
+
+<h3 id="clickstream-data">Clickstream Data</h3>
+
+<p>Clickstream data is an information trail a user leaves behind while visiting a website. It is typically captured in semi-structured website log files.</p>
+
+<p>These website log files contain data elements such as a date and time stamp, the visitor’s IP address, the destination URLs of the pages visited, and a user ID that uniquely identifies the website visitor.</p>
+
+<h3 id="potential-uses-of-clickstream-data">Potential Uses of Clickstream Data</h3>
+
+<p>One of the original uses of Hadoop at Yahoo was to store and process their massive volume of clickstream data. Now enterprises of all types can use Hadoop and the Hortonworks Data Platform (HDP) to refine and analyze clickstream data. They can then answer business questions such as:</p>
+
+<ul>
+  <li>What is the most efficient path for a site visitor to research a product, and then buy it?</li>
+  <li>What products do visitors tend to buy together, and what are they most likely to buy in the future?</li>
+  <li>Where should I spend resources on fixing or enhancing the user experience on my website?</li>
+</ul>
+
+<p>In this tutorial, we will focus on the “path optimization” use case. Specifically: how can we improve our website to reduce bounce rates and improve conversion?</p>
+
+<h3 id="prerequisites">Prerequisites:</h3>
+
+<ul>
+  <li>Hortonworks ODBC driver (64-bit) installed and configured</li>
+  <li>Hortonworks sample data files uploaded and refined as described in “Loading Data into the Hortonworks Sandbox”</li>
+  <li>If you haven’t loaded this data yet, please <a href="https://s3.amazonaws.com/hw-sandbox/tutorial8/RefineDemoData.zip">download it here</a>  and import it by following this tutorial: <a href="http://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox/">http://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox/</a></li>
+  <li>Microsoft Excel 2013 Professional Plus 64-bit</li>
+  <li>Windows 7 or later(Optional - to run Microsoft Excel 2013 Professional Plus edition)</li>
+  <li>Note this tutorial can still be run with any version of Excel, but your visualizaitons will be limited to the built in charts. You may wish to attempt this with another visualization tool that can accept data via an ODBC connection, like Tableau, Lumira, etc.</li>
+</ul>
+
+<p>There are two options for setting up the Hortonworks Sandbox:</p>
+
+<ol>
+  <li><strong>Download &amp; Install <a href="http://hortonworks.com/sandbox">Hortonworks Sandbox</a></strong> on your local machine (recommended 8GB of dedicated RAM for the Virtual Machine)</li>
+  <li><strong>Deploy <a href="http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/">Hortonworks Sandbox on Microsoft Azure</a></strong></li>
+</ol>
+
+<h3 id="overview">Overview</h3>
+
+<p>To analyze and visualize website clickstream data, we will:</p>
+
+<ul>
+  <li>Use Hortonworks to view and refine website clickstream data.</li>
+  <li>Access the clickstream data with Excel.</li>
+  <li>Visualize the clickstream data using Excel Power View.</li>
+</ul>
+
+<hr />
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-/tutorials/hortonworks/hdp-2.5/visualizing-website-clickstream-data/tutorial-0.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-hdp-2.5.0&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>How to Visualize Website Clickstream Data</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-/tutorials/hortonworks/hdp-2.5/visualizing-website-clickstream-data/tutorial-0</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>
+

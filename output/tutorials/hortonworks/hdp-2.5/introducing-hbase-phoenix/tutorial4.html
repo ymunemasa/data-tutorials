@@ -1,0 +1,235 @@
+<div class="tutorial-content">
+  <h2 id="introduction">Introduction</h2>
+
+<p>The HBase backup and restore utility helps you take backup of the table schema and data and enable you to recover your environment should failure occur. The HBase backup and restore utility also supports incremental backups. This means you don’t have to take full backup each time.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li><a href="http://hortonworks.com/downloads/#sandbox">Download Hortonworks 2.5 Sandbox</a></li>
+  <li>Complete the <a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox tutorial,</a> you will need it for logging into Ambari as an administrator user.</li>
+  <li>Lab 1 : Introduction to HBase Concepts</li>
+  <li>Lab 2 : Introduction to Phoenix Concepts</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#create-full-backup">1: Creating a Full Backup</a></li>
+  <li><a href="#backup-sets">2: Backup Sets</a></li>
+  <li><a href="#restore-backup">3: Restoring a Backup</a></li>
+  <li><a href="#summary">4: Summary</a></li>
+</ul>
+
+<h2 id="1-creating-a-full-backup-">1. Creating a Full Backup <a id="create-full-backup"></a></h2>
+
+<p>The first step in running the backup-and-restore utilities is to capture the complete data set in a separate image from the source. The syntax for creating HBase backup is as follows:</p>
+
+<p><code class="highlighter-rouge">hbase backup create { {full | incremental} {backup_root_path} {[tables] | [-set backup_set_name]} } [[-silent] | [-w number_of_workers] | [-b bandwidth_per_worker]]</code></p>
+
+<h3 id="arguments-">Arguments:-</h3>
+
+<ol>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>full</td>
+          <td>incremental - Full argument takes the full backup image. Incremental argument creates an incremental backup that has an image of data changes since the full backup or the previous incremental backup.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>backup_root_path - the root path where you want to store your backup image.</p>
+  </li>
+  <li>
+    <p>tables (optional) - Specify the table or tables to backup. If no tables are specified, all tables are backed up.</p>
+  </li>
+  <li>
+    <p>-set backup_set_name (optional)- Calls an existing backup set in the command.</p>
+  </li>
+  <li>
+    <p>-silent (optional) - Ensures that the progress of the backup is not displayed on the screen.</p>
+  </li>
+  <li>
+    <p>-w number_of_workers (optional) - Specifies the number of parallel workers to copy data of the backup.</p>
+  </li>
+  <li>-b bandwidth_per_worker (optional) - Specifies the bandwidth of the worker in MB per second.</li>
+</ol>
+
+<p>Now create a full backup of table <code class="highlighter-rouge">driver_dangerous_event</code> on <code class="highlighter-rouge">hdfs://sandbox.hortonworks.com:8020/user/hbase/backup</code>  HDFS path with 3 parallel workers. Run the following command from the command line:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;hbase backup create full hdfs://sandbox.hortonworks.com:8020/user/hbase/backup driver_dangerous_event -w 3
+</code></pre>
+</div>
+
+<p><img src="assets/create_full_backup.png" alt="create_full_backup_image" /></p>
+
+<p>You check whether the backup of your table is created in HDFS or not.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;hadoop fs -ls /user/hbase/backup
+</code></pre>
+</div>
+
+<p><img src="assets/view_full_backup.png" alt="view_full_backup" /></p>
+
+<p>One more way to check whether the backup is taken or not is by running:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;hbase backup history
+</code></pre>
+</div>
+
+<p><img src="assets/backup_history.png" alt="backup_history" /></p>
+
+<p>Note the backup_ID which will be used while restoring the data.</p>
+
+<h2 id="2-backup-sets-">2. Backup Sets <a id="backup-sets"></a></h2>
+
+<p>You can create a group of tables into a set so that it reduces the amount of repetitive inputs of table names. You can then use the <code class="highlighter-rouge">-set argument</code> to invoke named backup set in either hbase backup create or hbase backup restore utility. Syntax to create a backup set is:</p>
+
+<p><code class="highlighter-rouge">hbase backup set {[add] | [remove] | [list] | [describe] | [delete]} backup_set_name tables</code></p>
+
+<p>If you run the <strong>hbase backup set add</strong> command and specify a backup set name that does not yet exist on your system, a new set is created. If you run the command with the name of an existing backup set name, then the tables that you specify are added to the set.</p>
+
+<h3 id="arguments">Arguments:</h3>
+
+<ol>
+  <li>
+    <p>add  - Add tables to a backup set. Specify a backup_set_name value after this argument to create a backup set.
+remove - Removes tables from the set. Specify the tables to remove in the tables argument.</p>
+  </li>
+  <li>
+    <p>list - Lists all backup sets.</p>
+  </li>
+  <li>
+    <p>describe - Use this subcommand to display on the screen a description of a backup set. This subcommand must precede a valid value for the backup_set_name value.</p>
+  </li>
+  <li>
+    <p>delete - Deletes a backup set. Enter the value for the backup_set_name option directly after the <strong>hbase backup set delete</strong> command.</p>
+  </li>
+  <li>
+    <p>backup_set_name (optional) - Used to assign or invoke a set name.</p>
+  </li>
+  <li>
+    <p>tables (optional) - list of tables to include in the backup set.</p>
+  </li>
+</ol>
+
+<p>Now create a backup set called event which has a table driver_dangerous_event.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;hbase backup set add event driver_dangerous_event
+</code></pre>
+</div>
+
+<p><img src="assets/create_backup_set.png" alt="create_backup_set" /></p>
+
+<p>Let’s check whether our set is added or not using list:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;hbase backup set list
+</code></pre>
+</div>
+
+<p><img src="assets/view_backup_set.png" alt="view_backup_set" /></p>
+
+<h2 id="3-restoring-a-backup-">3. Restoring a Backup <a id="restore-backup"></a></h2>
+
+<p>The syntax for running a restore utility is as follows:</p>
+
+<p><code class="highlighter-rouge">hbase restore {[backup_root_path] | [backup_ID] | [tables]} [[table_mapping] | [-overwrite]]</code></p>
+
+<h3 id="arguments-1">Arguments:</h3>
+
+<ol>
+  <li>
+    <p>backup_root_path - Specifies the parent location of the stored backup image.</p>
+  </li>
+  <li>
+    <p>backup_ID - The backup ID that uniquely identifies the backup image to be restored.</p>
+  </li>
+  <li>
+    <p>tables - Table or tables to be restored.</p>
+  </li>
+  <li>
+    <p>table_mapping (optional)- Directs the utility to restore data in the tables that are specified in the tables option. Each table must be mapped prior to running the command.</p>
+  </li>
+  <li>
+    <p>-overwrite  (optional) - Overwrites an existing table if there is one with the same name in the target restore location.</p>
+  </li>
+  <li>
+    <p>-automatic (optional) - Restores both the backup image and all the dependencies following the correct order.</p>
+  </li>
+</ol>
+
+<p>Let’s drop a table so that restore utility can be tested. To drop a table in HBase, you first have to disable it and then drop it.</p>
+
+<p>Run the following commands from the <strong>hbase shell</strong> to drop the table:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>hbase&gt;disable 'driver_dangerous_event'
+
+hbase&gt;drop 'driver_dangerous_event'
+</code></pre>
+</div>
+
+<p><img src="assets/drop_table.png" alt="drop_table" /></p>
+
+<p>You also have to delete the mapping table from Phoenix to avoid any confusion.</p>
+
+<p>Exit from the hbase shell and go to <code class="highlighter-rouge">/usr/hdp/current/phoenix-client/bin</code> and open the Phoenix shell using:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /usr/hdp/current/phoenix-client/bin
+./sqlline.py localhost
+</code></pre>
+</div>
+
+<p>Now drop that mapping table:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>drop table "driver_dangerous_event";
+</code></pre>
+</div>
+
+<p><img src="assets/drop_table_phoenix.png" alt="drop_table_phoenix" /></p>
+
+<p>Exit the Phoenix shell by typing <code class="highlighter-rouge">!quit</code> and now drop the table from Hive also. Go back to Hive view and drop the table:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>drop table hbase_table_driver_dangerous_event;
+</code></pre>
+</div>
+
+<p>Click on green <code class="highlighter-rouge">Execute</code> button, you will see something like this:</p>
+
+<p><img src="assets/drop_table_hive.png" alt="drop_table_hive" /></p>
+
+<p>Now let’s restore the backup of this table which you created earlier in the tutorial:</p>
+
+<blockquote>
+  <p><strong>NOTE</strong>: Copy the same backup ID that you got while doing <strong>hbase backup history</strong></p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;hbase restore /user/hbase/backup backup_1466560117119 driver_dangerous_event -automatic
+</code></pre>
+</div>
+
+<p><img src="assets/restore_command_result.png" alt="restore_command_result" /></p>
+
+<p>You can view the result at the end of this command’s execution.</p>
+
+<p><img src="assets/restore_command.png" alt="restore_command" /></p>
+
+<h2 id="4-summary-">4. Summary <a id="summary"></a></h2>
+
+<p>Congratulations! Lets summarize what we learned in this tutorial. We went through the new Backup &amp; Restore utility in HBase. We created a full backup of our HBase table, created a backup set and then restore the deleted table.</p>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-/tutorials/hortonworks/hdp-2.5/introducing-hbase-phoenix/tutorial4.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-hdp-2.5.0&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>HBase Backup and Restore Utility</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-/tutorials/hortonworks/hdp-2.5/introducing-hbase-phoenix/tutorial4</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>
+

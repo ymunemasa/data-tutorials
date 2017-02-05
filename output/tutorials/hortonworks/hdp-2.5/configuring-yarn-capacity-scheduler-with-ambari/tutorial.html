@@ -1,0 +1,201 @@
+<div class="tutorial-content">
+  <p>In this tutorial we are going to explore how we can configure YARN Capacity Scheduler from Ambari.</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>YARN’s Capacity Scheduler is designed to run Hadoop applications in a shared, multi-tenant cluster while maximizing the throughput and the utilization of the cluster.</p>
+
+<p>Traditionally each organization has it own private set of compute resources that have sufficient capacity to meet the organization’s SLA. This generally leads to poor average utilization. Also there is heavy overhead of managing multiple independent clusters.</p>
+
+<p>Sharing clusters between organizations allows economies of scale . However, organizations are concerned about sharing a cluster in the fear of not getting enough available resources that are critical to meet their SLAs.
+The Capacity Scheduler is designed to allow sharing a large cluster while giving each organization capacity guarantees. There is an added benefit that an organization can access any excess capacity not being used by others. This provides elasticity for the organizations in a cost-effective manner.</p>
+
+<p>Sharing clusters across organizations necessitates strong support for multi-tenancy since each organization must be guaranteed capacity and safeguards to ensure the shared cluster is impervious to single rogue application or user or sets thereof. The Capacity Scheduler provides a stringent set of limits to ensure that a single application or user or queue cannot consume disproportionate amount of resources in the cluster. Also, the Capacity Scheduler provides limits on initialized/pending applications from a single user and queue to ensure fairness and stability of the cluster.</p>
+
+<p>The primary abstraction provided by the Capacity Scheduler is the concept of queues. These queues are typically set up by administrators to reflect the economics of the shared cluster.</p>
+
+<p>To provide further control and predictability on sharing of resources, the Capacity Scheduler supports hierarchical queues to ensure resources are shared among the sub-queues of an organization before other queues are allowed to use free resources, thereby providing affinity for sharing free resources among applications of a given organization.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li><a href="http://hortonworks.com/downloads/#sandbox">Download Hortonworks 2.5 Sandbox</a></li>
+  <li>Complete the <a href="http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox tutorial,</a> you will need it for logging into Ambari.</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#configure-scheduler">1: Configuring the Capacity Scheduler</a></li>
+  <li><a href="#rollback-version">2: Rollback the Configuration Version</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#hcc">HCC Articles</a></li>
+</ul>
+
+<h3 id="1-configuring-the-capacity-scheduler-">1. Configuring the Capacity Scheduler <a id="configure-scheduler"></a></h3>
+
+<p>After you spin up the Hortonworks Sandbox, login to Ambari. The user credentials are <strong>raj_ops/raj_ops</strong>.</p>
+
+<p><img src="assets/ambari_login.png" alt="ambari_login" /></p>
+
+<p>After you Login, you will see the Dashboard. This is an unified view of the state of your Sandbox.</p>
+
+<p><img src="assets/ambari_dashboard_rajops.png" alt="ambari_dashboard_rajops" /></p>
+
+<p>You can drill into specific service dashboard and configuration.
+Let’s dive into YARN dashboard by selecting <strong>Yarn</strong> from the left-side bar or the drop down menu.</p>
+
+<p><img src="assets/select_yarn.png" alt="select_yarn" /></p>
+
+<p>We will start updating the configuration for Yarn Capacity Scheduling policies. Click on <code class="highlighter-rouge">Configs</code> tab.</p>
+
+<p><img src="assets/select_configs_tab.png" alt="select_configs_tab" /></p>
+
+<p>Next, click on <code class="highlighter-rouge">Advanced</code> and scroll down to the <strong>Scheduler</strong> section of the page. The default capacity scheduling policy just has one queue which is <strong>default</strong>.</p>
+
+<p><img src="assets/capacity_scheduler_section.png" alt="capacity_scheduler_section" /></p>
+
+<p>Let check out the scheduling policy visually. Scroll up to the top of the page and click on <code class="highlighter-rouge">Quick Links</code>. Then select <code class="highlighter-rouge">ResourceManager UI</code> from the dropdown.</p>
+
+<p><img src="assets/select_resourcemanagerui.png" alt="select_resourcemanagerui" /></p>
+
+<p>Click on <code class="highlighter-rouge">Scheduler</code> and you can see below we just have the <strong>default</strong> policy.</p>
+
+<p><img src="assets/resource_manager_ui.png" alt="resource_manager_ui" /></p>
+
+<p>Let’s change the capacity scheduling policy to where we have separate queues and policies for Engineering, Marketing and Support departments:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>yarn.scheduler.capacity.maximum-am-resource-percent=0.2
+yarn.scheduler.capacity.maximum-applications=10000
+yarn.scheduler.capacity.node-locality-delay=40
+yarn.scheduler.capacity.root.Engineering.Development.acl_administer_jobs=*
+yarn.scheduler.capacity.root.Engineering.Development.acl_administer_queue=*
+yarn.scheduler.capacity.root.Engineering.Development.acl_submit_applications=*
+yarn.scheduler.capacity.root.Engineering.Development.capacity=20
+yarn.scheduler.capacity.root.Engineering.Development.minimumaximum-capacity=100
+yarn.scheduler.capacity.root.Engineering.Development.state=RUNNING
+yarn.scheduler.capacity.root.Engineering.Development.user-limit-factor=1
+yarn.scheduler.capacity.root.Engineering.QE.acl_administer_jobs=*
+yarn.scheduler.capacity.root.Engineering.QE.acl_administer_queue=*
+yarn.scheduler.capacity.root.Engineering.QE.acl_submit_applications=*
+yarn.scheduler.capacity.root.Engineering.QE.capacity=80
+yarn.scheduler.capacity.root.Engineering.QE.maximum-capacity=90
+yarn.scheduler.capacity.root.Engineering.QE.state=RUNNING
+yarn.scheduler.capacity.root.Engineering.QE.user-limit-factor=1
+yarn.scheduler.capacity.root.Engineering.acl_administer_jobs=*
+yarn.scheduler.capacity.root.Engineering.acl_administer_queue=*
+yarn.scheduler.capacity.root.Engineering.acl_submit_applications=*
+yarn.scheduler.capacity.root.Engineering.capacity=60
+yarn.scheduler.capacity.root.Engineering.maximum-capacity=100
+yarn.scheduler.capacity.root.Engineering.queues=Development,QE
+yarn.scheduler.capacity.root.Engineering.state=RUNNING
+yarn.scheduler.capacity.root.Engineering.user-limit-factor=1
+yarn.scheduler.capacity.root.Marketing.Advertising.acl_administer_jobs=*
+yarn.scheduler.capacity.root.Marketing.Advertising.acl_administer_queue=*
+yarn.scheduler.capacity.root.Marketing.Advertising.acl_submit_applications=*
+yarn.scheduler.capacity.root.Marketing.Advertising.capacity=30
+yarn.scheduler.capacity.root.Marketing.Advertising.maximum-capacity=40
+yarn.scheduler.capacity.root.Marketing.Advertising.state=STOPPED
+yarn.scheduler.capacity.root.Marketing.Advertising.user-limit-factor=1
+yarn.scheduler.capacity.root.Marketing.Sales.acl_administer_jobs=*
+yarn.scheduler.capacity.root.Marketing.Sales.acl_administer_queue=*
+yarn.scheduler.capacity.root.Marketing.Sales.acl_submit_applications=*
+yarn.scheduler.capacity.root.Marketing.Sales.capacity=70
+yarn.scheduler.capacity.root.Marketing.Sales.maximum-capacity=80
+yarn.scheduler.capacity.root.Marketing.Sales.minimum-user-limit-percent=20
+yarn.scheduler.capacity.root.Marketing.Sales.state=RUNNING
+yarn.scheduler.capacity.root.Marketing.Sales.user-limit-factor=1
+yarn.scheduler.capacity.root.Marketing.acl_administer_jobs=*
+yarn.scheduler.capacity.root.Marketing.acl_submit_applications=*
+yarn.scheduler.capacity.root.Marketing.capacity=10
+yarn.scheduler.capacity.root.Marketing.maximum-capacity=40
+yarn.scheduler.capacity.root.Marketing.queues=Sales,Advertising
+yarn.scheduler.capacity.root.Marketing.state=RUNNING
+yarn.scheduler.capacity.root.Marketing.user-limit-factor=1
+yarn.scheduler.capacity.root.Support.Services.acl_administer_jobs=*
+yarn.scheduler.capacity.root.Support.Services.acl_administer_queue=*
+yarn.scheduler.capacity.root.Support.Services.acl_submit_applications=*
+yarn.scheduler.capacity.root.Support.Services.capacity=80
+yarn.scheduler.capacity.root.Support.Services.maximum-capacity=100
+yarn.scheduler.capacity.root.Support.Services.minimum-user-limit-percent=20
+yarn.scheduler.capacity.root.Support.Services.state=RUNNING
+yarn.scheduler.capacity.root.Support.Services.user-limit-factor=1
+yarn.scheduler.capacity.root.Support.Training.acl_administer_jobs=*
+yarn.scheduler.capacity.root.Support.Training.acl_administer_queue=*
+yarn.scheduler.capacity.root.Support.Training.acl_submit_applications=*
+yarn.scheduler.capacity.root.Support.Training.capacity=20
+yarn.scheduler.capacity.root.Support.Training.maximum-capacity=60
+yarn.scheduler.capacity.root.Support.Training.state=RUNNING
+yarn.scheduler.capacity.root.Support.Training.user-limit-factor=1
+yarn.scheduler.capacity.root.Support.acl_administer_jobs=*
+yarn.scheduler.capacity.root.Support.acl_administer_queue=*
+yarn.scheduler.capacity.root.Support.acl_submit_applications=*
+yarn.scheduler.capacity.root.Support.capacity=30
+yarn.scheduler.capacity.root.Support.maximum-capacity=100
+yarn.scheduler.capacity.root.Support.queues=Training,Services
+yarn.scheduler.capacity.root.Support.state=RUNNING
+yarn.scheduler.capacity.root.Support.user-limit-factor=1
+yarn.scheduler.capacity.root.acl_administer_queue=*
+yarn.scheduler.capacity.root.capacity=100
+yarn.scheduler.capacity.root.queues=Support,Marketing,Engineering
+yarn.scheduler.capacity.root.unfunded.capacity=50
+</code></pre>
+</div>
+
+<p>Copy and paste the above policy in the <code class="highlighter-rouge">Capacity Scheduler</code> textbox from Ambari:</p>
+
+<p><img src="assets/copy_paste_policy.png" alt="copy_paste_policy" /></p>
+
+<p>Click <code class="highlighter-rouge">Save</code> and confirm on the dialog box:</p>
+
+<p><img src="assets/popup.png" alt="popup" /></p>
+
+<p>At this point, the configuration is saved but we still need to restart the affected components by the configuration change as indicated in the orange band below:</p>
+
+<p><img src="assets/restart_needed.png" alt="restart_needed" /></p>
+
+<p>Also note that there is now a new version of the configuration as indicated by the green <code class="highlighter-rouge">Current</code> label. Let’s restart the daemons by clicking <code class="highlighter-rouge">Restart All</code>.</p>
+
+<p><img src="assets/new_version.png" alt="new_version" /></p>
+
+<p>Wait for the restart to complete:</p>
+
+<p><img src="assets/restart_yarn_progress.png" alt="restart_yarn_progress" /></p>
+
+<p>and then go back to the Resource Manager UI  and refresh the page. Voila! There’s our new policy:</p>
+
+<p><img src="assets/resource_manager_ui_new_policy.png" alt="resource_manager_ui_new_policy" /></p>
+
+<p>Now restart other services from Ambari which need a restart.</p>
+
+<h3 id="2-rollback-the-configuration-version-">2. Rollback the Configuration Version <a id="rollback-version"></a></h3>
+
+<p>You can also rollback to the previous set of configurations.  Just hover on the previous version and click <code class="highlighter-rouge">Make Current</code>.</p>
+
+<p><img src="assets/make_current.png" alt="make_current" /></p>
+
+<h2 id="summary-">Summary <a id="summary"></a></h2>
+
+<p>So in this tutorial, you learned how to configure different queues and allotment of resources to those queues. Hope this brief tour of using YARN’s Capacity Scheduler gave you some ideas on how to achieve better utilization of Hadoop clusters.</p>
+
+<h2 id="hcc-articles-">HCC Articles <a id="hcc"></a></h2>
+
+<p>Check out some Hortonworks Community Connection articles to explore more about Capacity Scheduler:</p>
+
+<p>1. <a href="https://community.hortonworks.com/articles/4864/yarn-queues-no-capacity-scheduler-view.html">Yarn Queues - No Capacity Scheduler View</a></p>
+
+<p>2. <a href="https://community.hortonworks.com/articles/3229/capacity-scheduler-users-can-submit-to-any-queue.html">Control User Access to Capacity Scheduler Queues</a></p>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-/tutorials/hortonworks/hdp-2.5/configuring-yarn-capacity-scheduler-with-ambari/tutorial.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-hdp-2.5.0&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Configuring Yarn Capacity Scheduler with Apache Ambari</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-/tutorials/hortonworks/hdp-2.5/configuring-yarn-capacity-scheduler-with-ambari/tutorial</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>
+

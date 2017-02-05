@@ -1,0 +1,374 @@
+<div class="tutorial-content">
+  <h2 id="overview">Overview</h2>
+
+<p><strong>Apache HBase</strong> is a NoSQL database in the Hadoop eco-system. Many business intelligence tool and data analytic tools lack the ability to work with HBase data directly. <strong>Apache Phoenix</strong> enables you to interact with HBase using SQL. In <strong>HDP 2.5</strong>, we have introduced support for <strong>ODBC drivers</strong>. With this, you can connect any ODBC applications to HBase via Apache Phoenix. This enables you to use familiar business intelligence tools to run analysis on big datasets.  This tutorial is designed to help you learn how to use business intelligence tool such as Tableau to create data visualization using data in Apache Phoenix. This tutorial goes over the details on how to setup an end to end workflow.</p>
+
+<h2 id="what-youll-learn-from-this-tutorial">What you’ll learn from this tutorial</h2>
+
+<ol>
+  <li>How to launch a Hortonworks Hadoop sandbox (optional)</li>
+  <li>How to create a table and load data into Apache Phoenix</li>
+  <li>How to setup the Hortonworks ODBC connector</li>
+  <li>How to run bigdata analytics using Tableau/Excel using data in Phoenix</li>
+</ol>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>
+    <p>A deployment of HBase &amp; Phoenix
+In this tutorial, I’ll be using Hortonworks Sandbox, alternatively, you can:</p>
+
+    <ul>
+      <li>Use Microsoft HDInsight</li>
+      <li>Use Amazon EMR
+This tutorial will not cover setup for HDInsight or Amazon EMR.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Tableau installation on Windows</p>
+  </li>
+  <li>
+    <p>ODBC driver for your platform</p>
+
+    <ul>
+      <li><a href="http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC32.msi">Windows (32-bit)</a></li>
+      <li><a href="http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC64.msi">Windows (64-bit)</a></li>
+      <li><a href="http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/linux/HortonworksPhoenixODBC-32bit-1.0.0.1000-1.rpm">Linux (32-bit)</a></li>
+      <li><a href="http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/linux/HortonworksPhoenixODBC-64bit-1.0.0.1000-1.rpm">Linux (64-bit)</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="getting-and-launching-the-hdp-sandbox">Getting and launching the HDP sandbox</h3>
+
+<p>You can get the latest version of VirtualBox here: <a href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a></p>
+
+<p>After installing VirtualBox, you can download the sandbox image from here:
+<a href="http://hortonworks.com/downloads/#sandbox">http://hortonworks.com/downloads/#sandbox</a></p>
+
+<p>Start VirtualBox, select <code class="highlighter-rouge">File-&gt;Import Appliance</code></p>
+
+<h3 id="setting-up-admin-password-for-sandbox">Setting up admin password for sandbox</h3>
+
+<p>Once the sandbox is up and running, the first thing you want to do is to setup an admin password.
+If you are using ssh (or putty), connect to localhost,  port <strong>2222</strong> with account <strong>root</strong>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;ssh root@localhost -p 2222
+</code></pre>
+</div>
+
+<p>The sandbox also comes with it’s own shell: <a href="http://127.0.0.1:4200/">http://127.0.0.1:4200/</a></p>
+
+<p>Login with username <strong>root</strong> and password <strong>hadoop</strong>. You’ll be asked to change your password upon first login. This is the password for ssh and logging into the OS. It is NOT the password for Ambari UI access.</p>
+
+<p>Once you are logged into the shell, run the following command to reset Ambari’s admin password.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;ambari-admin-password-reset
+</code></pre>
+</div>
+
+<h3 id="setting-up-hbasephoenixphoenix-query-server">Setting up HBase/Phoenix/Phoenix Query Server</h3>
+
+<p>In this section, you’ll learn how to setup HBase, Phoenix and Phoenix Query Server (PQS) using Ambari dashboard.</p>
+
+<p>Go to <a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/</a> , login with username <strong>raj_ops</strong> and the password <strong>raj_ops</strong></p>
+
+<p><img src="assets/ambari_dashboard_rajops.png" alt="ambari_dashboard_rajops" /></p>
+
+<p>Find <strong>HBase</strong> on the left side, click on <code class="highlighter-rouge">Configs</code> tab. At the bottom of the page, you can find <strong>Phoenix SQL</strong>, toggle the button to <code class="highlighter-rouge">Enabled</code> position. This step enables the support of Phoenix SQL queries, but doesn’t run the Query server itself. <strong>Running Phoenix Query Server</strong> is a step below.</p>
+
+<p><img src="assets/enable_phoenix.png" alt="enable_phoenix" /></p>
+
+<p>Click on <code class="highlighter-rouge">Save</code> button to save the configuration:</p>
+
+<p><img src="assets/click_save.png" alt="click_save" /></p>
+
+<p>Accept the dependent configuration changes. Click on <code class="highlighter-rouge">Proceed anyways</code> if you are being warned about security config. Those are only required if you want to test a secured setup, which is out of scope for this tutorial.</p>
+
+<p>Next, you’ll be prompted to restart the server, select <code class="highlighter-rouge">Restart All Affected</code></p>
+
+<p><img src="assets/restart_all_affected.png" alt="restart_all_affected" /></p>
+
+<p>Now, in the <code class="highlighter-rouge">Summary</code> tab, you should see both HBase Master and RegionServers to be healthy.</p>
+
+<p><img src="assets/summary_tab.png" alt="summary_tab" /></p>
+
+<p>If they are <strong>Stopped</strong> or showing red, click on <code class="highlighter-rouge">Restart all</code> to ensure all HBase services are running.</p>
+
+<p><img src="assets/restart_all.png" alt="restart_all" /></p>
+
+<p>It is possible that your HBase instance is stuck in Maintenance Mode. To disable this, click on <code class="highlighter-rouge">Turn Off Maintenance Mode</code> after restart has completed.</p>
+
+<h3 id="running-phoenix-query-server">Running Phoenix Query Server</h3>
+
+<p>By default, the sandbox doesn’t have the Query Server turned on. To enable this, go to <strong>Hosts</strong>, select the sandbox host and click on <code class="highlighter-rouge">Add</code> and select <code class="highlighter-rouge">Phoenix Query Server</code>:</p>
+
+<p><img src="assets/select_phoenix_server.png" alt="select_phoenix_server" /></p>
+
+<p>Once installed, scroll down in the host page and find <strong>Phoenix Query Server</strong> to start the service.</p>
+
+<p><img src="assets/start_phoenix_server.png" alt="start_phoenix_server" /></p>
+
+<h3 id="setting-up-port-forwarding-in-virtualbox">Setting up port forwarding in VirtualBox</h3>
+
+<p>Phoenix Query Server listens on port <strong>8765</strong> by default. Thus we need to setup port forwarding to make sure we can connect to this port from the VM host.
+Right click on the Hortonworks Sandbox, pick <code class="highlighter-rouge">Settings</code></p>
+
+<p><img src="assets/virtualbox_settings.png" alt="virtualbox_settings" /></p>
+
+<p>Go to Network, pick on <code class="highlighter-rouge">Port Forwarding</code></p>
+
+<p><img src="assets/virtualbox_network.png" alt="virtualbox_network" /></p>
+
+<p>Add rule by click on the green <code class="highlighter-rouge">+</code> sign icon on the top right of the panel.</p>
+
+<p>The rule should have name, protocol=TCP, Host IP=127.0.0.1 and both Host Port and Guest Port on 8765.</p>
+
+<p><img src="assets/add_port.png" alt="add_port" /></p>
+
+<h3 id="verify-you-can-access-phoenix-query-server">Verify you can access Phoenix Query Server</h3>
+
+<p>Go to <a href="http://localhost:8765/">http://localhost:8765/</a>, you should see the following page:</p>
+
+<p><img src="assets/access_phoenix_server.png" alt="access_phoenix_server" /></p>
+
+<p>Don’t be alarmed, PQS doesn’t provide a nice welcome page, but it does function.</p>
+
+<p>We are all done with setup, now onto the fun parts!</p>
+
+<h3 id="getting-data-in">Getting data in</h3>
+
+<p>In this part, we’ll create the basic table schemas in Phoenix and load data into them.</p>
+
+<p>If you are using ssh (or putty), connect to localhost,  port 2222 with account root:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;ssh root@localhost -p 2222
+</code></pre>
+</div>
+
+<p>The sandbox also comes with it’s own shell: <a href="http://127.0.0.1:4200/">http://127.0.0.1:4200/</a>
+Use the OS password you’ve set up earlier. If you have not set it up, use default password <strong>hadoop</strong>.</p>
+
+<p>Once logged in the sandbox, run:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/2bethere/tableau-odbc-phoenix-tutorial ~/tableau-odbc-phoenix-tutorial/
+</code></pre>
+</div>
+
+<p>To clone the tutorial repository. There are 2 folders in this repo. Data folder contains csv files with actual data, sql folder contains all the scripts.</p>
+
+<p>We have 5 tables in total:</p>
+<ol>
+  <li>Customer</li>
+  <li>Store</li>
+  <li>Product</li>
+  <li>Fact table: Inventory</li>
+  <li>Fact table: Sales</li>
+</ol>
+
+<p>We’ll be using <strong>CORP</strong> schema in this tutorial. Thus all tables will have name such as <strong>CORP.STORE</strong> or <strong>CORP.PRODUCT</strong> etc.</p>
+
+<h3 id="find-your-phoenix-client-tools">Find your Phoenix client tools</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /usr/hdp/current/phoenix-client/bin
+</code></pre>
+</div>
+
+<p>In this directory, you should see sqlline.py or psql.py.</p>
+
+<h3 id="drop-all-tables-optional">Drop all tables (Optional)</h3>
+
+<p>If this the second time you are running or you want to reset, you can run this command to drop all tables.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;./sqlline.py ~/tableau-odbc-phoenix-tutorial/sql/drop_tables.sql
+</code></pre>
+</div>
+
+<h3 id="create-table-and-load-data">Create table and load data</h3>
+
+<p>We’ll be using psql.py, which facilitates table creation and bulkload of data.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;./psql.py -t CORP.CUSTOMER ~/tableau-odbc-phoenix-tutorial/sql/table_customer.sql ~/tableau-odbc-phoenix-tutorial/data/customer_out.csv
+</code></pre>
+</div>
+
+<p>This command creates CORP.CUSTOMER table and loads data into the table.</p>
+
+<p>This command works like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>psql.py -t TABLE_NAME create_table.sql data.csv
+</code></pre>
+</div>
+
+<p>-t specifies the table we want to load into. In this case, CORP.CUSTOMER. Second part is the sql script used to create the table.
+Third part is the data to be loaded.</p>
+
+<blockquote>
+  <p>NOTE: psql uses Excel dialect csv files (i.e. numbers cannot be quoted)</p>
+</blockquote>
+
+<p>To finish this process, do the same for the 4 other tables:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;./psql.py -t CORP.STORE ~/tableau-odbc-phoenix-tutorial/sql/table_store.sql ~/tableau-odbc-phoenix-tutorial/data/store_out.csv
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;./psql.py -t CORP.PRODUCT ~/tableau-odbc-phoenix-tutorial/sql/table_product.sql ~/tableau-odbc-phoenix-tutorial/data/product_out.csv
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;./psql.py -t CORP.FACT_INVENTORY ~/tableau-odbc-phoenix-tutorial/sql/table_fact_inventory.sql ~/tableau-odbc-phoenix-tutorial/data/inventory_fact_1998_out.csv
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$&gt;./psql.py -t CORP.FACT_SALES ~/tableau-odbc-phoenix-tutorial/sql/table_fact_sales.sql ~/tableau-odbc-phoenix-tutorial/data/sales_fact_1998_out.csv
+</code></pre>
+</div>
+
+<h3 id="getting-data-out---windows">Getting data out - Windows</h3>
+
+<p>In this step, we’ll setup a connection to the Phoenix Query Server using the ODBC driver on Windows.</p>
+
+<p>Windows
+32-bit: <a href="http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC32.msi">http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC32.msi</a>
+64-bit: <a href="http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC64.msi">http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC64.msi</a></p>
+
+<p>After downloading, the driver, follow the instruction to install the driver.</p>
+
+<p>Next, in control panel, open ODBC Data Sources Administration(64-bit). Alternatively, go to Start, search for <strong>ODBC</strong> and pick the 64-bit version of the tool:</p>
+
+<p><img src="assets/odbc_data_sources.png" alt="odbc_data_sources" /></p>
+
+<p>Pick <code class="highlighter-rouge">User DSN</code>-&gt;<code class="highlighter-rouge">Add</code></p>
+
+<p><img src="assets/user_dsn_add.png" alt="user_dsn_add" /></p>
+
+<p>User DSN means only you have access to this data source, System DSN means anyone else on this computer can use this data source.
+Pick <code class="highlighter-rouge">Hortonworks Phoenix ODBC Driver</code> in next screen:</p>
+
+<p><img src="assets/create_new_dsn.png" alt="create_new_dsn" /></p>
+
+<p>In the next screen, input the following information:</p>
+
+<p><img src="assets/configure_new_dsn.png" alt="configure_new_dsn" /></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Host: localhost
+Port: 8765
+</code></pre>
+</div>
+
+<blockquote>
+  <p>NOTE: This is assuming you are on a Windows machine and the VM is also running on the same machine, you will use localhost as the host name. However, if the VM is on a remote machine, you’ll need to use the remote machine’s IP or hostname in the Host field.</p>
+</blockquote>
+
+<p>Next, click on <code class="highlighter-rouge">Test…</code>, if all goes well, you should see the following screen:</p>
+
+<p><img src="assets/success_new_dsn.png" alt="success_new_dsn" /></p>
+
+<p>If you run into error, please leave a comment below and I’ll try to help you out.</p>
+
+<p>One common error is when the VM is not reachable from the Windows machine. Try to access http://your.windows.machine:8765 in the web browser to see if you can reach the machine hosting PQS.</p>
+
+<h3 id="getting-data-out---windows---tableau">Getting data out - Windows - Tableau</h3>
+
+<p>Our goal is to generate a map that shows what % of goods sold in Washington state are using recyclable packaging.</p>
+
+<p><img src="assets/tableau_image.png" alt="tableau_image" /></p>
+
+<h3 id="important-configuration-file-for-phoenix-query-server">Important: Configuration file for Phoenix Query Server</h3>
+
+<p>Download “Hortonworks Phoenix ODBC Driver.tdc” from this location:
+<a href="https://github.com/2bethere/tableau-odbc-phoenix-tutorial/tree/master/tdc">https://github.com/2bethere/tableau-odbc-phoenix-tutorial/tree/master/tdc</a></p>
+
+<p>Place the file into:
+Current User\Documents\My Tableau Repository\Datasources</p>
+
+<p>This file informs Tableau how to communicate with Phoenix Query Server. Tableau will scan this directory recursively to load all tdc files.</p>
+
+<p>Open Tableau, select <strong>“Connect”-&gt;”More Servers…”-&gt;”Other Databases (ODBC)”</strong></p>
+
+<p><img src="assets/connect_more_servers.png" alt="connect_more_servers" /></p>
+
+<p>Pick the DSN you’ve just created and hit <code class="highlighter-rouge">Connect</code></p>
+
+<p><img src="assets/choose_dsn.png" alt="choose_dsn" /></p>
+
+<p>After you hit Connect, the OK button will be enabled. Hit <code class="highlighter-rouge">OK</code> to continue.</p>
+
+<p>In the next window, you’ll be prompted to setup a data source in Tableau. Click on the <code class="highlighter-rouge">Search</code> icon to load all the schema from Phoenix database and then pick <code class="highlighter-rouge">CORP</code></p>
+
+<p><img src="assets/select_schema.png" alt="select_schema" /></p>
+
+<p>Click on the <code class="highlighter-rouge">Search</code> icon again to load all the tables associated with the schema. You should see a screen looks like below:</p>
+
+<p><img src="assets/tables_listed.png" alt="tables_listed" /></p>
+
+<p>Now, let’s build out a data model to visualize all those data.
+Drag and drop the following tables in order:</p>
+
+<ol>
+  <li>FACT_SALES</li>
+  <li>CUSTOMER</li>
+  <li>PRODUCT</li>
+  <li>STORE
+The order helps Tableau build auto joins.</li>
+</ol>
+
+<p><img src="assets/tables_joins.png" alt="tables_joins" /></p>
+
+<p>Select <code class="highlighter-rouge">Go to Worksheet</code> or <code class="highlighter-rouge">Sheet 1</code> to switch over to analysis mode</p>
+
+<p><img src="assets/sheet1.png" alt="sheet1" /></p>
+
+<p>Find <strong>Store-City</strong> under the data panel on the left</p>
+
+<p><img src="assets/select_store_city.png" alt="select_store_city" /></p>
+
+<p>Click on the little icon and change the Store City’s geo role to City.</p>
+
+<p>Under <code class="highlighter-rouge">Measure</code>, drag <code class="highlighter-rouge">Store Sales</code> into the column.</p>
+
+<p><img src="assets/measure.png" alt="measure" /></p>
+
+<p>Next, drag <code class="highlighter-rouge">Recyclable Package</code> into column shelf and <code class="highlighter-rouge">City</code> into row shelf
+Now you should see a page similar to the one below:</p>
+
+<p><img src="assets/columns_rows_ready.png" alt="columns_rows_ready" /></p>
+
+<p>Click on the map tile in <code class="highlighter-rouge">Show me</code> panel</p>
+
+<p><img src="assets/show_me_panel.png" alt="show_me_panel" /></p>
+
+<p>You’ll see the final map for entire US.
+Let’s narrow it down to WA, drag <code class="highlighter-rouge">Store state</code> under <strong>Store</strong> into filter and select <code class="highlighter-rouge">WA</code> from the list.</p>
+
+<p>To get better visualization, you can adjust the marks panel. For example, if the pie chart doesn’t show up automatically, pick <code class="highlighter-rouge">Pie</code> from the marks and adjust the color scheme.</p>
+
+<p><img src="assets/click_pie.png" alt="click_pie" /></p>
+
+<h2 id="coming-next">Coming next</h2>
+
+<p>Write an application in your favorite language</p>
+
+<h2 id="architecture">Architecture</h2>
+
+<p>The ODBC connector uses the Phoenix Query Server. The driver has support for both Protobuf and JSON serialization mechanisms, but Protobuf serialization should always be used except when there is an explicit reason to not do this.</p>
+
+<h2 id="compatibility-with-older-releases">Compatibility with older releases</h2>
+
+<p>While PQS has been shipped in HDP since 2.3, the compatibility with this connector is not tested for versions older than HDP 2.5. While some basic queries/functionality may appear to operate normally, great care should be taken in using this driver with older HDP versions. Functionality may be incorrect or unimplemented.</p>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-/tutorials/hortonworks/hdp-2.5/bi-with-apache-phoenix-odbc/tutorial.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-hdp-2.5.0&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>HBase Reporitng with Apache Phoenix via ODBC</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-/tutorials/hortonworks/hdp-2.5/bi-with-apache-phoenix-odbc/tutorial</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>
+

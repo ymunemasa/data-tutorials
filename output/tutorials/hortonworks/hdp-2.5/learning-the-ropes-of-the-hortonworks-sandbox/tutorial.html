@@ -1,0 +1,821 @@
+<div class="tutorial-content">
+  <h1 id="learning-the-ropes-of-the-hortonworks-sandbox">Learning the Ropes of the Hortonworks Sandbox</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>This tutorial is aimed for users who do not have much experience in using the Sandbox.
+We will install and explore the Sandbox on virtual machine and cloud environments. We will also navigate the Ambari user interface.
+Let’s begin our Hadoop journey.</p>
+
+<h2 id="pre-requisites">Pre-Requisites</h2>
+<ul>
+  <li>Downloaded and Installed <a href="http://hortonworks.com/downloads/#sandbox">Hortonworks Sandbox</a></li>
+  <li>Allow yourself around one hour to complete this tutorial</li>
+  <li>If on mac or linux, added <code class="highlighter-rouge">sandbox.hortonworks.com</code> to your <code class="highlighter-rouge">/private/etc/hosts</code> file</li>
+  <li>If on windows 7, added <code class="highlighter-rouge">sandbox.hortonworks.com</code> to your <code class="highlighter-rouge">/c/Windows/System32/Drivers/etc/hosts</code> file</li>
+</ul>
+
+<p>If on mac or linux, to add <code class="highlighter-rouge">sandbox.hortonworks.com</code> to your list of hosts, open the terminal, enter the following command, replace {Host-Name} with the appropriate host for your sandbox:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>echo '{Host-Name} sandbox.hortonworks.com' | sudo tee -a /private/etc/hosts
+</code></pre>
+</div>
+<blockquote>
+  <p>NOTE: In single machine, just replace {Host-Name} with 127.0.0.1</p>
+</blockquote>
+
+<p>If on windows 7, to add <code class="highlighter-rouge">sandbox.hortonworks.com</code> to your list of hosts, open git bash, enter the following command, replace {Host-Name} with the appropriate host for your sandbox:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'{Host-Name} sandbox.hortonworks.com'</span> | tee -a /c/Windows/System32/Drivers/etc/hosts
+</code></pre>
+</div>
+
+<p><img src="assets/lab0-nifi/changing-hosts-file.png" alt="changing-hosts-file.png" /></p>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li><a href="#what-is-the-sandbox">What is the Sandbox?</a></li>
+  <li><a href="#section1">Section 1: Sandbox in VM</a></li>
+  <li><a href="#explore-sandbox-vm">Step 1: Explore the Sandbox in a VM</a>
+    - <a href="#install-sandbox">1.1 Install the Sandbox</a>
+    - <a href="#learn-host-address-environment">1.2 Learn the Host Address of Your Environment</a>
+    - <a href="#connect-to-welcome-screen">1.3 Connect to the Welcome Screen</a>
+    - <a href="#ways-execute-terminal-command">1.4 Multiple Ways to Execute Terminal Commands(SSH, Web Shell, VM Shell)</a>
+    - <a href="#learn-sandbox-version">1.5 Learn Your Sandbox Version</a>
+    - <a href="#send-data-btwn-sandbox-local-machine">1.6 Send Data Between Sandbox &amp; Local Machine</a></li>
+  <li><a href="#explore-ambari">Step 2: Explore Ambari</a>
+    - <a href="#find-host-ip-sandbox-runs-on">2.1 Use Terminal to Find the Host IP Sandbox Runs On</a>
+    - <a href="#services-provided-by-sandbox">Services Provided By the Sandbox</a>
+    - <a href="#setup-ambari-admin-password">2.2 Setup Ambari admin Password Manually</a>
+    - <a href="#explore-ambari-welcome-screen">2.3 Explore Ambari Welcome Screen 5 Key Capabilities</a>
+    - <a href="#explore-ambari-dashboard">2.4 Explore Ambari Dashboard Links</a></li>
+  <li><a href="#section2">Section 2: Sandbox in Microsoft Azure</a></li>
+  <li><a href="#explore-sandbox-azure">Step 1: Explore the Sandbox in Azure</a>
+    - <a href="#deploy-sandbox-azure">1.1 Deploy the Sandbox in Azure</a>
+    - <a href="#connect-to-welcome-screen-azure">1.2 Connect to the Welcome Screen</a>
+    - <a href="#ways-execute-terminal-command-azure">1.3 Multiple Ways to Execute Terminal Commands(SSH, Web Shell)</a>
+    - <a href="#send-data-btwn-sandbox-local-machine-azure">1.4 Send Data Between Azure Sandbox &amp; Local Machine</a></li>
+  <li><a href="#explore-ambari-azure">Step 2: Explore Ambari in Azure</a>
+    - <a href="#services-provided-by-sandbox-azure">Services Provided By the Sandbox in Azure</a>
+    - <a href="#setup-ambari-admin-password-azure">2.1 Setup Ambari admin Password Manually</a>
+    - <a href="#explore-ambari-welcome-screen-azure">2.2 Explore Ambari Welcome Screen 5 Key Capabilities</a>
+    - <a href="#explore-ambari-dashboard-azure">2.3 Explore Ambari Dashboard Links</a></li>
+  <li><a href="#section3">Section 3: New Users in Sandbox</a></li>
+  <li><a href="#section4">Section 4: Troubleshoot</a></li>
+  <li><a href="#troubleshoot-problems">Step 1: Troubleshoot Problems</a>
+    - <a href="#technique-for-finding-answers-hcc">1.1 Technique for Finding Answers in HCC</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+</ul>
+
+<h2 id="what-is-the-sandbox-">What is the Sandbox? <a id="what-is-the-sandbox"></a></h2>
+
+<p>The Sandbox is a straightforward, pre-configured, learning environment that contains the latest developments from Apache Hadoop Enterprise, specifically Hortonworks Data Platform (HDP) Distribution. The Sandbox comes packaged in a virtual environment that can run in the cloud or on your personal machine. The Sandbox allows you to learn and explore HDP on your own.</p>
+
+<p>If you want to explore Hortonworks Sandbox in Microsoft Azure, please skip to <code class="highlighter-rouge">Section 2</code>.</p>
+
+<h2 id="section-1-sandbox-in-vm-">Section 1: Sandbox in VM <a id="section1"></a></h2>
+
+<h2 id="step-1-explore-the-sandbox-in-a-vm-">Step 1: Explore the Sandbox in a VM <a id="explore-sandbox-vm"></a></h2>
+
+<h3 id="11-install-the-sandbox-">1.1 Install the Sandbox <a id="install-sandbox"></a></h3>
+
+<p>Start the Hortonworks Sandbox following the <a href="http://hortonworks.com/products/hortonworks-sandbox/#install">Installation Steps</a> to start the VM.</p>
+
+<p><img src="assets/sandox_download.png" alt="sandbox_download" /></p>
+
+<blockquote>
+  <p><strong>Note:</strong> The Sandbox <a href="http://hortonworks.com/products/hortonworks-sandbox/#install">system requirements</a> include that you have a 64 bit OS with at least 8 GB of RAM and enabled BIOS for virtualization. Find out about the newest features, known and resolved issues along with other updates on HDP 2.4 from the <a href="http://hortonworks.com/wp-content/uploads/2015/10/ReleaseNotes_10_27_2015.pdf">release notes</a>. The Sandbox on Azure is under construction and will update to HDP2.5 soon.</p>
+</blockquote>
+
+<h3 id="12-learn-the-host-address-of-your-environment-">1.2 Learn the Host Address of Your Environment <a id="learn-host-address-environment"></a></h3>
+
+<p>Once you have installed the Sandbox VM, it resolves to the host on your environment, the address of which varies depending upon the Virtual Machine you are using(Vmware, VirtualBox etc). As, a general thumb rule, wait for the installation to complete and confirmation screen will tell you the host your sandbox resolves to. For example:</p>
+
+<p>In case of VirtualBox: <code class="highlighter-rouge">host</code> would be <code class="highlighter-rouge">127.0.0.1</code></p>
+
+<p><img src="assets/learn_host_address_learning_the_ropes_sandbox.png" alt="Host Address of Sandbox Environment" /></p>
+
+<blockquote>
+  <p><strong>Note:</strong> In case of Azure, your <strong>host</strong> can be found under <strong>Public IP Address</strong> on the dashboard. For further clarification, check out our guide for <a href="http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/">Deploying Hortonworks Sandbox on Azure</a>.</p>
+</blockquote>
+
+<p>If you are using a private cluster or a cloud to run sandbox. Please find the host your sandbox resolves to.</p>
+
+<h3 id="13-connect-to-the-welcome-screen-">1.3 Connect to the Welcome Screen <a id="connect-to-welcome-screen"></a></h3>
+
+<p>Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at <code class="highlighter-rouge">http://_host_:8888/.</code></p>
+
+<p><img src="assets/new_splashscreen.png" alt="new_splashscreen" /></p>
+
+<p>Click on <code class="highlighter-rouge">Launch Dashboard</code> to go to Ambari with a <a href="http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/#section_1">Hello HDP tutorial</a> and <code class="highlighter-rouge">Quick Links</code> to view some services of HDP environment.</p>
+
+<h3 id="14-multiple-ways-to-execute-terminal-commands-">1.4 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command"></a></h3>
+
+<blockquote>
+  <p><strong>Note:</strong> For all methods below, the login credential instructions will be the same to access the Sandbox through the terminal.</p>
+  <ul>
+    <li>Login using username as <strong>root</strong> and password as <strong>hadoop</strong>.</li>
+    <li>After first time login, you will be prompted to retype your current password, then change your password.</li>
+    <li>If you are using Putty on Windows then go to terminal of your sandbox in oracle virtualBox –&gt; Press <code class="highlighter-rouge">Alt+F5</code> –&gt; enter username - <strong>root</strong> –&gt; enter password - <strong>hadoop</strong> –&gt; it will ask you to set new password –&gt; set new password.</li>
+  </ul>
+</blockquote>
+
+<h4 id="secure-shell-ssh-method">Secure Shell (SSH) Method:</h4>
+
+<p>Open your terminal (mac and linux) or putty (windows). Type the following command to access the Sandbox through SSH:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Usage:
+      ssh &lt;username&gt;@&lt;hostname&gt; -p &lt;port&gt;;
+# Example:
+      ssh root@127.0.0.1 -p 2222;
+</code></pre>
+</div>
+
+<p><img src="assets/secure_shell_sandbox_learning_the_ropes_sandbox.png" alt="Mac Terminal SSH" /></p>
+
+<blockquote>
+  <p>Mac OS Terminal. When you type the password, the entry doesn’t echo on the screen, it hides the user input. Carefully type correct password.</p>
+</blockquote>
+
+<h4 id="shell-web-client-method">Shell Web Client Method:</h4>
+
+<p>Open your web browser. Type the following text into your browser to access the Sandbox through the shell:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Usage:
+    #  _host_:4200
+Example:
+      127.0.0.1:4200
+</code></pre>
+</div>
+
+<p><img src="assets/browser_shell_learning_ropes_sandbox.png" alt="Shell in the Browser Sandbox" /></p>
+
+<blockquote>
+  <p>Appearance of Web Shell. When you type the password, the entry doesn’t echo on the screen, it hides the user input. Carefully type correct password.</p>
+</blockquote>
+
+<h4 id="vm-terminal-method">VM Terminal Method:</h4>
+
+<p>Open the Sandbox through Virtualbox or VMware. The Sandbox VM Welcome Screen will appear. For Linux/Windows users, press <code class="highlighter-rouge">Alt+F5</code> and for Mac, press <code class="highlighter-rouge">Fn+Alt+F5</code> to login into the Sandbox VM Terminal.</p>
+
+<p><img src="assets/vm_terminal_sandbox_learning_ropes_sandbox.png" alt="Shell VM Terminal Sandbox" /></p>
+
+<blockquote>
+  <p>VirtualBox VM Terminal. When you type the password, the entry doesn’t echo on the screen, it hides the user input. Carefully type correct password.</p>
+</blockquote>
+
+<h3 id="15-learn-your-sandbox-version-">1.5 Learn Your Sandbox Version <a id="learn-sandbox-version"></a></h3>
+
+<p>To find information about your sandbox, execute the command:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sandbox-version
+</code></pre>
+</div>
+
+<h3 id="16-send-data-between-sandbox--local-machine-">1.6 Send Data Between Sandbox &amp; Local Machine <a id="send-data-btwn-sandbox-local-machine"></a></h3>
+
+<p>Open your terminal (linux or mac) or git bash (windows). To send data, in our example HDF .tar.gz file, from your local machine to the azure sandbox, you would input the the following command. If you want to try this command, replace the HDF filename with another filename from your Downloads folder. Modify the command and execute:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>scp -P 2222 ~/Downloads/HDF-1.2.0.1-1.tar.gz root@localhost:/root
+</code></pre>
+</div>
+
+<p>This command sends HDF from your local machine’s Downloads folder to the Sandbox’s root directory. We can send any file, directory we want, we just need to specify the path. We can also choose any sandbox directory or path that we want the data to land into.</p>
+
+<p>Here is the definition of the command that we used above:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>scp -P &lt;input-port&gt; &lt;/input-directory-path-local-mach&gt; &lt;input-username@hostname-:/sandbox-dir-path&gt;
+</code></pre>
+</div>
+
+<p>We can also send data from sandbox to our local machine, refer to the modified command definition below:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>scp -P &lt;input-port&gt; &lt;input-username@hostname-:/sandbox-dir-path&gt; &lt;/input-directory-path-local-mach&gt;
+</code></pre>
+</div>
+
+<p>What is the difference between the two command definitions above?
+To send data from local machine to sandbox, the local machine directory path comes before sandbox directory. To transfer data from sandbox to local machine, the command arguments are reversed.</p>
+
+<h2 id="step-2-explore-ambari-">Step 2: Explore Ambari <a id="explore-ambari"></a></h2>
+
+<p>Navigate to Ambari welcome page using the <strong>url</strong> given on Sandbox welcome page.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> Both the username and password to login are <strong>maria_dev</strong>.</p>
+</blockquote>
+
+<h3 id="21-use-terminal-to-find-the-host-ip-sandbox-runs-on-">2.1 Use Terminal to Find the Host IP Sandbox Runs On <a id="find-host-ip-sandbox-runs-on"></a></h3>
+
+<p>If you want to search for the host address your sandbox is running on, ssh into the sandbox terminal upon successful installation and follow subsequent steps:</p>
+
+<ol>
+  <li>Login using username as <strong>root</strong> and password as <strong>hadoop</strong>.</li>
+  <li>Type <code class="highlighter-rouge">ifconfig</code> and look for <strong>inet addr:</strong> under eth0.</li>
+  <li>Use the inet addr, append <strong>:8080</strong> and open it into a browser. It shall direct you to Ambari login page.</li>
+  <li>This inet address is randomly generated for every session and therefore differs from session to session.</li>
+</ol>
+
+<p><img src="assets/find_host_sandbox_runs_on_learning_the_ropes_sandbox.png" alt="Host_Address_Sandbox_Runs_On" /></p>
+
+<h4 id="services-provided-by-the-sandbox-">Services Provided By the Sandbox <a id="services-provided-by-sandbox"></a></h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th style="text-align: right">URL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sandbox Welcome Page</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:8888</a></td>
+    </tr>
+    <tr>
+      <td>Ambari Dashboard</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:8080</a></td>
+    </tr>
+    <tr>
+      <td>ManageAmbari</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:8080/views/ADMIN_VIEW/2.4.0.0/INSTANCE/#/</a></td>
+    </tr>
+    <tr>
+      <td>Hive User View</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:8080/#/main/views/HIVE/1.5.0/AUTO_HIVE_INSTANCE</a></td>
+    </tr>
+    <tr>
+      <td>Pig User View</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:8080/#/main/views/PIG/1.0.0/Pig_INSTANCE</a></td>
+    </tr>
+    <tr>
+      <td>File User View</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:8080/#/main/views/FILES/1.0.0/AUTO_FILES_INSTANCE</a></td>
+    </tr>
+    <tr>
+      <td>SSH Web Client</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:4200</a></td>
+    </tr>
+    <tr>
+      <td>Hadoop Configuration</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:50070/dfshealth.html</a>   <a href="">http://<em>host</em>:50070/explorer.html</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="the-following-table-contains-login-credentials">The following Table Contains Login Credentials:</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th style="text-align: center">User</th>
+      <th style="text-align: right">Password</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ambari, OS</td>
+      <td style="text-align: center">admin</td>
+      <td style="text-align: right">refer to <a href="#setup-ambari-admin-password-azure">step 2.1</a></td>
+    </tr>
+    <tr>
+      <td>Ambari, OS</td>
+      <td style="text-align: center">maria_dev</td>
+      <td style="text-align: right">maria_dev</td>
+    </tr>
+    <tr>
+      <td>Ambari, OS</td>
+      <td style="text-align: center">raj_ops</td>
+      <td style="text-align: right">raj_ops</td>
+    </tr>
+    <tr>
+      <td>Ambari, OS</td>
+      <td style="text-align: center">holger_gov</td>
+      <td style="text-align: right">holger_gov</td>
+    </tr>
+    <tr>
+      <td>Ambari, OS</td>
+      <td style="text-align: center">amy_ds</td>
+      <td style="text-align: right">amy_ds</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Please go to <a href="#section3">Section 3</a> to know more about these users.</p>
+
+<h3 id="22-setup-ambari-admin-password-manually-">2.2 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password"></a></h3>
+
+<ol>
+  <li>Start your sandbox and open a terminal (mac or linux) or putty (windows)</li>
+  <li>SSH into the sandbox as root using <code class="highlighter-rouge">ssh root@127.0.0.1 -p 2222</code>. For Azure and VMware users, your <code class="highlighter-rouge">_host_</code> and <code class="highlighter-rouge">_port_</code> will be different.</li>
+  <li>Type the following commands:</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Updates password
+ambari-admin-password-reset
+# If Ambari doesn't restart automatically, restart ambari service
+ambari-agent restart
+</code></pre>
+</div>
+
+<blockquote>
+  <p><strong>Note:</strong> Now you can login to ambari as an admin user to perform operations, such as starting and stopping services.</p>
+</blockquote>
+
+<p><img src="assets/terminal_update_ambari_password_learning_the_ropes_sandbox.png" alt="Terminal Update Ambari admin password" /></p>
+
+<h3 id="23-explore-ambari-welcome-screen-5-key-capabilities-">2.3 Explore Ambari Welcome Screen 5 Key Capabilities <a id="explore-ambari-welcome-screen"></a></h3>
+
+<p>Enter the <strong>Ambari Welcome URL</strong> and then you should see a similar screen:</p>
+
+<p><img src="assets/ambari_welcome_learning_the_ropes_sandbox.png" alt="Lab0_3" /></p>
+
+<ol>
+  <li>“<strong>Operate Your Cluster</strong>” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators</li>
+  <li>“<strong>Manage Users + Groups</strong>” allows you to add &amp; remove Ambari users and groups</li>
+  <li>“<strong>Clusters</strong>” allows you to grant permission to Ambari users and groups</li>
+  <li>“<strong>Ambari User Views</strong>” list the set of Ambari Users views that are part of the cluster</li>
+  <li>“<strong>Deploy Views</strong>” provides administration for adding and removing Ambari User Views</li>
+</ol>
+
+<h3 id="24-explore-ambari-dashboard-links-">2.4 Explore Ambari Dashboard Links <a id="explore-ambari-dashboard"></a></h3>
+
+<p>Enter the <strong>Ambari Dashboard URL</strong> and you should see a similar screen:</p>
+
+<p><img src="assets/Lab0_4.png" alt="Lab0_4" /></p>
+
+<p>Click on</p>
+
+<ol>
+  <li><strong>Metrics</strong>, <strong>Heatmap</strong> and <strong>Configuration</strong></li>
+</ol>
+
+<p>and then the</p>
+
+<ol>
+  <li><strong>Dashboard</strong>, <strong>Services</strong>, <strong>Hosts</strong>, <strong>Alerts</strong>, <strong>Admin</strong> and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.</li>
+</ol>
+
+<h2 id="section-2-sandbox-in-microsoft-azure-">Section 2: Sandbox in Microsoft Azure <a id="section2"></a></h2>
+
+<blockquote>
+  <p>NOTE: HDP 2.5 Sandbox on Azure is under construction and will be updated soon. This section addresses to HDP 2.4 Sandbox on Azure</p>
+</blockquote>
+
+<h2 id="step-1-explore-the-sandbox-in-azure-">Step 1: Explore the Sandbox in Azure <a id="explore-sandbox-azure"></a></h2>
+
+<h3 id="11-deploy-the-sandbox-in-azure-">1.1 Deploy the Sandbox in Azure <a id="deploy-sandbox-azure"></a></h3>
+
+<p>Follow the tutorial <a href="http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/">here</a> to deploy the latest HDP Sandbox on Azure.</p>
+
+<h3 id="12-connect-to-the-welcome-screen-">1.2 Connect to the Welcome Screen <a id="connect-to-welcome-screen-azure"></a></h3>
+
+<p>Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at <code class="highlighter-rouge">http://_host_:8888/.</code>
+Here, <code class="highlighter-rouge">host</code> is your public IP address that is generated when you deployed the HDP Sandbox in Azure. Take note of the IP address. In this example, it is 23.99.9.232. Your machine will have a different IP.</p>
+
+<p><img src="assets/azure_welcome_page_learning_ropes_sandbox.png" alt="Sandbox Welcome Screen Azure" /></p>
+
+<h3 id="13-multiple-ways-to-execute-terminal-commands-">1.3 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command-azure"></a></h3>
+
+<h4 id="secure-shell-ssh-method-1">Secure Shell (SSH) Method:</h4>
+
+<p>Open your terminal (mac and linux) or putty (windows). Here again, <code class="highlighter-rouge">host</code> is the public IP address provided by Azure. Give the username and password that you provided while deploying the sandbox on Azure. Use the following command to access the Sandbox through SSH:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Usage:
+      ssh &lt;username&gt;@&lt;host&gt; -p 22;
+</code></pre>
+</div>
+
+<p><img src="assets/azure_secure_shell_learning_ropes_sandbox_1.png" alt="Mac Terminal SSH Azure 1" /></p>
+
+<blockquote>
+  <p>Mac OS Terminal. When you type the password, the entry doesn’t echo on the screen, it hides the user input. Carefully type correct password.</p>
+</blockquote>
+
+<h4 id="shell-web-client-method-1">Shell Web Client Method:</h4>
+
+<p>Open your web browser. Replace the following text by your <code class="highlighter-rouge">host</code> into your browser to access the Sandbox through the shell. Provide the same username and password that you gave while deploying the sandbox on Azure.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Usage:
+    #  _host_:4200
+</code></pre>
+</div>
+
+<p><img src="assets/azure_browser_shell_learning_ropes_sandbox.png" alt="Shell in the Browser Sandbox Azure" /></p>
+
+<blockquote>
+  <p>Appearance of Web Shell. When you type the password, the entry doesn’t echo on the screen, it hides the user input. Carefully type correct password.</p>
+</blockquote>
+
+<h3 id="14-send-data-between-azure-sandbox--local-machine-">1.4 Send Data Between Azure Sandbox &amp; Local Machine <a id="send-data-btwn-sandbox-local-machine-azure"></a></h3>
+
+<p>Open your terminal (linux or mac) or git bash (windows). To send data, in our example HDF .tar.gz file, from your local machine to the azure sandbox, you would input the the following command. If you want to try this command, replace the HDF filename with another filename from your Downloads folder. Also replace james94 with your azure username you provided while deploying the sandbox. Lastly, replace the 2nd james94 folder_name with your azure username, which is the folder of your sandbox. Modify the command and execute:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>scp -P 2222 ~/Downloads/HDF-1.2.0.1-1.tar.gz james94@localhost:/james94
+</code></pre>
+</div>
+
+<p>This command sends HDF from your local machine’s Downloads folder to the Sandbox’s root directory. We can send any file, directory we want, we just need to specify the path. We can also choose any sandbox directory or path that we want the data to land into.</p>
+
+<p>Here is the definition of the command that we used above:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>scp -P &lt;input-port&gt; &lt;/input-directory-path-local-mach&gt; &lt;input-username@hostname-:/sandbox-dir-path&gt;
+</code></pre>
+</div>
+
+<p>We can also send data from sandbox to our local machine, refer to the modified command definition below:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>scp -P &lt;input-port&gt; &lt;input-username@hostname-:/sandbox-dir-path&gt; &lt;/input-directory-path-local-mach&gt;
+</code></pre>
+</div>
+
+<p>What is the difference between the two command definitions above?
+To send data from local machine to sandbox, the local machine directory path comes before sandbox directory. To transfer data from sandbox to local machine, the command arguments are reversed.</p>
+
+<h2 id="step-2-explore-ambari-in-azure">Step 2: Explore Ambari in Azure<a id="explore-ambari-azure"></a></h2>
+
+<p>Navigate to Ambari welcome page using the <strong>url</strong> given on Sandbox welcome page.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> Both the username and password to login are <strong>maria_dev</strong>.</p>
+</blockquote>
+
+<h4 id="services-provided-by-the-sandbox-in-azure">Services Provided By the Sandbox in Azure<a id="services-provided-by-sandbox-azure"></a></h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th style="text-align: right">URL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sandbox Welcome Page</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:8888</a></td>
+    </tr>
+    <tr>
+      <td>Ambari Dashboard</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:8080</a></td>
+    </tr>
+    <tr>
+      <td>Manage Ambari</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:8080/views/ADMIN_VIEW/2.2.1.0/INSTANCE/#/</a></td>
+    </tr>
+    <tr>
+      <td>Hive User View</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:8080/#/main/views/HIVE/1.0.0/AUTO_HIVE_INSTANCE</a></td>
+    </tr>
+    <tr>
+      <td>Pig User View</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:8080/#/main/views/PIG/1.0.0/Pig</a></td>
+    </tr>
+    <tr>
+      <td>File User View</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:8080/#/main/views/FILES/1.0.0/Files</a></td>
+    </tr>
+    <tr>
+      <td>SSH Web Client</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:4200</a></td>
+    </tr>
+    <tr>
+      <td>Hadoop Configuration</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:50070/dfshealth.html</a>   <a href="">http://<em>host</em>:50070/explorer.html</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="the-following-table-contains-login-credentials-1">The following Table Contains Login Credentials:</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th style="text-align: center">User</th>
+      <th style="text-align: right">Password</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ambari, OS</td>
+      <td style="text-align: center">admin</td>
+      <td style="text-align: right">refer to <a href="#setup-ambari-admin-password-azure">step 2.1</a></td>
+    </tr>
+    <tr>
+      <td>Ambari, OS</td>
+      <td style="text-align: center">maria_dev</td>
+      <td style="text-align: right">maria_dev</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="21-setup-ambari-admin-password-manually-">2.1 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password-azure"></a></h3>
+
+<ol>
+  <li>Open a terminal (mac or linux) or putty (windows)</li>
+  <li>SSH into the sandbox using your username and password that you provided at the time of creating the sandbox on Azure. Your <code class="highlighter-rouge">host</code> is a public IP address given by Azure and sudo password is a Sandbox password.</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Usage:
+      ssh &lt;username&gt;@&lt;host&gt; -p 22;
+</code></pre>
+</div>
+
+<ol>
+  <li>Type the following commands:</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Updates password
+sudo ambari-admin-password-reset
+# If Ambari doesn't restart automatically, restart ambari service
+ambari-agent restart
+</code></pre>
+</div>
+
+<blockquote>
+  <p><strong>Note:</strong> Now you can login to ambari as an admin user to perform operations, such as starting and stopping services.</p>
+</blockquote>
+
+<p><img src="assets/azure_update_admin_password_learning_ropes_sandbox.png" alt="Terminal Update Ambari admin password Azure" /></p>
+
+<h3 id="22-explore-ambari-welcome-screen-5-key-capabilities-">2.2 Explore Ambari Welcome Screen 5 Key Capabilities <a id="explore-ambari-welcome-screen-azure"></a></h3>
+
+<p>Enter the <code class="highlighter-rouge">Manage Ambari</code> page using the link above or click on the Ambari id pull down and select <code class="highlighter-rouge">Manage Ambari</code>:</p>
+
+<p><img src="assets/ManageAmbari.png" alt="ManageAmbari" /></p>
+
+<p>and then you should see a similar screen:</p>
+
+<p><img src="assets/ambari_welcome_learning_the_ropes_sandbox.png" alt="Lab0_3" /></p>
+
+<blockquote>
+  <p>NOTE: only the Ambari admin id has access to this page</p>
+</blockquote>
+
+<ol>
+  <li>“<strong>Operate Your Cluster</strong>” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators</li>
+  <li>“<strong>Manage Users + Groups</strong>” allows you to add &amp; remove Ambari users and groups</li>
+  <li>“<strong>Clusters</strong>” allows you to grant permission to Ambari users and groups</li>
+  <li>“<strong>Ambari User Views</strong>” list the set of Ambari Users views that are part of the cluster</li>
+  <li>“<strong>Deploy Views</strong>” provides administration for adding and removing Ambari User Views</li>
+</ol>
+
+<h3 id="23-explore-ambari-dashboard-links-">2.3 Explore Ambari Dashboard Links <a id="explore-ambari-dashboard-azure"></a></h3>
+
+<p>Enter the <strong>Ambari Dashboard URL</strong> and you should see a similar screen:</p>
+
+<p><img src="assets/Lab0_4.png" alt="Lab0_4" /></p>
+
+<p>Click on</p>
+
+<ol>
+  <li><strong>Metrics</strong>, <strong>Heatmap</strong> and <strong>Configuration</strong></li>
+</ol>
+
+<p>and then the</p>
+
+<ol>
+  <li><strong>Dashboard</strong>, <strong>Services</strong>, <strong>Hosts</strong>, <strong>Alerts</strong>, <strong>Admin</strong> and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.</li>
+</ol>
+
+<h2 id="section-3-new-users-in-sandbox-">Section 3: New Users in Sandbox <a id="section3"></a></h2>
+
+<p>Ambari 2.4 introduced the notion of Role-Based Access Control(RBAC) for the Ambari web  interface.  Ambari now includes additional cluster operation roles providing more granular division of control of the Ambari Dashboard and the various Ambari Views.  The image below illustrates the various Ambari Roles.  Only the admin id has access to view or change these roles.  Please refer to the <a href="http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.1/bk_ambari-administration/content/cluster_roles.html">HDP Ambari roles documentation</a> for more information.</p>
+
+<p><img src="assets/AmbariRBAC.png" alt="AmbariRBAC" /></p>
+
+<p>There are <strong>4 user personas</strong> present in Sandbox:</p>
+
+<p>1. <strong>maria_dev</strong> -  maria_dev is responsible for preparing and getting insight from data. She loves to explore different HDP components like Hive, Pig, HBase, Phoenix, etc.</p>
+
+<p>2. <strong>raj_ops</strong> - raj_ops is responsible for infrastructure build and R&amp;D activities like design, install, configure and administration. He serves as a technical expert in the area of system administration for complex operating systems.</p>
+
+<p>3. <strong>holger_gov</strong> - holger_gov is primarily for the management of data elements, both the content and metadata. He has a specialist role that incorporates processes, policies, guidelines and responsibilities for administering organizations’ entire data in compliance with policy and/or regulatory obligations.</p>
+
+<p>4. <strong>amy_ds</strong> - A data scientist who uses Hive, Spark and Zeppelin to do exploratory data analysis, data cleanup and transformation as preparation for analysis.</p>
+
+<p>Some notable differences between these users in the Sandbox are mentioned below:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Name id(s)</th>
+      <th style="text-align: center">Role</th>
+      <th style="text-align: center">Services</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Sam Admin</td>
+      <td style="text-align: center">Ambari Admin</td>
+      <td style="text-align: center">Ambari</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Raj (raj_ops)</td>
+      <td style="text-align: center">Hadoop Warehouse Operator</td>
+      <td style="text-align: center">Hive/Tez, Ranger, Falcon, Knox, Sqoop, Oozie, Flume, Zookeeper</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Maria (maria_dev)</td>
+      <td style="text-align: center">Spark and SQL Developer</td>
+      <td style="text-align: center">Hive, Zeppelin, MapReduce/Tez/Spark, Pig, Solr, HBase/Phoenix, Sqoop, NiFi, Storm, Kafka, Flume</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Amy (amy_ds)</td>
+      <td style="text-align: center">Data Scientist</td>
+      <td style="text-align: center">Spark, Hive, R, Python, Scala</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Holger (holger_gov)</td>
+      <td style="text-align: center">Data Steward</td>
+      <td style="text-align: center">Atlas</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>OS Level Authorization</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Name id(s)</th>
+      <th style="text-align: center">HDFS Authorization</th>
+      <th style="text-align: center">Ambari Authorization</th>
+      <th style="text-align: center">Ranger Authorization</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Sam Admin</td>
+      <td style="text-align: center">Max Ops</td>
+      <td style="text-align: center">Ambari Admin</td>
+      <td style="text-align: center">Admin access</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Raj (raj_ops)</td>
+      <td style="text-align: center">Access to Hive, Hbase, Atlas, Falcon, Ranger, Knox, Sqoop, Oozie, Flume, Operations</td>
+      <td style="text-align: center">Cluster Administrator</td>
+      <td style="text-align: center">Admin Access</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Maria (maria_dev)</td>
+      <td style="text-align: center">Access to Hive, Hbase, Falcon, Oozie and Spark</td>
+      <td style="text-align: center">Service Operator</td>
+      <td style="text-align: center">Normal User Access</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Amy (amy_ds)</td>
+      <td style="text-align: center">Access to Hive, Spark and Zeppelin</td>
+      <td style="text-align: center">Service Operator</td>
+      <td style="text-align: center">Normal User Access</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Holger (holger_gov)</td>
+      <td style="text-align: center">Access to Atlas</td>
+      <td style="text-align: center">Service Administrator</td>
+      <td style="text-align: center">Normal User Access</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Other Differences</strong></p>
+
+<!---
+| Operations     | maria_dev | amy_ds | holger_gov | raj_ops | admin |
+|:--------------:|:---------:|:------:|:----------:|:-------:|:-----:|
+| Sandbox Role | Service Operator | Service Operator | Service Administrator | Cluster Administrator | Ambari Administrator |
+| View Configurations | Yes | Yes | Yes | Yes | Yes |
+| Start/Stop/Restart Service | Yes | Yes | Yes | Yes | Yes |
+| Modify Configurations | No | No | Yes | Yes | Yes |
+| Add/delete services | No | No | No | Yes | Yes |
+| Install Components | No | No | No | Yes | Yes |
+| Manage Users/Groups | No | No | No | No | Yes |
+| Manage Ambari Views | No | No | No | No | Yes |
+| Atlas UI Access | No | No | Yes | No | Yes |
+| [Sample Ranger Policy Access](http://hortonworks.com/hadoop-tutorial/tag-based-policies-atlas-ranger/#sample-ranger-policy) | SELECT | SELECT | SELECT, CREATE, DROP | ALL | NA |
+-->
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Name id(s)</th>
+      <th style="text-align: center">Sandbox Role</th>
+      <th style="text-align: center">View Configurations</th>
+      <th style="text-align: center">Start/Stop/Restart Service</th>
+      <th style="text-align: center">Modify Configurations</th>
+      <th style="text-align: center">Add/delete services</th>
+      <th style="text-align: center">Install Components</th>
+      <th style="text-align: center">Manage Users/Groups</th>
+      <th style="text-align: center">Manage Ambari Views</th>
+      <th style="text-align: center">Atlas UI Access</th>
+      <th style="text-align: center"><a href="http://hortonworks.com/hadoop-tutorial/tag-based-policies-atlas-ranger/#sample-ranger-policy">Sample Ranger Policy Access</a></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">Sam Admin</td>
+      <td style="text-align: center">Ambari Admin</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">NA</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Raj (raj_ops)</td>
+      <td style="text-align: center">Cluster Administrator</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">ALL</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Maria (maria_dev)</td>
+      <td style="text-align: center">Service Operator</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">SELECT</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Amy (amy_ds)</td>
+      <td style="text-align: center">Service Operator</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">SELECT</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Holger (holger_gov)</td>
+      <td style="text-align: center">Service Administrator</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">No</td>
+      <td style="text-align: center">Yes</td>
+      <td style="text-align: center">SELECT, CREATE, DROP</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Do not forget</strong> to check out the <a href="https://github.com/hortonworks/tutorials/tree/hdp-2.5/tutorials/hortonworks/learning-the-ropes-of-the-hortonworks-sandbox/User_Scripts">scripts</a> from which these users and their operations are created.</p>
+
+<h2 id="section-4-troubleshoot-">Section 4: Troubleshoot <a id="section4"></a></h2>
+
+<h2 id="step-1-troubleshoot-problems-">Step 1: Troubleshoot Problems <a id="troubleshoot-problems"></a></h2>
+
+<p>Check <a href="http://hortonworks.com/community/forums/">Hortonworks Community Connection</a>(HCC) for answers to problems you may come across during your hadoop journey.</p>
+
+<p><img src="assets/hcc_page_learning_the_ropes_sandbox.png" alt="Hortonworks Community Connection Main Page" /></p>
+
+<h3 id="11-technique-for-finding-answers-in-hcc-">1.1 Technique for Finding Answers in HCC <a id="technique-for-finding-answers-hcc"></a></h3>
+<ul>
+  <li>Insert quotes around your tutorial related problem</li>
+  <li>Be specific by including keywords (error, tutorial name, etc.)</li>
+</ul>
+
+<h2 id="further-reading-">Further Reading <a id="further-reading"></a></h2>
+
+<ul>
+  <li>To learn more about Hadoop please explore the <a href="http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.4/bk_getting-started-guide/content/ch_about-hortonworks-data-platform.html">HDP Getting Started documentation</a>.</li>
+  <li>To get started with Hortonworks Data Platform, explore <a href="http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/">Hadoop Tutorial-Getting Started with HDP</a></li>
+  <li>If you have questions, feedback or need help getting your environment ready visit  <a href="http://hortonworks.com/developer/">developer.hortonworks.com</a>.</li>
+  <li>Please also explore the <a href="http://docs.hortonworks.com/">HDP documentation</a>.</li>
+</ul>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-/tutorials/hortonworks/hdp-2.5/learning-the-ropes-of-the-hortonworks-sandbox/tutorial.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-hdp-2.5.0&topics=hdp-2.5.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Learning the Ropes of the Hortonworks Sandbox</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-/tutorials/hortonworks/hdp-2.5/learning-the-ropes-of-the-hortonworks-sandbox/tutorial</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>
+

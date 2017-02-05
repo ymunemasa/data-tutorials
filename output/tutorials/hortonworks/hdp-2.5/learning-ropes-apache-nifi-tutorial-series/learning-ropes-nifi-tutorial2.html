@@ -1,0 +1,361 @@
+<div class="tutorial-content">
+  <h1 id="tutorial-2-enhance-the-dataflow-with-geo-location-enrichment">Tutorial 2: Enhance the DataFlow with Geo Location Enrichment</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In this section, you will build a geographic location enrichment for the vehicle filtering dataflow. You will obtain a deep understanding of the automated and managed flow of information between multiple systems and the facilities in NiFi for monitoring and examining the dataflow. To add this enhancement, we will incorporate Google Places Nearby API with NiFi, which will show the neighborhoods nearby the vehicle’s location as it moves. This incorporation of external API’s is a feasible design pattern because NiFi makes it easy to bring in other technologies to process the data.</p>
+
+<p>In this tutorial, you will build the Geo Location Enrichment section of the dataflow:</p>
+
+<p><img src="assets/lab2-geo-location-enrichment-nifi-lab-series/complete_dataflow_lab2_geoEnrich.png" alt="complete_dataflow_lab2_geoEnrich" /></p>
+
+<p>Feel free to download the <a href="https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab2-template/Lab2-NiFi-Learn-Ropes.xml">Lab2-NiFi-Learn-Ropes.xml</a> template file or if you prefer to build the dataflow from scratch, continue on to the tutorial.
+Refer Step 1 to obtain the API key to build HTTP URL.</p>
+
+<h2 id="pre-requisites">Pre-Requisites</h2>
+<ul>
+  <li>Completed Tutorial 0: Download, Install and Start NiFi</li>
+  <li>Completed Tutorial 1: Build A Simple NiFi DataFlow</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li><a href="#google-places-api">Google Places API</a></li>
+  <li><a href="#obtain-api-key-for-flow">Step 1: Obtain API Key for NiFi to Build HTTP URL</a></li>
+  <li><a href="#build-geo-loc-enrich">Step 2: Build Geo Location Enrichment DataFlow Section</a></li>
+  <li><a href="#run-nifi-flow">Step 3: Run NiFi DataFlow</a></li>
+  <li><a href="#summary-tutorial2">Summary</a></li>
+  <li><a href="#further-reading-tutorial2">Further Reading</a></li>
+</ul>
+
+<h2 id="google-places-api-">Google Places API <a id="google-places-api"></a></h2>
+
+<p>Google Places API Web Service returns information about places: establishments, geographic locations and prominent points of interest using HTTP requests. The Places API includes six place requests: Place Searches, Place Details, Place Add, Place Photos, Place Autocomplete and Query Autocomplete. Read more about these place requests in <a href="https://developers.google.com/places/web-service/intro">Introducing the API</a>.</p>
+
+<p>All requests are accessed through an HTTP request and return either JSON or XML response.</p>
+
+<p>What are the necessary components to use the Places API?</p>
+<ul>
+  <li>https:// protocol</li>
+  <li>API Key</li>
+</ul>
+
+<h3 id="step-1-obtain-api-key-for-nifi-to-build-http-url-">Step 1: Obtain API Key for NiFi to Build HTTP URL <a id="obtain-api-key-for-flow"></a></h3>
+
+<p>For our dataflow, our task is to enrich the data by searching for neighborhoods within proximity of a vehicle’s varying location. We will retrieve two parameters from this data: name of the neighborhoods and San Francisco Muni Transit Agency. So, we will integrate Nearby Search HTTP request with NiFi.</p>
+
+<p>The Nearby Search request is an HTTP URL of the following definition, which we will need for NiFi:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
+</code></pre>
+</div>
+
+<p>The <code class="highlighter-rouge">output</code> can come in two formats: <code class="highlighter-rouge">json</code> or <code class="highlighter-rouge">xml</code>. We will use json for this tutorial.</p>
+
+<p>Let’s obtain the <strong>required parameters</strong> to initiate a Nearby Search request.</p>
+
+<p>1. We will need to <a href="https://developers.google.com/places/web-service/get-api-key">obtain an API key</a>, so it can identify our application for quota management and places added from the application are instantly available to our app (NiFi).</p>
+
+<p>2. We will use a standard Google Places API. Click on the blue <strong>Get A Key</strong> button to activate the API Web Service.</p>
+
+<p>3. A window will appear that says <strong>Enable Google Places API Web Service</strong>. Select <strong>Yes</strong>. Then <strong>Create And Enable API</strong>. Wait a few seconds for the new window to load.</p>
+
+<p>4. Now a screen with your unique API key will appear similar to the screen below:</p>
+
+<p><img src="assets/lab2-geo-location-enrichment-nifi-lab-series/api_key.png" alt="api_key" /></p>
+
+<p>Now we have the API Key parameter for our HTTP request. We also have the other required parameters: <strong>location</strong> thanks to tutorial 1 in which we extracted longitude &amp; latitude attributes and <strong>radius</strong>, which can be a distance that does not surpass 50,000 meters. We will use one optional parameter <strong>type</strong> to signify what type of place we are interested in searching for.</p>
+
+<p>5. Let’s build our HTTP URL with the parameters below, so we can insert the URL as a property value into <strong>InvokeHTTP</strong> later in the tutorial.</p>
+
+<ul>
+  <li>API Key = AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug</li>
+  <li>Latitude = ${Latitude}</li>
+  <li>Longitude = ${Longitude}</li>
+  <li>radius = 500</li>
+  <li>type = neighborhood</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Latitude},${Longitude}&amp;radius=500&amp;type=neighborhood&amp;key=AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Note: Your API Key will be different than the one in the URL above.</p>
+</blockquote>
+
+<h3 id="step-2-build-geo-location-enrichment-dataflow-section-">Step 2: Build Geo Location Enrichment DataFlow Section <a id="build-geo-loc-enrich"></a></h3>
+
+<p>Six processors are needed to add geographic location enrichment to your dataflow. Each processor holds a critical role in transporting the enriched data to a destination:</p>
+
+<ul>
+  <li><strong>InvokeHTTP</strong> performs an HTTP request to access data from Google Places API about places nearby a vehicle’s location</li>
+  <li><strong>EvaluateJsonPath</strong> extract neighborhoods_nearby and city data elements out of JSON structure</li>
+  <li><strong>RouteOnAttribute</strong> routes FlowFiles as long as their neighborhoods_nearby and city attributes do not contain empty strings</li>
+  <li><strong>AttributesToJSON</strong> represents the enriched attributes in JSON structure</li>
+  <li><strong>MergeContent</strong> merges FlowFiles together by concatenating their JSON content together</li>
+  <li><strong>PutFile</strong> writes the enriched geographic location contents of the FlowFile to the local file system</li>
+</ul>
+
+<h3 id="21-learning-objectives-dataflow-geo-enrichment-addition">2.1 Learning Objectives: DataFlow Geo Enrichment Addition</h3>
+<ul>
+  <li>Add/Configure/Connect processors to ingest, filter and store geo enriched API data</li>
+  <li>Troubleshoot problems that may occur</li>
+  <li>Run the dataflow</li>
+</ul>
+
+<h3 id="invokehttp">InvokeHTTP</h3>
+
+<p>1. Add the InvokeHTTP processor onto the NiFi graph. Connect <strong>RouteOnAttribute</strong> from tutorial 1 to <strong>InvokeHTTP</strong> processor. When the Create Connection window appears, verify <strong>Filter Attributes</strong> checkbox is checked, if not check it. Click <strong>Add</strong>.</p>
+
+<p>2. Open InvokeHTTP configure properties tab and add the property listed in <strong>Table 1</strong>.</p>
+
+<p><strong>Table 1:</strong> Update InvokeHTTP Property Value(s)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Property</th>
+      <th style="text-align: right">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Remote URL</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Latitude},${Longitude}&amp;radius=500&amp;type=neighborhood&amp;key=AIzaSyDY3asGAq-ArtPl6J2v7kcO_YSRYrjTFug</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Remote URL</strong> connects to the HTTP URL we created using Google Places API and feeds that data into the dataflow. Notice we use two NiFi expressions for location parameter. This is because those two values change as new FlowFiles pass through this processor.</p>
+
+<p><img src="assets/lab2-geo-location-enrichment-nifi-lab-series/invokeHTTP_config_property_tab_window.png" alt="invokeHTTP_config_property_tab_window" /></p>
+
+<p>3. Navigate to the <strong>Settings</strong> tab, change the name from InvokeHTTP to <code class="highlighter-rouge">GoogleNearbySearchAPI</code>. Under Auto terminate relationships check the <strong>Failure</strong>, <strong>No Retry</strong>, <strong>Original</strong> and <strong>Retry</strong> checkboxes. Click <strong>Apply</strong> button.</p>
+
+<h3 id="evaluatejsonpath">EvaluateJsonPath</h3>
+
+<p>1. Add the EvaluateJsonPath processor onto the NiFi graph. Connect InvokeHTTP to EvaluateJsonPath processor. When the Create Connection window appears, select <strong>Response</strong> checkbox. Click Add.</p>
+
+<p>2\ Open EvaluateJsonPath configure properties tab and update the original properties with the properties listed in <strong>Table 2</strong>. Note: add <code class="highlighter-rouge">city</code> and <code class="highlighter-rouge">neighborhoods_nearby</code> property by clicking the <strong>New property</strong> button, then insert their values into the properties tab.</p>
+
+<p><strong>Table 2:</strong> Update and Add New EvaluateJsonPath Property Values</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Property</th>
+      <th style="text-align: right">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Destination</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">flowfile-attribute</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Return Type</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">json</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">city</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">$.results[0].vicinity</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">neighborhoods_nearby</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">$.results[*].name</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>
+    <p><strong>Destination</strong> result from JSON Path Evaluation stored in FlowFile attributes.</p>
+  </li>
+  <li>
+    <p><strong>2 user-defined attributes</strong> each hold a value that is used in the NiFi Expression language filtering condition in the next processor.</p>
+  </li>
+</ul>
+
+<p><img src="assets/lab2-geo-location-enrichment-nifi-lab-series/evaluateJsonPath_config_property_tab_window.png" alt="evaluateJsonPath_config_property_tab_window" /></p>
+
+<p>3. Navigate to the <strong>Settings</strong> tab. Under Auto terminate relationships check the <strong>unmatched</strong> and <strong>failure</strong> checkboxes. Click <strong>Apply</strong> button.</p>
+
+<h3 id="routeonattribute">RouteOnAttribute</h3>
+
+<p>1. Add the RouteOnAttribute processor onto the NiFi graph. Connect EvaluateJsonPath to RouteOnAttribute processor. When the Create Connection window appears, select <strong>matched</strong> checkbox. Click Add.</p>
+
+<p>2. Open RouteOnAttribute configure properties tab and click on <strong>New property</strong> button to add <code class="highlighter-rouge">RouteNearbyNeighborhoods</code> to property name and insert its NiFi expression value listed in <strong>Table 3</strong>.</p>
+
+<p><strong>Table 3:</strong> Add New RouteOnAttribute Property Value</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Property</th>
+      <th style="text-align: right">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">RouteNearbyNeighborhoods</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">${city:isEmpty():not():and(${neighborhoods_nearby:isEmpty():not()})}</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>RouteNearbyNeighborhoods</strong> uses the FlowFile Attribute values obtained from JSON Path Expressions to filter out any FlowFiles that have at least one empty Attribute value. Else the FlowFiles are passed to the remaining processors.</p>
+
+<p><img src="assets/lab2-geo-location-enrichment-nifi-lab-series/routeOnAttribute_geoEnrich_config_property_tab_window.png" alt="routeOnAttribute_geoEnrich_config_property_tab_window" /></p>
+
+<p>3. Navigate to the <strong>Settings</strong> tab, change the name from RouteOnAttribute to <code class="highlighter-rouge">RouteNearbyNeighborhoods</code>. Under Auto terminate relationships check the <strong>unmatched</strong> checkbox. Click <strong>Apply</strong> button.</p>
+
+<h3 id="attributestojson">AttributesToJSON</h3>
+
+<p>1. Add the AttributesToJSON processor onto the NiFi graph. Connect RouteOnAttribute to AttributesToJSON processor. When the Create Connection window appears, select <strong>RouteNearbyNeighborhoods</strong> checkbox. Click Add.</p>
+
+<p>2. Open AttributesToJSON configure properties tab and update the properties with the information listed in <strong>Table 4</strong>.</p>
+
+<p><strong>Table 4:</strong> Update AttributesToJSON Property Values</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Property</th>
+      <th style="text-align: right">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Attributes List</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">Vehicle_ID, city, Latitude, Longitude, neighborhoods_nearby, Last_Time</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Destination</code></td>
+      <td style="text-align: right">flowfile-content</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="assets/lab2-geo-location-enrichment-nifi-lab-series/attributesToJSON_geoEnrich_config_property_tab_window.png" alt="attributesToJSON_geoEnrich_config_property_tab_window" /></p>
+
+<p>3. Navigate  to the <strong>Settings</strong> tab, under Auto terminate relationships check the <strong>failure</strong> checkbox. Click <strong>Apply</strong> button.</p>
+
+<h3 id="mergecontent">MergeContent</h3>
+
+<p>1. Add the MergeContent processor onto the NiFi graph. Connect AttributesToJSON to MergeContent processor. When the Create Connection window appears, select <strong>success</strong> checkbox. Click Add.</p>
+
+<p>2. Open MergeContent configure properties tab and update the properties with the information listed in <strong>Table 5</strong>. For the Demarcator property, type <code class="highlighter-rouge">,</code> then press <code class="highlighter-rouge">shift+enter</code>.</p>
+
+<p><strong>Table 5:</strong> Update MergeContent Property Values</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Property</th>
+      <th style="text-align: right">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Minimum Number of Entries</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">10</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Maximum Number of Entries</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">15</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Delimiter Strategy</code></td>
+      <td style="text-align: right">Text</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Header</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">[</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Footer</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">]</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Demarcator</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">,</code> {press-shift+enter}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="assets/lab2-geo-location-enrichment-nifi-lab-series/mergeContent_geoEnrich_config_property_tab_window.png" alt="mergeContent_geoEnrich_config_property_tab_window" /></p>
+
+<p>3. Navigate  to the <strong>Settings</strong> tab, under Auto terminate relationships check the <strong>failure</strong> and <strong>original</strong> checkbox. Click <strong>Apply</strong> button.</p>
+
+<h3 id="putfile">PutFile</h3>
+
+<p>1. Add the PutFile processor onto the NiFi graph. Connect MergeContent to PutFile processor. When the Create Connection window appears, select <strong>merged</strong> checkbox. Click Add.</p>
+
+<p>2. Open PutFile configure properties tab and update the property with the information listed in <strong>Table 6</strong>.</p>
+
+<p><strong>Table 6:</strong> Update PutFile Property Values</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Property</th>
+      <th style="text-align: right">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code class="highlighter-rouge">Directory</code></td>
+      <td style="text-align: right"><code class="highlighter-rouge">/tmp/nifi/output/nearby_neighborhoods_search</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="assets/lab2-geo-location-enrichment-nifi-lab-series/putFile_geoEnrich_config_property_tab_window.png" alt="putFile_geoEnrich_config_property_tab_window" /></p>
+
+<p>3. Navigate  to the <strong>Settings</strong> tab, under Auto terminate relationships check the <strong>success</strong> checkbox. Click <strong>Apply</strong> button. Connect the processor to itself and when the Create Connection window appears, select <strong>failure</strong> checkbox.</p>
+
+<h3 id="step-3-run-nifi-dataflow-">Step 3: Run NiFi DataFlow <a id="run-nifi-flow"></a></h3>
+
+<p>Now that we added geographic location enrichment dataflow section to our previous dataflow, let’s run the dataflow and verify if we receive the expected results in our output directory.</p>
+
+<p>1. Go to the actions toolbar and click the start button <img src="assets/lab2-geo-location-enrichment-nifi-lab-series/start_button_nifi_iot.png" alt="start_button_nifi_iot" />. Your screen should look like the following:</p>
+
+<p><img src="assets/lab2-geo-location-enrichment-nifi-lab-series/running_dataflow_lab2_geoEnrich.png" alt="complete_dataflow_lab2_geoEnrich" /></p>
+
+<p>2. Let’s check the data was written to our expected directory, open your terminal. Make sure to SSH into your sandbox if on sandbox, else navigate to the output directory on your local machine. Navigate to the directory you wrote for the PutFile processor. List the files and open one of the newly created files to view geographic neighborhoods nearby transit location enrichment data output. In the tutorial our directory path is: <code class="highlighter-rouge">/tmp/nifi/output/nearby_neighborhoods_search</code>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /tmp/nifi/output/nearby_neighborhoods_search
+ls
+vi 2ae30f7d-5ffe-4e29-92f0-8f0e7c9224b6
+</code></pre>
+</div>
+
+<p><img src="assets/lab2-geo-location-enrichment-nifi-lab-series/output_geoEnrich_nearby_neighborhoods_data.png" alt="output_geoEnrich_nearby_neighborhoods_data" /></p>
+
+<h2 id="summary-">Summary <a id="summary-tutorial2"></a></h2>
+
+<p>Congratulations! For the Geo Enrichment section of the dataflow, you learned to use InvokeHTTP to access geographic location of nearby places with Google Places Search API. You learned to add NiFi expression variables into InvokeHTTP property RemoteURL, so that the values for latitude and longitude constantly change in the URL when new FlowFiles pass through this processor. You learned to use EvaluateJsonPath similar to EvaluateXPath, except JSON Expression is used to extract JSON elements (neighborhoods_nearby &amp; city) from a JSON structure. Now you know how to incorporate external API’s into NiFi further enhance the dataflow.</p>
+
+<h2 id="further-reading-">Further Reading <a id="further-reading-tutorial2"></a></h2>
+
+<ul>
+  <li><a href="https://developers.google.com/places/">Google Places API</a></li>
+  <li><a href="http://code.tutsplus.com/tutorials/http-the-protocol-every-web-developer-must-know-part-1--net-31177">HTTP Protocol Overview</a></li>
+  <li><a href="http://goessner.net/articles/JsonPath/index.html#e2">JSON Path Expressions</a></li>
+  <li><a href="http://jsonpath.com/">JSON Path Online Evaluator</a></li>
+</ul>
+
+</div>
+
+<div id="tutorial-footer">
+  <hr>
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+  <p>If you need help or have questions with this tutorial, please first check HCC for existing Answers to questions on this tutorial using the Find Answers button.  If you don't find your answer you can post a new HCC question for this tutorial using the Ask Questions button.</p>
+  <p><a class="btn" href="https://community.hortonworks.com/topics/tutorial-/tutorials/hortonworks/hdp-2.5/learning-ropes-apache-nifi-tutorial-series/learning-ropes-nifi-tutorial2.html" role="button">Find Answers</a> <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-hdf-2.0.0&topics=hdf-2.0.0" role="button">Ask Questions</a></p>
+  <p>Tutorial Name: <strong>Tutorial 2 Enhance the DataFlow with Geo Location Enrichment</strong></p>
+  <p>HCC Tutorial Tag:<strong> tutorial-/tutorials/hortonworks/hdp-2.5/learning-ropes-apache-nifi-tutorial-series/learning-ropes-nifi-tutorial2</strong> and <strong>hdf-2.0.0</strong></p>
+  <p>If the tutorial has multiple labs please indicate which lab your question corresponds to. Please provide any feedback related to that lab.</p>
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks github and can be contributed via the <a href="https://github.com/hortonworks/tutorials/wiki">Hortonworks Tutorial Contribution Guide</a>.  If you are certain there is an issue or bug with the tutorial, please <a href="https://github.com/hortonworks/tutorials/wiki#issues-with-tutorials">create an issue</a> on the repository and we will do our best to resolve it!</p>
+</div>
+
