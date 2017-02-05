@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Interacting with Data on HDP using Apache Zeppelin and Apache Spark
-tutorial-id: 370
-tutorial-series: Spark
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ spark, zeppelin ]
+id: 370
+
+platform: hdp-2.5.0
+
+components: [spark, zeppelin ]
 ---
 
 In this tutorial, we are going to walk through the process of using Apache Zeppelin and Apache Spark to interactively analyze data on a Apache Hadoop Cluster. In particular, you will learn:
@@ -28,7 +28,7 @@ If you're new to Zeppelin, make sure to checkout the [Getting Started Guide](htt
 
 Create a new note and give it a meaningful name, e.g. I gave it *Interacting with Data on HDP*
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138527a4935516b52464f465a535657383f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138527a4935516b52464f465a535657383f7261773d74727565.png)
 
 Next, we'll start with a first paragraph and use a Shell interpreter. In Zeppelin, this is indicated by putting `%sh` at the top of a paragraph.
 
@@ -47,13 +47,13 @@ hadoop fs -rm /tmp/littlelog.csv
 hadoop fs -put /tmp/littlelog.csv /tmp/
 ~~~
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138596c5a6f613039705a306c56626a673f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138596c5a6f613039705a306c56626a673f7261773d74727565.png)
 
 Now, open the HDFS Files view in Ambari and navigate to `/tmp` directory to verify that `littlelog.csv` has been uploaded correctly.
 
 Note: If you're not familiar with Ambari, make sure to review [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) first.
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713855306c6164455268527a644d6155453f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713855306c6164455268527a644d6155453f7261773d74727565.png)
 
 In Spark, datasets are represented as a list of entries, where the list is broken up into many different partitions that are each stored on a different machine. Each partition holds a unique subset of the entries in the list. Spark calls datasets that it stores **Resilient Distributed Datasets** (RDDs).
 
@@ -63,7 +63,7 @@ So let’s create a RDD from our littlelog.csv:
 val file = sc.textFile("hdfs://sandbox.hortonworks.com:8020/tmp/littlelog.csv")
 ~~~
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138513142794e5652336254524851556b3f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138513142794e5652336254524851556b3f7261773d74727565.png)
 
 Now we have a freshly created RDD. We have to use an action operation like collect() to gather up the data into the driver's memory and then to print out the contents of the file:
 
@@ -71,7 +71,7 @@ Now we have a freshly created RDD. We have to use an action operation like colle
 file.collect().foreach(println)
 ~~~
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a32354c4c546c4f59305131616c453f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a32354c4c546c4f59305131616c453f7261773d74727565.png)
 
 **Remember** doing a `collect()` action operation on a very large distributed RDD can cause your driver program to run out of memory and crash. So, **do not use collect()** except for when you are prototyping your Spark program on a small dataset.
 
@@ -81,13 +81,13 @@ Another way to print the content of the RDD is
 file.toArray.foreach(println)
 ~~~
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a3170754d48466b4d546c4c55306b3f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a3170754d48466b4d546c4c55306b3f7261773d74727565.png)
 
 In fact you can easily discover other methods that apply to this RDD by auto-completion.
 
 Type the name of the RDD followed by a `.`, in our case it’s `file`. and then press the `crtl` + `-` + `.`
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384e6c644a63484a5a563159785654413f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384e6c644a63484a5a563159785654413f7261773d74727565.png)
 
 Now let’s extract some information from this data.
 
@@ -103,7 +103,7 @@ So let’s do it step by step. First let’s filter out the blank lines.
 val fltr = file.filter(_.length >  0)
 ~~~
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a32354c4c546c4f59305131616c453f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071385a32354c4c546c4f59305131616c453f7261773d74727565.png)
 
 WAIT!* What is that doing there? *
 
@@ -164,7 +164,7 @@ In this case, each array in the anonymous RDD is assigned to the variable ‘a�
 
 Then we extract the 6th element from it, which ends up being added to the named RDD called **‘keys’** we declared at the start of the line of code.
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138566c42694e3342594d5642505454513f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138566c42694e3342594d5642505454513f7261773d74727565.png)
 
 Then let’s print out the values of the key.
 
@@ -172,7 +172,7 @@ Then let’s print out the values of the key.
 keys.collect().foreach(println)
 ~~~
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384f565a505a5331306344566a4f474d3f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f7071384f565a505a5331306344566a4f474d3f7261773d74727565.png)
 
 Notice that some of the states are not unique and repeat. We need to count how many times each key (state) appears in the log.
 
@@ -180,7 +180,7 @@ Notice that some of the states are not unique and repeat. We need to count how m
 val stateCnt = keys.map(key =>  (key,1))  //print stateCnt stateCnt.toArray.foreach(println)
 ~~~
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138626c4253536a6469654655794c566b3f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138626c4253536a6469654655794c566b3f7261773d74727565.png)
 
 You can see, how our new RDD stateCnt looks like.`RDD[(String,  Int)]`.  
 The String is our key and the Integer is 1\.
@@ -191,7 +191,7 @@ Next, we will iterate through each row of the stateCnt RDD and pass their conten
 val lastMap = stateCnt.countByKey
 ~~~
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713856556c594d306431656e684d4c574d3f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713856556c594d306431656e684d4c574d3f7261773d74727565.png)
 
 Now, let’s print out the result.
 
@@ -201,7 +201,7 @@ lastMap.foreach(println)
 
 Result: a listing of state abbreviations and the count of how many times visitors from that state hit our website.
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713862484e305a445656626b3545516a513f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713862484e305a445656626b3545516a513f7261773d74727565.png)
 
 Note that at this point you still have access to all the RDDs you have created during this session. You can reprocess any one of them, for instance, again printing out the values contained in the keys RDD:
 
@@ -209,6 +209,6 @@ Note that at this point you still have access to all the RDDs you have created d
 keys.collect().foreach(println)
 ~~~
 
-![](/assets/interacting-with-data-using-zeppelin-and-spark/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138626d6456566e4e754d5559334e484d3f7261773d74727565.png)
+![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138626d6456566e4e754d5559334e484d3f7261773d74727565.png)
 
 I hope this has proved informative and that you have enjoyed this simple example of how you can interact with Data on HDP using Scala and Apache Spark.  

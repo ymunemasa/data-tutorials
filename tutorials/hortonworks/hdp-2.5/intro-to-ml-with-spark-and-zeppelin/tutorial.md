@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Intro to Machine Learning with Spark and Zeppelin
-tutorial-id: 367
-tutorial-series: Spark
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ spark, zeppelin ]
+id: 367
+platform: hdp-2.5.0
+components: [spark, zeppelin]
 ---
 
 In this tutorial, we will give you a taste of the powerful Machine Learning libraries in Apache Spark via a hands-on lab.

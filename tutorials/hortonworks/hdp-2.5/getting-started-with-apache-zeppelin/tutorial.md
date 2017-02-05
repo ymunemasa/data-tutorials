@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Getting Started with Apache Zeppelin
-tutorial-id: 368
-tutorial-series: Zeppelin
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ zeppelin, spark ]
+id: 368
+platform: hdp-2.5.0
+components: [zeppelin, spark]
 ---
 
 Apache Zeppelin is a web-based notebook that enables interactive data analytics. With Zeppelin, you can make beautiful data-driven, interactive and collaborative documents with a rich set of pre-built language backends (or interpreters) such as Scala (with Apache Spark), Python (with Apache Spark), SparkSQL, Hive, Markdown, Angular, and Shell.

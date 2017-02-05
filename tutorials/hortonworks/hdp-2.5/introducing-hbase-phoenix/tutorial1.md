@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Introduction to HBase Concepts
-tutorial-id: 650
-tutorial-series: Hello World
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ hbase, ambari ]
+id: 650
+platform: hdp-2.5.0
+components: [hbase, ambari]
 ---
 
 ## Introduction
@@ -50,7 +47,7 @@ First SSH into the Hortonworks Sandbox with the command:
 $>ssh root@127.0.0.1 -p 2222
 ~~~
 
-![sshTerminal](/assets/introducing-hbase-phoenix/sshTerminal.png)
+![sshTerminal](assets/sshTerminal.png)
 
 If do do not have ssh client, you can also access the shell via `http://localhost:4200/`
 Now run the following command to reset the password for user `admin`:
@@ -59,28 +56,28 @@ Now run the following command to reset the password for user `admin`:
 $>ambari-admin-password-reset
 ~~~
 
-![admin_password_reset](/assets/introducing-hbase-phoenix/admin_password_reset.png)
+![admin_password_reset](assets/admin_password_reset.png)
 
 Now navigate to Ambari on 127.0.0.1:8080 on the browser and give your credentials
 
 From the Dashboard page of Ambari, click on `HBase` from the list of installed services.
 
-![hbaseServiceOnOff](/assets/introducing-hbase-phoenix/hbase_service_on_off_iot.png)
+![hbaseServiceOnOff](assets/hbase_service_on_off_iot.png)
 
 ### 1.2 Start HBase Service <a id="start-hbase-service"></a>
 
 From the HBase page, click on Service Actions -> `Start`
 
-![starthbaseService](/assets/introducing-hbase-phoenix/start_hbase_service_iot.png)
+![starthbaseService](assets/start_hbase_service_iot.png)
 
 Check the box and click on Confirm Start:
 
-![confirmhbaseStartIot](/assets/introducing-hbase-phoenix/confirm_hbase_start_iot.png)
+![confirmhbaseStartIot](assets/confirm_hbase_start_iot.png)
 
 Check the box to turn off the Maintenance Mode as it suppresses alerts, warnings and status change indicators generated for the object.
 Wait for HBase to start (It may take a few minutes to turn green)
 
-![hbaseStartedIot](/assets/introducing-hbase-phoenix/hbase_started_iot.png)
+![hbaseStartedIot](assets/hbase_started_iot.png)
 
 ## 2. Enter HBase Shell <a id="enter-hbase_shell"></a>
 
@@ -94,11 +91,11 @@ Switch the user to hbase.
 $>su hbase
 ~~~
 
-![switchTohbase](/assets/introducing-hbase-phoenix/switch_to_hbase.png)
+![switchTohbase](assets/switch_to_hbase.png)
 
 Type `hbase shell` and you will see the following screen:
 
-![enterhbaseShell](/assets/introducing-hbase-phoenix/enter_HBase_shell.png)
+![enterhbaseShell](assets/enter_HBase_shell.png)
 
 To exit the interactive shell, type `exit` or use `<ctrl+c>`. But wait, it is time to explore more features of the shell.
 
@@ -114,7 +111,7 @@ The syntax to create a table in HBase is `create '<table_name>','<column_family_
 hbase> create 'driver_dangerous_event','events'
 ~~~
 
-![create_table](/assets/introducing-hbase-phoenix/create_table.png)
+![create_table](assets/create_table.png)
 
 ### 3.2 List <a id="list"></a>
 
@@ -124,7 +121,7 @@ Let’s check the table we’ve just created, type the following command in the 
 hbase> list
 ~~~
 
-![list_table](/assets/introducing-hbase-phoenix/list_table.png)
+![list_table](assets/list_table.png)
 
 ## 4. Data Manipulation Commands in HBase <a id="dml-hbase"></a>
 
@@ -140,7 +137,7 @@ $>curl -o ~/data.csv https://raw.githubusercontent.com/hortonworks/tutorials/hdp
 $>hadoop fs -copyFromLocal ~/data.csv /tmp
 ~~~
 
-![copyFromLocal_data_csv](/assets/introducing-hbase-phoenix/copyFromLocal_data_csv.png)
+![copyFromLocal_data_csv](assets/copyFromLocal_data_csv.png)
 
 Now execute the `LoadTsv` from hbase user statement as following:
 
@@ -150,7 +147,7 @@ $>su hbase
 $>hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=,  -Dimporttsv.columns="HBASE_ROW_KEY,events:driverId,events:driverName,events:eventTime,events:eventType,events:latitudeColumn,events:longitudeColumn,events:routeId,events:routeName,events:truckId" driver_dangerous_event hdfs://sandbox.hortonworks.com:/tmp/data.csv
 ~~~
 
-![importtsv_command](/assets/introducing-hbase-phoenix/importtsv_command.png)
+![importtsv_command](assets/importtsv_command.png)
 
 Now let’s check whether the data got imported in the table `driver_dangerous_events` or not. Go back to the `hbase shell`.
 
@@ -161,7 +158,7 @@ The scan command is used to view the data in the HBase table. Type the following
 
 You will see all the data present in the table with row keys and the different values for different columns in a column family.
 
-![scan_command](/assets/introducing-hbase-phoenix/scan_command.png)
+![scan_command](assets/scan_command.png)
 
 ### 4.2 Put <a id="put"></a>
 
@@ -182,7 +179,7 @@ put 'driver_dangerous_event','4','events:routeName','Santa Clara to San Diego'
 put 'driver_dangerous_event','4','events:truckId','637'
 ~~~
 
-![put_command](/assets/introducing-hbase-phoenix/put_command.png)
+![put_command](assets/put_command.png)
 
 Now let’s view a data from scan command.
 
@@ -190,7 +187,7 @@ Now let’s view a data from scan command.
 hbase>scan 'driver_dangerous_event'
 ~~~
 
-![scan_command1](/assets/introducing-hbase-phoenix/scan_command1.png)
+![scan_command1](assets/scan_command1.png)
 
 You can also update an existing cell value using the `put` command. The syntax for replacing is same as inserting a new value.
 
@@ -200,7 +197,7 @@ So let’s update a route name value of row key 4, from `'Santa Clara to San Die
 hbase>put 'driver_dangerous_event','4','events:routeName','Santa Clara to Los Angeles'
 ~~~
 
-![update_table](/assets/introducing-hbase-phoenix/update_table.png)
+![update_table](assets/update_table.png)
 
 Now scan the table to see the updated data:
 
@@ -208,7 +205,7 @@ Now scan the table to see the updated data:
 hbase>scan 'driver_dangerous_event'
 ~~~
 
-![scan_command2](/assets/introducing-hbase-phoenix/scan_command2.png)
+![scan_command2](assets/scan_command2.png)
 
 ### 4.3 Get <a id="get"></a>
 
@@ -217,7 +214,7 @@ It is used to read the data from HBase table. It gives a single row of data at a
 
 Try typing `get 'driver_dangerous_event','1'` in the shell. You will see the all the column families (in our case, there is only 1 column family) along with all the columns in the row.
 
-![get_command](/assets/introducing-hbase-phoenix/get_command.png)
+![get_command](assets/get_command.png)
 
 You can also read a specific column from get command. The syntax is as follows:
 `get 'table_name', 'row_number', {COLUMN ⇒ 'column_family:column-name '}`
@@ -228,7 +225,7 @@ Type the following statement to get the details from the row 1 and the driverNam
 hbase>get 'driver_dangerous_event','1',{COLUMN => 'events:driverName'}
 ~~~
 
-![get_command_column](/assets/introducing-hbase-phoenix/get_command_column.png)
+![get_command_column](assets/get_command_column.png)
 
 If you want to view the data from two columns, just add it to the {COLUMN =>...} section. Run the following command to get the details from row key 1 and the driverName and routeId of column family events:
 
@@ -236,7 +233,7 @@ If you want to view the data from two columns, just add it to the {COLUMN =>...}
 hbase>get 'driver_dangerous_event','1',{COLUMNS => ['events:driverName','events:routeId']}
 ~~~
 
-![get_command_two_columns](/assets/introducing-hbase-phoenix/get_command_two_columns.png)
+![get_command_two_columns](assets/get_command_two_columns.png)
 
 ## 5. Appendix <a id="appendix"></a>
 

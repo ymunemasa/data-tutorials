@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Interactive Query for Hadoop with Apache Hive on Apache Tez
-tutorial-id: 290
-tutorial-series: Basic Development
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ hive, tez, ambari ]
+id: 290
+platform: hdp-2.5.0
+components: [hive, tez, ambari]
 ---
 
 # Interactive Query for Hadoop with Apache Hive on Apache Tez
@@ -52,22 +49,22 @@ Once you have the file you will need to unzip the file into a directory. We will
 
 Let’s use the above two csv files `(drivers.csv and timesheet.csv)` to create two new tables using the following step. Navigate to http://sandbox.hortonworks.com:8080 using your browser. Click the HDFS `Files view` from the dropdown menu.
 
-![select_files_view](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/select_files_view.png)
+![select_files_view](assets/select_files_view.png)
 
 Go to the `/tmp` folder and if it is not already present, create a new directory called `data` using the controls toward the top of the screen. Then right-click on the folder and click `Permissions`. Make sure to check (blue) all of the permissions boxes.
 
-![edit_permissions](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/edit_permissions.png)
+![edit_permissions](assets/edit_permissions.png)
 
 Now, let’s upload the above data files into HDFS and create two hive tables using the following steps.
 Upload the two files under `/tmp/data` using `Upload` at the top of the screen
 
-![uploaded_files](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/uploaded_files.png)
+![uploaded_files](assets/uploaded_files.png)
 
 ### Step 3: Create Hive Queries <a id="create-hive-queries"></a>
 
 Now head on over to the `Hive view`
 
-![select_hive_view](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/select_hive_view.png)
+![select_hive_view](assets/select_hive_view.png)
 
 We will now use hive and create the two tables. They will be named per the csv file names : `drivers` and `timesheet`.
 Use the following two queries to create the tables a then load the data
@@ -104,7 +101,7 @@ TBLPROPERTIES("skip.header.line.count"="1");
 
 Go to the `Database Explorer` and `Refresh`, then click on `default` database.
 
-![database_explorer](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/database_explorer.png)
+![database_explorer](assets/database_explorer.png)
 
 > Tables In DataBase Explorer
 
@@ -119,7 +116,7 @@ LOAD DATA INPATH '/tmp/data/timesheet.csv' OVERWRITE INTO TABLE timesheet;
 
 You should now be able to obtain results when selecting small amounts of data from either table:
 
-![select_data_drivers](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/select_data_drivers.png)
+![select_data_drivers](assets/select_data_drivers.png)
 
 ### Speed Improvements <a id="speed-improvements"></a>
 
@@ -131,15 +128,15 @@ By default, the Hive view runs with Tez as it's execution engine. That's because
 
 Click on the Hive view `Settings` tab. Then we’re going to need to add new settings.
 
-![settings_page](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/settings_page.png)
+![settings_page](assets/settings_page.png)
 
 Then we’re going to need to find the property which is `hive.execution.engine`. Select this property and then for its value select, `mr` (short for MapReduce).
 
-![hive_execution_engine](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/hive_execution_engine.png)
+![hive_execution_engine](assets/hive_execution_engine.png)
 
 Add one more property - `hive.auto.convert.join` and for its value, select `False`.
 
-![hive_auto_convert_join](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/hive_auto_convert_join.png)
+![hive_auto_convert_join](assets/hive_auto_convert_join.png)
 
 ### Step 5: Test Query on MapReduce Engine <a id="test-query-mapreduce-engine"></a>
 
@@ -151,7 +148,7 @@ from drivers d join timesheet t
 on d.driverId = t.driverId;
 ~~~
 
-![first_join_mr](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/first_join_mr.png)
+![first_join_mr](assets/first_join_mr.png)
 
 This query was run using the MapReduce framework.
 
@@ -171,12 +168,12 @@ from drivers d join timesheet t
 on d.driverId = t.driverId;
 ~~~
 
-![first_join_mr1](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/first_join_mr.png)
+![first_join_mr1](assets/first_join_mr.png)
 
 Check the output of this job. It shows the usage of the containers.
 Here is the rest of the output log:
 
-![first_join_tez_logs](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/first_join_tez_logs.png)
+![first_join_tez_logs](assets/first_join_tez_logs.png)
 
 Notice that the results will have appeared much quicker while having the execution engine set to Tez. This is currently the default for all Hive queries.
 
@@ -187,15 +184,15 @@ Congratulations! You have successfully run your Hive on Tez Job.
 Now let’s try a new query to work with
 
 ~~~
-SELECT d.driverId, d.name, t.total_hours, t.total_miles from drivers d  
-JOIN (SELECT driverId, sum(hours_logged)total_hours, sum(miles_logged)total_miles FROM timesheet GROUP BY driverId ) t  
+SELECT d.driverId, d.name, t.total_hours, t.total_miles from drivers d
+JOIN (SELECT driverId, sum(hours_logged)total_hours, sum(miles_logged)total_miles FROM timesheet GROUP BY driverId ) t
 ON (d.driverId = t.driverId);
 ~~~
 
 Try executing the query first on MapReduce execution engine, then on Tez. You should notice a considerable gap in execution time.
 Here is the result.
 
-![second_join_mr](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/second_join_mr.png)
+![second_join_mr](assets/second_join_mr.png)
 
 To experience this further, you could use your own dataset, upload to your HDP Sandbox using steps above and execute with and without Tez to compare the difference.
 
@@ -203,7 +200,7 @@ To experience this further, you could use your own dataset, upload to your HDP S
 
 You can track your Hive on Tez jobs in HDP Sandbox Web UI as well. Please go to : [http://127.0.0.1:8088/cluster](http://127.0.0.1:8088/cluster) and track your jobs while running or post to see the details.
 
-![all_applications](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/all_applications.png)
+![all_applications](assets/all_applications.png)
 
 You can click on your job and see further details.
 
@@ -242,7 +239,7 @@ The ‘explain’ plan feature can be used to see if the correct stats are being
 
 Currently, CBO for Hive is enabled by defaults. You can see this if you head over to the Hive configuration tab in Ambari.
 
-![cbo](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/cbo.png)
+![cbo](assets/cbo.png)
 
 As you can see the CBO flag is **on**, meaning that Hive will attempt to optimize complex queries in order to shorten the execution time.
 
@@ -252,7 +249,7 @@ However, the only caveat is that for each table you will need to compute statist
 # Usage:
        # ANALYZE TABLE table [partition(key)] COMPUTE STATISTICS;
        # ANALYZE TABLE table [partition(key)] COMPUTE STATISTICS FOR COLUMNS col1,col2,...
-# Example:         
+# Example:
          ANALYZE TABLE drivers COMPUTE STATISTICS FOR COLUMNS driverId, name;
 ~~~
 
@@ -276,7 +273,7 @@ The purposes of this Job Viewer are as follows:
 *   Drill Down into individual stages for:
     *   Execution status
     *   Duration
-    *   Number of bytes read and written, No of containers, etc.  
+    *   Number of bytes read and written, No of containers, etc.
         DAG Viewer is releasing soon, which will be available in Ambari.
 
 Run a simple query such as:
@@ -285,21 +282,21 @@ Run a simple query such as:
 ANALYZE TABLE drivers COMPUTE STATISTICS FOR COLUMNS driverId, name;
 ~~~
 
-![analyze_table_drivers](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/analyze_table_drivers.png)
+![analyze_table_drivers](assets/analyze_table_drivers.png)
 
 To see the job executions visually, you can open the **Tez View** in Ambari Views. Tez View will take you to DAG Details, which includes all your DAG projects.
 
-![tez_view_home_page](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/tez_view_home_page.png)
+![tez_view_home_page](assets/tez_view_home_page.png)
 
 Click on the first DAG name,
 
-![analyze_table_dag](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/analyze_table_dag.png)
+![analyze_table_dag](assets/analyze_table_dag.png)
 
 > Notice the query utilized in the photo is "ANALYZE TABLE drivers COMPUTE STATISTICS FOR COLUMNS."
 
 Try clicking on the different parts above, such as **Graphical View** and explore some of the other execution information from Tez.
 
-![graphical_view_dag](/assets/interactive-queries-on-hadoop-with-apache-hive-on-apache-tez-hdp2.5/graphical_view_dag.png)
+![graphical_view_dag](assets/graphical_view_dag.png)
 
 ### SQL Compliance <a id="sql-compliance"></a>
 

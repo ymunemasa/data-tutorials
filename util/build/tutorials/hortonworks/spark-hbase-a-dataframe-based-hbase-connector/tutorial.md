@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Spark HBase - A Dataframe Based HBase Connector
-tutorial-id: 369
-tutorial-series: Spark
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ spark, hbase ]
+id: 369
+
+platform: hdp-2.5.0
+
+components: [spark, hbase ]
 ---
 
 The technical preview of the [Spark-HBase connector](https://github.com/hortonworks/shc) was developed by Hortonworks along with Bloomberg. The connector leverages Spark SQL Data Sources API introduced in Spark-1.2.0. It bridges the gap between the simple HBase Key Value store and complex relational SQL queries and enables users to perform complex data analytics on top of HBase using Spark. An HBase DataFrame is a standard Spark DataFrame, and is able to interact with any other data sources such as Hive, ORC, Parquet, JSON, etc.

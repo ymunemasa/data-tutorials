@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Capture Real Time Event Stream with Apache Kafka
-tutorial-id: 220
-tutorial-series: Streaming
-tutorial-version: hdp-2.5.0
-intro-page: false
-components: [ kafka, nifi ]
+id: 220
+platform: hdp-2.5.0
+components: [kafka, nifi]
 ---
 
 
@@ -40,7 +37,7 @@ components: [ kafka, nifi ]
 *   Multi-client support
 *   Real time
 
-![Kafka Producer-Broker-Consumer](/assets/realtime-event-processing-with-hdf/lab1-kafka/Kafka-Broker-Diagram.png)
+![Kafka Producer-Broker-Consumer](assets/lab1-kafka/Kafka-Broker-Diagram.png)
 
 Kafka Producer-Broker-Consumer
 
@@ -59,7 +56,7 @@ SSH into the Sandbox to define the Kafka topic. Type the following command:
 ssh root@sandbox.hortonworks.com -p 2222
 ~~~
 
-![ssh_into_sandbox_shell_kafka_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/ssh_into_sandbox_shell_kafka_iot.png)
+![ssh_into_sandbox_shell_kafka_iot](assets/lab1-kafka/ssh_into_sandbox_shell_kafka_iot.png)
 
 > NOTE: You can also SSH using a program like Putty for Windows or the Terminal application on a Mac.
 
@@ -88,7 +85,7 @@ Also note that sometimes ZooKeeper does not listen on `localhost`, so you may ne
 
 The output should show your topic was created:
 
-![created_kafka_topic_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/created_kafka_topic_iot.png)
+![created_kafka_topic_iot](assets/lab1-kafka/created_kafka_topic_iot.png)
 
 
 ### 1.3 Verify the topic was created successfully
@@ -101,7 +98,7 @@ Check if topic `truck_events` was created successfully with the following comman
 
 You should see `truck_events` in the list of topics (and probably your only topic):
 
-![](/assets/realtime-event-processing-with-hdf/lab1-kafka/verify_kafka_topic_created_iot.png)
+![](assets/lab1-kafka/verify_kafka_topic_created_iot.png)
 
 
 ### Step 2: Create NiFi PutKafka Processor <a id="create-nifi-putkafka-tutorial1"></a>
@@ -110,7 +107,7 @@ In the previous tutorial, we stored the truck event data into a file. Now we can
 
 1\. If not already open, navigate to the NiFi Web Interface at `http://sandbox.hortonworks.com:9090/nifi/`. For vmware and azure, the port may be different.
 
-2\. If your data flow is still running, click on the stop button ![stop_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/stop_symbol_nifi_iot.png) in the **actions** toolbar to stop the flow.
+2\. If your data flow is still running, click on the stop button ![stop_symbol_nifi_iot](assets/lab0-nifi/stop_symbol_nifi_iot.png) in the **actions** toolbar to stop the flow.
 
 ### 2.1 Add PutKafka Processor
 
@@ -128,7 +125,7 @@ Message Delimiter = press “Shift+enter”
 Client Name = truck_events_client
 ~~~
 
-![putkafka_processor_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/putkafka_processor_config_nifi_iot.png)
+![putkafka_processor_config_nifi_iot](assets/lab1-kafka/putkafka_processor_config_nifi_iot.png)
 
 > Note: Every property above is required except **Message Delimiter**, but this property is helpful with splitting apart the contents of the FlowFile.
 
@@ -146,13 +143,13 @@ Client Name = truck_events_client
 
 You should obtain a similar dataflow as the following:
 
-![dataflow_final_withkafka_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_final_withkafka_iot.png)
+![dataflow_final_withkafka_iot](assets/lab1-kafka/dataflow_final_withkafka_iot.png)
 
 > Note: If there is a warning symbol after updating the PutKafka, verify that the property values are correct. Check **3**. in case you need to review the values changed.
 
 6\. Let’s start our Hortonworks DataFlow to see a real live stream of truck event data be read from NiFi and written to a Kafka cluster. In the **actions** toolbar, hit the **start** button.
 
-![dataflow_withKafka_running_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_withKafka_running_iot.png)
+![dataflow_withKafka_running_iot](assets/lab1-kafka/dataflow_withKafka_running_iot.png)
 
 > Dataflow generates data, filtering truck events from the dataflow and sending those events to kafka.
 
@@ -168,7 +165,7 @@ To verify that the PutKafka processor successfully published messages to the Kaf
 
 Your terminal should show that messages successfully published to Kafka:
 
-![messages_published_toKafka](/assets/realtime-event-processing-with-hdf/lab1-kafka/messages_published_toKafka.png)
+![messages_published_toKafka](assets/lab1-kafka/messages_published_toKafka.png)
 
 
 ## Summary <a id="summary-tutorial1"></a>

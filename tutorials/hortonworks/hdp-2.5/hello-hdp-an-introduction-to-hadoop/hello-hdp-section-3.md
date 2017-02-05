@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Hello HDP An Introduction to Hadoop with Hive and Pig
-tutorial-id: 100
-tutorial-series: Basic Development
-tutorial-version: hdp-2.5.0
-intro-page: false
-components: [ ambari, hive, pig, spark, zeppelin, technical-preview ]
+id: 100
+platform: hdp-2.5.0
+components: [ambari, hive, pig, spark, zeppelin, technical-preview]
 ---
 
 # Lab 1: HDFS - Loading Data
@@ -49,33 +46,33 @@ A single physical machine gets saturated with its storage capacity as the data g
 
 1\.   Go to Ambari Dashboard and open the **HDFS Files** view. Click on the 9 square Ambari User Views icon next to the username button and select the **HDFS Files** menu item.
 
-![Screen Shot 2015-07-21 at 10.17.21 AM](/assets/hello-hdp/files_view_lab1.png)
+![Screen Shot 2015-07-21 at 10.17.21 AM](assets/files_view_lab1.png)
 
 2\.  Start from the top root of the HDFS file system, you will see all the files the logged in user (_maria_dev_ in this case) has access to see:
 
-![Lab2_2](/assets/hello-hdp/root_files_view_folder_lab1.png)
+![Lab2_2](assets/root_files_view_folder_lab1.png)
 
 3\. Navigate to `/user/maria_dev` directory by clicking on the directory links.
 
-4\.  Let's create a data directory to upload the data that we are going to use for this use case.  Click the ![Lab2_3](/assets/hello-hdp/new_folder_icon_lab1.png) button to create the data directory inside the `maria_dev` directory. Now navigate into the `data` directory.
+4\.  Let's create a data directory to upload the data that we are going to use for this use case.  Click the ![Lab2_3](assets/new_folder_icon_lab1.png) button to create the data directory inside the `maria_dev` directory. Now navigate into the `data` directory.
 
-![add_new_folder_data_lab1](/assets/hello-hdp/add_new_folder_data_lab1.png)
+![add_new_folder_data_lab1](assets/add_new_folder_data_lab1.png)
 
 ### 1.2.1 Upload Geolocation and Trucks CSV Files to data Folder
 
-4\.   If you're not already in your newly created directory path `/user/maria_dev/data`, go to the **data** folder. Then  click on the ![upload_icon_lab1](/assets/hello-hdp/upload_icon_lab1.png) button to upload the corresponding **geolocation.csv** and **trucks.csv** files into it.
+4\.   If you're not already in your newly created directory path `/user/maria_dev/data`, go to the **data** folder. Then  click on the ![upload_icon_lab1](assets/upload_icon_lab1.png) button to upload the corresponding **geolocation.csv** and **trucks.csv** files into it.
 
 5\. An **Upload file** window will appear, click on the cloud symbol.
 
-![upload_file_lab1](/assets/hello-hdp/upload_file_lab1.png)
+![upload_file_lab1](assets/upload_file_lab1.png)
 
 6\. Another window will appear, navigate to the destination the two csv files were downloaded. Click on one at a time, press open to complete the upload. Repeat the process until both files are uploaded.
 
-![upload_file_window_lab1](/assets/hello-hdp/upload_file_window_lab1.png)
+![upload_file_window_lab1](assets/upload_file_window_lab1.png)
 
 Both files are uploaded to HDFS as shown in the Files View UI:
 
-![uploaded_files_lab1](/assets/hello-hdp/uploaded_files_lab1.png)
+![uploaded_files_lab1](assets/uploaded_files_lab1.png)
 
 You can also perform the following operations on a file or folder by clicking on the entity's row: **Open**, **Rename**, **Permissions**, **Delete**, **Copy**, **Move**, **Download** and **concatenate**.
 
@@ -83,7 +80,7 @@ You can also perform the following operations on a file or folder by clicking on
 
 1\. click on the `data` folder's row, which is contained within the directory path `/user/maria_dev`. Click **Permissions**. Make sure that the background of all the **write** boxes are checked (**blue**). Refer to image for a visual explanation.
 
-![edit_permissions_lab1](/assets/hello-hdp/edit_permissions_lab1.png)
+![edit_permissions_lab1](assets/edit_permissions_lab1.png)
 
 ## Summary <a id="summary-lab1"></a>
 

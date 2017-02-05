@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Set Up Simulator, Apache Services and IDE Environment
-tutorial-id: 220
-tutorial-series: Streaming
-tutorial-version: hdp-2.5.0
-intro-page: false
-components: [ nifi, storm, kafka, hbase ]
+id: 220
+platform: hdp-2.5.0
+components: [nifi, storm, kafka, hbase]
 ---
 
 # Tutorial 0: Set Up Simulator, Apache Services and IDE Environment
@@ -51,7 +48,7 @@ If on windows 7, to add `sandbox.hortonworks.com` to your list of hosts, open gi
 echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/etc/hosts
 ~~~
 
-![changing-hosts-file.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/changing-hosts-file.png)
+![changing-hosts-file.png](assets/lab0-nifi/changing-hosts-file.png)
 
 ## Outline
 - [Section 1: Setup NiFi Environment](#setup-nifi-environment)
@@ -99,7 +96,7 @@ push it into it's topology(dataflow).
 
 If you haven't reset your Ambari admin password, refer to Section **[2.2 SETUP AMBARI ADMIN PASSWORD MANUALLY](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password)** from Learning the Ropes of the Hortonworks Sandbox. Login to Ambari to activate Kafka. Enter the URL in your browser `http://sandbox.hortonworks.com:8080`
 
-![login_page_ambari](/assets/realtime-event-processing-with-hdf/lab1-kafka/login_page_ambari.png)
+![login_page_ambari](assets/lab1-kafka/login_page_ambari.png)
 
 > Note: username for admin is admin. Password is the password you defined.
 
@@ -107,15 +104,15 @@ If you haven't reset your Ambari admin password, refer to Section **[2.2 SETUP A
 
 1\. Click on Kafka located in the left sidebar list of installed services. (If Kafka is not installed, refer to [Appendix A: Install Kafka](http://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm/#install-kafka-tutorial0) instructions.):
 
-![kafka_service_on_off](/assets/realtime-event-processing-with-hdf/lab1-kafka/kafka_service_on_off.png)
+![kafka_service_on_off](assets/lab1-kafka/kafka_service_on_off.png)
 
 2\. Click on **Service Actions -> Start** located at the top left of the Kafka Services Page:
 
-![](/assets/realtime-event-processing-with-hdf/lab1-kafka/start_kafka_service_iot.png)
+![](assets/lab1-kafka/start_kafka_service_iot.png)
 
 3\. Check the **Turn off Maintenance Mode for Kafka** box and click on **Confirm Start**:
 
-![Screen Shot 2015-06-04 at 3.06.10 PM.png](/assets/realtime-event-processing-with-hdf/lab1-kafka/confirmation_kafka_service_start.png)
+![Screen Shot 2015-06-04 at 3.06.10 PM.png](assets/lab1-kafka/confirmation_kafka_service_start.png)
 
 Wait for Kafka to start.
 
@@ -123,7 +120,7 @@ Wait for Kafka to start.
 
 ZooKeeper is the coordination interface between the Kafka broker and consumers:
 
-![Single Broker based Kakfa cluster](/assets/realtime-event-processing-with-hdf/lab1-kafka/zookeeper-kafka-producer-broker-consumer.jpg)
+![Single Broker based Kakfa cluster](assets/lab1-kafka/zookeeper-kafka-producer-broker-consumer.jpg)
 
 The important Zookeeper properties can be checked in Ambari.
 
@@ -131,17 +128,17 @@ The important Zookeeper properties can be checked in Ambari.
 
 Click on **ZooKeeper** in the list of services, then open the Configs tab. Verify ZooKeeper runs on port 2181:
 
-![zookeeper_port_config](/assets/realtime-event-processing-with-hdf/lab1-kafka/zookeeper_port_config.png)
+![zookeeper_port_config](assets/lab1-kafka/zookeeper_port_config.png)
 
 If this port 2181 is busy or consumed by other processes, you can change the default port number of ZooKeeper to any other valid port number. If ZooKeeper is not running, you can start the Zookeeper service from Ambari:
 
-![zookeeper_start_service_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/zookeeper_start_service_iot.png)
+![zookeeper_start_service_iot](assets/lab1-kafka/zookeeper_start_service_iot.png)
 
 ### 2.2 Configure Kafka
 
 From the Kafka page, click on the **Configs** tab. Verify the `zookeeper.connect` property points to your ZooKeeper server name and port:
 
-![](/assets/realtime-event-processing-with-hdf/lab1-kafka/verify_zookeeper_connect_pts_zoo_server_kafka.png)
+![](assets/lab1-kafka/verify_zookeeper_connect_pts_zoo_server_kafka.png)
 
 ## Section 3: Overview
 
@@ -160,7 +157,7 @@ that storm populates.
 
 From the previous tutorials: HDFS, Hive, YARN and Kafka should already be running but HBase may be down. From the Dashboard page of Ambari, click on HBase from the list of installed services.
 
-![hbase_service_on_off_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_service_on_off_iot.png)
+![hbase_service_on_off_iot](assets/lab2-hbase-hive-storm/hbase_service_on_off_iot.png)
 
 ### 1.1 Setup HBase
 
@@ -168,25 +165,25 @@ From the previous tutorials: HDFS, Hive, YARN and Kafka should already be runnin
 
 From the HBase page, click on **Service Actions -> Start**
 
-![start_hbase_service_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/start_hbase_service_iot.png)
+![start_hbase_service_iot](assets/lab2-hbase-hive-storm/start_hbase_service_iot.png)
 
 Check the box and click on **Confirm Start**:
 
-![confirm_hbase_start_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/confirm_hbase_start_iot.png)
+![confirm_hbase_start_iot](assets/lab2-hbase-hive-storm/confirm_hbase_start_iot.png)
 
 Wait for HBase to start (It may take a few minutes to turn green)
 
-![hbase_started_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hbase_started_iot.png)
+![hbase_started_iot](assets/lab2-hbase-hive-storm/hbase_started_iot.png)
 
 ### 1.2 Setup Storm
 
 3\. Start Storm the same way we started HBase in the previous steps. We will need it later for streaming real-time event data.
 
-![storm_service_on_off_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_service_on_off_iot.png)
+![storm_service_on_off_iot](assets/lab2-hbase-hive-storm/storm_service_on_off_iot.png)
 
 4\. After starting storm, a green check symbol will be present:
 
-![storm_service_started_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_service_started_iot.png)
+![storm_service_started_iot](assets/lab2-hbase-hive-storm/storm_service_started_iot.png)
 
 Now that we have storm activated, we need to download a storm demo project for
 later when we use Storm's Visualization feature.
@@ -291,7 +288,7 @@ chmod 750 *.sh
 
 You should see message data generated. The data in the image includes logs as can be seen in the top portion and truck events bottom portion. We will use NiFi to separate this data.
 
-![generate_sh_data](/assets/realtime-event-processing-with-hdf/lab0-nifi/generateSH_data_logs_truckevents_iot.png)
+![generate_sh_data](assets/lab0-nifi/generateSH_data_logs_truckevents_iot.png)
 
 > Note: generate.sh runs java source code located at `iot-truck-streaming/stream-simulator/src/main/java/com/hortonworks/streaming/impl/collectors/StdOutEventCollector.java`. If you would like to see modify/run the code.
 
@@ -325,15 +322,15 @@ git clone -b hdp25experiment https://github.com/james94/iot-truck-streaming.git
 
 1\. Open Intellij. On the welcome screen, click on the Open button. We will open our **iot-truck-streaming** project.
 
-![welcome_button_intellij](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/welcome_button_intellij.png)
+![welcome_button_intellij](assets/tutorial0-setup-environ/welcome_button_intellij.png)
 
 2\. Select **iot-truck-streaming** project.
 
-![open_storm_project](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/open_storm_project.png)
+![open_storm_project](assets/tutorial0-setup-environ/open_storm_project.png)
 
 3\. Intellij will display the project in its IDE.
 
-![storm_project_not_recognized_initial](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/storm_project_not_recognized_initial.png)
+![storm_project_not_recognized_initial](assets/tutorial0-setup-environ/storm_project_not_recognized_initial.png)
 
 ### Step 4: Configure Intellij To Recognize Maven Project
 
@@ -360,7 +357,7 @@ mvn clean package -DskipTests
 
 Output should show success for each sub project within the overall project.
 
-![maven_success_for_IDE_storm_project](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/maven_success_for_IDE_storm_project.png)
+![maven_success_for_IDE_storm_project](assets/tutorial0-setup-environ/maven_success_for_IDE_storm_project.png)
 
 ### Apache Maven command:
 
@@ -379,13 +376,13 @@ java files at fast speeds.
 
 2\. As you run maven, you will see in Intellij that a box in the top right corner appears and states **Maven projects need to be imported**. Click on **Enable Auto-Import**.
 
-![enable_auto_import_maven](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/enable_auto_import_maven.png)
+![enable_auto_import_maven](assets/tutorial0-setup-environ/enable_auto_import_maven.png)
 
 ### 4.4 Intellij Recognizes Trucking Demo is Maven Project
 
 - Notice that the icons next to the code files changed to blue circles.
 
-![code_files_recognized_unlock_symbol](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/code_files_recognized_unlock_symbol.png)
+![code_files_recognized_unlock_symbol](assets/tutorial0-setup-environ/code_files_recognized_unlock_symbol.png)
 
 > Note: If you want to make commits to github from Intellij, feel free to try out Intellij's git feature, else ignore the "Add Files to Git" Window if it appears.
 
@@ -393,7 +390,7 @@ java files at fast speeds.
 
 1\. Now we can develop our storm code from the storm-streaming folder directly on our local machine. Feel free to explore the code, modify or add bolts, spouts, or topology.
 
-![develop_hadoop_projects_locally](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/develop_hadoop_projects_locally.png)
+![develop_hadoop_projects_locally](assets/tutorial0-setup-environ/develop_hadoop_projects_locally.png)
 
 2\. Once you've added or modified the code, we can run mvn command used earlier to package our storm project into a jar.
 
@@ -410,7 +407,7 @@ mvn clean package -DskipTests
 ls -ltr storm-streaming/target
 ~~~
 
-![list_files_target_folder](/assets/realtime-event-processing-with-hdf/tutorial0-setup-environ/list_files_target_folder.png)
+![list_files_target_folder](assets/tutorial0-setup-environ/list_files_target_folder.png)
 
 > Notice the target folder contains **storm-streaming-1.0-SNAPSHOT.jar** file. This jar is a collection of java classes for our storm project. When you add an enhancement to the demo and maven is executed, the jar file will be removed and replaced with a new version.
 
@@ -434,27 +431,27 @@ Follow these steps if your version of the Sandbox does not have Kafka installed:
 
 1\.  From the Ambari Dashboard, select Actions -> Add Service:
 
-![](/assets/realtime-event-processing-with-hdf/lab1-kafka/add_service_kafka.png)
+![](assets/lab1-kafka/add_service_kafka.png)
 
 2\.  Select Kafka from the list of Services and click Next:
 
-![](/assets/realtime-event-processing-with-hdf/lab1-kafka/addServiceWizard_kafka_service_iot.png)
+![](assets/lab1-kafka/addServiceWizard_kafka_service_iot.png)
 
 3\.  Keep clicking Next with the selected defaults until you reach the following screen:
 
-![](/assets/realtime-event-processing-with-hdf/lab1-kafka/log_dirs_kafka_broker_iot.png)
+![](assets/lab1-kafka/log_dirs_kafka_broker_iot.png)
 
 4\.  Set the value of logs.dir to  /tmp/kafka-logs
 
-![](/assets/realtime-event-processing-with-hdf/lab1-kafka/change_kafka_broker_log_dirs_iot.png)
+![](assets/lab1-kafka/change_kafka_broker_log_dirs_iot.png)
 
 5\.  Click the Deploy button:
 
-![](/assets/realtime-event-processing-with-hdf/lab1-kafka/deploy_kafka_service_iot.png)
+![](assets/lab1-kafka/deploy_kafka_service_iot.png)
 
 6\.  Wait for Kafka to install:
 
-![](/assets/realtime-event-processing-with-hdf/lab1-kafka/wait_kafka_service_install_iot.png)
+![](assets/lab1-kafka/wait_kafka_service_install_iot.png)
 
 
 7\.  After Kafka is installed, you may be asked to restart some dependent Services. Please select the appropriate Services and click Restart.

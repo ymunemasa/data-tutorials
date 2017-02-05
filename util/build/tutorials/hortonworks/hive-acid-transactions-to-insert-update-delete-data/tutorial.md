@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Using Hive ACID Transactions to Insert, Update and Delete Data
-tutorial-id: 750
-tutorial-series: Basic Development
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ hive ]
+id: 750
+
+platform: hdp-2.5.0
+
+components: [hive ]
 ---
 
 ## Why use Hive ACID?
@@ -51,7 +51,7 @@ Standard SQL provides ACID operations through INSERT, UPDATE, DELETE, transactio
 
 Log in to Ambari using user credentials **raj_ops/raj_ops**. Enabling Hive ACID is simple if you use Ambari, within the Hive section, toggle ACID Transactions to **On**.  
 
-![enable_acid1](/assets/hive-acid-transactions-to-insert-update-delete-data/enable_acid.png)
+![enable_acid1](assets/enable_acid.png)
 
 Let’s explore these options:  
 
@@ -66,7 +66,7 @@ If you’re building a production application you can use Ambari Blueprints to p
 This section is written assuming you will use the Hive View within Ambari. Log out of Ambari from **raj_ops** user and re login with credentials **maria_dev/maria_dev**.
 When you have logged into Ambari, go to the Hive View by hovering in the top right and selecting Hive View.  
 
-![select_hive_view](/assets/hive-acid-transactions-to-insert-update-delete-data/select_hive_view.png)
+![select_hive_view](assets/select_hive_view.png)
 
 Let’s start by creating a transactional table. Only transactional tables can support updates and deletes. Within the Hive View query editor insert this query text:  
 
@@ -80,7 +80,7 @@ stored as orc tblproperties ('transactional'='true');
 
 Within the editor it will look as below. Press `Execute` to create the table.  
 
-![create_table_hello_acid](/assets/hive-acid-transactions-to-insert-update-delete-data/create_table_hello_acid.png)
+![create_table_hello_acid](assets/create_table_hello_acid.png)
 
 From here on out, everything is familiar SQL you’ve likely used for many years. Here is an example that inserts some records, deletes one record and updates one record.
 
@@ -93,7 +93,7 @@ select * from hello_acid;
 
 You should see the following results:  
 
-![insert_into_hello_acid](/assets/hive-acid-transactions-to-insert-update-delete-data/insert_into_hello_acid.png)
+![insert_into_hello_acid](assets/insert_into_hello_acid.png)
 
 Next let’s try deleting and updating data. In the same window run:
 
@@ -111,7 +111,7 @@ select * from hello_acid;
 
 At the end of all this you should see:  
 
-![update_hello_acid](/assets/hive-acid-transactions-to-insert-update-delete-data/update_hello_acid.png)
+![update_hello_acid](assets/update_hello_acid.png)
 
 This example shows the most basic ways to add data into a Hive table using INSERT, UPDATE and DELETE commands. Later we will see some more powerful ways of adding data to an ACID table that involve loading staging tables and using INSERT, UPDATE or DELETE commands, combined with subqueries, to manage data in bulk.  
 
@@ -207,7 +207,7 @@ show transactions;
 
 This command shows active and aborted transactions. Here is some example output:  
 
-![show_transactions](/assets/hive-acid-transactions-to-insert-update-delete-data/show_transactions.png)
+![show_transactions](assets/show_transactions.png)
 
 #### 6.2 Seeing Locks:
 
@@ -217,7 +217,7 @@ show locks;
 
 This command shows locks, along with their associated transaction IDs. Example:
 
-![show_locks](/assets/hive-acid-transactions-to-insert-update-delete-data/show_locks.png)
+![show_locks](assets/show_locks.png)
 
 Locks can be Read, Update or X locks. Update lock is compatible with Read locks but not other updates. X is not compatible with anything.
 

@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: How to Refine and Visualize Server Log Data
-tutorial-id: 200
-tutorial-series: Real-World End to End Examples
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ nifi, ambari ]
+id: 200
+
+platform: hdp-2.5.0
+
+components: [nifi, ambari ]
 ---
 
 

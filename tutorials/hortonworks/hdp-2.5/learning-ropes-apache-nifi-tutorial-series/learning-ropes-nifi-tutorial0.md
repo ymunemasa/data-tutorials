@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Tutorial 0 Download, Install and Start NiFi
-tutorial-id: 640
-tutorial-series: Basic Development
-tutorial-version: hdf-2.0.0
-intro-page: false
-components: [ nifi ]
+id: 640
+platform: hdf-2.0.0
+components: [nifi]
 ---
 
 # Tutorial 0: Set-Up NiFi Environment
@@ -35,7 +32,7 @@ If on windows 7, to add `sandbox.hortonworks.com` to your list of hosts, open gi
 echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/etc/hosts
 ~~~
 
-![changing-hosts-file.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/changing-hosts-file.png)
+![changing-hosts-file.png](assets/lab0-nifi/changing-hosts-file.png)
 
 ## Outline
 - [Section 0: Explore NiFi Environment Before NiFi Installation](#explore-nifi-environment)
@@ -141,13 +138,13 @@ Sandbox via Ambari Service Wizard or Sandbox Shell.
 
 1\. Open a browser. Download NiFi from [HDF Downloads Page](http://hortonworks.com/downloads/). You will see four HDF download links. We will download the **NiFi only** option. There are two package options: one for HDF TAR.GZ file tailored to Linux and zip file more compatible with Windows. Mac can use either option. In this tutorial section, download the zip on a Mac:
 
-![download_hdf_iot](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
+![download_hdf_iot](assets/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
 
 2\. After downloading NiFi, it will be in a compressed format. To install NiFi, extract the files from the compressed file to a location in which you want to run the application. For the tutorial, we moved the extracted HDF folder to the `Applications` folder.
 
 The image below shares NiFi downloaded and installed in the Applications folder:
 
-![download_install_nifi](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download_install_nifi.png)
+![download_install_nifi](assets/lab0-download-install-start-nifi/download_install_nifi.png)
 
 ### Step 2: Start NiFi Locally <a id="start-nifi-locally"></a>
 
@@ -181,33 +178,33 @@ ssh root@sandbox.hortonworks.com -p 2222
 
 > Note: You should receive a success message.
 
-2\. Login into Ambari as admin. In the left sidebar of services, click on the **Actions** button. A drop down menu appears, select the **Add Service** button ![add_service](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/add_service.png). The **Add Service Wizard** window will appear.
+2\. Login into Ambari as admin. In the left sidebar of services, click on the **Actions** button. A drop down menu appears, select the **Add Service** button ![add_service](assets/lab0-download-install-start-nifi/add_service.png). The **Add Service Wizard** window will appear.
 
-![add_service_wizard](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/add_service_wizard.png)
+![add_service_wizard](assets/lab0-download-install-start-nifi/add_service_wizard.png)
 
 Choose the NiFi service:
 
-![select_nifi_service](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/select_nifi_service.png)
+![select_nifi_service](assets/lab0-download-install-start-nifi/select_nifi_service.png)
 
 3\. Once NiFi box is checked, select the **Next** button. As the the Ambari Wizard transitions to **Assign Masters**, you will see an **Error** window message ignore it. Click on the **OK** button. You will see an indicator that the **Assign Masters** page is loading, keep it's default settings and click **Next**. As the wizard transitions to **Assign Slaves and Clients**, a **Validation Issues** window will appear, select **Continue Anyway**. The wizard will continue onto the next setup settings called **Customize Services**. Keep it's default settings, click **Next**. A **Consistency Check Failed** window will appear, click **Proceed Anyway** and you will proceed to the **Review** section.
 
 4\. For the **Review** section, you will see a list of repositories, select **Deploy->**.
 
-![review_section_nifi](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/review_section_nifi.png)
+![review_section_nifi](assets/lab0-download-install-start-nifi/review_section_nifi.png)
 
 > Note: you should see a preparing to deploy message.
 
 5\. The wizard will transition to the **Install, Start and Test** section. Click **Next**.
 
-![install_started_service_success](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/install_started_service_success.png)
+![install_started_service_success](assets/lab0-download-install-start-nifi/install_started_service_success.png)
 
 6\. At the Summary section, you see an **Important** alert, which states that we should restart services that contain **restart indicators** in the left sidebar of Ambari Services on the Ambari Dashboard. Click **Continue->**.
 
-![summary_section_wizard](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/summary_section_wizard.png)
+![summary_section_wizard](assets/lab0-download-install-start-nifi/summary_section_wizard.png)
 
 7\. Upon a successful installation, you should see a new services listed with a **green check symbol** next to the service name. This check symbol also indicates that NiFi is running.
 
-![service_installed_succesfully](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/service_installed_succesfully.png)
+![service_installed_succesfully](assets/lab0-download-install-start-nifi/service_installed_succesfully.png)
 
 > Note: If you run into any issues installing NiFi using the Ambari Wizard, refer to Appendix A.
 
@@ -219,13 +216,13 @@ If NiFi is not already running, we will use Ambari Service Tool to launch NiFi.
 
 2\. Select the **Action Services** button, click **Start** to activate NiFi.
 
-![start_nifi_button](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/start_nifi_button.png)
+![start_nifi_button](assets/lab0-download-install-start-nifi/start_nifi_button.png)
 
 >Note: Once the service successfully started you should see a **green check symbol** next to the name of the service.
 
 3\. Open NiFi at `http://sandbox.hortonworks.com:9090/nifi/`. Wait 1 to 2 minutes for NiFi to load.
 
-![open_nifi_html_interface](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/open_nifi_html_interface.png)
+![open_nifi_html_interface](assets/lab0-download-install-start-nifi/open_nifi_html_interface.png)
 
 Now that you started NiFi, review the [conclusion](#conclusion-lab0) and then we can move onto the tutorial 1.
 
@@ -254,7 +251,7 @@ chmod +x ./jdkinstall_nifi.sh
 
 3\. Let's navigate back to our local machine. Open a browser. Download NiFi from [HDF Downloads Page](http://hortonworks.com/downloads/). There are two package options: one for HDF TAR.GZ file tailored to Linux and ZIP file more compatible with Windows. Mac can use either option. For the tutorial,  download the latest HDF TAR.GZ:
 
-![download_hdf_iot](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
+![download_hdf_iot](assets/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
 
 4\. Now we need to send NiFi from our local machine to the sandbox virtual machine.
 Open a terminal for your local machine. If your HDF program was downloaded to the
@@ -337,7 +334,7 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 |:---|:---:|:---:|:---:|:---:|---:|
 | NiFi  | TCP  | 127.0.0.1  | 9090  |   | 9090  |
 
-![port_forward_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/port_forward_nifi_iot.png)
+![port_forward_nifi_iot](assets/lab0-download-install-start-nifi/port_forward_nifi_iot.png)
 
 
 4\. Open NiFi at `http://sandbox.hortonworks.com:9090/nifi/`. Wait 1 to 2 minutes for NiFi to load.
@@ -352,19 +349,19 @@ Now that you started NiFi, review the [conclusion](#conclusion-lab0) and then we
 
 2\. Click the Sandbox with the **shield icon**.
 
-![shield-icon-security-inbound.png](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/shield-icon-security-inbound.png)
+![shield-icon-security-inbound.png](assets/lab0-download-install-start-nifi/shield-icon-security-inbound.png)
 
 3\. Under **Settings**, in the **General** section, click **Inbound Security Rules**.
 
-![inbound-security-rule.png](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/inbound-security-rule.png)
+![inbound-security-rule.png](assets/lab0-download-install-start-nifi/inbound-security-rule.png)
 
 4\. Scroll to **NiFi**, and click on the row.
 
-![list-nifi-port.png](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/list-nifi-port.png)
+![list-nifi-port.png](assets/lab0-download-install-start-nifi/list-nifi-port.png)
 
 5\. Verify the **Destination Port Range** value is 9090, else change it to that.
 
-![change-nifi-port.png](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/change-nifi-port.png)
+![change-nifi-port.png](assets/lab0-download-install-start-nifi/change-nifi-port.png)
 
 6\. Open NiFi at `http://sandbox.hortonworks.com:9090/nifi/`. Wait 1 to 2 minutes for NiFi to load.
 
@@ -393,7 +390,7 @@ ambari-server restart
 
 4\. Once the service is reinstalled, if there is a **green check symbol** next to the name, then the reinstallation was successful.
 
-![service_installed_succesfully](/assets/learning-ropes-nifi-lab-series/lab0-download-install-start-nifi/service_installed_succesfully.png)
+![service_installed_succesfully](assets/lab0-download-install-start-nifi/service_installed_succesfully.png)
 
 ## Further Reading
 For more information on NiFi Configuration, see the [System Administrator's Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_AdminGuide/content/index.html).

@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Hortonworks Sandbox Guide
-tutorial-id: 730
-tutorial-series: Hello World
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ sandbox ]
+id: 730
+
+platform: hdp-2.5.0
+
+components: [sandbox ]
 ---
 
 ## Overview
@@ -50,17 +50,17 @@ The steps provided describe how to import the Hortonworks Sandbox Docker image. 
 
 1\. Ensure that docker daemon is running. On linux you can check this with the following command:  
 
-![docker_images](/assets/hortonworks-sandbox-hdp2.5-guide/docker_images.png)
+![docker_images](assets-guide/docker_images.png)
 
 If docker daemon is running on your machine and you have no other images imported this is what the successful output of the command will look like.  
 
 2\. Load the Hortonworks Sandbox Docker image with the following command:  
 
-![docker_load](/assets/hortonworks-sandbox-hdp2.5-guide/docker_load.png)
+![docker_load](assets-guide/docker_load.png)
 
 To check that the image was successfully imported try running the docker images command again.  
 
-![docker_images2](/assets/hortonworks-sandbox-hdp2.5-guide/docker_images2.png)
+![docker_images2](assets-guide/docker_images2.png)
 
 3\. Download and run the start sandbox script  
 
@@ -68,11 +68,11 @@ You can download the start script [here](https://github.com/hortonworks/tutorial
 
 Save it to your computer and execute it, you can ignore the $TERM warnings:  
 
-![bash_start](/assets/hortonworks-sandbox-hdp2.5-guide/bash_start.png)
+![bash_start](assets-guide/bash_start.png)
 
 You can now connect to the sandbox tutorials page at http://localhost:8888
 
-![splash_screen.png](/assets/hortonworks-sandbox-hdp2.5-guide/splash_screen.png)
+![splash_screen.png](assets-guide/splash_screen.png)
 
 ## Run notes for Mac users:
 
@@ -304,10 +304,10 @@ You then need to spawn a container with the --privileged flag from the image mak
 
 Once this is achieved, use the ssh port you forwarded to to login into the sandbox. It will prompt you for a password change, continue to change it ( the in-place password is `hadoop` ):  
 
-![ssh_root](/assets/hortonworks-sandbox-hdp2.5-guide/ssh_root.png)
+![ssh_root](assets-guide/ssh_root.png)
 
 Once this is achieved, run the startup script and ignore any warnings:  
 
-![startup_script](/assets/hortonworks-sandbox-hdp2.5-guide/startup_script.png)
+![startup_script](assets-guide/startup_script.png)
 
 You can now connect to your machine at http://localhost:8888

@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Hello HDP An Introduction to Hadoop with Hive and Pig
-tutorial-id: 100
-tutorial-series: Basic Development
-tutorial-version: hdp-2.5.0
-intro-page: false
-components: [ ambari, hive, pig, spark, zeppelin, technical-preview ]
+id: 100
+
+platform: hdp-2.5.0
+
+components: [ambari, hive, pig, spark, zeppelin, technical-preview ]
 ---
 
 # Lab 3: Pig - Risk Factor
@@ -56,7 +56,7 @@ CREATE TABLE riskfactor (driverid string,events bigint,totmiles bigint,riskfacto
 STORED AS ORC;
 ~~~
 
-![riskfactor_table](/assets/hello-hdp/riskfactor_lab3.png)
+![riskfactor_table](assets/riskfactor_lab3.png)
 
 ###  Verify Table riskfactor was Created Successfully
 
@@ -71,12 +71,12 @@ In this phase of the tutorial, we create and run a Pig script. We will use the A
 To get to the Ambari Pig View, click on the Ambari Views icon at top right and select **Pig**:
 
 
-![Screen Shot 2015-07-21 at 10.12.41 AM](/assets/hello-hdp/ambari_pig_view_lab3.png)  
+![Screen Shot 2015-07-21 at 10.12.41 AM](assets/ambari_pig_view_lab3.png)  
 
 
 This will bring up the Ambari Pig User View interface. Your Pig View does not have any scripts to display, so it will look like the following:
 
-![Lab3_4](/assets/hello-hdp/Lab3_4.png)
+![Lab3_4](assets/Lab3_4.png)
 
 
 On the left is a list of your scripts, and on the right is a composition box for writing scripts. A **special interface feature** is the _Pig helper_ located below the name of your script file. The _Pig helper_ provides us with templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. At the very bottom are status areas that will show the results of our script and log files.
@@ -84,7 +84,7 @@ On the left is a list of your scripts, and on the right is a composition box for
 The following screenshot shows and describes the various components and features of the Pig View:
 
 
-![Lab3_5](/assets/hello-hdp/pig_user_view_components_hello_hdp.png)
+![Lab3_5](assets/pig_user_view_components_hello_hdp.png)
 
 
 ### 3.1.2 Create a New Script
@@ -92,13 +92,13 @@ The following screenshot shows and describes the various components and features
 Let’s enter a Pig script. Click the **New Script** button in the upper-right corner of the view:
 
 
-![Lab3_6](/assets/hello-hdp/new_script_hello_hdp_lab3.png)
+![Lab3_6](assets/new_script_hello_hdp_lab3.png)
 
 
 Name the script **riskfactor.pig**, then click the **Create** button:
 
 
-![Lab3_7](/assets/hello-hdp/Lab3_7.png)
+![Lab3_7](assets/Lab3_7.png)
 
 
 ### 3.1.3 Load Data in Pig using Hcatalog
@@ -234,7 +234,7 @@ store final_data into 'riskfactor' using org.apache.hive.hcatalog.pig.HCatStorer
 ~~~
 
 
-![Lab3_8](/assets/hello-hdp/riskfactor_computation_script_lab3.png)
+![Lab3_8](assets/riskfactor_computation_script_lab3.png)
 
 
 Save the file riskfactor.pig by clicking the **Save** button in the left-hand column.
@@ -256,11 +256,11 @@ You need to configure the Pig Editor to use HCatalog so that the Pig script can 
 > **Note** this argument is **case sensitive**. It should be typed exactly "-useHCatalog".
 
 
-![Lab3_9](/assets/hello-hdp/Lab3_9.png)
+![Lab3_9](assets/Lab3_9.png)
 
 
 The **Arguments** section of the Pig View should now look like the following:  
-![Lab3_10](/assets/hello-hdp/Lab3_10.png)
+![Lab3_10](assets/Lab3_10.png)
 
 
 ## Step 3.3: Execute Pig Script on Tez <a id="step3.4"></a>
@@ -270,7 +270,7 @@ The **Arguments** section of the Pig View should now look like the following:
 Click **Execute on Tez** checkbox and finally hit the blue **Execute** button to submit the job. Pig job will be submitted to the cluster. This will generate a new tab with a status of the running of the Pig job and at the top you will find a progress bar that shows the job status.
 
 
-![Lab3_11](/assets/hello-hdp/execute_pig_script_compute_riskfactor_hello_hdp_lab3.png)
+![Lab3_11](assets/execute_pig_script_compute_riskfactor_hello_hdp_lab3.png)
 
 
 ### 3.3.2 View Results Section  
@@ -278,9 +278,9 @@ Click **Execute on Tez** checkbox and finally hit the blue **Execute** button to
 Wait for the job to complete. The output of the job is displayed in the **Results** section. Notice your script does not output any result – it stores the result into a Hive table – so your Results section will be empty.
 
 
-![Lab3_12](/assets/hello-hdp/running_script_riskfactor_hello_hdp_lab3.png)
+![Lab3_12](assets/running_script_riskfactor_hello_hdp_lab3.png)
 
-![Lab3_13](/assets/hello-hdp/completed_riskfactor_script_hello_hdp_lab3.png)
+![Lab3_13](assets/completed_riskfactor_script_hello_hdp_lab3.png)
 
 
 Click on the **Logs** dropdown menu to see what happened when your script ran. Errors will appear here.
@@ -293,7 +293,7 @@ The logs section is helpful when debugging code after expected output does not h
 
 Let's verify pig read from these tables successfully and stored the data into our **riskfactor** table. You should receive similar output:
 
-![debug_through_logs_lab3](/assets/hello-hdp/debug_through_logs_lab3.png)
+![debug_through_logs_lab3](assets/debug_through_logs_lab3.png)
 
 What results do our logs show us about our Pig Script?
 
@@ -309,7 +309,7 @@ For example, say 0 records were read from the **geolocation** table, how would y
 Go back to the Ambari Hive User View and browse the data in the **riskfactor** table to verify that your Pig job successfully populated this table. Here is what is should look like:
 
 
-![Lab3_14](/assets/hello-hdp/pig_populated_riskfactor_table_hello_hdp_lab3.png)
+![Lab3_14](assets/pig_populated_riskfactor_table_hello_hdp_lab3.png)
 
 
 At this point we now have our truck miles per gallon table and our risk factor table. The next step is to pull this data into Excel to create the charts for the visualization step.

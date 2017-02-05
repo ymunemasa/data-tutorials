@@ -24,7 +24,7 @@ report with Apache Zeppelin.
 
 [View Hello HDP Tutorial](https://github.com/hortonworks/tutorials/tree/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop)
 
-![tez_vertex_swimlane](/assets/hello-hdp/tez_vertex_swimlane_map1_lab2.png)
+![tez_vertex_swimlane](assets/tez_vertex_swimlane_map1_lab2.png)
 
 Coverage: Ambari, Ambari Views(Hive, Pig), Hive, Pig, Spark, Zeppelin
 
@@ -39,7 +39,7 @@ This tutorial walks through an example of tagging data in Atlas and building a s
 
 [View Atlas & Ranger Integration Tutorial](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/tag-based-policies-atlas-ranger/tutorial.md)
 
-![Tag Based Policies](/assets/tag-based-policies-atlas-ranger/deny_conditions.png)
+![Tag Based Policies](assets/deny_conditions.png)
 
 Coverage: Atlas, Ranger
 
@@ -51,7 +51,7 @@ Apache Spark is a fast, in-memory data processing engine with elegant and expres
  
 These tutorials will provide you an introduction to using Apache Spark in Apache Zeppelin notebooks.  You will also learn to use the new Apache Spark HBase connector inside an Apache Zeppelin notebook.
 
-![zeppelin_login_lab4](/assets/hello-hdp/zeppelin_login_lab4.png)
+![zeppelin_login_lab4](assets/zeppelin_login_lab4.png)
 
 There are 6 tutorials (2 new) 
 
@@ -91,7 +91,7 @@ The new "Introduction to Hbase Concepts and Apache Phoenix" tutorial where some 
 Apache Falcon centrally manages the data lifecycle, facilitate quick data replication for business continuity and disaster recovery and provides a foundation for audit and compliance by tracking entity lineage and collection of audit logs.
 Learn how to use the update Apache Falcon to create data pipelines and mirror data sets.
 
-![falcon_new_ui](/assets/create-falcon-cluster-hdp2.5/tutorial_image.png)
+![falcon_new_ui](assets/tutorial_image.png)
 
 These tutorials work with HDP 2.4 but given the major Falcon UI change these will need a lot updates.
 

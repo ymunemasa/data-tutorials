@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: A Lap Around Apache Spark
-tutorial-id: 390
-tutorial-series: Spark
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ spark ]
+id: 390
+
+platform: hdp-2.5.0
+
+components: [spark ]
 ---
 
 This tutorial walks you through many of the newer features of Spark 1.6.2 on YARN.

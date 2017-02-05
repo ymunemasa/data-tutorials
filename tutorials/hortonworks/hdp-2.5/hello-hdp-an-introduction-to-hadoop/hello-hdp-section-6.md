@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Hello HDP An Introduction to Hadoop with Hive and Pig
-tutorial-id: 100
-tutorial-series: Basic Development
-tutorial-version: hdp-2.5.0
-intro-page: false
-components: [ ambari, hive, pig, spark, zeppelin ]
+id: 100
+platform: hdp-2.5.0
+components: [ambari, hive, pig, spark, zeppelin]
 ---
 
 # Lab 4: Spark - Risk Factor
@@ -55,7 +52,7 @@ Apache Spark was designed to be a fast, general-purpose, easy-to-use computing p
 
 You can run batch application such as MapReduce types jobs or iterative algorithms that build upon each other. You can also run interactive queries and process streaming data with your application. Spark also provides a number of libraries which you can easily use to expand beyond the basic Spark capabilities such as Machine Learning algorithms, SQL, streaming, and graph processing. Spark runs on Hadoop clusters such as Hadoop YARN or Apache Mesos, or even in a Standalone Mode with its own scheduler. The Sandbox includes both Spark 1.6 and Spark 2.0.
 
-![Lab4_1](/assets/hello-hdp/Lab4_1.png)  
+![Lab4_1](assets/Lab4_1.png)
 
 Let's get started!
 
@@ -65,7 +62,7 @@ Let's get started!
 
 **Note:** If these services are disabled, start these services.
 
-![ambari_dashboard_lab4](/assets/hello-hdp/ambari_dashboard_lab4.png)
+![ambari_dashboard_lab4](assets/ambari_dashboard_lab4.png)
 
 ### For HDP 2.5 Sandbox Users Activate Livy Server
 
@@ -73,15 +70,15 @@ Livy Server is a new feature added to the latest Sandbox HDP Platform and it add
 
 2\. Now verify the Spark livy server is running:
 
-![verify_spark_livy_server_lab4](/assets/hello-hdp/verify_spark_livy_server_lab4.png)
+![verify_spark_livy_server_lab4](assets/verify_spark_livy_server_lab4.png)
 
 3\. As you can see our server is down. We need to start it before running spark jobs in Zeppelin. Click on `Livy Server`, then click on **sandbox.hortonworks.com**. Now we let's scroll down to `livy server`, press on the `Stopped` button and start the server. Press the `OK` button in the Confirmation window.
 
-![start_livy_server_lab4](/assets/hello-hdp/start_livy_server_lab4.png)
+![start_livy_server_lab4](assets/start_livy_server_lab4.png)
 
 Livy Server Started:
 
-![livy_server_running_lab4](/assets/hello-hdp/livy_server_running_lab4.png)
+![livy_server_running_lab4](assets/livy_server_running_lab4.png)
 
 4\. Go back into the Spark Service. Click on **Service Actions** -> **Turn Off Maintenance Mode**.
 
@@ -91,11 +88,11 @@ Log out of Ambari.
 
 1\. The first way, open **Zeppelin View** from Ambari views selector:
 
-![zeppelin_view_lab4](/assets/hello-hdp/zeppelin_view_lab4.png)
+![zeppelin_view_lab4](assets/zeppelin_view_lab4.png)
 
 2\. Below is an image of the welcome screen from Zeppelin View, as you can see users must login to create notebooks:
 
-![zeppelin_view_welcome_lab4](/assets/hello-hdp/zeppelin_view_welcome_lab4.png)
+![zeppelin_view_welcome_lab4](assets/zeppelin_view_welcome_lab4.png)
 
 
 3\. The second way is to access Zeppelin at `sandbox.hortonworks.com:9995` through its port number:
@@ -108,7 +105,7 @@ Log out of Ambari.
 
 You should see a Zeppelin Welcome Page:
 
-![zeppelin_welcome_page](/assets/hello-hdp/zeppelin_welcome_page_lab4.png)
+![zeppelin_welcome_page](assets/zeppelin_welcome_page_lab4.png)
 --->
 
 5\. Access Zeppelin at `sandbox.hortonworks.com:9995` through its port number:
@@ -121,7 +118,7 @@ You should see a Zeppelin Welcome Page:
 
 You should see a Zeppelin Welcome Page:
 
-![zeppelin_welcome_page](/assets/hello-hdp/zeppelin_welcome_page_lab4.png)
+![zeppelin_welcome_page](assets/zeppelin_welcome_page_lab4.png)
 
 Optionally, if you want to find out how to access the Spark shell to run code on Spark refer to [Appendix A](#run-spark-in-shell).
 
@@ -129,9 +126,9 @@ Optionally, if you want to find out how to access the Spark shell to run code on
 
 Click on a Notebook tab at the top left and hit **Create new note**. Name your notebook `Compute Riskfactor with Spark`. By the default, the notebook will load Spark Scala API.
 
-![create_new_notebook](/assets/hello-hdp/create_new_notebook_hello_hdp_lab4.png)
+![create_new_notebook](assets/create_new_notebook_hello_hdp_lab4.png)
 
-![notebook_name](/assets/hello-hdp/notebook_name_hello_hdp_lab4.png)
+![notebook_name](assets/notebook_name_hello_hdp_lab4.png)
 
 
 ### Step 4.2: Create a HiveContext <a id="step4.2"></a>
@@ -161,7 +158,7 @@ To verify, let us do show tables again:
 show tables
 ~~~
 
-![drop_table_lab4](/assets/hello-hdp/drop_table_lab4.png)
+![drop_table_lab4](assets/drop_table_lab4.png)
 
 Now create it back with the same DDL that we executed in the Pig section, Write the following query:
 
@@ -174,7 +171,7 @@ import org.apache.spark.sql._
 ~~~
 
 
-![import_sql_libraries](/assets/hello-hdp/import_sql_libraries_hello_hdp_lab4.png)
+![import_sql_libraries](assets/import_sql_libraries_hello_hdp_lab4.png)
 
 
 #### Instantiate HiveContext
@@ -186,7 +183,7 @@ val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 ~~~
 
 
-![Lab4_6](/assets/hello-hdp/instantiate_hivecontext_hello_hdp_lab4.png)
+![Lab4_6](assets/instantiate_hivecontext_hello_hdp_lab4.png)
 
 
 - `sc` stands for **Spark Context**. SparkContext is the main entry point to everything Spark. It can be used to create RDDs and shared variables on the cluster. When you start up the Spark Shell, the SparkContext is automatically initialized for you with the variable `sc`.
@@ -224,7 +221,7 @@ hiveContext.sql("show tables").collect.foreach(println)
 ~~~
 
 
-![Lab4_7](/assets/hello-hdp/view_list_tables_hive_hello_hdp_lab4.png)
+![Lab4_7](assets/view_list_tables_hive_hello_hdp_lab4.png)
 
 > Note: false indicates whether the column requires data.
 
@@ -240,7 +237,7 @@ val geolocation_temp1 = hiveContext.sql("select * from geolocation")
 ~~~
 
 
-![Lab4_8](/assets/hello-hdp/query_tables_build_spark_rdd_hello_hdp_lab4.png)
+![Lab4_8](assets/query_tables_build_spark_rdd_hello_hdp_lab4.png)
 
 
 ~~~scala
@@ -249,7 +246,7 @@ val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
 ~~~
 
 
-![Lab4_9](/assets/hello-hdp/drivermileage_spark_rdd_hello_hdp_lab4.png)
+![Lab4_9](assets/drivermileage_spark_rdd_hello_hdp_lab4.png)
 
 
 #### 4.4 Querying Against a Table <a id="step4.4"></a>
@@ -264,7 +261,7 @@ geolocation_temp1.registerTempTable("geolocation_temp1")
 drivermileage_temp1.registerTempTable("drivermileage_temp1")
 ~~~
 
-![name_rdd](/assets/hello-hdp/name_rdd_hello_hdp_lab4.png)
+![name_rdd](assets/name_rdd_hello_hdp_lab4.png)
 
 
 Next, we will perform an iteration and a filter operation. First, we need to filter drivers that have non-normal events associated with them and then count the number for non-normal events for each driver.
@@ -274,7 +271,7 @@ Next, we will perform an iteration and a filter operation. First, we need to fil
 val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from geolocation_temp1 where event!='normal' group by driverid")
 ~~~
 
-![filter_drivers_nonnormal_events](/assets/hello-hdp/filter_drivers_nonnormal_events_hello_hdp_lab4.png)
+![filter_drivers_nonnormal_events](assets/filter_drivers_nonnormal_events_hello_hdp_lab4.png)
 
 
 - As stated earlier about RDD transformations, select operation is a RDD transformation and therefore does not return anything.
@@ -288,7 +285,7 @@ geolocation_temp2.registerTempTable("geolocation_temp2")
 ~~~
 
 
-![register_table](/assets/hello-hdp/register_filtered_table_hello_hdp_lab4.png)
+![register_table](assets/register_filtered_table_hello_hdp_lab4.png)
 
 
 *   You can view the result by executing an action operation on the RDD.
@@ -299,7 +296,7 @@ geolocation_temp2.take(10).foreach(println)
 ~~~
 
 
-![Lab4_11](/assets/hello-hdp/view_results_op_on_rdd_hello_hdp_lab4.png)
+![Lab4_11](assets/view_results_op_on_rdd_hello_hdp_lab4.png)
 
 
 #### 4.4.2  Perform join Operation
@@ -314,7 +311,7 @@ val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geol
 ~~~
 
 
-![Lab4_12](/assets/hello-hdp/join_op_column_hello_hdp_lab4.png)
+![Lab4_12](assets/join_op_column_hello_hdp_lab4.png)
 
 
 *   The resulting data set will give us total miles and total non-normal events for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied to it.
@@ -325,7 +322,7 @@ joined.registerTempTable("joined")
 ~~~
 
 
-![register_join_table](/assets/hello-hdp/register_joined_table_hello_hdp_lab4.png)
+![register_join_table](assets/register_joined_table_hello_hdp_lab4.png)
 
 
 *   You can view the result by executing action operation on RDD.
@@ -336,7 +333,7 @@ joined.take(10).foreach(println)
 ~~~
 
 
-![Lab4_13](/assets/hello-hdp/show_results_joined_table_hello_hdp_lab4.png)
+![Lab4_13](assets/show_results_joined_table_hello_hdp_lab4.png)
 
 
 #### 4.4.3  Compute Driver Risk Factor
@@ -349,7 +346,7 @@ val risk_factor_spark=hiveContext.sql("select driverid, occurance, totmiles, tot
 ~~~
 
 
-![Lab4_14](/assets/hello-hdp/calculate_riskfactor_hello_hdp_lab4.png)
+![Lab4_14](assets/calculate_riskfactor_hello_hdp_lab4.png)
 
 
 *   The resulting data set will give us total miles and total non normal events and what is a risk for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied to it.
@@ -367,7 +364,7 @@ risk_factor_spark.take(10).foreach(println)
 ~~~
 
 
-![Lab4_15](/assets/hello-hdp/view_results_filtertable_hello_hdp_lab4.png)
+![Lab4_15](assets/view_results_filtertable_hello_hdp_lab4.png)
 
 
 ### Step 4.5: Load and Save Data into Hive as ORC <a id="step4.5"></a>
@@ -388,7 +385,7 @@ hiveContext.sql("create table finalresults( driverid String, occurance bigint,to
 > Note: toDF() creates a DataFrame with columns driverid String, occurance bigin, etc.
 
 
-![create_orc_table](/assets/hello-hdp/create_orc_table_hello_hdp_lab4.png)
+![create_orc_table](assets/create_orc_table_hello_hdp_lab4.png)
 
 
 #### 4.5.2 Convert data into ORC table
@@ -412,7 +409,7 @@ risk_factor_spark.saveAsOrcFile("risk_factor_spark")
 ~~~
 
 
-![risk_factor_orc](/assets/hello-hdp/convert_orc_table_hello_hdp_lab4.png)
+![risk_factor_orc](assets/convert_orc_table_hello_hdp_lab4.png)
 
 
 #### 4.5.3 Load the data into Hive table using load data command
@@ -423,7 +420,7 @@ hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 ~~~
 
 
-![load_data_to_finalresults](/assets/hello-hdp/load_data_to_finalresults_hello_hdp_lab4.png)
+![load_data_to_finalresults](assets/load_data_to_finalresults_hello_hdp_lab4.png)
 
 #### 4.5.4 Create the final table Riskfactor using CTAS
 
@@ -432,13 +429,13 @@ hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
 hiveContext.sql("create table riskfactor as select * from finalresults")
 ~~~
 
-![create_table_riskfactor_spark](/assets/hello-hdp/create_table_riskfactor_spark.png)
+![create_table_riskfactor_spark](assets/create_table_riskfactor_spark.png)
 
 #### 4.5.5 Verify Data Successfully Populated Hive Table in Hive (Check 2)
 
 Execute a select query to verify your table has been successfully stored. You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
 
-![riskfactor_table_populated](/assets/hello-hdp/riskfactor_table_populated.png)
+![riskfactor_table_populated](assets/riskfactor_table_populated.png)
 
 > Hive riskfactor table populated
 
@@ -549,7 +546,7 @@ spark-shell
 This will load the default Spark Scala API. Issue the command `exit` to drop out of the Spark Shell.
 
 
-![spark_shell_welcome_page](/assets/hello-hdp/spark_shell_hello_hdp_lab4.png)
+![spark_shell_welcome_page](assets/spark_shell_hello_hdp_lab4.png)
 
 > **Note:** Hive comes preconfigured with HDP Sandbox.
 

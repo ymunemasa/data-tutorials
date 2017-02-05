@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: How to Visualize Website Clickstream Data
-tutorial-id: 250
-tutorial-series: Real-World End to End Examples
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ ambari, hive, hdfs, zeppelin ]
+id: 250
+
+platform: hdp-2.5.0
+
+components: [ambari, hive, hdfs, zeppelin ]
 ---
 
 # How to Visualize and Analyze Website Clickstream Data

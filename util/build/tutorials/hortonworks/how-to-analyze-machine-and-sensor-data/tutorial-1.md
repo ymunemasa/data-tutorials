@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: How to Analyze Machine and Sensor Data
-tutorial-id: 310
-tutorial-series: Real-World End to End Examples
-tutorial-version: hdp-2.5.0
-intro-page: false
-components: [ hive, zeppelin, ambari ]
+id: 310
+
+platform: hdp-2.5.0
+
+components: [hive, zeppelin, ambari ]
 ---
 
 ## Lab 1 - Upload and Refine Data with Hive
@@ -45,11 +45,11 @@ Read through **Analyze Machine and Sensor Data Introduction**
 
 2\. Use the dropdown menu in the top right corner to access the Hive view:
 
-![](/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/hive_view_icon.png)
+![](assets/lab1–upload-and-cleanse-data-with-hive/hive_view_icon.png)
 
 Navigate to the **Upload Table** tab, upload the two csv files contained within `SensorFiles.zip`
 
-![](/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/upload_table_hive.png)
+![](assets/lab1–upload-and-cleanse-data-with-hive/upload_table_hive.png)
 
 When uploading the two tables we’ll need to change a few things.
 
@@ -60,17 +60,17 @@ For `HVAC.csv`
 3\. If `TargetTemp’s` type is `STRING`, change it to `INT`
 4\. If `ActualTemp’s` type is `STRING`, change it to `INT`
 
-![](/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/upload_table_hvac_raw.png)
+![](assets/lab1–upload-and-cleanse-data-with-hive/upload_table_hvac_raw.png)
 
 As the table uploads, you’ll notice a progress window appear.
 
-![](/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/upload_progress_hive_table.png)
+![](assets/lab1–upload-and-cleanse-data-with-hive/upload_progress_hive_table.png)
 
 For `buildings.csv`
 
 1\. Change the table name to `building_raw`
 
-![](/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/upload_table_building_raw.png)
+![](assets/lab1–upload-and-cleanse-data-with-hive/upload_table_building_raw.png)
 
 We have both tables loaded in, we want to get better performance in Hive, so we're going to create new tables that utilize the highly efficient [**ORC** file format](http://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/). This will allow for faster queries when our datasets are much much larger.
 
@@ -82,7 +82,7 @@ We have both tables loaded in, we want to get better performance in Hive, so we'
 CREATE TABLE hvac STORED AS ORC AS SELECT * FROM hvac_raw;
 ~~~
 
-![](/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/create_hive_hvac_raw.png)
+![](assets/lab1–upload-and-cleanse-data-with-hive/create_hive_hvac_raw.png)
 
 2\. Use a similar Hive query to create the `buildings` table.
 
@@ -90,7 +90,7 @@ CREATE TABLE hvac STORED AS ORC AS SELECT * FROM hvac_raw;
 CREATE TABLE buildings STORED AS ORC AS SELECT * FROM building_raw;
 ~~~
 
-![](/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/create_hive_building_raw.png)
+![](assets/lab1–upload-and-cleanse-data-with-hive/create_hive_building_raw.png)
 
 ### Step 3: Enrich Sensor Data Via Hive Scripts <a id="enrich-sensor-data-hive"></a>
 
@@ -121,7 +121,7 @@ What's this query does?
 
 2\. Use **Execute** to create the new table.
 
-![](/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/create_hvac_temperature_table_hive.png)
+![](assets/lab1–upload-and-cleanse-data-with-hive/create_hvac_temperature_table_hive.png)
 
 - On the Query Results page, use the slider to scroll to the right. You will notice that two new attributes appear in the `hvac_temperatures` table.
 
@@ -137,7 +137,7 @@ The data in the **temprange** column indicates whether the actual temperature wa
 
 If the temperature is outside of the normal range, `extremetemp` is assigned a value of 1; otherwise its value is 0.
 
-![](/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/load_hvac_temperature_data.png)
+![](assets/lab1–upload-and-cleanse-data-with-hive/load_hvac_temperature_data.png)
 
 3\. Let's combine the **hvac** and **hvac_temperatures** data sets.
 
@@ -155,11 +155,11 @@ Which tables is **hvac_building’s** data coming from?
 
 Use **Execute** to run the query:
 
-![](/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/create_hive_hvac_building_table.png)
+![](assets/lab1–upload-and-cleanse-data-with-hive/create_hive_hvac_building_table.png)
 
 After you've successfully executed the query, use the database explorer to load a sample of the data from the new `hvac_building` table.
 
-![](/assets/analyzing-machine-and-sensor-data/lab1–upload-and-cleanse-data-with-hive/load_hvac_building_data.png)
+![](assets/lab1–upload-and-cleanse-data-with-hive/load_hvac_building_data.png)
 
 The aggregated data shows us the buildings that are associated with a certain **temprange**.
 

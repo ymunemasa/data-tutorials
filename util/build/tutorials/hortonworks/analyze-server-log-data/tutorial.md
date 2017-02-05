@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: How to Refine and Visualize Server Log Data
-tutorial-id: 200
-tutorial-series: Real-World End to End Examples
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ nifi, ambari ]
+id: 200
+
+platform: hdp-2.5.0
+
+components: [nifi, ambari ]
 ---
 
 
@@ -110,21 +110,21 @@ Learning the Ropes of Apache NiFi for step-by-step instructions.
 
 Once you enter the NiFi HTML Interface at [http://localhost:9090/nifi](http://localhost:9090/nifi), you should see a canvas as below:
 
-![nifi-html-interface](/assets/server-logs/step1/nifi_html_interface.png)
+![nifi-html-interface](assets/step1/nifi_html_interface.png)
 
 * * *
 
 ### Step 2 - Import the Flow <a id="import-flow"></a>
 
-We're going to import a pre-made data flow from a template which you can [**download ServerLogGeneratorSecurity.xml**](/assets/server-logs/templates/ServerLogGeneratorSecurity.xml).
+We're going to import a pre-made data flow from a template which you can [**download ServerLogGeneratorSecurity.xml**](assets/templates/ServerLogGeneratorSecurity.xml).
 
 Use the NiFi interface to upload the flow, and then drag it onto your workspace.
 
-![Upload NiFi Template](/assets/server-logs/step2/upload_template.png)
+![Upload NiFi Template](assets/step2/upload_template.png)
 
-Once you've uploaded the template into NiFi you can instantiate it by dragging the template icon ![template_icon](/assets/server-logs/step2/template_icon.png) onto the screen. It will ask you to select your template's name and the flow will appear as in the image below.
+Once you've uploaded the template into NiFi you can instantiate it by dragging the template icon ![template_icon](assets/step2/template_icon.png) onto the screen. It will ask you to select your template's name and the flow will appear as in the image below.
 
-![Instantiate NiFi Template](/assets/server-logs/step2/instantiate-template.png)
+![Instantiate NiFi Template](assets/step2/instantiate-template.png)
 
 * * *
 
@@ -132,16 +132,16 @@ Once you've uploaded the template into NiFi you can instantiate it by dragging t
 
 Now that you've imported the data flow and everything it set up, simply click the **Run** at the top of the screen. (Make sure you haven't selected a specific processor, or  else only one of the processors will start)
 
-![start-flow](/assets/server-logs/step3/start-flow.png)
+![start-flow](assets/step3/start-flow.png)
 
 
 If you receive an error message stating "LzoCodec not found" and "LzopCodec not found" similar to the image below,
 
-![error_puthdfs_troubleshoot](/assets/server-logs/step3/error_puthdfs_troubleshoot.png)
+![error_puthdfs_troubleshoot](assets/step3/error_puthdfs_troubleshoot.png)
 
 Login to Ambari Dashboard at [http://localhost:8080](http://localhost:8080) as raj_ops user. The login credentials are **raj_ops/raj_ops**. Once inside Ambari, click **HDFS** in the left hand sidebar, then click on the **Configs** tab. Scroll down the page, next to Settings tab, click on the **Advanced** tab to open the Advanced configs. Navigate to **Advanced core-site** file, we will need to change property value for the **io.compression.codecs** setting.
 
-![advanced_core_site_change_config](/assets/server-logs/step3/advanced_core_site_change_config.png)
+![advanced_core_site_change_config](assets/step3/advanced_core_site_change_config.png)
 
 when you find the **LzoCodec** and **LzopCodec**, which are values within the **io.compression.codecs** property, the line will look as below:
 
@@ -159,11 +159,11 @@ org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.DefaultCod
 
 Save the configuration change. Ambari will notify us that we need to restart HDFS, scroll to the top of HDFS Configs page, you should see a **Orange Restart** button, select **Restart All Affected**.
 
-![restart_all_affected](/assets/server-logs/step3/restart_all_affected.png)
+![restart_all_affected](assets/step3/restart_all_affected.png)
 
 Now that we are done setting configuration changes, navigate back to the dataflow at [http://localhost:9090/nifi](http://localhost:9090/nifi) Now that we made the change, let's rerun the DataFlow, those errors should be resolved.
 
-![start-flow](/assets/server-logs/step3/start-flow.png)
+![start-flow](assets/step3/start-flow.png)
 
 Now that everything is running we can check in the places where we see the data being deposited in HDFS. Since we will be checking if the NiFi DataFlow performs as expected, log out of raj_ops user, then login to Ambari as maria_dev user. Login to the Ambari Dashboard at [http://localhost:8080](http://localhost:8080). Login credentials are **maria_dev/maria_dev**.
 
@@ -171,7 +171,7 @@ Now that everything is running we can check in the places where we see the data 
 
 Open up the **Files View**, and then navigate to `/tmp/server-logs/`. Files should start appearing a few seconds after you start the flow. You can click on them to view the content.
 
-![Explore Output](/assets/server-logs/step3/explore-output-files.png)
+![Explore Output](assets/step3/explore-output-files.png)
 
 *   Next we will create an Hive table from the log file.
 
@@ -211,7 +211,7 @@ When the table has been created you should now be able to query the data table f
 SELECT time, ip, country, cast(status as BOOLEAN) FROM firewall_logs LIMIT 100;
 ~~~
 
-![test-query-results](/assets/server-logs/step3/test-query-results.png)
+![test-query-results](assets/step3/test-query-results.png)
 
 > Note: In the table above, 1 is for true, 0 is for false.
 
@@ -230,7 +230,7 @@ Go to browser and type `sandbox.hortonworks.com:9995` to open Zeppelin UI
 
 You should be greeted by the following screen where you can choose to view notes, or create a new one.
 
-![zeppelin_create_note](/assets/server-logs/zeppelin_create_note.png)
+![zeppelin_create_note](assets/zeppelin_create_note.png)
 
 ### 4.1 Import notebook NiFiServerLogs (Option 1)
 
@@ -261,7 +261,7 @@ SELECT country, cast(status as BOOLEAN) FROM firewall_logs
 
 We were able to generate a table in zeppelin that shows us country associated with whether the network connection status was a success or not. Let’s visualize this table as a Bar Graph, select the option that looks like a Bar Graph. Now let’s setup the Advanced settings: **Keys**, **Groups**, **Values**. You should have two fields: country and success. Drag the country field into the **Keys** box, then do the same operation for the **status** field. To sum up the **status** values for true and false,  drag another status field into the **Values**. Now the countries will have true or false association and when you hover over a piece of the bar graph, you should see the sum value for status: false or true.
 
-![network_traffic_per_country](/assets/server-logs/step4/network_traffic_per_country.png)
+![network_traffic_per_country](assets/step4/network_traffic_per_country.png)
 
 Legend:
 Blue represents successful, authorized network connections
@@ -280,7 +280,7 @@ Let’s make an assumption that the recent denial-service attacks originate in I
 
 Remember we want to know the total for unauthorized network connections, so drag the success square into the **Values** box. Since there are multiple values for success, “true” or “false”, let’s drag another success box into the groups box. The key that is associated with both types of values for success is “IND”, so drag the country square into the **Keys** box. Refer to the image as below:
 
-![network_traffic_by_one_country](/assets/server-logs/step4/network_traffic_by_one_country.png)
+![network_traffic_by_one_country](assets/step4/network_traffic_by_one_country.png)
 
 Legend:
 Blue represents successful, authorized network connections
@@ -303,7 +303,7 @@ Let’s visualize the IP Address Attacks in a Pie Chart.
 
 Drag country into the **Keys** box and move **ip** field into the **values** box. Make sure that you selected the count option for the **ip**.
 
-![generate_list_unauthorized_ip_addresses](/assets/server-logs/step4/generate_list_unauthorized_ip_addresses.png)
+![generate_list_unauthorized_ip_addresses](assets/step4/generate_list_unauthorized_ip_addresses.png)
 
 Our visualization counts the number of unauthorized IP Addresses per country.
 As you can see each piece of the pie represents a country and when you hover over one slice, you can see the total count for unauthorized IP addresses.

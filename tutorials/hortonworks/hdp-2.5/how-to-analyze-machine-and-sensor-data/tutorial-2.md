@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: How to Analyze Machine and Sensor Data
-tutorial-id: 310
-tutorial-series: Real-World End to End Examples
-tutorial-version: hdp-2.5.0
-intro-page: false
-components: [ hive, zeppelin, ambari ]
+id: 310
+platform: hdp-2.5.0
+components: [hive, zeppelin, ambari]
 ---
 
 ## Lab 2 - Visualize HVAC Data Via Zeppelin
@@ -42,17 +39,17 @@ From here we’re going to need to create a new Zeppelin Notebook. Notebooks in 
 
 2\. Hover over **Notebook**. Use the dropdown menu and **Create a new note**.
 
-![](/assets/analyzing-machine-and-sensor-data/lab2-visualize-data-via-zeppelin/zeppelin_dashboard.png)
+![](assets/lab2-visualize-data-via-zeppelin/zeppelin_dashboard.png)
 
 3\. Name the note **HVAC Analysis Report** and then **Create Note**.
 
-![](/assets/analyzing-machine-and-sensor-data/lab2-visualize-data-via-zeppelin/create_zeppelin_notebook.png)
+![](assets/lab2-visualize-data-via-zeppelin/create_zeppelin_notebook.png)
 
 We will use the Hive interpreter to run Hive queries and visualize the results in Zeppelin.
 
 4\. To access the Hive interpreter for this note, we must insert `%jdbc(hive)` at the top of the note. Everything afterwards will be interpreted as a Hive query.
 
-![](/assets/analyzing-machine-and-sensor-data/lab2-visualize-data-via-zeppelin/zeppelin_hvac_analysis_report_notebook.png)
+![](assets/lab2-visualize-data-via-zeppelin/zeppelin_hvac_analysis_report_notebook.png)
 
 5\. Type the following query into the note, then run it by clicking the **Run** arrow or by using the shortcut **Shift+Enter**.
 
@@ -62,7 +59,7 @@ We will use the Hive interpreter to run Hive queries and visualize the results i
 select country, extremetemp, temprange from hvac_building
 ~~~
 
-![](/assets/analyzing-machine-and-sensor-data/lab2-visualize-data-via-zeppelin/load_hvac_building_data_zeppelin.png)
+![](assets/lab2-visualize-data-via-zeppelin/load_hvac_building_data_zeppelin.png)
 
 Now that the query is run, let’s visualize the data with a chart.
 
@@ -70,7 +67,7 @@ Now that the query is run, let’s visualize the data with a chart.
 
 7\. Click **settings** to open up more advanced settings for creating the chart.
 
-![](/assets/analyzing-machine-and-sensor-data/lab2-visualize-data-via-zeppelin/visualize_hvac_buiding_data_bargraph.png)
+![](assets/lab2-visualize-data-via-zeppelin/visualize_hvac_buiding_data_bargraph.png)
 
 8\. Here you will experiment with different values and columns to customize data that is illustrated in your visualization.
 
@@ -79,11 +76,11 @@ Now that the query is run, let’s visualize the data with a chart.
 - Click **SUM** on `extremetemp` and change it to **COUNT**.
 - Make sure that `country` is the only field under **Keys**.
 
-![](/assets/analyzing-machine-and-sensor-data/lab2-visualize-data-via-zeppelin/customize_bar_graph_settings_hvac_building_zeppelin.png)
+![](assets/lab2-visualize-data-via-zeppelin/customize_bar_graph_settings_hvac_building_zeppelin.png)
 
 You've just customized your chart’s settings to portray the countries and their temperature from cold, normal to hot using Apache Zeppelin.
 
-![](/assets/analyzing-machine-and-sensor-data/lab2-visualize-data-via-zeppelin/countries_most_extrm_temp_zeppelin.png)
+![](assets/lab2-visualize-data-via-zeppelin/countries_most_extrm_temp_zeppelin.png)
 
 -	From the chart above we can see which countries have the most extreme temperature and how many **NORMAL** events there are compared to **HOT** and **COLD**.
 
@@ -103,14 +100,14 @@ select hvacproduct, extremetemp from hvac_building
 
 10\. Use **Shift+Enter** to run the note.
 
-![](/assets/analyzing-machine-and-sensor-data/lab2-visualize-data-via-zeppelin/load_hvacproduct_extrmtemp_hvacblding_data.png)
+![](assets/lab2-visualize-data-via-zeppelin/load_hvacproduct_extrmtemp_hvacblding_data.png)
 
 11\. Arrange the fields according to the following image so we can recreate the chart below.
 
 - Make sure that `hvacproduct` is in the **Keys** box.
 - Make sure that `extremetemp` is in the **Values** box and that it is set to **COUNT**.
 
-![](/assets/analyzing-machine-and-sensor-data/lab2-visualize-data-via-zeppelin/customize_show_mostextrm_readings_hvac.png)
+![](assets/lab2-visualize-data-via-zeppelin/customize_show_mostextrm_readings_hvac.png)
 
 - Now we can see which HVAC units result in the most `extremetemp` readings. Thus we can make a more informed decision when purchasing new HVAC systems.
 

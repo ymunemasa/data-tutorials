@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Real Time Data Transportation and Ingestion
-tutorial-id: 220
-tutorial-series: Streaming
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ nifi, storm, kafka, hbase, hive, hdfs ]
+id: 220
+
+platform: hdp-2.5.0
+
+components: [nifi, storm, kafka, hbase, hive, hdfs ]
 ---
 
 

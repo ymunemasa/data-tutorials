@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Manage Files on HDFS with the Command Line
-tutorial-id: 120
-tutorial-series: Operations
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ hdfs ]
+id: 120
+
+platform: hdp-2.5.0
+
+components: [hdfs ]
 ---
 
 # Manage Files on HDFS with the Command Line
@@ -41,7 +41,7 @@ wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/using-th
 wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/using-the-command-line-to-manage-hdfs/sf-salary-datasets/sf-salaries-2014.csv
 ~~~
 
-![sf_salary_datasets](/assets/using-the-command-line-to-manage-hdfs/sf_salary_datasets.png)
+![sf_salary_datasets](assets/sf_salary_datasets.png)
 
 ## Outline
 - [Step 1: Create a Directory in HDFS, Upload a file and List Contents](#create-a-directory-in-hdfs-upload-a-file-and-list-contents)
@@ -126,7 +126,7 @@ exit
         hdfs dfs -ls /user/hadoop/sf-salaries-2011-2013/sf-salaries-2011-2013.csv
 ~~~
 
-![list_folder_contents](/assets/using-the-command-line-to-manage-hdfs/tutorial1/list_folder_contents.png)
+![list_folder_contents](assets/tutorial1/list_folder_contents.png)
 
 
 ### Step 2: Find Out Space Utilization in a HDFS Directory <a id="find-out-space-utilization-in-a-hdfs-directory"></a>
@@ -142,7 +142,7 @@ exit
         hdfs dfs -du  /user/hadoop/ /user/hadoop/sf-salaries-2011-2013/sf-salaries-2011-2013.csv
 ~~~
 
-![displays_entity_size](/assets/using-the-command-line-to-manage-hdfs/tutorial1/displays_entity_size.png)
+![displays_entity_size](assets/tutorial1/displays_entity_size.png)
 
 
 ### Step 3: Download File From HDFS to Local File System <a id="download-files-hdfs-to-local-file-system"></a>
@@ -204,7 +204,7 @@ hdfs dfs -ls /user/hadoop/sf-salaries/sf-salaries-2011-2013
 hdfs dfs -ls /user/hadoop/sf-salaries/sf-salaries-2014
 ~~~
 
-![visual_result_of_distcp](/assets/using-the-command-line-to-manage-hdfs/tutorial1/visual_result_of_cp.png)
+![visual_result_of_distcp](assets/tutorial1/visual_result_of_cp.png)
 
 > Visual result of distcp file operation. Notice that both src1 and src2 directories and their contents were copied to the dest directory.
 
@@ -219,7 +219,7 @@ Help command opens the list of commands supported by Hadoop Data File System (HD
 ~~~
 
 
-![hadoop_help_command_manual](/assets/using-the-command-line-to-manage-hdfs/tutorial1/help_command.png)
+![hadoop_help_command_manual](assets/tutorial1/help_command.png)
 
 Hope this short tutorial was useful to get the basics of file management.
 

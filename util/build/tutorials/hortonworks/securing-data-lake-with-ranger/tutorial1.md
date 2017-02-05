@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Securing Data Lake Resources and Auditing User Access with Apache Ranger
-tutorial-id: 570
-tutorial-series: Security
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ ranger ]
+id: 570
+
+platform: hdp-2.5.0
+
+components: [ranger ]
 ---
 
 ## Introduction
@@ -39,21 +39,21 @@ Username - **raj_ops**
 Password - **raj_ops**  
 Click on 9 square menu icon and select Files view:  
 
-![select_files_view](/assets/securing-data-lake-with-ranger/select_files_view.png)
+![select_files_view](assets/select_files_view.png)
 
 Navigate to `/user/raj_ops`and click on the `Upload` button to select the files we want to upload into the Hortonworks Sandbox environment.  
 
-![upload_button_filesview](/assets/securing-data-lake-with-ranger/upload_button_filesview.png)
+![upload_button_filesview](assets/upload_button_filesview.png)
 
 Click on the `browse` button to open a dialog box. Navigate to where you stored the **drivers.csv** file on your local disk and select drivers.csv and click again upload. Do the same thing for **truck_event_text_partition.csv**. When you are done you will see there are two new files in your directory.  
 
-![uploaded_files](/assets/securing-data-lake-with-ranger/uploaded_files.png)
+![uploaded_files](assets/uploaded_files.png)
 
 ### 3. Create the tables in Hive <a id="create-table-hive"></a>
 
 Let’s open the **Hive View** by clicking on the Hive button in the top bar as previously when we selected the HDFS Files view.
 
-![select_hive_view](/assets/securing-data-lake-with-ranger/select_hive_view.png)
+![select_hive_view](assets/select_hive_view.png)
 
 Next, run the following query to create the drivers table:
 
@@ -73,7 +73,7 @@ TBLPROPERTIES("skip.header.line.count"="1");
 
 Click on green `Execute` button, after few seconds, you will see the **SUCCEEDED** message:
 
-![create_table_drivers](/assets/securing-data-lake-with-ranger/create_table_drivers.png)  
+![create_table_drivers](assets/create_table_drivers.png)  
 
 Time to load the data into this newly created table, type:  
 
@@ -83,7 +83,7 @@ LOAD DATA INPATH '/user/raj_ops/drivers.csv' OVERWRITE INTO TABLE drivers;
 
 And then click `Execute`:  
 
-![load_data_drivers](/assets/securing-data-lake-with-ranger/load_data_drivers.png)
+![load_data_drivers](assets/load_data_drivers.png)
 
 Similarly, let us create the table timesheet and then load the data using following commands:  
 
@@ -113,11 +113,11 @@ LOAD DATA INPATH '/user/raj_ops/truck_event_text_partition.csv' OVERWRITE INTO T
 
 Next, click on Refresh sign next to Database explorer, you will see two new tables created.
 
-![database_explorer](/assets/securing-data-lake-with-ranger/database_explorer.png)
+![database_explorer](assets/database_explorer.png)
 
 Click on the box next to the table name to view the data:
 
-![select_drivers_data](/assets/securing-data-lake-with-ranger/select_drivers_data.png)
+![select_drivers_data](assets/select_drivers_data.png)
 
 Now that we have the tables ready, let us explore the row level filtering and masking capabilities of Apache ranger.
 
@@ -131,7 +131,7 @@ There are only two values for wage plan attribute in drivers table - **miles** a
 
 Go back to Ranger UI with the user credentials **raj_ops/raj_ops**. Click on `Access Manager=>Resource Based Policies=>Sandbox_hive`. Switch to **Row level Filter** tab.  
 
-![click_row_level_filter](/assets/securing-data-lake-with-ranger/click_row_level_filter.png)
+![click_row_level_filter](assets/click_row_level_filter.png)
 
 Click on `Add New Policy` button on the right. Enter the following details:
 
@@ -163,23 +163,23 @@ Row level filter - wageplan='miles'
 
 Your Row Filter Conditions table should look like this:
 
-![row_filter_conditions](/assets/securing-data-lake-with-ranger/row_filter_conditions.png)
+![row_filter_conditions](assets/row_filter_conditions.png)
 
 Please verify whether you have put the correct values.
 
-![row_level_filter_policy1](/assets/securing-data-lake-with-ranger/row_level_filter_policy1.png)
+![row_level_filter_policy1](assets/row_level_filter_policy1.png)
 
 Click `Add`. Next, login to Ambari as **maria_dev** user.  
 
 Credentials: **maria_dev/maria_dev**. Go to Hive View and let us try to see the data in drivers table. Click on default database and then the square next to drivers table:
 
-![select_data_drivers_maria_dev](/assets/securing-data-lake-with-ranger/select_data_drivers_maria_dev.png)
+![select_data_drivers_maria_dev](assets/select_data_drivers_maria_dev.png)
 
 You can clearly see that there are only records where the wage plan is hours. Next, sign out from Ambari and then re-login as amy_ds user.  
 
 Credentials: **amy_ds/amy_ds**. Repeat the same operation as above
 
-![select_data_drivers_amy_ds](/assets/securing-data-lake-with-ranger/select_data_drivers_amy_ds.png)
+![select_data_drivers_amy_ds](assets/select_data_drivers_amy_ds.png)
 
 There are records corresponding to miles wage plan only.
 
@@ -195,11 +195,11 @@ Row level filter expression - wageplan='hours' AND driverid in (select t.driveri
 
 This makes sure that maria_dev only view those records whose wageplan is hours and the route name is 'Saint Louis to Memphis'. Your condition section should look like this:
 
-![row_level_conditions_1](/assets/securing-data-lake-with-ranger/row_level_conditions_1.png)
+![row_level_conditions_1](assets/row_level_conditions_1.png)
 
 Click `Add` and go back to Hive View as **maria_dev** user. Run the query to view records in drivers table.
 
-![select_data_drivers_maria_dev_1](/assets/securing-data-lake-with-ranger/select_data_drivers_maria_dev_1.png)
+![select_data_drivers_maria_dev_1](assets/select_data_drivers_maria_dev_1.png)
 
 ### 5. Dynamic Column Masking in Hive <a id="dynamic-column-masking"></a>
 
@@ -209,7 +209,7 @@ Click `Add` and go back to Hive View as **maria_dev** user. Run the query to vie
 
 Go back to Ranger and click on `Masking` tab:
 
-![click_masking](/assets/securing-data-lake-with-ranger/click_masking.png)
+![click_masking](assets/click_masking.png)
 
 Click on `Add New Policy` on the right . Enter the following details:
 
@@ -231,15 +231,15 @@ Select Masking Options - Partial mask: show last 4
 
 Your mask conditions section should look like this:
 
-![mask_conditions_ssn](/assets/securing-data-lake-with-ranger/mask_conditions_ssn.png)
+![mask_conditions_ssn](assets/mask_conditions_ssn.png)
 
 And the entire policy should look like:
 
-![mask_policy_1](/assets/securing-data-lake-with-ranger/mask_policy_1.png)
+![mask_policy_1](assets/mask_policy_1.png)
 
 Click `Add`. Now wait for 20 seconds and go back to Hive view to see the records of driver table.
 
-![select_data_drivers_mask_1](/assets/securing-data-lake-with-ranger/select_data_drivers_mask_1.png)
+![select_data_drivers_mask_1](assets/select_data_drivers_mask_1.png)
 
 Ranger replaces the first 5 digits of SSN to value 1 and retained the last 4.
 
@@ -269,21 +269,21 @@ Select Masking Options - Hash
 
 Your mask conditions section should look like this:
 
-![mask_conditions_location](/assets/securing-data-lake-with-ranger/mask_conditions_location.png)
+![mask_conditions_location](assets/mask_conditions_location.png)
 
 And the overall policy should look like this:
 
-![mask_policy_2](/assets/securing-data-lake-with-ranger/mask_policy_2.png)
+![mask_policy_2](assets/mask_policy_2.png)
 
 Click `Add`. Now wait for 20 seconds and go back to Hive view to see the records of driver table.
 
-![select_data_drivers_mask2](/assets/securing-data-lake-with-ranger/select_data_drivers_mask2.png)
+![select_data_drivers_mask2](assets/select_data_drivers_mask2.png)
 
 Please note that the location column values has been hashed by random alphanumeric characters.
 
 Next, let us see the data from the another user **amy_ds**. Sign out from Ambari and re-login as amy_ds. Credentials are **amy_ds/amy_ds**.
 
-![select_data_drivers_amy_ds](/assets/securing-data-lake-with-ranger/select_data_drivers_amy_ds.png)
+![select_data_drivers_amy_ds](assets/select_data_drivers_amy_ds.png)
 
 There is no masking in either SSN or location location because amy_ds is not a part of the policy so it gets unmasked results.
 

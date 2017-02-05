@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: How to Refine and Visualize Social Media Sentiment Data
-tutorial-id: 210
-tutorial-series: Real-World End to End Examples
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ solr, nifi, hive, ambari, zeppelin ]
+id: 210
+
+platform: hdp-2.5.0
+
+components: [solr, nifi, hive, ambari, zeppelin ]
 ---
 
 
@@ -60,19 +60,19 @@ Make sure that Ambari Infra is stopped, we now need to install HDP Search.
 
 Login to Ambari user credentials: Username - **raj_ops** and Password - **raj_ops**. Click on Actions button at the bottom and then Add Service:
 
-![actions_button](/assets/nifi-sentiment-analytics/images/actions_button.png)
+![actions_button](assets/images/actions_button.png)
 
 Next, you will view a list of services that you can add. Scroll to the bottom and select `Solr`, then press `Next`.
 
-![check_solr](/assets/nifi-sentiment-analytics/images/check_solr.png)
+![check_solr](assets/images/check_solr.png)
 
 Accept all default values in next few pages, and then you can see the progress of your installation:
 
-![solr_progress](/assets/nifi-sentiment-analytics/images/solr_progress.png)
+![solr_progress](assets/images/solr_progress.png)
 
 After a minute, you can see Solr successfully installed:
 
-![solr_install_success](/assets/nifi-sentiment-analytics/images/solr_install_success.png)
+![solr_install_success](assets/images/solr_install_success.png)
 
 Press Next, you will be asked to restart some services. Restart HDFS, YARN, Mapreduce2 and HBase.
 
@@ -94,7 +94,7 @@ cp -r /opt/lucidworks-hdpsearch/solr/server/solr/configsets/data_driven_schema_c
 vi /opt/lucidworks-hdpsearch/solr/server/solr/configsets/tweet_configs/conf/solrconfig.xml
 ~~~
 
-![su_solr](/assets/nifi-sentiment-analytics/images/su_solr.png)
+![su_solr](assets/images/su_solr.png)
 
 Once the file is opened in `vi` type
 
@@ -143,7 +143,7 @@ mv default.json default.json.orig
 wget https://raw.githubusercontent.com/abajwa-hw/ambari-nifi-service/master/demofiles/default.json
 ~~~
 
-![wget_json](/assets/nifi-sentiment-analytics/images/wget_json.png)
+![wget_json](assets/images/wget_json.png)
 
 Then we are going to add a collection called "tweets"
 
@@ -157,7 +157,7 @@ Then we are going to add a collection called "tweets"
 -rf is the replication factor
 -p is the port at which Solr is running
 
-![add collection tweets](/assets/nifi-sentiment-analytics/images/add_collection_tweets_sentiment_analysis.png)
+![add collection tweets](assets/images/add_collection_tweets_sentiment_analysis.png)
 
 We can now go back to running commands as the **root** user. Run
 
@@ -171,7 +171,7 @@ Great! Now Solr should be installed and running on your sandbox!
 
 Ensure that you can access the Solr UI by navigating to [http://sandbox.hortonworks.com:8983/solr/](http://sandbox.hortonworks.com:8983/solr/)
 
-![Solr UI](/assets/nifi-sentiment-analytics/images/08_solr_ui.png)
+![Solr UI](assets/images/08_solr_ui.png)
 
 ## Create a Twitter Application <a id="creating-a-twitter-application"></a>
 
@@ -183,11 +183,11 @@ First head over to the [Twitter Apps Website](http://apps.twitter.com) and Sign 
 
 Then click **Create a New App**.
 
-![Creating Twitter App](/assets/nifi-sentiment-analytics/images/09_create_twitter_app.png)
+![Creating Twitter App](assets/images/09_create_twitter_app.png)
 
 After you've clicked that you'll need to fill in some details about your application. Feel free to put whatever you want.
 
-![Twitter App Details](/assets/nifi-sentiment-analytics/images/10_twitter_app_details.png)
+![Twitter App Details](assets/images/10_twitter_app_details.png)
 
  Then click **Create Your Twitter Application** at the bottom of the screen after reading the developer agreement.
 
@@ -195,13 +195,13 @@ After you've clicked that you'll need to fill in some details about your applica
 
 Once you've done that you should be greeted by a dashboard for your Twitter application. Head over to the permissions tab and select the **Read Only** Option and **Update** your application.
 
-![Changing App Permission](/assets/nifi-sentiment-analytics/images/11_changing_app_permissions.png)
+![Changing App Permission](assets/images/11_changing_app_permissions.png)
 
 Finally you need to generate your OAuth key. You can do this by clicking **Test OAuth** on the top of the permissions page, or by heading to **Keys and Access Tokens** and then finding the option that allows you to generate your OAuth tokens.
 
 Finally, your keys and access tokens should look similar to the following:
 
-![Twitter Tokens](/assets/nifi-sentiment-analytics/images/12_twitter_app_tokens.png)
+![Twitter Tokens](assets/images/12_twitter_app_tokens.png)
 
 Please make note of your **Consumer Key**, **Consumer Secret**, **Access Token**, and **Access Token Secret**. You will need these to create the data flow in NiFi.
 
@@ -215,31 +215,31 @@ Open up the NiFi user interface found at [http://sandbox.hortonworks.com:9090/ni
 
 Import the template by clicking `Templates` icon in the right of the Operate box.
 
-![click_import_template](/assets/nifi-sentiment-analytics/images/click_import_template.png)
+![click_import_template](assets/images/click_import_template.png)
 
 Then click **on the search sign** to select the template and navigate to the `Twitter_JSON_Flow.xml` file that you just previously downloaded.
 
-![search_template](/assets/nifi-sentiment-analytics/images/search_template.png)
+![search_template](assets/images/search_template.png)
 
 Once you've selected the file you can click **UPLOAD**.
 
-![upload_template_json](/assets/nifi-sentiment-analytics/images/upload_template_json.png)
+![upload_template_json](assets/images/upload_template_json.png)
 
 You should now see the Success message that your file is uploaded, press **OK**
 
-![template_uploaded](/assets/nifi-sentiment-analytics/images/template_uploaded.png)
+![template_uploaded](assets/images/template_uploaded.png)
 
 Now that we've got the template imported into NiFi we can instantiate it. Drag the template icon (the 7th from the left) onto the workspace.
 
-![drag_template](/assets/nifi-sentiment-analytics/images/drag_template.png)
+![drag_template](assets/images/drag_template.png)
 
 Then a dialog box should appear. Make sure that **Twitter_JSON_Flow** is selected and click **Add**.
 
-![add_template_json](/assets/nifi-sentiment-analytics/images/add_template_json.png)
+![add_template_json](assets/images/add_template_json.png)
 
 After clicking **ADD** you should have a screen similar to the following:
 
-![work_flow](/assets/nifi-sentiment-analytics/images/work_flow.png)
+![work_flow](assets/images/work_flow.png)
 
 Great! The NiFi flow has been set up. The _boxes_ are what NiFi calls processors. Each of the processors can be connected to one another and help make data flow. Each processor can perform specific tasks. They are at the very heart of NiFi's functionality.
 
@@ -252,17 +252,17 @@ Now we'll need to configure the Twitter Hose processor with the access tokens th
 
 Right click on the **Grab Garden Hose** element and click **Configure**
 
-![grab_garden](/assets/nifi-sentiment-analytics/images/grab_garden.png)
+![grab_garden](assets/images/grab_garden.png)
 
 Then you're going to need to place all of those Twitter API tokens from earlier in their respective places. Then hit **Apply**.
 
-![configure_processor](/assets/nifi-sentiment-analytics/images/configure_processor.png)
+![configure_processor](assets/images/configure_processor.png)
 
 Once you've got all of your properties set up you can take a look at the configurations of some of the other processors in our data.
 
-The processors are valid since the warning symbols disappeared. Notice that the processors have a stop symbol ![stop_signal](/assets/nifi-sentiment-analytics/images/stop_signal.png) in the upper left corner and are ready to run. To select all processors, hold down the shift-key and drag your mouse across the entire data flow.
+The processors are valid since the warning symbols disappeared. Notice that the processors have a stop symbol ![stop_signal](assets/images/stop_signal.png) in the upper left corner and are ready to run. To select all processors, hold down the shift-key and drag your mouse across the entire data flow.
 
-Now that all processors are selected, go to the actions toolbar and click the start button ![play_signal](/assets/nifi-sentiment-analytics/images/play_signal.png). You can see your workflow running.
+Now that all processors are selected, go to the actions toolbar and click the start button ![play_signal](assets/images/play_signal.png). You can see your workflow running.
 
 
 ## Generating Random Tweet Data for Hive and Solr <a id="generating-random-tweet-data-for-hive-and-solr"></a>
@@ -302,7 +302,7 @@ The dashboard was designed by the `default.json` file that we had downloaded pre
 
 You should be able to see the constant flow of data here and you can analyze some of it as it is dropped into the Solr index from NiFi. Try exploring the charts and see what each one does. It should be important to note that all of the graphs on the page include data that was queried straight from Solr to create those images using [d3.js](http://d3js.org/). You can see the queries for each graph by clicking the small **gear icon** located in each box.
 
-![Banana Dashboard](/assets/nifi-sentiment-analytics/images/23_solr_banana_dashboard.png)
+![Banana Dashboard](assets/images/23_solr_banana_dashboard.png)
 
 **Note** If you didn't use NiFi to import the data from Twitter then you won't see anything on the dashboard.
 
@@ -310,11 +310,11 @@ Let's go do some custom search on the data! Head back to the normal Solr dashboa
 
 Select the **tweets shard** that we created before from the `Core Selector` menu on the bottom left of the screen.
 
-![Solr Core Selector](/assets/nifi-sentiment-analytics/images/24_solr_core_selector.png)
+![Solr Core Selector](assets/images/24_solr_core_selector.png)
 
 Once you've selected the tweets shard we can take a look to see what Solr has done with our data.
 
-![Solr Tweets Index](/assets/nifi-sentiment-analytics/images/25_solr_tweets_index.png)
+![Solr Tweets Index](assets/images/25_solr_tweets_index.png)
 
 1. We can see how many documents or records have been stored into this index in Solr. As long as NiFi continues to run this number will become larger as more data is ingested. If you used the `twitter-gen.sh` script then this number should be close to the amount of tweets that you generated.
 2. Here we can see the size on the disk that the data is taking up in Solr. We don't have many tweets collected yet, so this number is quite small.
@@ -322,7 +322,7 @@ Once you've selected the tweets shard we can take a look to see what Solr has do
 
 Click on the query tab, and you should be brought to screen similar to the following:
 
-![Solr Query Dash](/assets/nifi-sentiment-analytics/images/26_solr_query_1.png)
+![Solr Query Dash](assets/images/26_solr_query_1.png)
 
 We're only going to be using 3 of these fields before we execute any queries, but let's quickly outline the different query parameters
 
@@ -336,7 +336,7 @@ We're only going to be using 3 of these fields before we execute any queries, bu
 
 We aren't going to worry about the rest of the flags. Without entering any parameters click **Execute Query**.
 
-![Solr Query Results 1](/assets/nifi-sentiment-analytics/images/27_solr_query_results_1.png)
+![Solr Query Results 1](assets/images/27_solr_query_results_1.png)
 
 From this you should be able to view all of the tweet data that is collected. Try playing with some of the parameters and add more to the **rows** value in the query to see how many results you can obtain.
 
@@ -348,14 +348,14 @@ Now let's do a real query and see if we can find some valuable data.
 - For **fl** type `screenName_s, text_t`
 - For **wt** choose `csv`
 
-![Solr Query Results 2](/assets/nifi-sentiment-analytics/images/28_solr_query_results_2.png)
+![Solr Query Results 2](assets/images/28_solr_query_results_2.png)
 
 Let's try one last query. This time you can omit the **sort** field and chooses whichever **wt** format you like. Keep the **fl** parameter as is though.
 
 - Specify an **fq** parameter as `language_s:en`
 - In the query box, pick any keyword. I am going to use `stock`
 
-![Solr Query Results 3](/assets/nifi-sentiment-analytics/images/29_solr_query_results_3.png)
+![Solr Query Results 3](assets/images/29_solr_query_results_3.png)
 
 
 **Further Reading**
@@ -381,7 +381,7 @@ Now, extract this file:
 tar xvf apache-maven-3.2.1-bin.tar.gz
 ~~~
 
-![install_maven](/assets/nifi-sentiment-analytics/images/install_maven.png)
+![install_maven](assets/images/install_maven.png)
 
 Now since our maven is installed, let us download the Hive-JSON-Serde. Type the following command:  
 
@@ -401,7 +401,7 @@ Next, run the command to compile the serde:
 ./../apache-maven-3.2.1/bin/mvn -Phdp23 clean package
 ~~~
 
-![install_json_serde](/assets/nifi-sentiment-analytics/images/install_json_serde.png)
+![install_json_serde](assets/images/install_json_serde.png)
 
 Wait for its completion, and then you have to copy the serde jar to the Hive lib:
 
@@ -410,15 +410,15 @@ cp json-serde/target/json-serde-1.3.8-SNAPSHOT-jar-with-dependencies.jar /usr/hd
 cp json-serde/target/json-serde-1.3.8-SNAPSHOT-jar-with-dependencies.jar /usr/hdp/2.5.0.0-1245/hive2/lib
 ~~~
 
-![copy_jars](/assets/nifi-sentiment-analytics/images/copy_jars.png)
+![copy_jars](assets/images/copy_jars.png)
 
 **DO NOT** forget to Restart Hive from Ambari,
 
-![restart_hive](/assets/nifi-sentiment-analytics/images/restart_hive.png)
+![restart_hive](assets/images/restart_hive.png)
 
 We're going to attempt to get the sentiment of each tweet by matching the words in the tweets with a sentiment dictionary. From this we can determine the sentiment of each tweet and analyze it from there.
 
-First off, if your Twitter flow on the NiFi instance is still running, you'll need to shut it off. Open up the NiFi dashboard at [sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi) and click stop square ![stop_signal](/assets/nifi-sentiment-analytics/images/stop_signal.png) at the top of the screen.
+First off, if your Twitter flow on the NiFi instance is still running, you'll need to shut it off. Open up the NiFi dashboard at [sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi) and click stop square ![stop_signal](assets/images/stop_signal.png) at the top of the screen.
 
 Next, you'll need to SSH into the sandbox again and run the following two commands
 
@@ -431,7 +431,7 @@ Next, you'll need to SSH into the sandbox again and run the following two comman
 	sudo -u hdfs hadoop fs -chmod -R 777 /tmp/tweets_staging
 ~~~
 
-![change permission of tweets staging](/assets/nifi-sentiment-analytics/images/change_permissions_tweets_staging_sentiment_analysis.png)
+![change permission of tweets staging](assets/images/change_permissions_tweets_staging_sentiment_analysis.png)
 
 After the commands complete let's go to the Hive view. Head over to [http://sandbox.hortonworks.com:8080](http://sandbox.hortonworks.com:8080/). Login into Ambari. Refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) if you need assistance with logging into Ambari.
 > **Note:** login credentials are `maria_dev/maria_dev` (Virtualbox), else `azure/azure` (Azure). Use the dropdown menu at the top to get to the Hive view.
@@ -451,7 +451,7 @@ ROW FORMAT SERDE 'org.openx.data.jsonserde.JsonSerDe'
 LOCATION '/tmp/tweets_staging';
 ~~~
 
-![create_table_json](/assets/nifi-sentiment-analytics/images/create_table_json.png)
+![create_table_json](assets/images/create_table_json.png)
 
 Now we're going to need to do some data analysis.
 
@@ -459,7 +459,7 @@ First you're going to need to head to the **HDFS Files View** and create a new d
 
 Then create two new directories inside of `/tmp/data/tables`. One named **time_zone_map** and another named **dictionary**
 
-![Data Table Folders](/assets/nifi-sentiment-analytics/images/two_new_tweet_dir_sentiment_analysis.png)
+![Data Table Folders](assets/images/two_new_tweet_dir_sentiment_analysis.png)
 
 In each of the folders respectively you'll need to upload the [`dictionary.tsv` file](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/nifi-sentiment-analytics/assets/dictionary.tsv), and the [`time_zone_map.tsv` file](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/assets/nifi-sentiment-analytics/assets/time_zone_map.tsv) to each of their respective directories.
 
@@ -469,7 +469,7 @@ After doing so, you'll need to run the following command on the Sandbox:
 sudo -u hdfs hadoop fs -chmod -R 777 /tmp/data/tables
 ~~~
 
-![modify permissions tables folder](/assets/nifi-sentiment-analytics/images/modify_permissions_tables_dir_sentiment_analysis.png)
+![modify permissions tables folder](assets/images/modify_permissions_tables_dir_sentiment_analysis.png)
 
 Finally, run the following two commands:
 
@@ -487,7 +487,7 @@ STORED AS TEXTFILE
 LOCATION '/tmp/data/tables/dictionary';
 ~~~
 
-![create dictionary table](/assets/nifi-sentiment-analytics/images/create_dictionary_table_sentiment_analysis.png)
+![create dictionary table](assets/images/create_dictionary_table_sentiment_analysis.png)
 
 ~~~sql
 CREATE EXTERNAL TABLE if not exists time_zone_map (
@@ -500,13 +500,13 @@ STORED AS TEXTFILE
 LOCATION '/tmp/data/tables/time_zone_map';
 ~~~
 
-![create time zone map table](/assets/nifi-sentiment-analytics/images/create_time_zone_map_table_sentiment_analysis.png)
+![create time zone map table](assets/images/create_time_zone_map_table_sentiment_analysis.png)
 
 This will create two tables from that data which we will use to analyze the tweet sentiment. They should appear in the **database explorer** as shown below.
 
 > **Note** Refresh page if explorer doesn't appear automatically.
 
-![Data Table Folders](/assets/nifi-sentiment-analytics/images/32_hive_table_db_explorer.png)
+![Data Table Folders](assets/images/32_hive_table_db_explorer.png)
 
 Next we'll need to create two table views from our tweets which will simplify the columns the data we have access to.
 
@@ -520,7 +520,7 @@ SELECT
 FROM tweets_text;
 ~~~
 
-![create tweets simple view](/assets/nifi-sentiment-analytics/images/create_tweets_simple_view_sentiment_analysis.png)
+![create tweets simple view](assets/images/create_tweets_simple_view_sentiment_analysis.png)
 
 ~~~sql
 ADD JAR /usr/hdp/2.5.0.0-1245/hive/lib/json-serde-1.3.8-SNAPSHOT-jar-with-dependencies.jar;
@@ -534,11 +534,11 @@ SELECT
  FROM tweets_simple t LEFT OUTER JOIN time_zone_map m ON t.time_zone = m.time_zone;
 ~~~
 
-![add_jar](/assets/nifi-sentiment-analytics/images/add_jar.png)
+![add_jar](assets/images/add_jar.png)
 
 After running the above commands you should be able run `SELECT * FROM tweets_clean LIMIT 100;` which should yield results:
 
-![Data Table Folders](/assets/nifi-sentiment-analytics/images/view_tweets_clean_data_sentiment_analysis.png)
+![Data Table Folders](assets/images/view_tweets_clean_data_sentiment_analysis.png)
 
 Now that we've cleaned our data we can get around to computing the sentiment. Use the following Hive commands to create some views that will allow us to do that.
 
@@ -558,7 +558,7 @@ create view IF NOT EXISTS l3 as select
  from l2 left outer join dictionary d on l2.word = d.word;
 ~~~
 
-![compute sentiment](/assets/nifi-sentiment-analytics/images/compute_sentiment_sentiment_analysis.png)
+![compute sentiment](assets/images/compute_sentiment_sentiment_analysis.png)
 
 Now that we were able to compute some sentiment values we can assign whether a tweet was **positive**, **neutral**, or **negative**. Use this next Hive command to do that.
 
@@ -572,7 +572,7 @@ create table IF NOT EXISTS tweets_sentiment stored as orc as select
 from l3 group by tweet_id;
 ~~~
 
-![compute sentiment values](/assets/nifi-sentiment-analytics/images/compute_sentiment_values_sentiment_analysis.png)
+![compute sentiment values](assets/images/compute_sentiment_values_sentiment_analysis.png)
 
 Lastly, to make our analysis somewhat easier we are going to turn those 'positive', 'negative', and 'neutral' values into numerical values using the next Hive command
 
@@ -589,11 +589,11 @@ AS SELECT
 FROM tweets_clean t LEFT OUTER JOIN tweets_sentiment s on t.tweet_id = s.tweet_id;
 ~~~
 
-![Hive Sentiment Analysis Results](/assets/nifi-sentiment-analytics/images/transform_values_numerically_sentiment_analysis.png)
+![Hive Sentiment Analysis Results](assets/images/transform_values_numerically_sentiment_analysis.png)
 
 This command should yield our final results table as shown below.
 
-![Hive Sentiment Analysis Results](/assets/nifi-sentiment-analytics/images/view_tweetsbi_data_sentiment_analysis.png)
+![Hive Sentiment Analysis Results](assets/images/view_tweetsbi_data_sentiment_analysis.png)
 
 **Try the new Hive Visualization tab!**
 
@@ -607,11 +607,11 @@ Now that we can access the sentiment data in our Hive table let's do some visual
 
 Make sure your Zeppelin service is started in Ambari, then head over to the Zeppelin at [http://sandbox.hortonworks.com:9995](http://sandbox.hortonworks.com:9995/).
 
-![Hive Sentiment Analysis Results](/assets/nifi-sentiment-analytics/images/zeppelin_welcome_screen_sentiment_analysis.png)
+![Hive Sentiment Analysis Results](assets/images/zeppelin_welcome_screen_sentiment_analysis.png)
 
 Use the **Notebook** dropdown menu at the top of the screen and click **+ Create New Note**. After which, you can name the note **Sentiment Analysis**.
 
-![Hive Sentiment Analysis Results](/assets/nifi-sentiment-analytics/images/36_zeppelin_create_note.png)
+![Hive Sentiment Analysis Results](assets/images/36_zeppelin_create_note.png)
 
 After creating the note, open it up to the blank Notebook screen and type the following command.
 
@@ -629,7 +629,7 @@ We're limiting our query to just `300` results because right now we won't need t
 
 Your results should look like the following:
 
-![First Zeppelin Query Results](/assets/nifi-sentiment-analytics/images/tweetsbi_bar_graph_sentiment_analysis.png)
+![First Zeppelin Query Results](assets/images/tweetsbi_bar_graph_sentiment_analysis.png)
 
 After looking at the results we see that if we group by country that many tweets are actually labeled as null.
 
@@ -644,13 +644,13 @@ Scroll down to the next note and create run the following query, and set up the 
 select * from tweetsbi where country != "null" LIMIT 500
 ~~~
 
-![Non Null Countries in Results](/assets/nifi-sentiment-analytics/images/eliminate_null_bargraph_sentiment_analysis.png)
+![Non Null Countries in Results](assets/images/eliminate_null_bargraph_sentiment_analysis.png)
 
 Great! Now given the data we have, we can at least have an idea of the distribution of users who's tweets come from certain countries!
 
 You can also experiment with this and try a pie chart as well.
 
-![Pie chart of above results](/assets/nifi-sentiment-analytics/images/39_zeppelin_country_pie_chart.png)
+![Pie chart of above results](assets/images/39_zeppelin_country_pie_chart.png)
 
 In our original raw tweet data from NiFi we also collected the language from our users as well. So we can also get an idea of the distribution of languages!
 
@@ -664,7 +664,7 @@ Run the following query and make
 select lang, time_zone from tweets_text LIMIT 1000
 ~~~
 
-![Pie chart of language results](/assets/nifi-sentiment-analytics/images/40_zeppelin_language_pie_chart.png)
+![Pie chart of language results](assets/images/40_zeppelin_language_pie_chart.png)
 
 If you have not seen from our earlier analysis in Hive
 
@@ -679,7 +679,7 @@ Using this we can now look at individual countries and see the sentiment distrib
 select sentiment, count(country), country from tweetsbi group by sentiment, country having country != "null"
 ~~~
 
-![Sentiment Comparison](/assets/nifi-sentiment-analytics/images/41_zeppelin_sentiment_average.png)
+![Sentiment Comparison](assets/images/41_zeppelin_sentiment_average.png)
 
 Using this data you can determine how you might want to market your products to different countries!
 

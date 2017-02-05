@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: How to Use Basic Pig Command
-tutorial-id: 140
-tutorial-series: Basic Development
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ ambari, pig ]
+id: 140
+
+platform: hdp-2.5.0
+
+components: [ambari, pig ]
 ---
 
 # Beginners Guide to Apache Pig
@@ -62,29 +62,29 @@ Once you have the file you will need to unzip the file into a directory. We will
 
 Select the `HDFS Files view` from the Off-canvas menu at the top. That is the `views menu`. The HDFS Files view allows you to view the Hortonworks Data Platform(HDP) file store. The HDP file system is separate from the local file system.
 
-![select_files_view](/assets/how-to-use-basic-pig-commands-hdp2.5/select_files_view.png)
+![select_files_view](assets/select_files_view.png)
 
 Navigate to `/user/maria_dev` or a path of your choice, click `Upload` and `Browse`, which brings up a dialog box where you can select the `drivers.csv` file from your computer. Upload the `truck_event_text_partition.csv` file in the same way. When finished, notice that both files are now in HDFS.
 
-![uploaded_files](/assets/how-to-use-basic-pig-commands-hdp2.5/uploaded_files.png)
+![uploaded_files](assets/uploaded_files.png)
 
 ### Step 3: Create Your Script <a id="step-3-create-your-script"></a>
 
 Open the Pig interface by clicking the `Pig View` in the `views menu`.
 
-![select_pig_view](/assets/how-to-use-basic-pig-commands-hdp2.5/select_pig_view.png)
+![select_pig_view](assets/select_pig_view.png)
 
 On the left we can choose between our saved `Pig Scripts`, `UDFs` and the `Pig Jobs` executed in the past. To the right of this menu bar we see our saved Pig Scripts.
 
-![pig_view_home_page](/assets/how-to-use-basic-pig-commands-hdp2.5/pig_view_home_page.png)
+![pig_view_home_page](assets/pig_view_home_page.png)
 
 Click on the button ``"New Script"``, enter “Truck-Events” for the title of your script and leave the location path empty:
 
-![create_new_script](/assets/how-to-use-basic-pig-commands-hdp2.5/create_new_script.png)
+![create_new_script](assets/create_new_script.png)
 
 Below you can find an overview about which functionalities the pig interface makes available. A special feature of the interface is the PIG helper at the top left of the composition area, which provides templates for Pig statements, functions, I/O statements, HCatLoader() and Python user defined functions.
 
-![explain_pig_view_home_page](/assets/how-to-use-basic-pig-commands-hdp2.5/explain_pig_view_home_page.png)
+![explain_pig_view_home_page](assets/explain_pig_view_home_page.png)
 
 ### Step 4: Define a relation <a id="step-4-define-a-relation"></a>
 
@@ -102,7 +102,7 @@ DESCRIBE truck_events;
 
 > **Note:** In the LOAD script, you can choose any directory path. Verify the folders have been created in HDFS Files View.
 
-![load_truck_events_data](/assets/how-to-use-basic-pig-commands-hdp2.5/load_truck_events_data.png)
+![load_truck_events_data](assets/load_truck_events_data.png)
 
 ### Step 5: Save and Execute the Script <a id="step-5-save-and-execute-the-script"></a>
 
@@ -112,7 +112,7 @@ Next to the `Kill job button` is a `progress bar` with a text field above that s
 
 When the job completes, check the results in the green box. You can also download results to your system by clicking the download icon. Notice truck_events does not have a schema because we did not define one when loading the data into relation truck_events.
 
-![save_execute_script_truck_events](/assets/how-to-use-basic-pig-commands-hdp2.5/save_execute_script_truck_events.png)
+![save_execute_script_truck_events](assets/save_execute_script_truck_events.png)
 
 ### Step 6: Define a Relation with a Schema <a id="step-6-define-a-relation-with-a-schema"></a>
 
@@ -127,11 +127,11 @@ routeId:long,routeName:chararray,eventDate:chararray);
 DESCRIBE truck_events;
 ~~~
 
-![load_truck_events_data_schema](/assets/how-to-use-basic-pig-commands-hdp2.5/load_truck_events_data_schema.png)
+![load_truck_events_data_schema](assets/load_truck_events_data_schema.png)
 
 Save and execute the script again. This time you should see the schema for the truck_events relation:
 
-![save_execute_script_truck_events_schema](/assets/how-to-use-basic-pig-commands-hdp2.5/save_execute_script_truck_events_schema.png)
+![save_execute_script_truck_events_schema](assets/save_execute_script_truck_events_schema.png)
 
 ### Step 7: Define a new relation from an existing relation <a id="step-7-define-a-new-relation-from-an-existing-relation"></a>
 
@@ -143,11 +143,11 @@ truck_events_subset = LIMIT truck_events 100;
 DESCRIBE truck_events_subset;
 ~~~
 
-![load_truck_events_data_subset](/assets/how-to-use-basic-pig-commands-hdp2.5/load_truck_events_data_subset.png)
+![load_truck_events_data_subset](assets/load_truck_events_data_subset.png)
 
 Save and execute the code. Notice `truck_events_subset` has the same schema as `truck_events`, because  `truck_events_subset` is a subset of `truck_events` relation.
 
-![save_execute_script_truck_events_subset](/assets/how-to-use-basic-pig-commands-hdp2.5/save_execute_script_truck_events_subset.png)
+![save_execute_script_truck_events_subset](assets/save_execute_script_truck_events_subset.png)
 
 ### Step 8: View the Data <a id="step-8-view-the-data"></a>
 
@@ -158,11 +158,11 @@ Add the following `DUMP` command to your Pig script, then save and execute it ag
 DUMP truck_events_subset;
 ~~~
 
-![dump_truck_events_subset](/assets/how-to-use-basic-pig-commands-hdp2.5/dump_truck_events_subset.png)
+![dump_truck_events_subset](assets/dump_truck_events_subset.png)
 
 The command requires a MapReduce job to execute, so you will need to wait a minute or two for the job to complete. The output should be 100 entries from the contents of `truck_events_text_partition.csv` (and not necessarily the ones shown below, because again, entries are arbitrarily chosen):
 
-![result_truck_events_subset](/assets/how-to-use-basic-pig-commands-hdp2.5/result_truck_events_subset.png)
+![result_truck_events_subset](assets/result_truck_events_subset.png)
 
 ### Step 9: Select specific columns from a relation <a id="step-9-select-specific-columns-from-a-relation"></a>
 
@@ -181,11 +181,11 @@ specific_columns = FOREACH truck_events_subset GENERATE driverId, eventTime, eve
 DESCRIBE specific_columns;
 ~~~
 
-![load_truck_events_data_subset_specific](/assets/how-to-use-basic-pig-commands-hdp2.5/load_truck_events_data_subset_specific.png)
+![load_truck_events_data_subset_specific](assets/load_truck_events_data_subset_specific.png)
 
 Save and execute the script and your output will look like the following:
 
-![save_execute_script_truck_events_specific](/assets/how-to-use-basic-pig-commands-hdp2.5/save_execute_script_truck_events_specific.png)
+![save_execute_script_truck_events_specific](assets/save_execute_script_truck_events_specific.png)
 
 ### Step 10: Store relationship data into a HDFS File <a id="step-10-store-relationship-data-into-a-hdfs-file"></a>
 
@@ -195,7 +195,7 @@ In this step, you will use the `STORE` command to output a relation into a new f
 STORE specific_columns INTO 'output/specific_columns' USING PigStorage(',');
 ~~~
 
-![store_truck_events_subset_specific](/assets/how-to-use-basic-pig-commands-hdp2.5/store_truck_events_subset_specific.png)
+![store_truck_events_subset_specific](assets/store_truck_events_subset_specific.png)
 
 Save and Execute the script. Again, this requires a MapReduce job (just like the DUMP command), so you will need to wait a minute for the job to complete.
 
@@ -203,19 +203,19 @@ Once the job is finished, go to `HDFS Files view` and look for a newly created f
 
 > **Note:** If you didn't use the default path above, then the new folder will exist in the path you created.
 
-![navigate_to_output_directory](/assets/how-to-use-basic-pig-commands-hdp2.5/navigate_to_output_directory.png)
+![navigate_to_output_directory](assets/navigate_to_output_directory.png)
 
 Click on `“output”` folder. You will find a subfolder named `“specific_columns”`.
 
-![navigate_to_specific_columns_directory](/assets/how-to-use-basic-pig-commands-hdp2.5/navigate_to_specific_columns_directory.png)
+![navigate_to_specific_columns_directory](assets/navigate_to_specific_columns_directory.png)
 
 Click on `“specific_columns”` folder. You will see an output file called `“part-r-00000”`:
 
-![navigate_to_part_r_file](/assets/how-to-use-basic-pig-commands-hdp2.5/navigate_to_part_r_file.png)
+![navigate_to_part_r_file](assets/navigate_to_part_r_file.png)
 
 Click on the file `“part-r-00000”` and then click on `Open` :
 
-![file_preview](/assets/how-to-use-basic-pig-commands-hdp2.5/file_preview.png)
+![file_preview](assets/file_preview.png)
 
 ### Step 11: Perform a join between 2 relations <a id="step-11-perform-a-join-between-2-relations"></a>
 
@@ -237,15 +237,15 @@ join_data = JOIN  truck_events BY (driverId), drivers BY (driverId);
 DESCRIBE join_data;
 ~~~
 
-![join_two_datasets](/assets/how-to-use-basic-pig-commands-hdp2.5/join_two_datasets.png)
+![join_two_datasets](assets/join_two_datasets.png)
 
 Save the script and execute it. Notice `join_data` contains all the fields of both `truck_events` and `drivers`.
 
-![result_join_data](/assets/how-to-use-basic-pig-commands-hdp2.5/result_join_data.png)
+![result_join_data](assets/result_join_data.png)
 
 Scroll right in Results section to view other attributes, or simply click `Download` button. Open that file and you will something like this:
 
-![result_join_data_download](/assets/how-to-use-basic-pig-commands-hdp2.5/result_join_data_download.png)
+![result_join_data_download](assets/result_join_data_download.png)
 
 ### Step 12: Sort the data using “ORDER BY” <a id="step-12-sort-the-data-using-order-by"></a>
 
@@ -259,11 +259,11 @@ ordered_data = ORDER drivers BY name asc;
 DUMP ordered_data;
 ~~~
 
-![sort_drivers_data](/assets/how-to-use-basic-pig-commands-hdp2.5/sort_drivers_data.png)
+![sort_drivers_data](assets/sort_drivers_data.png)
 
 Save and execute the script. Your output should be sorted as shown here:
 
-![result_sort_drivers_data](/assets/how-to-use-basic-pig-commands-hdp2.5/result_sort_drivers_data.png)
+![result_sort_drivers_data](assets/result_sort_drivers_data.png)
 
 ### Step 13: Filter and Group the data using “GROUP BY” <a id="step-13-filter-and-group-the-data-using-group-by"></a>
 
@@ -281,15 +281,15 @@ DESCRIBE grouped_events;
 DUMP grouped_events;
 ~~~
 
-![filter_group_datasets](/assets/how-to-use-basic-pig-commands-hdp2.5/filter_group_datasets.png)
+![filter_group_datasets](assets/filter_group_datasets.png)
 
 Save and execute the script. Notice that the data for eventType which are not Normal is grouped together for each driverId.
 
-![result_group_data](/assets/how-to-use-basic-pig-commands-hdp2.5/result_group_data.png)
+![result_group_data](assets/result_group_data.png)
 
 Scroll right to view all non-Normal events grouped under each driverId. You can also download the results file by clicking Download button.
 
-![result_group_data_download](/assets/how-to-use-basic-pig-commands-hdp2.5/result_group_data_download.png)
+![result_group_data_download](assets/result_group_data_download.png)
 
 Congratulations! You have successfully completed the tutorial and well on your way to pigging on Big Data.
 

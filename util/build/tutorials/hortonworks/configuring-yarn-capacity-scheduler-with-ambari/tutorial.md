@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Configuring Yarn Capacity Scheduler with Apache Ambari
-tutorial-id: 440
-tutorial-series: Operations
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ ambari ]
+id: 440
+
+platform: hdp-2.5.0
+
+components: [ambari ]
 ---
 
 In this tutorial we are going to explore how we can configure YARN Capacity Scheduler from Ambari.
@@ -42,32 +42,32 @@ To provide further control and predictability on sharing of resources, the Capac
 
 After you spin up the Hortonworks Sandbox, login to Ambari. The user credentials are **raj_ops/raj_ops**.
 
-![ambari_login](/assets/configuring-yarn-capacity-scheduler-with-ambari/ambari_login.png)
+![ambari_login](assets/ambari_login.png)
 
 After you Login, you will see the Dashboard. This is an unified view of the state of your Sandbox.
 
-![ambari_dashboard_rajops](/assets/configuring-yarn-capacity-scheduler-with-ambari/ambari_dashboard_rajops.png)
+![ambari_dashboard_rajops](assets/ambari_dashboard_rajops.png)
 
 You can drill into specific service dashboard and configuration.   
 Let’s dive into YARN dashboard by selecting **Yarn** from the left-side bar or the drop down menu.
 
-![select_yarn](/assets/configuring-yarn-capacity-scheduler-with-ambari/select_yarn.png)
+![select_yarn](assets/select_yarn.png)
 
 We will start updating the configuration for Yarn Capacity Scheduling policies. Click on `Configs` tab.
 
-![select_configs_tab](/assets/configuring-yarn-capacity-scheduler-with-ambari/select_configs_tab.png)
+![select_configs_tab](assets/select_configs_tab.png)
 
 Next, click on `Advanced` and scroll down to the **Scheduler** section of the page. The default capacity scheduling policy just has one queue which is **default**.
 
-![capacity_scheduler_section](/assets/configuring-yarn-capacity-scheduler-with-ambari/capacity_scheduler_section.png)
+![capacity_scheduler_section](assets/capacity_scheduler_section.png)
 
 Let check out the scheduling policy visually. Scroll up to the top of the page and click on `Quick Links`. Then select `ResourceManager UI` from the dropdown.
 
-![select_resourcemanagerui](/assets/configuring-yarn-capacity-scheduler-with-ambari/select_resourcemanagerui.png)
+![select_resourcemanagerui](assets/select_resourcemanagerui.png)
 
 Click on `Scheduler` and you can see below we just have the **default** policy.
 
-![resource_manager_ui](/assets/configuring-yarn-capacity-scheduler-with-ambari/resource_manager_ui.png)
+![resource_manager_ui](assets/resource_manager_ui.png)
 
 Let’s change the capacity scheduling policy to where we have separate queues and policies for Engineering, Marketing and Support departments:
 
@@ -150,27 +150,27 @@ yarn.scheduler.capacity.root.unfunded.capacity=50
 
 Copy and paste the above policy in the `Capacity Scheduler` textbox from Ambari:
 
-![copy_paste_policy](/assets/configuring-yarn-capacity-scheduler-with-ambari/copy_paste_policy.png)
+![copy_paste_policy](assets/copy_paste_policy.png)
 
 Click `Save` and confirm on the dialog box:
 
-![popup](/assets/configuring-yarn-capacity-scheduler-with-ambari/popup.png)
+![popup](assets/popup.png)
 
 At this point, the configuration is saved but we still need to restart the affected components by the configuration change as indicated in the orange band below:
 
-![restart_needed](/assets/configuring-yarn-capacity-scheduler-with-ambari/restart_needed.png)
+![restart_needed](assets/restart_needed.png)
 
 Also note that there is now a new version of the configuration as indicated by the green `Current` label. Let’s restart the daemons by clicking `Restart All`.
 
-![new_version](/assets/configuring-yarn-capacity-scheduler-with-ambari/new_version.png)
+![new_version](assets/new_version.png)
 
 Wait for the restart to complete:
 
-![restart_yarn_progress](/assets/configuring-yarn-capacity-scheduler-with-ambari/restart_yarn_progress.png)
+![restart_yarn_progress](assets/restart_yarn_progress.png)
 
 and then go back to the Resource Manager UI  and refresh the page. Voila! There’s our new policy:
 
-![resource_manager_ui_new_policy](/assets/configuring-yarn-capacity-scheduler-with-ambari/resource_manager_ui_new_policy.png)
+![resource_manager_ui_new_policy](assets/resource_manager_ui_new_policy.png)
 
 Now restart other services from Ambari which need a restart.
 
@@ -178,7 +178,7 @@ Now restart other services from Ambari which need a restart.
 
 You can also rollback to the previous set of configurations.  Just hover on the previous version and click `Make Current`.
 
-![make_current](/assets/configuring-yarn-capacity-scheduler-with-ambari/make_current.png)
+![make_current](assets/make_current.png)
 
 ## Summary <a id="summary"></a>
 

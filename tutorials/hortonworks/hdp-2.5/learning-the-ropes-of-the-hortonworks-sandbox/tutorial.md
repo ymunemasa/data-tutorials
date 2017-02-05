@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Learning the Ropes of the Hortonworks Sandbox
-tutorial-id: 160
-tutorial-series: Introduction
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ ambari ]
+id: 160
+
+platform: hdp-2.5.0
+
+components: [ambari ]
 ---
 
 # Learning the Ropes of the Hortonworks Sandbox
@@ -35,7 +35,7 @@ If on windows 7, to add `sandbox.hortonworks.com` to your list of hosts, open gi
 echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/etc/hosts
 ~~~
 
-![changing-hosts-file.png](/assets/realtime-event-processing-with-hdf/lab0-nifi/changing-hosts-file.png)
+![changing-hosts-file.png](assets/lab0-nifi/changing-hosts-file.png)
 
 ## Outline
 - [What is the Sandbox?](#what-is-the-sandbox)
@@ -84,7 +84,7 @@ If you want to explore Hortonworks Sandbox in Microsoft Azure, please skip to `S
 
 Start the Hortonworks Sandbox following the [Installation Steps](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM.
 
-![sandbox_download](/assets/learning-the-ropes-of-the-hortonworks-sandbox/sandox_download.png)
+![sandbox_download](assets/sandox_download.png)
 
 > **Note:** The Sandbox [system requirements](http://hortonworks.com/products/hortonworks-sandbox/#install) include that you have a 64 bit OS with at least 8 GB of RAM and enabled BIOS for virtualization. Find out about the newest features, known and resolved issues along with other updates on HDP 2.4 from the [release notes](http://hortonworks.com/wp-content/uploads/2015/10/ReleaseNotes_10_27_2015.pdf). The Sandbox on Azure is under construction and will update to HDP2.5 soon.
 
@@ -94,7 +94,7 @@ Once you have installed the Sandbox VM, it resolves to the host on your environm
 
 In case of VirtualBox: `host` would be `127.0.0.1`
 
-![Host Address of Sandbox Environment](/assets/learning-the-ropes-of-the-hortonworks-sandbox/learn_host_address_learning_the_ropes_sandbox.png)
+![Host Address of Sandbox Environment](assets/learn_host_address_learning_the_ropes_sandbox.png)
 
 > **Note:** In case of Azure, your **host** can be found under **Public IP Address** on the dashboard. For further clarification, check out our guide for [Deploying Hortonworks Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
 
@@ -104,7 +104,7 @@ If you are using a private cluster or a cloud to run sandbox. Please find the ho
 
 Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
 
-![new_splashscreen](/assets/learning-the-ropes-of-the-hortonworks-sandbox/new_splashscreen.png)
+![new_splashscreen](assets/new_splashscreen.png)
 
 Click on `Launch Dashboard` to go to Ambari with a [Hello HDP tutorial](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/#section_1) and `Quick Links` to view some services of HDP environment.
 
@@ -126,7 +126,7 @@ Open your terminal (mac and linux) or putty (windows). Type the following comman
       ssh root@127.0.0.1 -p 2222;
 ~~~
 
-![Mac Terminal SSH](/assets/learning-the-ropes-of-the-hortonworks-sandbox/secure_shell_sandbox_learning_the_ropes_sandbox.png)
+![Mac Terminal SSH](assets/secure_shell_sandbox_learning_the_ropes_sandbox.png)
 
 > Mac OS Terminal. When you type the password, the entry doesn't echo on the screen, it hides the user input. Carefully type correct password.
 
@@ -141,7 +141,7 @@ Example:
       127.0.0.1:4200
 ~~~
 
-![Shell in the Browser Sandbox](/assets/learning-the-ropes-of-the-hortonworks-sandbox/browser_shell_learning_ropes_sandbox.png)
+![Shell in the Browser Sandbox](assets/browser_shell_learning_ropes_sandbox.png)
 
 > Appearance of Web Shell. When you type the password, the entry doesn't echo on the screen, it hides the user input. Carefully type correct password.
 
@@ -149,7 +149,7 @@ Example:
 
 Open the Sandbox through Virtualbox or VMware. The Sandbox VM Welcome Screen will appear. For Linux/Windows users, press `Alt+F5` and for Mac, press `Fn+Alt+F5` to login into the Sandbox VM Terminal.
 
-![Shell VM Terminal Sandbox](/assets/learning-the-ropes-of-the-hortonworks-sandbox/vm_terminal_sandbox_learning_ropes_sandbox.png)
+![Shell VM Terminal Sandbox](assets/vm_terminal_sandbox_learning_ropes_sandbox.png)
 
 > VirtualBox VM Terminal. When you type the password, the entry doesn't echo on the screen, it hides the user input. Carefully type correct password.
 
@@ -201,7 +201,7 @@ If you want to search for the host address your sandbox is running on, ssh into 
 3.  Use the inet addr, append **:8080** and open it into a browser. It shall direct you to Ambari login page.
 4.  This inet address is randomly generated for every session and therefore differs from session to session.
 
-![Host_Address_Sandbox_Runs_On](/assets/learning-the-ropes-of-the-hortonworks-sandbox/find_host_sandbox_runs_on_learning_the_ropes_sandbox.png)
+![Host_Address_Sandbox_Runs_On](assets/find_host_sandbox_runs_on_learning_the_ropes_sandbox.png)
 
 
 #### Services Provided By the Sandbox <a id="services-provided-by-sandbox"></a>
@@ -245,13 +245,13 @@ ambari-agent restart
 
 > **Note:** Now you can login to ambari as an admin user to perform operations, such as starting and stopping services.
 
-![Terminal Update Ambari admin password](/assets/learning-the-ropes-of-the-hortonworks-sandbox/terminal_update_ambari_password_learning_the_ropes_sandbox.png)
+![Terminal Update Ambari admin password](assets/terminal_update_ambari_password_learning_the_ropes_sandbox.png)
 
 ### 2.3 Explore Ambari Welcome Screen 5 Key Capabilities <a id="explore-ambari-welcome-screen"></a>
 
 Enter the **Ambari Welcome URL** and then you should see a similar screen:
 
-![Lab0_3](/assets/learning-the-ropes-of-the-hortonworks-sandbox/ambari_welcome_learning_the_ropes_sandbox.png)
+![Lab0_3](assets/ambari_welcome_learning_the_ropes_sandbox.png)
 
 1.  “**Operate Your Cluster**” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators
 2.  “**Manage Users + Groups**” allows you to add & remove Ambari users and groups
@@ -263,7 +263,7 @@ Enter the **Ambari Welcome URL** and then you should see a similar screen:
 
 Enter the **Ambari Dashboard URL** and you should see a similar screen:
 
-![Lab0_4](/assets/hello-hdp/Lab0_4.png)
+![Lab0_4](assets/Lab0_4.png)
 
 
 Click on
@@ -289,7 +289,7 @@ Follow the tutorial [here](http://hortonworks.com/hadoop-tutorial/deploying-hort
 Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
 Here, `host` is your public IP address that is generated when you deployed the HDP Sandbox in Azure. Take note of the IP address. In this example, it is 23.99.9.232. Your machine will have a different IP.
 
-![Sandbox Welcome Screen Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_welcome_page_learning_ropes_sandbox.png)
+![Sandbox Welcome Screen Azure](assets/azure_welcome_page_learning_ropes_sandbox.png)
 
 ### 1.3 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command-azure"></a>
 
@@ -302,7 +302,7 @@ Open your terminal (mac and linux) or putty (windows). Here again, `host` is the
       ssh <username>@<host> -p 22;
 ~~~
 
-![Mac Terminal SSH Azure 1](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_secure_shell_learning_ropes_sandbox_1.png)
+![Mac Terminal SSH Azure 1](assets/azure_secure_shell_learning_ropes_sandbox_1.png)
 
 > Mac OS Terminal. When you type the password, the entry doesn't echo on the screen, it hides the user input. Carefully type correct password.
 
@@ -316,7 +316,7 @@ Open your web browser. Replace the following text by your `host` into your brows
     #  _host_:4200
 ~~~
 
-![Shell in the Browser Sandbox Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_browser_shell_learning_ropes_sandbox.png)
+![Shell in the Browser Sandbox Azure](assets/azure_browser_shell_learning_ropes_sandbox.png)
 
 > Appearance of Web Shell. When you type the password, the entry doesn't echo on the screen, it hides the user input. Carefully type correct password.
 
@@ -396,17 +396,17 @@ ambari-agent restart
 
 > **Note:** Now you can login to ambari as an admin user to perform operations, such as starting and stopping services.
 
-![Terminal Update Ambari admin password Azure](/assets/learning-the-ropes-of-the-hortonworks-sandbox/azure_update_admin_password_learning_ropes_sandbox.png)
+![Terminal Update Ambari admin password Azure](assets/azure_update_admin_password_learning_ropes_sandbox.png)
 
 ### 2.2 Explore Ambari Welcome Screen 5 Key Capabilities <a id="explore-ambari-welcome-screen-azure"></a>
 
 Enter the `Manage Ambari` page using the link above or click on the Ambari id pull down and select `Manage Ambari`:
 
-![ManageAmbari](/assets/learning-the-ropes-of-the-hortonworks-sandbox/ManageAmbari.png)
+![ManageAmbari](assets/ManageAmbari.png)
 
 and then you should see a similar screen:
 
-![Lab0_3](/assets/learning-the-ropes-of-the-hortonworks-sandbox/ambari_welcome_learning_the_ropes_sandbox.png)
+![Lab0_3](assets/ambari_welcome_learning_the_ropes_sandbox.png)
 
 > NOTE: only the Ambari admin id has access to this page
 
@@ -420,7 +420,7 @@ and then you should see a similar screen:
 
 Enter the **Ambari Dashboard URL** and you should see a similar screen:
 
-![Lab0_4](/assets/hello-hdp/Lab0_4.png)
+![Lab0_4](assets/Lab0_4.png)
 
 
 Click on
@@ -435,7 +435,7 @@ and then the
 
 Ambari 2.4 introduced the notion of Role-Based Access Control(RBAC) for the Ambari web  interface.  Ambari now includes additional cluster operation roles providing more granular division of control of the Ambari Dashboard and the various Ambari Views.  The image below illustrates the various Ambari Roles.  Only the admin id has access to view or change these roles.  Please refer to the [HDP Ambari roles documentation](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.1/bk_ambari-administration/content/cluster_roles.html) for more information.
 
-![AmbariRBAC](/assets/learning-the-ropes-of-the-hortonworks-sandbox/AmbariRBAC.png)
+![AmbariRBAC](assets/AmbariRBAC.png)
 
 There are **4 user personas** present in Sandbox:
 
@@ -500,7 +500,7 @@ Some notable differences between these users in the Sandbox are mentioned below:
 
 Check [Hortonworks Community Connection](http://hortonworks.com/community/forums/)(HCC) for answers to problems you may come across during your hadoop journey.
 
-![Hortonworks Community Connection Main Page](/assets/learning-the-ropes-of-the-hortonworks-sandbox/hcc_page_learning_the_ropes_sandbox.png)
+![Hortonworks Community Connection Main Page](assets/hcc_page_learning_the_ropes_sandbox.png)
 
 ### 1.1 Technique for Finding Answers in HCC <a id="technique-for-finding-answers-hcc"></a>
 - Insert quotes around your tutorial related problem

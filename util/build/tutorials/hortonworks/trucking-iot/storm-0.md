@@ -1,9 +1,9 @@
 ---
 title: tutorial-title
-tutorial-id: 222
-tutorial-series: Operationsfind
-tutorial-version: hdp-2.5.0
-intro-page: true
+id: 222
+
+platform: hdp-2.5.0
+
 components: spark, spark1, spark2
 ---
 

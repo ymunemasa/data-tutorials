@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Using HCatalog, Pig, and Hive Commands
-tutorial-id: 260
-tutorial-series: Basic Development
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ hcatalog, hive, pig, ambari ]
+id: 260
+platform: hdp-2.5.0
+components: [hcatalog, hive, pig, ambari]
 ---
 
 # How to use HCatalog, Pig & Hive Commands
@@ -41,21 +38,21 @@ Once you have the file you will need to unzip the file into a directory. We will
 
 Start by using the `HDFS Files view` from the views drop down menu in Ambari:
 
-![select_files_view](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/select_files_view.png)
+![select_files_view](assets/select_files_view.png)
 
 Navigate to the folder `/tmp` and create a new folder called `data`.
 
-![new_folder](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/new_folder.png)
+![new_folder](assets/new_folder.png)
 
 Then use the menus to upload the `drivers.csv` file and `truck_event_text_partition.csv` file.
 
-![uploaded_files](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/uploaded_files.png)
+![uploaded_files](assets/uploaded_files.png)
 
 After uploading both files head back to the data folder we created. Click on data row and select `Permissions`. Make sure all boxes are checked blue.
 
-![data_permissions](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/data_permissions.png)
+![data_permissions](assets/data_permissions.png)
 
-![edit_permissions](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/edit_permissions.png)
+![edit_permissions](assets/edit_permissions.png)
 
 ## Further Reading <a id="further-reading-hdfs"></a>
 - [HDFS Tutorials](http://hortonworks.com/hadoop/hdfs/#tutorials)
@@ -67,11 +64,11 @@ After uploading both files head back to the data folder we created. Click on dat
 HCatalog has been merged with Hive project. This means that your Hive queries will utilize HCatalog when using commands like create table and drop table.
 We are now going to utilize the `Hive view` to create tables with our data. Use the same drop down menu that you used to select the HDFS Files view, and instead click `Hive View`.
 
-![select_hive_view](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/select_hive_view.png)
+![select_hive_view](assets/select_hive_view.png)
 
 You will view a page like this:
 
-![hive_view_home_page](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/hive_view_home_page.png)
+![hive_view_home_page](assets/hive_view_home_page.png)
 
 We’re now going to create a table from our CSV using a Hive query. Copy and paste the following query and click `Execute` to run the command and create the table.
 
@@ -89,7 +86,7 @@ STORED AS TEXTFILE
 TBLPROPERTIES("skip.header.line.count"="1");
 ~~~
 
-![create_table_drivers](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/create_table_drivers.png)
+![create_table_drivers](assets/create_table_drivers.png)
 
 You’ll now need to `load` the data file into the table. Use the following command to do so.
 
@@ -97,11 +94,11 @@ You’ll now need to `load` the data file into the table. Use the following comm
 LOAD DATA INPATH '/tmp/data/drivers.csv' OVERWRITE INTO TABLE drivers;
 ~~~
 
-![load_data_into_drivers](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/load_data_into_drivers.png)
+![load_data_into_drivers](assets/load_data_into_drivers.png)
 
 You will see a new table `drivers` has been created and has all of the data contained within it. Click on the box next to the drivers table in `Database Explorer` to view the data.
 
-![select_driver_data](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/select_driver_data.png)
+![select_driver_data](assets/select_driver_data.png)
 
 Repeat above steps for the second data set `truck_event_text_partition.csv` using the following queries to create the `truck_events` table.
 
@@ -123,7 +120,7 @@ STORED AS TEXTFILE
 TBLPROPERTIES("skip.header.line.count"="1");
 ~~~
 
-![create_table_truck_events](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/create_table_truck_events.png)
+![create_table_truck_events](assets/create_table_truck_events.png)
 
 Load the data by running the following command:
 
@@ -133,11 +130,11 @@ LOAD DATA INPATH '/tmp/data/truck_event_text_partition.csv' OVERWRITE INTO TABLE
 
 You should now have two different tables inside the database explorer:
 
-![database_explorer](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/database_explorer.png)
+![database_explorer](assets/database_explorer.png)
 
 You can view the data by clicking on the box next to the table truck_events.
 
-![select_truck_events_data](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/select_truck_events_data.png)
+![select_truck_events_data](assets/select_truck_events_data.png)
 
 ## Further Reading <a id="further-reading-hcatalog-hive"></a>
 
@@ -166,7 +163,7 @@ show tables
 
 and click on `Execute`.
 
-![show_tables](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/show_tables.png)
+![show_tables](assets/show_tables.png)
 
 Notice the tables that you previously created are in the list **(“drivers” and “truck_events”)**. You can see the columns in the table by executing:
 
@@ -174,7 +171,7 @@ Notice the tables that you previously created are in the list **(“drivers” a
 describe truck_events;
 ~~~
 
-![describe_truck_events](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/describe_truck_events.png)
+![describe_truck_events](assets/describe_truck_events.png)
 
 You can make a join with other tables in Hive the same way you do with other database queries. Let’s make a join between `drivers` and `truck_events` tables.
 
@@ -187,7 +184,7 @@ from truck_events a join drivers b ON (a.driverId = b.driverId);
 
 This job is more complex so it might take longer than previous queries. You can watch the job running in the log. When the job completes, you can see the results.
 
-![join_data](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/join_data.png)
+![join_data](assets/join_data.png)
 
 ## Further Reading <a id="further-reading-hive-query"></a>
 - [Hive Tutorials](http://hortonworks.com/hadoop/hive/#tutorials)
@@ -198,15 +195,15 @@ This job is more complex so it might take longer than previous queries. You can 
 
 In this tutorial, you will create and execute a `Pig script`. To access the Pig interface, use the dropdown menu for views in Ambari. Select `Pig View`.
 
-![select_pig_view](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/select_pig_view.png)
+![select_pig_view](assets/select_pig_view.png)
 
 A special feature of the interface is the Pig helper. The Pig helper provides templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. Another feature is the Pig arguments which provides pre-formatted command line arguments used during execution. You will see a page like this:
 
-![pig_view_home_page](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/pig_view_home_page.png)
+![pig_view_home_page](assets/pig_view_home_page.png)
 
 Click `New Script` and create a name for it.
 
-![create_pig_script](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/create_pig_script.png)
+![create_pig_script](assets/create_pig_script.png)
 
 In this section, you will load the data from the table that is stored in HCatalog/Hive. Then you will make a join between two data sets on the `driverId` field in the same way that you did in the Hive section.
 
@@ -227,7 +224,7 @@ pastes the Load template into the script area.
 
 **IMPORTANT**! Note that the statement should be `org.apache.hive.hcatalog.pig.HCatLoader();`. Note the addition of the **hive** component.
 
-![pig_helper](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/pig_helper.png)
+![pig_helper](assets/pig_helper.png)
 
 -   The entry **%TABLE%** is highlighted in red. Type the name of the
     table ('**batting_data**') in place of **%TABLE%**(single quotes
@@ -245,7 +242,7 @@ a = LOAD 'drivers' using org.apache.hive.hcatalog.pig.HCatLoader();
 b = LOAD 'truck_events' using org.apache.hive.hcatalog.pig.HCatLoader();
 ~~~
 
-![load_data_into_pig](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/load_data_into_pig.png)
+![load_data_into_pig](assets/load_data_into_pig.png)
 
 It is important to note that at this point, we have merely defined the aliases for our tables to hold the data (alias “a” for drivers and alias “b” for truck_events). Data is not loaded or transformed until we execute an operational command such as `DUMP` or `STORE`
 
@@ -266,7 +263,7 @@ b = LOAD 'truck_events' using org.apache.hive.hcatalog.pig.HCatLoader();
 c = join b by driverid, a by driverid;
 ~~~
 
-![join_data_in_pig](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/join_data_in_pig.png)
+![join_data_in_pig](assets/join_data_in_pig.png)
 
 Now you have joined all the records in both of the tables on driverid.
 
@@ -286,27 +283,27 @@ c = join b by driverid, a by driverid;
 dump c;
 ~~~
 
-![dump_data_in_pig](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/dump_data_in_pig.png)
+![dump_data_in_pig](assets/dump_data_in_pig.png)
 
 #### 5.4 Save the script and execute it
 
 First you need to add the `-useHCatalog` (Case Sensitive) argument using the box box in the bottom right hand corner
 
-![use_hcatalog](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/use_hcatalog.png)
+![use_hcatalog](assets/use_hcatalog.png)
 
 At the top of the screen, make sure the box "Execute on Tez" is checked. Then click `Execute` to run the script. This action creates one or more Tez jobs.
 
 Below the `Execute` is a progress bar that shows the job's status. The progress bar can be blue (indicating job is in process), red (job has a problem), or green (job is complete).
 
-![pig_script_running](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/pig_script_running.png)
+![pig_script_running](assets/pig_script_running.png)
 
 When the job completes, you will see the results show up in one of the dropdown menus. The result is that each line that starts with an open parenthesis “(” has data from both tables for driverid.
 
-![join_results_in_pig](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/join_results_in_pig.png)  
+![join_results_in_pig](assets/join_results_in_pig.png)
 
 Click the `Logs` drop down menu if you want to see what happened when your script ran, including any error messages. (You might need to scroll down to view the entire log.)
 
-![join_logs_in_pig](/assets/hcatalog-basic-pig-and-hive-commands-hdp2.5/join_logs_in_pig.png)
+![join_logs_in_pig](assets/join_logs_in_pig.png)
 
 Congratulations! You have successfully completed HCatalog, Basic Pig &
 Hive Commands.

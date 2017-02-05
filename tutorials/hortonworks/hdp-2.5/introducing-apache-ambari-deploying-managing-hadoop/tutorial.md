@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Introducing Apache Ambari for Deploying and Managing Apache Hadoop
-tutorial-id: 320
-tutorial-series: Operations
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ ambari , vagrant ]
+id: 320
+platform: hdp-2.5.0
+components: [ambari , vagrant]
 ---
 
 ## Introduction
@@ -56,11 +53,11 @@ vi VagrantFile
 
 Change the forwarded port to 8080 like this:
 
-![change_port](/assets/introducing-apache-ambari-deploying-managing-hadoop/change_port.png)
+![change_port](assets/change_port.png)
 
 Change the memory size to 8 GB,
 
-![change_memory](/assets/introducing-apache-ambari-deploying-managing-hadoop/change_memory.png)
+![change_memory](assets/change_memory.png)
 
 Save the file and launch the VM and SSH in and login as root and change to the home directory. Follow below steps:
 
@@ -75,11 +72,11 @@ cd ~
 
 Type `hostname` on command line to find out the hostname of the machine.
 
-![hostname](/assets/introducing-apache-ambari-deploying-managing-hadoop/hostname.png)
+![hostname](assets/hostname.png)
 
 Edit /etc/hosts file to map the IP address with the hostname. The hosts file is used to recognize the mapping of hostnames to the IP addresses of the host. So the Ambari server consults this file to determine the IP address that corresponds to a host name. So in this case, the leftmost column is the IP address to be resolved, the second one is the hostname and the third one is just the alias for the host name.
 
-![hosts_file](/assets/introducing-apache-ambari-deploying-managing-hadoop/hosts_file.png)
+![hosts_file](assets/hosts_file.png)
 
 Install **ntp** and **wget** utility using following commands:
 
@@ -88,7 +85,7 @@ yum install ntp
 yum install wget
 ~~~
 
-NTP(Network Time Protocol) service is required when the computer clocks in servers are set manually, it gets drifted by each passing day if not closely monitored. So to avoid this, it is advisable to enable NTP to synchronize the time of all hosts within the cluster with Ambari server.  
+NTP(Network Time Protocol) service is required when the computer clocks in servers are set manually, it gets drifted by each passing day if not closely monitored. So to avoid this, it is advisable to enable NTP to synchronize the time of all hosts within the cluster with Ambari server.
 Start the **ntpd** service through:
 
 ~~~
@@ -96,22 +93,22 @@ chkconfig ntpd on
 service ntpd start
 ~~~
 
-![chkconfig](/assets/introducing-apache-ambari-deploying-managing-hadoop/chkconfig.png)
+![chkconfig](assets/chkconfig.png)
 
 ### 3. Setting up Passwordless SSH <a id="passwordless-ssh"></a>
 
-It is required so that the Ambari server installed on one host can communicate with other hosts within the cluster to install Ambari agents. The server uses the key pair to access other hosts.  
+It is required so that the Ambari server installed on one host can communicate with other hosts within the cluster to install Ambari agents. The server uses the key pair to access other hosts.
 Generate the key using ssh-keygen
 
-![ssh_keygen](/assets/introducing-apache-ambari-deploying-managing-hadoop/ssh_keygen.png)
+![ssh_keygen](assets/ssh_keygen.png)
 
-The keys will be placed in the folder **.ssh**.  
+The keys will be placed in the folder **.ssh**.
 
 Copy the **id_rsa** file to /vagrant folder so that you can access the private key from the host machine as /vagrant is automatically the shared folder between host and guest OSs.
 
 Also append id_rsa.pub, the public key to the authorized_keys keys file.
 
-![authorized_keys](/assets/introducing-apache-ambari-deploying-managing-hadoop/authorized_keys.png)
+![authorized_keys](assets/authorized_keys.png)
 
 ### 4. Set up Ambari <a id="setup-ambari"></a>
 
@@ -123,9 +120,9 @@ mv ambari.repo /etc/yum.repos.d
 yum repolist
 ~~~
 
-![ambari_repo](/assets/introducing-apache-ambari-deploying-managing-hadoop/ambari_repo.png)
+![ambari_repo](assets/ambari_repo.png)
 
-![yum_repolist](/assets/introducing-apache-ambari-deploying-managing-hadoop/yum_repolist.png)
+![yum_repolist](assets/yum_repolist.png)
 
 Install ambari-server now using:
 
@@ -133,7 +130,7 @@ Install ambari-server now using:
 yum install ambari-server
 ~~~
 
-![install_ambari_server](/assets/introducing-apache-ambari-deploying-managing-hadoop/install_ambari_server.png)
+![install_ambari_server](assets/install_ambari_server.png)
 
 Setup the ambari-server and follow the default configurations:
 
@@ -141,7 +138,7 @@ Setup the ambari-server and follow the default configurations:
 ambari-server setup
 ~~~
 
-![ambari_server_setup](/assets/introducing-apache-ambari-deploying-managing-hadoop/ambari_server_setup.png)
+![ambari_server_setup](assets/ambari_server_setup.png)
 
 Start the ambari-server using:
 
@@ -149,79 +146,79 @@ Start the ambari-server using:
 service ambari-server start
 ~~~
 
-![ambari_start_successfully](/assets/introducing-apache-ambari-deploying-managing-hadoop/ambari_start_successfully.png)
+![ambari_start_successfully](assets/ambari_start_successfully.png)
 
 ### 5. Pseudo-Mde HDP Cluster Set up using Ambari <a id="pseudo-mode"></a>
 
 Go to browser and type `127.0.0.1:8080` to access Ambari. The default username and password is **admin** and **admin** respectively.
 
-![sign_in](/assets/introducing-apache-ambari-deploying-managing-hadoop/sign_in.png)
+![sign_in](assets/sign_in.png)
 
 Go to Launch Install Wizard to start the installation
 
-![launch_cluster_wizard](/assets/introducing-apache-ambari-deploying-managing-hadoop/launch_cluster_wizard.png)
+![launch_cluster_wizard](assets/launch_cluster_wizard.png)
 
 Give a name to your cluster. It is really difficult to change the cluster name after it is set. Perhaps, pick a good name.
 
-![get_started](/assets/introducing-apache-ambari-deploying-managing-hadoop/get_started.png)
+![get_started](assets/get_started.png)
 
 Select the HDP version.
 
-![select_stack](/assets/introducing-apache-ambari-deploying-managing-hadoop/select_stack.png)
+![select_stack](assets/select_stack.png)
 
 Give the hostname of your machine . You can also put hostnames like host[1-100].domain.com to avoid typing each one. Then click on the `Choose file` button to provide the SSH key that was created earlier.
 
-![select_file](/assets/introducing-apache-ambari-deploying-managing-hadoop/select_file.png)
+![select_file](assets/select_file.png)
 
 Next, click on Register and Confirm.
 
-![upload_private_key](/assets/introducing-apache-ambari-deploying-managing-hadoop/upload_private_key.png)
+![upload_private_key](assets/upload_private_key.png)
 
 Confirm the list of hosts that needs to be added in the cluster.
 
-![confirm_hosts](/assets/introducing-apache-ambari-deploying-managing-hadoop/confirm_hosts.png)
+![confirm_hosts](assets/confirm_hosts.png)
 
 View the progress and wait for the Success message. Remove warnings for the smooth installation of the cluster.
 
-![confirm_hosts_success](/assets/introducing-apache-ambari-deploying-managing-hadoop/confirm_hosts_success.png)
+![confirm_hosts_success](assets/confirm_hosts_success.png)
 
 Choose the services that you want to install on your cluster.
 
-![choose_services](/assets/introducing-apache-ambari-deploying-managing-hadoop/choose_services.png)
+![choose_services](assets/choose_services.png)
 
 After checking the required boxes, click on Next
 
-![choose_services_next](/assets/introducing-apache-ambari-deploying-managing-hadoop/choose_services_next.png)
+![choose_services_next](assets/choose_services_next.png)
 
 Assign the hostname of all master components. As it is a pseudo-mode cluster, all master components will be installed on 1 machine.
 
-![assign_masters](/assets/introducing-apache-ambari-deploying-managing-hadoop/assign_masters.png)
+![assign_masters](assets/assign_masters.png)
 
-![assign_masters_next](/assets/introducing-apache-ambari-deploying-managing-hadoop/assign_masters_next.png)
+![assign_masters_next](assets/assign_masters_next.png)
 
 Assign slave and client components.
 
-![assign_slaves](/assets/introducing-apache-ambari-deploying-managing-hadoop/assign_slaves.png)
+![assign_slaves](assets/assign_slaves.png)
 
 In **Customize Services** step, give the credentials for the service components that are marked with a white number against the red background.
 
-![customize_services](/assets/introducing-apache-ambari-deploying-managing-hadoop/customize_services.png)
+![customize_services](assets/customize_services.png)
 
 After entering the credentials, start the installation.
 
-![install_start_test](/assets/introducing-apache-ambari-deploying-managing-hadoop/install_start_test.png)
+![install_start_test](assets/install_start_test.png)
 
 You can view the progress of each component installation
 
-![start_progress](/assets/introducing-apache-ambari-deploying-managing-hadoop/start_progress.png)
+![start_progress](assets/start_progress.png)
 
 and the standard output of each component.
 
-![start_progress_logs](/assets/introducing-apache-ambari-deploying-managing-hadoop/start_progress_logs.png)
+![start_progress_logs](assets/start_progress_logs.png)
 
 Wait for some time for the installation. Once it gets completed, you will see the Ambari Dashboard:
 
-![ambari-dashboard](/assets/introducing-apache-ambari-deploying-managing-hadoop/ambari-dashboard.png)
+![ambari-dashboard](assets/ambari-dashboard.png)
 
 Voila!!! We have our very own Hadoop VM.
 Happy Hadooping!

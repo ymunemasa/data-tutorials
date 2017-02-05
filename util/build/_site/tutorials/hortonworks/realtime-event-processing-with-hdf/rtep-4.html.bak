@@ -136,7 +136,7 @@ vi ~/iot-truck-streaming/user-env.sh
 
 The file will open as in the image below:
 
-![user_env_sh_setup_auto_script_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/user_env_sh_setup_auto_script_iot.png)
+![user_env_sh_setup_auto_script_iot](assets/lab2-hbase-hive-storm/user_env_sh_setup_auto_script_iot.png)
 
 For the ambari configuration credentials: user='admin', pass=what you set it up as manually. For example, after setting up my password, I would enter user='admin', pass='h@d0op.'
 
@@ -144,7 +144,7 @@ Press `esc` and then type `:wq` to exit the editor.
 
 2\. After you update the **user-env.sh** file, we will also need to verify whether the hostnames in the **config.properties** file match the appropriate hostnames for services on HDP. If they do not match, then update the hostname. For example, let's check the **kafka.brokers** host, open Ambari dashboard. Hover to the left side bar, click on **Kafka**. At the top next to the `Summary` tab, click on the `Configs` tab. Under **Kafka Broker** Section, examine **Kafka Broker host** and **listeners** field. You should see the following image:
 
-![kafka_broker_hostname_verify](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/kafka_broker_hostname_verify.png)
+![kafka_broker_hostname_verify](assets/lab2-hbase-hive-storm/kafka_broker_hostname_verify.png)
 
 Notice Kafka Broker host = sandbox.hortonworks.com
 Listeners = localhost:6667
@@ -153,7 +153,7 @@ Thus, our **Kafka Broker and Listenrs host** = `sandbox.hortonworks.com:6667`
 
 In our **config.properties** file, under Stream Simulator Config, it shows:
 
-![config_properties_file_verify_hosts_match](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/config_properties_file_verify_hosts_match.png)
+![config_properties_file_verify_hosts_match](assets/lab2-hbase-hive-storm/config_properties_file_verify_hosts_match.png)
 
 > Note: In the config.properties file Kafka.brokers=sandbox.hortonworks.com:6667
 
@@ -377,21 +377,21 @@ If you receive the message, **"This site can't be reached"**, you will need to p
 
 Once connected to Jetty Server, the following login page appears, user and password are given by default, so press the **sign in** button:
 
-![trucking_demo_sign_in](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/trucking_demo_sign_in.png)
+![trucking_demo_sign_in](assets/lab2-hbase-hive-storm/trucking_demo_sign_in.png)
 
 The HDP Storm Demo Dashboard will appear:
 
-![hdp_storm_demo_dashboard_iot](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/hdp_storm_demo_dashboard_iot.png)
+![hdp_storm_demo_dashboard_iot](assets/lab2-hbase-hive-storm/hdp_storm_demo_dashboard_iot.png)
 
 ### A.3 Run NiFi DataFlow & Topology Tuples Increase
 
 Before entering one of these applications on the dashboard as in the image above, make sure your NiFi DataFlow is running and that your storm topology spout/bolt tuples are increasing. You should have images similar to as below:
 
-![dataflow_withKafka_running_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_withKafka_running_iot.png)
+![dataflow_withKafka_running_iot](assets/lab1-kafka/dataflow_withKafka_running_iot.png)
 
 > DataFlow is running and sending events to Kafka. If you notice events stop being sent to kafka, stop and start the DataFlow.
 
-![storm_topology_tuples_increasing](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/storm_topology_tuples_increasing.png)
+![storm_topology_tuples_increasing](assets/lab2-hbase-hive-storm/storm_topology_tuples_increasing.png)
 
 > Storm Topology Spout/Bolt tuples increasing
 
@@ -432,20 +432,20 @@ If you can see your NiFi DataFlow sending truck event data to Kafka and Storm tu
 
 Real-Time Driver Monitoring Application
 
-![driver_monitoring_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_monitoring_app_map.png)
-![driver_monitoring_app_table](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_monitoring_app_table.png)
+![driver_monitoring_app_map](assets/lab2-hbase-hive-storm/driver_monitoring_app_map.png)
+![driver_monitoring_app_table](assets/lab2-hbase-hive-storm/driver_monitoring_app_table.png)
 
 
 Real-Time Driver Behavior Predictions Application
 
-![driver_behavior_predictions_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_behavior_predictions_app_map.png)
-![driver_behavior_predictions_app_table](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/driver_behavior_predictions_app_table.png)
+![driver_behavior_predictions_app_map](assets/lab2-hbase-hive-storm/driver_behavior_predictions_app_map.png)
+![driver_behavior_predictions_app_table](assets/lab2-hbase-hive-storm/driver_behavior_predictions_app_table.png)
 
 
 Real-Time Drools Driven Monitoring Application
 
-![drools_driven_driver_alerts_app_map](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/drools_driven_driver_alerts_app_map.png)
-![drools_driven_driver_alerts_app_table](/assets/realtime-event-processing-with-hdf/lab2-hbase-hive-storm/drools_driven_driver_alerts_app_table.png)
+![drools_driven_driver_alerts_app_map](assets/lab2-hbase-hive-storm/drools_driven_driver_alerts_app_map.png)
+![drools_driven_driver_alerts_app_table](assets/lab2-hbase-hive-storm/drools_driven_driver_alerts_app_table.png)
 
 Congratulations, you just incorporated NiFi into the trucking demo. Notice that each time the rows in the table turn red, it indicates a prediction that the driver committed a violation while driving. On the map, the green dots indicate probability that the driver will not commit a violation while red dots indicate the opposite.
 -->

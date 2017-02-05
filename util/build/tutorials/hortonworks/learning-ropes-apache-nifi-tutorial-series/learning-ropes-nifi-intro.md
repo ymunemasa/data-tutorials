@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Introduction
-tutorial-id: 640
-tutorial-series: Basic Development
-tutorial-version: hdf-2.0.0
-intro-page: true
-components: [ nifi ]
+id: 640
+
+platform: hdf-2.0.0
+
+components: [nifi ]
 ---
 
 # Analyze Traffic Patterns with Apache NiFi

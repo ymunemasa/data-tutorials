@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Cross Component Lineage with Apache Atlas across Apache Sqoop, Hive, Kafka & STORM
-tutorial-id: 610
-tutorial-series: Governance
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ atlas, sqoop, hive, kafka, storm ]
+id: 610
+
+platform: hdp-2.5.0
+
+components: [atlas, sqoop, hive, kafka, storm ]
 ---
 
 ## Introduction
@@ -34,40 +34,40 @@ Started by logging into Ambari as **raj_ops** user. User name - **raj_ops** and 
 
 ### 1.1: View the Services Page
 
-![ambari_dashboard_rajops](/assets/cross-component-lineage-using-atlas/ambari_dashboard_rajops.png)
+![ambari_dashboard_rajops](assets/ambari_dashboard_rajops.png)
 
 From the Dashboard page of Ambari, click on `Hive` from the list of installed services.  
 Then click on `Config` tab and search `atlas.hook.hive.synchronous` in the filter text box.
 
-![search_hive_config](/assets/cross-component-lineage-using-atlas/search_hive_config.png)
+![search_hive_config](assets/search_hive_config.png)
 
 This property takes a boolean value and specifies whether to run the Atlas-Hive hook synchronously or not. By default, it is false, change it to `true` so that you can capture the lineage for hive operations. Click `Save` after you make the change.
 
-![save_hive_config](/assets/cross-component-lineage-using-atlas/save_hive_config.png)
+![save_hive_config](assets/save_hive_config.png)
 
 Write **Atlas-hive hook enabled** in the prompt and then proceed with saving the change. You have to Restart Hive now. Click on `Restart` and then `Restart All Affected`.
 
-![restart_hive](/assets/cross-component-lineage-using-atlas/restart_hive.png)
+![restart_hive](assets/restart_hive.png)
 
 ## 2: Start Kafka, Storm, HBase, Ambari Infra and Atlas <a id="start-services"></a>
 
 From the Dashboard page of Ambari, click on `Kafka` from the list of installed services.
 
-![new_select_kafka](/assets/cross-component-lineage-using-atlas/new_select_kafka.png)
+![new_select_kafka](assets/new_select_kafka.png)
 
 ### 2.1: Start Kafka Service
 
 From the Kafka page, click on `Service Actions -> Start`
 
-![start_kafka](/assets/cross-component-lineage-using-atlas/start_kafka.png)
+![start_kafka](assets/start_kafka.png)
 
 Check the `Maintenance Mode` box and click on `Confirm Start`:
 
-![confirmation_kafka](/assets/cross-component-lineage-using-atlas/confirmation_kafka.png)
+![confirmation_kafka](assets/confirmation_kafka.png)
 
 Wait for Kafka to start (It may take a few minutes to turn green)
 
-![new_started_kafka](/assets/cross-component-lineage-using-atlas/new_started_kafka.png)
+![new_started_kafka](assets/new_started_kafka.png)
 
 Now start other required services as well. Start **Atlas** at the end.
 
@@ -76,7 +76,7 @@ Now start other required services as well. Start **Atlas** at the end.
 Stop some services like **Spark, Oozie, Flume and Zeppelin** which are not required in this tutorial. Turn On the **Maintenance mode** also.
 Your Ambari dashboard page should look like this:
 
-![new_ambari_dashboard_rajops](/assets/cross-component-lineage-using-atlas/new_ambari_dashboard_rajops.png)
+![new_ambari_dashboard_rajops](assets/new_ambari_dashboard_rajops.png)
 
 ## 3: Sqoop-Hive Lineage <a id="sqoop-hive-lineage"></a>
 
@@ -90,7 +90,7 @@ First do ssh into the terminal by the user **root**. The first time password for
 ssh root@127.0.0.1 -p 2222
 ~~~
 
-![sshTerminal](/assets/cross-component-lineage-using-atlas/sshTerminal.png)
+![sshTerminal](assets/sshTerminal.png)
 
 ### 3.2: Download & extract the demo script
 
@@ -104,9 +104,9 @@ unzip crosscomponent_scripts.zip\?raw\=true
 cd crosscomponent_scripts/sqoop-demo
 ~~~
 
-![download_and_extract](/assets/cross-component-lineage-using-atlas/download_and_extract.png)
+![download_and_extract](assets/download_and_extract.png)
 
-![download_and_extract2](/assets/cross-component-lineage-using-atlas/download_and_extract2.png)
+![download_and_extract2](assets/download_and_extract2.png)
 
 ### 3.3: Create a mysql table
 
@@ -118,7 +118,7 @@ cat 001-setup-mysql.sql | mysql -u root -p
 
 > NOTE: default password for mysql root user is hadoop. Enter it then press enter when prompted for password
 
-![setup_mysql_script](/assets/cross-component-lineage-using-atlas/setup_mysql_script.png)
+![setup_mysql_script](assets/setup_mysql_script.png)
 
 ### 3.4: Run the SQOOP Job
 
@@ -132,11 +132,11 @@ sh 002-run-sqoop-import.sh
 
 Here is the screenshot of results you would see in the screen when you run the above script.
 
-![sqoop_import_script](/assets/cross-component-lineage-using-atlas/sqoop_import_script.png)
+![sqoop_import_script](assets/sqoop_import_script.png)
 
 It will run the map-reduce job and at the end, you can see your new Hive table created:
 
-![sqoop_import_script2](/assets/cross-component-lineage-using-atlas/sqoop_import_script2.png)
+![sqoop_import_script2](assets/sqoop_import_script2.png)
 
 ### 3.5: Create CTAS sql command
 
@@ -147,7 +147,7 @@ Run the below command in your terminal
 cat 003-ctas-hive.sql | beeline -u "jdbc:hive2://localhost:10000/default" -n hive -p hive -d org.apache.hive.jdbc.HiveDriver
 ~~~
 
-![ctas_script](/assets/cross-component-lineage-using-atlas/ctas_script.png)
+![ctas_script](assets/ctas_script.png)
 
 ### 3.6: View ATLAS UI for the lineage
 
@@ -156,15 +156,15 @@ Click on http://127.0.0.1:21000. Credentials are:
 User name - **holger_gov**
 Password - **holger_gov**
 
-![atlas_login](/assets/cross-component-lineage-using-atlas/atlas_login.png)
+![atlas_login](assets/atlas_login.png)
 
 Click on `Search` tab and type **cur_hive_table1**
 
-![search_hive_table](/assets/cross-component-lineage-using-atlas/search_hive_table.png)
+![search_hive_table](assets/search_hive_table.png)
 
 You will see the lineage like given below. You can hover at each one of them to see the operations performed:
 
-![hive_lineage](/assets/cross-component-lineage-using-atlas/hive_lineage.png)
+![hive_lineage](assets/hive_lineage.png)
 
 ## 4: Kafka – Storm Lineage <a id="kafka-storm-lineage"></a>
 
@@ -179,7 +179,7 @@ cd ../storm-demo
 sh 001-create_topic.sh
 ~~~
 
-![create_topic_script](/assets/cross-component-lineage-using-atlas/create_topic_script.png)
+![create_topic_script](assets/create_topic_script.png)
 
 ### 4.2: Create a HDFS folder for output
 
@@ -189,7 +189,7 @@ Run the following command to create a new HDFS directory under /user/storm
 sh 002-create-hdfs-outdir.sh
 ~~~
 
-![create_hdfs_directory_script](/assets/cross-component-lineage-using-atlas/create_hdfs_directory_script.png)
+![create_hdfs_directory_script](assets/create_hdfs_directory_script.png)
 
 ### 4.3: Download STORM job jar file (optional)
 
@@ -207,7 +207,7 @@ Storm Jar file is already download in /root/crosscomponent_demo/crosscomponent_s
 You can view the source for this at https://github.com/yhemanth/storm-samples
 ~~~
 
-![download_storm_script](/assets/cross-component-lineage-using-atlas/download_storm_script.png)
+![download_storm_script](assets/download_storm_script.png)
 
 ### 4.4: Run the Storm Job
 
@@ -217,19 +217,19 @@ Run the following command:
 sh 004-run-storm-job.sh
 ~~~
 
-![run_storm_script](/assets/cross-component-lineage-using-atlas/run_storm_script.png)
+![run_storm_script](assets/run_storm_script.png)
 
-![run_storm_script2](/assets/cross-component-lineage-using-atlas/run_storm_script2.png)
+![run_storm_script2](assets/run_storm_script2.png)
 
 ### 4.5: View ATLAS UI for the lineage
 
 Go to the Atlas UI http://localhost:21000/. Search for: **kafka_topic** this time and Click on: `my-topic-01`
 
-![search_kafka_topic](/assets/cross-component-lineage-using-atlas/search_kafka_topic.png)
+![search_kafka_topic](assets/search_kafka_topic.png)
 
 Scroll down and you will see a lineage of all the operations from Kafka to Storm.
 
-![kafka_storm_lineage](/assets/cross-component-lineage-using-atlas/kafka_storm_lineage.png)
+![kafka_storm_lineage](assets/kafka_storm_lineage.png)
 
 ## 5: Summary <a id="summary"></a>
 

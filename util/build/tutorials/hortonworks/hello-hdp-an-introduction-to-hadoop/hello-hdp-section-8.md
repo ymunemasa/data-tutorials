@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Hello HDP An Introduction to Hadoop with Hive and Pig
-tutorial-id: 100
-tutorial-series: Basic Development
-tutorial-version: hdp-2.5.0
-intro-page: false
-components: [ ambari, hive, pig, spark, zeppelin, technical-preview ]
+id: 100
+
+platform: hdp-2.5.0
+
+components: [ambari, hive, pig, spark, zeppelin, technical-preview ]
 ---
 
 # Lab 5: Data Reporting With Zeppelin
@@ -55,13 +55,13 @@ NOTE: We can also run queries via various interpreters for the following (but no
 1) Navigate to http://sandbox.hortonworks.com:9995 directly to open the Zeppelin interface.
 
 
-![Zeppelin Dashboard](/assets/hello-hdp/zeppelin_welcome_page_hello_hdp_lab4.png)
+![Zeppelin Dashboard](assets/zeppelin_welcome_page_hello_hdp_lab4.png)
 
 
 2) Click on create note, name the notebook **Driver Risk Factor** and a new notebook shall get started.
 
 
-![Zeppelin Create New Notebook](/assets/hello-hdp/zeppelin_create_new_notebook.png)
+![Zeppelin Create New Notebook](assets/zeppelin_create_new_notebook.png)
 
 
 ## Step 5.2: Execute a Hive Query <a id="step5.2"></a>
@@ -84,7 +84,7 @@ Alternative way to run query is "shift+enter."
 Initially, the query will produce the data in tabular format as shown in the screenshot.
 
 
-![play_button_zeppelin_workbook](/assets/hello-hdp/output_riskfactor_zeppelin_lab6.png)
+![play_button_zeppelin_workbook](assets/output_riskfactor_zeppelin_lab6.png)
 
 
 ## Step 5.3: Build Charts using Zeppelin <a id="step5.3"></a>
@@ -95,13 +95,13 @@ Initially, the query will produce the data in tabular format as shown in the scr
 Each one will display a different type of chart depending on the data that is returned in the query.
 
 
-![charts_tab_under_query_lab6](/assets/hello-hdp/charts_tab_jdbc_lab6.png)
+![charts_tab_under_query_lab6](assets/charts_tab_jdbc_lab6.png)
 
 
 2\. After clicking on a chart, we can view extra advanced settings to tailor the view of the data we want
 
 
-![Chart Advanced Settings](/assets/hello-hdp/bar_graph_zeppelin_lab6.png)
+![Chart Advanced Settings](assets/bar_graph_zeppelin_lab6.png)
 
 
 3\. Click settings to open the advanced chart features.
@@ -109,19 +109,19 @@ Each one will display a different type of chart depending on the data that is re
 4\. To make a chart with `riskfactor.driverid` and `riskfactor.riskfactor SUM`, drag the table relations into the boxes as shown in the image below.
 
 
-![Advanced Settings Boxes](/assets/hello-hdp/fields_set_keys_values_chart_lab6.png)
+![Advanced Settings Boxes](assets/fields_set_keys_values_chart_lab6.png)
 
 
 5\. You should now see an image like the one below.
 
 
-![Bar Graph Example Image](/assets/hello-hdp/driverid_riskfactor_chart_lab6.png)
+![Bar Graph Example Image](assets/driverid_riskfactor_chart_lab6.png)
 
 
 6\. If you hover on the peaks, each will give the driverid and riskfactor.
 
 
-![driverid_riskfactor_peak](/assets/hello-hdp/hover_over_peaks_lab6.png)
+![driverid_riskfactor_peak](assets/hover_over_peaks_lab6.png)
 
 
 7\. Try experimenting with the different types of charts as well as dragging and
@@ -140,7 +140,7 @@ FROM riskfactor a, geolocation b where a.driverid=b.driverid
 You should eventually end up with the results in a table below.
 
 
-![Filter City and States](/assets/hello-hdp/queryFor_cities_states_highest_driver_riskfactor.png)
+![Filter City and States](assets/queryFor_cities_states_highest_driver_riskfactor.png)
 
 
 10\. After changing a few of the settings we can figure out which of the cities have the high risk factors.
@@ -149,7 +149,7 @@ is within the xAxis field, a.riskfactor is in the yAxis field, and b.city is in 
 The chart should look similar to the following.
 
 
-![Scatter Plot Graph](/assets/hello-hdp/visualize_cities_highest_driver_riskfactor_lab6.png)
+![Scatter Plot Graph](assets/visualize_cities_highest_driver_riskfactor_lab6.png)
 
 
 The graph shows that driver id number A39 has a high risk factor of 652417 and drives in Santa Maria.  

@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Mirroring Datasets Between Hadoop Clusters with Apache Falcon
-tutorial-id: 680
-tutorial-series: Governance
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ falcon, ambari ]
+id: 680
+
+platform: hdp-2.5.0
+
+components: [falcon, ambari ]
 ---
 
 ## Introduction
@@ -33,20 +33,20 @@ In this tutorial we are going walk the process of mirroring the datasets between
 
 After creating cluster entities, let us go back to Ambari as `admin` user. Click on admin menu drop down and then `Manage Ambari`:
 
-![manage_ambari](/assets/mirroring-datasets-using-falcon-hdp2.5/manage_ambari.png)
+![manage_ambari](assets/manage_ambari.png)
 
 Click the blue `Users` button in the bottom box as given below:
 
-![manage_users](/assets/mirroring-datasets-using-falcon-hdp2.5/manage_users.png)
+![manage_users](assets/manage_users.png)
 
 Click the `Create Local User` button at the top of the page. Enter `ambari-qa` as the user name and then set the password for it. Enter it again for confirmation and `Save` the user.
 
-![save_local_user](/assets/mirroring-datasets-using-falcon-hdp2.5/save_local_user.png)
+![save_local_user](assets/save_local_user.png)
 
 You can see the newly added `ambari-qa` user. Click on it to assign it a group so that it can access Ambari views.
 Write `“views”` and select it in `Local Group Membership`  box and then click on `tick` mark to add an `ambari-qa` user in the `“views”` group.
 
-![local_group_permission](/assets/mirroring-datasets-using-falcon-hdp2.5/local_group_permission.png)
+![local_group_permission](assets/local_group_permission.png)
 
 Now logout of Ambari from the `admin` user and login to Ambari as `ambari-qa` user.
 
@@ -54,20 +54,20 @@ Now logout of Ambari from the `admin` user and login to Ambari as `ambari-qa` us
 
 Select the Files View and you can view the following default folders:
 
-![files_view_home_page](/assets/mirroring-datasets-using-falcon-hdp2.5/files_view_home_page.png)
+![files_view_home_page](assets/files_view_home_page.png)
 
 Navigate to `/user/ambari-qa` and create a new directory `falcon`
 Click on the row of `falcon` directory and then click on `Permissions` button:
 
-![click_permissions](/assets/mirroring-datasets-using-falcon-hdp2.5/click_permissions.png)
+![click_permissions](assets/click_permissions.png)
 
 Add `Write` permission for both Group and Others and then click `Save`.
 
-![edit_permissions](/assets/mirroring-datasets-using-falcon-hdp2.5/edit_permissions.png)
+![edit_permissions](assets/edit_permissions.png)
 
 Now create the directories `mirrorSrc` and `mirrorTgt` under `/user/ambari-qa/falcon` as the source and target of the mirroring job we are about to create.
 
-![mirror_src_tgt_created](/assets/mirroring-datasets-using-falcon-hdp2.5/mirror_src_tgt_created.png)
+![mirror_src_tgt_created](assets/mirror_src_tgt_created.png)
 <!---
 After creating cluster entities, let’s go back to the SSH terminal, switch the user to `root` and then to `ambari-qa`:  
 
@@ -77,7 +77,7 @@ hadoop fs -mkdir /user/ambari-qa/falcon/mirrorSrc
 hadoop fs -mkdir /user/ambari-qa/falcon/mirrorTgt
 ~~~
 
-![creatingMirrorDirectories](/assets/mirroring-datasets-using-falcon-hdp2.5/creatingMirrorDirectories.png)
+![creatingMirrorDirectories](assets/creatingMirrorDirectories.png)
 
 Now we need to set permissions to allow access. You must be logged in as the owner of the directory `/user/ambari-qa/falcon/`
 
@@ -85,7 +85,7 @@ Now we need to set permissions to allow access. You must be logged in as the own
 hadoop fs -chmod -R 777 /user/ambari-qa/falcon
 ~~~
 
-![givingPermission](/assets/mirroring-datasets-using-falcon-hdp2.5/givingPermission.png)
+![givingPermission](assets/givingPermission.png)
 
 -->
 
@@ -93,11 +93,11 @@ hadoop fs -chmod -R 777 /user/ambari-qa/falcon
 
 To create the mirroring job, go back to the Falcon UI on your browser and click on the `Create` drop down.
 
-![select_mirror](/assets/mirroring-datasets-using-falcon-hdp2.5/select_mirror.png)
+![select_mirror](assets/select_mirror.png)
 
 Click `Mirror` from the drop down menu, you will see a page like this:
 
-![mirror_home_page](/assets/mirroring-datasets-using-falcon-hdp2.5/mirror_home_page.png)
+![mirror_home_page](assets/mirror_home_page.png)
 
 Provide a name of your choice. The name must be unique to the system. We named the Mirror Job `MirrorTest`.
 
@@ -106,15 +106,15 @@ Ensure the File System mirror type is selected, then select the appropriate Sour
 The target cluster is `backupCluster` and that HDFS path on the cluster is `/user/ambari-qa/falcon/mirrorTgt`.
 Also set the validity of the job to your current time, so that when you attempt to run the job in a few minutes, the job is still within the validity period. Keep default values in Advanced Options and then Click `Next`.
 
-![mirror1](/assets/mirroring-datasets-using-falcon-hdp2.5/mirror1.png)
+![mirror1](assets/mirror1.png)
 
-![mirror2](/assets/mirroring-datasets-using-falcon-hdp2.5/mirror2.png)
+![mirror2](assets/mirror2.png)
 
 Verify the summary information, then click `Save`:
 
-![mirror_summary1](/assets/mirroring-datasets-using-falcon-hdp2.5/mirror_summary1.png)
+![mirror_summary1](assets/mirror_summary1.png)
 
-![mirror_summary2](/assets/mirroring-datasets-using-falcon-hdp2.5/mirror_summary2.png)
+![mirror_summary2](assets/mirror_summary2.png)
 
 ## 4. Running the Job <a id="running-job"></a>
 
@@ -134,31 +134,31 @@ Then launch the HDFS view from the top right hand corner.
 -->
 Keep login as ambari-qa and from the view on the Ambari console navigate to the directory `/user/ambari-qa/falcon/mirrorSrc`.
 
-![hdfs_directory_filesview](/assets/mirroring-datasets-using-falcon-hdp2.5/hdfs_directory_filesview.png)
+![hdfs_directory_filesview](assets/hdfs_directory_filesview.png)
 
 Click `Upload` button and upload any file you want to use.
 
-![local_file_path](/assets/mirroring-datasets-using-falcon-hdp2.5/local_file_path.png)
+![local_file_path](assets/local_file_path.png)
 
 Once uploaded the file should appear in the directory.
 
-![local_file_uploaded](/assets/mirroring-datasets-using-falcon-hdp2.5/local_file_uploaded.png)
+![local_file_uploaded](assets/local_file_uploaded.png)
 
 Now navigate to the Falcon UI and search for the job we created. The name of the Mirror job we had created was `MirrorTest`.
 
-![search_mirror_test](/assets/mirroring-datasets-using-falcon-hdp2.5/search_mirror_test.png)
+![search_mirror_test](assets/search_mirror_test.png)
 
 Select the `MirrorTest` job by clicking the checkbox and then click on `Schedule`.
 
-![schedule_mirror_test](/assets/mirroring-datasets-using-falcon-hdp2.5/schedule_mirror_test.png)
+![schedule_mirror_test](assets/schedule_mirror_test.png)
 
 The state of the job should change from `SUBMITTED` to `RUNNING`.
 
-![running_mirror_test](/assets/mirroring-datasets-using-falcon-hdp2.5/running_mirror_test.png)
+![running_mirror_test](assets/running_mirror_test.png)
 
 After a few minutes, use the HDFS View in the Ambari console to check the `/user/ambari-qa/falcon/mirrorTgt` directory and you should see that  your data is mirrored.
 
-![test_file_copied](/assets/mirroring-datasets-using-falcon-hdp2.5/test_file_copied.png)
+![test_file_copied](assets/test_file_copied.png)
 
 ## 4. Summary <a id="summary"></a>
 

@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Using the Command Line to Manage Files on HDFS
-tutorial-id: 120
-tutorial-series: Operations
-tutorial-version: hdp-2.5.0
-intro-page: false
-components: [ ambari, hdfs ]
+id: 120
+platform: hdp-2.5.0
+components: [ambari, hdfs]
 ---
 
 # Manage Files on HDFS with Ambari Files View
@@ -62,40 +59,40 @@ mv sf-salaries-2011-2013.csv sf-salaries-2014.csv sf-salary-datasets/
 
 > **Ambari password setup process**, refer to step [2.2 Setup Ambari Admin Password Manually](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password) of Learning the Ropes of the Hortonworks Sandbox.
 
-2\. Now that we have admin privileges, we can manage files on HDFS using Files View. Hover over the Ambari Selector Icon ![ambari_selector_icon](/assets/using-the-command-line-to-manage-hdfs/tutorial2/ambari_selector_icon.png), enter the Files
+2\. Now that we have admin privileges, we can manage files on HDFS using Files View. Hover over the Ambari Selector Icon ![ambari_selector_icon](assets/tutorial2/ambari_selector_icon.png), enter the Files
 View web-interface.
 
-![files_view](/assets/using-the-command-line-to-manage-hdfs/tutorial2/files_view.png)
+![files_view](assets/tutorial2/files_view.png)
 
 The Files View Interface will appear with the following default folders.
 
-![files_view_web_interface](/assets/using-the-command-line-to-manage-hdfs/tutorial2/files_view_web_interface.png)
+![files_view_web_interface](assets/tutorial2/files_view_web_interface.png)
 
-3\. We will create 4 folders using the Files View web-interface. All _three folders_: **sf-salaries-2011-2013, sf-salaries and sf-salaries-2014** will reside in the **hadoop** folder, which resides in **user**. Navigate into the **user** folder. Click the **new folder** button ![new_folder_button](/assets/using-the-command-line-to-manage-hdfs/tutorial2/new_folder_button.png), an add new folder window appears and name the folder `hadoop`. Press **enter** or **Add**
+3\. We will create 4 folders using the Files View web-interface. All _three folders_: **sf-salaries-2011-2013, sf-salaries and sf-salaries-2014** will reside in the **hadoop** folder, which resides in **user**. Navigate into the **user** folder. Click the **new folder** button ![new_folder_button](assets/tutorial2/new_folder_button.png), an add new folder window appears and name the folder `hadoop`. Press **enter** or **Add**
 
-![folder_name](/assets/using-the-command-line-to-manage-hdfs/tutorial2/folder_name.png)
+![folder_name](assets/tutorial2/folder_name.png)
 
 4\. Navigate into the **hadoop** folder. Create the _three folders_: **sf-salaries-2011-2013, sf-salaries and sf-salaries-2014** following the process stated in the previous instruction.
 
-![hadoop_internal_folders](/assets/using-the-command-line-to-manage-hdfs/tutorial2/hadoop_internal_folders.png)
+![hadoop_internal_folders](assets/tutorial2/hadoop_internal_folders.png)
 
 ### Upload Local Machine Files to HDFS
 
 We will upload two files from our local machine: **sf-salaries-2011-2013.csv** and **sf-salaries-2014.csv** to appropriate HDFS directories.
 
-1\. Navigate through the path `/user/hadoop/sf-salaries-2011-2013` or if you're already in **hadoop**, enter the **sf-salaries-2011-2013** folder. Click the upload button ![upload-button](/assets/using-the-command-line-to-manage-hdfs/tutorial2/upload.png) to transfer **sf-salaries-2011-2013.csv** into HDFS.
+1\. Navigate through the path `/user/hadoop/sf-salaries-2011-2013` or if you're already in **hadoop**, enter the **sf-salaries-2011-2013** folder. Click the upload button ![upload-button](assets/tutorial2/upload.png) to transfer **sf-salaries-2011-2013.csv** into HDFS.
 
 An Upload file window appears:
 
-![upload_file_window](/assets/using-the-command-line-to-manage-hdfs/tutorial2/upload_file_window.png)
+![upload_file_window](assets/tutorial2/upload_file_window.png)
 
 2\. Click on the cloud with an arrow. A window with files from your local machine appears, find **sf-salaries-2011-2013.csv** in the **Downloads/sf-salary-datasets** folder, select it and then press **open** button.
 
-![sf_salaries_2011_2013_csv](/assets/using-the-command-line-to-manage-hdfs/tutorial2/sf_salaries_2011_2013_csv.png)
+![sf_salaries_2011_2013_csv](assets/tutorial2/sf_salaries_2011_2013_csv.png)
 
 3\. In Files View, navigate to the **hadoop** folder and enter the **sf-salaries-2014** folder. Repeat the upload file process to upload **sf-salaries-2014.csv**.
 
-![sf_salaries_2014_csv](/assets/using-the-command-line-to-manage-hdfs/tutorial2/sf_salaries_2014_csv.png)
+![sf_salaries_2014_csv](assets/tutorial2/sf_salaries_2014_csv.png)
 
 ### View and Examine Directory Contents
 
@@ -112,7 +109,7 @@ Each time we open a directory, the Files View automatically lists the contents. 
 *  **Group** is who can make changes to the files/folders
 *  **Permissions** establishes who can read, write and execute data
 
-![files_view_web_interface](/assets/using-the-command-line-to-manage-hdfs/tutorial2/files_view_web_interface.png)
+![files_view_web_interface](assets/tutorial2/files_view_web_interface.png)
 
 ### Step 2: Find Out Space Utilization in a HDFS Directory <a id="find-out-space-utilization-in-a-hdfs-directory"></a>
 
@@ -120,7 +117,7 @@ In the command line when the directories and files are listed with the `hadoop f
 
 1\.  Let's view the size of **sf-salaries-2011-2013.csv** file. Navigate through `/user/hadoop/sf-salaries-2011-2013`. How much space has the file utilized? Files View shows **11.2 MB** for **sf-salaries-2011-2013.csv**.
 
-![sf_salaries_2011_2013_csv](/assets/using-the-command-line-to-manage-hdfs/tutorial2/sf_salaries_2011_2013_csv.png)
+![sf_salaries_2011_2013_csv](assets/tutorial2/sf_salaries_2011_2013_csv.png)
 
 
 ### Step 3: Download File From HDFS to Local Machine(Mac, Windows, Linux) <a id="download-files-hdfs-to-local-file-system"></a>
@@ -129,7 +126,7 @@ Files View enables users to download files and folders to their local machine wi
 
 1\.  Let's download the **sf-salaries-2011-2013.csv** file to our computer. Click on the file's row, the row's color becomes blue, a group of file operations will appear, select the Download button. The default directory the file downloads to is our **Download** folder on our local machine.
 
-![download_file_hdfs_local_machine](/assets/using-the-command-line-to-manage-hdfs/tutorial2/download_file_hdfs_local_machine.png)
+![download_file_hdfs_local_machine](assets/tutorial2/download_file_hdfs_local_machine.png)
 
 
 ### Step 4: Explore Two Advanced Features <a id="explore-two-advanced-features"></a>
@@ -140,11 +137,11 @@ File Concatenation merges two files together. If we concatenate **sf-salaries-20
 
 1\. Before we merge the csv files, we must place them in the same folder. Click on **sf-salaries-2011-2013.csv** row, it will highlight in blue, then press copy and in the copy window appears, select the **sf-salaries-2014** folder and press **Copy** to copy the csv file to it.
 
-![copy_to_sf_salaries_2014](/assets/using-the-command-line-to-manage-hdfs/tutorial2/copy_to_sf_salaries_2014.png)
+![copy_to_sf_salaries_2014](assets/tutorial2/copy_to_sf_salaries_2014.png)
 
 2\. We will merge two large files together by selecting them both and performing concatenate operation. Navigate to the **sf-salaries-2014** folder. Select **sf-salaries-2011-2013.csv**, hold shift and click on **sf-salaries-2014.csv**. Click the concatenate button. The files will be downloaded into the **Download** folder on your local machine.
 
-![concatenate_csv_files](/assets/using-the-command-line-to-manage-hdfs/tutorial2/concatenate_csv_files.png)
+![concatenate_csv_files](assets/tutorial2/concatenate_csv_files.png)
 
 3\. By default, Files View saves the merged files as a txt file, we can open the file and save it as a csv file. Then open the csv file and you will notice that all the salaries from 2014 are appended to the salaries from 2011-2013.
 
@@ -152,15 +149,15 @@ File Concatenation merges two files together. If we concatenate **sf-salaries-20
 
 Copy file or directories recursively means all the directory's files and subdirectories to the bottom of the directory tree are copied. For instance, we will copy the **hadoop** directory and all of its contents to a new location within our hadoop cluster. In production, the copy operation is used to copy large datasets within the hadoop cluster or between 2 or more clusters.
 
-1\. Navigate to the **user** directory. Click on the row of the **hadoop** directory. Select the Copy button ![copy_button](/assets/using-the-command-line-to-manage-hdfs/tutorial2/copy_button.png).
+1\. Navigate to the **user** directory. Click on the row of the **hadoop** directory. Select the Copy button ![copy_button](assets/tutorial2/copy_button.png).
 
 2\. The **Copy to** window will appear. Select the **tmp** folder, the row will turn blue. If you select the folder icon, the contents of **tmp** become visible. Make sure the row is highlighted blue to do the copy. Click the blue **Copy** button to copy the **hadoop** folder recursively to this new location.
 
-![copy_hadoop_to_tmp](/assets/using-the-command-line-to-manage-hdfs/tutorial2/copy_hadoop_to_tmp.png)
+![copy_hadoop_to_tmp](assets/tutorial2/copy_hadoop_to_tmp.png)
 
 3\. A new copy of the **hadoop** folder and all of its contents can be found in the **tmp** folder. Navigate to **tmp** for verification. Check that all of the **hadoop** folder's contents copied successfully.
 
-![hadoop_copied_to_tmp](/assets/using-the-command-line-to-manage-hdfs/tutorial2/hadoop_copied_to_tmp.png)
+![hadoop_copied_to_tmp](assets/tutorial2/hadoop_copied_to_tmp.png)
 
 ## Summary <a id="summary-lab2">
 

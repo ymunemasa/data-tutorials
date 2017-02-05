@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Introduction to Phoenix Concepts
-tutorial-id: 650
-tutorial-series: Hello World
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ hbase, phoenix, ambari ]
+id: 650
+platform: hdp-2.5.0
+components: [hbase, phoenix, ambari]
 ---
 
 ## Introduction
@@ -35,15 +32,15 @@ There is no separate installation required for Phoenix. You can enable Phoenix w
 
 1/ Go to Ambari and select Services tab > HBase > Configs tab.
 
-![config_HBase](/assets/introducing-hbase-phoenix/config_HBase.png)
+![config_HBase](assets/config_HBase.png)
 
 2/ Scroll down to the Phoenix SQL settings.
 
-![phoenix_tab](/assets/introducing-hbase-phoenix/phoenix_tab.png)
+![phoenix_tab](assets/phoenix_tab.png)
 
 3/ Click the `Enable Phoenix` slider button.
 
-![enable_phoenix](/assets/introducing-hbase-phoenix/enable_phoenix.png)
+![enable_phoenix](assets/enable_phoenix.png)
 
 4/ You have to change 3 more properties. Click on `Advanced Tab` and then scroll down to open `Advanced hbase-site` section. Add `org.apache.ranger.authorization.hbase.RangerAuthorizationCoprocessor` in following three properties:
 
@@ -53,23 +50,23 @@ hbase.coprocessor.region.classes
 hbase.coprocessor.regionserver.classes
 ~~~
 
-![config_HBase1](/assets/introducing-hbase-phoenix/config_HBase1.png)
+![config_HBase1](assets/config_HBase1.png)
 
 5/ Scroll up and click `Save` to get your config change reflected.
 
-![save_phoenix_setting](/assets/introducing-hbase-phoenix/save_phoenix_setting.png)
+![save_phoenix_setting](assets/save_phoenix_setting.png)
 
 A pop up will come to write about the change that you are making. Type **Enabled Phoenix** in it and click `Save`.
 
-![save_phoenix_setting_popup](/assets/introducing-hbase-phoenix/save_phoenix_setting_popup.png)
+![save_phoenix_setting_popup](assets/save_phoenix_setting_popup.png)
 
 After pressing `Save`, you will get a popup like this:
 
-![save_configuration_changes](/assets/introducing-hbase-phoenix/save_configuration_changes.png)
+![save_configuration_changes](assets/save_configuration_changes.png)
 
 6/ Restart HBase service.
 
-![restart_HBase_service](/assets/introducing-hbase-phoenix/restart_HBase_service.png)
+![restart_HBase_service](assets/restart_HBase_service.png)
 
 ## 2. Launch Phoenix Shell <a id="launch-phoenix-shell"></a>
 
@@ -83,7 +80,7 @@ $>./sqlline.py localhost
 
 Your Phoenix shell will look like this:
 
-![enter_phoenix_shell](/assets/introducing-hbase-phoenix/enter_phoenix_shell.png)
+![enter_phoenix_shell](assets/enter_phoenix_shell.png)
 
 ## 3. Create Phoenix Table on existing HBase table <a id="create-phoenix-table"></a>
 
@@ -100,7 +97,7 @@ create table "driver_dangerous_event" ("row" VARCHAR primary key,"events"."drive
 "events"."truckId" VARCHAR);
 ~~~
 
-![create_phoenix_table](/assets/introducing-hbase-phoenix/create_table_phoenix.png)
+![create_phoenix_table](assets/create_table_phoenix.png)
 
 You can view the HBase table data from this Phoenix table.
 
@@ -108,7 +105,7 @@ You can view the HBase table data from this Phoenix table.
 select * from "driver_dangerous_event";
 ~~~
 
-![select_data_phoenix](/assets/introducing-hbase-phoenix/select_data_phoenix.png)
+![select_data_phoenix](assets/select_data_phoenix.png)
 
 If you want to change the view from horizontal to vertical, type the following command in the shell and then try to view the data again:
 
@@ -118,7 +115,7 @@ If you want to change the view from horizontal to vertical, type the following c
 select * from "driver_dangerous_event";
 ~~~
 
-![select_data_phoenix1](/assets/introducing-hbase-phoenix/select_data_phoenix1.png)
+![select_data_phoenix1](assets/select_data_phoenix1.png)
 
 If you do not like this view, you can change it back to horizontal view by running the following command:
 
@@ -138,11 +135,11 @@ UPSERT INTO "driver_dangerous_event" values('5','23','Matt','2016-02-29 12:35:21
 select * from "driver_dangerous_event";
 ~~~
 
-![upsert_data_phoenix](/assets/introducing-hbase-phoenix/upsert_data_phoenix.png)
+![upsert_data_phoenix](assets/upsert_data_phoenix.png)
 
 You will see a newly added row:
 
-![upsert_data_phoenix1](/assets/introducing-hbase-phoenix/upsert_data_phoenix1.png)
+![upsert_data_phoenix1](assets/upsert_data_phoenix1.png)
 
 ## 5. Setting up SQuirrel and Phoenix Integration <a id="squirrel-phoenix-setup"></a>
 

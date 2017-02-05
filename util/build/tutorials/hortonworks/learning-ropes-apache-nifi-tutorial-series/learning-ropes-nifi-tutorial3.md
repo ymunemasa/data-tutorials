@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Tutorial 3 Ingest NextBus Live Stream Routes to the DataFlow
-tutorial-id: 640
-tutorial-series: Basic Development
-tutorial-version: hdf-2.0.0
-intro-page: false
-components: [ nifi ]
+id: 640
+
+platform: hdf-2.0.0
+
+components: [nifi ]
 ---
 
 # Tutorial 3: Ingest NextBus Live Stream Routes to the DataFlow
@@ -15,7 +15,7 @@ In this tutorial, you will replace the section of our dataflow that generates th
 
 In this tutorial, you will build the Ingest NextBus SF Muni Live Stream section of the dataflow:
 
-![complete_dataflow_lab3_live_stream_ingestion](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/complete_dataflow_lab3_live_stream_ingestion.png)
+![complete_dataflow_lab3_live_stream_ingestion](assets/lab3-ingest-nextbus-live-stream-nifi-lab-series/complete_dataflow_lab3_live_stream_ingestion.png)
 
 Feel free to download the [Lab3-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab3-template/Lab3-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to the lab.
 
@@ -67,7 +67,7 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 | `URL`  | `http://webservices.nextbus.com/service/publicXMLFeed?command=vehicleLocations&a=sf-muni&r=M&t=0` |
 | `Filename`  | `vehicleLoc_SF_OceanView_${now():format("HHmmssSSS")}.xml` |
 
-![getHTTP_liveStream_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/getHTTP_liveStream_config_property_tab_window.png)
+![getHTTP_liveStream_config_property_tab_window](assets/lab3-ingest-nextbus-live-stream-nifi-lab-series/getHTTP_liveStream_config_property_tab_window.png)
 
 4\. Now that each property is updated. Navigate to the **Scheduling tab** and change the **Run Schedule** from 0 sec to `4 sec`, so that the processor executes a task every 1 second. Therefore, overuse of system resources is prevented.
 
@@ -85,7 +85,7 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 
 **Directory** is changed to a new location for the real-time data coming in from NextBus live stream.
 
-![modify_putFile_in_geo_enrich_section](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/modify_putFile_in_geo_enrich_section.png)
+![modify_putFile_in_geo_enrich_section](assets/lab3-ingest-nextbus-live-stream-nifi-lab-series/modify_putFile_in_geo_enrich_section.png)
 
 2\. Click **Apply**.
 
@@ -94,9 +94,9 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 
 Now that we added NextBus San Francisco Muni Live Stream Ingestion to our dataflow , let's run the dataflow and verify if we receive the expected results in our output directory.
 
-1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab1-build-nifi-dataflow/start_button_nifi_iot.png). Your screen should look like the following:
+1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](assets/lab1-build-nifi-dataflow/start_button_nifi_iot.png). Your screen should look like the following:
 
-![complete_dataflow_lab3_live_stream_ingestion](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/complete_dataflow_lab3_live_stream_ingestion.png)
+![complete_dataflow_lab3_live_stream_ingestion](assets/lab3-ingest-nextbus-live-stream-nifi-lab-series/complete_dataflow_lab3_live_stream_ingestion.png)
 
 2\. Let's verify the data in output directory is correct. Navigate to the following directories and open a random one to check the data.
 
@@ -108,7 +108,7 @@ vi 002a7d47-b6bb-41e1-b930-0e172a54638b
 
 Did you receive neighborhoods similar to the image below?
 
-![nextbus_liveStream_output_lab3](/assets/learning-ropes-nifi-lab-series/lab3-ingest-nextbus-live-stream-nifi-lab-series/nextbus_liveStream_output_lab3.png)
+![nextbus_liveStream_output_lab3](assets/lab3-ingest-nextbus-live-stream-nifi-lab-series/nextbus_liveStream_output_lab3.png)
 
 ## Summary <a id="summary-tutorial3"></a>
 

@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Hortonworks Sandbox Guide
-tutorial-id: 730
-tutorial-series: Hello World
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ sandbox ]
+id: 730
+
+platform: hdp-2.5.0
+
+components: [sandbox ]
 ---
 
 # Opening Docker Ports in Hortonworks Sandbox
@@ -16,7 +16,7 @@ While introducing docker into the mix has made the sandbox more portable, it has
 
 In order to explain the port forwardings it’s first a good idea to understand a top level view of what’s happening. Have a look at the picture below which explains how data is forwarded from the sandbox to the outside world:  
 
-![docker_architecture](/assets/hortonworks-sandbox-hdp2.5-guide/docker_architecture.png)
+![docker_architecture](assets-guide/docker_architecture.png)
 
 At a glance, the first thing to notice is that there are 2 sets of port forwardings being applied marked on the picture with the two large blue arrows.   
 The first ( marked with orange ) is responsible for forwarding information from the container to the virtual machine, while the second is responsible for forwarding ports to the outside world from the virtual machine.
@@ -86,7 +86,7 @@ The “-p” flag is what is responsible for the port forwardings. All we need t
 
 1.8\. Save and close the file, then run the /root/start_scripts/start_sandbox.sh script. This script reattaches the container Sandbox with your new port added in the list. and Our new port will be visible if we run a “docker ps” command:
 
-![docker_ps](/assets/hortonworks-sandbox-hdp2.5-guide/docker_ps.png)
+![docker_ps](assets-guide/docker_ps.png)
 
 ### 2. Forwarding ports from the VM to the outside world
 
@@ -98,14 +98,14 @@ For vmware all port forwardings are done automatically to the 172.x.x.x IP so th
 
 For virtualbox the ports need to be added in manually. Open the virtualbox interface:
 
-![open_virtualbox](/assets/hortonworks-sandbox-hdp2.5-guide/open_virtualbox.png)
+![open_virtualbox](assets-guide/open_virtualbox.png)
 
 Click the `Settings` button and go to the `Network` tab, click `Advanced` and `Port Forwarding`:  
 
-![port_forwarding](/assets/hortonworks-sandbox-hdp2.5-guide/port_forwarding.png)
+![port_forwarding](assets-guide/port_forwarding.png)
 
 Click the + button on the top right of the dialogue box and add in the new rule, similar to how the other lines look:
 
-![port_added](/assets/hortonworks-sandbox-hdp2.5-guide/port_added.png)
+![port_added](assets-guide/port_added.png)
 
 Click OK and you’re done!

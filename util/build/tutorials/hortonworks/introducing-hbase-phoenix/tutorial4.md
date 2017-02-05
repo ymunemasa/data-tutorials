@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: HBase Backup and Restore Utility
-tutorial-id: 650
-tutorial-series: Hello World
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ hbase ]
+id: 650
+
+platform: hdp-2.5.0
+
+components: [hbase ]
 ---
 
 ## Introduction
@@ -54,7 +54,7 @@ Now create a full backup of table `driver_dangerous_event` on `hdfs://sandbox.ho
 $>hbase backup create full hdfs://sandbox.hortonworks.com:8020/user/hbase/backup driver_dangerous_event -w 3  
 ~~~
 
-![create_full_backup_image](/assets/introducing-hbase-phoenix/create_full_backup.png)
+![create_full_backup_image](assets/create_full_backup.png)
 
 You check whether the backup of your table is created in HDFS or not.
 
@@ -62,7 +62,7 @@ You check whether the backup of your table is created in HDFS or not.
 $>hadoop fs -ls /user/hbase/backup
 ~~~
 
-![view_full_backup](/assets/introducing-hbase-phoenix/view_full_backup.png)
+![view_full_backup](assets/view_full_backup.png)
 
 One more way to check whether the backup is taken or not is by running:
 
@@ -70,7 +70,7 @@ One more way to check whether the backup is taken or not is by running:
 $>hbase backup history
 ~~~
 
-![backup_history](/assets/introducing-hbase-phoenix/backup_history.png)
+![backup_history](assets/backup_history.png)
 
 Note the backup_ID which will be used while restoring the data.
 
@@ -103,7 +103,7 @@ Now create a backup set called event which has a table driver_dangerous_event.
 $>hbase backup set add event driver_dangerous_event
 ~~~
 
-![create_backup_set](/assets/introducing-hbase-phoenix/create_backup_set.png)
+![create_backup_set](assets/create_backup_set.png)
 
 Let’s check whether our set is added or not using list:
 
@@ -111,7 +111,7 @@ Let’s check whether our set is added or not using list:
 $>hbase backup set list
 ~~~
 
-![view_backup_set](/assets/introducing-hbase-phoenix/view_backup_set.png)
+![view_backup_set](assets/view_backup_set.png)
 
 ## 3. Restoring a Backup <a id="restore-backup"></a>
 
@@ -143,7 +143,7 @@ hbase>disable 'driver_dangerous_event'
 hbase>drop 'driver_dangerous_event'
 ~~~
 
-![drop_table](/assets/introducing-hbase-phoenix/drop_table.png)
+![drop_table](assets/drop_table.png)
 
 You also have to delete the mapping table from Phoenix to avoid any confusion.
 
@@ -160,7 +160,7 @@ Now drop that mapping table:
 drop table "driver_dangerous_event";
 ~~~
 
-![drop_table_phoenix](/assets/introducing-hbase-phoenix/drop_table_phoenix.png)
+![drop_table_phoenix](assets/drop_table_phoenix.png)
 
 Exit the Phoenix shell by typing `!quit` and now drop the table from Hive also. Go back to Hive view and drop the table:
 
@@ -170,7 +170,7 @@ drop table hbase_table_driver_dangerous_event;
 
 Click on green `Execute` button, you will see something like this:
 
-![drop_table_hive](/assets/introducing-hbase-phoenix/drop_table_hive.png)
+![drop_table_hive](assets/drop_table_hive.png)
 
 Now let’s restore the backup of this table which you created earlier in the tutorial:
 
@@ -180,11 +180,11 @@ Now let’s restore the backup of this table which you created earlier in the tu
 $>hbase restore /user/hbase/backup backup_1466560117119 driver_dangerous_event -automatic
 ~~~
 
-![restore_command_result](/assets/introducing-hbase-phoenix/restore_command_result.png)
+![restore_command_result](assets/restore_command_result.png)
 
 You can view the result at the end of this command’s execution.
 
-![restore_command](/assets/introducing-hbase-phoenix/restore_command.png)
+![restore_command](assets/restore_command.png)
 
 ## 4. Summary <a id="summary"></a>
 

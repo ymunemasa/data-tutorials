@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: How to Process Data with Apache Pig
-tutorial-id: 150
-tutorial-series: Basic Development
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ ambari, pig ]
+id: 150
+
+platform: hdp-2.5.0
+
+components: [ambari, pig ]
 ---
 
 # How To Process Data with Apache Pig
@@ -55,21 +55,21 @@ Once you have the file you will need to `unzip` the file into a directory. We wi
 
 We start by selecting the `HDFS Files view` from the Off-canvas menu at the top. The `HDFS Files view` allows us to view the Hortonworks Data Platform(HDP) file store. This is separate from the local file system. For the Hortonworks Sandbox, it will be part of the file system in the Hortonworks Sandbox VM.
 
-![select_files_view](/assets/how-to-process-data-with-apache-pig-hdp2.5/select_files_view.png)
+![select_files_view](assets/select_files_view.png)
 
 Navigate to `/user/maria_dev` and click on the Upload button to select the files we want to upload into the Hortonworks Sandbox environment.
 
-![upload_button](/assets/how-to-process-data-with-apache-pig-hdp2.5/upload_button.png)
+![upload_button](assets/upload_button.png)
 
 Click on the browse button to open a dialog box. Navigate to where you stored the `drivers.csv` file on your local disk and select `drivers.csv` and click again `upload`. Do the same thing for `timesheet.csv`. When you are done you will see there are two new files in your directory.
 
-![uploaded_files](/assets/how-to-process-data-with-apache-pig-hdp2.5/uploaded_files.png)
+![uploaded_files](assets/uploaded_files.png)
 
 ### Step 3: Create Pig Script <a id="create-pig-script"></a>
 
 Now that we have our data files, we can start writing our `Pig script`. Click on the `Pig View` from the Off-canvas menu.
 
-![select_pig_view](/assets/how-to-process-data-with-apache-pig-hdp2.5/select_pig_view.png)
+![select_pig_view](assets/select_pig_view.png)
 
 You can also explore **Grunt shell** from the terminal which is used to write Pig Latin scripts. There are 3 execute modes of accessing Grunt shell:
 
@@ -84,19 +84,19 @@ Explore this [link](https://pig.apache.org/docs/r0.16.0/cmds.html) to explore mo
 
 We see the `Pig user interface` in our browser window. On the left we can choose between our `saved Pig  Scripts`,  `UDFs`  and the `Pig  Jobs` executed in the past. To the right of this menu bar we see our `saved Pig  Scripts`.
 
-![pig_view_home_page](/assets/how-to-process-data-with-apache-pig-hdp2.5/pig_view_home_page.png)
+![pig_view_home_page](assets/pig_view_home_page.png)
 
 #### 3.2 Create a New Script
 
 To get started push the button `"New Script"` at the top right and fill in a name for your script. If you leave the gap “Script HDFS Location” empty, it will be filled automatically.
 
-![create_new_script](/assets/how-to-process-data-with-apache-pig-hdp2.5/create_new_script.png)
+![create_new_script](assets/create_new_script.png)
 
 After clicking on “create”, a new page opens.  
 At the center is the composition area where we will be writing our script. At top right of the composition area are buttons to `Execute`, `Explain  and perform a Syntax check` of the current script.
 At the left are buttons to save, copy or delete the script and at the very bottom we can add a argument.
 
-![new_script_page](/assets/how-to-process-data-with-apache-pig-hdp2.5/new_script_page.png)
+![new_script_page](assets/new_script_page.png)
 
 #### 3.3 Create a Script to Load drivers.csv Data
 
@@ -106,7 +106,7 @@ The first thing we need to do is load the data. We use the load statement for th
 drivers = LOAD 'drivers.csv' USING PigStorage(',');
 ~~~
 
-![load_driver_data](/assets/how-to-process-data-with-apache-pig-hdp2.5/load_driver_data.png)
+![load_driver_data](assets/load_driver_data.png)
 
 #### 3.4 Create a Script to Filter Out Data
 
@@ -116,13 +116,13 @@ To filter out the first row of the data we have to add this line:
 raw_drivers = FILTER drivers BY $0>1;
 ~~~
 
-![filter_driver_data](/assets/how-to-process-data-with-apache-pig-hdp2.5/filter_driver_data.png)
+![filter_driver_data](assets/filter_driver_data.png)
 
 #### 3.5 Implement a Script to Name the Fields
 
 The next thing we want to do is name the fields. We will use a `FOREACH` statement to iterate through the raw_drivers data object. We can use `Pig  Helper` that is at the bottom of the composition area to provide us with a template. We will click on `Pig  Helper`, select Data processing functions and then click on the `FOREACH template`. We can then replace each element by hitting the tab key.
 
-![foreach_name_fields](/assets/how-to-process-data-with-apache-pig-hdp2.5/foreach_name_fields.png)
+![foreach_name_fields](assets/foreach_name_fields.png)
 
 So the `FOREACH` statement will iterate through the raw_drivers data object and `GENERATE` pulls out selected fields and assigns them names. The new data object we are creating is then named `driver_details`. Our code will now be:
 
@@ -130,7 +130,7 @@ So the `FOREACH` statement will iterate through the raw_drivers data object and 
 drivers_details = FOREACH raw_drivers GENERATE $0 AS driverId, $1 AS name;
 ~~~
 
-![iterate_pulls_fields_driver](/assets/how-to-process-data-with-apache-pig-hdp2.5/iterate_pulls_fields_driver.png)
+![iterate_pulls_fields_driver](assets/iterate_pulls_fields_driver.png)
 
 
 #### 3.6 Perform these operations for timesheet data as well
@@ -143,7 +143,7 @@ raw_timesheet = FILTER timesheet by $0>1;
 timesheet_logged = FOREACH raw_timesheet GENERATE $0 AS driverId, $2 AS hours_logged, $3 AS miles_logged;
 ~~~
 
-![iterate_pulls_fields_timesheet](/assets/how-to-process-data-with-apache-pig-hdp2.5/iterate_pulls_fields_timesheet.png)
+![iterate_pulls_fields_timesheet](assets/iterate_pulls_fields_timesheet.png)
 
 #### 3.7 Use Script to Filter The Data (all hours and miles for each driverId)
 
@@ -153,7 +153,7 @@ The next line of code is a `GROUP` statement that groups the elements in `timesh
 grp_logged = GROUP timesheet_logged by driverId;
 ~~~
 
-![group_timesheet_by_driverId](/assets/how-to-process-data-with-apache-pig-hdp2.5/group_timesheet_by_driverId.png)
+![group_timesheet_by_driverId](assets/group_timesheet_by_driverId.png)
 
 #### 3.8 Compose a Script to Find the Sum of Hours and Miles Logged by each Driver
 
@@ -165,7 +165,7 @@ SUM(timesheet_logged.hours_logged) as sum_hourslogged,
 SUM(timesheet_logged.miles_logged) as sum_mileslogged;
 ~~~
 
-![sum_hours_miles_logged](/assets/how-to-process-data-with-apache-pig-hdp2.5/sum_hours_miles_logged.png)
+![sum_hours_miles_logged](assets/sum_hours_miles_logged.png)
 
 #### 3.9 Build a Script to join driverId, Name, Hours and Miles Logged
 
@@ -177,7 +177,7 @@ join_data = FOREACH join_sum_logged GENERATE $0 as driverId, $4 as name, $1 as h
 dump join_data;
 ~~~
 
-![join_data_objects](/assets/how-to-process-data-with-apache-pig-hdp2.5/join_data_objects.png)
+![join_data_objects](assets/join_data_objects.png)
 
 Let’s take a look at our script. The first thing to notice is we never really address single rows of data to the left of the equals sign and on the right we just describe what we want to do for each row. We just assume things are applied to all the rows. We also have powerful operators like `GROUP` and `JOIN` to sort rows by a key and to build new data objects.
 
@@ -185,15 +185,15 @@ Let’s take a look at our script. The first thing to notice is we never really 
 
 At this point we can save our script. Let's execute our code by clicking on the `Execute` button at the top right of the composition area, which opens a new page.
 
-![script_running](/assets/how-to-process-data-with-apache-pig-hdp2.5/script_running.png)
+![script_running](assets/script_running.png)
 
 As the jobs are run we will get status boxes where we will see logs, error message, the output of our script and our code at the bottom.
 
-![script_results](/assets/how-to-process-data-with-apache-pig-hdp2.5/script_results.png)
+![script_results](assets/script_results.png)
 
 If you scroll down to the “Logs…” and click on the link you can see the log file of your jobs. We should always check the Logs to check if your script was executed correctly.
 
-![script_logs](/assets/how-to-process-data-with-apache-pig-hdp2.5/script_logs.png)
+![script_logs](assets/script_logs.png)
 
 **NOTE : Notice, in the Logs, the script typically takes a little around 47 seconds to finish on our single node pseudo cluster.**
 
@@ -229,11 +229,11 @@ dump join_data;
 
 Let’s run the same Pig script with Tez by clicking on `Execute on Tez` button near the `Execute` button:
 
-![execute_script_on_tez](/assets/how-to-process-data-with-apache-pig-hdp2.5/execute_script_on_tez.png)
+![execute_script_on_tez](assets/execute_script_on_tez.png)
 
 Notice the time after the execution completes:
 
-![script_logs_with_tez](/assets/how-to-process-data-with-apache-pig-hdp2.5/script_logs_with_tez.png)
+![script_logs_with_tez](assets/script_logs_with_tez.png)
 
 On our machine it took around 16 seconds with Pig using the Tez engine. That is more than 2X faster than Pig using MapReduce even without any specific optimization in the script for Tez.
 Tez definitely lives up to it’s name.

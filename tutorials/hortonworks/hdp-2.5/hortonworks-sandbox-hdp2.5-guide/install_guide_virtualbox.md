@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Hortonworks Sandbox Guide
-tutorial-id: 730
-tutorial-series: Hello World
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ sandbox ]
+id: 730
+platform: hdp-2.5.0
+components: [sandbox]
 ---
 
 # Hortonworks Sandbox with VirtualBox
@@ -14,50 +11,50 @@ components: [ sandbox ]
 
 The Hortonworks Sandbox is delivered as a virtual appliance.  The virtual appliance (indicated by an .ovf or .ova extension in the filename) runs in the context of a virtual machine (VM), a piece of software that appears to be an application to the underlying (host) operating system (OS), but that looks like a bare machine, including CPU, storage, network adapters, and so forth, to the operating system and applications that run on it.
 
-To use the Hortonworks Sandbox, one of the supported virtual machine applications needs to installed on your host machine:  
+To use the Hortonworks Sandbox, one of the supported virtual machine applications needs to installed on your host machine:
 
-1\. VirtualBox  
-2\. VMware Fusion  
-3\. Hyper-V  
+1\. VirtualBox
+2\. VMware Fusion
+3\. Hyper-V
 
-This document describes importing the Hortonworks Sandbox virtual appliance into VirtualBox.  
+This document describes importing the Hortonworks Sandbox virtual appliance into VirtualBox.
 
-## Prerequisites  
+## Prerequisites
 
-To use the Hortonworks Sandbox with VirtualBox the following requirements need to be met:  
+To use the Hortonworks Sandbox with VirtualBox the following requirements need to be met:
 
-**Oracle VirtualBox Installed**  
+**Oracle VirtualBox Installed**
 
-1\.  Version 4.2 or later  
-2\.  You can download VirtualBox here: https://www.virtualbox.org/wiki/Downloads  
+1\.  Version 4.2 or later
+2\.  You can download VirtualBox here: https://www.virtualbox.org/wiki/Downloads
 
-**Host Operating System**  
+**Host Operating System**
 
-Host operating system refers to the operating system of your computer.  The following [link](https://www.virtualbox.org/manual/ch01.html#hostossupport) gives an exhaustive list of operating systems supported to run VirtualBox.  
+Host operating system refers to the operating system of your computer.  The following [link](https://www.virtualbox.org/manual/ch01.html#hostossupport) gives an exhaustive list of operating systems supported to run VirtualBox.
 
-**Hardware** (The newer the hardware the better):  
+**Hardware** (The newer the hardware the better):
 
-1\. **CPU** - A 64-bit machine with a multi-core CPU that supports virtualization.  Please look into your operating system’s documentation to verify if you are running a 64 bit OS.  Below are references for Mac OS X and Windows.  
+1\. **CPU** - A 64-bit machine with a multi-core CPU that supports virtualization.  Please look into your operating system’s documentation to verify if you are running a 64 bit OS.  Below are references for Mac OS X and Windows.
 
-Windows article:  
-http://windows.microsoft.com/en-us/windows7/32-bit-and-64-bit-windows-frequently-asked-questions  
-Mac OS X:  
-https://support.apple.com/en-us/HT3696  
+Windows article:
+http://windows.microsoft.com/en-us/windows7/32-bit-and-64-bit-windows-frequently-asked-questions
+Mac OS X:
+https://support.apple.com/en-us/HT3696
 
-2\. **BIOS** - Has been enabled for virtualization support.  Please contact your specific computer vendor to determine how to enable/verify this feature in your machine’s BIOS.  
+2\. **BIOS** - Has been enabled for virtualization support.  Please contact your specific computer vendor to determine how to enable/verify this feature in your machine’s BIOS.
 
-3\. **RAM** - At least 8 GB of RAM (The more, the better)  
-If you wish to enable services such as Ambari, HBase, Storm, Kafka, or Spark please ensure you have at least 10 Gb of physical RAM in order to run the VM using 8 GB.  
+3\. **RAM** - At least 8 GB of RAM (The more, the better)
+If you wish to enable services such as Ambari, HBase, Storm, Kafka, or Spark please ensure you have at least 10 Gb of physical RAM in order to run the VM using 8 GB.
 
-More information for hardware requirements for VirtualBox can be found [here](https://www.virtualbox.org/wiki/End-user_documentation).   
+More information for hardware requirements for VirtualBox can be found [here](https://www.virtualbox.org/wiki/End-user_documentation).
 
-4\. **Browsers**  
+4\. **Browsers**
 
-1\.  Chrome 25+,  
-2\.  IE 9+ (Sandbox will not run on IE 10)  
-3\.  Safari 6+  
+1\.  Chrome 25+,
+2\.  IE 9+ (Sandbox will not run on IE 10)
+3\.  Safari 6+
 
-**Hortonworks Sandbox virtual appliance for VirtualBox**  
+**Hortonworks Sandbox virtual appliance for VirtualBox**
 
 Download the correct virtual appliance file for your environment from [here](http://hortonworks.com/products/hortonworks-sandbox/#install). The file extension for a virtual appliance for VirtualBox should be .ova
 
@@ -65,9 +62,9 @@ Download the correct virtual appliance file for your environment from [here](htt
 
 The steps provided describe how to import the Hortonworks Sandbox virtual appliance into VirtualBox.  The screenshots displayed are taken from Mac OS X and Windows 7 machine running the VirtualBox 4.3.x software.
 
-1\. Open the **Oracle VM VirtualBox Manager**  
+1\. Open the **Oracle VM VirtualBox Manager**
 
-You can do so by double clicking the icon: ![virtualbox_logo](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_logo.png)
+You can do so by double clicking the icon: ![virtualbox_logo](assets-guide/virtualbox_logo.png)
 
 On a Mac OS X machine, by default the application is installed within the Applications folder, hence the icon to launch the application can be found there.
 On a Windows machine, the executable (.exe) file is typically found in _c:\Program Files\Oracle\VirtualBox\VBoxManage.exe_
@@ -76,33 +73,33 @@ The **Oracle VM VirtualBox Manager** window opens.
 
 _Mac OS X_:
 
-![virtualbox_homepage](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_homepage.png)
+![virtualbox_homepage](assets-guide/virtualbox_homepage.png)
 
 _Windows 7_
 
-![virtualbox_windows](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_windows.png)
+![virtualbox_windows](assets-guide/virtualbox_windows.png)
 
-2\. 	Open the **Preferences** dialog window.  
+2\. 	Open the **Preferences** dialog window.
 
 _Mac OS X_:  Select **VirtualBox->Preferences…** from the menu bar while the Oracle VM VirtualBox Manager application is in focus.
 
-![virtualbox_preferences](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_preferences.png)
+![virtualbox_preferences](assets-guide/virtualbox_preferences.png)
 
 _Windows 7_:
 
 Select **File->Preferences…** within the Oracle VM VirtualBox Manager
 
-![virtualbox_preferences_windows](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_preferences_windows.png)
+![virtualbox_preferences_windows](assets-guide/virtualbox_preferences_windows.png)
 
-3\. 	Uncheck **Auto-Capture Keyboard** within the Preferences dialog window.  
+3\. 	Uncheck **Auto-Capture Keyboard** within the Preferences dialog window.
 
 _Mac OS X_: Select the **Input** icon button from the top of the window first to get to the window containing the **Auto-Capture Keyboard** checkbox.
 
-![virtualbox_autocapture](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_autocapture.png)
+![virtualbox_autocapture](assets-guide/virtualbox_autocapture.png)
 
 _Windows 7_:  Select the Input icon button from the left hand pane of the window first to get to the following window.
 
-![virtualbox_autocapture_windows](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_autocapture_windows.png)
+![virtualbox_autocapture_windows](assets-guide/virtualbox_autocapture_windows.png)
 
 Click the **OK** button once done.  This will close the Preferences window.
 
@@ -110,22 +107,22 @@ Click the **OK** button once done.  This will close the Preferences window.
 
 _Mac OS X_:  Select **File->Import Appliance…** from the menu bar while the Oracle VM VirtualBox Manager application is in focus.
 
-![virtualbox_importappliance](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_importappliance.png)
+![virtualbox_importappliance](assets-guide/virtualbox_importappliance.png)
 
 _Windows 7_:
 Select **File->Import Appliance…** within the Oracle VM VirtualBox Manager
 
-![virtualbox_importappliance_windows](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_importappliance_windows.png)
+![virtualbox_importappliance_windows](assets-guide/virtualbox_importappliance_windows.png)
 
 The **Appliance to Import** dialog window will then display allowing to select the virtual appliance to import.
 
 _Mac OS X_:
 
-![virtualbox_browse](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_browse.png)
+![virtualbox_browse](assets-guide/virtualbox_browse.png)
 
 _Windows 7_: A separate dialog window is put in front of the **VM VirtualBox Manager** window
 
-![virtualbox_browse_windows](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_browse_windows.png)
+![virtualbox_browse_windows](assets-guide/virtualbox_browse_windows.png)
 
 5\. 	Click on the **folder** icon that will open a file dialog window.  Select the virtual appliance file that you downloaded as a prerequisite.  After selecting the file click the **Open** button.
 
@@ -133,12 +130,12 @@ _Windows 7_: A separate dialog window is put in front of the **VM VirtualBox Man
 
 _Mac OS X_:
 
-![virtualbox_next](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_next.png)
+![virtualbox_next](assets-guide/virtualbox_next.png)
 
 _Windows 7_:
 On Windows after you select the virtual appliance file, you are brought back to this window.
 
-![virtualbox_next_windows](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_next_windows.png)
+![virtualbox_next_windows](assets-guide/virtualbox_next_windows.png)
 
 After clicking on Next, the Appliance Settings are displayed.
 
@@ -149,34 +146,34 @@ Within the Appliance Settings section you may wish to allocate more RAM to the v
 
 _Mac OS X_:
 
-![virtualbox_appliance_settings](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_appliance_settings.png)
+![virtualbox_appliance_settings](assets-guide/virtualbox_appliance_settings.png)
 
 _Windows_:
 
-![virtualbox_appliance_settings_windows](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_appliance_settings_windows.png)
+![virtualbox_appliance_settings_windows](assets-guide/virtualbox_appliance_settings_windows.png)
 
 Progress of the Import
 _Mac OS X_:
 
-![virtualbox_import](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_import.png)
+![virtualbox_import](assets-guide/virtualbox_import.png)
 
 _Windows_:
 
-![virtualbox_import_windows](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_import_windows.png)
+![virtualbox_import_windows](assets-guide/virtualbox_import_windows.png)
 
 7\. 	Once the import finishes, you are brought to the main Oracle VM VirtualBox Manager screen.  From the left hand pane, select the appliance you just imported and click the green **Start** arrow.
 
 _Mac OS X_:
 
-![virtualbox_start](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_start.png)
+![virtualbox_start](assets-guide/virtualbox_start.png)
 
 _Windows_:
 
-![virtualbox_start_windows](/assets/hortonworks-sandbox-hdp2.5-guide/virtualbox_start_windows.png)
+![virtualbox_start_windows](assets-guide/virtualbox_start_windows.png)
 
 A console window opens and displaying the boot up information.
 Once the virtual machine fully boots up, the console displays the login instructions.
 
-8\. 	Use one of the supported browsers mentioned in the prerequisites section of this document within your host machine.  Enter the URL displayed in the console.  By default it should be http://127.0.0.1:8888.   
+8\. 	Use one of the supported browsers mentioned in the prerequisites section of this document within your host machine.  Enter the URL displayed in the console.  By default it should be http://127.0.0.1:8888.
 
 That’s it. Read over the information and links to get started in exploring HDP with the Hortonworks Sandbox!

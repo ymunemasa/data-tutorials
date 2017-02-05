@@ -1,18 +1,15 @@
 ---
-layout: tutorial
 title: Securing HDFS, Hive AND HBase with Apache Knox and Apache Ranger
-tutorial-id: 571
-tutorial-series: Security
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ knox, ranger ]
+id: 571
+platform: hdp-2.5.0
+components: [knox, ranger]
 ---
 
 ## Introduction
 
-**Apache Ranger** delivers a comprehensive approach to security for a Hadoop cluster. It provides a central security policy administration across the core enterprise security requirements of authorization, accounting and data protection.  
-Apache Ranger already extends baseline features for coordinated enforcement across Hadoop workloads from batch, interactive SQL and real–time in Hadoop.  
-In this tutorial, we cover using **Apache Knox** and **Apache Ranger** for HDP 2.5 to secure your Hadoop environment. We will walkthrough the following topics:  
+**Apache Ranger** delivers a comprehensive approach to security for a Hadoop cluster. It provides a central security policy administration across the core enterprise security requirements of authorization, accounting and data protection.
+Apache Ranger already extends baseline features for coordinated enforcement across Hadoop workloads from batch, interactive SQL and real–time in Hadoop.
+In this tutorial, we cover using **Apache Knox** and **Apache Ranger** for HDP 2.5 to secure your Hadoop environment. We will walkthrough the following topics:
 
 1\. Support for Knox authorization and auditing
 2\. Command line policies in Hive
@@ -49,60 +46,60 @@ ssh root@127.0.0.1 -p 2222
 
 The first time password to log in is: **hadoop**
 
-![sshTerminal](/assets/securing-hdfs-hive-hbase-with-knox-ranger/sshTerminal.png)
+![sshTerminal](assets/sshTerminal.png)
 
 ### 1: Start Knox, Ambari Infra and Demo LDAP Services <a id="start-knox-infra"></a>
 
-Open up the **Ambari** user interface by using the URL http://sandbox.hortonworks.com:8080.    
-Using Virtualbox it might look like http://127.0.0.1:8080. If you’re using Azure make sure to replace 127.0.0.1 with you host machine’s IP address.  
+Open up the **Ambari** user interface by using the URL http://sandbox.hortonworks.com:8080.
+Using Virtualbox it might look like http://127.0.0.1:8080. If you’re using Azure make sure to replace 127.0.0.1 with you host machine’s IP address.
 
-Login to Ambari using the following:  
+Login to Ambari using the following:
 
-Username - **raj_ops**  
-Password - **raj_ops**  
+Username - **raj_ops**
+Password - **raj_ops**
 
-After logging in to Ambari, you will see a list of Services.  
+After logging in to Ambari, you will see a list of Services.
 
-![ambari_dashboard_rajops](/assets/securing-hdfs-hive-hbase-with-knox-ranger/ambari_dashboard_rajops.png)
+![ambari_dashboard_rajops](assets/ambari_dashboard_rajops.png)
 
 Now Select `Knox` from the list of Services on the left-hand side of the page. Then click on `Service Actions` from the top right hand side of the page, and then click on `Start`.
 
-![start_knox](/assets/securing-hdfs-hive-hbase-with-knox-ranger/start_knox.png)
+![start_knox](assets/start_knox.png)
 
 Check the box for Maintenance Mode.
 
-![knox_maintenance_mode](/assets/securing-hdfs-hive-hbase-with-knox-ranger/knox_maintenance_mode.png)
+![knox_maintenance_mode](assets/knox_maintenance_mode.png)
 
 Similarly start **Ambari Infra** to audit all events happening through Ranger. Your Ambari dashboard should look like this:
 
-![ambari_dashboard_rajops_infra](/assets/securing-hdfs-hive-hbase-with-knox-ranger/ambari_dashboard_rajops_infra.png)
+![ambari_dashboard_rajops_infra](assets/ambari_dashboard_rajops_infra.png)
 
 Next, then go back to the `Service Actions` button on the Knox service and click on `Start Demo LDAP`. This LDAP server is when authenticating users against Knox in the Sandbox because there is no other LDAP server running on the Sandbox.
 
-![start_demo_ldap](/assets/securing-hdfs-hive-hbase-with-knox-ranger/start_demo_ldap.png)
+![start_demo_ldap](assets/start_demo_ldap.png)
 
 ### 2: Knox Access Scenarios <a id="knox-access-scenarios"></a>
 
 Check if Ranger Admin console is running, at [http://127.0.0.1:6080/](http://127.0.0.1:6080/) from your host machine. The username is **raj_ops** and the password is **raj_ops**.
 
-![ranger_login_rajops](/assets/securing-hdfs-hive-hbase-with-knox-ranger/ranger_login_rajops.png)
+![ranger_login_rajops](assets/ranger_login_rajops.png)
 
 Click on `Sandbox_knox` link under Knox section in the main screen of Ranger Administration Portal
 
-![click_sandbox_knox](/assets/securing-hdfs-hive-hbase-with-knox-ranger/click_sandbox_knox.png)
+![click_sandbox_knox](assets/click_sandbox_knox.png)
 
 You can review all policies details by a clicking on the policy name.
 
-![list_policies_knox](/assets/securing-hdfs-hive-hbase-with-knox-ranger/list_policies_knox.png)
+![list_policies_knox](assets/list_policies_knox.png)
 
 To start testing Knox policies, we would need to turn off **Global Knox Allow** and **all- topology, service** policies. Edit the global policy using the button on the right hand side and use the first slider to **disable** the policy.
 
-![knox_global_policy_disabled](/assets/securing-hdfs-hive-hbase-with-knox-ranger/knox_global_policy_disabled.png)
+![knox_global_policy_disabled](assets/knox_global_policy_disabled.png)
 
-Then, click `Save`. Do the same for another policy - `all topology, service`  
+Then, click `Save`. Do the same for another policy - `all topology, service`
 Next, locate `Sandbox for Guest` policy on the Ranger Admin console and use the slider to enable the policy.  Click `Save`.
 
-![guest_policy_enabled](/assets/securing-hdfs-hive-hbase-with-knox-ranger/guest_policy_enabled.png)
+![guest_policy_enabled](assets/guest_policy_enabled.png)
 
 From your terminal, run the following set of commands to access **WebHDFS**:
 
@@ -111,15 +108,15 @@ touch /usr/hdp/current/knox-server/conf/topologies/knox_sample.xml
 curl -k -u admin:admin-password 'https://127.0.0.1:8443/gateway/knox_sample/webhdfs/v1?op=LISTSTATUS'
 ~~~
 
-![touch_knox_sample](/assets/securing-hdfs-hive-hbase-with-knox-ranger/touch_knox_sample.png)
+![touch_knox_sample](assets/touch_knox_sample.png)
 
-![admin_forbidden_knox](/assets/securing-hdfs-hive-hbase-with-knox-ranger/admin_forbidden_knox.png)
+![admin_forbidden_knox](assets/admin_forbidden_knox.png)
 
 Go to `Ranger Policy Manager tool → Audit screen`. Search it via `Service Type - Knox` and check the knox access (denied) being audited.
 
-![audit_results_knox_denied](/assets/securing-hdfs-hive-hbase-with-knox-ranger/audit_results_knox_denied.png)
+![audit_results_knox_denied](assets/audit_results_knox_denied.png)
 
-Now let us try the same CURL command using **guest** user credentials from the terminal.  
+Now let us try the same CURL command using **guest** user credentials from the terminal.
 
 ~~~
 curl -k -u guest:guest-password 'https://127.0.0.1:8443/gateway/knox_sample/webhdfs/v1?op=LISTSTATUS'
@@ -127,7 +124,7 @@ curl -k -u guest:guest-password 'https://127.0.0.1:8443/gateway/knox_sample/webh
 
 The result which should return is a set of JSON data from WebHDFS which lists the status of the files in the root of HDFS:
 
-![guest_allowed_knox](/assets/securing-hdfs-hive-hbase-with-knox-ranger/guest_allowed_knox.png)
+![guest_allowed_knox](assets/guest_allowed_knox.png)
 
 ~~~
 {"FileStatuses":{"FileStatus":[{"accessTime":0,"blockSize":0,"childrenNum":1,"fileId":16404,"group":"hadoop","length":0,"modificationTime":1475747063601,"owner":"yarn","pathSuffix":"app-logs","permission":"777","replication":0,"storagePolicy":0,"type":"DIRECTORY"},{"accessTime":0,"blockSize":0,"childrenNum":4,"fileId":16395,"group":"hdfs","length":0,"modificationTime":1475746060376,"owner":"hdfs","pathSuffix":"apps","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":16392,"group":"hadoop","length":0,"modificationTime":1475745667515,"owner":"yarn","pathSuffix":"ats","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},{"accessTime":0,"blockSize":0,"childrenNum":1,"fileId":17442,"group":"hdfs","length":0,"modificationTime":1475746488774,"owner":"hdfs","pathSuffix":"demo","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},{"accessTime":0,"blockSize":0,"childrenNum":1,"fileId":16413,"group":"hdfs","length":0,"modificationTime":1475745678134,"owner":"hdfs","pathSuffix":"hdp","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},{"accessTime":0,"blockSize":0,"childrenNum":1,"fileId":16407,"group":"hdfs","length":0,"modificationTime":1475745677055,"owner":"mapred","pathSuffix":"mapred","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":16409,"group":"hadoop","length":0,"modificationTime":1475745682141,"owner":"mapred","pathSuffix":"mr-history","permission":"777","replication":0,"storagePolicy":0,"type":"DIRECTORY"},{"accessTime":0,"blockSize":0,"childrenNum":1,"fileId":16389,"group":"hdfs","length":0,"modificationTime":1475745661941,"owner":"hdfs","pathSuffix":"ranger","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"},{"accessTime":0,"blockSize":0,"childrenNum":1,"fileId":16451,"group":"hadoop","length":0,"modificationTime":1475790623388,"owner":"spark","pathSuffix":"spark-history","permission":"777","replication":0,"storagePolicy":0,"type":"DIRECTORY"},{"accessTime":0,"blockSize":0,"childrenNum":1,"fileId":16447,"group":"hadoop","length":0,"modificationTime":1475747266195,"owner":"spark","pathSuffix":"spark2-history","permission":"777","replication":0,"storagePolicy":0,"type":"DIRECTORY"},{"accessTime":0,"blockSize":0,"childrenNum":2,"fileId":16386,"group":"hdfs","length":0,"modificationTime":1475747092978,"owner":"hdfs","pathSuffix":"tmp","permission":"777","replication":0,"storagePolicy":0,"type":"DIRECTORY"},{"accessTime":0,"blockSize":0,"childrenNum":13,"fileId":16387,"group":"hdfs","length":0,"modificationTime":1475747104913,"owner":"hdfs","pathSuffix":"user","permission":"755","replication":0,"storagePolicy":0,"type":"DIRECTORY"}]}}
@@ -135,28 +132,28 @@ The result which should return is a set of JSON data from WebHDFS which lists th
 
 We can check the auditing in the `Ranger Policy Manager → Audit screen`. Search it via `Service Type - Knox`.
 
-![audit_results_knox_allowed](/assets/securing-hdfs-hive-hbase-with-knox-ranger/audit_results_knox_allowed.png)
+![audit_results_knox_allowed](assets/audit_results_knox_allowed.png)
 
-Ranger plugin for Knox intercepts any request made to Knox and enforces policies which are retrieved from the Ranger Administration Portal.  
+Ranger plugin for Knox intercepts any request made to Knox and enforces policies which are retrieved from the Ranger Administration Portal.
 You can configure the Knox policies in Ranger to restrict to a specific service (WebHDFS, WebHCAT etc) and to a specific user or a group and you can even bind user/group to an ip address.
 
 ### 3: Hive Grant/Revoke Permission Scenarios <a id="hive-grant-revoke"></a>
 
 Ranger supports the import of **grant/revoke** policies set through command line for Hive. Ranger can store these policies centrally along with policies created in the administration portal and enforce it in Hive using its plugin. Go to `Access Manager=>Resource Based Policies`. Click on `Sandbox_hive`.
 
-![click_sandbox_hive_rajops](/assets/securing-hdfs-hive-hbase-with-knox-ranger/click_sandbox_hive_rajops.png)
+![click_sandbox_hive_rajops](assets/click_sandbox_hive_rajops.png)
 
 You will see all policies in the Hive repository:
 
-![list_policies](/assets/securing-hdfs-hive-hbase-with-knox-ranger/list_policies.png)
+![list_policies](assets/list_policies.png)
 
 Now go inside to `Hive Global Tables Allow` policy and toggle the slider to **disable** it. Click `Save`.
 
-![hive_global_policy_rajops](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hive_global_policy_rajops.png)
+![hive_global_policy_rajops](assets/hive_global_policy_rajops.png)
 
 Go back to **Ambari**, click on 9 square menu icon at the top left and then click on `Hive View`:
 
-![select_hive_view](/assets/securing-hdfs-hive-hbase-with-knox-ranger/select_hive_view.png)
+![select_hive_view](assets/select_hive_view.png)
 
 Type the following query to grant the select and update access to the user holger_gov on  the customer table of foodmart database.
 
@@ -164,61 +161,61 @@ Type the following query to grant the select and update access to the user holge
 grant select, update on table foodmart.customer to user holger_gov;
 ~~~
 
-Click on Green `Execute` button to run the query.  
+Click on Green `Execute` button to run the query.
 If you correctly disabled the Hive policy which allowed this command you should see the following error:
 
-![access_error_rajops](/assets/securing-hdfs-hive-hbase-with-knox-ranger/access_error_rajops.png)
+![access_error_rajops](assets/access_error_rajops.png)
 
-If you don’t see the error, make sure you’ve disabled the correct Hive policies.  
+If you don’t see the error, make sure you’ve disabled the correct Hive policies.
 Let’s check the audit log in the `Ranger Administration Portal -> Audit -> Access`
 
-![audit_result_rajops](/assets/securing-hdfs-hive-hbase-with-knox-ranger/audit_result_rajops.png)
+![audit_result_rajops](assets/audit_result_rajops.png)
 
-You can see that access was denied for an admin operation for user **raj_ops**.  
+You can see that access was denied for an admin operation for user **raj_ops**.
 We can update a policy in Ranger for user raj_ops to be an admin. Go back to `Access Manager -> Resource Based Policies -> Sandbox_hive`. Click on the box next to the policy all database, table, column.
 
-![click_on_all_database](/assets/securing-hdfs-hive-hbase-with-knox-ranger/click_on_all_database.png)
+![click_on_all_database](assets/click_on_all_database.png)
 
 Scroll down and add raj_ops to the list of users in the Allow Conditions. Do not change anything else.
 
-![add_rajops_in_allowconditions](/assets/securing-hdfs-hive-hbase-with-knox-ranger/add_rajops_in_allowconditions.png)
+![add_rajops_in_allowconditions](assets/add_rajops_in_allowconditions.png)
 
-Click `Save`.  
+Click `Save`.
 
 Once the policy is saved, go back to Hive view and run the same query again:
 ~~~
 grant select, update on table foodmart.customer to user holger_gov;
 ~~~
 
-![hive_succeeded](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hive_succeeded.png)
+![hive_succeeded](assets/hive_succeeded.png)
 
 If the command goes through successfully, you will see the policy created/updated in `Ranger Access Manager -> Resource Based Policies -> Sandbox_hive`. It checks if there is an existing relevant policy to update, else it creates a new one.
 
-![hive_policy_created](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hive_policy_created.png)
+![hive_policy_created](assets/hive_policy_created.png)
 
 **What happened here?**
 
-Ranger plugin intercepts GRANT/REVOKE commands in Hive and creates corresponding policies in Admin portal. The plugin then uses these policies for enforcing Hive authorization (Hiveserver2).  
+Ranger plugin intercepts GRANT/REVOKE commands in Hive and creates corresponding policies in Admin portal. The plugin then uses these policies for enforcing Hive authorization (Hiveserver2).
 Users can run further GRANT commands to update permissions and REVOKE commands to take away permissions.
 
 ### 4: HBase Grant/Revoke Permission Scenarios <a id="hbase-grant-revoke"></a>
 
-Ranger can support import of grant/revoke policies set through command line in HBase. Similar to Hive, Ranger can store these policies as part of the Policy Manager and enforce it in Hbase using its plugin. Go back to Ambari with user credentials **raj_ops/raj_ops**.  
+Ranger can support import of grant/revoke policies set through command line in HBase. Similar to Hive, Ranger can store these policies as part of the Policy Manager and enforce it in Hbase using its plugin. Go back to Ambari with user credentials **raj_ops/raj_ops**.
 
 If it is switched off go to `Service Actions` button on top right and Start HBase:
 
-![start_hbase](/assets/securing-hdfs-hive-hbase-with-knox-ranger/start_hbase.png)
+![start_hbase](assets/start_hbase.png)
 
 Check the box for Maintenance Mode.
 
-![hbase_maintenance_mode](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hbase_maintenance_mode.png)
+![hbase_maintenance_mode](assets/hbase_maintenance_mode.png)
 
-Next, click `Confirm Start`. Wait for 30 seconds and your HBase will start running.  
+Next, click `Confirm Start`. Wait for 30 seconds and your HBase will start running.
 As a first step, let us try running a Grant operation using user raj_ops.
 
 Go to `Access Manager -> Resource Based Policies => Sandbox_hbase` to **disable** the public access policy **HBase Global Allow**.
 
-![hbase_global_allow_disabled](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hbase_global_allow_disabled.png)
+![hbase_global_allow_disabled](assets/hbase_global_allow_disabled.png)
 
 Login into HBase shell as **raj_ops** user
 
@@ -227,7 +224,7 @@ su raj_ops
 hbase shell
 ~~~
 
-![hbase_shell_rajops](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hbase_shell_rajops.png)
+![hbase_shell_rajops](assets/hbase_shell_rajops.png)
 
 Run a grant command to give “Read”, “Write”, “Create” access to user **holger_gov** in table **iemployee**.
 
@@ -237,15 +234,15 @@ grant 'holger_gov',  'RWC',  'iemployee'
 
 You should get a Access Denied as below:
 
-![hbase_permission_denied](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hbase_permission_denied.png)
+![hbase_permission_denied](assets/hbase_permission_denied.png)
 
 Let us go back to Ranger to give **raj_ops** an admin access so that it can grant permission for **holger_gov**. Click on the box next to the policy `all-table, column family, column`.
 
-![hbase_click_on_all_table](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hbase_click_on_all_table.png)
+![hbase_click_on_all_table](assets/hbase_click_on_all_table.png)
 
 Scroll down below and add **raj_ops** to the list of users in Allow Conditions.
 
-![hbase_allow_conditions](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hbase_allow_conditions.png)
+![hbase_allow_conditions](assets/hbase_allow_conditions.png)
 
 Save the policy and rerun the HBase command again in the shell:
 
@@ -253,11 +250,11 @@ Save the policy and rerun the HBase command again in the shell:
 grant 'holger_gov', 'RWC', 'iemployee'
 ~~~
 
-![hbase_succeeded](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hbase_succeeded.png)
+![hbase_succeeded](assets/hbase_succeeded.png)
 
 Check HBase policies in the Ranger Policy Administration portal. You can see a new policy created in **Sandbox_hbase** repository.
 
-![hbase_policy_created](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hbase_policy_created.png)
+![hbase_policy_created](assets/hbase_policy_created.png)
 
 Let us also revoke the permission this time. You can revoke the same permissions and the permissions will be removed from Ranger admin. Try this in the same HBase shell
 
@@ -267,11 +264,11 @@ revoke 'holger_gov', 'iemployee'
 
 You can check the existing policy and see if it has been changed. Click on the box next to it. You will notice that there is no holger_gov user present for this policy:
 
-![hbase_revoke_holgergov](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hbase_revoke_holgergov.png)
+![hbase_revoke_holgergov](assets/hbase_revoke_holgergov.png)
 
-**What happened here?**  
+**What happened here?**
 
-Ranger plugin intercepts GRANT/REVOKE commands in Hbase and creates corresponding policies in the Admin portal. The plugin then uses these policies for enforcing authorization.  
+Ranger plugin intercepts GRANT/REVOKE commands in Hbase and creates corresponding policies in the Admin portal. The plugin then uses these policies for enforcing authorization.
 Users can run further GRANT commands to update permissions and REVOKE commands to take away permissions.
 
 ### 5: REST APIs for Policy Administration <a id="rest-apis"></a>
@@ -286,9 +283,9 @@ From your local command line shell, run this CURL command. This API will create 
 curl -i --header "Accept:application/json" -H "Content-Type: application/json" -u admin:admin -X POST http://127.0.0.1:6080/service/public/api/policy -d '{ "policyName":"hdfs-testing-policy","resourceName":"/demo/data","description":"Testing policy for /demo/data","repositoryName":"Sandbox_hadoop","repositoryType":"HDFS","permMapList":[{"userList":["holger_gov"],"permList":["Read"]},{"groupList":["raj_ops"],"permList":["Read"]}],"isEnabled":true,"isRecursive":true,"isAuditEnabled":true,"version":"0.1.0","replacePerm":false}'
 ~~~
 
-![hdfs_succeeded](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hdfs_succeeded.png)
+![hdfs_succeeded](assets/hdfs_succeeded.png)
 
-Look closely to above REST API call, you can check all the attributes that are required to create the HDFS policy.  
+Look closely to above REST API call, you can check all the attributes that are required to create the HDFS policy.
 
 ~~~
 policyName - hdfs-testing-policy
@@ -303,24 +300,24 @@ isAuditEnabled - true
 
 Now let us check in Ranger whether this policy got added or not. Go to `Access Manager -> Resource Based Policies -> Sandbox_hadoop` and see the new policy named **hdfs-testing-policy**
 
-![hdfs_policy_created](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hdfs_policy_created.png)
+![hdfs_policy_created](assets/hdfs_policy_created.png)
 
 Click on the policy and check the permissions that has been created
 
-![hdfs_view_policy](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hdfs_view_policy.png)
+![hdfs_view_policy](assets/hdfs_view_policy.png)
 
-We can use the policy id to retrieve or change the policy. In this case, it is **28**.  
+We can use the policy id to retrieve or change the policy. In this case, it is **28**.
 Run the below CURL command to get policy details using API:
 
 ~~~
 curl -i -u admin:admin -X GET http://127.0.0.1:6080/service/public/api/policy/28
 ~~~
 
-![hdfs_read_policy](/assets/securing-hdfs-hive-hbase-with-knox-ranger/hdfs_read_policy.png)
+![hdfs_read_policy](assets/hdfs_read_policy.png)
 
 **What happened here?**
 
-We created a policy and retrieved policy details using REST APIs. Users can now manage their policies using API tools or applications integrated with the Ranger REST APIs.  
+We created a policy and retrieved policy details using REST APIs. Users can now manage their policies using API tools or applications integrated with the Ranger REST APIs.
 Hopefully, through this whirlwind tour of Ranger, you were introduced to the simplicity and power of Ranger for security administration.
 
 ### 6: Summary <a id="summary"></a>

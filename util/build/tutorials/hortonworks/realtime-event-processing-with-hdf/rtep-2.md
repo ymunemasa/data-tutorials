@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Ingest, Route and Land Real Time Events with Apache NiFi
-tutorial-id: 220
-tutorial-series: Streaming
-tutorial-version: hdp-2.5.0
-intro-page: false
-components: [ nifi ]
+id: 220
+
+platform: hdp-2.5.0
+
+components: [nifi ]
 ---
 
 # Tutorial 1: Ingest, Route and Land Real Time Events with Apache NiFi
@@ -36,7 +36,7 @@ Apache NiFi can collect and transport data from numerous sources and provide int
 
 ## Apache NiFi <a id="apache-nifi-lab0"></a>
 
-[Apache NiFi](https://nifi.apache.org/docs/nifi-docs/html/overview.html#what-is-apache-nifi) is an open source tool for automating and managing the flow of data between systems. To create an effective dataflow, users must understand the various types of processors ![nifi_processor_mini](/assets/realtime-event-processing-with-hdf/lab0-nifi/processor_grey_background_iot.png). This tool is the most important building block available to NiFi because it enables NiFi to perform:
+[Apache NiFi](https://nifi.apache.org/docs/nifi-docs/html/overview.html#what-is-apache-nifi) is an open source tool for automating and managing the flow of data between systems. To create an effective dataflow, users must understand the various types of processors ![nifi_processor_mini](assets/lab0-nifi/processor_grey_background_iot.png). This tool is the most important building block available to NiFi because it enables NiFi to perform:
 
 - Data Transformation
 - Routing and Mediation
@@ -56,14 +56,14 @@ NiFi is designed to help tackle modern dataflow challenges, such as system failu
 
 NiFi’s web interface consists of 5 components to build data flows: The **components** toolbar, the **actions** toolbar, the **management** toolbar, the **search** bar and the **help** button. View the image below for a visualization of the user interface for orchestrating a dataflow. Near the top of the UI are multiple toolbars essential for building dataflows.
 
-![nifi_dataflow_html_interface](/assets/realtime-event-processing-with-hdf/lab0-nifi/nifi_dataflow_html_interface.png)
+![nifi_dataflow_html_interface](assets/lab0-nifi/nifi_dataflow_html_interface.png)
 
 ### Step 2: Understand NiFi DataFlow Build Process <a id="step2-create-nifi-dataflow-lab0"></a>
 
 We can begin to build a data flow by adding, configuring and connecting the processors. We will also troubleshoot common problems that occur when creating data flows.
 By the end of the IoT Tutorial Series, you will have built the following dataflow. Refer back to this image if you want to replicate the processors positions on the graph:
 
-![dataflow_withKafka_running_iot](/assets/realtime-event-processing-with-hdf/lab1-kafka/dataflow_withKafka_running_iot.png)
+![dataflow_withKafka_running_iot](assets/lab1-kafka/dataflow_withKafka_running_iot.png)
 
 **Figure 1:** This [IoT_Lab_Series_DataFlow.xml](https://raw.githubusercontent.com/james94/tutorials/hdp/assets/realtime-event-processing-with-hdf/IoT_Lab_Series_DataFlow.xml) dataflow performs System Interaction, Splitting and Aggregation, Attribute Extraction, Routing and Mediation and Data Egress/Sending Data.
 
@@ -71,7 +71,7 @@ By the end of the IoT Tutorial Series, you will have built the following dataflo
 
 If you want to view and run the dataflow from the template, follow the steps below, else skip these two steps and move forward.
 
-1\. To open the template xml in NiFi, hover over to the management toolbar and click on the template icon ![template_icon_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/template_icon_nifi_iot.png). Click on the Browse button and find the dataflow xml file that you downloaded and click open. The template should appear in your NiFi Flow Templates spreadsheet.
+1\. To open the template xml in NiFi, hover over to the management toolbar and click on the template icon ![template_icon_nifi_iot](assets/lab0-nifi/template_icon_nifi_iot.png). Click on the Browse button and find the dataflow xml file that you downloaded and click open. The template should appear in your NiFi Flow Templates spreadsheet.
 
 2\. To display your dataflow template xml onto the screen, drag the template icon from the components toolbar onto the graph. The dataflow should appear as in the dataflow image above, except this dataflow will be missing the PutKafka processor. We will add it in the next tutorial.
 
@@ -93,11 +93,11 @@ Eight processors are needed to ingest, filter and store live stream data relatin
 
 ### 2.3 Troubleshoot Common Processor Issues
 
-You will notice each time you add a new processor, it will have a warning symbol ![warning_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/warning_symbol_nifi_iot.png) in the upper left corner of the processor face. These warning symbols indicate the processors are invalid.
+You will notice each time you add a new processor, it will have a warning symbol ![warning_symbol_nifi_iot](assets/lab0-nifi/warning_symbol_nifi_iot.png) in the upper left corner of the processor face. These warning symbols indicate the processors are invalid.
 
 1\. Hover over one of the processors to troubleshoot the issue. This message informs us of the requirements to make a processor valid, such as the ExecuteProcess.
 
-![warning_message_executeprocess_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/warning_message_executeprocess_nifi_iot.png)
+![warning_message_executeprocess_nifi_iot](assets/lab0-nifi/warning_message_executeprocess_nifi_iot.png)
 
 The warning message indicates: we need to enter a command into the value field of the **property** command since it is empty and connect this processor to another component to establish a relationship.
 Each Processor will have its own alert message. Let’s configure and connect each processor to remove all the warning messages, so we can have a complete data flow.
@@ -128,7 +128,7 @@ If you would like to read more about configuring and connecting processors, refe
 **Command Arguments** inform processor which particular directory to look for script files
 **Batch Duration** instructs processor to run a task every 10 seconds
 
-![executeProcess_properties_config](/assets/realtime-event-processing-with-hdf/lab0-nifi/executeProcess_properties_config.png)
+![executeProcess_properties_config](assets/lab0-nifi/executeProcess_properties_config.png)
 
 **Figure 1:** ExecuteProcess Configuration Property Tab Window
 
@@ -150,7 +150,7 @@ If you would like to read more about configuring and connecting processors, refe
 **Line Split Count** adds 1 line to each split FlowFile
 **Remove Trailing Newlines** controls whether newlines are removed at the end of each split file. With the value set to false, newlines are not removed.
 
-![splittext_property_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/splittext_property_config_nifi_iot.png)
+![splittext_property_config_nifi_iot](assets/lab0-nifi/splittext_property_config_nifi_iot.png)
 
 **Figure 2:** SplitText Configuration Property Tab Window
 
@@ -190,7 +190,7 @@ If you would like to read more about configuring and connecting processors, refe
 **Match Requirements** specifies condition for FlowFile to be transferred to next processor
 **search_for_truck_event_data** is Regex Expression that searches each FlowFile for the truck event keywords
 
-![routeOnContent_filter_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/routeOnContent_filter_nifi_iot.png)
+![routeOnContent_filter_nifi_iot](assets/lab0-nifi/routeOnContent_filter_nifi_iot.png)
 
 **Figure 3:** RouteOnContent Configuration Property Tab Window
 
@@ -212,7 +212,7 @@ If you would like to read more about configuring and connecting processors, refe
 **Minimum Number of Entries** specifies minimum amount of FlowFiles to gather at the queue before FlowFiles merge together
 **Maximum Number of Entries** specifies maximum amount of FlowFiles to gather at the queue before FlowFiles merge together
 
-![mergeContent_property_configs](/assets/realtime-event-processing-with-hdf/lab0-nifi/mergeContent_property_configs.png)
+![mergeContent_property_configs](assets/lab0-nifi/mergeContent_property_configs.png)
 
 **Figure 4:** MergeContent(truck_events) Configuration Property Tab Window
 
@@ -240,7 +240,7 @@ If you would like to read more about configuring and connecting processors, refe
 
 **Directory** instructs processor which directory to store the output data files
 
-![putfile_properties_truck_events_config_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_properties_truck_events_config_nifi_iot.png)
+![putfile_properties_truck_events_config_nifi_iot](assets/lab0-nifi/putfile_properties_truck_events_config_nifi_iot.png)
 
 **Figure 5:** PutFile(truck_events) Configuration Property Tab Window
 
@@ -258,7 +258,7 @@ Table 7: Update PutFile(logs) Property Values
 |---|---|
 | **Directory**  | `/root/nifi_output/log_data`  |
 
-![putfile_properties_config_logs_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/putfile_properties_config_logs_nifi_iot.png)
+![putfile_properties_config_logs_nifi_iot](assets/lab0-nifi/putfile_properties_config_logs_nifi_iot.png)
 
 **Figure 6:** PutFile(logs) Configuration Property Tab Window
 
@@ -267,21 +267,21 @@ Table 7: Update PutFile(logs) Property Values
 
 We added, configured and connected all processors, your NiFi DataFlow should look similar as below:
 
-![dataflow_lab0_complete_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/dataflow_lab0_complete_nifi_iot.png)
+![dataflow_lab0_complete_nifi_iot](assets/lab0-nifi/dataflow_lab0_complete_nifi_iot.png)
 
 ### Step 5: Run NiFi DataFlow <a id="run-nifi-dataflow-lab0"></a>
 
-1\. The processors are valid since the warning symbols disappeared. Notice the processors have a stop symbol ![stop_symbol_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/stop_symbol_nifi_iot.png) in the upper left corner and are ready to run. To select all processors, hold down the shift-key and drag your mouse across the entire data flow. This step is important if you have different dataflows on the same graph.
+1\. The processors are valid since the warning symbols disappeared. Notice the processors have a stop symbol ![stop_symbol_nifi_iot](assets/lab0-nifi/stop_symbol_nifi_iot.png) in the upper left corner and are ready to run. To select all processors, hold down the shift-key and drag your mouse across the entire data flow. This step is important if you have different dataflows on the same graph.
 
-![dataflow_selected_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/dataflow_selected_nifi_iot.png)
+![dataflow_selected_nifi_iot](assets/lab0-nifi/dataflow_selected_nifi_iot.png)
 
-2\. Now all processors are selected, go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/start_button_nifi_iot.png). Your screen should look like the following:
+2\. Now all processors are selected, go to the actions toolbar and click the start button ![start_button_nifi_iot](assets/lab0-nifi/start_button_nifi_iot.png). Your screen should look like the following:
 
-![run_dataflow_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/run_dataflow_nifi_iot.png)
+![run_dataflow_nifi_iot](assets/lab0-nifi/run_dataflow_nifi_iot.png)
 
 Note: To run the DataFlow again, you will need to copy & paste the ExecuteProcess processor onto the graph, then delete the old one, and connect the new one to the splittext processor. You will need to repeat this process each time you want to run the DataFlow. This step will ensure dataflow flows through each processor. Currently,the ExecuteProcess processor is getting a patch to fix this problem.
 
-3\. To quickly see what the processors are doing and the information on their faces, right click on the graph, click the **refresh status** button ![refresh_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/refresh_nifi_iot.png)
+3\. To quickly see what the processors are doing and the information on their faces, right click on the graph, click the **refresh status** button ![refresh_nifi_iot](assets/lab0-nifi/refresh_nifi_iot.png)
 
 > Note: On each processor face, the In, Read/Write and Out all have data increasing.
 
@@ -301,7 +301,7 @@ cat 28863080789498
 
 Once the file is opened, you should obtain similar output as below:
 
-![logs_stream_simulator_nifi_output](/assets/realtime-event-processing-with-hdf/lab0-nifi/logs_stream_simulator_nifi_output.png)
+![logs_stream_simulator_nifi_output](assets/lab0-nifi/logs_stream_simulator_nifi_output.png)
 
 
 ### 5.3 Verify Events Stored In truck_events Directory
@@ -316,7 +316,7 @@ cat 28918091050702
 
 Once the file is opened, you should obtain similar output as below:
 
-![truck_events_file_nifi_iot](/assets/realtime-event-processing-with-hdf/lab0-nifi/truck_events_file_nifi_iot.png)
+![truck_events_file_nifi_iot](assets/lab0-nifi/truck_events_file_nifi_iot.png)
 
 
 ## Summary <a id="summary-lab0"></a>

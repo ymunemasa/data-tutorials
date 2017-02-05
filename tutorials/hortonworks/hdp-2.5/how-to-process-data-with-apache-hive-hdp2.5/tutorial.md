@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: How to Process Data with Apache Hive
-tutorial-id: 110
-tutorial-series: Basic Development
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ ambari, hive ]
+id: 110
+platform: hdp-2.5.0
+components: [ambari, hive]
 ---
 
 # How to Process Data with Apache Hive
@@ -44,34 +41,34 @@ We are going to do the same data processing task as we just did with Pig in the 
 
 ## Step 1: Download The Data <a id="download-the-data"></a>
 
-Download the driver data file from [here](https://github.com/hortonworks/tutorials/blob/hdp-2.5/driver_data.zip).
+Download the driver data file from [here](LINKME](assets/driver_data.zip)).
 Once you have the file you will need to unzip the file into a directory. We will be uploading two csv files - `drivers.csv` and `timesheet.csv`.
 
 ## Step 2: Upload The Data Files <a id="upload-the-data-files"></a>
 
 We start by selecting the `HDFS Files view` from the Off-canvas menu at the top. The HDFS Files view allows us to view the Hortonworks Data Platform(HDP) file store. This is separate from the local file system. For the Hortonworks Sandbox, it will be part of the file system in the Hortonworks Sandbox VM.
 
-![select_files_view](/assets/how-to-process-data-with-apache-hive-hdp2.5/select_files_view.png)
+![select_files_view](assets/select_files_view.png)
 
 Navigate to `/user/maria_dev` and click on the `Upload` button to select the files we want to upload into the Hortonworks Sandbox environment.
 
-![upload_button](/assets/how-to-process-data-with-apache-hive-hdp2.5/upload_button.png)
+![upload_button](assets/upload_button.png)
 
 Click on the `browse` button to open a dialog box. Navigate to where you stored the `drivers.csv` file on your local disk and select `drivers.csv` and click again `upload`. Do the same thing for `timesheet.csv`. When you are done you will see there are two new files in your directory.
 
-![uploaded_files](/assets/how-to-process-data-with-apache-hive-hdp2.5/uploaded_files.png)
+![uploaded_files](assets/uploaded_files.png)
 
 ## Step 3: Start the Hive View <a id="start-the-hive-view"></a>
 
 Let’s open the `Hive View` by clicking on the Hive button in the top bar as previously when we selected the HDFS Files view. The Hive view provides a user interface to the Hive data warehouse system for Hadoop.
 
-![select_hive_view](/assets/how-to-process-data-with-apache-hive-hdp2.5/select_hive_view.png)
+![select_hive_view](assets/select_hive_view.png)
 
 ### 3.1 Explore The Hive User Interface
 
 On right is a `query editor`. A query may span multiple lines. At the bottom, there are buttons to `Execute` the query, `Explain` the query, `Save` the query with a name and to open a new Worksheet window for another query.
 
-![hive_view_home_page](/assets/how-to-process-data-with-apache-hive-hdp2.5/hive_view_home_page.png)
+![hive_view_home_page](assets/hive_view_home_page.png)
 
 #### Hive and Pig Data Model Differences
 
@@ -85,18 +82,18 @@ The first task we will do is create a table to hold the data. We will type the q
 create table temp_drivers (col_value STRING);
 ~~~
 
-![create_temp_drivers](/assets/how-to-process-data-with-apache-hive-hdp2.5/create_temp_drivers.png)
+![create_temp_drivers](assets/create_temp_drivers.png)
 
 > **Hint:** press `CTRL` + `Space` for autocompletion
 
 The query does not return any results because at this point we just created an empty table and we have not copied any data in it.
 Once the query has executed we can refresh the `Database Explorer` at the left of the composition area and when folding down the default database we will see we have a new table called `temp_drivers`.
 
-![database_explorer](/assets/how-to-process-data-with-apache-hive-hdp2.5/database_explorer.png)
+![database_explorer](assets/database_explorer.png)
 
 Clicking on the `icon` next to the table name a new Worksheets opens, which `loads` sample data from this table. We see the table is empty right now. This is a good example of the interactive feel you get with using Hive.
 
-![sample_data_temp_drivers](/assets/how-to-process-data-with-apache-hive-hdp2.5/sample_data_temp_drivers.png)
+![sample_data_temp_drivers](assets/sample_data_temp_drivers.png)
 
 ### 3.3 Create Query to Populate Hive Table temp_drivers with drivers.csv Data
 
@@ -106,11 +103,11 @@ The next line of code will load the data file `drivers.csv` into the table `temp
 LOAD DATA INPATH '/user/maria_dev/drivers.csv' OVERWRITE INTO TABLE temp_drivers;
 ~~~
 
-![load_data_temp_drivers](/assets/how-to-process-data-with-apache-hive-hdp2.5/load_data_temp_drivers.png)
+![load_data_temp_drivers](assets/load_data_temp_drivers.png)
 
 After executing the query we can look at the Tables again and when we browse the data for `temp_drivers` we see that the data has been read in. Note that Hive consumed the data file `drivers.csv` during this step. If you look in the `File Browser` you will see drivers.csv is no longer there.
 
-![select_data_temp_drivers](/assets/how-to-process-data-with-apache-hive-hdp2.5/select_data_temp_drivers.png)
+![select_data_temp_drivers](assets/select_data_temp_drivers.png)
 
 ### 3.4 Create Table drivers
 
@@ -120,7 +117,7 @@ Now that we have read the data in we can start working with it. The next thing w
 CREATE TABLE drivers (driverId INT, name STRING, ssn BIGINT, location STRING, certified STRING, wageplan STRING);
 ~~~
 
-![create_table_drivers](/assets/how-to-process-data-with-apache-hive-hdp2.5/create_table_drivers.png)
+![create_table_drivers](assets/create_table_drivers.png)
 
 ### 3.5 Create Query to Extract Data from temp_drivers and Store It to drivers
 
@@ -139,11 +136,11 @@ SELECT
 from temp_drivers;
 ~~~
 
-![insert_into_drivers](/assets/how-to-process-data-with-apache-hive-hdp2.5/insert_into_drivers.png)
+![insert_into_drivers](assets/insert_into_drivers.png)
 
 Execute the query and look at the `drivers` table. You should see data that looks like this.
 
-![select_data_drivers](/assets/how-to-process-data-with-apache-hive-hdp2.5/select_data_drivers.png)
+![select_data_drivers](assets/select_data_drivers.png)
 
 ### 3.6 Create temp_timesheet and timesheet tables similarly
 
@@ -159,7 +156,7 @@ LOAD DATA INPATH '/user/maria_dev/timesheet.csv' OVERWRITE INTO TABLE temp_times
 
 You should see the data like this:
 
-![select_data_temp_timesheet](/assets/how-to-process-data-with-apache-hive-hdp2.5/select_data_temp_timesheet.png)
+![select_data_temp_timesheet](assets/select_data_temp_timesheet.png)
 
 Now create the table `timesheet` using the following query:
 
@@ -182,7 +179,7 @@ from temp_timesheet;
 
 You should see the data like this:
 
-![select_data_timesheet](/assets/how-to-process-data-with-apache-hive-hdp2.5/select_data_timesheet.png)
+![select_data_timesheet](assets/select_data_timesheet.png)
 
 ### 3.7 Create Query to Filter The Data (driverId, hours_logged, miles_logged)
 
@@ -194,7 +191,7 @@ SELECT driverId, sum(hours_logged), sum(miles_logged) FROM timesheet GROUP BY dr
 
 The results of the query look like this:
 
-![group_data](/assets/how-to-process-data-with-apache-hive-hdp2.5/group_data.png)
+![group_data](assets/group_data.png)
 
 ### 3.8 Create Query to Join The Data (driverId, name, hours_logged, miles_logged)
 
@@ -208,7 +205,7 @@ ON (d.driverId = t.driverId);
 
 The resulting data looks like:
 
-![join_data](/assets/how-to-process-data-with-apache-hive-hdp2.5/join_data.png)
+![join_data](assets/join_data.png)
 
 So now we have our results. As described earlier we solved this problem using Hive step by step. At any time we were free to look around at the data, decide we needed to do another task and come back. At all times the data is live and accessible to us.
 

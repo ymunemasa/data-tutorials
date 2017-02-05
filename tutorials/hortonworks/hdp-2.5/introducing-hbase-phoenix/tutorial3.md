@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Accessing HBase data with Hive
-tutorial-id: 650
-tutorial-series: Hello World
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ hbase, hive, ambari ]
+id: 650
+platform: hdp-2.5.0
+components: [hbase, hive, ambari]
 ---
 
 ## Introduction
@@ -49,11 +46,11 @@ Let’s go to `Ambari` to add this property:
 
 Click on `Hive → Configs → Advanced`
 
-![hive_config_page](/assets/introducing-hbase-phoenix/hive_config_page.png)
+![hive_config_page](assets/hive_config_page.png)
 
 Scroll down to find **Custom hive-site** section, click on `Add Property` button, following pop up will come:
 
-![add_property](/assets/introducing-hbase-phoenix/add_property.png)
+![add_property](assets/add_property.png)
 
 Type `hive.aux.jars.path` in key. Check your HDP version and give the jar names as per your version. I am adding following jars in value:
 
@@ -71,11 +68,11 @@ file:///usr/hdp/2.5.0.0-817/hbase/lib/hbase-thrift-1.1.2.2.5.0.0-817.jar
 
 Your popup should look like this:
 
-![added_property](/assets/introducing-hbase-phoenix/added_property.png)
+![added_property](assets/added_property.png)
 
 Click `Add` and then `Save`. You have to restart `Hive` and `Oozie` to get your change reflected.
 
-![restart_hive](/assets/introducing-hbase-phoenix/restart_hive.png)
+![restart_hive](assets/restart_hive.png)
 
 ### 2. Mapping Existing HBase tables to Hive <a id="mapping-hbase-tables-hive"></a>
 
@@ -95,15 +92,15 @@ This statement registers the HBase table named `driver_dangerous_event` in the H
 **HBaseStorageHandler** is used to register the HBase table with the Hive metastore.
 **hbase.columns.mapping** is used to link Hive column names to the HBase table’s row key and columns. Your view should look like this:
 
-![create_external_table](/assets/introducing-hbase-phoenix/create_external_table.png)
+![create_external_table](assets/create_external_table.png)
 
 Click on green `Execute` to run the query. Your table will be created. Now let’s verify the content of this table. Refresh the database explorer and click you will see your table created. Click on menu button next to it to view its data.
 
-![view_table](/assets/introducing-hbase-phoenix/view_table.png)
+![view_table](assets/view_table.png)
 
 Wait for 10 seconds, you will see the data of the table.
 
-![view_data](/assets/introducing-hbase-phoenix/view_data.png)
+![view_data](assets/view_data.png)
 
 ## 3. Summary <a id="summary"></a>
 

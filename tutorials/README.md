@@ -2,7 +2,7 @@
 
 Tutorials below in Section 1 are working and the ones in Section 2 don’t work.
 
-## Outline 
+## Outline
 
 - Getting Started with HDP
 - Apache Atlas & Apache Ranger Integration
@@ -18,13 +18,13 @@ Tutorials below in Section 1 are working and the ones in Section 2 don’t work.
 Begin your Apache Hadoop journey with this tutorial aimed for users with limited experience in using the Sandbox.
 Explore Sandbox on virtual machine and cloud environments and learn to navigate the Apache Ambari user interface.
 
-This tutorial provides a section that describes the key concepts and series of tutorials where you move data into HDFS, 
-explore the data with SQL in Apache Hive, do transformations with Apache Pig or Apache Spark and at the end generate a 
+This tutorial provides a section that describes the key concepts and series of tutorials where you move data into HDFS,
+explore the data with SQL in Apache Hive, do transformations with Apache Pig or Apache Spark and at the end generate a
 report with Apache Zeppelin.
 
 [View Hello HDP Tutorial](https://github.com/hortonworks/tutorials/tree/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop)
 
-![tez_vertex_swimlane](/assets/hello-hdp/tez_vertex_swimlane_map1_lab2.png)
+![tez_vertex_swimlane](assets/tez_vertex_swimlane_map1_lab2.png)
 
 Coverage: Ambari, Ambari Views(Hive, Pig), Hive, Pig, Spark, Zeppelin
 
@@ -39,7 +39,7 @@ This tutorial walks through an example of tagging data in Atlas and building a s
 
 [View Atlas & Ranger Integration Tutorial](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/tag-based-policies-atlas-ranger/tutorial.md)
 
-![Tag Based Policies](/assets/tag-based-policies-atlas-ranger/deny_conditions.png)
+![Tag Based Policies](assets/deny_conditions.png)
 
 Coverage: Atlas, Ranger
 
@@ -47,13 +47,13 @@ Coverage: Atlas, Ranger
 
 **Description**
 
-Apache Spark is a fast, in-memory data processing engine with elegant and expressive development APIs to allow data workers to efficiently execute streaming, machine learning or SQL workloads that require fast iterative access to datasets. 
- 
+Apache Spark is a fast, in-memory data processing engine with elegant and expressive development APIs to allow data workers to efficiently execute streaming, machine learning or SQL workloads that require fast iterative access to datasets.
+
 These tutorials will provide you an introduction to using Apache Spark in Apache Zeppelin notebooks.  You will also learn to use the new Apache Spark HBase connector inside an Apache Zeppelin notebook.
 
-![zeppelin_login_lab4](/assets/hello-hdp/zeppelin_login_lab4.png)
+![zeppelin_login_lab4](assets/zeppelin_login_lab4.png)
 
-There are 6 tutorials (2 new) 
+There are 6 tutorials (2 new)
 
 - (**New!**) [Spark HBase - A DataFrame Based Connector](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/spark-hbase-a-dataframe-based-hbase-connector/tutorial.md)
 Coverage: Spark with Hortonworks HBase Connector in Zeppelin
@@ -91,7 +91,7 @@ The new "Introduction to Hbase Concepts and Apache Phoenix" tutorial where some 
 Apache Falcon centrally manages the data lifecycle, facilitate quick data replication for business continuity and disaster recovery and provides a foundation for audit and compliance by tracking entity lineage and collection of audit logs.
 Learn how to use the update Apache Falcon to create data pipelines and mirror data sets.
 
-![falcon_new_ui](/assets/create-falcon-cluster-hdp2.5/tutorial_image.png)
+![falcon_new_ui](assets/tutorial_image.png)
 
 These tutorials work with HDP 2.4 but given the major Falcon UI change these will need a lot updates.
 

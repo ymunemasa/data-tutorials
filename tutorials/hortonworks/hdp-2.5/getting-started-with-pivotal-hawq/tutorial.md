@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Getting Started with Pivotal HAWQ on Hortonworks Sandbox
-tutorial-id: 630
-tutorial-series: Data Science
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ Pivotal HAWQ ]
+id: 630
+platform: hdp-2.5.0
+components: [Pivotal HAWQ]
 ---
 
 # Do not go ahead with the tutorial, revamping is under process
@@ -137,22 +134,22 @@ psql
 ~~~
 
 ~~~
-gpadmin# c demo  
-demo# set search_path=retail_demo;  
-demo# d  
-                        List of relations  
-   Schema    |          Name          | Type  |  Owner  | Storage  
+gpadmin# c demo
+demo# set search_path=retail_demo;
+demo# d
+                        List of relations
+   Schema    |          Name          | Type  |  Owner  | Storage
 -------------+------------------------+-------+---------+---------
- retail_demo | categories_dim         | table | gpadmin | parquet  
- retail_demo | customer_addresses_dim | table | gpadmin | parquet  
- retail_demo | customers_dim          | table | gpadmin | parquet  
- retail_demo | date_dim               | table | gpadmin | parquet  
- retail_demo | email_addresses_dim    | table | gpadmin | parquet  
- retail_demo | order_lineitems        | table | gpadmin | parquet  
- retail_demo | orders                 | table | gpadmin | parquet  
- retail_demo | payment_methods        | table | gpadmin | parquet  
- retail_demo | products_dim           | table | gpadmin | parquet  
-demo# q  
+ retail_demo | categories_dim         | table | gpadmin | parquet
+ retail_demo | customer_addresses_dim | table | gpadmin | parquet
+ retail_demo | customers_dim          | table | gpadmin | parquet
+ retail_demo | date_dim               | table | gpadmin | parquet
+ retail_demo | email_addresses_dim    | table | gpadmin | parquet
+ retail_demo | order_lineitems        | table | gpadmin | parquet
+ retail_demo | orders                 | table | gpadmin | parquet
+ retail_demo | payment_methods        | table | gpadmin | parquet
+ retail_demo | products_dim           | table | gpadmin | parquet
+demo# q
 ~~~
 
 The second script creates all the tables under retail_demo schema. Open /tmp/hawq-quickstart/lib/prep_tables.sql and pay attention to the syntax and table options choices. View the file:

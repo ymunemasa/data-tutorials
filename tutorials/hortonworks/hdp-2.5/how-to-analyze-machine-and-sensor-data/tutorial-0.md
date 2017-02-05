@@ -1,13 +1,9 @@
 ---
-layout: tutorial
 title: How to Analyze Machine and Sensor Data
-tutorial-id: 310
-tutorial-series: Real-World End to End Examples
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ hive, zeppelin, ambari ]
+id: 310
+platform: hdp-2.5.0
+components: [hive, zeppelin, ambari]
 ---
-
 
 ## Analyze Machine and Sensor Data
 

@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Hello HDP An Introduction to Hadoop with Hive and Pig
-tutorial-id: 100
-tutorial-series: Basic Development
-tutorial-version: hdp-2.5.0
-intro-page: false
-components: [ ambari, hive, pig, spark, zeppelin, technical-preview ]
+id: 100
+platform: hdp-2.5.0
+components: [ambari, hive, pig, spark, zeppelin, technical-preview]
 ---
 
 # Concepts
@@ -102,7 +99,7 @@ The Hortonworks **Sandbox** is a single node implementation of HDP. It is packag
 
 - HDFS is one of the 4 components of [Apache Hadoop](http://hadoop.apache.org/) the other 3 are Hadoop Common, [Hadoop YARN](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html) and [Hadoop MapReduce](http://hortonworks.com/hadoop/mapreduce/).
 - To learn more about HDFS watch the following [HDFS introduction video](https://www.youtube.com/watch?v=1_ly9dZnmWc).
-- To learn more about YARN watch the following [YARN introduction video](https://www.youtube.com/watch?v=ZYXVNxmMchc&list=PL2y_WpKCCNQc-7RJNoYym4_g7EZb3yzJW).  
+- To learn more about YARN watch the following [YARN introduction video](https://www.youtube.com/watch?v=ZYXVNxmMchc&list=PL2y_WpKCCNQc-7RJNoYym4_g7EZb3yzJW).
 
 
 **Hadoop Blogs:**
@@ -127,7 +124,7 @@ A single physical machine gets saturated with its storage capacity as data grows
 HDFS is a distributed file system that is designed for storing large data files. HDFS is a Java-based file system that provides scalable and reliable data storage, and it was designed to span large clusters of commodity servers. HDFS has demonstrated production scalability of up to 200 PB of storage and a single cluster of 4500 servers, supporting close to a billion files and blocks. HDFS is a scalable, fault-tolerant, distributed storage system that works closely with a wide variety of concurrent data access applications, coordinated by YARN. HDFS will “just work” under a variety of physical and systemic circumstances. By distributing storage and computation across many servers, the combined storage resource can grow linearly with demand while remaining economical at every amount of storage.
 
 
-![HDSF_1](/assets/hello-hdp/HDSF_1.png)
+![HDSF_1](assets/HDSF_1.png)
 
 
 An HDFS cluster is comprised of a NameNode, which manages the cluster metadata, and DataNodes that store the data. Files and directories are represented on the NameNode by inodes. Inodes record attributes like permissions, modification and access times, or namespace and disk space quotas.
@@ -144,7 +141,7 @@ The NameNode does not directly send requests to DataNodes. It sends instructions
 *   shut down the node.
 
 
-![HDFS_2](/assets/hello-hdp/HDFS_2.png)
+![HDFS_2](assets/HDFS_2.png)
 
 
 - For more details on HDFS: [http://hortonworks.com/hadoop/hdfs/](http://hortonworks.com/hadoop/hdfs/)
@@ -158,7 +155,7 @@ With the [next generation HDFS data architecture](http://hortonworks.com/blog/hd
 Ambari Files User View
 
 
-![HDFS_3](/assets/hello-hdp/hdfs_files_view_base_folder_concepts.png)
+![HDFS_3](assets/hdfs_files_view_base_folder_concepts.png)
 
 
 Ambari Files User View provides a user friendly interface to upload, store and move data. Underlying all components in Hadoop is the Hadoop Distributed File System([HDFS](http://hortonworks.com/hadoop/hdfs/)™).  This is the foundation of the Hadoop cluster. The HDFS file system manages how the datasets are stored in the Hadoop cluster. It is responsible for distributing the data across the datanodes, managing replication for redundancy and administrative tasks like adding, removing and recovery of data nodes.
@@ -169,18 +166,18 @@ Ambari Files User View provides a user friendly interface to upload, store and m
 - To learn more about HDFS watch the following [HDFS introduction video](https://www.youtube.com/watch?v=1_ly9dZnmWc).
 - To learn more about YARN watch the following [YARN introduction video](https://www.youtube.com/watch?v=ZYXVNxmMchc&list=PL2y_WpKCCNQc-7RJNoYym4_g7EZb3yzJW).
 
-**Hadoop 2.0 Blogs:**  
+**Hadoop 2.0 Blogs:**
 
-- [Hadoop 2.7.0 Blog](http://hortonworks.com/blog/apache-hadoop-2-7-0-released/)  
+- [Hadoop 2.7.0 Blog](http://hortonworks.com/blog/apache-hadoop-2-7-0-released/)
 - [Understanding Hadoop 2.0](http://hortonworks.com/blog/understanding-hadoop-2-0/)
 
-**HDFS Blogs:**  
+**HDFS Blogs:**
 
-- [Heterogeneous Storage Policies in HDP 2.2](http://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)  
-- [HDFS Metadata Directories Explained](http://hortonworks.com/blog/hdfs-metadata-directories-explained/)  
-- [Heterogeneous Storages in HDFS](http://hortonworks.com/blog/heterogeneous-storages-hdfs/)  
-- [HDFS 2.0 Next Generation Architecture](http://hortonworks.com/blog/hdfs-2-0-next-generation-architecture/)  
-- [NameNode High Availability in HDP 2.0](http://hortonworks.com/blog/namenode-high-availability-in-hdp-2-0/)  
+- [Heterogeneous Storage Policies in HDP 2.2](http://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)
+- [HDFS Metadata Directories Explained](http://hortonworks.com/blog/hdfs-metadata-directories-explained/)
+- [Heterogeneous Storages in HDFS](http://hortonworks.com/blog/heterogeneous-storages-hdfs/)
+- [HDFS 2.0 Next Generation Architecture](http://hortonworks.com/blog/hdfs-2-0-next-generation-architecture/)
+- [NameNode High Availability in HDP 2.0](http://hortonworks.com/blog/namenode-high-availability-in-hdp-2-0/)
 - [Introducing… Tez: Accelerating processing of data stored in HDFS](http://hortonworks.com/blog/introducing-tez-faster-hadoop-processing/)
 
 ## 3rd Concept: MapReduce & YARN <a id="concepts-mapreduce-yarn"></a>
@@ -213,7 +210,7 @@ The current Apache Hadoop MapReduce System is composed of the JobTracker, which 
 The TaskTracker has simple responsibilities – launch/teardown tasks on orders from the JobTracker and provide task-status information to the JobTracker periodically.
 
 
-![MapR_1](/assets/hello-hdp/MapR_1.png)
+![MapR_1](assets/MapR_1.png)
 
 
 The Apache Hadoop projects provide a series of tools designed to solve big data problems. The Hadoop cluster implements a parallel computing cluster using inexpensive commodity hardware. The cluster is partitioned across many servers to provide a near linear scalability. The philosophy of the cluster design is to bring the computing to the data. So each datanode will hold part of the overall data and be able to process the data that it holds. The overall framework for the processing software is called MapReduce. Here’s a short video introduction to MapReduce:
@@ -221,7 +218,7 @@ The Apache Hadoop projects provide a series of tools designed to solve big data 
 <iframe width="500" height="281" src="https://www.youtube.com/embed/ht3dNvdNDzI?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player2"></iframe>
 
 
-![MapR_2](/assets/hello-hdp/MapR_2.png)
+![MapR_2](assets/MapR_2.png)
 
 
 ### [3.4 Apache YARN](http://hortonworks.com/blog/apache-hadoop-yarn-background-and-an-overview/) (Yet Another Resource Negotiator)
@@ -241,7 +238,7 @@ The per-application ApplicationMaster has the responsibility of negotiating appr
 Here is an architectural view of YARN:
 
 
-![MapR_3](/assets/hello-hdp/MapR_3.png)
+![MapR_3](assets/MapR_3.png)
 
 
 One of the crucial implementation details for MapReduce within the new YARN **system** that I’d like to point out is that we have reused the existing MapReduce **framework** without any major surgery. This was very important to ensure **compatibility** for existing MapReduce applications and users. Here is a short video introduction for YARN.
@@ -252,23 +249,23 @@ One of the crucial implementation details for MapReduce within the new YARN **sy
 
 - HDFS is one of the 4 components of [Apache Hadoop](http://hadoop.apache.org/) the other 3 are Hadoop Common, [Hadoop YARN](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html) and [Hadoop MapReduce](http://hortonworks.com/hadoop/mapreduce/).  To learn more about HDFS watch the following [HDFS introduction video](https://www.youtube.com/watch?v=1_ly9dZnmWc).  To learn more about YARN watch the following [YARN introduction video](https://www.youtube.com/watch?v=ZYXVNxmMchc&list=PL2y_WpKCCNQc-7RJNoYym4_g7EZb3yzJW).
 
-**Hadoop 2.0 Blogs:**  
-[Hadoop 2.7.0 Blog](http://hortonworks.com/blog/apache-hadoop-2-7-0-released/)  
+**Hadoop 2.0 Blogs:**
+[Hadoop 2.7.0 Blog](http://hortonworks.com/blog/apache-hadoop-2-7-0-released/)
 [Understanding Hadoop 2.0](http://hortonworks.com/blog/understanding-hadoop-2-0/)
 
-**YARN Blogs:**  
-[YARN series-1](http://hortonworks.com/blog/resource-localization-in-yarn-deep-dive/)  
+**YARN Blogs:**
+[YARN series-1](http://hortonworks.com/blog/resource-localization-in-yarn-deep-dive/)
 [YARN series-2](http://hortonworks.com/blog/apache-hadoop-yarn-hdp-2-2-substantial-step-forward-enterprise-hadoop/)
 
-**Slider Blogs:**  
-[Announcing Apache Slider 0.60.0](http://hortonworks.com/blog/announcing-apache-slider-0-60-0/)  
-[Onboarding Long Running Services to Apache Hadoop YARN Using Apache Slider](http://hortonworks.com/blog/onboarding-long-running-services-apache-hadoop-yarn-using-apache-slider/)  
+**Slider Blogs:**
+[Announcing Apache Slider 0.60.0](http://hortonworks.com/blog/announcing-apache-slider-0-60-0/)
+[Onboarding Long Running Services to Apache Hadoop YARN Using Apache Slider](http://hortonworks.com/blog/onboarding-long-running-services-apache-hadoop-yarn-using-apache-slider/)
 [Build YARN Apps on Hadoop with Apache Slider: Technical Preview Now Available](http://hortonworks.com/blog/apache-slider-technical-preview-now-available/)
 
-**Capacity Scheduler Blogs:**  
-[Understanding Apache Hadoop’s Capacity Scheduler](http://hortonworks.com/blog/understanding-apache-hadoops-capacity-scheduler/)  
-[Configuring YARN Capacity Scheduler with Ambari](http://hortonworks.com/hadoop-tutorial/configuring-yarn-capacity-scheduler-ambari/)  
-[Multi-Tenancy in HDP 2.0: Capacity Scheduler and YARN](http://hortonworks.com/blog/multi-tenancy-in-hdp-2-0-capacity-scheduler-and-yarn/)  
+**Capacity Scheduler Blogs:**
+[Understanding Apache Hadoop’s Capacity Scheduler](http://hortonworks.com/blog/understanding-apache-hadoops-capacity-scheduler/)
+[Configuring YARN Capacity Scheduler with Ambari](http://hortonworks.com/hadoop-tutorial/configuring-yarn-capacity-scheduler-ambari/)
+[Multi-Tenancy in HDP 2.0: Capacity Scheduler and YARN](http://hortonworks.com/blog/multi-tenancy-in-hdp-2-0-capacity-scheduler-and-yarn/)
 [Better SLAs via Resource-preemption in YARN’s Capacity Scheduler](http://hortonworks.com/blog/better-slas-via-resource-preemption-in-yarns-capacityscheduler/)
 
 
@@ -325,11 +322,11 @@ Apache Tez provides a developer API and framework to write native [YARN](http://
 Since Tez is extensible and embeddable, it provides the fit-to-purpose freedom to express highly optimized data processing applications, giving them an advantage over end-user-facing engines such as [MapReduce](http://hortonworks.com/hadoop/mapreduce/) and [Apache Spark](http://hortonworks.com/hadoop/spark/). Tez also offers a customizable execution architecture that allows users to express complex computations as dataflow graphs, permitting dynamic performance optimizations based on real information about the data and the resources required to process it.
 
 
-![Hive_1](/assets/hello-hdp/Hive_1.png)
+![Hive_1](assets/Hive_1.png)
 
-![Hive_2](/assets/hello-hdp/Hive_2.png)
+![Hive_2](assets/Hive_2.png)
 
-![Hive_3](/assets/hello-hdp/Hive_3.png)
+![Hive_3](assets/Hive_3.png)
 
 
 Here is a short video introduction on Tez.
@@ -343,7 +340,7 @@ The Stinger Initiative was started to enable Hive to support an even broader ran
 Stinger.next is a continuation of this initiative focused on even further enhancing the [speed](http://hortonworks.com/blog/benchmarking-apache-hive-13-enterprise-hadoop/), scale and breadth of SQL support to enable truly real-time access in Hive while also bringing support for transactional capabilities.  And just as the original Stinger initiative did, this will be addressed through a familiar three-phase delivery schedule and developed completely in the open Apache Hive community.
 
 
-![Hive_4](/assets/hello-hdp/Hive_4.png)
+![Hive_4](assets/Hive_4.png)
 
 
 ### 4.3.5 Ambari Hive User Views on Hortonworks Sandbox
@@ -353,13 +350,13 @@ To make it easy to interact with Hive we use a tool in the Hortonworks Sandbox c
 Let’s now open the Ambari Hive User View and get introduced to the environment, go to the Ambari User VIew icon and select Hive :
 
 
-![Screen Shot 2016-02-17 at 7.10.18 PM](/assets/hello-hdp/selector_views_concepts.png)
+![Screen Shot 2016-02-17 at 7.10.18 PM](assets/selector_views_concepts.png)
 
 
 Ambari Hive User View
 
 
-![Hive_6](/assets/hello-hdp/ambari_hive_user_view_concepts.png)
+![Hive_6](assets/ambari_hive_user_view_concepts.png)
 
 
 Now let’s take a closer look at the SQL editing capabilities in the User View:
@@ -439,13 +436,13 @@ The user can run Pig in two modes, using either the “pig” command or the “
 To get to the Ambari Pig User View on Sandbox, click on the User Views icon at top right and select **Pig**:
 
 
-![Screen Shot 2016-02-17 at 7.12.41 PM](/assets/hello-hdp/ambari_pig_view_concepts.png)
+![Screen Shot 2016-02-17 at 7.12.41 PM](assets/ambari_pig_view_concepts.png)
 
 
 This will bring up the Ambari Pig User View interface. Your Pig View does not have any scripts to display, so it will look like the following:
 
 
-![Pig_2](/assets/hello-hdp/pig_view_scripts_list_empty_concepts.png)
+![Pig_2](assets/pig_view_scripts_list_empty_concepts.png)
 
 
 On the left is a list of your scripts, and on the right is a composition box for writing scripts. A special feature of the interface is the Pig helper at the bottom. The Pig helper will provide us with templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. At the very bottom are status areas that will show the results of our script and log files.
@@ -453,7 +450,7 @@ On the left is a list of your scripts, and on the right is a composition box for
 The following screenshot shows and describes the various components and features of the Pig User View:
 
 
-![Pig_3](/assets/hello-hdp/pig_view_workspace_interface_concepts.png)
+![Pig_3](assets/pig_view_workspace_interface_concepts.png)
 
 
 ### 4.5 Suggested Readings
@@ -464,17 +461,17 @@ The following screenshot shows and describes the various components and features
 
 **Hive Blogs**:
 
-- [Cost-Based Optimizer Makes Apache Hive 0.14 More Than 2.5X Faster](http://hortonworks.com/blog/cost-based-optimizer-makes-apache-hive-0-14-more-than-2-5x-faster/)  
-- [Discover HDP 2.2: Even Faster SQL Queries with Apache Hive and Stinger.next](http://www.slideshare.net/hortonworks/discoverhdp22faster-sql-queries-with-hive)  
-- [Announcing Apache Hive 1.2](http://hortonworks.com/blog/announcing-apache-hive-1-2/)  
-- [HIVE 0.14 Cost Based Optimizer (CBO) Technical Overview](http://hortonworks.com/blog/hive-0-14-cost-based-optimizer-cbo-technical-overview/)  
-- [5 Ways to Make Your Hive Queries Run Faster](http://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/)  
-- [Secure JDBC and ODBC Clients’ Access to HiveServer2](http://hortonworks.com/blog/secure-jdbc-odbc-clients-access-hiveserver2/)  
-- [Speed, Scale and SQL: The Stinger Initiative, Apache Hive 12 & Apache Tez](http://hortonworks.com/blog/speed-scale-sql-stinger-initiative-apache-hive-12-apache-tez/)  
+- [Cost-Based Optimizer Makes Apache Hive 0.14 More Than 2.5X Faster](http://hortonworks.com/blog/cost-based-optimizer-makes-apache-hive-0-14-more-than-2-5x-faster/)
+- [Discover HDP 2.2: Even Faster SQL Queries with Apache Hive and Stinger.next](http://www.slideshare.net/hortonworks/discoverhdp22faster-sql-queries-with-hive)
+- [Announcing Apache Hive 1.2](http://hortonworks.com/blog/announcing-apache-hive-1-2/)
+- [HIVE 0.14 Cost Based Optimizer (CBO) Technical Overview](http://hortonworks.com/blog/hive-0-14-cost-based-optimizer-cbo-technical-overview/)
+- [5 Ways to Make Your Hive Queries Run Faster](http://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/)
+- [Secure JDBC and ODBC Clients’ Access to HiveServer2](http://hortonworks.com/blog/secure-jdbc-odbc-clients-access-hiveserver2/)
+- [Speed, Scale and SQL: The Stinger Initiative, Apache Hive 12 & Apache Tez](http://hortonworks.com/blog/speed-scale-sql-stinger-initiative-apache-hive-12-apache-tez/)
 - [Hive/HCatalog – Data Geeks & Big Data Glue](http://hortonworks.com/blog/hivehcatalog-data-geeks-big-data-glue/)
 
-**Tez Blogs**:  
-- [Apache Tez: A New Chapter in Hadoop Data Processing](http://hortonworks.com/blog/apache-tez-a-new-chapter-in-hadoop-data-processing/)  
-- [Data Processing API in Apache Tez](http://hortonworks.com/blog/expressing-data-processing-in-apache-tez)**ORC Blogs:**  
-- [Apache ORC Launches as a Top-Level Project](http://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/)  
+**Tez Blogs**:
+- [Apache Tez: A New Chapter in Hadoop Data Processing](http://hortonworks.com/blog/apache-tez-a-new-chapter-in-hadoop-data-processing/)
+- [Data Processing API in Apache Tez](http://hortonworks.com/blog/expressing-data-processing-in-apache-tez)**ORC Blogs:**
+- [Apache ORC Launches as a Top-Level Project](http://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/)
 - [ORCFile in HDP 2: Better Compression, Better Performance](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/)

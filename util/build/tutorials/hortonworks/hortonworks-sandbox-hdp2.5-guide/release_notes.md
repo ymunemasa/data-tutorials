@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Hortonworks Sandbox Guide
-tutorial-id: 730
-tutorial-series: Hello World
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ sandbox ]
+id: 730
+
+platform: hdp-2.5.0
+
+components: [sandbox ]
 ---
 
 # Release Notes

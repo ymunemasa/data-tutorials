@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: How to Visualize Website Clickstream Data
-tutorial-id: 250
-tutorial-series: Real-World End to End Examples
-tutorial-version: hdp-2.5.0
-intro-page: false
-components: [ ambari, hive, hdfs ]
+id: 250
+
+platform: hdp-2.5.0
+
+components: [ambari, hive, hdfs ]
 ---
 
 ## Lab 1: Perform Web Log Analytics with Hive
@@ -71,22 +71,22 @@ Save the sample data .zip file to your computer, then extract the files and unzi
 
 First Log in to the Ambari interface at [http://localhost:8080](http://localhost:8080). You can log in with the username `maria_dev` and the password `maria_dev`
 
-Select the `Files view` from the `vies menu` ![views_menu](/assets/clickstream/lab1/views_menu.png) at the top. The HDFS Files view enables users to view Hortonworks Data Platform(HDP) file store. The HDP file system is separate from the local file system.
+Select the `Files view` from the `vies menu` ![views_menu](assets/lab1/views_menu.png) at the top. The HDFS Files view enables users to view Hortonworks Data Platform(HDP) file store. The HDP file system is separate from the local file system.
 
 
 We navigate to `/tmp`, create a **maria** folder
 
-![files_view](/assets/clickstream/lab1/files_view.png)  
+![files_view](assets/lab1/files_view.png)  
 
 click on the row of `maria` and select **Permissions**:
 
 Now we check the `Write buttons` and press save.
 
-![modify_permissions](/assets/clickstream/lab1/modify_permissions.png)
+![modify_permissions](assets/lab1/modify_permissions.png)
 
 Verify that the permissions look now like this:
 
-![verify_permissions](/assets/clickstream/lab1/verify_permissions.png)
+![verify_permissions](assets/lab1/verify_permissions.png)
 
 Now, we navigate to `/tmp/maria`, click on upload and browse the `Omniture.0.tsv`.
 
@@ -94,7 +94,7 @@ Repeat this procedure for `users.tsv` and `products.tsv`.
 
 ### Step 3: Create Hive Tables <a id="create-hive-tables"></a>
 
-Let's open the `Hive View` by clicking on the Hive button from the `views menu` ![views_menu](/assets/clickstream/lab1/views_menu.png).
+Let's open the `Hive View` by clicking on the Hive button from the `views menu` ![views_menu](assets/lab1/views_menu.png).
 
 Let's create the tables: **users**, **products** and **omniture**.
 
@@ -108,7 +108,7 @@ stored as textfile
 tblproperties ("skip.header.line.count"="1");
 ~~~
 
-![users_hive_table_create](/assets/clickstream/lab1/users_hive_table_create.png)
+![users_hive_table_create](assets/lab1/users_hive_table_create.png)
 
 ### 3.2 Create products Table
 
@@ -140,13 +140,13 @@ LOAD DATA INPATH '/tmp/maria/users.tsv' OVERWRITE INTO TABLE users;
 LOAD DATA INPATH '/tmp/maria/Omniture.0.tsv' OVERWRITE INTO TABLE omniturelogs;
 ~~~
 
-![load_dataset_hive_tables](/assets/clickstream/lab1/load_dataset_hive_tables.png)
+![load_dataset_hive_tables](assets/lab1/load_dataset_hive_tables.png)
 
 ### 4.1 Verify data loaded correctly
 
-To check if the data was loaded, click on the **load sample data** icon ![load_sample_data_icon](/assets/clickstream/lab1/load_sample_data_icon.png) next to the table name. It executes a sample query.
+To check if the data was loaded, click on the **load sample data** icon ![load_sample_data_icon](assets/lab1/load_sample_data_icon.png) next to the table name. It executes a sample query.
 
-![load_sample_data_users_table](/assets/clickstream/lab1/load_sample_data_users_table.png)
+![load_sample_data_users_table](assets/lab1/load_sample_data_users_table.png)
 
 > Note: repeat the procedure to verify that the dataset was loaded into the products and omniturelogs tables.
 
@@ -160,16 +160,16 @@ Switch to your local machine, navigate to the location of the datasets before se
 
 **omniturelogs** – website logs containing information such as URL, timestamp, IP address, geocoded IP, and session ID.
 
-![omniturelogs_dataset](/assets/clickstream/lab1/omniturelogs_dataset_part1.png)
-![omniturelogs_dataset](/assets/clickstream/lab1/omniturelogs_dataset_part2.png)
+![omniturelogs_dataset](assets/lab1/omniturelogs_dataset_part1.png)
+![omniturelogs_dataset](assets/lab1/omniturelogs_dataset_part2.png)
 
 **users** – CRM user data listing SWIDs (Software User IDs) along with date of birth and gender.
 
-![users_dataset](/assets/clickstream/lab1/users_dataset.png)
+![users_dataset](assets/lab1/users_dataset.png)
 
 **products** – CMS data that maps product categories to website URLs.
 
-![products_dataset](/assets/clickstream/lab1/products_dataset.png)
+![products_dataset](assets/lab1/products_dataset.png)
 
 Now let’s use a Hive script to generate an “omniture” view that contains a subset of the data in the Omniture log table.
 
@@ -181,18 +181,18 @@ FROM omniturelogs
 
 Click **Save as...**. On the “Saving item” pop-up, type “omniture” in the box, then click OK.
 
-![save_as_hive_script](/assets/clickstream/lab1/save_as_hive_script.png)
+![save_as_hive_script](assets/lab1/save_as_hive_script.png)
 
 You can see your saved query now by clicking on the "Save Queries" button at the top.
 
-![save_queries](/assets/clickstream/lab1/save_queries.png)
+![save_queries](assets/lab1/save_queries.png)
 
 Click **Execute** to run the script.
 
 To view the data generated by the saved script, click on the icon next to the view's name at the Database Explorer.
 The query results will appear, and you can see that the results include the data from the omniturelogs table that were specified in the query.
 
-![](/assets/clickstream/lab1/omniture_sample_data.png)
+![](assets/lab1/omniture_sample_data.png)
 
 Finally, we’ll create a script that **joins** the omniture website log data to the CRM data (registered users) and CMS data (products). Click Query Editor, then paste the following text in the Query box:
 
@@ -212,7 +212,7 @@ Save this script as “webloganalytics” and execute the script.
 
 Let's view the data generated by the script with the procedure we learned in the previous steps.
 
-![view_webloganalytics_data](/assets/clickstream/lab1/view_webloganalytics_data.png)
+![view_webloganalytics_data](assets/lab1/view_webloganalytics_data.png)
 
 Now that you have loaded data into the Hortonworks Platform, you can use Business Intelligence (BI) applications or Data Science Notebooks such as Microsoft Excel or Apache Zeppelin to access and analyze the data.
 

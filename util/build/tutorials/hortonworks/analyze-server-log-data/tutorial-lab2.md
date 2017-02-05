@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: How to Refine and Visualize Server Log Data
-tutorial-id: 200
-tutorial-series: Real-World End to End Examples
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ nifi, spark, zeppelin ]
+id: 200
+
+platform: hdp-2.5.0
+
+components: [nifi, spark, zeppelin ]
 ---
 
 ## Introduction
@@ -66,7 +66,7 @@ If you do not have NiFi installed on your sandbox, refer to [Step 2: Download an
 To activate the NiFi service, refer to [Step 4: Start NiFi on Sandbox](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of Analyze Traffic Patterns using Apache Nifi for step-by-step instructions.
 Once you enter the NiFi HTML Interface at [http://sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi), you should see a canvas as below:
 
-![nifi_html_interface](/assets/server-logs/lab2/nifi_html_interface.png)
+![nifi_html_interface](assets/lab2/nifi_html_interface.png)
 
 ### Step 2 - Download Input Data <a id="download-data"></a>
 
@@ -78,7 +78,7 @@ ssh root@127.0.0.1 -p 2222
 
 The first time password to log in is: **hadoop**
 
-![sshTerminal](/assets/server-logs/lab2/sshTerminal.png)
+![sshTerminal](assets/lab2/sshTerminal.png)
 
 Now we have to create a directory from where Nifi would pick up the data. There will be two different directories, one is for sample input dataset and other is for **GeoLite** dataset that Nifi would use to provide Geolocation attributes.
 
@@ -88,7 +88,7 @@ mkdir /tmp/nifi/GeoFile
 chmod 777 -R /tmp/nifi
 ~~~
 
-![mkdir](/assets/server-logs/lab2/mkdir.png)
+![mkdir](assets/lab2/mkdir.png)
 
 Download files using wget utility:
 
@@ -97,7 +97,7 @@ cd /tmp/nifi/input
 wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/tutorials/hortonworks/analyze-server-log-data/logsample.txt
 ~~~
 
-![download_logsample](/assets/server-logs/lab2/download_logsample.png)
+![download_logsample](assets/lab2/download_logsample.png)
 
 ~~~
 cd /tmp/nifi/GeoFile
@@ -105,18 +105,18 @@ wget https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks
 mv GeoLite2-City.mmdb?raw=true GeoLite2-City.mmdb
 ~~~
 
-![download_geofile](/assets/server-logs/lab2/download_geofile.png)
+![download_geofile](assets/lab2/download_geofile.png)
 
 ### Step 3 - Import the Workflow <a id="import-flow"></a>
 
 We’re going to import a data flow from a template which you can download [WebServerLogs.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.5/tutorials/hortonworks/analyze-server-log-data/WebServerLogs.xml).  
 Use the NiFi interface to upload the flow, and then drag it onto your workspace.
 
-![upload_template](/assets/server-logs/lab2/upload_template.png)
+![upload_template](assets/lab2/upload_template.png)
 
-Once you’ve uploaded the template into NiFi you can instantiate it by dragging the template icon ![template_icon](/assets/server-logs/lab2/template_icon.png) onto the screen. It will ask you to select your template’s name and the flow will appear as in the image below.
+Once you’ve uploaded the template into NiFi you can instantiate it by dragging the template icon ![template_icon](assets/lab2/template_icon.png) onto the screen. It will ask you to select your template’s name and the flow will appear as in the image below.
 
-![nifi_workflow](/assets/server-logs/lab2/nifi_workflow.png)
+![nifi_workflow](assets/lab2/nifi_workflow.png)
 
 Let’s us give some time to explain the role of each processor here:  
 
@@ -162,7 +162,7 @@ logsample-${now():format("HHmmssSSS")}-.txt
 Make sure you have removed Lzo and Lzop Codec from the list of compression codecs. Refer [this](http://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-server-log-data/#generate-server-log-ata) step to do that.
 Now click `SHIFT` and select the entire workflow, then locate `Start` button in the Operate box and click it.  
 
-![start_all](/assets/server-logs/lab2/start_all.png)
+![start_all](assets/lab2/start_all.png)
 
 You can see your workflow running.  
 
@@ -172,15 +172,15 @@ Keep the workflow running for next **10 minutes** so that we have enough data to
 
 Next, logout from **raj_ops** user from Ambari and re-login to Ambari using user credentials **maria_dev/maria_dev**. Click on 9 square menu and select `Files View`:
 
-![select_files_view](/assets/server-logs/lab2/select_files_view.png)
+![select_files_view](assets/lab2/select_files_view.png)
 
 After just 30 seconds, you will start seeing the output files coming to **/tmp/nifioutput** directory, so navigate to that directory. Click on one of the row and then `Open`.
 
-![open_file](/assets/server-logs/lab2/open_file.png)
+![open_file](assets/lab2/open_file.png)
 
 You would see some content like the one given below. You can easily locate its attributes - IP address, Time, Request Type, Response Code, City, Country, Isocode, Latitude and Longitude.
 
-![file_preview](/assets/server-logs/lab2/file_preview.png)
+![file_preview](assets/lab2/file_preview.png)
 
 Wait for 10 minutes to store more files like this in the folder. In the meantime, you can re-open Ambari in a new tab and start Spark.
 
@@ -188,19 +188,19 @@ Wait for 10 minutes to store more files like this in the folder. In the meantime
 
 We will be using Spark version 1.6.2 in this tutorial. Go to **Ambari dashboard**, and follow the steps as mentioned below:
 
-![turn_off_maintenance_mode](/assets/server-logs/lab2/turn_off_maintenance_mode.png)
+![turn_off_maintenance_mode](assets/lab2/turn_off_maintenance_mode.png)
 
 Next, click on `Zeppelin Notebook` and then `Quick Links -> Zeppelin UI` to open the Zeppelin UI on the browser:
 
-![quick_links_zeppelin](/assets/server-logs/lab2/quick_links_zeppelin.png)
+![quick_links_zeppelin](assets/lab2/quick_links_zeppelin.png)
 
 You will see a Zeppelin UI with a bunch of already loaded notebooks. Click on `Create New Note` and give the name **Web Server Log Analysis using Spark**:
 
-![create_new_note](/assets/server-logs/lab2/create_new_note.png)
+![create_new_note](assets/lab2/create_new_note.png)
 
 Before moving ahead, **do not forget** to stop the workflow in Nifi. Go back to Nifi UI, select all components and click `Stop` button in the Operate box:
 
-![stop_all](/assets/server-logs/lab2/stop_all.png)
+![stop_all](assets/lab2/stop_all.png)
 
 ### Step 7 - Logs Analysis using Spark and Zeppelin <a id="visualize-log-data-zeppelin"></a>
 
@@ -217,7 +217,7 @@ z.load("com.databricks:spark-csv_2.11:1.4.0")
 
 Then click on `Play` button next to Ready. Alternatively, you can press `Shift+Enter`.
 
-![dep](/assets/server-logs/lab2/dep.png)
+![dep](assets/lab2/dep.png)
 
 #### 7.2 Load the DataFrame from HDFS directory
 
@@ -248,7 +248,7 @@ logs_df = sqlContext.read\
 logs_df.show(truncate=False)
 ~~~
 
-![load_dataframe](/assets/server-logs/lab2/load_dataframe.png)
+![load_dataframe](assets/lab2/load_dataframe.png)
 
 In my case, there are 700 rows in the dataframe. Your count might differ.
 
@@ -286,7 +286,7 @@ parsed_df.cache()                                   # Stores the dataframe in ca
 parsed_df.show()                                    # Displays the results
 ~~~
 
-![parse_timestamp](/assets/server-logs/lab2/parse_timestamp.png)
+![parse_timestamp](assets/lab2/parse_timestamp.png)
 
 #### 7.4 Data Cleaning in Request_Type Column
 
@@ -297,7 +297,7 @@ Let us try to do some data cleaning in **Request_Type** column of the parsed_df 
 parsed_df.select('Request_type').show(truncate=False)
 ~~~
 
-![show_request_type](/assets/server-logs/lab2/show_request_type.png)
+![show_request_type](assets/lab2/show_request_type.png)
 
 We will remove GET from the beginning and HTTP/1.0 at the end. Using **regexp_extract** to extract these two groups identified by a java regex, from the Request_Type string column.
 
@@ -310,7 +310,7 @@ path_df.cache()                                                        # Cache t
 path_df.show(truncate=False)                                           # Displays the results
 ~~~
 
-![show_pathdf](/assets/server-logs/lab2/show_pathdf.png)
+![show_pathdf](assets/lab2/show_pathdf.png)
 
 #### 7.5 Analysis of Most Frequent Hosts
 
@@ -323,7 +323,7 @@ most_frequent_hosts.show()		                                # Displays the resul
 most_frequent_hosts.registerTempTable("most_frequent_hosts")    # Registering most_frequest_hosts variable as a temporary table
 ~~~
 
-![show_most_frequent_hosts](/assets/server-logs/lab2/show_most_frequent_hosts.png)
+![show_most_frequent_hosts](assets/lab2/show_most_frequent_hosts.png)
 
 Let us view the data from the temporary table using the %sql interpreter:
 
@@ -332,11 +332,11 @@ Let us view the data from the temporary table using the %sql interpreter:
 SELECT * FROM most_frequent_hosts ORDER BY count DESC LIMIT 20
 ~~~
 
-![select_most_frequent_hosts](/assets/server-logs/lab2/select_most_frequent_hosts.png)
+![select_most_frequent_hosts](assets/lab2/select_most_frequent_hosts.png)
 
 You can also view this data in the form of charts, click the button which shows pie chart. You will see something like this:
 
-![piechart_most_frequent_hosts](/assets/server-logs/lab2/piechart_most_frequent_hosts.png)
+![piechart_most_frequent_hosts](assets/lab2/piechart_most_frequent_hosts.png)
 
 You can hover in the circle to find out actual count of each hosts. Zeppelin provides other charts like bar chart, area chart, scatter chart, etc. as well.
 
@@ -351,7 +351,7 @@ status_count.show()                                          # Displays the resu
 status_count.registerTempTable("status_count")               # Registering status_count variable as a temporary table
 ~~~
 
-![show_statuscount](/assets/server-logs/lab2/show_statuscount.png)
+![show_statuscount](assets/lab2/show_statuscount.png)
 
 Let us view the data from the temporary table:
 
@@ -360,11 +360,11 @@ Let us view the data from the temporary table:
 SELECT * FROM status_count ORDER BY Response_Code
 ~~~
 
-![select_status_count](/assets/server-logs/lab2/select_status_count.png)
+![select_status_count](assets/lab2/select_status_count.png)
 
 Click the bar chart button:
 
-![barchart_status_count](/assets/server-logs/lab2/barchart_status_count.png)
+![barchart_status_count](assets/lab2/barchart_status_count.png)
 
 Next, let us analyze only those records where the Response_Code is 200.
 
@@ -375,7 +375,7 @@ success_logs_df.cache()                                                         
 success_logs_df.show()                                                                # Displays the results
 ~~~
 
-![show_success_logs_df](/assets/server-logs/lab2/show_success_logs_df.png)
+![show_success_logs_df](assets/lab2/show_success_logs_df.png)
 
 So now we have all the records where the Response_Code is 200. We will count the number of successful hits per hour.
 
@@ -387,7 +387,7 @@ success_logs_by_hours_df.show()                                                 
 success_logs_by_hours_df.registerTempTable("success_logs_by_hours_df")                                           
 ~~~
 
-![show_success_logs_by_hours_df](/assets/server-logs/lab2/show_success_logs_by_hours_df.png)
+![show_success_logs_by_hours_df](assets/lab2/show_success_logs_by_hours_df.png)
 
 Let us view the same data in the form of table
 
@@ -396,7 +396,7 @@ Let us view the same data in the form of table
 SELECT * FROM success_logs_by_hours_df ORDER BY Hour
 ~~~
 
-![select_success_logs_by_hour_df](/assets/server-logs/lab2/select_success_logs_by_hour_df.png)
+![select_success_logs_by_hour_df](assets/lab2/select_success_logs_by_hour_df.png)
 
 #### 7.7 Data Cleansing in Request_Path
 
@@ -409,7 +409,7 @@ extension_df = path_df.select(regexp_extract('Request_Path','(\\.[^.]+)$',1).ali
 extension_df.show(truncate=False)
 ~~~
 
-![show_extension_df](/assets/server-logs/lab2/show_extension_df.png)
+![show_extension_df](assets/lab2/show_extension_df.png)
 
 As you can see here, there is a lot of data cleansing required. Let's start with removing the dot from the extension format first. We will use **regexp_replace** to do this operation. It will look for dot character(.) in the records and replace it with the blank character(‘’)
 
@@ -420,7 +420,7 @@ extension_df = extension_df.select(regexp_replace('Extension','\.','').alias('Ex
 extension_df.show(truncate=False)                                                           # Displays the results
 ~~~
 
-![show_extension_df1](/assets/server-logs/lab2/show_extension_df1.png)
+![show_extension_df1](assets/lab2/show_extension_df1.png)
 
 There is still some cleansing required. As you can observe that there are some blank rows, we are going to replace those blank rows with the value **None**.
 
@@ -432,7 +432,7 @@ extension_df.cache()
 extension_df.show(truncate=False)                                               # Shows the results
 ~~~
 
-![show_extension_df2](/assets/server-logs/lab2/show_extension_df2.png)
+![show_extension_df2](assets/lab2/show_extension_df2.png)
 
 #### 7.8 Analysis of Type of Extensions
 
@@ -446,14 +446,14 @@ extension_df_count.show()                                                       
 extension_df_count.registerTempTable('extension_df_count')                      # Registers the temporary table
 ~~~
 
-![show_extension_df_count](/assets/server-logs/lab2/show_extension_df_count.png)
+![show_extension_df_count](assets/lab2/show_extension_df_count.png)
 
 ~~~
 %sql
 SELECT * FROM extension_df_count ORDER BY count DESC
 ~~~
 
-![select_extension_df_count](/assets/server-logs/lab2/select_extension_df_count.png)
+![select_extension_df_count](assets/lab2/select_extension_df_count.png)
 
 > EXERCISE FOR YOU - If you see clearly, the gif extension is in both uppercase and lowercase. Try to replace either one of them to make the data more accurate.
 
@@ -466,7 +466,7 @@ Let us create a temporary table for the dataframe path_df so that we can visuali
 path_df.registerTempTable("path_df")
 ~~~
 
-![register_path_df](/assets/server-logs/lab2/register_path_df.png)
+![register_path_df](assets/lab2/register_path_df.png)
 
 Next, create a **Hive table** from this dataframe so that we can use it for the visualization using external tools like Tableau, Microsoft Excel, etc
 
@@ -477,7 +477,7 @@ Run the following query in the new paragraph of the notebook:
 CREATE TABLE path_df AS SELECT * FROM path_df
 ~~~
 
-![create_table_path_df](/assets/server-logs/lab2/create_table_path_df.png)
+![create_table_path_df](assets/lab2/create_table_path_df.png)
 
 > EXERCISE FOR YOU - Verify whether this table is created in Hive or not.
 
@@ -488,7 +488,7 @@ Next, run the query given below to analyze the network traffic per each country:
 SELECT country,count(country) AS count from path_df GROUP BY country ORDER BY count
 ~~~
 
-![select_country](/assets/server-logs/lab2/select_country.png)
+![select_country](assets/lab2/select_country.png)
 
 We can also find out the network traffic for cities within just United States, run the following and switch over to Pie Chart:
 
@@ -497,7 +497,7 @@ We can also find out the network traffic for cities within just United States, r
 SELECT city, count(city) AS count from path_df where country='United States' GROUP BY city ORDER BY count
 ~~~
 
-![select_city](/assets/server-logs/lab2/select_city.png)
+![select_city](assets/lab2/select_city.png)
 
 ### Summary <a id = "summary"></a>
 

@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Intro to Spark Streaming
-tutorial-id: 366
-tutorial-series: Spark
-tutorial-version: hdp-2.5.0
-intro-page: true
-components: [ spark ]
+id: 366
+
+platform: hdp-2.5.0
+
+components: [spark ]
 ---
 
 In this tutorial, we will introduce core concepts of Apache Spark Streaming and run a Word Count demo that computes an incoming list of words every two seconds.

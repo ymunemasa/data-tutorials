@@ -1,11 +1,11 @@
 ---
-layout: tutorial
+
 title: Tutorial 2 Enhance the DataFlow with Geo Location Enrichment
-tutorial-id: 640
-tutorial-series: Basic Development
-tutorial-version: hdf-2.0.0
-intro-page: false
-components: [ nifi ]
+id: 640
+
+platform: hdf-2.0.0
+
+components: [nifi ]
 ---
 
 # Tutorial 2: Enhance the DataFlow with Geo Location Enrichment
@@ -16,7 +16,7 @@ In this section, you will build a geographic location enrichment for the vehicle
 
 In this tutorial, you will build the Geo Location Enrichment section of the dataflow:
 
-![complete_dataflow_lab2_geoEnrich](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/complete_dataflow_lab2_geoEnrich.png)
+![complete_dataflow_lab2_geoEnrich](assets/lab2-geo-location-enrichment-nifi-lab-series/complete_dataflow_lab2_geoEnrich.png)
 
 Feel free to download the [Lab2-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab2-template/Lab2-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to the tutorial.  
 Refer Step 1 to obtain the API key to build HTTP URL.
@@ -65,7 +65,7 @@ Let's obtain the **required parameters** to initiate a Nearby Search request.
 
 4\. Now a screen with your unique API key will appear similar to the screen below:
 
-![api_key](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/api_key.png)
+![api_key](assets/lab2-geo-location-enrichment-nifi-lab-series/api_key.png)
 
 Now we have the API Key parameter for our HTTP request. We also have the other required parameters: **location** thanks to tutorial 1 in which we extracted longitude & latitude attributes and **radius**, which can be a distance that does not surpass 50,000 meters. We will use one optional parameter **type** to signify what type of place we are interested in searching for.
 
@@ -114,7 +114,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 **Remote URL** connects to the HTTP URL we created using Google Places API and feeds that data into the dataflow. Notice we use two NiFi expressions for location parameter. This is because those two values change as new FlowFiles pass through this processor.  
 
-![invokeHTTP_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/invokeHTTP_config_property_tab_window.png)
+![invokeHTTP_config_property_tab_window](assets/lab2-geo-location-enrichment-nifi-lab-series/invokeHTTP_config_property_tab_window.png)
 
 3\. Navigate to the **Settings** tab, change the name from InvokeHTTP to `GoogleNearbySearchAPI`. Under Auto terminate relationships check the **Failure**, **No Retry**, **Original** and **Retry** checkboxes. Click **Apply** button.
 
@@ -137,7 +137,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 - **2 user-defined attributes** each hold a value that is used in the NiFi Expression language filtering condition in the next processor.
 
-![evaluateJsonPath_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/evaluateJsonPath_config_property_tab_window.png)
+![evaluateJsonPath_config_property_tab_window](assets/lab2-geo-location-enrichment-nifi-lab-series/evaluateJsonPath_config_property_tab_window.png)
 
 3\. Navigate to the **Settings** tab. Under Auto terminate relationships check the **unmatched** and **failure** checkboxes. Click **Apply** button.
 
@@ -156,7 +156,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 **RouteNearbyNeighborhoods** uses the FlowFile Attribute values obtained from JSON Path Expressions to filter out any FlowFiles that have at least one empty Attribute value. Else the FlowFiles are passed to the remaining processors.
 
-![routeOnAttribute_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/routeOnAttribute_geoEnrich_config_property_tab_window.png)
+![routeOnAttribute_geoEnrich_config_property_tab_window](assets/lab2-geo-location-enrichment-nifi-lab-series/routeOnAttribute_geoEnrich_config_property_tab_window.png)
 
 3\. Navigate to the **Settings** tab, change the name from RouteOnAttribute to `RouteNearbyNeighborhoods`. Under Auto terminate relationships check the **unmatched** checkbox. Click **Apply** button.
 
@@ -173,7 +173,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 | `Attributes List`  | `Vehicle_ID, city, Latitude, Longitude, neighborhoods_nearby, Last_Time`  |
 | `Destination`  | flowfile-content  |
 
-![attributesToJSON_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/attributesToJSON_geoEnrich_config_property_tab_window.png)
+![attributesToJSON_geoEnrich_config_property_tab_window](assets/lab2-geo-location-enrichment-nifi-lab-series/attributesToJSON_geoEnrich_config_property_tab_window.png)
 
 3\. Navigate  to the **Settings** tab, under Auto terminate relationships check the **failure** checkbox. Click **Apply** button.
 
@@ -194,7 +194,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 | `Footer`  | `]`  |
 | `Demarcator`  | `,` {press-shift+enter}  |
 
-![mergeContent_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/mergeContent_geoEnrich_config_property_tab_window.png)
+![mergeContent_geoEnrich_config_property_tab_window](assets/lab2-geo-location-enrichment-nifi-lab-series/mergeContent_geoEnrich_config_property_tab_window.png)
 
 3\. Navigate  to the **Settings** tab, under Auto terminate relationships check the **failure** and **original** checkbox. Click **Apply** button.
 
@@ -210,7 +210,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 |:---|---:|
 | `Directory`  | `/tmp/nifi/output/nearby_neighborhoods_search`  |
 
-![putFile_geoEnrich_config_property_tab_window](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/putFile_geoEnrich_config_property_tab_window.png)
+![putFile_geoEnrich_config_property_tab_window](assets/lab2-geo-location-enrichment-nifi-lab-series/putFile_geoEnrich_config_property_tab_window.png)
 
 3\. Navigate  to the **Settings** tab, under Auto terminate relationships check the **success** checkbox. Click **Apply** button. Connect the processor to itself and when the Create Connection window appears, select **failure** checkbox.
 
@@ -219,9 +219,9 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 Now that we added geographic location enrichment dataflow section to our previous dataflow, let's run the dataflow and verify if we receive the expected results in our output directory.
 
-1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/start_button_nifi_iot.png). Your screen should look like the following:
+1\. Go to the actions toolbar and click the start button ![start_button_nifi_iot](assets/lab2-geo-location-enrichment-nifi-lab-series/start_button_nifi_iot.png). Your screen should look like the following:
 
-![complete_dataflow_lab2_geoEnrich](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/running_dataflow_lab2_geoEnrich.png)
+![complete_dataflow_lab2_geoEnrich](assets/lab2-geo-location-enrichment-nifi-lab-series/running_dataflow_lab2_geoEnrich.png)
 
 2\. Let's check the data was written to our expected directory, open your terminal. Make sure to SSH into your sandbox if on sandbox, else navigate to the output directory on your local machine. Navigate to the directory you wrote for the PutFile processor. List the files and open one of the newly created files to view geographic neighborhoods nearby transit location enrichment data output. In the tutorial our directory path is: `/tmp/nifi/output/nearby_neighborhoods_search`.
 
@@ -231,7 +231,7 @@ ls
 vi 2ae30f7d-5ffe-4e29-92f0-8f0e7c9224b6
 ~~~
 
-![output_geoEnrich_nearby_neighborhoods_data](/assets/learning-ropes-nifi-lab-series/lab2-geo-location-enrichment-nifi-lab-series/output_geoEnrich_nearby_neighborhoods_data.png)
+![output_geoEnrich_nearby_neighborhoods_data](assets/lab2-geo-location-enrichment-nifi-lab-series/output_geoEnrich_nearby_neighborhoods_data.png)
 
 
 ## Summary <a id="summary-tutorial2"></a>

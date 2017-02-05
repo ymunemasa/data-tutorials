@@ -1,11 +1,8 @@
 ---
-layout: tutorial
 title: Hello HDP An Introduction to Hadoop with Hive and Pig
-tutorial-id: 100
-tutorial-series: Basic Development
-tutorial-version: hdp-2.4.0
-intro-page: true
-components: [ ambari, hive, pig, spark, zeppelin ]
+id: 100
+platform: hdp-2.4.0
+components: [ambari, hive, pig, spark, zeppelin]
 ---
 
 ## Introduction
@@ -177,7 +174,7 @@ The Hortonworks **Sandbox** is a single node implementation of the Hortonworks D
 
 - HDFS is one of the 4 components of [Apache Hadoop](http://hadoop.apache.org/) the other 3 are Hadoop Common, [Hadoop YARN](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html) and [Hadoop MapReduce](http://hortonworks.com/hadoop/mapreduce/).
 - To learn more about HDFS watch the following [HDFS introduction video](https://www.youtube.com/watch?v=1_ly9dZnmWc).
-- To learn more about YARN watch the following [YARN introduction video](https://www.youtube.com/watch?v=ZYXVNxmMchc&list=PL2y_WpKCCNQc-7RJNoYym4_g7EZb3yzJW).  
+- To learn more about YARN watch the following [YARN introduction video](https://www.youtube.com/watch?v=ZYXVNxmMchc&list=PL2y_WpKCCNQc-7RJNoYym4_g7EZb3yzJW).
 
 
 **Hadoop 2.0 Blogs:**
@@ -201,7 +198,7 @@ A single physical machine gets saturated with its storage capacity as the data g
 
 HDFS is a distributed file system that is designed for storing large data files. HDFS is a Java-based file system that provides scalable and reliable data storage, and it was designed to span large clusters of commodity servers. HDFS has demonstrated production scalability of up to 200 PB of storage and a single cluster of 4500 servers, supporting close to a billion files and blocks. HDFS is a scalable, fault-tolerant, distributed storage system that works closely with a wide variety of concurrent data access applications, coordinated by YARN. HDFS will “just work” under a variety of physical and systemic circumstances. By distributing storage and computation across many servers, the combined storage resource can grow linearly with demand while remaining economical at every amount of storage.
 
-![HDSF_1](/assets/hello-hdp/HDSF_1.png)
+![HDSF_1](assets/HDSF_1.png)
 
 An HDFS cluster is comprised of a NameNode, which manages the cluster metadata, and DataNodes that store the data. Files and directories are represented on the NameNode by inodes. Inodes record attributes like permissions, modification and access times, or namespace and disk space quotas.
 
@@ -216,7 +213,7 @@ The NameNode does not directly send requests to DataNodes. It sends instructions
 *   re-register and send an immediate block report, or
 *   shut down the node.
 
-![HDFS_2](/assets/hello-hdp/HDFS_2.png)
+![HDFS_2](assets/HDFS_2.png)
 
 - For more details on HDFS: [http://hortonworks.com/hadoop/hdfs/](http://hortonworks.com/hadoop/hdfs/)
 
@@ -228,7 +225,7 @@ With [next generation HDFS data architecture](http://hortonworks.com/blog/hdfs-2
 
 Ambari Files User View
 
-![HDFS_3](/assets/hello-hdp/HDFS_3.png)
+![HDFS_3](assets/HDFS_3.png)
 
 Ambari Files User View provides a user friendly interface to upload, store and move data. Underlying all components in Hadoop is the Hadoop Distributed File System([HDFS](http://hortonworks.com/hadoop/hdfs/)™).  This is the foundation of the Hadoop cluster. The HDFS file system manages how the datasets are stored in the Hadoop cluster. It is responsible for distributing the data across the datanodes, managing replication for redundancy and administrative tasks like adding, removing and recovery of data nodes.
 
@@ -238,18 +235,18 @@ Ambari Files User View provides a user friendly interface to upload, store and m
 - To learn more about HDFS watch the following [HDFS introduction video](https://www.youtube.com/watch?v=1_ly9dZnmWc).
 - To learn more about YARN watch the following [YARN introduction video](https://www.youtube.com/watch?v=ZYXVNxmMchc&list=PL2y_WpKCCNQc-7RJNoYym4_g7EZb3yzJW).
 
-**Hadoop 2.0 Blogs:**  
+**Hadoop 2.0 Blogs:**
 
-- [Hadoop 2.7.0 Blog](http://hortonworks.com/blog/apache-hadoop-2-7-0-released/)  
+- [Hadoop 2.7.0 Blog](http://hortonworks.com/blog/apache-hadoop-2-7-0-released/)
 - [Understanding Hadoop 2.0](http://hortonworks.com/blog/understanding-hadoop-2-0/)
 
-**HDFS Blogs:**  
+**HDFS Blogs:**
 
-- [Heterogeneous Storage Policies in HDP 2.2](http://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)  
-- [HDFS Metadata Directories Explained](http://hortonworks.com/blog/hdfs-metadata-directories-explained/)  
-- [Heterogeneous Storages in HDFS](http://hortonworks.com/blog/heterogeneous-storages-hdfs/)  
-- [HDFS 2.0 Next Generation Architecture](http://hortonworks.com/blog/hdfs-2-0-next-generation-architecture/)  
-- [NameNode High Availability in HDP 2.0](http://hortonworks.com/blog/namenode-high-availability-in-hdp-2-0/)  
+- [Heterogeneous Storage Policies in HDP 2.2](http://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)
+- [HDFS Metadata Directories Explained](http://hortonworks.com/blog/hdfs-metadata-directories-explained/)
+- [Heterogeneous Storages in HDFS](http://hortonworks.com/blog/heterogeneous-storages-hdfs/)
+- [HDFS 2.0 Next Generation Architecture](http://hortonworks.com/blog/hdfs-2-0-next-generation-architecture/)
+- [NameNode High Availability in HDP 2.0](http://hortonworks.com/blog/namenode-high-availability-in-hdp-2-0/)
 - [Introducing… Tez: Accelerating processing of data stored in HDFS](http://hortonworks.com/blog/introducing-tez-faster-hadoop-processing/)
 
 ## Concepts: MapReduce & YARN
@@ -281,13 +278,13 @@ The current Apache Hadoop MapReduce System is composed of the JobTracker, which 
 
 The TaskTracker has simple responsibilities – launch/teardown tasks on orders from the JobTracker and provide task-status information to the JobTracker periodically.
 
-![MapR_1](/assets/hello-hdp/MapR_1.png)
+![MapR_1](assets/MapR_1.png)
 
 The Apache Hadoop projects provide a series of tools designed to solve big data problems. The Hadoop cluster implements a parallel computing cluster using inexpensive commodity hardware. The cluster is partitioned across many servers to provide a near linear scalability. The philosophy of the cluster design is to bring the computing to the data. So each datanode will hold part of the overall data and be able to process the data that it holds. The overall framework for the processing software is called MapReduce. Here’s a short video introduction to MapReduce:
 
 <iframe width="500" height="281" src="https://www.youtube.com/embed/ht3dNvdNDzI?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player2"></iframe>
 
-![MapR_2](/assets/hello-hdp/MapR_2.png)
+![MapR_2](assets/MapR_2.png)
 
 ### [Apache YARN](http://hortonworks.com/blog/apache-hadoop-yarn-background-and-an-overview/) **(Yet Another Resource Negotiator):**
 
@@ -305,7 +302,7 @@ The per-application ApplicationMaster has the responsibility of negotiating appr
 
 Here is an architectural view of YARN:
 
-![MapR_3](/assets/hello-hdp/MapR_3.png)
+![MapR_3](assets/MapR_3.png)
 
 One of the crucial implementation details for MapReduce within the new YARN **system** that I’d like to point out is that we have reused the existing MapReduce **framework** without any major surgery. This was very important to ensure **compatibility** for existing MapReduce applications and users. Here is a short video introduction for YARN
 
@@ -315,23 +312,23 @@ One of the crucial implementation details for MapReduce within the new YARN **sy
 
 - HDFS is one of the 4 components of [Apache Hadoop](http://hadoop.apache.org/) the other 3 are Hadoop Common, [Hadoop YARN](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html) and [Hadoop MapReduce](http://hortonworks.com/hadoop/mapreduce/).  To learn more about HDFS watch the following [HDFS introduction video](https://www.youtube.com/watch?v=1_ly9dZnmWc).  To learn more about YARN watch the following [YARN introduction video](https://www.youtube.com/watch?v=ZYXVNxmMchc&list=PL2y_WpKCCNQc-7RJNoYym4_g7EZb3yzJW).
 
-**Hadoop 2.0 Blogs:**  
-[Hadoop 2.7.0 Blog](http://hortonworks.com/blog/apache-hadoop-2-7-0-released/)  
+**Hadoop 2.0 Blogs:**
+[Hadoop 2.7.0 Blog](http://hortonworks.com/blog/apache-hadoop-2-7-0-released/)
 [Understanding Hadoop 2.0](http://hortonworks.com/blog/understanding-hadoop-2-0/)
 
-**YARN Blogs:**  
-[YARN series-1](http://hortonworks.com/blog/resource-localization-in-yarn-deep-dive/)  
+**YARN Blogs:**
+[YARN series-1](http://hortonworks.com/blog/resource-localization-in-yarn-deep-dive/)
 [YARN series-2](http://hortonworks.com/blog/apache-hadoop-yarn-hdp-2-2-substantial-step-forward-enterprise-hadoop/)
 
-**Slider Blogs:**  
-[Announcing Apache Slider 0.60.0](http://hortonworks.com/blog/announcing-apache-slider-0-60-0/)  
-[Onboarding Long Running Services to Apache Hadoop YARN Using Apache Slider](http://hortonworks.com/blog/onboarding-long-running-services-apache-hadoop-yarn-using-apache-slider/)  
+**Slider Blogs:**
+[Announcing Apache Slider 0.60.0](http://hortonworks.com/blog/announcing-apache-slider-0-60-0/)
+[Onboarding Long Running Services to Apache Hadoop YARN Using Apache Slider](http://hortonworks.com/blog/onboarding-long-running-services-apache-hadoop-yarn-using-apache-slider/)
 [Build YARN Apps on Hadoop with Apache Slider: Technical Preview Now Available](http://hortonworks.com/blog/apache-slider-technical-preview-now-available/)
 
-**Capacity Scheduler Blogs:**  
-[Understanding Apache Hadoop’s Capacity Scheduler](http://hortonworks.com/blog/understanding-apache-hadoops-capacity-scheduler/)  
-[Configuring YARN Capacity Scheduler with Ambari](http://hortonworks.com/hadoop-tutorial/configuring-yarn-capacity-scheduler-ambari/)  
-[Multi-Tenancy in HDP 2.0: Capacity Scheduler and YARN](http://hortonworks.com/blog/multi-tenancy-in-hdp-2-0-capacity-scheduler-and-yarn/)  
+**Capacity Scheduler Blogs:**
+[Understanding Apache Hadoop’s Capacity Scheduler](http://hortonworks.com/blog/understanding-apache-hadoops-capacity-scheduler/)
+[Configuring YARN Capacity Scheduler with Ambari](http://hortonworks.com/hadoop-tutorial/configuring-yarn-capacity-scheduler-ambari/)
+[Multi-Tenancy in HDP 2.0: Capacity Scheduler and YARN](http://hortonworks.com/blog/multi-tenancy-in-hdp-2-0-capacity-scheduler-and-yarn/)
 [Better SLAs via Resource-preemption in YARN’s Capacity Scheduler](http://hortonworks.com/blog/better-slas-via-resource-preemption-in-yarns-capacityscheduler/)
 
 
@@ -349,10 +346,10 @@ Hive is a SQL like query language that enables analysts familiar with SQL to run
 
 [**Apache Hive**](https://hive.apache.org/)**™:**
 
-Data analysts use Hive to explore, structure and analyze that data, then turn it into business insight. Hive implements a dialect of SQL (Hive QL) that focuses on analytics and presents a rich set of SQL semantics including OLAP functions, sub-queries, common table expressions and more. Hive allows SQL  
+Data analysts use Hive to explore, structure and analyze that data, then turn it into business insight. Hive implements a dialect of SQL (Hive QL) that focuses on analytics and presents a rich set of SQL semantics including OLAP functions, sub-queries, common table expressions and more. Hive allows SQL
 developers or users with SQL tools to easily query, analyze and process data stored in Hadoop.Hive also allows programmers familiar with the MapReduce framework to plug in their custom mappers and reducers to perform more sophisticated analysis that may not be supported by the built-in capabilities of the language.
 
-Hive users have a choice of 3 runtimes when [executing SQL queries](http://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/). Users can choose between Apache Hadoop MapReduce, Apache Tez or  
+Hive users have a choice of 3 runtimes when [executing SQL queries](http://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/). Users can choose between Apache Hadoop MapReduce, Apache Tez or
 Apache Spark frameworks as their execution backend
 
 Here are some advantageous characteristics of Hive for enterprise SQL in Hadoop:
@@ -389,11 +386,11 @@ Apache Tez provides a developer API and framework to write native [YARN](http://
 
 Since Tez is extensible and embeddable, it provides the fit-to-purpose freedom to express highly optimized data processing applications, giving them an advantage over end-user-facing engines such as [MapReduce](http://hortonworks.com/hadoop/mapreduce/) and [Apache Spark](http://hortonworks.com/hadoop/spark/). Tez also offers a customizable execution architecture that allows users to express complex computations as dataflow graphs, permitting dynamic performance optimizations based on real information about the data and the resources required to process it.
 
-![Hive_1](/assets/hello-hdp/Hive_1.png)
+![Hive_1](assets/Hive_1.png)
 
-![Hive_2](/assets/hello-hdp/Hive_2.png)
+![Hive_2](assets/Hive_2.png)
 
-![Hive_3](/assets/hello-hdp/Hive_3.png)
+![Hive_3](assets/Hive_3.png)
 
 Here is a short video introduction on Tez.
 
@@ -405,7 +402,7 @@ The Stinger Initiative was started to enable Hive to support an even broader ran
 
 Stinger.next is a continuation of this initiative focused on even further enhancing the [speed](http://hortonworks.com/blog/benchmarking-apache-hive-13-enterprise-hadoop/), scale and breadth of SQL support to enable truly real-time access in Hive while also bringing support for transactional capabilities.  And just as the original Stinger initiative did, this will be addressed through a familiar three-phase delivery schedule and developed completely in the open Apache Hive community.
 
-![Hive_4](/assets/hello-hdp/Hive_4.png)
+![Hive_4](assets/Hive_4.png)
 
 **Ambari Hive User Views on Hortonworks Sandbox**
 
@@ -413,11 +410,11 @@ To make it easy to interact with Hive we use a tool in the Hortonworks Sandbox c
 
 Let’s now open the Ambari Hive User View and get introduced to the environment, go to the Ambari User VIew icon and select Hive :
 
-![Screen Shot 2015-07-21 at 10.10.18 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.10.18-AM.png)
+![Screen Shot 2015-07-21 at 10.10.18 AM](assets/Screen-Shot-2015-07-21-at-10.10.18-AM.png)
 
 Ambari Hive User View
 
-![Hive_6](/assets/hello-hdp/Hive_6.png)
+![Hive_6](assets/Hive_6.png)
 
 Now let’s take a closer look at the SQL editing capabilities in the User View:
 
@@ -491,17 +488,17 @@ The user can run Pig in two modes, using either the “pig” command or the “
 
 To get to the Ambari Pig User View on Sandbox, click on the User Views icon at top right and select **Pig**:
 
-![Screen Shot 2015-07-21 at 10.12.41 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.12.41-AM.png)
+![Screen Shot 2015-07-21 at 10.12.41 AM](assets/Screen-Shot-2015-07-21-at-10.12.41-AM.png)
 
 This will bring up the Ambari Pig User View interface. Your Pig View does not have any scripts to display, so it will look like the following:
 
-![Pig_2](/assets/hello-hdp/Pig_2.png)
+![Pig_2](assets/Pig_2.png)
 
 On the left is a list of your scripts, and on the right is a composition box for writing scripts. A special feature of the interface is the Pig helper at the bottom. The Pig helper will provide us with templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. At the very bottom are status areas that will show the results of our script and log files.
 
 The following screenshot shows and describes the various components and features of the Pig User View:
 
-![Pig_3](/assets/hello-hdp/Pig_3.png)
+![Pig_3](assets/Pig_3.png)
 
 **Suggested Readings**
 
@@ -509,21 +506,21 @@ The following screenshot shows and describes the various components and features
 - [Apache Ambari](https://ambari.apache.org/) is an open source and open community based web based tool for Hadoop operations which has been extended via [Ambari User Views](https://cwiki.apache.org/confluence/display/AMBARI/Views) to provide a growing list of developer tools as User Views.
 - Follow this link to learn more about the [Ambari User VIews included in HDP](http://hortonworks.com/hadoop/ambari/).
 
-**Hive Blogs**: 
+**Hive Blogs**:
 
-- [Cost-Based Optimizer Makes Apache Hive 0.14 More Than 2.5X Faster](http://hortonworks.com/blog/cost-based-optimizer-makes-apache-hive-0-14-more-than-2-5x-faster/)  
-- [Discover HDP 2.2: Even Faster SQL Queries with Apache Hive and Stinger.next](http://www.slideshare.net/hortonworks/discoverhdp22faster-sql-queries-with-hive)  
-- [Announcing Apache Hive 1.2](http://hortonworks.com/blog/announcing-apache-hive-1-2/)  
-- [HIVE 0.14 Cost Based Optimizer (CBO) Technical Overview](http://hortonworks.com/blog/hive-0-14-cost-based-optimizer-cbo-technical-overview/)  
-- [5 Ways to Make Your Hive Queries Run Faster](http://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/)  
-- [Secure JDBC and ODBC Clients’ Access to HiveServer2](http://hortonworks.com/blog/secure-jdbc-odbc-clients-access-hiveserver2/)  
-- [Speed, Scale and SQL: The Stinger Initiative, Apache Hive 12 & Apache Tez](http://hortonworks.com/blog/speed-scale-sql-stinger-initiative-apache-hive-12-apache-tez/)  
+- [Cost-Based Optimizer Makes Apache Hive 0.14 More Than 2.5X Faster](http://hortonworks.com/blog/cost-based-optimizer-makes-apache-hive-0-14-more-than-2-5x-faster/)
+- [Discover HDP 2.2: Even Faster SQL Queries with Apache Hive and Stinger.next](http://www.slideshare.net/hortonworks/discoverhdp22faster-sql-queries-with-hive)
+- [Announcing Apache Hive 1.2](http://hortonworks.com/blog/announcing-apache-hive-1-2/)
+- [HIVE 0.14 Cost Based Optimizer (CBO) Technical Overview](http://hortonworks.com/blog/hive-0-14-cost-based-optimizer-cbo-technical-overview/)
+- [5 Ways to Make Your Hive Queries Run Faster](http://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/)
+- [Secure JDBC and ODBC Clients’ Access to HiveServer2](http://hortonworks.com/blog/secure-jdbc-odbc-clients-access-hiveserver2/)
+- [Speed, Scale and SQL: The Stinger Initiative, Apache Hive 12 & Apache Tez](http://hortonworks.com/blog/speed-scale-sql-stinger-initiative-apache-hive-12-apache-tez/)
 - [Hive/HCatalog – Data Geeks & Big Data Glue](http://hortonworks.com/blog/hivehcatalog-data-geeks-big-data-glue/)
 
-**Tez Blogs**:  
-- [Apache Tez: A New Chapter in Hadoop Data Processing](http://hortonworks.com/blog/apache-tez-a-new-chapter-in-hadoop-data-processing/)  
-- [Data Processing API in Apache Tez](http://hortonworks.com/blog/expressing-data-processing-in-apache-tez)**ORC Blogs:**  
-- [Apache ORC Launches as a Top-Level Project](http://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/)  
+**Tez Blogs**:
+- [Apache Tez: A New Chapter in Hadoop Data Processing](http://hortonworks.com/blog/apache-tez-a-new-chapter-in-hadoop-data-processing/)
+- [Data Processing API in Apache Tez](http://hortonworks.com/blog/expressing-data-processing-in-apache-tez)**ORC Blogs:**
+- [Apache ORC Launches as a Top-Level Project](http://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/)
 - [ORCFile in HDP 2: Better Compression, Better Performance](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/)
 
 
@@ -533,19 +530,19 @@ The following screenshot shows and describes the various components and features
 
 Start the HDP Sandbox following the [Sandbox Install Guide](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM:
 
-![Lab0_1](/assets/hello-hdp/Lab0_1.png)
+![Lab0_1](assets/Lab0_1.png)
 
 Once you have installed the Sandbox VM, it resolves to the host on your environment, the address of which varies depending upon the Virtual Machine you are using(Vmware, VirtualBox etc). As, a general thumb rule, wait for the installation to complete and confirmation screen will tell you the host your sandbox resolves to. For example:
 
 In case of VirtualBox: host would be 127.0.0.1
 
-![Lab0_2](/assets/hello-hdp/Lab0_2.png)
+![Lab0_2](assets/Lab0_2.png)
 
 If you are using a private cluster or a cloud to run sandbox. Please find the host your sandbox resolves to.
 
 Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at http://_host_:8888/.
 
-![Screen Shot 2015-07-20 at 6.11.32 PM](/assets/hello-hdp/Screen-Shot-2015-07-20-at-6.11.32-PM.png)
+![Screen Shot 2015-07-20 at 6.11.32 PM](assets/Screen-Shot-2015-07-20-at-6.11.32-PM.png)
 
 Navigate to Ambari welcome page using the url given on Sandbox welcome page.
 
@@ -559,7 +556,7 @@ If you want to search for the host address your sandbox is running on, ssh into 
 4.  This inet address is randomly generated for every session and therefore differs from session to session.
 
 
-| Service | URL | 
+| Service | URL |
 |---------|-----|
 | Sandbox Welcome Page | [http://_host_:8888]()|
 | Ambari Dashboard | [http://_host_:8080]()|
@@ -584,7 +581,7 @@ Enter the Ambari Welcome URL and then you should see a similar screen:
 
 There are 5 key capabilities to explore in the Ambari Welcome screen:
 
-![Lab0_3](/assets/hello-hdp/Lab0_3.png)
+![Lab0_3](assets/Lab0_3.png)
 
 1.  “**Operate Your Cluster**” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators
 2.  “**Manage Users + Groups**” allows you to add & remove Ambari users and groups
@@ -596,7 +593,7 @@ Take a few minutes to quickly explore these 5 capabilities and to become familia
 
 Enter the Ambari Dashboard URL and you should see a similar screen:
 
-##### ![Lab0_4](/assets/hello-hdp/Lab0_4.png)
+##### ![Lab0_4](assets/Lab0_4.png)
 
 Briefly skim through the Ambari Dashboard links (circled above) by clicking on
 
@@ -606,7 +603,7 @@ and then the
 
 1.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
 
-- To learn more about Hadoop please explore the [HDP Getting Started documentation](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.4/bk_getting-started-guide/content/ch_about-hortonworks-data-platform.html).  
+- To learn more about Hadoop please explore the [HDP Getting Started documentation](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.4/bk_getting-started-guide/content/ch_about-hortonworks-data-platform.html).
 - If you have questions, feedback or need help getting your environment ready visit  [developer.hortonworks.com](http://hortonworks.com/developer/).
 - Please also explore the [HDP documentation](http://docs.hortonworks.com/).
 - To ask a question check out the [Hortonworks Forums](http://hortonworks.com/community/forums/).
@@ -648,19 +645,19 @@ A single physical machine gets saturated with its storage capacity as the data g
 
 *   Go to the Ambari Dashboard and open the HDFS User View by click on the User Views icon and selecting the HDFS Files menu item.
 
-![Screen Shot 2015-07-21 at 10.17.21 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.17.21-AM.png)
+![Screen Shot 2015-07-21 at 10.17.21 AM](assets/Screen-Shot-2015-07-21-at-10.17.21-AM.png)
 
 *   Starting from the top root of the HDFS file system, you will see all the files the logged in user (admin in this case) has access to see:
 
-![Lab2_2](/assets/hello-hdp/Lab2_2.png)
+![Lab2_2](assets/Lab2_2.png)
 
-*   Click tmp. Then click  ![Lab2_3](/assets/hello-hdp/Lab2_3.png) button to create the `/tmp/admin` directory and then create the `/tmp/admin/data` directory.
+*   Click tmp. Then click  ![Lab2_3](assets/Lab2_3.png) button to create the `/tmp/admin` directory and then create the `/tmp/admin/data` directory.
 
-![Screen Shot 2015-07-27 at 9.42.07 PM](/assets/hello-hdp/Screen-Shot-2015-07-27-at-9.42.07-PM.png)
+![Screen Shot 2015-07-27 at 9.42.07 PM](assets/Screen-Shot-2015-07-27-at-9.42.07-PM.png)
 
 *   Now traverse to the /tmp/admin/data directory and upload the corresponding geolocation.csv and trucks.csv files into it.
 
-![Screen Shot 2015-07-27 at 9.43.28 PM](/assets/hello-hdp/Screen-Shot-2015-07-27-at-9.43.28-PM.png)
+![Screen Shot 2015-07-27 at 9.43.28 PM](assets/Screen-Shot-2015-07-27-at-9.43.28-PM.png)
 
 You can also perform the following operations on a file by right clicking on the file: **Download**, **Move**, **Permissions**, **Rename** and **Delete**.
 
@@ -668,7 +665,7 @@ You can also perform the following operations on a file by right clicking on the
 
 - Right click on the folder `data` which is contained within `/tmp/admin`. Click **Permissions**. Make sure that the background of all the **write** boxes are checked (blue).
 
-![Lab2_5](/assets/hello-hdp/Lab2_5.png)
+![Lab2_5](assets/Lab2_5.png)
 
 
 ## Lab 2: Hive - Data ETL
@@ -710,11 +707,11 @@ To make it easy to interact with Hive we use a tool in the Hortonworks Sandbox c
 
 Let’s now open the Ambari Hive User View and get introduced to the environment, go to the Ambari User VIew icon and select Hive :
 
-![Screen Shot 2015-07-21 at 10.10.18 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.10.18-AM-300x208.png)
+![Screen Shot 2015-07-21 at 10.10.18 AM](assets/Screen-Shot-2015-07-21-at-10.10.18-AM-300x208.png)
 
 The Ambari Hive User View looks like the following:
 
-![Lab2_2](/assets/hello-hdp/Lab2_21.png)
+![Lab2_2](assets/Lab2_21.png)
 
 Now let’s take a closer look at the SQL editing capabilities in the User View:
 
@@ -745,31 +742,31 @@ Take a few minutes to explore the various Hive User View features.
 
 Now that you are familiar with the Hive User View, let’s create the initial staging tables for the geolocation and trucks data. In this section we will learn how to use the Ambari Hive User View to create four tables: geolocaiton_stage, trucking_stage, geolocation, trucking.  First we are going to create 2 tables to stage the data in their original csv text format and then will create two more tables where we will optimize the storage with ORC. Here is a visual representation of the Data Flow:
 
-![Lab2_3](/assets/hello-hdp/Lab2_31.png)
+![Lab2_3](assets/Lab2_31.png)
 
 1.  Copy-and-paste the the following table DDL into the empty **Worksheet** of the **Query Editor** to define a new table named geolocation_staging:
 
 **Create table geolocation for staging initial load**
 
 ~~~
-CREATE TABLE geolocation_stage (truckid string, driverid string, event string, latitude DOUBLE, longitude DOUBLE, city string, state string, velocity BIGINT, event_ind BIGINT, idling_ind BIGINT) 
-ROW FORMAT DELIMITED 
-FIELDS TERMINATED BY ',' 
+CREATE TABLE geolocation_stage (truckid string, driverid string, event string, latitude DOUBLE, longitude DOUBLE, city string, state string, velocity BIGINT, event_ind BIGINT, idling_ind BIGINT)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
 STORED AS TEXTFILE
 TBLPROPERTIES ("skip.header.line.count"="1");
 ~~~
 
 2.  Click the green **Execute** button to run the command. If successful, you should see the **Succeeded** status in the **Query Process Results** section:
 
-![Lab2_4](/assets/hello-hdp/Lab2_41.png)
+![Lab2_4](assets/Lab2_41.png)
 
 3.  Create a new Worksheet by clicking the blue **New Worksheet** button:
 
-![Lab2_5](/assets/hello-hdp/Lab2_51.png)
+![Lab2_5](assets/Lab2_51.png)
 
 4.  Notice the tab of your new Worksheet is labeled “Worksheet (1)”. Double-click on this tab to rename the label to “trucks_stage”:
 
-![Lab2_6](/assets/hello-hdp/Lab2_6.png)
+![Lab2_6](assets/Lab2_6.png)
 
 5.  Copy-and-paste the following table DDL into your **trucks_stage** worksheet to define a new table named trucks_stage:
 
@@ -795,7 +792,7 @@ For details on these clauses consult the [Apache Hive Language Manual](https://c
 
 7.  To verify the tables were defined successfully, click the “refresh” icon in the Database Explorer. Under Databases, click default database to expand the list of table and the new tables should appear:
 
-![Lab2_7](/assets/hello-hdp/Lab2_7.png)
+![Lab2_7](assets/Lab2_7.png)
 
 8.  Click on the trucks_stage table name to view its schema.
 
@@ -813,7 +810,7 @@ For details on these clauses consult the [Apache Hive Language Manual](https://c
 
 10.  By default, when you create a table in Hive, a directory with the same name gets created in the /apps/hive/warehouse folder in HDFS.  Using the Ambari Files User View, navigate to the /apps/hive/warehouse folder. You should see both a geolocation_stage and trucks_stage directory:
 
-![Lab2_8](/assets/hello-hdp/Lab2_8.png)
+![Lab2_8](assets/Lab2_8.png)
 
 - The definition of a Hive table and its associated metadata (i.e., the directory the data is stored in, the file format, what Hive properties are set, etc.) are stored in the Hive metastore, which on the Sandbox is a MySQL database.
 
@@ -821,11 +818,11 @@ For details on these clauses consult the [Apache Hive Language Manual](https://c
 
 1.  Let’s load some data into your two Hive tables. Populating a Hive table can be done in various ways. A simple way to populate a table is to put a file into the directory associated with the table. Using the Ambari Files User View, click on the **Move** icon next to the file /tmp/admin/data/geolocation.csv. (Clicking on **Move** is similar to “cut” in cut-and-paste.)
 
-![Screen Shot 2015-07-27 at 9.45.11 PM](/assets/hello-hdp/Screen-Shot-2015-07-27-at-9.45.11-PM.png)
+![Screen Shot 2015-07-27 at 9.45.11 PM](assets/Screen-Shot-2015-07-27-at-9.45.11-PM.png)
 
 2.  After clicking on the **Move** arrow your screen should look like the following:
 
-![Lab2_10](/assets/hello-hdp/Lab2_10.png)
+![Lab2_10](assets/Lab2_10.png)
 
 Notice two things have changed:
 
@@ -833,11 +830,11 @@ Notice two things have changed:
 2.  The icons associated with the operations on the files are removed. This is to indicate that this file is in a special state that is ready to be moved.
 3.  Now navigate to the destination path /apps/hive/warehouse/geolocation_stage.  You might notice that as you navigate through the directories that the file is pinned at the top.  Once you get to the appropriate directory click on the **Paste** icon to move the file:
 
-![Lab2_11](/assets/hello-hdp/Lab2_111.png)
+![Lab2_11](assets/Lab2_111.png)
 
 4.  Go back to the Ambari Hive View and click on the **Load sample data** icon next to the geolocation_stage table. Notice the table is no longer empty, and you should see the first 100 rows of the table:
 
-![Lab2_12](/assets/hello-hdp/Lab2_12.png)
+![Lab2_12](assets/Lab2_12.png)
 
 5.  Enter the following SQL command into an empty Worksheet in the Ambari Hive User View:
 
@@ -847,7 +844,7 @@ LOAD DATA INPATH '/tmp/admin/data/trucks.csv' OVERWRITE INTO TABLE trucks_stage;
 
 6.  You should now see data in the trucks_stage table:
 
-![Lab2_13](/assets/hello-hdp/Lab2_13.png)
+![Lab2_13](assets/Lab2_13.png)
 
 7.  From the Files view, navigate to the `/tmp/admin/data` folder. Notice the folder is empty! The LOAD DATA INPATH command moved the `trucks.csv` file from the `/user/admin/data` folder to the `/apps/hive/warehouse/trucks_stage` folder.
 
@@ -873,7 +870,7 @@ CREATE TABLE geolocation STORED AS ORC AS SELECT * FROM geolocation_stage;
 
 2.  Refresh the **Database Explorer** and verify you have a table named geolocation in the default database:
 
-![Lab2_14](/assets/hello-hdp/Lab2_14.png)
+![Lab2_14](assets/Lab2_14.png)
 
 3.  View the contents of the geolocation table. Notice it contains the same rows as geolocation_stage.
 
@@ -883,7 +880,7 @@ describe formatted geolocation;
 
 5.  Scroll down to the bottom of the **Results** tab and you will see a section labeled **Storage Information**. The output should look like:
 
-![Lab2_15](/assets/hello-hdp/Lab2_15.png)
+![Lab2_15](assets/Lab2_15.png)
 
 6.  Execute the following query to define a new ORC table named trucks that contains the data from trucks_stage:
 
@@ -895,7 +892,7 @@ CREATE TABLE trucks STORED AS ORC TBLPROPERTIES ("orc.compress.size"="1024") AS 
 
 7.  Verify that the table has been properly created by refreshing the **Database Explorer** and viewing the contents of trucks:
 
-![Lab2_16](/assets/hello-hdp/Lab2_16.png)
+![Lab2_16](assets/Lab2_16.png)
 
 
 - If you want to try running some of these commands from the Hive Shell follow the following steps from your terminal shell (or putty if using Windows):
@@ -916,11 +913,11 @@ Exits out of the Hive shell.
 
 1.  Open the Ambari Dashboard in another tab by right clicking on the Ambari icon
 
-![Lab2_17](/assets/hello-hdp/Lab2_17.png)
+![Lab2_17](assets/Lab2_17.png)
 
 2.  Go to the **Hive page** then select the **Configs tab** then click on **Settings tab**:
 
-![Lab2_18](/assets/hello-hdp/Lab2_18.png)
+![Lab2_18](assets/Lab2_18.png)
 
 Once you click on the Hive page you should see a page similar to above:
 
@@ -931,7 +928,7 @@ Once you click on the Hive page you should see a page similar to above:
 
 Scroll down to the Optimization Settings:
 
-![Lab2_19](/assets/hello-hdp/Lab2_19.png)  
+![Lab2_19](assets/Lab2_19.png)
 In the above screenshot we can see:
 
 1.  Tez is set as the optimization engine
@@ -946,7 +943,7 @@ This shows the new HDP 2.3 Ambari Smart Configurations, which simplifies setting
 
 By default the key configurations are displayed on the first page.  If the setting you are looking for is not on this page you can find additional settings in the **Advanced** tab:
 
-![Lab2_20](/assets/hello-hdp/Lab2_20.png)
+![Lab2_20](assets/Lab2_20.png)
 
 For example, what if we wanted to improve SQL performance by using the new Hive vectorization features, where would we find the setting and how would we turn it on.   You would need to do the following steps:
 
@@ -966,8 +963,8 @@ As you can see from the green circle above the hive.vectorized.execution.enabled
 
 #### Step 2.6: Analyze the Trucks Data
 
-Next we will be using Hive, Pig and Excel to analyze derived data from the geolocation and trucks tables.  The business objective is to better understand the risk the company is under from fatigue of drivers, over-used trucks, and the impact of various trucking events on risk.   In order to accomplish this we are going to apply a series of transformations to the source data, mostly though SQL, and use Pig to calculate risk.   In Step 10 we will be using Microsoft Excel to generate a series of charts to better understand risk.  
-![Lab2_21](/assets/hello-hdp/Lab2_211.png)
+Next we will be using Hive, Pig and Excel to analyze derived data from the geolocation and trucks tables.  The business objective is to better understand the risk the company is under from fatigue of drivers, over-used trucks, and the impact of various trucking events on risk.   In order to accomplish this we are going to apply a series of transformations to the source data, mostly though SQL, and use Pig to calculate risk.   In Step 10 we will be using Microsoft Excel to generate a series of charts to better understand risk.
+![Lab2_21](assets/Lab2_211.png)
 
 Let’s get started with the first transformation.   We want to calculate the miles per gallon for each truck. We will start with our truck data table.  We need to sum up all the miles and gas columns on a per truck basis. Hive has a series of functions that can be used to reformat a table. The keyword [LATERAL VIEW](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+LateralView) is how we invoke things. The stack function allows us to restructure the data into 3 columns labeled rdate, gas and mile with 54 rows. We pick truckid, driverid, rdate, miles, gas from our original table and add a calculated column for mpg (miles/gas).  And then we will calculate average mileage.
 
@@ -979,11 +976,11 @@ Let’s get started with the first transformation.   We want to calculate the 
 CREATE TABLE truck_mileage STORED AS ORC AS SELECT truckid, driverid, rdate, miles, gas, miles / gas mpg FROM trucks LATERAL VIEW stack(54, 'jun13',jun13_miles,jun13_gas,'may13',may13_miles,may13_gas,'apr13',apr13_miles,apr13_gas,'mar13',mar13_miles,mar13_gas,'feb13',feb13_miles,feb13_gas,'jan13',jan13_miles,jan13_gas,'dec12',dec12_miles,dec12_gas,'nov12',nov12_miles,nov12_gas,'oct12',oct12_miles,oct12_gas,'sep12',sep12_miles,sep12_gas,'aug12',aug12_miles,aug12_gas,'jul12',jul12_miles,jul12_gas,'jun12',jun12_miles,jun12_gas,'may12',may12_miles,may12_gas,'apr12',apr12_miles,apr12_gas,'mar12',mar12_miles,mar12_gas,'feb12',feb12_miles,feb12_gas,'jan12',jan12_miles,jan12_gas,'dec11',dec11_miles,dec11_gas,'nov11',nov11_miles,nov11_gas,'oct11',oct11_miles,oct11_gas,'sep11',sep11_miles,sep11_gas,'aug11',aug11_miles,aug11_gas,'jul11',jul11_miles,jul11_gas,'jun11',jun11_miles,jun11_gas,'may11',may11_miles,may11_gas,'apr11',apr11_miles,apr11_gas,'mar11',mar11_miles,mar11_gas,'feb11',feb11_miles,feb11_gas,'jan11',jan11_miles,jan11_gas,'dec10',dec10_miles,dec10_gas,'nov10',nov10_miles,nov10_gas,'oct10',oct10_miles,oct10_gas,'sep10',sep10_miles,sep10_gas,'aug10',aug10_miles,aug10_gas,'jul10',jul10_miles,jul10_gas,'jun10',jun10_miles,jun10_gas,'may10',may10_miles,may10_gas,'apr10',apr10_miles,apr10_gas,'mar10',mar10_miles,mar10_gas,'feb10',feb10_miles,feb10_gas,'jan10',jan10_miles,jan10_gas,'dec09',dec09_miles,dec09_gas,'nov09',nov09_miles,nov09_gas,'oct09',oct09_miles,oct09_gas,'sep09',sep09_miles,sep09_gas,'aug09',aug09_miles,aug09_gas,'jul09',jul09_miles,jul09_gas,'jun09',jun09_miles,jun09_gas,'may09',may09_miles,may09_gas,'apr09',apr09_miles,apr09_gas,'mar09',mar09_miles,mar09_gas,'feb09',feb09_miles,feb09_gas,'jan09',jan09_miles,jan09_gas ) dummyalias AS rdate, miles, gas;
 ~~~
 
-![Lab2_22](/assets/hello-hdp/Lab2_22.png)  
+![Lab2_22](assets/Lab2_22.png)
 
 2.  To view the data generated by the script, click **Load Sample Data** icon in the Database Explorer next to truck_mileage. After clicking the next button once, you should see a table that list each trip made by a truck and driver:
 
-![Lab2_23](/assets/hello-hdp/Lab2_23.png)
+![Lab2_23](assets/Lab2_23.png)
 
 #### Use the Content Assist to build a query
 
@@ -997,7 +994,7 @@ SE
 
 5.  Press **Ctrl+space** to view the following content assist pop-up dialog window:
 
-![Lab2_24](/assets/hello-hdp/Lab2_24.png)
+![Lab2_24](assets/Lab2_24.png)
 
 Notice content assist shows you some options that start with an “SE”.
 
@@ -1007,11 +1004,11 @@ Notice content assist shows you some options that start with an “SE”.
 SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 ~~~
 
-![Lab2_28](/assets/hello-hdp/Lab2_28.png)  
+![Lab2_28](assets/Lab2_28.png)
 
-7.  Click the “**Save as …**” button to save the query as “**average mpg**”:  
+7.  Click the “**Save as …**” button to save the query as “**average mpg**”:
 
-![Lab2_26](/assets/hello-hdp/Lab2_26.png)
+![Lab2_26](assets/Lab2_26.png)
 
 8.  Notice your query now shows up in the list of “Saved Queries”, which is one of the tabs at the top of the Hive User View.
 
@@ -1019,37 +1016,37 @@ SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 
 10. Now lets explore the various explain features to better understand the execution of a query: Text Explain, Visual Explain and Tez Explain. Click on the **Explain** button:
 
-![Lab2_27](/assets/hello-hdp/Lab2_27.png)
+![Lab2_27](assets/Lab2_27.png)
 
 11. Verify this added the `EXPLAIN` command at the beginning of the query:
 
-![Lab2_25](/assets/hello-hdp/Lab2_25.png)
+![Lab2_25](assets/Lab2_25.png)
 
 12. Execute the query. The results should look like the following:
 
-![Lab2_29](/assets/hello-hdp/Lab2_29.png)
+![Lab2_29](assets/Lab2_29.png)
 
 13. Click on **STAGE PLANS:** to view its output, which displays the flow of the resulting Tez job:
 
-![Lab2_30](/assets/hello-hdp/Lab2_30.png)
+![Lab2_30](assets/Lab2_30.png)
 
 14. To see the Visual Explain click on the Visual Explain icon on the right tabs. This is a much more readable summary of the explain plan:
 
-![Lab2_31](/assets/hello-hdp/Lab2_311.png)
+![Lab2_31](assets/Lab2_311.png)
 
 15. If you click on the **TEZ** tab on the right-hand column, you can see DAG details associated with the query.
 
-![Lab2_32](/assets/hello-hdp/Lab2_32.png)
+![Lab2_32](assets/Lab2_32.png)
 
 16. However, you can also view the DAG by going to the Ambari Tez User View. Select the “Tez View: Cluster Instance” User View from the list of User Views.
 
-![Screen Shot 2015-07-21 at 10.22.56 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.22.56-AM.png)  
+![Screen Shot 2015-07-21 at 10.22.56 AM](assets/Screen-Shot-2015-07-21-at-10.22.56-AM.png)
 Select the first DAG as it represents the last job that was executed.
 
-![Lab2_34](/assets/hello-hdp/Lab2_34.png)
+![Lab2_34](assets/Lab2_34.png)
 
-17. There are six tabs at the top right please take a few minutes to explore the various tabs and then click on the Graphical View tab and hover over one of the nodes with your cursor to get more details on the processing in that node.  
-![Lab2_35](/assets/hello-hdp/Lab2_35.png)
+17. There are six tabs at the top right please take a few minutes to explore the various tabs and then click on the Graphical View tab and hover over one of the nodes with your cursor to get more details on the processing in that node.
+![Lab2_35](assets/Lab2_35.png)
 
 18. Go back to the Hive UV and save the query by
 
@@ -1068,7 +1065,7 @@ GROUP BY truckid;
 
 20.  To view the data generated by the script, click **Load sample data** icon in the Database Explorer next to avg_mileage. You see our table is now a list of each trip made by a truck.
 
-![Lab2_36](/assets/hello-hdp/Lab2_36.png)
+![Lab2_36](assets/Lab2_36.png)
 
 
 ## Lab 3: Pig - Risk Factor
@@ -1111,7 +1108,7 @@ Pig scripts are translated into a series of MapReduce jobs that are run on the A
 
 Now we have refined the truck data to get the average mpg  for each truck. The next task is to compute the risk factor for each driver which is the total miles driven/abnormal events. We can get the event information from the geolocation table.
 
-![Lab3_1](/assets/hello-hdp/Lab3_1.png)
+![Lab3_1](assets/Lab3_1.png)
 
 If we look at the truck_mileage table, we we have the driverid and the number of miles for each trip. To get the total miles for each driver, we can group those records by driverid and then sum the miles.
 
@@ -1130,7 +1127,7 @@ GROUP BY driverid;
 
 2. View the data generated by the script by clicking the **Load sample data** icon in the Database Explorer next to drivermileage. The results should look like:
 
-![Lab3_2](/assets/hello-hdp/Lab3_2.png)
+![Lab3_2](assets/Lab3_2.png)
 
 3. Next, you will use Pig to compute the risk factor of each driver. Before we can run the Pig code, one of the requirements for the HCatStorer() class is that the table must already exist in Hive. The Pig code expects the following structure for a table named riskfactor. Execute the following DDL command:
 
@@ -1151,26 +1148,26 @@ In this tutorial we create and run a Pig script. We will use the Ambari Pig User
 
 To get to the Ambari Pig User View, click on the User Views icon at top right and select **Pig**:
 
-![Screen Shot 2015-07-21 at 10.12.41 AM](/assets/hello-hdp/Screen-Shot-2015-07-21-at-10.12.41-AM.png)  
+![Screen Shot 2015-07-21 at 10.12.41 AM](assets/Screen-Shot-2015-07-21-at-10.12.41-AM.png)
 This will bring up the Ambari Pig User View interface. Your Pig View does not have any scripts to display, so it will look like the following:
 
-![Lab3_4](/assets/hello-hdp/Lab3_4.png)
+![Lab3_4](assets/Lab3_4.png)
 
 On the left is a list of your scripts, and on the right is a composition box for writing scripts. A special feature of the interface is the Pig helper at the bottom. The Pig helper will provide us with templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. At the very bottom are status areas that will show the results of our script and log files.
 
 The following screenshot shows and describes the various components and features of the Pig User View:
 
-![Lab3_5](/assets/hello-hdp/Lab3_5.png)
+![Lab3_5](assets/Lab3_5.png)
 
 #### 2. Create a New Script
 
 Let’s enter a Pig script. Click the **New Script** button in the upper-right corner of the view:
 
-![Lab3_6](/assets/hello-hdp/Lab3_6.png)
+![Lab3_6](assets/Lab3_6.png)
 
 Name the script **riskfactor.pig**, then click the **Create** button:
 
-![Lab3_7](/assets/hello-hdp/Lab3_7.png)
+![Lab3_7](assets/Lab3_7.png)
 
 #### 3. Load Data in Pig using Hcatalog
 
@@ -1289,7 +1286,7 @@ final_data = foreach h generate $0 as driverid, $1 as events, $3 as totmiles, (f
 store final_data into 'riskfactor' using org.apache.hive.hcatalog.pig.HCatStorer();
 ~~~
 
-![Lab3_8](/assets/hello-hdp/Lab3_8.png)
+![Lab3_8](assets/Lab3_8.png)
 
 Save the file riskfactor.pig by clicking the **Save** button in the left-hand column.
 
@@ -1309,28 +1306,28 @@ You need to configure the Pig Editor to use HCatalog so that the Pig script can 
 
 **Note** that this argument is **case sensistive**. It should be typed exactly "-useHCatalog".
 
-![Lab3_9](/assets/hello-hdp/Lab3_9.png)
+![Lab3_9](assets/Lab3_9.png)
 
-The **Arguments** section of the Pig View should now look like the following:  
-![Lab3_10](/assets/hello-hdp/Lab3_10.png)
+The **Arguments** section of the Pig View should now look like the following:
+![Lab3_10](assets/Lab3_10.png)
 
 **Step 3.4: Execute Pig Script on Tez**
 
 1.  You are now ready to execute the script. Click Execute on Tez checkbox and finally hit the blue **Execute** button to submit the job. Pig job will be submitted to the cluster. This will generate a new tab with a status of the running of the Pig job and at the top you will find a progress bar that shows the job status.
 
-![Lab3_11](/assets/hello-hdp/Lab3_11.png)
+![Lab3_11](assets/Lab3_11.png)
 
 1.  Wait for the job to complete. The output of the job is displayed in the **Results** section. Your script does not output any result – it stores the result into a Hive table – so your Results section will be empty.
 
-![Lab3_12](/assets/hello-hdp/Lab3_12.png)
+![Lab3_12](assets/Lab3_12.png)
 
-![Lab3_13](/assets/hello-hdp/Lab3_13.png)
+![Lab3_13](assets/Lab3_13.png)
 
 Click on the **Logs** dropdown menu to see what happened when your script ran. Errors will appear here.
 
 1.  Go back to the Ambari Hive User View and browse the data in the riskfactor table to verify that your Pig job successfully populated this table. Here is what is should look like:
 
-![Lab3_14](/assets/hello-hdp/Lab3_14.png)
+![Lab3_14](assets/Lab3_14.png)
 
 At this point we now have our truck miles per gallon table and our risk factor table. The next step is to pull this data into Excel to create the charts for the visualization step.
 
@@ -1376,16 +1373,16 @@ Therefore Apache Spark was designed as a computing platform to be fast, general-
 
 You can run batch application such as MapReduce types jobs or iterative algorithms that builds upon each other. You can also run interactive queries and process streaming data with your application. Spark also provides number of libraries which you can easily use to expand beyond the basic Spark capabilities such as Machine Learning algorithms, SQL, streaming, and graph processing. Spark runs on Hadoop clusters such as Hadoop YARN or Apache Mesos, or even as a standalone with its own scheduler.
 
-![Lab4_1](/assets/hello-hdp/Lab4_1.png)  
+![Lab4_1](assets/Lab4_1.png)
 Lets get started…!!
 
 **Step 4.1: Configuring Spark services using Ambari**
 
 1.  Log on to Ambari Dashboard and click on Actions tab at the bottom left corner. Hit Start All to ensure Spark is running. Ambari will take some time to start all services and you can monitor the progress of it.
 
-![Lab4_2](/assets/hello-hdp/Lab4_2.png)
+![Lab4_2](assets/Lab4_2.png)
 
-![Lab4_3](/assets/hello-hdp/Lab4_3.png)
+![Lab4_3](assets/Lab4_3.png)
 
 2.  Close the Ambari browser and we will get running with some codes on Spark. ssh into the sandbox using root as login and hadoop as password.
 
@@ -1400,7 +1397,7 @@ Optionally, if you don’t have an SSH client installed and configured you can u
 
 This will load the default Spark Scala API.
 
-![Lab4_4](/assets/hello-hdp/Lab4_4.png)
+![Lab4_4](assets/Lab4_4.png)
 
 Notice it is already starting with Hive integration as we have preconfigured it on the Hortonworks Sandbox.
 
@@ -1416,7 +1413,7 @@ import org.apache.spark.sql._
 ~~~
 
 
-![Lab4_5](/assets/hello-hdp/Lab4_5.png)
+![Lab4_5](assets/Lab4_5.png)
 
 **Instantiate HiveContext**
 
@@ -1424,7 +1421,7 @@ import org.apache.spark.sql._
 val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 ~~~
 
-![Lab4_6](/assets/hello-hdp/Lab4_6.png)
+![Lab4_6](assets/Lab4_6.png)
 
 
 - `sc` stands for **Spark Context**. SparkContext is the main entry point to everything Spark. It can be used to create RDDs and shared variables on the cluster. When you start up the Spark Shell, the SparkContext is automatically initialized for you with the variable `sc`.
@@ -1447,7 +1444,7 @@ There are three methods for creating a RDD:
 hiveContext.sql("show tables").collect.foreach(println)
 ~~~
 
-![Lab4_7](/assets/hello-hdp/Lab4_7.png)
+![Lab4_7](assets/Lab4_7.png)
 
 You will notice that geolocation table and driver mileage table that we created in earlier tutorial are already listed in Hive metastore and can be directly queried upon.
 
@@ -1459,18 +1456,18 @@ We will do a simple select query to fetch data from geolocation and drivermileag
 val geolocation_temp1 = hiveContext.sql("select * from geolocation")
 ~~~
 
-![Lab4_8](/assets/hello-hdp/Lab4_8.png)
+![Lab4_8](assets/Lab4_8.png)
 
 ~~~
 val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
 ~~~
 
-![Lab4_9](/assets/hello-hdp/Lab4_9.png)  
+![Lab4_9](assets/Lab4_9.png)
 
 Make sure that the RDD`s carry the exact data. You can verify through following   command
 
 ~~~
-geolocation_temp1.take(10) 
+geolocation_temp1.take(10)
 drivermileage_temp1.take(10)
 ~~~
 
@@ -1519,7 +1516,7 @@ geolocation_temp2.registerTempTable("geolocation_temp2")
 geolocation_temp2.collect.foreach(println)
 ~~~
 
-![Lab4_11](/assets/hello-hdp/Lab4_11.png)
+![Lab4_11](assets/Lab4_11.png)
 
 1.  **Perform join operation**
 
@@ -1532,7 +1529,7 @@ val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geol
 ~~~
 
 
-![Lab4_12](/assets/hello-hdp/Lab4_12.png)
+![Lab4_12](assets/Lab4_12.png)
 
 *   The resulting data set will give us total miles and total non normal events for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
 
@@ -1546,7 +1543,7 @@ joined.registerTempTable("joined")
 joined.collect.foreach(println)
 ~~~
 
-![Lab4_13](/assets/hello-hdp/Lab4_13.png)
+![Lab4_13](assets/Lab4_13.png)
 
 1.  **Compute Driver Risk Factor**
 
@@ -1556,7 +1553,7 @@ In this section we will associate a driver risk factor with every driver. Driver
 val risk_factor_spark=hiveContext.sql("select driverid, totmiles,occurance, totmiles/occurance riskfactor from joined")
 ~~~
 
-![Lab4_14](/assets/hello-hdp/Lab4_14.png)
+![Lab4_14](assets/Lab4_14.png)
 
 *   The resulting data set will give us total miles and total non normal events and what is a risk for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied on it.
 
@@ -1570,7 +1567,7 @@ risk_factor_spark.registerTempTable("risk_factor_spark")
 risk_factor_spark.collect.foreach(println)
 ~~~
 
-![Lab4_15](/assets/hello-hdp/Lab4_15.png)
+![Lab4_15](assets/Lab4_15.png)
 
 **Step 4.5: Load and Save Data into Hive as ORC**
 
@@ -1643,19 +1640,19 @@ The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the H
 1.  Open a new blank workbook. Select Data tab at the top then select “Get External Data” and then select “New Database query”.
 2.  Chose Sample Hortonworks Hive DSN and hit Ok.
 
-![Lab5_1](/assets/hello-hdp/Lab5_1.png)
+![Lab5_1](assets/Lab5_1.png)
 
 3.  Next prompt shall ask you to enter login and password. Type “sandbox” in login and the leave the password empty. Hit Ok.
 
-![Lab5_2](/assets/hello-hdp/Lab5_2.png)
+![Lab5_2](assets/Lab5_2.png)
 
 4.   Choose the data table avg_mileage table from the table chart on the right and hit      Add Table. avg_mileage should now appear under Query View tab on the left. Choose avg_mileage.* in the Field column. You are set to import data from your Hive table. As a final step, Hit Test!
 
-![Lab5_3](/assets/hello-hdp/Lab5_3.png)
+![Lab5_3](assets/Lab5_3.png)
 
 5.  Click on Return Data to import your table into an excel. Submit OK to populate your excel.
 
-![Lab5_4](/assets/hello-hdp/Lab5_4.png)
+![Lab5_4](assets/Lab5_4.png)
 
 6.  Once the data is placed you will see the avg_mileage table imported into your spreadsheet.
 
@@ -1663,25 +1660,25 @@ The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the H
 
 1.  Open a new blank workbook. Select Data tab at the top then select “Get External Data” and then select “From Other Data Sources”. Then at the bottom select “From Microsoft Query”. Choose your data source and ours is called Hadoop and you will then see the Query Wizard. We will import the avg_mileage table.
 
-![Lab5_6](/assets/hello-hdp/Lab5_6.png)
+![Lab5_6](assets/Lab5_6.png)
 
 2.  Accept the defaults for everything and click through till you hit the Finish button. After you click on Finish, Excel will send the data request over to Hadoop. It will take awhile for this to happen. When the data is returned it will ask you to place the data in the workbook. We want to be in cell \$A\$1 like this.
 
-![Lab5_6](/assets/hello-hdp/Lab5_61.png)
+![Lab5_6](assets/Lab5_61.png)
 
 3.  The data is placed you will see the avg_mileage table imported into your spreadsheet.
 
-![Lab5_7](/assets/hello-hdp/Lab5_7.jpg)
+![Lab5_7](assets/Lab5_7.jpg)
 
 **Step 5.b.2: Visualize Data with Microsoft Excel**
 
 1.  So now we are going to insert a Power View report. We do this by selecting the “Insert” tab at the top and select “Power View Reports” button in the middle. This will create a new tab in your workbook with the data inserted in the Power View page.”
 
-![Lab5_14](/assets/hello-hdp/Lab5_14.jpg)
+![Lab5_14](assets/Lab5_14.jpg)
 
 2.  Select the design tab at the top and then select a column chart and use the stacked column version in the drop down menu. This will give you a bar chart. Grab the lower right of the chart and stretch it out to the full pane. Close the filter tab and the chart will expand and look like this.
 
-![Lab5_9](/assets/hello-hdp/Lab5_9.jpg)
+![Lab5_9](assets/Lab5_9.jpg)
 
 3.  So to finish off the tutorial I am going to create a map of the events reported in the geolocation table. I will show you how you can build up the queries and create a map of the data on an ad hoc basis.
 
@@ -1693,13 +1690,13 @@ The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the H
 select driverid, city, state from geolocation;
 ~~~
 
-![Lab5_10](/assets/hello-hdp/Lab5_10.png)
+![Lab5_10](assets/Lab5_10.png)
 
 6.  After I execute the query I see what results are returned. In a more complex query you can easily make changes to the query at this point till you get the right results. So the results I get back look like this.
 
-![Lab5_11](/assets/hello-hdp/Lab5_11.png)
+![Lab5_11](assets/Lab5_11.png)
 
-7.  Since my results look fine I now need to capture the result in a table. So I will use the select statement as part of my CTAS (create table select as) pattern. I will call the table events and the query now looks like this. 
+7.  Since my results look fine I now need to capture the result in a table. So I will use the select statement as part of my CTAS (create table select as) pattern. I will call the table events and the query now looks like this.
 
 **Create table avg_mileage from existing trucks_mileage data**
 
@@ -1710,19 +1707,19 @@ AS
 SELECT driverid, city, state FROM geolocation;
 ~~~
 
-![Lab5_12](/assets/hello-hdp/Lab5_12.png)
+![Lab5_12](assets/Lab5_12.png)
 
 8.  I can execute the query and the table events gets created. As we saw earlier I can go to Excel and import the table into a blank worksheet. The imported data will look like this.
 
-![Lab5_13](/assets/hello-hdp/Lab5_13.jpg)
+![Lab5_13](assets/Lab5_13.jpg)
 
 9.  Now I can insert the PowerView tab in the Excel workbook. To get a map I just select the Design tab at the top and select the Map button in the menu bar.
 
-![Lab5_8](/assets/hello-hdp/Lab5_8.jpg)
+![Lab5_8](assets/Lab5_8.jpg)
 
 10.  Make sure you have a network connection because Power View using Bing to do the geocoding which translates the city and state columns into map coordinates. If we just want to see where events took place we can uncheck the driverid. The finished map looks like this.
 
-![Lab5_15](/assets/hello-hdp/Lab5_15.jpg)
+![Lab5_15](assets/Lab5_15.jpg)
 
 We’ve shown how the Hortonworks Data Platform (HDP) can store and analyze geolocation data. In addition I have shown you a few techniques on building your own queries. You can easily plot risk factor and miles per gallon as bar charts. I showed you the basics of creating maps. A good next step is to only plot certain types of events. Using the pattern I gave you it is pretty straight forward to extract the data and visualize it in Excel.
 
