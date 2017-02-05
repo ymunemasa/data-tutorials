@@ -1,11 +1,8 @@
 ---
-
 title: Learning the Ropes of the Hortonworks Sandbox
 id: 160
-
 platform: hdp-2.5.0
-
-components: [ambari ]
+components: [ambari]
 ---
 
 # Learning the Ropes of the Hortonworks Sandbox
@@ -53,7 +50,7 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
       - [2.2 Setup Ambari admin Password Manually](#setup-ambari-admin-password)
       - [2.3 Explore Ambari Welcome Screen 5 Key Capabilities](#explore-ambari-welcome-screen)
       - [2.4 Explore Ambari Dashboard Links](#explore-ambari-dashboard)
-- [Section 2: Sandbox in Microsoft Azure](#section2)      
+- [Section 2: Sandbox in Microsoft Azure](#section2)
 - [Step 1: Explore the Sandbox in Azure](#explore-sandbox-azure)
       - [1.1 Deploy the Sandbox in Azure](#deploy-sandbox-azure)
       - [1.2 Connect to the Welcome Screen](#connect-to-welcome-screen-azure)
@@ -65,7 +62,7 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
       - [2.2 Explore Ambari Welcome Screen 5 Key Capabilities](#explore-ambari-welcome-screen-azure)
       - [2.3 Explore Ambari Dashboard Links](#explore-ambari-dashboard-azure)
 - [Section 3: New Users in Sandbox](#section3)
-- [Section 4: Troubleshoot](#section4)      
+- [Section 4: Troubleshoot](#section4)
 - [Step 1: Troubleshoot Problems](#troubleshoot-problems)
       - [1.1 Technique for Finding Answers in HCC](#technique-for-finding-answers-hcc)
 - [Further Reading](#further-reading)
