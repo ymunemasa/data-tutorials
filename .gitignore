@@ -1,5 +1,5 @@
 # Builder-related files
 builder/output
 
-# Common files that contributors' machines may try to commit
+# Common files that contributors' machines may attempt to commit
 #*.DS_Store
