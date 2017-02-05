@@ -2,4 +2,4 @@
 builder/output
 
 # Common files that contributors' machines may attempt to commit
-#*.DS_Store
+*.DS_Store
