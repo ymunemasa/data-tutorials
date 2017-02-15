@@ -1,0 +1,18 @@
+source:       .
+destination:  ../output
+plugins_dir:  _plugins
+layouts_dir:  _layouts
+data_dir:     _data
+includes_dir: _includes  #seems to be relative to source
+#url:          https://hortonworks.com/hadoop-tutorial
+collections:
+  tutorials:
+    output: true
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "tutorials"
+    values:
+      layout: "tutorial"
