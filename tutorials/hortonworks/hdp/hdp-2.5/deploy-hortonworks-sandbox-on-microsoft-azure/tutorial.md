@@ -26,11 +26,11 @@ The Azure cloud infrastructure has become a common place for users to deploy vir
 
 ## Find Hortonworks Sandbox on Azure Marketplace
 
-Go to https://azuremarketplace.microsoft.com/en-us/marketplace and enter "Hortonworks" into the search bar.  Submit, and the **Hortonworks Sandbox** product should appear as shown in this screenshot.
+Go to [https://azuremarketplace.microsoft.com/en-us/marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace) and enter "Hortonworks" into the search bar.  Submit, and the **Hortonworks Sandbox** product should appear as shown in this screenshot.
 
 ![Select "Hortonworks Sandbox" from the bottom view.](assets/1.jpg)
 
-Click on **Get It Now** to start the setup process.
+Select the Hortonworks Sandbox product and its Overview will display.  Click on **Get It Now** to start the setup process.
 
 ![Select "GET IT NOW" to begin the setup process.](assets/2.jpg)
 
@@ -40,7 +40,7 @@ If prompted, sign in to Azure Marketplace.  Afterward, you'll be asked to confir
 
 ## Creating the Sandbox
 
-An explanation of the Hortonworks Sandbox will come on the screen.  When ready to being the deployment process, select **Create** from the bottom of the screen.
+An explanation of the Hortonworks Sandbox will come on the screen.  When ready to begin the deployment process, select **Create** from the bottom of the screen.
 
 ![Select "Create" on the bottom of the screen.](assets/4.jpg)
 
@@ -62,7 +62,7 @@ The next step is to choose a size for the virtual machine.  It is recommended to
 
 ![Select a size for your virtual machine.](assets/6.jpg)
 
-Optional settings to configure.  You can safely leave this as default.
+Optional settings to configure.  You can safely leave these at their defaults.
 
 ![Optional settings for the machine.](assets/7.jpg)
 
@@ -72,7 +72,7 @@ Look over the summary and continue when ready.
 
 Alright, we're ready to deploy!  Review the offer details and purchase when ready.
 
-![Review the offer details.](assets/9.jpg)
+![Review the offer details.](assets/9.jpg)https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure
 
 Once the offer is submitted by selecting **Purchase**, the sandbox will take a few minutes to set up and deploy.  After deployment is complete, we can move on to connecting to the sandbox.
 
@@ -88,11 +88,11 @@ Clicking on the IP address will bring up the IP configuration panel.  Select **S
 
 ## Connecting to the Sandbox
 
-Fantastic, the sandbox is now up and running!  Though we still need to set up a secure connection to it.  Head on over to [Port Forwarding To Azure Sandbox](http://#) for a quick walkthrough on connecting to Azure.
+Fantastic, the sandbox is now up and running!  Though we still need to set up a secure connection to it.  Head on over to [Port Forwarding To Azure Sandbox]({{ site.url }}/port-forwarding-azure-sandbox) for a quick walkthrough on connecting to Azure.
 
 ## Splash Screen
 
-Now that you've port forwarded by following the tutorial linked above, you can explore the sandbox as you see fit.  Point your browser to http://localhost:8888 for the sandbox's splash screen.
+Now that you've port forwarded by following the tutorial linked above, you can explore the sandbox as you see fit.  Point your browser to [http://localhost:8888](http://localhost:8888) for the sandbox's splash screen.
 
 ![Sandbox registration form](assets/sandbox-registration.jpg)
 
@@ -100,10 +100,8 @@ Fill out the form and hit **Submit** to access the sandbox.
 
 ![The sandbox splash page.](assets/sandbox-splash.jpg)
 
-Eureka!
-
 ## Further Reading
 
 Now that you've got HDP up and running, check out our other tutorials to learn how to leverage its power.
 
-- [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox)
+- [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox)

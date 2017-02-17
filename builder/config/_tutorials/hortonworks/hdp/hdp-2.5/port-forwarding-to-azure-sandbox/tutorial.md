@@ -15,7 +15,7 @@ SSH tunneling allows us a way to port forward securely, without actually opening
 
 ## Prerequisites
 
-- [Deploy Hortonworks Sandbox on Microsoft Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure)
+- [Deploy Hortonworks Sandbox on Microsoft Azure](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure)
 
 ## Outline
 
@@ -66,7 +66,7 @@ That's it!  Keep this SSH connection open for the duration of your interaction w
 
 ## Summary
 
-You can now access all forwarded ports by pointing the browser to [http://localhost:portNumber](http://localhost:portNumber).  For example: http://localhost:8888 will connect to the Azure machine and sandbox over port 8888.
+You can now access all forwarded ports by pointing the browser to [http://localhost:portNumber](http://localhost:portNumber).  For example: [http://localhost:8888](http://localhost:8888) will connect to the Azure machine and sandbox over port 8888.
 
 SSH tunneling allows us a way to port forward securely, without actually opening the machine's ports for the entire world to access.
 

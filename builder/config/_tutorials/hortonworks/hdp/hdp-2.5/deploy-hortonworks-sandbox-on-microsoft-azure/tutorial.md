@@ -26,7 +26,7 @@ The Azure cloud infrastructure has become a common place for users to deploy vir
 
 ## Find Hortonworks Sandbox on Azure Marketplace
 
-Go to https://azuremarketplace.microsoft.com/en-us/marketplace and enter "Hortonworks" into the search bar.  Submit, and the **Hortonworks Sandbox** product should appear as shown in this screenshot.
+Go to [https://azuremarketplace.microsoft.com/en-us/marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace) and enter "Hortonworks" into the search bar.  Submit, and the **Hortonworks Sandbox** product should appear as shown in this screenshot.
 
 ![Select "Hortonworks Sandbox" from the bottom view.]({{page.path}}/assets/1.jpg)
 
@@ -40,7 +40,7 @@ If prompted, sign in to Azure Marketplace.  Afterward, you'll be asked to confir
 
 ## Creating the Sandbox
 
-An explanation of the Hortonworks Sandbox will come on the screen.  When ready to being the deployment process, select **Create** from the bottom of the screen.
+An explanation of the Hortonworks Sandbox will come on the screen.  When ready to begin the deployment process, select **Create** from the bottom of the screen.
 
 ![Select "Create" on the bottom of the screen.]({{page.path}}/assets/4.jpg)
 
@@ -88,11 +88,11 @@ Clicking on the IP address will bring up the IP configuration panel.  Select **S
 
 ## Connecting to the Sandbox
 
-Fantastic, the sandbox is now up and running!  Though we still need to set up a secure connection to it.  Head on over to [Port Forwarding To Azure Sandbox](http://#) for a quick walkthrough on connecting to Azure.
+Fantastic, the sandbox is now up and running!  Though we still need to set up a secure connection to it.  Head on over to [Port Forwarding To Azure Sandbox]({{ site.url }}/port-forwarding-azure-sandbox) for a quick walkthrough on connecting to Azure.
 
 ## Splash Screen
 
-Now that you've port forwarded by following the tutorial linked above, you can explore the sandbox as you see fit.  Point your browser to http://localhost:8888 for the sandbox's splash screen.
+Now that you've port forwarded by following the tutorial linked above, you can explore the sandbox as you see fit.  Point your browser to [http://localhost:8888](http://localhost:8888) for the sandbox's splash screen.
 
 ![Sandbox registration form]({{page.path}}/assets/sandbox-registration.jpg)
 
