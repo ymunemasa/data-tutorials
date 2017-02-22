@@ -1,5 +1,5 @@
 ---
-title: Port Forwarding To Azure Sandbox
+title: Port Forwarding to Azure Sandbox
 tutorial-id: 621
 platform: hdp-2.5.0
 tags: [azure]
@@ -56,7 +56,7 @@ Host azureSandbox
   LocalForward 2222 127.0.0.1:2222
 ```
 
-Save and close the file.  Now SSH into the target machine using the **Host** alias we just configured.  You'll be asked for a password, which is the one you set during initial configuration on Azure.
+Save and close the file.  Now SSH into the Azure machine by using the **Host** alias we just configured, which will connect us automatically using the IP address we specified in the config file.  You'll be asked for a password, which is the one you set during initial configuration on Azure.
 
 ```
 ssh azureSandbox
@@ -66,10 +66,13 @@ That's it!  Keep this SSH connection open for the duration of your interaction w
 
 ## Summary
 
-You can now access all forwarded ports by pointing the browser to [http://localhost:portNumber](http://localhost:portNumber).  For example: [http://localhost:8888](http://localhost:8888) will connect to the Azure machine and sandbox over port 8888.
+You can now access all forwarded ports by pointing a browser to [http://localhost:portNumber](http://localhost:portNumber).  For example: [http://localhost:8888](http://localhost:8888) will connect to the Azure machine and sandbox over port 8888.
 
 SSH tunneling allows us a way to port forward securely, without actually opening the machine's ports for the entire world to access.
 
 ## Further Reading
 
+Dive into how to use the Sandbox, or read more about exactly how SSH tunneling works.
+
+- [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox)
 - [SSH Tunneling Explained](https://chamibuddhika.wordpress.com/2012/03/21/ssh-tunnelling-explained)

@@ -30,7 +30,7 @@ Go to [https://azuremarketplace.microsoft.com/en-us/marketplace](https://azurema
 
 ![Select "Hortonworks Sandbox" from the bottom view.]({{page.path}}/assets/1.jpg)
 
-Click on **Get It Now** to start the setup process.
+Select the Hortonworks Sandbox product and its Overview will display.  Click on **Get It Now** to start the setup process.
 
 ![Select "GET IT NOW" to begin the setup process.]({{page.path}}/assets/2.jpg)
 
@@ -62,7 +62,7 @@ The next step is to choose a size for the virtual machine.  It is recommended to
 
 ![Select a size for your virtual machine.]({{page.path}}/assets/6.jpg)
 
-Optional settings to configure.  You can safely leave this as default.
+Optional settings to configure.  You can safely leave these at their defaults.
 
 ![Optional settings for the machine.]({{page.path}}/assets/7.jpg)
 
@@ -72,7 +72,7 @@ Look over the summary and continue when ready.
 
 Alright, we're ready to deploy!  Review the offer details and purchase when ready.
 
-![Review the offer details.]({{page.path}}/assets/9.jpg)
+![Review the offer details.]({{page.path}}/assets/9.jpg)https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure
 
 Once the offer is submitted by selecting **Purchase**, the sandbox will take a few minutes to set up and deploy.  After deployment is complete, we can move on to connecting to the sandbox.
 
@@ -100,10 +100,8 @@ Fill out the form and hit **Submit** to access the sandbox.
 
 ![The sandbox splash page.]({{page.path}}/assets/sandbox-splash.jpg)
 
-Eureka!
-
 ## Further Reading
 
 Now that you've got HDP up and running, check out our other tutorials to learn how to leverage its power.
 
-- [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox)
+- [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox)

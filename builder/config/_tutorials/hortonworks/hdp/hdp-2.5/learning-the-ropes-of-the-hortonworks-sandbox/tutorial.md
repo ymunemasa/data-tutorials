@@ -1,8 +1,8 @@
 ---
 title: Learning the Ropes of the Hortonworks Sandbox
-id: 160
+tutorial-id: 160
 platform: hdp-2.5.0
-components: [ambari]
+tags: [ambari]
 ---
 
 # Learning the Ropes of the Hortonworks Sandbox
@@ -13,7 +13,7 @@ This tutorial is aimed for users who do not have much experience in using the Sa
 We will install and explore the Sandbox on virtual machine and cloud environments. We will also navigate the Ambari user interface.
 Let's begin our Hadoop journey.
 
-## Pre-Requisites
+## Prerequisites
 - Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
 - Allow yourself around one hour to complete this tutorial
 - If on mac or linux, added `sandbox.hortonworks.com` to your `/private/etc/hosts` file
@@ -39,32 +39,18 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 - [Section 1: Sandbox in VM](#section1)
 - [Step 1: Explore the Sandbox in a VM](#explore-sandbox-vm)
       - [1.1 Install the Sandbox](#install-sandbox)
-      - [1.2 Learn the Host Address of Your Environment](#learn-host-address-environment)
+      - Add hosts alias
       - [1.3 Connect to the Welcome Screen](#connect-to-welcome-screen)
-      - [1.4 Multiple Ways to Execute Terminal Commands(SSH, Web Shell, VM Shell)](#ways-execute-terminal-command)
       - [1.5 Learn Your Sandbox Version](#learn-sandbox-version)
-      - [1.6 Send Data Between Sandbox & Local Machine](#send-data-btwn-sandbox-local-machine)
 - [Step 2: Explore Ambari](#explore-ambari)
-      - [2.1 Use Terminal to Find the Host IP Sandbox Runs On](#find-host-ip-sandbox-runs-on)
       - [Services Provided By the Sandbox](#services-provided-by-sandbox)
       - [2.2 Setup Ambari admin Password Manually](#setup-ambari-admin-password)
       - [2.3 Explore Ambari Welcome Screen 5 Key Capabilities](#explore-ambari-welcome-screen)
       - [2.4 Explore Ambari Dashboard Links](#explore-ambari-dashboard)
-- [Section 2: Sandbox in Microsoft Azure](#section2)
-- [Step 1: Explore the Sandbox in Azure](#explore-sandbox-azure)
-      - [1.1 Deploy the Sandbox in Azure](#deploy-sandbox-azure)
-      - [1.2 Connect to the Welcome Screen](#connect-to-welcome-screen-azure)
-      - [1.3 Multiple Ways to Execute Terminal Commands(SSH, Web Shell)](#ways-execute-terminal-command-azure)
-      - [1.4 Send Data Between Azure Sandbox & Local Machine](#send-data-btwn-sandbox-local-machine-azure)
-- [Step 2: Explore Ambari in Azure](#explore-ambari-azure)
-      - [Services Provided By the Sandbox in Azure](#services-provided-by-sandbox-azure)
-      - [2.1 Setup Ambari admin Password Manually](#setup-ambari-admin-password-azure)
-      - [2.2 Explore Ambari Welcome Screen 5 Key Capabilities](#explore-ambari-welcome-screen-azure)
-      - [2.3 Explore Ambari Dashboard Links](#explore-ambari-dashboard-azure)
+
 - [Section 3: New Users in Sandbox](#section3)
 - [Section 4: Troubleshoot](#section4)
 - [Step 1: Troubleshoot Problems](#troubleshoot-problems)
-      - [1.1 Technique for Finding Answers in HCC](#technique-for-finding-answers-hcc)
 - [Further Reading](#further-reading)
 
 ## What is the Sandbox? <a id="what-is-the-sandbox"></a>
