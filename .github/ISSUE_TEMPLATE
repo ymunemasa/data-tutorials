@@ -1,13 +1,9 @@
-Please Fill in the Following Information before submitting your Issue:
+Please fill in the following when submitting an issue:
 
-**Tutorial Name**: 
-**HDP Version are you Running**:
-**Applicable HDP Components**:
+**Tutorial name**: That goes here
+**Platform version you are running**: HDP 2.6, HDF 2.2
+**Link to tutorial**: Either a Hortonworks link or Github link works fine
 
-**Link to tutorial**(Hortonworks or GitHub website):
+### Detailed description of issue:
 
-### Detailed Description of Issue:
-
-
-### Proposed Fix:
-
+### Proposed fix (if any):
