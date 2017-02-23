@@ -2,7 +2,7 @@
 title: Using the Command Line to Manage Files on HDFS
 tutorial-id: 120
 platform: hdp-2.5.0
-components: [ambari, hdfs]
+tags: [ambari, hdfs]
 ---
 
 # Manage Files on HDFS with Ambari Files View

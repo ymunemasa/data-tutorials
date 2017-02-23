@@ -2,7 +2,7 @@
 title: How to Process Data with Apache Pig
 tutorial-id: 150
 platform: hdp-2.5.0
-components: [ambari, pig]
+tags: [ambari, pig]
 ---
 
 # How To Process Data with Apache Pig

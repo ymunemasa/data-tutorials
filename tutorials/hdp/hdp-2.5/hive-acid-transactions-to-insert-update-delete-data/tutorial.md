@@ -2,7 +2,7 @@
 title: Using Hive ACID Transactions to Insert, Update and Delete Data
 tutorial-id: 750
 platform: hdp-2.5.0
-components: [hive]
+tags: [hive]
 ---
 
 ## Why use Hive ACID?

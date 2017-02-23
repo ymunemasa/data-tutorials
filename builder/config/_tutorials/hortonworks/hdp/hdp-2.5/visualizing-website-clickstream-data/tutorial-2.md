@@ -2,7 +2,7 @@
 title: How to Visualize Website Clickstream Data
 tutorial-id: 250
 platform: hdp-2.5.0
-components: [ambari, hive, zeppelin, excel]
+tags: [ambari, hive, zeppelin, excel]
 ---
 
 # Lab 2: Visualize Clickstream Log Data

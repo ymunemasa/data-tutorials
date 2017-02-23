@@ -2,7 +2,7 @@
 title: Accessing HBase data with Hive
 tutorial-id: 650
 platform: hdp-2.5.0
-components: [hbase, hive, ambari]
+tags: [hbase, hive, ambari]
 ---
 
 ## Introduction

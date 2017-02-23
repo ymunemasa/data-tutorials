@@ -2,7 +2,7 @@
 title: A Hands-On Tour of Apache Spark in 5 Minutes
 tutorial-id: 360
 platform: hdp-2.5.0
-components: [spark, zeppelin]
+tags: [spark, zeppelin]
 ---
 
 Apache Spark is a fast, in-memory data processing engine with elegant and expressive development APIs in Scala, Java, Python, and R that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets (see [Spark API Documentation](http://spark.apache.org/docs/latest/api.html) for more info). Spark on [Apache Hadoop YARN](http://hortonworks.com/hadoop/YARN "Apache Hadoop YARN") enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.

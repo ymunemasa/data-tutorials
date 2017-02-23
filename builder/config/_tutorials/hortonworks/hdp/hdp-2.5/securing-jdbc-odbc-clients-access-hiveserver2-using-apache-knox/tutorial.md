@@ -2,7 +2,7 @@
 title: Securing JDBC and ODBC Clients' Access to Hive Server 2 using Apache Knox
 tutorial-id: 560
 platform: hdp-2.5.0
-components: [knox, beeline]
+tags: [knox, beeline]
 ---
 
 ## Introduction

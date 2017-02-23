@@ -2,7 +2,7 @@
 title: HBase Backup and Restore Utility
 tutorial-id: 650
 platform: hdp-2.5.0
-components: [hbase]
+tags: [hbase]
 ---
 
 ## Introduction

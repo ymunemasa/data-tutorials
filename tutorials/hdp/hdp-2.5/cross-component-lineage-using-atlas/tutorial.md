@@ -5,7 +5,7 @@ tutorial-id: 610
 
 platform: hdp-2.5.0
 
-components: [atlas, sqoop, hive, kafka, storm ]
+tags: [atlas, sqoop, hive, kafka, storm ]
 ---
 
 ## Introduction

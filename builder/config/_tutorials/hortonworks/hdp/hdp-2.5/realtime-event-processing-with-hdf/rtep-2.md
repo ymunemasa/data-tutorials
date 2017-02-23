@@ -2,7 +2,7 @@
 title: Ingest, Route and Land Real Time Events with Apache NiFi
 tutorial-id: 220
 platform: hdp-2.5.0
-components: [nifi]
+tags: [nifi]
 ---
 
 # Tutorial 1: Ingest, Route and Land Real Time Events with Apache NiFi

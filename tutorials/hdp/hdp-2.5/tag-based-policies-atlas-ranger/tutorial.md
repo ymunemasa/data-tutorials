@@ -2,7 +2,7 @@
 title: Tag Based Policies with Apache Ranger and Apache Atlas
 tutorial-id: 660
 platform: hdp-2.5.0
-components: [atlas, ranger]
+tags: [atlas, ranger]
 ---
 
 ## Introduction

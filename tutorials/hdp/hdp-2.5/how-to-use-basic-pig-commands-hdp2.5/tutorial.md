@@ -2,7 +2,7 @@
 title: How to Use Basic Pig Command
 tutorial-id: 140
 platform: hdp-2.5.0
-components: [ambari, pig]
+tags: [ambari, pig]
 ---
 
 # Beginners Guide to Apache Pig

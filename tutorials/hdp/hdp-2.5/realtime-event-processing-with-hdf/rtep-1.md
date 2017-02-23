@@ -2,7 +2,7 @@
 title: Set Up Simulator, Apache Services and IDE Environment
 tutorial-id: 220
 platform: hdp-2.5.0
-components: [nifi, storm, kafka, hbase]
+tags: [nifi, storm, kafka, hbase]
 ---
 
 # Tutorial 0: Set Up Simulator, Apache Services and IDE Environment

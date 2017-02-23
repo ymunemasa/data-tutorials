@@ -2,7 +2,7 @@
 title: Manage Files on HDFS with the Command Line
 tutorial-id: 120
 platform: hdp-2.5.0
-components: [hdfs]
+tags: [hdfs]
 ---
 
 # Manage Files on HDFS with the Command Line

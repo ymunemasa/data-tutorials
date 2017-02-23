@@ -2,7 +2,7 @@
 title: Introduction
 tutorial-id: 640
 platform: hdf-2.0.0
-components: [nifi]
+tags: [nifi]
 ---
 
 # Analyze Traffic Patterns with Apache NiFi

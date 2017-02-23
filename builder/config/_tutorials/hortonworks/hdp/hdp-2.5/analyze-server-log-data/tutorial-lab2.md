@@ -2,7 +2,7 @@
 title: How to Refine and Visualize Server Log Data
 tutorial-id: 200
 platform: hdp-2.5.0
-components: [nifi, spark, zeppelin]
+tags: [nifi, spark, zeppelin]
 ---
 
 ## Introduction

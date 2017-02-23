@@ -5,5 +5,5 @@ tutorial-id: 400
 
 platform: hdp-2.5.0
 
-components: [spark, hive, orc ]
+tags: [spark, hive, orc ]
 ---

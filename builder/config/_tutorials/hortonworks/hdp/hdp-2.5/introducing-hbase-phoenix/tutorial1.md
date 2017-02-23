@@ -2,7 +2,7 @@
 title: Introduction to HBase Concepts
 tutorial-id: 650
 platform: hdp-2.5.0
-components: [hbase, ambari]
+tags: [hbase, ambari]
 ---
 
 ## Introduction

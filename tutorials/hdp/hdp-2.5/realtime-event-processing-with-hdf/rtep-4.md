@@ -2,7 +2,7 @@
 title: Real Time Data Ingestion in Hbase and Hive using Storm
 tutorial-id: 220
 platform: hdp-2.5.0
-components: [storm, hbase, hive, kafka, nifi]
+tags: [storm, hbase, hive, kafka, nifi]
 ---
 
 # Tutorial 3: Real Time Data Ingestion in HBase and Hive using Storm

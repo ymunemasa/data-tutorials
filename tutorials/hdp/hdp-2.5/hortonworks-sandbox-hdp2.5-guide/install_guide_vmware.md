@@ -2,7 +2,7 @@
 title: Hortonworks Sandbox Guide
 tutorial-id: 730
 platform: hdp-2.5.0
-components: [sandbox]
+tags: [sandbox]
 ---
 
 # Hortonworks Sandbox with VMware Fusion

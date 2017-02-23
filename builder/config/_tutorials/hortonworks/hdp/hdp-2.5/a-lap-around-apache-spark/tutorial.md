@@ -2,7 +2,7 @@
 title: A Lap Around Apache Spark
 tutorial-id: 390
 platform: hdp-2.5.0
-components: [spark]
+tags: [spark]
 ---
 
 # A Lap Around Apache Spark

@@ -2,7 +2,7 @@
 title: Tutorial 1 Build A Simple NiFi DataFlow
 tutorial-id: 640
 platform: hdf-2.0.0
-components: [nifi]
+tags: [nifi]
 ---
 
 # Tutorial 1: Build A Simple NiFi DataFlow

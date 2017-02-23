@@ -2,7 +2,7 @@
 title: Introduction to DataFlow Automation with Apache NiFi Concepts
 tutorial-id: 640
 platform: hdf-2.0.0
-components: [nifi]
+tags: [nifi]
 ---
 
 # NiFi DataFlow Automation Concepts

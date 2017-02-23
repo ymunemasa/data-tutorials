@@ -2,7 +2,7 @@
 title: Configuring Yarn Capacity Scheduler with Apache Ambari
 tutorial-id: 440
 platform: hdp-2.5.0
-components: [ambari]
+tags: [ambari]
 ---
 
 In this tutorial we are going to explore how we can configure YARN Capacity Scheduler from Ambari.

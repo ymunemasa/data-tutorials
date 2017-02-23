@@ -2,7 +2,7 @@
 title: How to Visualize Website Clickstream Data
 tutorial-id: 250
 platform: hdp-2.5.0
-components: [ambari, hive, hdfs]
+tags: [ambari, hive, hdfs]
 ---
 
 ## Lab 1: Perform Web Log Analytics with Hive

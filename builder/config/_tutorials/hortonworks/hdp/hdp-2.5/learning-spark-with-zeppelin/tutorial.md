@@ -2,7 +2,7 @@
 title: Learning Spark with Zeppelin
 tutorial-id: 365
 platform: hdp-2.5.0
-components: [spark, zeppelin]
+tags: [spark, zeppelin]
 ---
 
 In this tutorial, we will introduce the basic concepts of Apache Spark DataFrames in a hands-on lab.

@@ -2,7 +2,7 @@
 title: Using HCatalog, Pig, and Hive Commands
 tutorial-id: 260
 platform: hdp-2.5.0
-components: [hcatalog, hive, pig, ambari]
+tags: [hcatalog, hive, pig, ambari]
 ---
 
 # How to use HCatalog, Pig & Hive Commands

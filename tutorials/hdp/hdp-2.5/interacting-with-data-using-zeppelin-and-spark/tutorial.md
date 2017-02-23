@@ -2,7 +2,7 @@
 title: Interacting with Data on HDP using Apache Zeppelin and Apache Spark
 tutorial-id: 370
 platform: hdp-2.5.0
-components: [spark, zeppelin]
+tags: [spark, zeppelin]
 ---
 
 In this tutorial, we are going to walk through the process of using Apache Zeppelin and Apache Spark to interactively analyze data on a Apache Hadoop Cluster. In particular, you will learn:

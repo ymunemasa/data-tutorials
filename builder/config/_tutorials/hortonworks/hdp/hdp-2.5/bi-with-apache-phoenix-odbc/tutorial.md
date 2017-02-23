@@ -2,7 +2,7 @@
 title: HBase Reporitng with Apache Phoenix via ODBC
 tutorial-id: 740
 platform: hdp-2.5.0
-components: [hbase, phoenix, odbc, tableau]
+tags: [hbase, phoenix, odbc, tableau]
 ---
 
 ## Overview

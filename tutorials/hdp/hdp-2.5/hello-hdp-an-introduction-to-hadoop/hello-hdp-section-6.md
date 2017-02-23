@@ -2,7 +2,7 @@
 title: Hello HDP An Introduction to Hadoop with Hive and Pig
 tutorial-id: 100
 platform: hdp-2.5.0
-components: [ambari, hive, pig, spark, zeppelin]
+tags: [ambari, hive, pig, spark, zeppelin]
 ---
 
 # Lab 4: Spark - Risk Factor

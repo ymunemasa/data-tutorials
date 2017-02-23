@@ -2,7 +2,7 @@
 title: Interactive SQL on Hadoop with Hive LLAP
 tutorial-id: 720
 platform: hdp-2.5.0
-components: [hive, ambari, tableau]
+tags: [hive, ambari, tableau]
 ---
 
 ##Introduction

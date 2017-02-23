@@ -2,7 +2,7 @@
 title: Real Time Data Processing in Hadoop
 tutorial-id: 220
 platform: hdp-2.5.0
-components: [storm, kafka, nifi]
+tags: [storm, kafka, nifi]
 ---
 
 ## Introduction
