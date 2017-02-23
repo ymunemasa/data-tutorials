@@ -1,6 +1,6 @@
 ---
 title: Securing Data Lake Resources and Auditing User Access with Apache Ranger
-id: 570
+tutorial-id: 570
 platform: hdp-2.5.0
 components: [ranger]
 ---

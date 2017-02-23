@@ -1,6 +1,6 @@
 ---
 title: Tutorial 3 Ingest NextBus Live Stream Routes to the DataFlow
-id: 640
+tutorial-id: 640
 platform: hdf-2.0.0
 components: [nifi]
 ---

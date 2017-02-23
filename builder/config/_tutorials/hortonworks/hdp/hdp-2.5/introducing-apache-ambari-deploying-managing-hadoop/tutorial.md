@@ -1,6 +1,6 @@
 ---
 title: Introducing Apache Ambari for Deploying and Managing Apache Hadoop
-id: 320
+tutorial-id: 320
 platform: hdp-2.5.0
 components: [ambari , vagrant]
 ---

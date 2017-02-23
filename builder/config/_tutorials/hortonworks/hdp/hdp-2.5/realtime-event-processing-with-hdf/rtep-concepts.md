@@ -1,6 +1,6 @@
 ---
 title: Real Time Data Processing in Hadoop
-id: 220
+tutorial-id: 220
 platform: hdp-2.5.0
 components: [storm, kafka, nifi]
 ---

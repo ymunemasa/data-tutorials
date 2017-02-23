@@ -1,6 +1,6 @@
 ---
 title: Securing HDFS, Hive AND HBase with Apache Knox and Apache Ranger
-id: 571
+tutorial-id: 571
 platform: hdp-2.5.0
 components: [knox, ranger]
 ---

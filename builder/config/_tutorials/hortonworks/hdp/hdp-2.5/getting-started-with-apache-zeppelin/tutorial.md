@@ -1,6 +1,6 @@
 ---
 title: Getting Started with Apache Zeppelin
-id: 368
+tutorial-id: 368
 platform: hdp-2.5.0
 components: [zeppelin, spark]
 ---

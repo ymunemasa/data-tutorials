@@ -1,6 +1,6 @@
 ---
 title: Intro to Spark Streaming
-id: 366
+tutorial-id: 366
 platform: hdp-2.5.0
 components: [spark]
 ---

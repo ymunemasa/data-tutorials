@@ -1,6 +1,6 @@
 ---
 title: Interactive Query for Hadoop with Apache Hive on Apache Tez
-id: 290
+tutorial-id: 290
 platform: hdp-2.5.0
 components: [hive, tez, ambari]
 ---

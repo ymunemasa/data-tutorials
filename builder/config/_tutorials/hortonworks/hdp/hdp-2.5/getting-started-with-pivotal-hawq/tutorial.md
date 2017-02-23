@@ -1,6 +1,6 @@
 ---
 title: Getting Started with Pivotal HAWQ on Hortonworks Sandbox
-id: 630
+tutorial-id: 630
 platform: hdp-2.5.0
 components: [Pivotal HAWQ]
 ---

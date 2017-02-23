@@ -1,6 +1,6 @@
 ---
 title: A Hands-On Tour of Apache Spark in 5 Minutes
-id: 360
+tutorial-id: 360
 platform: hdp-2.5.0
 components: [spark, zeppelin]
 ---

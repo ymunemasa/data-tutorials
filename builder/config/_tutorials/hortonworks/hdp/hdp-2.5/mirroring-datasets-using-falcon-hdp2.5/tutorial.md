@@ -1,6 +1,6 @@
 ---
 title: Mirroring Datasets Between Hadoop Clusters with Apache Falcon
-id: 680
+tutorial-id: 680
 platform: hdp-2.5.0
 components: [falcon, ambari]
 ---

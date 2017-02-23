@@ -1,6 +1,6 @@
 ---
 title: Leveraging Apache Falcon with Your Hadoop Clusters
-id: 670
+tutorial-id: 670
 platform: hdp-2.5.0
 components: [falcon, ambari]
 ---

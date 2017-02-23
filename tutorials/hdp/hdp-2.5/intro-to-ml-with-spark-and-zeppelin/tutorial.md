@@ -1,6 +1,6 @@
 ---
 title: Intro to Machine Learning with Spark and Zeppelin
-id: 367
+tutorial-id: 367
 platform: hdp-2.5.0
 components: [spark, zeppelin]
 ---

@@ -1,6 +1,6 @@
 ---
 title: Real Time Data Transportation and Ingestion
-id: 220
+tutorial-id: 220
 platform: hdp-2.5.0
 components: [nifi, storm, kafka, hbase, hive, hdfs]
 ---

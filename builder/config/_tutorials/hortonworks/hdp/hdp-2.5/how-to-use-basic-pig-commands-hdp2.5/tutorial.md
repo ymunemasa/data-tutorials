@@ -1,6 +1,6 @@
 ---
 title: How to Use Basic Pig Command
-id: 140
+tutorial-id: 140
 platform: hdp-2.5.0
 components: [ambari, pig]
 ---

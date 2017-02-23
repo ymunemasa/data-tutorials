@@ -1,6 +1,6 @@
 ---
 title: Spark HBase - A Dataframe Based HBase Connector
-id: 369
+tutorial-id: 369
 platform: hdp-2.5.0
 components: [spark, hbase]
 ---

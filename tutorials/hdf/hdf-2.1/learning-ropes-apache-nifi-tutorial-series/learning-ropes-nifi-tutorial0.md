@@ -1,6 +1,6 @@
 ---
 title: Tutorial 0 Download, Install and Start NiFi
-id: 640
+tutorial-id: 640
 platform: hdf-2.0.0
 components: [nifi]
 ---

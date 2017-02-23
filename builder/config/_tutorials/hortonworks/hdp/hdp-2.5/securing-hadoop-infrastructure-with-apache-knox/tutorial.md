@@ -1,6 +1,6 @@
 ---
 title: Securing Your Hadoop Infrastructure with Apache Knox
-id: 420
+tutorial-id: 420
 platform: hdp-2.5.0
 components: [knox, webhdfs]
 ---

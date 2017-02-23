@@ -1,6 +1,6 @@
 ---
 title: Capture Real Time Event Stream with Apache Kafka
-id: 220
+tutorial-id: 220
 platform: hdp-2.5.0
 components: [kafka, nifi]
 ---

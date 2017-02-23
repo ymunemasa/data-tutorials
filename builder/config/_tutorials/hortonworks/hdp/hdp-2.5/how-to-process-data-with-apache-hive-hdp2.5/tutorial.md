@@ -1,6 +1,6 @@
 ---
 title: How to Process Data with Apache Hive
-id: 110
+tutorial-id: 110
 platform: hdp-2.5.0
 components: [ambari, hive]
 ---

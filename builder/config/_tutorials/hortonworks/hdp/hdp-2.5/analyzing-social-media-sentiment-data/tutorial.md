@@ -1,6 +1,6 @@
 ---
 title: How to Refine and Visualize Social Media Sentiment Data
-id: 210
+tutorial-id: 210
 platform: hdp-2.5.0
 components: [solr, nifi, hive, ambari, zeppelin]
 ---

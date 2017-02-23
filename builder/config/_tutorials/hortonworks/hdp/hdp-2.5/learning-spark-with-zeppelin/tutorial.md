@@ -1,6 +1,6 @@
 ---
 title: Learning Spark with Zeppelin
-id: 365
+tutorial-id: 365
 platform: hdp-2.5.0
 components: [spark, zeppelin]
 ---

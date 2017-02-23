@@ -1,6 +1,6 @@
 ---
 title: Using the Command Line to Manage Files on HDFS
-id: 120
+tutorial-id: 120
 platform: hdp-2.5.0
 components: [ambari, hdfs]
 ---

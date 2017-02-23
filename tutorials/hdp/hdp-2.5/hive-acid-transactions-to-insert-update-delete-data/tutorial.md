@@ -1,6 +1,6 @@
 ---
 title: Using Hive ACID Transactions to Insert, Update and Delete Data
-id: 750
+tutorial-id: 750
 platform: hdp-2.5.0
 components: [hive]
 ---

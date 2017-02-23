@@ -1,6 +1,6 @@
 ---
 title: Hortonworks Sandbox Guide
-id: 730
+tutorial-id: 730
 platform: hdp-2.5.0
 components: [sandbox]
 ---

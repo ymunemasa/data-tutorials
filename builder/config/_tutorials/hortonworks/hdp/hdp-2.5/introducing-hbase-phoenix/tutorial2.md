@@ -1,6 +1,6 @@
 ---
 title: Introduction to Phoenix Concepts
-id: 650
+tutorial-id: 650
 platform: hdp-2.5.0
 components: [hbase, phoenix, ambari]
 ---

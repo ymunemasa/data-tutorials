@@ -1,6 +1,6 @@
 ---
 title: Interacting with Data on HDP using Apache Zeppelin and Apache Spark
-id: 370
+tutorial-id: 370
 platform: hdp-2.5.0
 components: [spark, zeppelin]
 ---
