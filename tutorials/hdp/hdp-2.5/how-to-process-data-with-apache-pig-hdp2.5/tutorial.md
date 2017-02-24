@@ -12,8 +12,8 @@ tags: [ambari, pig]
 In this tutorial, we will learn to store data files using Ambari HDFS Files View. We will implement pig latin scripts to process, analyze and manipulate data files of truck drivers statistics. Let's build our own Pig Latin Scripts now.
 
 ## Prerequisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
-*  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
+*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around one hour to complete this tutorial
 
 ## Outline
@@ -236,8 +236,8 @@ On our machine it took around 16 seconds with Pig using the Tez engine. That is 
 Tez definitely lives up to it’s name.
 
 ## Further Reading <a id="further-reading"></a>
-- [Apache Pig](http://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-pig/)
+- [Apache Pig](https://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-pig/)
 - [Welcome to Apache Pig!](https://pig.apache.org/)
 - [Pig Latin Basics](https://pig.apache.org/docs/r0.12.0/basic.html#store)
 - [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645)
-- [Apache Tez](http://hortonworks.com/apache/tez/)
+- [Apache Tez](https://hortonworks.com/apache/tez/)

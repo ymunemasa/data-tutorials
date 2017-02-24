@@ -39,7 +39,7 @@ Host operating system refers to the operating system of your computer. You can f
 
 ### Hortonworks Sandbox virtual appliance for Sandbox:
 
-Download the Docker [here](http://hortonworks.com/products/hortonworks-sandbox/#install). The file extension for docker should be .gz.  Once you download the file, uncompress it.  The file extension will then be a .tar file.
+Download the Docker [here](https://hortonworks.com/products/hortonworks-sandbox/#install). The file extension for docker should be .gz.  Once you download the file, uncompress it.  The file extension will then be a .tar file.
 
 ## Procedure
 

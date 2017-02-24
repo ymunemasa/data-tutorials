@@ -14,19 +14,19 @@ In this demo, we demonstrate how an enterprise security breach analysis and resp
 
 ### In this tutorial, learn how to:
 
-*   Stream server logs into Hadoop with [Hortonworks Dataflow](http://hortonworks.com/hdf/) powered by **Apache NiFi**
-*   Use [Hive](http://hortonworks.com/hadoop/hive) to build a relational view of the data
+*   Stream server logs into Hadoop with [Hortonworks Dataflow](https://hortonworks.com/hdf/) powered by **Apache NiFi**
+*   Use [Hive](https://hortonworks.com/hadoop/hive) to build a relational view of the data
 *   Use Elastic Search for high-level visualization
-*   Use [Oozie](http://hortonworks.com/hadoop/oozie) to automatically update a firewall
-*   Visualize the data with [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin)
+*   Use [Oozie](https://hortonworks.com/hadoop/oozie) to automatically update a firewall
+*   Visualize the data with [Apache Zeppelin](https://hortonworks.com/hadoop/zeppelin)
 
-This Hadoop tutorial can be performed with the [Hortonworks Sandbox](http://hortonworks.com/products/sandbox) – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series. The tutorial presented here is for Sandbox HDP 2.5.
+This Hadoop tutorial can be performed with the [Hortonworks Sandbox](https://hortonworks.com/products/sandbox) – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series. The tutorial presented here is for Sandbox HDP 2.5.
 
 ## Prerequisites:
 
 - Hortonworks Sandbox (installed and running)
-- Hortonworks DataFlow - [Download here](http://hortonworks.com/downloads/#dataflow)
-- If you'd like to use Tableau to explore the data, please see this HOWTO on the Hortonworks website: [HOWTO: Connect Tableau to the Hortonworks Sandbox](http://hortonworks.com/kb/how-to-connect-tableau-to-hortonworks-sandbox/)
+- Hortonworks DataFlow - [Download here](https://hortonworks.com/downloads/#dataflow)
+- If you'd like to use Tableau to explore the data, please see this HOWTO on the Hortonworks website: [HOWTO: Connect Tableau to the Hortonworks Sandbox](https://hortonworks.com/kb/how-to-connect-tableau-to-hortonworks-sandbox/)
 - Server log tutorial files (included in this tutorial)
 
 ## Outline
@@ -97,12 +97,12 @@ A FlowFile can originate from a processor in NiFi. Processors can also receive t
 NiFi will be installed into the Ambari Stack of the Hortonworks Sandbox VirtualBox image because it
 will be used to activate server log simulator and transport data to HDFS.
 
-1\. If you do not have NiFi installed on your sandbox, refer to [Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#download-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
+1\. If you do not have NiFi installed on your sandbox, refer to [Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)](https://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#download-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
 Learning the Ropes of Apache NiFi for step-by-step instructions.
 
 ### 1.2 - Start NiFi <a id="step2-start-nifi-tutorial0"></a>
 
-1\. To activate the NiFi service, refer to [Step 4: Start NiFi on Sandbox](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
+1\. To activate the NiFi service, refer to [Step 4: Start NiFi on Sandbox](https://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of
 Learning the Ropes of Apache NiFi for step-by-step instructions.
 
 Once you enter the NiFi HTML Interface at [http://localhost:9090/nifi](http://localhost:9090/nifi), you should see a canvas as below:

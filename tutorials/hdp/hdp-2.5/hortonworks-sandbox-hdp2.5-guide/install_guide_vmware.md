@@ -54,7 +54,7 @@ NOTE: Please allow popup-blockers
 
 **Hortonworks Sandbox virtual appliance for VMware Fusion**
 
-Download the correct virtual appliance file for your environment from http://hortonworks.com/products/hortonworks-sandbox/#install
+Download the correct virtual appliance file for your environment from https://hortonworks.com/products/hortonworks-sandbox/#install
 The file extension for a virtual appliance for VMware Fusion should be .ova
 
 ## Procedure

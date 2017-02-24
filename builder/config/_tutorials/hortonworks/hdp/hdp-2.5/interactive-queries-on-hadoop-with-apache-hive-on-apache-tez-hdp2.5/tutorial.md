@@ -9,7 +9,7 @@ tags: [hive, tez, ambari]
 
 ### Introduction
 
-In this tutorial, we'll focus on taking advantage of the improvements to [Apache Hive](http://hortonworks.com/hadoop/hive) and [Apache Tez](http://hortonworks.com/hadoop/tez) through the work completed by the community as part of the [Stinger initiative](http://hortonworks.com/labs/stinger). These features will be discussed in this tutorial:
+In this tutorial, we'll focus on taking advantage of the improvements to [Apache Hive](https://hortonworks.com/hadoop/hive) and [Apache Tez](https://hortonworks.com/hadoop/tez) through the work completed by the community as part of the [Stinger initiative](https://hortonworks.com/labs/stinger). These features will be discussed in this tutorial:
 
 *   Performance improvements of Hive on Tez
 *   Performance improvements of Vectorized Query
@@ -18,8 +18,8 @@ In this tutorial, we'll focus on taking advantage of the improvements to [Apache
 *   SQL Compliance Improvements
 
 ## Prerequisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
-*  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
+*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around one hour to complete this tutorial
 
 ## Outline
@@ -329,5 +329,5 @@ There are several SQL query enhancements in this version of Hive.
 You learned to perform basic hive queries, compared Hive on MapReduce and Tez Engine
 
 ### Further Reading <a id="further-reading"></a>
-- [Apache Hive](http://hortonworks.com/hadoop/hive/)
+- [Apache Hive](https://hortonworks.com/hadoop/hive/)
 - [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)

@@ -562,7 +562,7 @@ Reference the picture of the dataflow in Step 5 if you would like to assign simi
 
 ## Further Reading <a id="further-reading-tutorial1"></a>
 
-- [Apache NiFi](http://hortonworks.com/apache/nifi/)
+- [Apache NiFi](https://hortonworks.com/apache/nifi/)
 - [Hortonworks DataFlow Documentation](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html)
 - [NiFi Expression Language Guide](https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html)
 - [XPath Expression Tutorial](http://www.w3schools.com/xsl/xpath_intro.asp)

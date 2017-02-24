@@ -9,11 +9,11 @@ tags: [ambari, hive]
 
 ## Introduction
 
-In this tutorial, we will use the [Ambari](http://hortonworks.com/hadoop/ambari/) HDFS file view to store data files of truck drivers statistics. We will implement [Hive](http://hortonworks.com/hadoop/hive/) queries to analyze, process and filter that data.
+In this tutorial, we will use the [Ambari](https://hortonworks.com/hadoop/ambari/) HDFS file view to store data files of truck drivers statistics. We will implement [Hive](https://hortonworks.com/hadoop/hive/) queries to analyze, process and filter that data.
 
 ## Prerequisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
-*  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
+*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around one hour to complete this tutorial
 
 ## Outline
@@ -29,11 +29,11 @@ In this tutorial, we will use the [Ambari](http://hortonworks.com/hadoop/ambari/
 
 ## Hive <a id="hive"></a>
 
-Apache Hive is a component of [Hortonworks Data Platform](http://hortonworks.com/hdp/)(HDP). Hive provides a SQL-like interface to data stored in HDP. In the previous tutorial, we used Pig, which is a scripting language with a focus on dataflows. Hive provides a database query interface to Apache Hadoop.
+Apache Hive is a component of [Hortonworks Data Platform](https://hortonworks.com/hdp/)(HDP). Hive provides a SQL-like interface to data stored in HDP. In the previous tutorial, we used Pig, which is a scripting language with a focus on dataflows. Hive provides a database query interface to Apache Hadoop.
 
 ## Hive or Pig? <a id="hive-or-pig"></a>
 
-People often ask why do [Pig](http://hortonworks.com/hadoop/pig/) and [Hive](http://hortonworks.com/hadoop/hive/) exist when they seem to do much of the same thing. Hive because of its SQL like query language is often used as the interface to an Apache Hadoop based data warehouse. Hive is considered friendlier and more familiar to users who are used to using SQL for querying data. Pig fits in through its data flow strengths where it takes on the tasks of bringing data into Apache Hadoop and working with it to get it into the form for querying. A good overview of how this works is in Alan Gates posting on the Yahoo Developer blog titled [Pig and Hive at Yahoo!](https://developer.yahoo.com/blogs/hadoop/pig-hive-yahoo-464.html). From a technical point of view, both Pig and Hive are feature complete, so you can do tasks in either tool. However, you will find one tool or the other will be preferred by the different groups that have to use Apache Hadoop. The good part is they have a choice and both tools work together.
+People often ask why do [Pig](https://hortonworks.com/hadoop/pig/) and [Hive](https://hortonworks.com/hadoop/hive/) exist when they seem to do much of the same thing. Hive because of its SQL like query language is often used as the interface to an Apache Hadoop based data warehouse. Hive is considered friendlier and more familiar to users who are used to using SQL for querying data. Pig fits in through its data flow strengths where it takes on the tasks of bringing data into Apache Hadoop and working with it to get it into the form for querying. A good overview of how this works is in Alan Gates posting on the Yahoo Developer blog titled [Pig and Hive at Yahoo!](https://developer.yahoo.com/blogs/hadoop/pig-hive-yahoo-464.html). From a technical point of view, both Pig and Hive are feature complete, so you can do tasks in either tool. However, you will find one tool or the other will be preferred by the different groups that have to use Apache Hadoop. The good part is they have a choice and both tools work together.
 
 ## Our Data Processing Task <a id="our-data-processing-task"></a>
 
@@ -214,6 +214,6 @@ So now we have our results. As described earlier we solved this problem using Hi
 Congratulations on completing this tutorial! We just learned how to upload data into HDFS Files View and create hive queries to manipulate data. Let's review all the queries that were utilized in this tutorial: **create**, **load**, **insert**, **select**, **from**, **group by**, **join** and **on**. With these queries, we created a table _temp_drivers_ to store the data. We created another table _drivers_, so we can overwrite that table with extracted data from the _temp_drivers_ table we created earlier. Then we did the same for _temp_timesheet_ and _timesheet_.Finally, created queries to filter the data to have the result show the sum of hours and miles logged by each driver.
 
 ## Further Reading <a id="further-reading"></a>
-- [Apache Hive](http://hortonworks.com/hadoop/hive/)
-- [Hive Tutorials](http://hortonworks.com/hadoop/hive/#tutorials)
+- [Apache Hive](https://hortonworks.com/hadoop/hive/)
+- [Hive Tutorials](https://hortonworks.com/hadoop/hive/#tutorials)
 - [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)

@@ -56,7 +56,7 @@ More information for hardware requirements for VirtualBox can be found [here](ht
 
 **Hortonworks Sandbox virtual appliance for VirtualBox**
 
-Download the correct virtual appliance file for your environment from [here](http://hortonworks.com/products/hortonworks-sandbox/#install). The file extension for a virtual appliance for VirtualBox should be .ova
+Download the correct virtual appliance file for your environment from [here](https://hortonworks.com/products/hortonworks-sandbox/#install). The file extension for a virtual appliance for VirtualBox should be .ova
 
 ## Procedure
 

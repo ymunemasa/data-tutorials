@@ -15,8 +15,8 @@ tags: [kafka, nifi]
 ## Prerequisites
 *  Tutorial 0: Set Up Simulator, Apache Services and IDE Environment
 *  Tutorial 1: Ingest, Route and Land Real Time Events with Apache NiFi
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
-*  You will need admin privileges for this tutorial, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to setup your Ambari admin password
+*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
+*  You will need admin privileges for this tutorial, refer to [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to setup your Ambari admin password
 *  Memory must be at least 8GB RAM, preferably 4 processor cores, else errors may occur in third tutorial
 
 ## Outline
@@ -174,6 +174,6 @@ This tutorial gave you brief glimpse of how to use Apache Kafka to capture real-
 
 ## Further Reading <a id="further-reading-tutorial1"></a>
 - [Apache Kafka Documentation](http://kafka.apache.org/)
-- [Kafka Overview](http://hortonworks.com/hadoop/kafka/)
+- [Kafka Overview](https://hortonworks.com/hadoop/kafka/)
 - [Apache Zookeeper Documentation](https://zookeeper.apache.org/)
 - HCC Article: [Kafka Best Practices](https://community.hortonworks.com/content/kbentry/49789/kafka-best-practices.html)

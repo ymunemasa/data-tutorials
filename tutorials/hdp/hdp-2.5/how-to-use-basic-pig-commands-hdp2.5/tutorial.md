@@ -19,8 +19,8 @@ We will first read in two data files that contain driver data statistics, and th
 *   FILTER and Group the data using `‘GROUP BY’`
 
 ## Prerequisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
-*  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
+*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around one hour to complete this tutorial
 
 ## Outline
@@ -291,7 +291,7 @@ Scroll right to view all non-Normal events grouped under each driverId. You can 
 Congratulations! You have successfully completed the tutorial and well on your way to pigging on Big Data.
 
 ## Further Reading <a id="further-reading"></a>
-- [Apache Pig](http://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-pig/)
+- [Apache Pig](https://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-pig/)
 - [Welcome to Apache Pig!](https://pig.apache.org/)
 - [Pig Latin Basics](https://pig.apache.org/docs/r0.12.0/basic.html#store)
 - [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645)

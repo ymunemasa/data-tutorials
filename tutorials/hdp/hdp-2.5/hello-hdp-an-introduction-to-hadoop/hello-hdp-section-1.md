@@ -11,7 +11,7 @@ tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
 
 Hello World is often used by developers to familiarize themselves with new concepts by building a simple program. This tutorial aims to achieve a similar purpose by getting practitioners started with Hadoop and HDP. We will use an Internet of Things (IoT) use case to build your first HDP application.
 
-This tutorial describes how to refine data for a Trucking IoT  [Data Discovery](http://hortonworks.com/solutions/advanced-analytic-apps/#data-discovery) (aka IoT Discovery) use case using the Hortonworks Data Platform. The IoT Discovery use cases involves vehicles, devices and people moving across a map or similar surface. Your analysis is targeted to linking location information with your analytic data.
+This tutorial describes how to refine data for a Trucking IoT  [Data Discovery](https://hortonworks.com/solutions/advanced-analytic-apps/#data-discovery) (aka IoT Discovery) use case using the Hortonworks Data Platform. The IoT Discovery use cases involves vehicles, devices and people moving across a map or similar surface. Your analysis is targeted to linking location information with your analytic data.
 
 For our tutorial we are looking at a use case where we have a truck fleet. Each truck has been equipped to log location and event data. These events are streamed back to a datacenter where we will be processing the data.  The company wants to use this data to better understand risk.
 
@@ -19,13 +19,13 @@ Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) t
 
 ## Prerequisites:
 
-*  Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
-*  Before entering hello HDP labs, we **highly recommend** you go through [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to become familiar with the Sandbox in a VM and the Ambari Interface.
+*  Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
+*  Before entering hello HDP labs, we **highly recommend** you go through [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to become familiar with the Sandbox in a VM and the Ambari Interface.
 
 *   Data Set Used: [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
 *   ***Optional***: Hortonworks ODBC driver installed and configured – see the tutorial on installing the ODBC driver for Windows or OS X. Refer to
-    *   [Installing and Configuring the Hortonworks ODBC driver on Windows 7](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/)
-    *   [Installing and Configuring the Hortonworks ODBC driver on Mac OS X](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/)
+    *   [Installing and Configuring the Hortonworks ODBC driver on Windows 7](https://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/)
+    *   [Installing and Configuring the Hortonworks ODBC driver on Mac OS X](https://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-mac-os-x/)
 
 *  In this tutorial, the Hortonworks Sandbox is installed on an Oracle VirtualBox virtual machine (VM) – your screens may be different.
 
@@ -63,11 +63,11 @@ The goal of this tutorial is that you get familiar with the basics of following:
 4.  Goals of the Tutorial (outcomes)
 5.  Hadoop Data Platform Concepts (New to Hadoop or HDP- Refer following)
     1.  [Apache Hadoop and HDP](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-2.md) (5 Pillars)
-    2.  [Apache Hadoop Distributed File System (HDFS)](http://hortonworks.com/hadoop/hdfs/)
-    3.  [Apache YARN](http://hortonworks.com/hadoop/yarn/)
-    4.  [Apache MapReduce](http://hortonworks.com/hadoop/mapreduce/)
-    5.  [Apache Hive](http://hortonworks.com/hadoop/hive/)
-    6.  [Apache Pig](http://hortonworks.com/hadoop/pig/)
+    2.  [Apache Hadoop Distributed File System (HDFS)](https://hortonworks.com/hadoop/hdfs/)
+    3.  [Apache YARN](https://hortonworks.com/hadoop/yarn/)
+    4.  [Apache MapReduce](https://hortonworks.com/hadoop/mapreduce/)
+    5.  [Apache Hive](https://hortonworks.com/hadoop/hive/)
+    6.  [Apache Pig](https://hortonworks.com/hadoop/pig/)
 6.  **Get Started with HDP Labs**
 
     1.  [Lab 1: Loading Sensor Data into HDFS](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/hello-hdp-an-introduction-to-hadoop/hello-hdp-section-3.md)
@@ -78,10 +78,10 @@ The goal of this tutorial is that you get familiar with the basics of following:
 
 7.  **Next Steps/Try These**
     1.  Practitioner Journey-  As a Hadoop Practitioner you can adopt following learning paths
-        *   Hadoop Developer - [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)
-        *   Hadoop Administrator -[Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-admins)
-        *   Data Scientist - [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-analysts)
-    2.  [Case Studies](http://hortonworks.com/industry/) – Learn how Hadoop is being used by various industries.
+        *   Hadoop Developer - [Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)
+        *   Hadoop Administrator -[Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-admins)
+        *   Data Scientist - [Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-analysts)
+    2.  [Case Studies](https://hortonworks.com/industry/) – Learn how Hadoop is being used by various industries.
 8.  **References and Resources**
     1.  [Hadoop - The Definitive Guide by O`Reilly](http://www.amazon.com/Hadoop-Definitive-Guide-Tom-White/dp/1491901632/ref=dp_ob_image_bk)
     2.  [Hadoop for Dummies](http://www.amazon.com/Hadoop-Dummies-Dirk-deRoos/dp/1118607554/ref=sr_1_1?s=books&ie=UTF8&qid=1456105405&sr=1-1&keywords=hadoop+dummies)

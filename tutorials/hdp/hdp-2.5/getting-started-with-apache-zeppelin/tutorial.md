@@ -27,7 +27,7 @@ If you haven't already, login to Ambari (operations console) using `maria_dev`/`
 
 E.g. on a VirtualBox Sandbox, Ambari would be accessible at http://127.0.0.1:8080.
 
-Note: If you're new to the HDP Sandbox environment, make sure to review [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/).
+Note: If you're new to the HDP Sandbox environment, make sure to review [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/).
 
 ![scr1-login](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr1-login.png)
 
@@ -99,7 +99,7 @@ Now you should see your imported notebook among other notebooks on the main Zepp
 
 ### **Importing External Libraries**
 
-As you explore Zeppelin you will probably want to use one or more external libraries. For example, to run [Magellan](http://hortonworks.com/blog/magellan-geospatial-analytics-in-spark/) you need to import its dependencies; you will need to include the Magellan library in your environment. There are three ways to include an external dependency in a Zeppelin notebook: **Using the %dep interpreter** (**Note**: This will only work for libraries that are published to Maven.)
+As you explore Zeppelin you will probably want to use one or more external libraries. For example, to run [Magellan](https://hortonworks.com/blog/magellan-geospatial-analytics-in-spark/) you need to import its dependencies; you will need to include the Magellan library in your environment. There are three ways to include an external dependency in a Zeppelin notebook: **Using the %dep interpreter** (**Note**: This will only work for libraries that are published to Maven.)
 
 <pre>%dep
 z.load("group:artifact:version")

@@ -17,8 +17,8 @@ In this section, you will download the sensor data and load that into HDFS using
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
-*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)[Optional]
+*   Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
+*   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)[Optional]
 *   Allow yourself around **20 minutes** to complete this tutorial.
 
 ## Outline
@@ -32,7 +32,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 
 ## HDFS backdrop <a id="hdfs-backdrop"></a>
 
-A single physical machine gets saturated with its storage capacity as the data grows. This growth drives the need to partition your data across separate machines. This type of File system that manages storage of data across a network of machines is called Distributed File Systems. [HDFS](http://hortonworks.com/blog/thinking-about-the-hdfs-vs-other-storage-technologies/) is a core component of Apache Hadoop and is designed to store large files with streaming data access patterns, running on clusters of commodity hardware. With Hortonworks Data Platform HDP 2.2, HDFS is now expanded to support [heterogeneous storage](http://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)  media within the HDFS cluster.
+A single physical machine gets saturated with its storage capacity as the data grows. This growth drives the need to partition your data across separate machines. This type of File system that manages storage of data across a network of machines is called Distributed File Systems. [HDFS](https://hortonworks.com/blog/thinking-about-the-hdfs-vs-other-storage-technologies/) is a core component of Apache Hadoop and is designed to store large files with streaming data access patterns, running on clusters of commodity hardware. With Hortonworks Data Platform HDP 2.2, HDFS is now expanded to support [heterogeneous storage](https://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)  media within the HDFS cluster.
 
 ### Step 1.1: Download and Extract the Sensor Data Files <a id="step1.1"></a>
 
@@ -88,8 +88,8 @@ Congratulations! Let's summarize the skills and knowledge we acquired from this 
 
 
 ## Suggested Reading <a id="suggested-reading"></a>
-- [HDFS](http://hortonworks.com/hadoop/hdfs/)
-- [Manage Files on HDFS with Command Line: Hands-on Tutorial](http://hortonworks.com/hadoop-tutorial/using-commandline-manage-files-hdfs/)
+- [HDFS](https://hortonworks.com/hadoop/hdfs/)
+- [Manage Files on HDFS with Command Line: Hands-on Tutorial](https://hortonworks.com/hadoop-tutorial/using-commandline-manage-files-hdfs/)
 - [HDFS User Guide](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html)
 - Build your HDFS Architecture Knowledge [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.0.4/hdfs_design.html)
-- [HDP OPERATIONS: HADOOP ADMINISTRATION](http://hortonworks.com/training/class/hdp-operations-hadoop-administration-fundamentals/)
+- [HDP OPERATIONS: HADOOP ADMINISTRATION](https://hortonworks.com/training/class/hdp-operations-hadoop-administration-fundamentals/)

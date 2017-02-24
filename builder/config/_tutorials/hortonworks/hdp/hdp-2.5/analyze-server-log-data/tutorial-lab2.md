@@ -13,16 +13,16 @@ In the previous lab, you learned how to use Nifi, Hive and Zeppelin to analyze s
 
 * Stream server logs and and preparation of data into Hadoop with Hortonworks Dataflow powered by Apache NiFi
 * Use [PySpark](https://spark.apache.org/docs/1.6.2/api/python/pyspark.sql.html) to clean the data
-* Visualize the data with [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin)
+* Visualize the data with [Apache Zeppelin](https://hortonworks.com/hadoop/zeppelin)
 * Tableau to visualize the geolocation in the world map
 
 ## Prerequisites:
 
 - Hortonworks Sandbox (installed and running)
-- Hortonworks DataFlow - [Download here](http://hortonworks.com/downloads/#dataflow)
+- Hortonworks DataFlow - [Download here](https://hortonworks.com/downloads/#dataflow)
 - If you'd like to use Tableau to explore the data, download a [free trial version](http://www.tableau.com/products/trial)
 - Server log tutorial files (included in this tutorial)
-- [Lab 1](http://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-server-log-data/) of this tutorial
+- [Lab 1](https://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-server-log-data/) of this tutorial
 
 ## Outline
 
@@ -56,11 +56,11 @@ The logs are an ASCII file with one line per request, with the following columns
 #### 1.1 - Install NiFi
 
 NiFi needs to be installed into the Ambari Stack of the Hortonworks Sandbox VirtualBox image because it will be used to activate server log simulator and transport data to HDFS.
-If you do not have NiFi installed on your sandbox, refer to [Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#download-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of Analyze Traffic Patterns using Apache Nifi for step-by-step instructions.
+If you do not have NiFi installed on your sandbox, refer to [Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)](https://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#download-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of Analyze Traffic Patterns using Apache Nifi for step-by-step instructions.
 
 #### 1.2 – Start NiFi
 
-To activate the NiFi service, refer to [Step 4: Start NiFi on Sandbox](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of Analyze Traffic Patterns using Apache Nifi for step-by-step instructions.
+To activate the NiFi service, refer to [Step 4: Start NiFi on Sandbox](https://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of Analyze Traffic Patterns using Apache Nifi for step-by-step instructions.
 Once you enter the NiFi HTML Interface at [http://sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi), you should see a canvas as below:
 
 ![nifi_html_interface]({{page.path}}/assets/lab2/nifi_html_interface.png)
@@ -155,7 +155,7 @@ logsample-${now():format("HHmmssSSS")}-.txt
 
 ### Step 4 : Run the Workflow <a id="run-flow"></a>
 
-Make sure you have removed Lzo and Lzop Codec from the list of compression codecs. Refer [this](http://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-server-log-data/#generate-server-log-ata) step to do that.
+Make sure you have removed Lzo and Lzop Codec from the list of compression codecs. Refer [this](https://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-server-log-data/#generate-server-log-ata) step to do that.
 Now click `SHIFT` and select the entire workflow, then locate `Start` button in the Operate box and click it.
 
 ![start_all]({{page.path}}/assets/lab2/start_all.png)

@@ -14,7 +14,7 @@ We will install and explore the Sandbox on virtual machine and cloud environment
 Let's begin our Hadoop journey.
 
 ## Prerequisites
-- Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
+- Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
 - Allow yourself around one hour to complete this tutorial
 - If on mac or linux, added `sandbox.hortonworks.com` to your `/private/etc/hosts` file
 - If on windows 7, added `sandbox.hortonworks.com` to your `/c/Windows/System32/Drivers/etc/hosts` file
@@ -65,11 +65,11 @@ If you want to explore Hortonworks Sandbox in Microsoft Azure, please skip to `S
 
 ### 1.1 Install the Sandbox <a id="install-sandbox"></a>
 
-Start the Hortonworks Sandbox following the [Installation Steps](http://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM.
+Start the Hortonworks Sandbox following the [Installation Steps](https://hortonworks.com/products/hortonworks-sandbox/#install) to start the VM.
 
 ![sandbox_download](assets/sandox_download.png)
 
-> **Note:** The Sandbox [system requirements](http://hortonworks.com/products/hortonworks-sandbox/#install) include that you have a 64 bit OS with at least 8 GB of RAM and enabled BIOS for virtualization. Find out about the newest features, known and resolved issues along with other updates on HDP 2.4 from the [release notes](http://hortonworks.com/wp-content/uploads/2015/10/ReleaseNotes_10_27_2015.pdf). The Sandbox on Azure is under construction and will update to HDP2.5 soon.
+> **Note:** The Sandbox [system requirements](https://hortonworks.com/products/hortonworks-sandbox/#install) include that you have a 64 bit OS with at least 8 GB of RAM and enabled BIOS for virtualization. Find out about the newest features, known and resolved issues along with other updates on HDP 2.4 from the [release notes](https://hortonworks.com/wp-content/uploads/2015/10/ReleaseNotes_10_27_2015.pdf). The Sandbox on Azure is under construction and will update to HDP2.5 soon.
 
 ### 1.2 Learn the Host Address of Your Environment <a id="learn-host-address-environment"></a>
 
@@ -79,7 +79,7 @@ In case of VirtualBox: `host` would be `127.0.0.1`
 
 ![Host Address of Sandbox Environment](assets/learn_host_address_learning_the_ropes_sandbox.png)
 
-> **Note:** In case of Azure, your **host** can be found under **Public IP Address** on the dashboard. For further clarification, check out our guide for [Deploying Hortonworks Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
+> **Note:** In case of Azure, your **host** can be found under **Public IP Address** on the dashboard. For further clarification, check out our guide for [Deploying Hortonworks Sandbox on Azure](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/).
 
 If you are using a private cluster or a cloud to run sandbox. Please find the host your sandbox resolves to.
 
@@ -89,7 +89,7 @@ Append the port number :8888 to your host address, open your browser, and access
 
 ![new_splashscreen](assets/new_splashscreen.png)
 
-Click on `Launch Dashboard` to go to Ambari with a [Hello HDP tutorial](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/#section_1) and `Quick Links` to view some services of HDP environment.
+Click on `Launch Dashboard` to go to Ambari with a [Hello HDP tutorial](https://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/#section_1) and `Quick Links` to view some services of HDP environment.
 
 ### 1.4 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command"></a>
 
@@ -265,7 +265,7 @@ and then the
 
 ### 1.1 Deploy the Sandbox in Azure <a id="deploy-sandbox-azure"></a>
 
-Follow the tutorial [here](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/) to deploy the latest HDP Sandbox on Azure.
+Follow the tutorial [here](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/) to deploy the latest HDP Sandbox on Azure.
 
 ### 1.2 Connect to the Welcome Screen <a id="connect-to-welcome-screen-azure"></a>
 
@@ -464,10 +464,10 @@ Some notable differences between these users in the Sandbox are mentioned below:
 | Manage Users/Groups | No | No | No | No | Yes |
 | Manage Ambari Views | No | No | No | No | Yes |
 | Atlas UI Access | No | No | Yes | No | Yes |
-| [Sample Ranger Policy Access](http://hortonworks.com/hadoop-tutorial/tag-based-policies-atlas-ranger/#sample-ranger-policy) | SELECT | SELECT | SELECT, CREATE, DROP | ALL | NA |
+| [Sample Ranger Policy Access](https://hortonworks.com/hadoop-tutorial/tag-based-policies-atlas-ranger/#sample-ranger-policy) | SELECT | SELECT | SELECT, CREATE, DROP | ALL | NA |
 -->
 
-| Name id(s) | Sandbox Role | View Configurations | Start/Stop/Restart Service | Modify Configurations | Add/delete services | Install Components | Manage Users/Groups | Manage Ambari Views | Atlas UI Access | [Sample Ranger Policy Access](http://hortonworks.com/hadoop-tutorial/tag-based-policies-atlas-ranger/#sample-ranger-policy) |
+| Name id(s) | Sandbox Role | View Configurations | Start/Stop/Restart Service | Modify Configurations | Add/delete services | Install Components | Manage Users/Groups | Manage Ambari Views | Atlas UI Access | [Sample Ranger Policy Access](https://hortonworks.com/hadoop-tutorial/tag-based-policies-atlas-ranger/#sample-ranger-policy) |
 |:----------:|:------------:|:-------------------:|:--------------------------:|:---------------------:|:-------------------:|:------------------:|:-------------------:|:-------------------:|:---------------:|:--------------------:|
 | Sam Admin | Ambari Admin | Yes | Yes | Yes | Yes | Yes | Yes | Yes | Yes | NA |
 | Raj (raj_ops) | Cluster Administrator | Yes | Yes | Yes | Yes | Yes | No | No | No | ALL |
@@ -481,7 +481,7 @@ Some notable differences between these users in the Sandbox are mentioned below:
 
 ## Step 1: Troubleshoot Problems <a id="troubleshoot-problems"></a>
 
-Check [Hortonworks Community Connection](http://hortonworks.com/community/forums/)(HCC) for answers to problems you may come across during your hadoop journey.
+Check [Hortonworks Community Connection](https://hortonworks.com/community/forums/)(HCC) for answers to problems you may come across during your hadoop journey.
 
 ![Hortonworks Community Connection Main Page](assets/hcc_page_learning_the_ropes_sandbox.png)
 
@@ -492,6 +492,6 @@ Check [Hortonworks Community Connection](http://hortonworks.com/community/forums
 ## Further Reading <a id="further-reading"></a>
 
 - To learn more about Hadoop please explore the [HDP Getting Started documentation](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.4/bk_getting-started-guide/content/ch_about-hortonworks-data-platform.html).
-- To get started with Hortonworks Data Platform, explore [Hadoop Tutorial-Getting Started with HDP](http://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/)
-- If you have questions, feedback or need help getting your environment ready visit  [developer.hortonworks.com](http://hortonworks.com/developer/).
+- To get started with Hortonworks Data Platform, explore [Hadoop Tutorial-Getting Started with HDP](https://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/)
+- If you have questions, feedback or need help getting your environment ready visit  [developer.hortonworks.com](https://hortonworks.com/developer/).
 - Please also explore the [HDP documentation](http://docs.hortonworks.com/).

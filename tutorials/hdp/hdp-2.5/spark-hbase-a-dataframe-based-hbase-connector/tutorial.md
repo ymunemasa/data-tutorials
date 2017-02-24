@@ -9,8 +9,8 @@ The technical preview of the [Spark-HBase connector](https://github.com/hortonwo
 
 ## Prerequisites
 
-*   Download and Install [Hortonworks Sandbox 2.5](http://hortonworks.com/products/sandbox/)
-*   Review [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*   Download and Install [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
+*   Review [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *   Review [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md)
 
 ## Background

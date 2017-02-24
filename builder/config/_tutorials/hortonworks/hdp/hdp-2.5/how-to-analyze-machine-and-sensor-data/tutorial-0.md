@@ -26,8 +26,8 @@ In this tutorial, we will focus on sensor data from building operations. Specifi
 ### Prerequisites:
 
 - Installed Hortonworks Sandbox (On Docker, VirtualBox or VMware)
-- Preview [Apache Hive Overview](http://hortonworks.com/apache/hive/)
-- Preview [Apache Zeppelin Overview](http://hortonworks.com/apache/zeppelin/)
+- Preview [Apache Hive Overview](https://hortonworks.com/apache/hive/)
+- Preview [Apache Zeppelin Overview](https://hortonworks.com/apache/zeppelin/)
 
 ### Tutorial Series Overview
 

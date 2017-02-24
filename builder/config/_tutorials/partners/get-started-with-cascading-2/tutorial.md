@@ -1,11 +1,11 @@
 This is the second tutorial to enable you as a Java developer to learn about Cascading and Hortonworks Data Platform (HDP). Other tutorials are:
 
-*   [WordCount with Cascading on HDP 2.3 Sandbox](http://hortonworks.com/hadoop-tutorial/cascading-hortonworks-data-platform-2-1/ "Cascading Word Count")
-*   [LogParsing with Cascading on HDP 2.3 Sandbox](http://hortonworks.com/hadoop-tutorial/cascading-log-parsing "Cascading Log Parsing")
+*   [WordCount with Cascading on HDP 2.3 Sandbox](https://hortonworks.com/hadoop-tutorial/cascading-hortonworks-data-platform-2-1/ "Cascading Word Count")
+*   [LogParsing with Cascading on HDP 2.3 Sandbox](https://hortonworks.com/hadoop-tutorial/cascading-log-parsing "Cascading Log Parsing")
 
 In this tutorial, you will do the following:
 
-*   Install [Hortonworks Sandbox](http://hortonworks.com/products/sandbox), a single-node cluster
+*   Install [Hortonworks Sandbox](https://hortonworks.com/products/sandbox), a single-node cluster
 *   Code a simple Java log parsing application using Cascading SDK
 *   Build the single unit of execution, the jar file, using the gradle build tool
 *   Deploy the jar file onto to the Sandbox
@@ -16,7 +16,7 @@ This example code is derived from Concurrent Inc.'s [training class](http://casc
 
 ### Step 1: Downloading and installing HDP 2.1 Sandbox
 
-*   Download and install [HDP 2.1 Sandbox](http://hortonworks.com/hdp/downloads/ "Download HDP 2.1 Sandbox")
+*   Download and install [HDP 2.1 Sandbox](https://hortonworks.com/hdp/downloads/ "Download HDP 2.1 Sandbox")
 *   Familiarize yourself with the navigation on the Linux virtual host through a shell window
 *   Login into your Linux Sandbox as root (password is hadoop)
     *   `ssh -p 2222 root@127.0.0.1`

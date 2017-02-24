@@ -11,14 +11,14 @@ tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
 
 ## Introduction
 
-In this tutorial, you will be introduced to [Apache Pig](http://hortonworks.com/hadoop/pig/). In the earlier section of lab, you learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand risk associated with every driver. This section will teach you to **compute risk using Apache Pig**.
+In this tutorial, you will be introduced to [Apache Pig](https://hortonworks.com/hadoop/pig/). In the earlier section of lab, you learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand risk associated with every driver. This section will teach you to **compute risk using Apache Pig**.
 
 ## Prerequisites
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
 *   Hortonworks Sandbox
-*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *   Lab 1: Load sensor data into HDFS
 *   Lab 2: Data Manipulation with Apache Hive
 *   Allow yourself around **one hour** to complete this tutorial.
@@ -318,8 +318,8 @@ Congratulations! Let’s summarize the Pig commands we learned in this tutorial 
 
 Strengthen your foundation of pig latin and reinforce why this scripting platform is benficial for processing and analyzing massive data sets with these resources:
 
-* To practice more pig programming, visit [Pig Tutorials](http://hortonworks.com/hadoop/pig/#tutorials)
-* [Apache Pig](http://hortonworks.com/hadoop/pig/)
+* To practice more pig programming, visit [Pig Tutorials](https://hortonworks.com/hadoop/pig/#tutorials)
+* [Apache Pig](https://hortonworks.com/hadoop/pig/)
 * [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645/ref=sr_1_2?ie=UTF8&qid=1455994738&sr=8-2&keywords=pig+latin&refinements=p_72%3A2661618011)
 * To learn more about the various Pig operators, refer to[Pig Latin Basics](http://pig.apache.org/docs/r0.14.0/basic.html)
-* [HDP DEVELOPER: APACHE PIG AND HIVE](http://hortonworks.com/training/class/hadoop-2-data-analysis-pig-hive/)
+* [HDP DEVELOPER: APACHE PIG AND HIVE](https://hortonworks.com/training/class/hadoop-2-data-analysis-pig-hive/)

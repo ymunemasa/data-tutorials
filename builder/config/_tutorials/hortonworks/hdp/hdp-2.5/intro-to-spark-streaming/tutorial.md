@@ -11,11 +11,11 @@ In this tutorial, we will introduce core concepts of Apache Spark Streaming and 
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks Sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*   Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
 
 **Note**: if you are attending a Meetup/Crash Course your speaker/instructor may have additional instructions regarding the Sandbox VM image.
 
-*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ### Concepts
 
@@ -39,7 +39,7 @@ First, start your Sandbox Virtual Machine (VM) in either a VirtualBox or VMware 
 
 We will refer to your VM IP address as `<HOST IP>` throughout this tutorial.
 
-If you need help finding your `<HOST IP>` checkout [Learning the Ropes](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#learn-host-address-environment).
+If you need help finding your `<HOST IP>` checkout [Learning the Ropes](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#learn-host-address-environment).
 
 **2. Launch a "Shell in a Box"**
 
@@ -195,4 +195,4 @@ Save log4j.properties and restart your spark-submit job. Now you should see only
 
 ### Further Resources
 
-Once you've completed this tutorial, checkout other [Spark Tutorials](http://hortonworks.com/hadoop/spark/#tutorials).
+Once you've completed this tutorial, checkout other [Spark Tutorials](https://hortonworks.com/hadoop/spark/#tutorials).

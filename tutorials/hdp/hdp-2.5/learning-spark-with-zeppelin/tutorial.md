@@ -15,11 +15,11 @@ Please ensure you complete the prerequisites before proceeding with this tutoria
 
 There are multiple ways to install and/or launch the HDP Sandbox:
 
-*   Download and Install [HDP Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
+*   Download and Install [HDP Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
 
 or
 
-*   Deploy the [HDP Sandbox in the Azure Cloud](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/). (FREE for the first month.)
+*   Deploy the [HDP Sandbox in the Azure Cloud](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/). (FREE for the first month.)
 
 
 **Note**: If you're attending a Crash Course or a Meetup, the instructor may have additional information on how to get a HDP Sandbox installed.
@@ -27,7 +27,7 @@ or
 
 Additional resources to get you started:
 
-*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ### Concepts
 
@@ -41,7 +41,7 @@ First, start your Sandbox Virtual Machine (VM) in either a local VirtualBox/VMwa
 
 We will refer to your VM IP address as `<HOST IP>` throughout this tutorial.
 
-If you need help finding your `<HOST IP>` checkout [Learning the Ropes](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#learn-host-address-environment).
+If you need help finding your `<HOST IP>` checkout [Learning the Ropes](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#learn-host-address-environment).
 
 **2. Launch Zeppelin**
 
@@ -79,4 +79,4 @@ Click on the lab to get started and follow the step-by-step instructions in the 
 
 ### Further Resources
 
-Once you're done with the lab, make sure to checkout other Zeppelin Labs and [Spark Tutorials](http://hortonworks.com/hadoop/spark/#tutorials).
+Once you're done with the lab, make sure to checkout other Zeppelin Labs and [Spark Tutorials](https://hortonworks.com/hadoop/spark/#tutorials).

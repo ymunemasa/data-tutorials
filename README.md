@@ -1,6 +1,6 @@
 # Hortonworks Tutorials
 
-This repository contains tutorials for many versions of the [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/). We encourage and accept contributions from our community. You can also submit issues and pull requests to contribute and fix these tutorials.
+This repository contains tutorials for many versions of the [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/). We encourage and accept contributions from our community. You can also submit issues and pull requests to contribute and fix these tutorials.
 
 This branch contains tutorials for the latest version of HDP. You can check out the tutorials by heading into the [tutorials](tutorials/) folder.
 

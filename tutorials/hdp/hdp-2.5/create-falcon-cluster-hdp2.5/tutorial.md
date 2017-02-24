@@ -16,8 +16,8 @@ It makes it much simpler to onboard new workflows/pipelines, with support for la
 
 ## Prerequisite
 
-- [Download Hortonworks Sandbox 2.5](http://hortonworks.com/downloads/#sandbox)
-- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
+- [Download Hortonworks Sandbox 2.5](https://hortonworks.com/downloads/#sandbox)
+- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
 
 Once you have downloaded the Hortonworks Sandbox and run the VM, navigate to the Ambari interface on the port `8080` of the IP address of your Sandbox VM. Login with the username of `admin` and the password that you set for the Ambari admin user. You should have a similar image as below:
 
@@ -396,7 +396,7 @@ In this tutorial we learned how to create cluster entities in Apache Falcon usin
 
 You can go to following links to explore other Falcon tutorials:
 
-1. [Mirroring Datasets between Hadoop Clusters with Apache Falcon](http://hortonworks.com/hadoop-tutorial/mirroring-datasets-between-hadoop-clusters-with-apache-falcon/)
-2. [Define and Process Data Pipelines in Hadoop with Apache Falcon](http://hortonworks.com/hadoop-tutorial/defining-processing-data-end-end-data-pipeline-apache-falcon/)
-3. [Incremental Backup of data from HDP to Azure using Falcon for Disaster Recovery and Burst Capacity](http://hortonworks.com/hadoop-tutorial/incremental-backup-data-hdp-azure-disaster-recovery-burst-capacity/)
-4. [Processing Data Pipeline using Apache Falcon](http://hortonworks.com/hadoop-tutorial/defining-processing-data-end-end-data-pipeline-apache-falcon/)
+1. [Mirroring Datasets between Hadoop Clusters with Apache Falcon](https://hortonworks.com/hadoop-tutorial/mirroring-datasets-between-hadoop-clusters-with-apache-falcon/)
+2. [Define and Process Data Pipelines in Hadoop with Apache Falcon](https://hortonworks.com/hadoop-tutorial/defining-processing-data-end-end-data-pipeline-apache-falcon/)
+3. [Incremental Backup of data from HDP to Azure using Falcon for Disaster Recovery and Burst Capacity](https://hortonworks.com/hadoop-tutorial/incremental-backup-data-hdp-azure-disaster-recovery-burst-capacity/)
+4. [Processing Data Pipeline using Apache Falcon](https://hortonworks.com/hadoop-tutorial/defining-processing-data-end-end-data-pipeline-apache-falcon/)

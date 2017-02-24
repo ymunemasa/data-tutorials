@@ -39,7 +39,7 @@ This tutorial will not cover setup for HDInsight or Amazon EMR.
 You can get the latest version of VirtualBox here: [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads)
 
 After installing VirtualBox, you can download the sandbox image from here:
-[http://hortonworks.com/downloads/#sandbox](http://hortonworks.com/downloads/#sandbox)
+[https://hortonworks.com/downloads/#sandbox](https://hortonworks.com/downloads/#sandbox)
 
 Start VirtualBox, select `File->Import Appliance`
 

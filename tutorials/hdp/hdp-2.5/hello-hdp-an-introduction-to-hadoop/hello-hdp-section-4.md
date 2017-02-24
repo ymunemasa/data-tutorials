@@ -17,7 +17,7 @@ In this tutorial, you will be introduced to Apache(<sup>TM</sup>) Hive. In the e
 
 The tutorial is a part of a series of hands on tutorials to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *   Hortonworks Sandbox
 *   Lab 1: Load sensor data into HDFS
 *   Allow yourself around **one hour** to complete this tutorial.
@@ -123,7 +123,7 @@ Before reviewing what is happening behind the covers in the Upload Progress letâ
 
 Introducing [Apache ORC](https://orc.apache.org/) is a fast columnar storage file format for Hadoop workloads.
 
-The Optimized Row Columnar ([new Apache ORC project](http://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/)) file format provides a highly efficient way to store Hive data. It was designed to overcome limitations of the other Hive file formats. Using ORC files improves performance when Hive is reading, writing, and processing data.
+The Optimized Row Columnar ([new Apache ORC project](https://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/)) file format provides a highly efficient way to store Hive data. It was designed to overcome limitations of the other Hive file formats. Using ORC files improves performance when Hive is reading, writing, and processing data.
 
 To use the ORC format, specify ORC as the file format when creating the table. Here is an example::
 
@@ -288,10 +288,10 @@ Some **key resources** to **learn more about vectorization** and some of the **k
 
 * Apache Hive docs on [Vectorized Query Execution](https://cwiki.apache.org/confluence/display/Hive/Vectorized+Query+Execution)
 * [HDP Docs Vectorization docs](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.0.9.0/bk_dataintegration/content/ch_using-hive-1a.html)
-* [Hive Blogs](http://hortonworks.com/blog/category/hive/)
-* [5 Ways to Make Your Hive Queries Run Faster](http://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/)
-* [Interactive Query for Hadoop with Apache Hive on Apache Tez](http://hortonworks.com/hadoop-tutorial/supercharging-interactive-queries-hive-tez/)
-* [Evaluating Hive with Tez as a Fast Query Engine](http://hortonworks.com/blog/evaluating-hive-with-tez-as-a-fast-query-engine/)
+* [Hive Blogs](https://hortonworks.com/blog/category/hive/)
+* [5 Ways to Make Your Hive Queries Run Faster](https://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/)
+* [Interactive Query for Hadoop with Apache Hive on Apache Tez](https://hortonworks.com/hadoop-tutorial/supercharging-interactive-queries-hive-tez/)
+* [Evaluating Hive with Tez as a Fast Query Engine](https://hortonworks.com/blog/evaluating-hive-with-tez-as-a-fast-query-engine/)
 
 ### Step 2.4: Analyze the Trucks Data <a id="analyze-truck-data"></a>
 
@@ -486,8 +486,8 @@ We now can create Hive tables with **CREATE TABLE** and load data into them usin
 
 Augment your hive foundation with the following resources:
 
-- [Apache Hive](http://hortonworks.com/hadoop/hive/)
-- [Hive LLAP enables sub second SQL on Hadoop](http://hortonworks.com/blog/llap-enables-sub-second-sql-hadoop/)
+- [Apache Hive](https://hortonworks.com/hadoop/hive/)
+- [Hive LLAP enables sub second SQL on Hadoop](https://hortonworks.com/blog/llap-enables-sub-second-sql-hadoop/)
 - [Programming Hive](http://www.amazon.com/Programming-Hive-Edward-Capriolo/dp/1449319335/ref=sr_1_3?ie=UTF8&qid=1456009871&sr=8-3&keywords=apache+hive)
 - [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)
-- [HDP DEVELOPER: APACHE PIG AND HIVE](http://hortonworks.com/training/class/hadoop-2-data-analysis-pig-hive/)
+- [HDP DEVELOPER: APACHE PIG AND HIVE](https://hortonworks.com/training/class/hadoop-2-data-analysis-pig-hive/)

@@ -69,7 +69,7 @@ For `buildings.csv`
 
 ![]({{page.path}}/assets/lab1–upload-and-cleanse-data-with-hive/upload_table_building_raw.png)
 
-We have both tables loaded in, we want to get better performance in Hive, so we're going to create new tables that utilize the highly efficient [**ORC** file format](http://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/). This will allow for faster queries when our datasets are much much larger.
+We have both tables loaded in, we want to get better performance in Hive, so we're going to create new tables that utilize the highly efficient [**ORC** file format](https://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/). This will allow for faster queries when our datasets are much much larger.
 
 ### Step 2: Create HVAC and Buildings ORC Hive Tables <a id="create-hvac-buildings-orc"></a>
 

@@ -22,7 +22,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 *   Lab 2: Data Manipulation with Apache Hive
 *   Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor
 *   Please configure ODBC drivers on your system with the help of following tutorial:
-    *   [Installing and Configuring the Hortonworks ODBC driver on Windows 7](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/)
+    *   [Installing and Configuring the Hortonworks ODBC driver on Windows 7](https://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/)
 
 *   Allow yourself around half an hour to complete this tutorial.
 
@@ -35,7 +35,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 
 ### Step 6.b.1: Access the Refined Data with Microsoft Excel <a id="step6.b.1"></a>
 
-The [Hive ODBC driver](http://hortonworks.com/hdp/addons/) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](http://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions. Open the ODBC connection manager and open the connection you setup up. It should look like this.
+The [Hive ODBC driver](https://hortonworks.com/hdp/addons/) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](https://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions. Open the ODBC connection manager and open the connection you setup up. It should look like this.
 
 **For Windows users**:-
 
@@ -116,17 +116,17 @@ We’ve shown how the Hortonworks Data Platform (HDP) can store and analyze geol
 
 Congratulations on finishing a comprehensive series on Hadoop and HDP. By now you should have a good understanding on fundamentals of Hadoop and its related ecosystem such as Map Reduce, YARN, HDFS, Hive, Pig and Spark. As a Hadoop practitioner you can choose three basic personas to build upon your skill:
 
-*   Hadoop Developer- [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)
-*   Hadoop Administrator-[Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-admins)
-*   Data Scientist- [Click Here!](http://hortonworks.com/products/hortonworks-sandbox/#tuts-analysts)
+*   Hadoop Developer- [Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)
+*   Hadoop Administrator-[Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-admins)
+*   Data Scientist- [Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-analysts)
 
 ### Case Studies:
 
 Learn more about Hadoop through these case studies:
 
-*   Analytics- [New types of data and new opportunities](http://hortonworks.com/solutions/advanced-analytic-apps/)
-*   Data Architecture Optimization: [Reduce cost by moving data and processing to Hadoop](http://hortonworks.com/solutions/data-architecture-optimization/)
-*   Industry specific: [Examples of Hadoop across Industries](http://hortonworks.com/industry/)
+*   Analytics- [New types of data and new opportunities](https://hortonworks.com/solutions/advanced-analytic-apps/)
+*   Data Architecture Optimization: [Reduce cost by moving data and processing to Hadoop](https://hortonworks.com/solutions/data-architecture-optimization/)
+*   Industry specific: [Examples of Hadoop across Industries](https://hortonworks.com/industry/)
 
 ## Suggested Readings <a id="suggested-reading"></a>
 

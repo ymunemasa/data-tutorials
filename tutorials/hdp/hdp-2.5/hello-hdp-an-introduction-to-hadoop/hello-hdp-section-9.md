@@ -15,7 +15,7 @@ settings and access refined data.
 ## Prerequisites
 
 - Hortonworks Sandbox
-- [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+- [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 - Lab 1: Load sensor data into HDFS
 - Lab 2: Data Manipulation with Apache Hive
 - Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor

@@ -10,8 +10,8 @@ tags: [storm, kafka, nifi]
 In this tutorial, you will strengthen your foundation of technologies used in real-time event processing. You will learn in detail how Apache Kafka sends messages, the process Apache Storm undergoes to collect that data and the process involved for HBase to read that streaming data.
 
 ## Prerequisites
-- Downloaded and Installed the latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
-- [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+- Downloaded and Installed the latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
+- [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ## Outline
 - [1st Concept: Apache NiFi](#concepts-apache-nifi)
@@ -164,7 +164,7 @@ Five key abstractions help to understand how Storm processes data:
 
 Storm users define topologies for how to process the data when it comes streaming in from the spout. When the data comes in, it is processed and the results are passed onto to other bolts or stored in Hadoop.
 
-Learn more about how the community is working to [integrate Storm with Hadoop](http://hortonworks.com/labs/storm) and improve its readiness for the enterprise.
+Learn more about how the community is working to [integrate Storm with Hadoop](https://hortonworks.com/labs/storm) and improve its readiness for the enterprise.
 
 ## Storm Topologies
 
@@ -200,9 +200,9 @@ A topology runs forever, or until you kill it. Storm will automatically reassign
 
 ## Introduction:
 
-Hortonworks Data Platform's YARN-based architecture enables multiple applications to share a common cluster and data set while ensuring consistent levels of response made possible by a centralized architecture. Hortonworks led the efforts to on-board open source data processing engines, such as [Apache Hive](http://hortonworks.com/hadoop/hive), [HBase](http://hortonworks.com/hadoop/hbase), [Accumulo](http://hortonworks.com/hadoop/accumulo), [Spark](http://hortonworks.com/hadoop/spark),[Storm](http://hortonworks.com/hadoop/storm) and others, on [Apache Hadoop YARN](http://hortonworks.com/hadoop/yarn/).
+Hortonworks Data Platform's YARN-based architecture enables multiple applications to share a common cluster and data set while ensuring consistent levels of response made possible by a centralized architecture. Hortonworks led the efforts to on-board open source data processing engines, such as [Apache Hive](https://hortonworks.com/hadoop/hive), [HBase](https://hortonworks.com/hadoop/hbase), [Accumulo](https://hortonworks.com/hadoop/accumulo), [Spark](https://hortonworks.com/hadoop/spark),[Storm](https://hortonworks.com/hadoop/storm) and others, on [Apache Hadoop YARN](https://hortonworks.com/hadoop/yarn/).
 
-In this tutorial, we will focus on one of those data processing engines—[Apache Storm](http://hortonworks.com/hadoop/storm)—and its relationship with [Apache Kafka](http://hortonworks.com/hadoop/kafka). I will describe how Storm and Kafka form a multi-stage event processing pipeline, discuss some use cases, and explain Storm topologies.
+In this tutorial, we will focus on one of those data processing engines—[Apache Storm](https://hortonworks.com/hadoop/storm)—and its relationship with [Apache Kafka](https://hortonworks.com/hadoop/kafka). I will describe how Storm and Kafka form a multi-stage event processing pipeline, discuss some use cases, and explain Storm topologies.
 
 ## Goals of this tutorial:
 

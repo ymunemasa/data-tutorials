@@ -7,7 +7,7 @@ tags: [knox, beeline]
 
 ## Introduction
 
-[HDP 2.5](#http://hortonworks.com/products/data-center/hdp/) ships with Apache Knox 0.6.0. This release of Apache Knox supports WebHDFS, WebHCAT, Oozie, Hive, and HBase REST APIs.
+[HDP 2.5](#https://hortonworks.com/products/data-center/hdp/) ships with Apache Knox 0.6.0. This release of Apache Knox supports WebHDFS, WebHCAT, Oozie, Hive, and HBase REST APIs.
 
 Apache Hive is a popular component used for SQL access to Hadoop, and the Hive Server 2 with Thrift supports JDBC access over HTTP. The following steps show the configuration to enable a JDBC client to talk to Hive Server 2 via Knox **(Beeline > JDBC over HTTPS > Knox > HTTP > Hive Server2)**. The picture describes the scenario that the tutorial covers.
 
@@ -17,8 +17,8 @@ This tutorial focuses on Beeline as the JDBC client; however, a screenshot of Si
 
 ## Prerequisites:
 
-- [Download Hortonworks 2.5 Sandbox](http://hortonworks.com/downloads/#sandbox).
-- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
+- [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox).
+- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
 
 ## Outline
 
@@ -73,7 +73,7 @@ The first time password to log in is: **hadoop**
 
 ![sshTerminal]assets2-using-apache-knox/sshTerminal.png)
 
-In the example here, I am connecting to Knox on [HDP 2.5 Sandbox](http://hortonworks.com/products/sandbox/) which uses a self-signed certificate for SSL. Use the connection string specified to enter into beeline shell.
+In the example here, I am connecting to Knox on [HDP 2.5 Sandbox](https://hortonworks.com/products/sandbox/) which uses a self-signed certificate for SSL. Use the connection string specified to enter into beeline shell.
 
 ~~~
 beeline
@@ -132,4 +132,4 @@ The following screenshot illustrates the ODBC client side configuration needed t
 
 ## Summary <a id="summary"></a>
 
-[Apache Knox](http://hortonworks.com/apache/knox-gateway/) provides the ability to secure Hadoop's REST API centrally. With Apache Knox, the REST/HTTP access to Hadoop benefits from centralized authentication, authorization, audit, identity management integration and SSO. In this blog we covered the configuration and steps needed for JDBC & ODBC clients to connect via Knox to Hive Server 2.
+[Apache Knox](https://hortonworks.com/apache/knox-gateway/) provides the ability to secure Hadoop's REST API centrally. With Apache Knox, the REST/HTTP access to Hadoop benefits from centralized authentication, authorization, audit, identity management integration and SSO. In this blog we covered the configuration and steps needed for JDBC & ODBC clients to connect via Knox to Hive Server 2.

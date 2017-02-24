@@ -21,7 +21,7 @@ In this tutorial we will introduce Apache Spark. In the earlier section of the l
 This tutorial is a part of a series of hands on tutorials to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
 *  Hortonworks Sandbox
-*  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Lab 1: Loading sensor data into HDFS
 *  Lab 2: Data Manipulation with Apache Hive
 *  Allow yourself around one hour to complete this tutorial.
@@ -48,7 +48,7 @@ Apache Spark was designed to be a fast, general-purpose, easy-to-use computing p
 
 ## Apache Spark <a id="apache-spark-basics"></a>
 
-[Apache Spark](http://hortonworks.com/hadoop/spark/) is a fast, in-memory data processing engine with elegant and expressive development [APIs](https://spark.apache.org/docs/1.6.1/api/R/index.html) in [Scala](https://spark.apache.org/docs/1.6.1/api/scala/index.html#package),[Java](https://spark.apache.org/docs/1.6.1/api/java/index.html), and [Python](https://spark.apache.org/docs/1.6.1/api/python/index.html) and [R](https://spark.apache.org/docs/1.6.1/api/R/index.html) that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets. Spark on [Apache Hadoop YARN](http://hortonworks.com/hadoop/YARN) enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.
+[Apache Spark](https://hortonworks.com/hadoop/spark/) is a fast, in-memory data processing engine with elegant and expressive development [APIs](https://spark.apache.org/docs/1.6.1/api/R/index.html) in [Scala](https://spark.apache.org/docs/1.6.1/api/scala/index.html#package),[Java](https://spark.apache.org/docs/1.6.1/api/java/index.html), and [Python](https://spark.apache.org/docs/1.6.1/api/python/index.html) and [R](https://spark.apache.org/docs/1.6.1/api/R/index.html) that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets. Spark on [Apache Hadoop YARN](https://hortonworks.com/hadoop/YARN) enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.
 
 You can run batch application such as MapReduce types jobs or iterative algorithms that build upon each other. You can also run interactive queries and process streaming data with your application. Spark also provides a number of libraries which you can easily use to expand beyond the basic Spark capabilities such as Machine Learning algorithms, SQL, streaming, and graph processing. Spark runs on Hadoop clusters such as Hadoop YARN or Apache Mesos, or even in a Standalone Mode with its own scheduler. The Sandbox includes both Spark 1.6 and Spark 2.0.
 
@@ -101,7 +101,7 @@ Log out of Ambari.
 <hostname>:9995
 ~~~
 
-> Refer to [Learning the Ropes of Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) if you need assistance figuring out your hostname.
+> Refer to [Learning the Ropes of Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) if you need assistance figuring out your hostname.
 
 You should see a Zeppelin Welcome Page:
 
@@ -114,7 +114,7 @@ You should see a Zeppelin Welcome Page:
 <hostname>:9995
 ~~~
 
-> Refer to [Learning the Ropes of Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) if you need assistance figuring out your hostname.
+> Refer to [Learning the Ropes of Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) if you need assistance figuring out your hostname.
 
 You should see a Zeppelin Welcome Page:
 
@@ -133,7 +133,7 @@ Click on a Notebook tab at the top left and hit **Create new note**. Name your n
 
 ### Step 4.2: Create a HiveContext <a id="step4.2"></a>
 
-For improved Hive integration, HDP 2.5 offers [ORC file](http://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/) support for Spark. This allows Spark to read data stored in ORC files. Spark can leverage ORC file's more efficient columnar storage and predicate pushdown capability for even faster in-memory processing. HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
+For improved Hive integration, HDP 2.5 offers [ORC file](https://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/) support for Spark. This allows Spark to read data stored in ORC files. Spark can leverage ORC file's more efficient columnar storage and predicate pushdown capability for even faster in-memory processing. HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
 
 #### Import sql libraries:
 
@@ -560,10 +560,10 @@ Congratulations! Let's summarize the spark coding skills and knowledge we acquir
 ## Suggested Readings <a id="suggested-readings"></a>
 
 To learn more about Spark, checkout these resources:
-- [Apache Spark](http://hortonworks.com/hadoop/spark/)
+- [Apache Spark](https://hortonworks.com/hadoop/spark/)
 - [Apache Spark Welcome](http://spark.apache.org/)
 - [Spark Programming Guide](http://spark.apache.org/docs/latest/programming-guide.html#passing-functions-to-spark)
 - [Learning Spark](http://www.amazon.com/Learning-Spark-Lightning-Fast-Data-Analysis/dp/1449358624/ref=sr_1_1?ie=UTF8&qid=1456010684&sr=8-1&keywords=apache+spark)
 - [Advanced Analytics with Spark](http://www.amazon.com/Advanced-Analytics-Spark-Patterns-Learning/dp/1491912766/ref=pd_bxgy_14_img_2?ie=UTF8&refRID=19EGG68CJ0NTNE9RQ2VX)
-- [HDP DEVELOPER: APACHE SPARK USING SCALA](http://hortonworks.com/training/class/hdp-developer-apache-spark-using-scala/)
-- [HDP DEVELOPER: APACHE SPARK USING PYTHON](http://hortonworks.com/training/class/hdp-developer-apache-spark-using-python/)
+- [HDP DEVELOPER: APACHE SPARK USING SCALA](https://hortonworks.com/training/class/hdp-developer-apache-spark-using-scala/)
+- [HDP DEVELOPER: APACHE SPARK USING PYTHON](https://hortonworks.com/training/class/hdp-developer-apache-spark-using-python/)

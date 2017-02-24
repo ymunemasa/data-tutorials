@@ -15,8 +15,8 @@ In this tutorial, we are going to walk through the process of using Apache Zeppe
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed [Hortonworks Sandbox 2.5](http://hortonworks.com/products/sandbox/)
-*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*   Downloaded and Installed [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
+*   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *   Finally, make sure to review a quick tutorial on [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md).
 
 **Create a Notebook**
@@ -48,7 +48,7 @@ hadoop fs -put /tmp/littlelog.csv /tmp/
 
 Now, open the HDFS Files view in Ambari and navigate to `/tmp` directory to verify that `littlelog.csv` has been uploaded correctly.
 
-Note: If you're not familiar with Ambari, make sure to review [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) first.
+Note: If you're not familiar with Ambari, make sure to review [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) first.
 
 ![]({{page.path}}/assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f70713855306c6164455268527a644d6155453f7261773d74727565.png)
 

@@ -14,7 +14,7 @@ In this tutorial we will walk through the process of
 
 ## What is Apache Knox?
 
-The [Apache Knox Gateway](http://hortonworks.com/hadoop/knox) is a system that provides a single point of authentication and access for Apache™ Hadoop® services. It provides the following features:
+The [Apache Knox Gateway](https://hortonworks.com/hadoop/knox) is a system that provides a single point of authentication and access for Apache™ Hadoop® services. It provides the following features:
 
 *   Single REST API Access Point
 *   Centralized authentication, authorization and auditing for Hadoop REST/HTTP services
@@ -39,8 +39,8 @@ Apache Knox can also access a Hadoop cluster over HTTP or HTTPS
 
 ## Prerequisites:
 
-- [Download Hortonworks 2.5 Sandbox](http://hortonworks.com/downloads/#sandbox).
-- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
+- [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox).
+- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
 
 ## Outline
 

@@ -12,9 +12,9 @@ tags: [hdfs]
 In this tutorial, we will walk through many of the common of the basic Hadoop Distributed File System (HDFS) commands you will need to manage files on HDFS. The particular datasets we will utilize to learn HDFS file management are San Francisco salaries from 2011-2014.
 
 ## Prerequisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
-*  If you're planning to deploy your sandbox on Azure, refer to this tutorial: [Deploying the Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
-*  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
+*  If you're planning to deploy your sandbox on Azure, refer to this tutorial: [Deploying the Sandbox on Azure](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
+*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around **1 hour** to complete this tutorial.
 
 ### Download San Francisco Salary Related Datasets
@@ -224,5 +224,5 @@ Hope this short tutorial was useful to get the basics of file management.
 Congratulations! We just learned to use commands to manage our **sf-salaries-2011-2013.csv** and **sf-salaries-2014.csv** dataset files in HDFS. We learned to create, upload and list the the contents in our directories. We also acquired the skills to download files from HDFS to our local file system and explored a few advanced features of HDFS file management using the command line.
 
 ## Further Reading <a id="further-reading"></a>
-- [HDFS Overview](http://hortonworks.com/hadoop/hdfs/)
+- [HDFS Overview](https://hortonworks.com/hadoop/hdfs/)
 - [Hadoop File System Documentation](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html)

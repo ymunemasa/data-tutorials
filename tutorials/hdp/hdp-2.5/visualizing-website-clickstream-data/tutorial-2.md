@@ -247,4 +247,4 @@ The data in the Hortonworks platform can be refreshed frequently and used for ba
 
 ## Further Reading <a id="further-reading"></a>
 - [Zeppelin Notebook for Analysing Web Server Logs](https://community.hortonworks.com/content/repo/56765/zeppelin-notebook-for-analysing-web-server-logs.html)
-- [Zeppelin in Hortonworks Blog](http://hortonworks.com/apache/zeppelin/#blog)
+- [Zeppelin in Hortonworks Blog](https://hortonworks.com/apache/zeppelin/#blog)

@@ -13,7 +13,7 @@ In this tutorial, you learn about the NiFi environment, how to install NiFi onto
 
 ## Prerequisites
 - Completed Learning the Ropes of Apache NiFi-Introduction.
-- Downloaded and installed [Hortonworks Sandbox](http://hortonworks.com/products/sandbox/). (Required for Section 2 and 3 for NiFi installation.)
+- Downloaded and installed [Hortonworks Sandbox](https://hortonworks.com/products/sandbox/). (Required for Section 2 and 3 for NiFi installation.)
 - If on mac or linux, add an IP and `sandbox.hortonworks.com` to your `/private/etc/hosts` file
 - If on windows 7, add an IP and `sandbox.hortonworks.com` to your `C://Windows/System32/Drivers/etc/hosts` file
 - For Windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run Linux terminal commands in these tutorials.
@@ -56,7 +56,7 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 
 ### Section 0: Explore NiFi Environment Before NiFi Installation <a id="explore-nifi-environment"></a>
 
-FOr this tutorial you can run NiFi inside a single virtual machine or on your local computer. This version of the tutorial instructions are based on [Hortonworks DataFlow 2.0 GZipped](http://hortonworks.com/downloads/). There are 2 ways to download and install HDF 2.0: Option 1 on a Hortonworks Sandbox 2.5 Virtual Image (via Ambari Wizard, Sandbox Shell) or Option 2 on your local machine. HDF comes in 2 versions with only **NiFi** or with **NiFi, Kafka, Storm, and Zookeeper**. For this tutorial series, you should download HDF with NiFi only. The necessary components are:
+FOr this tutorial you can run NiFi inside a single virtual machine or on your local computer. This version of the tutorial instructions are based on [Hortonworks DataFlow 2.0 GZipped](https://hortonworks.com/downloads/). There are 2 ways to download and install HDF 2.0: Option 1 on a Hortonworks Sandbox 2.5 Virtual Image (via Ambari Wizard, Sandbox Shell) or Option 2 on your local machine. HDF comes in 2 versions with only **NiFi** or with **NiFi, Kafka, Storm, and Zookeeper**. For this tutorial series, you should download HDF with NiFi only. The necessary components are:
 - HDF 2.0 (NiFi only)
 - Internet Access
 
@@ -136,7 +136,7 @@ Sandbox via Ambari Service Wizard or Sandbox Shell.
 
 ### Step 1: Download and Install NiFi Locally <a id="download-nifi-machine"></a>
 
-1\. Open a browser. Download NiFi from [HDF Downloads Page](http://hortonworks.com/downloads/). You will see four HDF download links. We will download the **NiFi only** option. There are two package options: one for HDF TAR.GZ file tailored to Linux and zip file more compatible with Windows. Mac can use either option. In this tutorial section, download the zip on a Mac:
+1\. Open a browser. Download NiFi from [HDF Downloads Page](https://hortonworks.com/downloads/). You will see four HDF download links. We will download the **NiFi only** option. There are two package options: one for HDF TAR.GZ file tailored to Linux and zip file more compatible with Windows. Mac can use either option. In this tutorial section, download the zip on a Mac:
 
 ![download_hdf_iot](assets/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
 
@@ -249,7 +249,7 @@ wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning
 chmod +x ./jdkinstall_nifi.sh
 ~~~
 
-3\. Let's navigate back to our local machine. Open a browser. Download NiFi from [HDF Downloads Page](http://hortonworks.com/downloads/). There are two package options: one for HDF TAR.GZ file tailored to Linux and ZIP file more compatible with Windows. Mac can use either option. For the tutorial,  download the latest HDF TAR.GZ:
+3\. Let's navigate back to our local machine. Open a browser. Download NiFi from [HDF Downloads Page](https://hortonworks.com/downloads/). There are two package options: one for HDF TAR.GZ file tailored to Linux and ZIP file more compatible with Windows. Mac can use either option. For the tutorial,  download the latest HDF TAR.GZ:
 
 ![download_hdf_iot](assets/lab0-download-install-start-nifi/download-hdf-learn-ropes-nifi.png)
 

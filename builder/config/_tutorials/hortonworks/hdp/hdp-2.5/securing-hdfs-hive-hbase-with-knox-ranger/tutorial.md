@@ -19,8 +19,8 @@ In this tutorial, we cover using **Apache Knox** and **Apache Ranger** for HDP 2
 
 ## Prerequisites
 
-*   Download [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
-*   Complete the [Learning the Ropes of the HDP Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) tutorial.
+*   Download [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
+*   Complete the [Learning the Ropes of the HDP Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) tutorial.
 
 ## Background
 

@@ -13,8 +13,8 @@ This tutorial walks through an example of tagging data in Atlas and building a s
 
 ## Prerequisites
 
-- [Download Hortonworks 2.5 Sandbox](http://hortonworks.com/downloads/#sandbox)
-- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
+- [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox)
+- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
 
 ## Outline
 

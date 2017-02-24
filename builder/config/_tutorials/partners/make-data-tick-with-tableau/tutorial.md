@@ -4,7 +4,7 @@ Tableau is one of the world's fastest-growing business intelligence companies, T
 
 **Get Started**
 
-1.  Get the [Hortonworks Sandbox](http://hortonworks.com/products/sandbox-instructions/)
+1.  Get the [Hortonworks Sandbox](https://hortonworks.com/products/sandbox-instructions/)
 2.  Download a [free trial of Tableau Software](http://www.tableausoftware.com/trial)
 
 **Additional Information**

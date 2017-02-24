@@ -13,7 +13,7 @@ Pivotal HAWQ provides strong support for low-latency analytic SQL queries, coupl
 
 This tutorial assumes you have already already download the HAWQ-HDP Sandbox and has it running. The tutorial is intended for someone completely new to using HAWQ. It should help you start working with the database, create tables, load data, and leverage HAWQ's rich SQL dialect to query any data on HDFS, Hive, HBase, or other systems.
 
-If you haven't downloaded the sandbox you can download it from [here](http://hortonworks.com/downloads/#sandbox)
+If you haven't downloaded the sandbox you can download it from [here](https://hortonworks.com/downloads/#sandbox)
 
 Pivotal also offers in-depth online and instructor lead training on HAWQ. For more information please visit Pivotal Academy and Pivotal Training.
 

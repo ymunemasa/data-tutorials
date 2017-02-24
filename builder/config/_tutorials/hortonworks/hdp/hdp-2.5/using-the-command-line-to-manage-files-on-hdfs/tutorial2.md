@@ -12,9 +12,9 @@ tags: [ambari, hdfs]
 In the previous tutorial, we learned to manage files on the Hadoop Distributed File System (HDFS) with the command line. Now we will use Ambari Files View to perform many of the file management operations on HDFS that we learned with CLI, but through the web-based interface.
 
 ## Prerequisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
-*  If you're planning to deploy your sandbox on Azure, refer to this tutorial: [Deploying the Sandbox on Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
-*  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
+*  If you're planning to deploy your sandbox on Azure, refer to this tutorial: [Deploying the Sandbox on Azure](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
+*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around **1 hour** to complete this tutorial.
 
 ### Download San Francisco Salary Related Datasets
@@ -57,7 +57,7 @@ mv sf-salaries-2011-2013.csv sf-salaries-2014.csv sf-salary-datasets/
 |:---:|:---:|
 | admin | **setup process |
 
-> **Ambari password setup process**, refer to step [2.2 Setup Ambari Admin Password Manually](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password) of Learning the Ropes of the Hortonworks Sandbox.
+> **Ambari password setup process**, refer to step [2.2 Setup Ambari Admin Password Manually](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password) of Learning the Ropes of the Hortonworks Sandbox.
 
 2\. Now that we have admin privileges, we can manage files on HDFS using Files View. Hover over the Ambari Selector Icon ![ambari_selector_icon]({{page.path}}/assets/tutorial2/ambari_selector_icon.png), enter the Files
 View web-interface.
@@ -166,4 +166,4 @@ Congratulations! We just learned to use the Files View to manage our **sf-salari
 
 ## Further Reading
 
-- [HDFS Overview](http://hortonworks.com/apache/hdfs/)
+- [HDFS Overview](https://hortonworks.com/apache/hdfs/)

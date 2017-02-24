@@ -26,10 +26,10 @@ The goal of this tutorial is to learn how to enable interactive SQL query perfor
 
 ## Prerequisites
 
-1\. This tutorial requires the HDP 2.5 Sandbox.  The HDP 2.5 Sandbox can be downloaded at http://hortonworks.com/products/sandbox/
+1\. This tutorial requires the HDP 2.5 Sandbox.  The HDP 2.5 Sandbox can be downloaded at https://hortonworks.com/products/sandbox/
 
 2\. If you are not familiar HDP 2.5 Sandbox, the following tutorial provides an introduction:
-[Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+[Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 `Hive LLAP` is a Technical Preview feature in the HDP 2.5 Sandbox. This tutorial requires making some configurations to the Sandbox and allocating additional resources. In order to run this tutorial you will need to be able to allocate **12 GB RAM** to the Sandbox VM.
 
@@ -63,7 +63,7 @@ This assumes you have a `16 GB` system. If your system has more than 16 GB total
 ### Enable Ambari Admin Login
 
 We need to change the Sandbox configuration using Ambari to enable LLAP. This requires us to first reset the Ambari admin password and then log in. To do this, follow
-http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password
+https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password
 
 Confirm you can log in to the Ambari UI as the admin user before continuing.
 
@@ -195,7 +195,7 @@ Now we're ready to connect a BI Tool to LLAP and try things out. This demo will 
 
 First we need to install the Hive ODBC driver. If you are querying the large dataset generated earlier, it is strongly recommended to use the latest ODBC driver, since it can help BI tools take advantage of the new primary / foreign key support to run queries much faster.
 
-Start by downloading the `ODBC driver` from the Add-Ons section in http://hortonworks.com/downloads/
+Start by downloading the `ODBC driver` from the Add-Ons section in https://hortonworks.com/downloads/
 
 If you are on Windows: Create a DSN using the ODBC Driver Manager and point it to host `127.0.0.1`, port 10500, use Username/Password authentication with the credentials `hive/hive`.
 

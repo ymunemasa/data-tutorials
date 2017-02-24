@@ -99,7 +99,7 @@ done
 #https://raw.githubusercontent.com/hortonworks/big-data-tutorials/$gitBranchToGoHere/tutorials/$platformBase/$platform/$dashedDirectoryTitle/assets/$assetName
 #                                                                                  |-----page.id--------------------------------------------+"tutorial"| # No rtaiing slash
 ## Linking to another post:
-## Target: http://hortonworks.com/hadoop-tutorial/tutorial-name-here
+## Target: https://hortonworks.com/hadoop-tutorial/tutorial-name-here
 ##{{ site.url }}/tutorial-name-here
 
 

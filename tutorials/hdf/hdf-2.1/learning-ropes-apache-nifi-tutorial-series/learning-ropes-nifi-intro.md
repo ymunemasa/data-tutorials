@@ -30,7 +30,7 @@ The learning objectives of this tutorial are to:
 
 
 ## Prerequisites
-- Downloaded and installed [Hortonworks Sandbox](http://hortonworks.com/products/sandbox/). (This is needed for Step 2, Option 1 for your NiFi installation.)
+- Downloaded and installed [Hortonworks Sandbox](https://hortonworks.com/products/sandbox/). (This is needed for Step 2, Option 1 for your NiFi installation.)
 - For Windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run Linux terminal commands in these tutorials.
 
 

@@ -119,6 +119,6 @@ The topics covered in the concepts section were brief and tailored toward the tu
 
 ### Interesting NiFi Use Cases Blogs:
 
-- [CREDIT CARD FRAUD PREVENTION ON A CONNECTED DATA PLATFORM](http://hortonworks.com/blog/credit-card-fraud-prevention-on-a-connected-data-platform/)
-- [QUALCOMM, HORTONWORKS SHOWCASE CONNECTED CAR PLATFORM AT TU-AUTOMOTIVE DETROIT](http://hortonworks.com/blog/qualcomm-hortonworks-showcase-connected-car-platform-tu-automotive-detroit/)
-- [CYBERSECURITY: CONCEPTUAL ARCHITECTURE FOR ANALYTIC RESPONSE](http://hortonworks.com/blog/cybersecurity-conceptual-architecture-for-analytic-response/)
+- [CREDIT CARD FRAUD PREVENTION ON A CONNECTED DATA PLATFORM](https://hortonworks.com/blog/credit-card-fraud-prevention-on-a-connected-data-platform/)
+- [QUALCOMM, HORTONWORKS SHOWCASE CONNECTED CAR PLATFORM AT TU-AUTOMOTIVE DETROIT](https://hortonworks.com/blog/qualcomm-hortonworks-showcase-connected-car-platform-tu-automotive-detroit/)
+- [CYBERSECURITY: CONCEPTUAL ARCHITECTURE FOR ANALYTIC RESPONSE](https://hortonworks.com/blog/cybersecurity-conceptual-architecture-for-analytic-response/)

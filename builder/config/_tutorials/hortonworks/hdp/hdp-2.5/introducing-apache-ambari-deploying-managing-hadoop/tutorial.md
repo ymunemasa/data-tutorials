@@ -7,9 +7,9 @@ tags: [ambari , vagrant]
 
 ## Introduction
 
-In this tutorial, we will explore how to quickly and easily deploy Apache Hadoop with [Apache Ambari](http://hortonworks.com/hadoop/ambari). We will spin up our own VM with [Vagrant](http://www.vagrantup.com/) and [Apache Ambari](http://hortonworks.com/hadoop/ambari). Vagrant is very popular with developers as it lets one mirror the production environment in a VM while staying with all the IDEs and tools in the comfort of the host OS.
+In this tutorial, we will explore how to quickly and easily deploy Apache Hadoop with [Apache Ambari](https://hortonworks.com/hadoop/ambari). We will spin up our own VM with [Vagrant](http://www.vagrantup.com/) and [Apache Ambari](https://hortonworks.com/hadoop/ambari). Vagrant is very popular with developers as it lets one mirror the production environment in a VM while staying with all the IDEs and tools in the comfort of the host OS.
 
-If you're just looking to get started with Hadoop in a VM, then you can simply download the [Hortonworks Sandbox](http://hortonworks.com/sandbox).
+If you're just looking to get started with Hadoop in a VM, then you can simply download the [Hortonworks Sandbox](https://hortonworks.com/sandbox).
 
 ## Prerequisites
 

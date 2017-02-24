@@ -11,8 +11,8 @@ In this lab of the Apache Ranger tutorial, we will use Ranger to set access poli
 
 ## Prerequisites
 
-*   Download [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
-*   Complete the [Learning the Ropes of the HDP Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) tutorial.
+*   Download [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
+*   Complete the [Learning the Ropes of the HDP Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) tutorial.
 *   Complete the Lab 1 of this tutorial to get used to the Ranger UI and its features.
 
 ## Outline

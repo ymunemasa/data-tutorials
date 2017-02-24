@@ -218,6 +218,6 @@ Congratulations! We uploaded similar datasets for users, products and omniturelo
 
 ## Further Reading <a id="further-reading-lab1"></a>
 - Explore Apache Hive in [Retail Analytics Demo](https://community.hortonworks.com/repos/51932/retail-analytics-demo.html) along with other components from the HDP stack.
-- [SQL to HQL Cheat Sheet](http://hortonworks.com/wp-content/uploads/2013/05/hql_cheat_sheet.pdf)
-- [Hive in the Blog](http://hortonworks.com/apache/hive/#blog)
-- [Hive Webinars & Presentations](http://hortonworks.com/apache/hive/#webinars)
+- [SQL to HQL Cheat Sheet](https://hortonworks.com/wp-content/uploads/2013/05/hql_cheat_sheet.pdf)
+- [Hive in the Blog](https://hortonworks.com/apache/hive/#blog)
+- [Hive Webinars & Presentations](https://hortonworks.com/apache/hive/#webinars)

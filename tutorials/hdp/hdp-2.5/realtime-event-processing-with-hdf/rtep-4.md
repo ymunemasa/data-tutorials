@@ -13,7 +13,7 @@ The Trucking business is a high-risk business in which truck drivers venture in
 
 This system can take into consideration adverse weather conditions, the driver's driving patterns, current traffic conditions and other criteria to alert and inform the management staff and the drivers themselves when risk factors run high.
 
-In previous tutorial, we have explored generating and capturing streaming data with [Apache NiFi](http://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm#section_4) and [Apache Kafka](http://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm#section_5).
+In previous tutorial, we have explored generating and capturing streaming data with [Apache NiFi](https://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm#section_4) and [Apache Kafka](https://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm#section_5).
 
 In this tutorial, we will build a solution to ingest real time streaming data into HBase using Storm. Storm has a spout that reads truck_events data from Kafka and passes it to bolts, which process and persist the data into Hive & HBase tables.
 
@@ -22,8 +22,8 @@ In this tutorial, we will build a solution to ingest real time streaming data in
 - Tutorial 0: Set Up Simulator, Apache Services and IDE Environment
 - Tutorial 1: Ingest, Route and Land Real Time Events with Apache NiFi
 - Tutorial 2: Capture Real Time Events with Apache Kafka
-- Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
-- [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+- Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
+- [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 - [Hive Quick Start](https://hbase.apache.org/book.html#quickstart)
 
 
@@ -427,9 +427,9 @@ Congratulations, you just incorporated NiFi into the trucking demo. Notice that 
 -->
 
 ## Further Reading <a id="further-reading-lab3"></a>
-- [Apache HBase](http://hortonworks.com/hadoop/hbase/)
+- [Apache HBase](https://hortonworks.com/hadoop/hbase/)
 - [Getting Started with HBase](https://hbase.apache.org/book.html#quickstart)
 - [Storm Hive Integration](https://storm.apache.org/releases/1.0.1/storm-hive.html)
-- [Storm Tutorials](http://hortonworks.com/hadoop/storm/#tutorials)
+- [Storm Tutorials](https://hortonworks.com/hadoop/storm/#tutorials)
 - [Getting Started with Apache Storm](http://storm.apache.org/releases/1.0.1/index.html)
-- [Apache Storm](http://hortonworks.com/hadoop/storm/)
+- [Apache Storm](https://hortonworks.com/hadoop/storm/)

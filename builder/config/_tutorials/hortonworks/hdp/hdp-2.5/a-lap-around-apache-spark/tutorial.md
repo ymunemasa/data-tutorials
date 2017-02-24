@@ -28,8 +28,8 @@ When you are ready to go beyond these tasks, checkout the [Apache Spark Machine 
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed [Hortonworks Sandbox 2.5](http://hortonworks.com/products/sandbox/)
-*   [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*   Downloaded and Installed [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
+*   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 
 **Set SPARK_HOME**
@@ -452,7 +452,7 @@ scala>
 
 ### Reading & Writing ORC Files
 
-Hortonworks worked in the community to bring full ORC support to Spark. Recently we blogged about using [ORC with Spark](http://hortonworks.com/blog/bringing-orc-support-into-apache-spark/). See the blog post for all ORC examples, with advances such as partition pruning and predicate pushdown.
+Hortonworks worked in the community to bring full ORC support to Spark. Recently we blogged about using [ORC with Spark](https://hortonworks.com/blog/bringing-orc-support-into-apache-spark/). See the blog post for all ORC examples, with advances such as partition pruning and predicate pushdown.
 
 ### Using SparkSQL Thrift Server for JDBC/ODBC Access
 
@@ -697,6 +697,6 @@ To use MLlib in Python, you will need [NumPy](http://www.numpy.org/) version 1.4
 For Spark ML examples, visit: http://spark.apache.org/docs/latest/mllib-guide.html.
 
 ### Additional Resources
-For more tutorials on Spark, visit: [http://hortonworks.com/tutorials](http://hortonworks.com/tutorials).
+For more tutorials on Spark, visit: [https://hortonworks.com/tutorials](https://hortonworks.com/tutorials).
 
 If you have questions about Spark and Data Science, checkout the [Hortonworks Community Connection](https://community.hortonworks.com/spaces/85/data-science.html?type=question).

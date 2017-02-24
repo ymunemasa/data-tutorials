@@ -14,8 +14,8 @@ In this tutorial, we will learn to use Hive and Pig along with other tools to pr
 ## Prerequisites
 
 *  [Apache HCatalog Video (running time: about 9 minutes)](http://www.youtube.com/watch?v=_dVlNu4lqpE)
-*  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
-*  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
+*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around one hour to complete this tutorial
 
 ## Outline
@@ -55,8 +55,8 @@ After uploading both files head back to the data folder we created. Click on dat
 ![edit_permissions](assets/edit_permissions.png)
 
 ## Further Reading <a id="further-reading-hdfs"></a>
-- [HDFS Tutorials](http://hortonworks.com/hadoop/hdfs/#tutorials)
-- [HDFS and Apache Hadoop](http://hortonworks.com/hadoop/hdfs/)
+- [HDFS Tutorials](https://hortonworks.com/hadoop/hdfs/#tutorials)
+- [HDFS and Apache Hadoop](https://hortonworks.com/hadoop/hdfs/)
 - [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html)
 
 ### Step 3: Create tables for the Data With Hive and HCatalog <a id="create-tables-data-hive-hcatalog"></a>
@@ -138,7 +138,7 @@ You can view the data by clicking on the box next to the table truck_events.
 
 ## Further Reading <a id="further-reading-hcatalog-hive"></a>
 
-- [Hive vs. HCatalog](http://hortonworks.com/blog/hivehcatalog-data-geeks-big-data-glue/)
+- [Hive vs. HCatalog](https://hortonworks.com/blog/hivehcatalog-data-geeks-big-data-glue/)
 
 ### Step 4: Explore Hive Queries to View and Structure that Table Data <a id="explore-hive-queries-view-structure-data"></a>
 
@@ -151,7 +151,7 @@ Apache Hive™ provides a data warehouse function to the Hadoop cluster. Through
 
 To make it easy to interact with Hive, you can we can use Ambari's built in views to run queries on this data.
 
-In the latest versions of the Hortonworks sandbox we can [execute our Hive queries using Tez](http://hortonworks.com/blog/evaluating-hive-with-tez-as-a-fast-query-engine/), a fast execution engine. It improves on MapReduce in many areas and allows us near-realtime querying on our datasets in Hive.
+In the latest versions of the Hortonworks sandbox we can [execute our Hive queries using Tez](https://hortonworks.com/blog/evaluating-hive-with-tez-as-a-fast-query-engine/), a fast execution engine. It improves on MapReduce in many areas and allows us near-realtime querying on our datasets in Hive.
 
 Notice the query window and **Execute**. Type your queries in the Query window. When you are done with a query, click the `Execute`.
 
@@ -187,8 +187,8 @@ This job is more complex so it might take longer than previous queries. You can 
 ![join_data](assets/join_data.png)
 
 ## Further Reading <a id="further-reading-hive-query"></a>
-- [Hive Tutorials](http://hortonworks.com/hadoop/hive/#tutorials)
-- [Apache Hive and Hadoop](http://hortonworks.com/hadoop/hive/)
+- [Hive Tutorials](https://hortonworks.com/hadoop/hive/#tutorials)
+- [Apache Hive and Hadoop](https://hortonworks.com/hadoop/hive/)
 - [Getting Started with Hive](https://cwiki.apache.org/confluence/display/Hive/GettingStarted)
 
 ### Step 5: Explore Pig Latin Data Transformation <a id="explore-pig-latin-data-transformation"></a>
@@ -309,5 +309,5 @@ Congratulations! You have successfully completed HCatalog, Basic Pig &
 Hive Commands.
 
 ## Further Reading <a id="further-reading-pig-latin"></a>
-- [Pig Tutorials](http://hortonworks.com/hadoop/pig/#tutorials)
+- [Pig Tutorials](https://hortonworks.com/hadoop/pig/#tutorials)
 - [Getting Started with Pig](http://pig.apache.org/#Getting+Started)

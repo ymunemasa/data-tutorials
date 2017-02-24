@@ -11,14 +11,14 @@ HBase is a distributed column-oriented database built on top of the Hadoop file 
 
 The components of HBase data model consist of tables, rows, column families, columns, cells and versions. Tables are like logical collection of rows stored in separate partitions. A row is one instance of data in a table and is identified by a  rowkey. Data in a row are grouped together as Column Families. Each Column Family has one or more Columns and these Columns in a family are stored together. Column Families form the basic unit of physical storage, hence it's important that proper care be taken when designing Column Families in table. A Column is identified by a Column Qualifier that consists of the Column Family name concatenated with the Column name using a colon. A Cell stores data and is essentially a unique combination of rowkey, Column Family and the Column (Column Qualifier). The data stored in a cell is versioned and versions of data are identified by the timestamp.
 
-For more information, refer HBase documentation [here](http://hortonworks.com/apache/hbase/).
+For more information, refer HBase documentation [here](https://hortonworks.com/apache/hbase/).
 
 In this tutorial, we are going to walk you through some basic HBase shell commands, how to use Apache Phoenix which enables OLTP and operational analytics in Hadoop by combining the power of standard SQL and JDBC APIs and the flexibility of late-bound, schema-on-read capabilities from the NoSQL world by leveraging HBase as its backing store.
 
 ## Prerequisites
 
-- [Download Hortonworks 2.5 Sandbox](http://hortonworks.com/downloads/#sandbox)
-- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
+- [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox)
+- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
 
 ## Outline
 

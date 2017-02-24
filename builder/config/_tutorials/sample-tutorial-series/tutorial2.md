@@ -44,7 +44,7 @@ Congratulations you've now finished your first tutorial in the series!  Include 
 ## Further Reading
 
 - [Reference Article Title](http://example.com)
-- [Some Site](http://hortonworks.com)
+- [Some Site](https://hortonworks.com)
 
 ## Appendix
 

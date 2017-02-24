@@ -1,6 +1,6 @@
 This tutorial will enable you, as a Java developer, to learn the following:
 
-*   Introduce you to [Hortonworks Data Platform 2.1](http://hortonworks.com/hdp) on [Hortonworks Sandbox](http://hortonworks.com/products/sandbox), a single-node cluster
+*   Introduce you to [Hortonworks Data Platform 2.1](https://hortonworks.com/hdp) on [Hortonworks Sandbox](https://hortonworks.com/products/sandbox), a single-node cluster
 *   Introduce you to Java Cascading SDK
 *   Examine the WordCount program in Java
 *   Build the single unit of execution, the jar file, using the gradle build tool
@@ -14,7 +14,7 @@ The example WordCount is derived from part 2 of the Cascading [Impatient Series
 
 #### Downloading and installing the HDP 2.1 Sandbox
 
-1.  [Download and install HDP 2.1 Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install).
+1.  [Download and install HDP 2.1 Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install).
 2.  Familiarize yourself with the navigation on the Linux virtual host through a shell window.
 3.  Login into your Linux Sandbox and create a user **cascade**. You can do this with the following command:
 
