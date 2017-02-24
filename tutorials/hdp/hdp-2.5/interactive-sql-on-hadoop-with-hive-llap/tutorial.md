@@ -24,7 +24,7 @@ This tutorial assumes you have a **16GB** (or more) laptop and does its best to 
 
 The goal of this tutorial is to learn how to enable interactive SQL query performance on the HDP Sandbox using `LLAP`, then to connect a BI tool to LLAP and run interactive SQL analytics.
 
-## Pre-requisites
+## Prerequisites
 
 1\. This tutorial requires the HDP 2.5 Sandbox.  The HDP 2.5 Sandbox can be downloaded at http://hortonworks.com/products/sandbox/
 

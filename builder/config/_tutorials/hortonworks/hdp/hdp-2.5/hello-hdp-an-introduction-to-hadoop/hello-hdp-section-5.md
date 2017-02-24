@@ -13,7 +13,7 @@ tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
 
 In this tutorial, you will be introduced to [Apache Pig](http://hortonworks.com/hadoop/pig/). In the earlier section of lab, you learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand risk associated with every driver. This section will teach you to **compute risk using Apache Pig**.
 
-## Pre-Requisites
+## Prerequisites
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 

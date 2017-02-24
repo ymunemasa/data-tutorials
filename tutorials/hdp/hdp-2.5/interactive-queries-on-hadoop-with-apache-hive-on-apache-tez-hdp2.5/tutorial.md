@@ -17,7 +17,7 @@ In this tutorial, we’ll focus on taking advantage of the improvements to [Apac
 *   Multi-tenancy with HiveServer2
 *   SQL Compliance Improvements
 
-## Pre-Requisites
+## Prerequisites
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around one hour to complete this tutorial

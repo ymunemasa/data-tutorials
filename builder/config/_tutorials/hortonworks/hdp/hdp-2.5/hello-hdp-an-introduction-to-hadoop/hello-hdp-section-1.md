@@ -17,7 +17,7 @@ For our tutorial we are looking at a use case where we have a truck fleet. Each 
 
 Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) to show you what you'll be doing in this tutorial.
 
-## Pre-Requisites:
+## Prerequisites:
 
 *  Downloaded and Installed [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
 *  Before entering hello HDP labs, we **highly recommend** you go through [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to become familiar with the Sandbox in a VM and the Ambari Interface.
@@ -55,7 +55,7 @@ The goal of this tutorial is that you get familiar with the basics of following:
 ## Outline
 
 1.  Introduction
-2.  Pre-Requisites
+2.  Prerequisites
     1.  Data Set Used: [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
     2.  Latest Hortonworks Sandbox Version
     3.  Learning the Ropes of the Hortonworks Sandbox - Become familiar with your Sandbox and Ambari.

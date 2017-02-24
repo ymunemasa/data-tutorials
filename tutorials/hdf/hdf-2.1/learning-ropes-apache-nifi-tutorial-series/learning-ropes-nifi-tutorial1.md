@@ -17,7 +17,7 @@ In this tutorial, you will build the following dataflow:
 
 **Figure 1:** The completed dataflow contains three sections: ingest data from vehicle location XML Simulator, extract vehicle location detail attributes from FlowFiles and route these detail attributes to a JSON file as long as they are not empty strings. You will learn more in depth about each processors particular responsibility in each section of the dataflow.
 
-## Pre-Requisites
+## Prerequisites
 - Completed Learning the Ropes of Apache NiFi
 - Completed Tutorial 0: Download, Install and Start NiFi
 

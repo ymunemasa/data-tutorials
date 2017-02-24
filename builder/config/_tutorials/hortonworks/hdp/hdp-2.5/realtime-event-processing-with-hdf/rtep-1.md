@@ -11,7 +11,7 @@ tags: [nifi, storm, kafka, hbase]
 
 In this tutorial, we are going to set up all the services required to run the Connected Car Application(Trucking Demo). We will install NiFi onto our Hortonworks Sandbox while activating Kafka and Storm for later use in the tutorial series. We will also walkthrough how to set up an IDE on our local machine for Storm development testing and deploy our Storm project to the Sandbox for further testing.
 
-## Pre-Requisites
+## Prerequisites
 
 - Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
 - If you are new to the sandbox shell, refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)

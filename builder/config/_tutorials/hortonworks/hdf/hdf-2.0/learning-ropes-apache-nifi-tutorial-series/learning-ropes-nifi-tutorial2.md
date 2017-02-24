@@ -18,7 +18,7 @@ In this tutorial, you will build the Geo Location Enrichment section of the data
 Feel free to download the [Lab2-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab2-template/Lab2-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to the tutorial.
 Refer Step 1 to obtain the API key to build HTTP URL.
 
-## Pre-Requisites
+## Prerequisites
 - Completed Tutorial 0: Download, Install and Start NiFi
 - Completed Tutorial 1: Build A Simple NiFi DataFlow
 

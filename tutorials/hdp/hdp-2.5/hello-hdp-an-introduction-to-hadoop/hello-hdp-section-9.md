@@ -12,7 +12,7 @@ tags: [ambari, hive, pig, spark, zeppelin]
 In this tutorial, we will get Zoomdata running using Docker, configure Zoomdata
 settings and access refined data.
 
-## Pre-Requisites
+## Prerequisites
 
 - Hortonworks Sandbox
 - [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)

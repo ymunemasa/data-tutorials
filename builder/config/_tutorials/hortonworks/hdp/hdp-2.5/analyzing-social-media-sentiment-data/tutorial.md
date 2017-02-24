@@ -26,7 +26,7 @@ Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) 
 - [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/)
 - [Twitter API](https://dev.twitter.com/)
 
-## Pre-Requisites
+## Prerequisites
 
 - Downloaded and Installed the [Hortonworks Sandbox with HDP](http://hortonworks.com/hdp/downloads/)
 - [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
