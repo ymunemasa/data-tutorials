@@ -1,36 +1,36 @@
 ---
-title: How to Refine and Visualize Social Media Sentiment Data
+title: Analyzing Social Media and Customer Sentiment With Apache NiFi and HDP Search
 tutorial-id: 210
 platform: hdp-2.5.0
 tags: [solr, nifi, hive, ambari, zeppelin]
 ---
 
-# Analyze Twitter Data With Apache NiFi and HDP Search
+# Analyzing Social Media and Customer Sentiment With Apache NiFi and HDP Search
 
-### Introduction
+## Introduction
 
 In this tutorial, we will learn to install Apache NiFi on your Hortonworks Sandbox if you do not have it pre-installed already. Using NiFi, we create a data flow to pull tweets directly from the [Twitter API](https://dev.twitter.com/overview/documentation).
 
-We will use [Solr](http://hortonworks.com/hadoop/solr/) and the [LucidWorks HDP Search](http://hortonworks.com/press-releases/hortonworks-partners-lucidworks-bring-search-big-data/) to view our streamed data in realtime to gather insights as the data arrives in our Hadoop cluster.
+We will use [Solr](https://hortonworks.com/hadoop/solr/) and the [LucidWorks HDP Search](https://hortonworks.com/press-releases/hortonworks-partners-lucidworks-bring-search-big-data/) to view our streamed data in realtime to gather insights as the data arrives in our Hadoop cluster.
 
 Next, we will use Hive to analyze the social sentiment after we have finished collecting our data from NiFi.
 
-Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) to create charts, so we can visualize our data directly inside of our Hadoop cluster.
+Finally, we will use [Apache Zeppelin](https://hortonworks.com/hadoop/zeppelin/) to create charts, so we can visualize our data directly inside of our Hadoop cluster.
 
-### List of technologies in this tutorial:
+## List of technologies in this tutorial:
 
-- [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/)
-- [Apache NiFi](http://hortonworks.com/products/dataflow/)
-- [Solr + LucidWorks HDP Search](http://hortonworks.com/press-releases/hortonworks-partners-lucidworks-bring-search-big-data/)
-- [Hive and Ambari Views](http://hortonworks.com/hadoop/hive/)
-- [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/)
+- [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/)
+- [Apache NiFi](https://hortonworks.com/products/dataflow/)
+- [Solr + LucidWorks HDP Search](https://hortonworks.com/press-releases/hortonworks-partners-lucidworks-bring-search-big-data/)
+- [Hive and Ambari Views](https://hortonworks.com/hadoop/hive/)
+- [Apache Zeppelin](https://hortonworks.com/hadoop/zeppelin/)
 - [Twitter API](https://dev.twitter.com/)
 
-## Pre-Requisites
+## Prerequisites
 
-- Downloaded and Installed the [Hortonworks Sandbox with HDP](http://hortonworks.com/hdp/downloads/)
-- [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-- [Deploying Hortonworks Sandbox on Microsoft Azure](http://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
+- Downloaded and Installed the [Hortonworks Sandbox with HDP](https://hortonworks.com/hdp/downloads/)
+- [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+- [Deploying Hortonworks Sandbox on Microsoft Azure](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
 
 ## Outline
 
@@ -48,7 +48,7 @@ Finally, we will use [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin/) 
 ## Install Apache Nifi <a id="install-apache-nifi"></a>
 -----------------
 
-The first thing you're going to need if you haven't done it already is install the Apache Nifi service on your Sandbox. Follow the [Set up Nifi Environment section](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#section_3) of [Analyze Traffic Pattern with Apache Nifi](http://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/).
+The first thing you're going to need if you haven't done it already is install the Apache Nifi service on your Sandbox. Follow the [Set up Nifi Environment section](https://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#section_3) of [Analyze Traffic Pattern with Apache Nifi](https://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/).
 
 ## Configure and Start Solr <a id="configure-and-start-solr"></a>
 
@@ -358,7 +358,7 @@ Let's try one last query. This time you can omit the **sort** field and chooses 
 
 **Further Reading**
 
-- For more information on Solr you can [go here](http://hortonworks.com/hadoop/solr/)
+- For more information on Solr you can [go here](https://hortonworks.com/hadoop/solr/)
 - You can also visit the [Apache project Page](http://lucene.apache.org/solr/)
 
 ## Analyze Tweet Data in Hive <a id="analyzing-tweet-data-in-hive"></a>
@@ -431,7 +431,7 @@ Next, you'll need to SSH into the sandbox again and run the following two comman
 
 ![change permission of tweets staging](assets/images/change_permissions_tweets_staging_sentiment_analysis.png)
 
-After the commands complete let's go to the Hive view. Head over to [http://sandbox.hortonworks.com:8080](http://sandbox.hortonworks.com:8080/). Login into Ambari. Refer to [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) if you need assistance with logging into Ambari.
+After the commands complete let's go to the Hive view. Head over to [http://sandbox.hortonworks.com:8080](http://sandbox.hortonworks.com:8080/). Login into Ambari. Refer to [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) if you need assistance with logging into Ambari.
 > **Note:** login credentials are `maria_dev/maria_dev` (Virtualbox), else `azure/azure` (Azure). Use the dropdown menu at the top to get to the Hive view.
 
 Execute the following command to create a table for the tweets
@@ -683,8 +683,8 @@ Using this data you can determine how you might want to market your products to 
 
 ## Further Reading
 
-- [NiFi blogs](http://hortonworks.com/blog/category/nifi/)
-- [Indexing and Searching Documents with Apache Solr](http://hortonworks.com/hadoop-tutorial/searching-data-solr/)
-- [Introduction to Data Science with Apache Zeppelin](http://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/)
-- [Hortonworks Community Connection](http://hortonworks.com/community/)
+- [NiFi blogs](https://hortonworks.com/blog/category/nifi/)
+- [Indexing and Searching Documents with Apache Solr](https://hortonworks.com/hadoop-tutorial/searching-data-solr/)
+- [Introduction to Data Science with Apache Zeppelin](https://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/)
+- [Hortonworks Community Connection](https://hortonworks.com/community/)
 - [HDP Sandbox & Learning Forum](https://community.hortonworks.com/spaces/81/index.html)
