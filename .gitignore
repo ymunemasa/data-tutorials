@@ -1,5 +1,6 @@
 # Builder-related files
 builder/output
+builder/_tutorials
 
 # Common files that contributors' machines may attempt to commit
 *.DS_Store
