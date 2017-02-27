@@ -8,7 +8,7 @@ Tutorials are developed and maintained on Github and published onto the Hortonwo
 
 ## New To Big Data And Want To Learn?
 
-Begin your journey by browsing the different tutorials in this Git repository, or head on over to the [recommended starting tutorial on the Hortonworks site](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox).
+Begin your journey by browsing the [tutorials directory](https://github.com/orendain/big-data-tutorials/tree/master/tutorials) of this Git repository, or head on over to the [recommended starting tutorial on the Hortonworks site](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox).
 
 ## Running Into Issues With Tutorials?
 
