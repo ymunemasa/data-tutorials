@@ -24,7 +24,6 @@ do
   # To something like this:
   # tutorials/hdp/hdp-2.5/name-of-the-tutorial/tutorial.md/assets/asset-name.jpg
   sed -i '' s/\(assets/\({{page.path}}\\/assets/g $f
-  #perl -p -i '' -e 's|(\/.*)\/(.*md)|\1|' $f
 
   sed -i '' s/[‘’]/\'/g $f
   sed -i '' s/[”“]/'"'/g $f
@@ -43,10 +42,7 @@ echo "Performing postprocessing..."
 for f in $(find ./output -type f -name "*.html")
 do
   echo "Processing file $f"
-
   sed -i '' "s|\(_\)\(.*\)\/\(.*md\)|$githubRawUrl/\2|g" $f
-
-  #perl -p -i '' -e 's|(\/.*)\/(.*md)|\1|' $f
 done
 
 # Remove the copied files
