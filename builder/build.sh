@@ -43,11 +43,8 @@ echo "Performing postprocessing..."
 for f in $(find ./output -type f -name "*.html")
 do
   echo "Processing file $f"
-  #sed s/src=\"assets/src=\"{{page.path}}\\/assets/g
-  #sed -i '' s/src=\"_tutorials/src=\"githubRawUrl\\/tutorials/g $f
-  #sed -i '' "s|\(_\)\(\/.*\)\/\(.*md\)|//$githubRawUrl\/\2|g" $f
 
-  ###########sed -i '' "s|\(_\)\(.*\)\/\(.*md\)|$githubRawUrl/\2|g" $f
+  sed -i '' "s|\(_\)\(.*\)\/\(.*md\)|$githubRawUrl/\2|g" $f
 
   #perl -p -i '' -e 's|(\/.*)\/(.*md)|\1|' $f
 done
