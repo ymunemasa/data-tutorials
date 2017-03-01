@@ -1,3 +1,9 @@
+---
+title: Predicting Airline Delays using SparkR
+tutorial-id: 760
+platform: hdp-2.5.0
+tags: [sparkr, spark, r, machine learning]
+---
 # Predicting Airline Delays using SparkR
 
 ## Introduction
@@ -18,12 +24,12 @@ In this tutorial we’ll show you how to use SparkR to predict flight delays usi
 -   Follow this [article](https://community.hortonworks.com/content/kbentry/69424/setting-up-rstudio-on-hortonworks-docker-sandbox-2.html) on Hortonworks Community to install RStudio on the Sandbox.
 
 ## Outline
--   Step 1 : Download the Dataset]]
--   Step 2 : Setup SparkR on RStudio
--   Step 3 : Prepare a Training Dataset
--   Step 4 : Exploratory Data Analysis
--   Step 5 : Regression Model to predict Airline delay
--   Step 6 : Logistic Regression to predict Airline delay
+-   [Step 1 : Download the Dataset](#step-1-download-the-dataset)
+-   [Step 2 : Setup SparkR on RStudio](#step-2-setup-sparkr-on-rstudio)
+-   [Step 3 : Prepare a Training Dataset](#step-3-prepare-a-training-dataset)
+-   [Step 4 : Exploratory Data Analysis](#step-4-exploratory-data-analysis)
+-   [Step 5 : Regression Model to predict Airline delay](#step-5-regression-model-to-predict-airline-delay)
+-   [Step 6 : Logistic Regression to predict Airline delay](#step-6-logistic-regression-to-predict-airline-delay)
 
 ## Step 1 : Download the Dataset
 
@@ -423,7 +429,7 @@ test_df$DEP_DELAY <- cast(test_df$DEP_DELAY,"integer")
 
 Next, calculate the predicted probability of ARR_DELAY  bu using predict function.
 
-`predictions <- predict(train_df_glm, newData = test_df)``
+`predictions <- predict(train_df_glm, newData = test_df)`
 
 We can compare the actual values with the predicted values, type this:
 
@@ -559,7 +565,7 @@ You can notice effects of different variables here.
 
 Prepare your test data from last 4 months data. Follow the same procedure what we did in preparing the training data.
 
-```  
+```
 dummy_test <- subset(test_df, select = c(4,5,7,8,18,19))
 dummy_test$DAY_OF_WEEK <- cast(dummy_test$DAY_OF_WEEK,"string")
 dummy_test$DEP_HOUR <- cast(dummy_test$DEP_HOUR,"string")

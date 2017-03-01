@@ -1,11 +1,11 @@
 ---
-title: Deploy Hortonworks Sandbox on Microsoft Azure
+title: Deploying Hortonworks Sandbox on Microsoft Azure
 tutorial-id: 620
 platform: hdp-2.5.0
 tags: [azure]
 ---
 
-# Deploy Hortonworks Sandbox on Microsoft Azure
+# Deploying Hortonworks Sandbox on Microsoft Azure
 
 ## Introduction
 
