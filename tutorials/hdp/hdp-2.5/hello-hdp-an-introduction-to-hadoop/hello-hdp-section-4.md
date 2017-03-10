@@ -13,7 +13,7 @@ components: [ambari, hive, pig, spark, zeppelin, technical-preview]
 
 In this tutorial, you will be introduced to Apache(<sup>TM</sup>) Hive. In the earlier section, we covered how to load data into HDFS. So now you have **geolocation** and **trucks** files stored in HDFS as csv files. In order to use this data in Hive, we will guide you on how to create a table and how to move data into a Hive warehouse, from where it can be queried. We will analyze this data using SQL queries in Hive User Views and store it as ORC. We will also walk through Apache Tez and how a DAG is created when you specify Tez as execution engine for Hive. Let's start..!!
 
-## Pre-Requisites
+## Prerequisites
 
 The tutorial is a part of a series of hands on tutorials to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -90,7 +90,7 @@ A feature we will configure before we run our hive queries is to set the hive ex
 
 ### Step 2.2: Define a Hive Table <a id="define-a-hive-table"></a>
 
-Now that you are familiar with the Hive View, let’s create and load tables for the geolocation and trucks data. In this section we will learn how to use the Ambari Hive View to create two tables: geolocation and trucking using the Hive View Upload Table tab.  The Upload Table tab provides the following key options: choose input file type, storage options (i.e. Apache ORC) and set first row as header.   Here is a visual representation of the table and load creation process accomplish in the next few steps.:
+Now that you are familiar with the Hive View, let’s create and load tables for the geolocation and trucks data. In this section we will learn how to use the Ambari Hive View to create two tables: geolocation and trucking using the Hive View Upload Table tab.  The Upload Table tab provides the following key options: choose input file type, storage options (i.e. Apache ORC) and set first row as header.   Here is a visual representation of the table and load creation process accomplished in the next few steps.:
 
 ![create_tables_architecture](assets/create_tables_architecture_lab2.png)
 
@@ -121,7 +121,7 @@ Before reviewing what is happening behind the covers in the Upload Progress let�
 
 #### 2.2.2: Define an ORC Table in Hive Create table using Apache ORC file format
 
-Introducing [Apache ORC](https://orc.apache.org/) is a fast columnar storage file format for Hadoop workloads.
+[Apache ORC](https://orc.apache.org/) is a fast columnar storage file format for Hadoop workloads.
 
 The Optimized Row Columnar ([new Apache ORC project](http://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/)) file format provides a highly efficient way to store Hive data. It was designed to overcome limitations of the other Hive file formats. Using ORC files improves performance when Hive is reading, writing, and processing data.
 
@@ -179,7 +179,7 @@ Click on the **Load sample data** icon to generate and execute a select SQL stat
 
 - `show tables;` - List the tables created in the database by looking up the list of tables from the metadata stored in HCatalogdescribe
 - `describe {table_name};` - Provides a list of columns for a particular table (ie `describe geolocation_stage;`)
-- `show create {table_name};` - Provides the DDL to recreate a table (ie `show create table geolocation_stage;`)
+- `show create table {table_name};` - Provides the DDL to recreate a table (ie `show create table geolocation_stage;`)
 - `describe formatted {table_name};` - Explore additional metadata about the table.  For example you can verify geolocation is an ORC Table, execute the following query:
 
 ~~~
@@ -208,7 +208,7 @@ The following Hive command can be used to LOAD data into existing table from  th
 LOAD DATA INPATH '/user/maria_dev/data/trucks.csv' OVERWRITE INTO TABLE trucks;
 ~~~
 
-If you would run the above commands and navigate to the `/user/maria_dev/data` folder.  You would of notice the folder is empty! The **LOAD DATA INPATH** command moved the trucks.csv file from the **/user/maria_dev/data** folder to the **/apps/hive/warehouse/trucks_stage folder**.
+If you would run the above commands and navigate to the `/user/maria_dev/data` folder.  You would notice the folder is empty! The **LOAD DATA INPATH** command moved the trucks.csv file from the **/user/maria_dev/data** folder to the **/apps/hive/warehouse/trucks_stage folder**.
 
 #### 2.2.10 Beeline - Command Shell
 

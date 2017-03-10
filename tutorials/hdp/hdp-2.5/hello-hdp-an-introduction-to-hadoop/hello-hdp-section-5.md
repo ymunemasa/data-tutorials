@@ -13,7 +13,7 @@ components: [ambari, hive, pig, spark, zeppelin, technical-preview]
 
 In this tutorial, you will be introduced to [Apache Pig](http://hortonworks.com/hadoop/pig/). In the earlier section of lab, you learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand risk associated with every driver. This section will teach you to **compute risk using Apache Pig**.
 
-## Pre-Requisites
+## Prerequisites
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -49,7 +49,7 @@ Pig scripts are **translated into a series of MapReduce jobs** that are **run on
 Next, you will use Pig to compute the risk factor of each driver. **Before we can run the Pig code**, the _table must already exist in Hive_ to satisfy one of the _requirements for the HCatStorer() class_. The Pig code expects the following structure for a table named **riskfactor**. Execute the following DDL command:
 
 ~~~
-CREATE TABLE riskfactor (driverid string,events bigint,totmiles bigint,riskfactor float)
+CREATE TABLE riskfactor (driverid string,events bigint,totmiles double,riskfactor float)
 STORED AS ORC;
 ~~~
 

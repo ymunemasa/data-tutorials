@@ -17,7 +17,7 @@ In previous tutorial, we have explored generating and capturing streaming data w
 
 In this tutorial, we will build a solution to ingest real time streaming data into HBase using Storm. Storm has a spout that reads truck_events data from Kafka and passes it to bolts, which process and persist the data into Hive & HBase tables.
 
-## Pre-Requisites
+## Prerequisites
 
 - Tutorial 0: Set Up Simulator, Apache Services and IDE Environment
 - Tutorial 1: Ingest, Route and Land Real Time Events with Apache NiFi

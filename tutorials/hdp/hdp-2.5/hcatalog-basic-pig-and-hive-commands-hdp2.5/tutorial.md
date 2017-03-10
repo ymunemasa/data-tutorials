@@ -11,7 +11,7 @@ components: [hcatalog, hive, pig, ambari]
 
 In this tutorial, we will learn to use Hive and Pig along with other tools to process, analyze and filter large datasets.
 
-## Pre-Requisites
+## Prerequisites
 
 *  [Apache HCatalog Video (running time: about 9 minutes)](http://www.youtube.com/watch?v=_dVlNu4lqpE)
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)

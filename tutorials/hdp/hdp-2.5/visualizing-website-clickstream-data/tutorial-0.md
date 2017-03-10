@@ -47,7 +47,7 @@ One of the original uses of Hadoop at Yahoo was to store and process their massi
 
 In this tutorial, we will focus on the “path optimization” use case. Specifically: how can we improve our website to reduce bounce rates and improve conversion?
 
-### Prerequisites:
+### Prerequisites
 
 *   Hortonworks ODBC driver (64-bit) installed and configured
 *   Hortonworks sample data files uploaded and refined as described in “Loading Data into the Hortonworks Sandbox”

@@ -99,7 +99,7 @@ Run the following command to get to the scripts for the tutorial.
 ~~~
 mkdir crosscomponent_demo
 cd crosscomponent_demo
-wget LINKME(assets/crosscomponent_scripts.zip)
+wget [crosscomponent_scripts.zip](assets/crosscomponent_scripts.zip)
 unzip crosscomponent_scripts.zip\?raw\=true
 cd crosscomponent_scripts/sqoop-demo
 ~~~

@@ -16,7 +16,7 @@ In the previous lab, you learned how to use Nifi, Hive and Zeppelin to analyze s
 * Visualize the data with [Apache Zeppelin](http://hortonworks.com/hadoop/zeppelin)
 * Tableau to visualize the geolocation in the world map
 
-## Prerequisites:
+## Prerequisites
 
 - Hortonworks Sandbox (installed and running)
 - Hortonworks DataFlow - [Download here](http://hortonworks.com/downloads/#dataflow)

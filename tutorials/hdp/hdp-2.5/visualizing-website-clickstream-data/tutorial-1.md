@@ -19,7 +19,7 @@ To load data into the Hortonworks sandbox, you will:
 * Upload the data files into the sandbox
 * View and refine the data in the sandbox.
 
-### Prerequisites:
+### Prerequisites
 
 * Hortonworks Sandbox 2.5 (installed and running)
 

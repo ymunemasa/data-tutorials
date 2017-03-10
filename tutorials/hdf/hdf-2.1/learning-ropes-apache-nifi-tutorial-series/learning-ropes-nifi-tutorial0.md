@@ -11,7 +11,7 @@ components: [nifi]
 
 In this tutorial, you learn about the NiFi environment, how to install NiFi onto Hortonworks Sandbox or on a local machine, and how to start NiFi.
 
-## Pre-Requisites
+## Prerequisites
 - Completed Learning the Ropes of Apache NiFi-Introduction.
 - Downloaded and installed [Hortonworks Sandbox](http://hortonworks.com/products/sandbox/). (Required for Section 2 and 3 for NiFi installation.)
 - If on mac or linux, add an IP and `sandbox.hortonworks.com` to your `/private/etc/hosts` file

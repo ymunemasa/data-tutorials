@@ -11,7 +11,7 @@ components: [ambari, hive]
 
 In this tutorial, we will use the [Ambari](http://hortonworks.com/hadoop/ambari/) HDFS file view to store data files of truck drivers statistics. We will implement [Hive](http://hortonworks.com/hadoop/hive/) queries to analyze, process and filter that data.
 
-## Pre-Requisites
+## Prerequisites
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/downloads/#sandbox)
 *  [Learning the Ropes of the Hortonworks Sandbox](http://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *  Allow yourself around one hour to complete this tutorial
@@ -33,7 +33,7 @@ Apache Hive is a component of [Hortonworks Data Platform](http://hortonworks.com
 
 ## Hive or Pig? <a id="hive-or-pig"></a>
 
-People often ask why do [Pig](http://hortonworks.com/hadoop/pig/) and [Hive](http://hortonworks.com/hadoop/hive/) exist when they seem to do much of the same thing. Hive because of its SQL like query language is often used as the interface to an Apache Hadoop based data warehouse. Hive is considered friendlier and more familiar to users who are used to using SQL for querying data. Pig fits in through its data flow strengths where it takes on the tasks of bringing data into Apache Hadoop and working with it to get it into the form for querying. A good overview of how this works is in Alan Gates posting on the Yahoo Developer blog titled [Pig and Hive at Yahoo!](https://developer.yahoo.com/blogs/hadoop/pig-hive-yahoo-464.html). From a technical point of view, both Pig and Hive are feature complete, so you can do tasks in either tool. However, you will find one tool or the other will be preferred by the different groups that have to use Apache Hadoop. The good part is they have a choice and both tools work together.
+People often ask why do [Pig](http://hortonworks.com/hadoop/pig/) and [Hive](http://hortonworks.com/hadoop/hive/) exist when they seem to do much of the same thing. Hive because of its SQL like query language is often used as the interface to an Apache Hadoop based data warehouse. Hive is considered friendlier and more familiar to users who are used to using SQL for querying data. Pig fits in through its data flow strengths where it takes on the tasks of bringing data into Apache Hadoop and working with it to get it into the form for querying. A good overview of how this works is in Alan Gates posting on the Yahoo Developer blog titled [Pig and Hive at Yahoo!](http://yahoohadoop.tumblr.com/post/98256601751/pig-and-hive-at-yahoo). From a technical point of view, both Pig and Hive are feature complete, so you can do tasks in either tool. However, you will find one tool or the other will be preferred by the different groups that have to use Apache Hadoop. The good part is they have a choice and both tools work together.
 
 ## Our Data Processing Task <a id="our-data-processing-task"></a>
 

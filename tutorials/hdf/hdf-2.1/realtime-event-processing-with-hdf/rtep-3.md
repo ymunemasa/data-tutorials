@@ -12,7 +12,7 @@ components: [kafka, nifi]
 
 [Apache Kafka](http://kafka.apache.org/) can be used on the Hortonworks Data Platform to capture real-time events. We will begin with showing you how to configure Apache Kafka and Zookeeper. Next we will show you how to capture truck event data from Apache NiFi using Kafka.
 
-## Pre-Requisites
+## Prerequisites
 *  Tutorial 0: Set Up Simulator, Apache Services and IDE Environment
 *  Tutorial 1: Ingest, Route and Land Real Time Events with Apache NiFi
 *  Downloaded and Installed latest [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/#install)
