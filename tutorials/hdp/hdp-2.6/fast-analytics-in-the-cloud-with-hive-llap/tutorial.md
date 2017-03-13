@@ -1,3 +1,10 @@
+---
+title: Fast analytics in the cloud with Hive LLAP
+id:
+platform: hdp-2.6.0
+components: [ambari, hive]
+---
+
 # Fast analytics in the cloud with Hive LLAP
 
 ## Introduction
