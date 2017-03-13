@@ -17,10 +17,10 @@ In this tutorial, you will learn about the different features available in the H
 
 ## Outline
 
--   [What is the Sandbox?](#what-is-the-sandbox)
--   [Learn the Host Address of Your Environment](#learn-host-address-environment)
--   [Connect to the Welcome Screen](#connect-to-welcome-screen)
--   [Multiple Ways to Execute Terminal Commands](#ways-execute-terminal-command)
+-   [Concepts](#concepts)
+-   [Learn the Host Address of Your Environment](#learn-the-host-address-of-your-environment)
+-   [Connect to the Welcome Screen](#connect-to-the-welcome-screen)
+-   [Multiple Ways to Execute Terminal Commands](#multiple-ways-to-execute-terminal-commands)
 -   [Explore Ambari](#explore-ambari)
 -   [Summary](#summary)
 -   [Further Reading](#further-reading)
@@ -30,23 +30,23 @@ In this tutorial, you will learn about the different features available in the H
 
 ## Concepts
 
-## What is the Sandbox?
+### What is the Sandbox?
 
 The Sandbox is a straightforward, pre-configured, learning environment that contains the latest developments from Apache Big Data related tools, specifically these tools were assembled together into Hortonworks DataFlow. The Sandbox comes packaged in a virtual environment that can run in the cloud or on your personal machine. The Sandbox allows you to learn and explore HDP on your own.
 
-## 1\. Learn the Host Address of Your Environment
+## Learn the Host Address of Your Environment
 
 Once you installed the Sandbox VM or container, it resolves to the host on your environment, the address of which varies depending upon the Virtual Machine you are using(Vmware, VirtualBox, etc) or container (Docker, etc). As, a general thumb rule, wait for the installation to complete and confirmation screen will tell you the host your sandbox resolves to. For example:
 
 In case of Docker: `host` would be `127.0.0.1`
 
-## 2\. Connect to the Welcome Screen
+## Connect to the Welcome Screen
 
 Append the port number :18888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:18888/.`
 
 Click on `Launch Dashboard` to go to Ambari with a [Analyze Traffic Patterns with Aapche NiFi tutorial](#) and `Quick Links` to view some services of HDP environment.
 
-## 3\. Multiple Ways to Execute Terminal Commands
+## Multiple Ways to Execute Terminal Commands
 
 > **Note:** For all methods below, the login credential instructions will be the same to access the Sandbox through the terminal.
 - Login using username as **root** and password as **hadoop**.
@@ -73,7 +73,7 @@ Example:
       127.0.0.1:14200
 ~~~
 
-## 4\. Explore Ambari
+## Explore Ambari
 
 Navigate to Ambari welcome page using the **url** given on Sandbox welcome page or access at `_host_:18080`.
 
@@ -117,15 +117,11 @@ ambari-agent restart
 
 Enter the **Ambari Welcome URL** and then you should see the following options:
 
-1\..  “**Operate Your Cluster**” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators
-
-2\.  “**Manage Users + Groups**” allows you to add & remove Ambari users and groups
-
-3\.  “**Clusters**” allows you to grant permission to Ambari users and groups
-
-4\.  “**Ambari User Views**” list the set of Ambari Users views that are part of the cluster
-
-5\.  “**Deploy Views**” provides administration for adding and removing Ambari User Views
+1.  “**Operate Your Cluster**” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators
+2.  “**Manage Users + Groups**” allows you to add & remove Ambari users and groups
+3.  “**Clusters**” allows you to grant permission to Ambari users and groups
+4.  “**Ambari User Views**” list the set of Ambari Users views that are part of the cluster
+5.  “**Deploy Views**” provides administration for adding and removing Ambari User Views
 
 ### Explore Ambari Dashboard Links
 
@@ -145,9 +141,9 @@ Congratulations, you've finished your first tutorial! Now you know about the dif
 
 - [HDF Documentation](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.1.2/index.html)
 
-### Appendix A: Troubleshoot
+## Appendix A: Troubleshoot
 
-## 1\. Troubleshoot Problems <a id="troubleshoot-problems"></a>
+### Troubleshoot Problems <a id="troubleshoot-problems"></a>
 
 Check [Hortonworks Community Connection](https://hortonworks.com/community/forums/)(HCC) for answers to problems you may come across during your hadoop journey.
 
