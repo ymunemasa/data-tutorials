@@ -1,5 +1,5 @@
 ---
-title: Tutorial 3 Ingest NextBus Live Stream Routes to the DataFlow
+title: Analyze Traffic Pattern with Apache NiFi
 tutorial-id: 640
 platform: hdf-2.0.0
 tags: [nifi]
@@ -47,15 +47,13 @@ Let’s break apart the parameters, so we can better understand how to create cu
 
 Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf) to learn more about each parameter.
 
-### Step 1: Attach NextBus Live Stream to the DataFlow <a id="attach-nextbus-live-stream"></a>
+## Step 1: Attach NextBus Live Stream to the DataFlow <a id="attach-nextbus-live-stream"></a>
 
 ### GetHTTP
 
-1\. Delete GetFile, UnpackContent and ControlRate processors. We will replace them with the GetHTTP processor.
-
-2\. Add the **GetHTTP** processor and drag it to the place where the previous three processors were located. Connect GetHTTP to EvaluateXPath processor located above SplitXML. When the Create Connection window appears, select **success** checkbox. Click **Add**.
-
-3\. Open GetHTTP Config Property Tab window. We will need to copy and paste Nextbus XML Live Feed URL into the property value. Add the property listed in **Table 1**.
+1. Delete GetFile, UnpackContent and ControlRate processors. We will replace them with the GetHTTP processor.
+2. Add the **GetHTTP** processor and drag it to the place where the previous three processors were located. Connect GetHTTP to EvaluateXPath processor located above SplitXML. When the Create Connection window appears, select **success** checkbox. Click **Add**.
+3. Open GetHTTP Config Property Tab window. We will need to copy and paste Nextbus XML Live Feed URL into the property value. Add the property listed in **Table 1**.
 
 **Table 1:** Update GetHTTP Properties Tab
 
@@ -86,8 +84,7 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 
 2\. Click **Apply**.
 
-
-### Step 2: Run the NiFi DataFlow <a id="run-nifi-dataflow"></a>
+## Step 2: Run the NiFi DataFlow <a id="run-nifi-dataflow"></a>
 
 Now that we added NextBus San Francisco Muni Live Stream Ingestion to our dataflow , let's run the dataflow and verify if we receive the expected results in our output directory.
 

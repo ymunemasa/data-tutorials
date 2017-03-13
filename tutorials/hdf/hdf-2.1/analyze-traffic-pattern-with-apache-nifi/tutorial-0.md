@@ -1,13 +1,11 @@
 ---
-title: Introduction
+title: Analyze Traffic Pattern with Apache NiFi
 tutorial-id: 640
 platform: hdf-2.0.0
 tags: [nifi]
 ---
 
 # Analyze Traffic Patterns with Apache NiFi
-
-Version 1.2 for HDF 2.0 updated November 3, 2016
 
 ## Introduction
 
@@ -28,24 +26,20 @@ The learning objectives of this tutorial are to:
 - Learn about NiFi templates
 - Create Process Groups
 
-
 ## Prerequisites
+
 - Downloaded and installed [Hortonworks Sandbox](https://hortonworks.com/products/sandbox/). (This is needed for Step 2, Option 1 for your NiFi installation.)
 - For Windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run Linux terminal commands in these tutorials.
 
-
-## Tutorial Series Overview
+## Outline
 
 In this tutorial, we work with San Francisco MUNI Transit agency data, gathered from NextBus XML Live Feed, handling vehicle locations, speeds, and other variables.
 
 The tutorial consists of four sections:
 
-**Tutorial 0** - Learn about your NiFi environment. Get NiFi up and running on Hortonworks Sandbox or your local machine.
-
-**Tutorial 1** - Open NiFi UI and explore its features. Create a dataflow by adding and configuring eleven processors. Ingest data from a transit location XML simulator, extract transit location detail attributes from flowfiles, and route attributes to a converted JSON file. Run the dataflow and verify the results in a terminal.
-
-**Tutorial 2** - Add geographic location enrichment to the dataflow; incorporate Google Places Nearby API into the dataflow to retrieve places near the vehicle's location.
-
-**Tutorial 3** - Ingest NextBus's live stream data for San Francisco MUNI agency.
+1. **Tutorial 0** - Learn about your NiFi environment. Get NiFi up and running on Hortonworks Sandbox or your local machine.
+2. **Tutorial 1** - Open NiFi UI and explore its features. Create a dataflow by adding and configuring eleven processors. Ingest data from a transit location XML simulator, extract transit location detail attributes from flowfiles, and route attributes to a converted JSON file. Run the dataflow and verify the results in a terminal.
+3. **Tutorial 2** - Add geographic location enrichment to the dataflow; incorporate Google Places Nearby API into the dataflow to retrieve places near the vehicle's location.
+4. **Tutorial 3** - Ingest NextBus's live stream data for San Francisco MUNI agency.
 
 Each tutorial provides step by step instructions, so that you can complete the learning objectives and tasks associate with it. You are also provided with a dataflow template for each tutorial that you can use for verification. Each tutorial builds on the previous.

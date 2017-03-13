@@ -1,11 +1,8 @@
 ---
-
 title: Cross Component Lineage with Apache Atlas across Apache Sqoop, Hive, Kafka & STORM
 tutorial-id: 610
-
 platform: hdp-2.5.0
-
-tags: [atlas, sqoop, hive, kafka, storm ]
+tags: [atlas, sqoop, hive, kafka, storm]
 ---
 
 ## Introduction

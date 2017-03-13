@@ -1,5 +1,5 @@
 ---
-title: Tutorial 2 Enhance the DataFlow with Geo Location Enrichment
+title: Analyze Traffic Pattern with Apache NiFi
 tutorial-id: 640
 platform: hdf-2.0.0
 tags: [nifi]
@@ -40,7 +40,7 @@ What are the necessary components to use the Places API?
 - https:// protocol
 - API Key
 
-### Step 1: Obtain API Key for NiFi to Build HTTP URL <a id="obtain-api-key-for-flow"></a>
+## Step 1: Obtain API Key for NiFi to Build HTTP URL <a id="obtain-api-key-for-flow"></a>
 
 For our dataflow, our task is to enrich the data by searching for neighborhoods within proximity of a vehicle's varying location. We will retrieve two parameters from this data: name of the neighborhoods and San Francisco Muni Transit Agency. So, we will integrate Nearby Search HTTP request with NiFi.
 
@@ -80,8 +80,7 @@ https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Latitude
 
 > Note: Your API Key will be different than the one in the URL above.
 
-
-### Step 2: Build Geo Location Enrichment DataFlow Section <a id="build-geo-loc-enrich"></a>
+## Step 2: Build Geo Location Enrichment DataFlow Section <a id="build-geo-loc-enrich"></a>
 
 Six processors are needed to add geographic location enrichment to your dataflow. Each processor holds a critical role in transporting the enriched data to a destination:
 
@@ -119,7 +118,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 1\. Add the EvaluateJsonPath processor onto the NiFi graph. Connect InvokeHTTP to EvaluateJsonPath processor. When the Create Connection window appears, select **Response** checkbox. Click Add.
 
-2\ Open EvaluateJsonPath configure properties tab and update the original properties with the properties listed in **Table 2**. Note: add `city` and `neighborhoods_nearby` property by clicking the **New property** button, then insert their values into the properties tab.
+2\. Open EvaluateJsonPath configure properties tab and update the original properties with the properties listed in **Table 2**. Note: add `city` and `neighborhoods_nearby` property by clicking the **New property** button, then insert their values into the properties tab.
 
 **Table 2:** Update and Add New EvaluateJsonPath Property Values
 
@@ -131,7 +130,6 @@ Six processors are needed to add geographic location enrichment to your dataflow
 | `neighborhoods_nearby`  | `$.results[*].name`  |
 
 - **Destination** result from JSON Path Evaluation stored in FlowFile attributes.
-
 - **2 user-defined attributes** each hold a value that is used in the NiFi Expression language filtering condition in the next processor.
 
 ![evaluateJsonPath_config_property_tab_window](assets/lab2-geo-location-enrichment-nifi-lab-series/evaluateJsonPath_config_property_tab_window.png)
@@ -211,8 +209,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 3\. Navigate  to the **Settings** tab, under Auto terminate relationships check the **success** checkbox. Click **Apply** button. Connect the processor to itself and when the Create Connection window appears, select **failure** checkbox.
 
-
-### Step 3: Run NiFi DataFlow <a id="run-nifi-flow"></a>
+## Step 3: Run NiFi DataFlow <a id="run-nifi-flow"></a>
 
 Now that we added geographic location enrichment dataflow section to our previous dataflow, let's run the dataflow and verify if we receive the expected results in our output directory.
 
@@ -229,7 +226,6 @@ vi 2ae30f7d-5ffe-4e29-92f0-8f0e7c9224b6
 ~~~
 
 ![output_geoEnrich_nearby_neighborhoods_data](assets/lab2-geo-location-enrichment-nifi-lab-series/output_geoEnrich_nearby_neighborhoods_data.png)
-
 
 ## Summary <a id="summary-tutorial2"></a>
 

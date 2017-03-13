@@ -1,5 +1,5 @@
 ---
-title: Tutorial 1 Build A Simple NiFi DataFlow
+title: Analyze Traffic Pattern with Apache NiFi
 tutorial-id: 640
 platform: hdf-2.0.0
 tags: [nifi]
@@ -30,9 +30,9 @@ In this tutorial, you will build the following dataflow:
 - [Step 2.4: Build Filter and JSON Conversion DataFlow Section](#build-filter-json-conversion)
 - [Step 2.5: Run the NiFi DataFlow](#run-nifi-dataflow-tutorial1)
 - [Summary](#summary-tutorial1)
+- [Further Reading](#further-reading-tutorial1)
 - [Appendix A: Review of NiFi DataFlow](#appendix-a-review-dataflow)
 - [Appendix B: Create Labels for Processor Groups](#appendix-b-create-labels)
-- [Further Reading](#further-reading-tutorial1)
 
 ## Approach 1 <a id="approach1"></a>
 
@@ -70,8 +70,6 @@ cp ~/Downloads/trafficLocs_data_for_simulator.zip /tmp/nifi/input
 ~~~
 
 5\. Hit the **start** button ![start_button_nifi_iot](assets/lab1-build-nifi-dataflow/start_button_nifi_iot.png). to activate the dataflow. We highly recommend you read through the lab, so you become familiar with the process of building a dataflow.
-
-
 
 ## Approach 2 <a id="approach2"></a>
 
@@ -153,25 +151,15 @@ Click the **Add** button to add the processor to the graph.
 Overview of Each Processor's Role in our DataFlow:
 
 - **GetFile** fetches the vehicle location simulator data for files in a directory.
-
 - **UnpackContent** decompresses the contents of FlowFiles from the traffic simulator zip file.
-
 - **ControlRate** controls the rate at which FlowFiles are transferred to follow-on processors enabling traffic simulation.
-
 - **EvaluateXPath** extracts the timestamp of the last update for vehicle location data returned from each FlowFile.
-
 - **SplitXML** splits the parent's child elements into separate FlowFiles. Since vehicle is a child element in our xml file, each new vehicle element is stored separately.
-
 - **EvaluateXPath** extracts attributes: vehicle id, direction latitude, longitude and speed from vehicle element in each FlowFile.
-
 - **RouteOnAttribute** transfers FlowFiles to follow-on processors only if vehicle ID, speed, latitude, longitude, timestamp and direction match the filter conditions.
-
 - **AttributesToJSON** generates a JSON representation of the attributes extracted from the FlowFiles and converts XML to JSON format this less attributes.
-
 - **MergeContent** merges a group of JSON FlowFiles together based on a number of FlowFiles and packages them into a single FlowFile.
-
 - **UpdateAttribute** updates the attribute name for each FlowFile.
-
 - **PutFile** writes the contents of the FlowFile to a desired directory on the local filesystem.
 
 Follow the step above to add these processors. You should obtain the image below:
@@ -397,7 +385,6 @@ Right click on the **GetFile** processor and click **configure** from dropdown m
 | `Destination`  | flowfile-content  |
 
 - **Attributes List** takes FlowFile attribute parameters and presents them in JSON format
-
 - **Destination** stores the output as content in the FlowFile
 
 ![attributesToJSON_config_property_tab_window](assets/lab1-build-nifi-dataflow/attributesToJSON_config_property_tab_window.png)
@@ -424,20 +411,13 @@ Right click on the **GetFile** processor and click **configure** from dropdown m
 | `Demarcator` | `,` {now-press-shift-enter} |
 
 - **Minimum Number of Entries** takes in at least specified amount of FlowFiles, then merges them into 1 FlowFiles
-
 - **Maximum Number of Entries** takes in no more than specified amount of FlowFiles, then merges them
-
 - **Delimiter Strategy** specifies that Header, Footer and Demarcator set the formatting conditions for text in the file
-
 - **Header** inserts specified value at the beginning of the file
-
 - **Footer** inserts specified value at the end of the file
-
 - **Demarcator** inserts specified value(s) at the end of every line in the file
 
-
 3\. Open the processor config **Settings** tab, under Auto terminate relationships, check the **failure** and **original** checkboxes. Click **Apply**.
-
 
 4\. Connect **MergeContent** to **UpdateAttribute** processor. When the Create Connection window appears, verify **merged** checkbox is checked, if not check it. Click Add.
 
@@ -499,7 +479,6 @@ vi 19bad9c1-ae98-439f-8a8b-543fb3ab0ab0
 
 ![commands_enter_sandbox_shell_lab1](assets/lab1-build-nifi-dataflow/commands_enter_sandbox_shell_lab1.png)
 
-
 ![filtered_vehicle_locations_data_nifi_learn_ropes](assets/lab1-build-nifi-dataflow/filtered_vehicle_locations_data_nifi_learn_ropes.png)
 
 > Note: to exit the vi editor, press `esc` and then type `:q`.
@@ -532,6 +511,14 @@ Did you receive the data you expected?
 
 Congratulations! You made it to the end of the tutorial and built a NiFi DataFlow that reads in a live stream simulation from NextBus.com, splits the parent’s children elements from the XML file into separate FlowFiles, extracts nodes from the XML file, makes a filtering decision on the attributes and stores that newly modified data into a file. You also learned how to use NiFi's Data Provenance feature to view data from a FlowFile that flows through a processor, a powerful feature that enables users to troubleshoot issues in real-time. Feel free to use this feature in the other tutorials. If you are interested in learning more about NiFi, view the following further reading section.
 
+## Further Reading <a id="further-reading-tutorial1"></a>
+
+- [Apache NiFi](https://hortonworks.com/apache/nifi/)
+- [Hortonworks DataFlow Documentation](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html)
+- [NiFi Expression Language Guide](https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html)
+- [XPath Expression Tutorial](http://www.w3schools.com/xsl/xpath_intro.asp)
+- [JSON Tutorial](http://www.w3schools.com/json/)
+
 ## Appendix A: Review of the NiFi DataFlow <a id="appendix-a-review-dataflow"></a>
 
 If you want a more in depth review of the dataflow we just built, read the information below, else continue onto the next tutorial.
@@ -558,12 +545,3 @@ Let's create a label to signify the action that happens in the first phase of ou
 ![label_first_phase_dataflow_lab1](assets/lab1-build-nifi-dataflow/label_first_phase_dataflow_lab1.png)
 
 Reference the picture of the dataflow in Step 5 if you would like to assign similar labels used in the dataflow for this tutorial. Feel free to create your own as labels for each phase of the dataflow too.
-
-
-## Further Reading <a id="further-reading-tutorial1"></a>
-
-- [Apache NiFi](https://hortonworks.com/apache/nifi/)
-- [Hortonworks DataFlow Documentation](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html)
-- [NiFi Expression Language Guide](https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html)
-- [XPath Expression Tutorial](http://www.w3schools.com/xsl/xpath_intro.asp)
-- [JSON Tutorial](http://www.w3schools.com/json/)

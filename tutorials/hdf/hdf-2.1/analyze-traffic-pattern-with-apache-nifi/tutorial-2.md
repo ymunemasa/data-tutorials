@@ -1,5 +1,5 @@
 ---
-title: Tutorial 0 Download, Install and Start NiFi
+title: Analyze Traffic Pattern with Apache NiFi
 tutorial-id: 640
 platform: hdf-2.0.0
 tags: [nifi]
@@ -32,8 +32,6 @@ If on windows 7, to add `sandbox.hortonworks.com` to your list of hosts, open gi
 echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/etc/hosts
 ~~~
 
-![changing-hosts-file.png](assets/lab0-nifi/changing-hosts-file.png)
-
 ## Outline
 - [Section 0: Explore NiFi Environment Before NiFi Installation](#explore-nifi-environment)
   - [0.A Plan to Install HDF 2.0 on Sandbox](#install-hdf-on-sandbox)
@@ -54,7 +52,7 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 
 * * *
 
-### Section 0: Explore NiFi Environment Before NiFi Installation <a id="explore-nifi-environment"></a>
+## Section 0: Explore NiFi Environment Before NiFi Installation <a id="explore-nifi-environment"></a>
 
 FOr this tutorial you can run NiFi inside a single virtual machine or on your local computer. This version of the tutorial instructions are based on [Hortonworks DataFlow 2.0 GZipped](https://hortonworks.com/downloads/). There are 2 ways to download and install HDF 2.0: Option 1 on a Hortonworks Sandbox 2.5 Virtual Image (via Ambari Wizard, Sandbox Shell) or Option 2 on your local machine. HDF comes in 2 versions with only **NiFi** or with **NiFi, Kafka, Storm, and Zookeeper**. For this tutorial series, you should download HDF with NiFi only. The necessary components are:
 - HDF 2.0 (NiFi only)
@@ -72,7 +70,6 @@ If you plan to install HDF on Hortonworks Sandbox, review the table, and proceed
 | Port  | 2222  | 2222  | 22  |
 | Terminal Username  | root  | root  | {username-of-azure}  |
 | Terminal Password  | hadoop  | hadoop  | {password-of-azure}  |
-
 
 > Note: **Host Name** values are unique for VMware & Azure Sandbox compared to the table. For VMware and VirtualBox, **Host Name** is located on the Sandbox Welcome screen. For Azure, **Host Name** is located under **Public IP Address** on the Sandbox Dashboard. For Azure users, you created the terminal **username** and **password** while deploying the Sandbox on Azure. For VMware and VirtualBox users, you change the terminal password after first login.
 
@@ -132,7 +129,7 @@ Sandbox via Ambari Service Wizard or Sandbox Shell.
 
 * * *
 
-### Section 1: Setup NiFi on Local Machine <a id="setup-nifi-locally"></a>
+## Section 1: Setup NiFi on Local Machine <a id="setup-nifi-locally"></a>
 
 ### Step 1: Download and Install NiFi Locally <a id="download-nifi-machine"></a>
 
@@ -164,7 +161,7 @@ Now that you started NiFi, review the [conclusion](#conclusion-lab0) and then we
 
 * * *
 
-### Section 2: Setup NiFi on Sandbox by Ambari Wizard <a id="nifi-ambari-wizard"></a>
+## Section 2: Setup NiFi on Sandbox by Ambari Wizard <a id="nifi-ambari-wizard"></a>
 
 ### Step 1: Install NiFi By Ambari Wizard <a id="install-NiFi-ambari"></a>
 
@@ -229,7 +226,7 @@ Now that you started NiFi, review the [conclusion](#conclusion-lab0) and then we
 
 * * *
 
-### Section 3: Setup NiFi on Sandbox By CLI <a id="setup-nifi-sandbox"></a>
+## Section 3: Setup NiFi on Sandbox By CLI <a id="setup-nifi-sandbox"></a>
 
 ### Step 1: Install NiFi By Sandbox Shell <a id="install-NiFi-cli"></a>
 
