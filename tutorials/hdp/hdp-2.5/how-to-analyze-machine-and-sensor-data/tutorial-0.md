@@ -23,7 +23,7 @@ A sensor is a device that measures a physical quantity and transforms it into a 
 
 In this tutorial, we will focus on sensor data from building operations. Specifically, we will refine and analyze the data from Heating, Ventilation, Air Conditioning (HVAC) systems in 20 large buildings around the world.
 
-### Prerequisites:
+### Prerequisites
 
 - Installed Hortonworks Sandbox (On Docker, VirtualBox or VMware)
 - Preview [Apache Hive Overview](https://hortonworks.com/apache/hive/)

@@ -37,7 +37,7 @@ Apache Knox can also access a Hadoop cluster over HTTP or HTTPS
 *  Provides services for HDFS, HCat, HBase, Oozie, Hive, YARN, and Storm
 *  HTTP access for Hive over JDBC support is available (ODBC driver Support- In Future)
 
-## Prerequisites:
+## Prerequisites
 
 - [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox).
 - Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.

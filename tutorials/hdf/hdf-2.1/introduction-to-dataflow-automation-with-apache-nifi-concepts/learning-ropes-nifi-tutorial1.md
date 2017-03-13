@@ -44,7 +44,7 @@ Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercont
 
 3\. Hover over to the top left of the NiFi HTML interface, drag the template icon ![nifi_template_icon](assets/lab1-build-nifi-dataflow/add_nifi_template.png) onto the graph and select the **NiFi-DataFlow-Lab1.xml** template file.
 
-4\.  Download [trafficLocs_data_for_simulator.zip](https://github.com/hortonworks/tutorials/blob/hdp/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip?raw=true) which is our input data.
+4\.  Download [trafficLocs_data_for_simulator.zip](assets/trafficLocs_data_for_simulator.zip) which is our input data.
 
 If **NiFi is on Sandbox**, SSH into the shell:
 
@@ -111,7 +111,7 @@ Your dataflow will extract the following XML Attributes from the transit data li
 | speedKmHr  | float64  | Vehicle speed (km/h)  |
 | dirTag  | float64  | Direction of travel  |
 
-After extracting, filtering and converting the data, your new file, which contains transit location data will be stored in the Input Directory listed in Table 2. We will learn how to satisfy the conditions in Table 2 with RouteOnAttribute, AttributesToJSON and PutFile processors.
+After extracting, filtering and converting the data, your new file, which contains transit location data will be stored in the Output Directory listed in Table 2. We will learn how to satisfy the conditions in Table 2 with RouteOnAttribute, AttributesToJSON and PutFile processors.
 
 **Table 2: Other DataFlow Requirements**
 
@@ -202,7 +202,7 @@ If you would like to read more about configuring and connecting processors, refe
 
 ### 2.2.1 GetFile
 
-1\. If you have not yet downloaded the input data set, click here [trafficLocs_data_for_simulator.zip](https://github.com/hortonworks/tutorials/blob/hdp/assets/learning-ropes-nifi-lab-series/trafficLocs_data_for_simulator.zip?raw=true).
+1\. If you have not yet downloaded the input data set, click here [trafficLocs_data_for_simulator.zip](assets/trafficLocs_data_for_simulator.zip).
 
 ### NiFi on Sandbox (Option 1)
 

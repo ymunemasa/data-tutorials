@@ -11,11 +11,11 @@ tags: [knox, beeline]
 
 Apache Hive is a popular component used for SQL access to Hadoop, and the Hive Server 2 with Thrift supports JDBC access over HTTP. The following steps show the configuration to enable a JDBC client to talk to Hive Server 2 via Knox **(Beeline > JDBC over HTTPS > Knox > HTTP > Hive Server2)**. The picture describes the scenario that the tutorial covers.
 
-![knox_access]assets2-using-apache-knox/knox_access.png)
+![knox_access](assets/knox_access.png)
 
 This tutorial focuses on Beeline as the JDBC client; however, a screenshot of Simba ODBC Client configuration for ODBC access is attached at the bottom of the tutorial.
 
-## Prerequisites:
+## Prerequisites
 
 - [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox).
 - Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
@@ -41,22 +41,22 @@ Password - **raj_ops**
 
 After logging in to Ambari, you will see a list of Services.
 
-![ambari_dashboard_rajops]assets2-using-apache-knox/ambari_dashboard_rajops.png)
+![ambari_dashboard_rajops](assets/ambari_dashboard_rajops.png)
 
 Now Select `Knox` from the list of Services on the left-hand side of the page.
 Then click on `Service Actions` from the top right hand side of the page click on `Start`.
 
-![start_knox]assets2-using-apache-knox/start_knox.png)
+![start_knox](assets/start_knox.png)
 
 Check the box for `Maintenance Mode` and click `Confirm Start`.
 
-![knox_maintenance_mode]assets2-using-apache-knox/knox_maintenance_mode.png)
+![knox_maintenance_mode](assets/knox_maintenance_mode.png)
 
 ### 2. Change Hive Config <a id="change-hive-config"></a>
 
 Using Ambari, navigate to `Hive > Config`. Type `hive.server2.transport.mode` in the Filter box. Change its value from `binary` to `http`.
 
-![change_hive_settings]assets2-using-apache-knox/change_hive_settings.png)
+![change_hive_settings](assets/change_hive_settings.png)
 
 Save these Hive settings and restart Hive with Ambari.
 
@@ -71,7 +71,7 @@ ssh root@127.0.0.1 -p 2222
 
 The first time password to log in is: **hadoop**
 
-![sshTerminal]assets2-using-apache-knox/sshTerminal.png)
+![sshTerminal](assets/sshTerminal.png)
 
 In the example here, I am connecting to Knox on [HDP 2.5 Sandbox](https://hortonworks.com/products/sandbox/) which uses a self-signed certificate for SSL. Use the connection string specified to enter into beeline shell.
 
@@ -105,7 +105,7 @@ You should see a message like this:
 
 `Connected to: Apache Hive (version 1.2.1000.2.5.0.0-1245)`
 
-![beeline_shell]assets2-using-apache-knox/beeline_shell.png)
+![beeline_shell](assets/beeline_shell.png)
 
 In the Beeline connection string, a trust store for HTTPS connection to Knox is specified. This truststore (and its password) is needed only when Knox is not configured to use a well-known SSL certificate. For example, in an out-of-band access, Knox Gateway uses a Self-Signed certificate for SSL, and that certificate needs to be exported and put into a file that the client can use.
 However, in a production environment, Knox should be configured to use a CA authorized SSL certificate, and on the JDBC client, you need not configure a truststore and truststore password.
@@ -116,7 +116,7 @@ Then issue any SQL query, and the request will follow the path from **Beeline > 
 
 For example, the show tables query results in the following output in HDP 2.5 Sandbox:
 
-![show_tables]assets2-using-apache-knox/show_tables.png)
+![show_tables](assets/show_tables.png)
 
 If you get an error something like this :
 
@@ -128,7 +128,7 @@ Go back to Ambari and **Restart Knox**.
 
 The following screenshot illustrates the ODBC client side configuration needed to get **Simba ODBC > HTTP > Knox > HTTP > Hive Server 2** setup working.
 
-![simba_odbc_access]assets2-using-apache-knox/simba_odbc_access.png)
+![simba_odbc_access](assets/simba_odbc_access.png)
 
 ## Summary <a id="summary"></a>
 

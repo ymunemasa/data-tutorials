@@ -22,7 +22,7 @@ In this demo, we demonstrate how an enterprise security breach analysis and resp
 
 This Hadoop tutorial can be performed with the [Hortonworks Sandbox](https://hortonworks.com/products/sandbox) – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series. The tutorial presented here is for Sandbox HDP 2.5.
 
-## Prerequisites:
+## Prerequisites
 
 - Hortonworks Sandbox (installed and running)
 - Hortonworks DataFlow - [Download here](https://hortonworks.com/downloads/#dataflow)
