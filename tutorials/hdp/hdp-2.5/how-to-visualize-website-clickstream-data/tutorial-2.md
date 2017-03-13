@@ -11,7 +11,7 @@ tags: [ambari, hive, zeppelin, excel]
 
 In this section, You can choose to use  Excel Professional Plus 2013  or Apache Zeppelin (built in to the sandbox) to access the refined clickstream data.
 
-### Prerequisites:
+### Prerequisites
 
 * Hortonworks Sandbox 2.5 (installed and running)
 * Completed Lab 1

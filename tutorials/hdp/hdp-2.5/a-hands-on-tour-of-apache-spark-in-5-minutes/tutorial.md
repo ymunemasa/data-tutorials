@@ -38,7 +38,7 @@ If you're new to Zeppelin, make sure to checkout the [Getting Started Guide](htt
 
 Create a new note, and give it a meaningful name, e.g. *Apache Spark in 5 Minutes*
 
-![]assets5-minutes/3-apache-spark-tour-in-5-minutes.png)
+![](assets/3-apache-spark-tour-in-5-minutes.png)
 
 Zeppelin comes with several interpreters pre-configured on Sandbox. In this tutorial we will use a shell interpreter `%sh` and a pyspark interpreter `%pyspark`.
 
@@ -53,7 +53,7 @@ wget http://en.wikipedia.org/wiki/Hortonworks
 
 You should see an output similar to this
 
-![]assets5-minutes/5-apache-spark-tour-in-5-minutes.png)
+![](assets/5-apache-spark-tour-in-5-minutes.png)
 
 Next, let's copy the data over to HDFS. Type and execute the following:
 
@@ -74,7 +74,7 @@ print count
 
 When you execute the above you should get only a number as an output. I got `311` but it may vary depending on the Wikipedia entry.
 
-![]assets5-minutes/6-apache-spark-tour-in-5-minutes.png)
+![](assets/6-apache-spark-tour-in-5-minutes.png)
 
 Let's go over what's actually going on. After the python interpreter `%pyspark` is initialized we instantiate an RDD using a Spark Context `sc` with a `Hortonworks` file on HDFS:
 
@@ -100,7 +100,7 @@ Lastly, with `print count` we display the final count value, which returns `311`
 
 That's it! Your complete notebook should look like this after you run your code in all paragraphs:
 
-![]assets5-minutes/1-apache-spark-tour-in-5-minutes.png)
+![](assets/1-apache-spark-tour-in-5-minutes.png)
 
 We hope that this little example wets your appetite for more ambitious data science projects on the Hortonworks Data Platform (HDP) Sandbox.
 
