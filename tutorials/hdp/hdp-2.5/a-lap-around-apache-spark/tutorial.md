@@ -7,30 +7,18 @@ tags: [spark]
 
 # A Lap Around Apache Spark
 
+## Introduction
+
 This tutorial walks you through many of the newer features of Spark 1.6.2 on YARN.
 
 With YARN, Hadoop can now support many types of data and application workloads; Spark on YARN becomes yet another workload running against the same set of hardware resources.
 
-The tutorial describes how to:
-
-* Run Spark on YARN and run the canonical Spark examples: SparkPi and Wordcount.
-* Run Spark 1.6.2 on HDP 2.5
-* Use the Spark DataFrame API.
-* Read/write data from Hive.
-* Use SparkSQL Thrift Server for JDBC/ODBC access.
-* Use ORC files with Spark, with examples.
-* Use SparkR.
-* Use the DataSet API.
-
-When you are ready to go beyond these tasks, checkout the [Apache Spark Machine Learning Library (MLlib) Guide](http://spark.apache.org/docs/latest/mllib-guide.html).
-
-### Prerequisites
+## Prerequisites
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
-*   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-
+-   Downloaded and Installed [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 **Set SPARK_HOME**
 
@@ -40,7 +28,19 @@ If you haven't already, make sure to set `SPARK_HOME` before proceeding:
 export SPARK_HOME=/usr/hdp/current/spark-client
 ~~~
 
-### Run the Spark Pi Example
+## Outline
+
+-   [Run the Spark Pi Example](#run-the-spark-pi-example)
+-   [Perform WordCount with Spark](#perform-wordcount-with-spark)
+-   [Running Hive UDF](#running-hive-udf)
+-   [Reading & Writing ORC Files](#reading-writing-orc-files)
+-   [Using SparkSQL Thrift Server for JDBC/ODBC Access](#using-sparksql-thrift-server-for-jdbc-odbc-access)
+-   [Running SparkR](#running-sparkr)
+-   [Using the DataSet API](#using-the-dataset-api)
+-   [Running the Machine Learning Spark Application](#running-the-machine-learning-spark-application)
+-   [Further Reading](#further-reading)
+
+## Run the Spark Pi Example
 
 To test compute intensive tasks in Spark, the Pi example calculates pi by “throwing darts” at a circle. The example points in the unit square ((0,0) to (1,1)) and sees how many fall in the unit circle. The fraction should be pi/4, which is used to estimate Pi.
 
@@ -56,7 +56,6 @@ root@sandbox# cd /usr/hdp/current/spark2-client
 root@sandbox spark2-client# su spark
 spark@sandbox spark2-client$ ./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 examples/jars/spark-examples*.jar 10
 ~~~
-
 
 **Spark 1.6.x**
 
@@ -78,7 +77,7 @@ Pi is roughly 3.143648
 ...
 ~~~
 
-### Perform WordCount with Spark
+## Perform WordCount with Spark
 
 **Copy input file for Spark WordCount Example**
 
@@ -363,7 +362,7 @@ Name: Justin
 scala>
 ~~~
 
-### Running Hive UDF
+## Running Hive UDF
 
 Hive has a built-in UDF collection `collect_list(col)`, which returns a list of objects with duplicates.
 
@@ -450,14 +449,13 @@ You should see output similar to the following:
 scala>
 ~~~
 
-### Reading & Writing ORC Files
+## Reading & Writing ORC Files
 
 Hortonworks worked in the community to bring full ORC support to Spark. Recently we blogged about using [ORC with Spark](https://hortonworks.com/blog/bringing-orc-support-into-apache-spark/). See the blog post for all ORC examples, with advances such as partition pruning and predicate pushdown.
 
-### Using SparkSQL Thrift Server for JDBC/ODBC Access
+## Using SparkSQL Thrift Server for JDBC/ODBC Access
 
 SparkSQL’s thrift server provides JDBC access to SparkSQL.
-
 
 **Create logs directory**
 
@@ -469,7 +467,6 @@ chown spark:hadoop logs
 ~~~
 
 **Start Thrift Server**
-
 
 ~~~ bash
 su spark
@@ -493,8 +490,8 @@ On the `beeline>` prompt type:
 ~~~
 
 ***Notes***
-* This example does not have security enabled, so any username-password combination should work.
-* The connection may take a few seconds to be available in a Sandbox environment.
+- This example does not have security enabled, so any username-password combination should work.
+- The connection may take a few seconds to be available in a Sandbox environment.
 
 You should see an output similar to the following:
 
@@ -538,7 +535,7 @@ Type `Ctrl+C` to exit beeline.
 ./sbin/stop-thriftserver.sh
 ~~~
 
-### Running SparkR
+## Running SparkR
 
 **Prerequisites**
 
@@ -637,7 +634,7 @@ To exit SparkR type:
 quit()
 ~~~
 
-### Using the DataSet API
+## Using the DataSet API
 
 The Spark Dataset API brings the best of RDD and Data Frames together, for type safety and user functions that run directly on existing JVM types.
 
@@ -688,7 +685,7 @@ scala>
 
 To exit type `exit`.
 
-### Running the Machine Learning Spark Application
+## Running the Machine Learning Spark Application
 
 To optimize MLlib performance, install the [netlib-java](https://github.com/fommil/netlib-java) native library. If this native library is not available at runtime, you will see a warning message and a pure JVM implementation will be used instead.
 
@@ -696,7 +693,10 @@ To use MLlib in Python, you will need [NumPy](http://www.numpy.org/) version 1.4
 
 For Spark ML examples, visit: http://spark.apache.org/docs/latest/mllib-guide.html.
 
-### Additional Resources
+## Further Reading
+
+Checkout the [Apache Spark Machine Learning Library (MLlib) Guide](http://spark.apache.org/docs/latest/mllib-guide.html).
+
 For more tutorials on Spark, visit: [https://hortonworks.com/tutorials](https://hortonworks.com/tutorials).
 
 If you have questions about Spark and Data Science, checkout the [Hortonworks Community Connection](https://community.hortonworks.com/spaces/85/data-science.html?type=question).

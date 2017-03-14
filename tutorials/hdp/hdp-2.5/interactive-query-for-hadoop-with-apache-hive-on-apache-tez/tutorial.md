@@ -7,7 +7,7 @@ tags: [hive, tez, ambari]
 
 # Interactive Query for Hadoop with Apache Hive on Apache Tez
 
-### Introduction
+## Introduction
 
 In this tutorial, we’ll focus on taking advantage of the improvements to [Apache Hive](https://hortonworks.com/hadoop/hive) and [Apache Tez](https://hortonworks.com/hadoop/tez) through the work completed by the community as part of the [Stinger initiative](https://hortonworks.com/labs/stinger). These features will be discussed in this tutorial:
 
@@ -18,9 +18,9 @@ In this tutorial, we’ll focus on taking advantage of the improvements to [Apac
 *   SQL Compliance Improvements
 
 ## Prerequisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
-*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*  Allow yourself around one hour to complete this tutorial
+-  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
+-  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-  Allow yourself around one hour to complete this tutorial
 
 ## Outline
 - [Step 1: Download Data](#download-data)
@@ -39,13 +39,13 @@ In this tutorial, we’ll focus on taking advantage of the improvements to [Apac
 - [Summary](#summary)
 - [Further Reading](#further-reading)
 
-### Step 1: Download Data <a id="download-data"></a>
+## Step 1: Download Data <a id="download-data"></a>
 
 Download the driver data file from [here](assets/driver_data.zip).
 
 Once you have the file you will need to unzip the file into a directory. We will be uploading two csv files - drivers.csv and timesheet.csv.
 
-### Step 2: Upload Data Using HDFS Files View<a id="upload_data_using_hdfs"></a>
+## Step 2: Upload Data Using HDFS Files View<a id="upload_data_using_hdfs"></a>
 
 Let’s use the above two csv files `(drivers.csv and timesheet.csv)` to create two new tables using the following step. Navigate to http://sandbox.hortonworks.com:8080 using your browser. Click the HDFS `Files view` from the dropdown menu.
 
@@ -60,7 +60,7 @@ Upload the two files under `/tmp/data` using `Upload` at the top of the screen
 
 ![uploaded_files](assets/uploaded_files.png)
 
-### Step 3: Create Hive Queries <a id="create-hive-queries"></a>
+## Step 3: Create Hive Queries <a id="create-hive-queries"></a>
 
 Now head on over to the `Hive view`
 
@@ -69,7 +69,7 @@ Now head on over to the `Hive view`
 We will now use hive and create the two tables. They will be named per the csv file names : `drivers` and `timesheet`.
 Use the following two queries to create the tables a then load the data
 
-#### 3.1 Create Table drivers
+### 3.1 Create Table drivers
 
 ~~~
 create table drivers
@@ -85,7 +85,7 @@ STORED AS TEXTFILE
 TBLPROPERTIES("skip.header.line.count"="1");
 ~~~
 
-#### 3.2 Create Table timesheet
+### 3.2 Create Table timesheet
 
 ~~~
 create table timesheet
@@ -107,7 +107,7 @@ Go to the `Database Explorer` and `Refresh`, then click on `default` database.
 
 We’re are now going to load the data into the two tables using the `LOAD DATA INPATH` Hive command
 
-#### 3.3 Load Data into Query Tables
+### 3.3 Load Data into Query Tables
 
 ~~~
 LOAD DATA INPATH '/tmp/data/drivers.csv' OVERWRITE INTO TABLE drivers;
@@ -118,13 +118,13 @@ You should now be able to obtain results when selecting small amounts of data fr
 
 ![select_data_drivers](assets/select_data_drivers.png)
 
-### Speed Improvements <a id="speed-improvements"></a>
+## Speed Improvements <a id="speed-improvements"></a>
 
 To take a look at the speed improvements of Hive on Tez, we can run some sample queries. For this we will use the above two tables – hvac and building.
 
 By default, the Hive view runs with Tez as it's execution engine. That's because Tez has great speed improvements over the original MapReduce execution engine. But by how much exactly are these improvements? Well let's find out!
 
-### Step 4: Configure MapReduce as Execution Engine in Hive view Settings Tab <a id="configure-mapreduce-engine-in-hive-settings"></a>
+## Step 4: Configure MapReduce as Execution Engine in Hive view Settings Tab <a id="configure-mapreduce-engine-in-hive-settings"></a>
 
 Click on the Hive view `Settings` tab. Then we’re going to need to add new settings.
 
@@ -138,7 +138,7 @@ Add one more property - `hive.auto.convert.join` and for its value, select `Fals
 
 ![hive_auto_convert_join](assets/hive_auto_convert_join.png)
 
-### Step 5: Test Query on MapReduce Engine <a id="test-query-mapreduce-engine"></a>
+## Step 5: Test Query on MapReduce Engine <a id="test-query-mapreduce-engine"></a>
 
 We are now going to test a query using MapReduce as our execution engine. Execute the following query and wait for the results.
 
@@ -152,13 +152,13 @@ on d.driverId = t.driverId;
 
 This query was run using the MapReduce framework.
 
-### Step 6: Configure Tez as Execution Engine in Hive view Settings Tab <a id="configure-tez-engine-in-hive-settings"></a>
+## Step 6: Configure Tez as Execution Engine in Hive view Settings Tab <a id="configure-tez-engine-in-hive-settings"></a>
 
 Now we can enable Hive on Tez execution and take advantage of Directed Acyclic Graph (DAG) execution representing the query instead of multiple stages of MapReduce program which involved a lot of synchronization, barriers and IO overheads. This is improved in Tez, by writing intermediate data set into memory instead of hard disk.
 
 Head back to the **Settings** in the Hive view and now change the `hive.execution.engine` to `tez`.
 
-### Step 7: Test Query on Tez Engine <a id="test-query-on-tez-engine"></a>
+## Step 7: Test Query on Tez Engine <a id="test-query-on-tez-engine"></a>
 
 Run the same query as we had run earlier in Step 5, to see the speed improvements with Tez.
 
@@ -179,7 +179,7 @@ Notice that the results will have appeared much quicker while having the executi
 
 Congratulations! You have successfully run your Hive on Tez Job.
 
-### Step 8: Execute Query as MapReduce Then Tez Engine <a id="execute-query-mapreduce-tez-engine"></a>
+## Step 8: Execute Query as MapReduce Then Tez Engine <a id="execute-query-mapreduce-tez-engine"></a>
 
 Now let’s try a new query to work with
 
@@ -196,7 +196,7 @@ Here is the result.
 
 To experience this further, you could use your own dataset, upload to your HDP Sandbox using steps above and execute with and without Tez to compare the difference.
 
-### Step 9: Track Hive on Tez Jobs <a id="track-hive-on-tez-jobs"></a>
+## Step 9: Track Hive on Tez Jobs <a id="track-hive-on-tez-jobs"></a>
 
 You can track your Hive on Tez jobs in HDP Sandbox Web UI as well. Please go to : [http://127.0.0.1:8088/cluster](http://127.0.0.1:8088/cluster) and track your jobs while running or post to see the details.
 
@@ -204,7 +204,7 @@ You can track your Hive on Tez jobs in HDP Sandbox Web UI as well. Please go to 
 
 You can click on your job and see further details.
 
-### Stats & Cost Based Optimization (CBO) <a id="stats-cost-optimization"></a>
+## Stats & Cost Based Optimization (CBO) <a id="stats-cost-optimization"></a>
 
 Cost Based Optimization(CBO) engine uses statistics within Hive tables to produce optimal query plans.
 
@@ -298,11 +298,11 @@ Try clicking on the different parts above, such as **Graphical View** and explor
 
 ![graphical_view_dag](assets/graphical_view_dag.png)
 
-### SQL Compliance <a id="sql-compliance"></a>
+## SQL Compliance <a id="sql-compliance"></a>
 
 There are several SQL query enhancements in this version of Hive.
 
-#### Query Enhancements Support extensions:
+### Query Enhancements Support extensions:
 
 *   Expanded Join Semantics – Supports from table1, table2 where table1.col1=table2.col2
 *   IN, NOT IN subqueries in WHERE Clause
@@ -311,7 +311,7 @@ There are several SQL query enhancements in this version of Hive.
 *   Common Table Expressions (CTE)
 *   The CHAR datatype – trailing White Space
 
-#### Authorization System enhancements:
+### Authorization System enhancements:
 
 *   SQL Authorizations : Actions
     *   Grant/Revoke
@@ -324,10 +324,10 @@ There are several SQL query enhancements in this version of Hive.
             *   Create Roles & Grant with admin option
             *   Using views to restrict data visibility
 
-### Summary <a id="summary"></a>
+## Summary <a id="summary"></a>
 
 You learned to perform basic hive queries, compared Hive on MapReduce and Tez Engine
 
-### Further Reading <a id="further-reading"></a>
+## Further Reading <a id="further-reading"></a>
 - [Apache Hive](https://hortonworks.com/hadoop/hive/)
 - [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)

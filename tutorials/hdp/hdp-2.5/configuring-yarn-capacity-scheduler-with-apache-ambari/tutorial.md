@@ -5,9 +5,11 @@ platform: hdp-2.5.0
 tags: [ambari]
 ---
 
-In this tutorial we are going to explore how we can configure YARN Capacity Scheduler from Ambari.
+# Configuring Yarn Capacity Scheduler with Apache Ambari
 
 ## Introduction
+
+In this tutorial we are going to explore how we can configure YARN Capacity Scheduler from Ambari.
 
 YARN's Capacity Scheduler is designed to run Hadoop applications in a shared, multi-tenant cluster while maximizing the throughput and the utilization of the cluster.
 
@@ -29,13 +31,12 @@ To provide further control and predictability on sharing of resources, the Capac
 
 ## Outline
 
-- [1: Configuring the Capacity Scheduler](#configure-scheduler)
-- [2: Rollback the Configuration Version](#rollback-version)
-- [Summary](#summary)
-- [HCC Articles](#hcc)
+-   [Configuring the Capacity Scheduler](#configure-scheduler)
+-   [Rollback the Configuration Version](#rollback-version)
+-   [Summary](#summary)
+-   [Further Reading](#further-reading)
 
-
-### 1. Configuring the Capacity Scheduler <a id="configure-scheduler"></a>
+## Configuring the Capacity Scheduler <a id="configure-scheduler"></a>
 
 After you spin up the Hortonworks Sandbox, login to Ambari. The user credentials are **raj_ops/raj_ops**.
 
@@ -171,7 +172,7 @@ and then go back to the Resource Manager UI  and refresh the page. Voila! Thereâ
 
 Now restart other services from Ambari which need a restart.
 
-### 2. Rollback the Configuration Version <a id="rollback-version"></a>
+## Rollback the Configuration Version <a id="rollback-version"></a>
 
 You can also rollback to the previous set of configurations.  Just hover on the previous version and click `Make Current`.
 
@@ -181,10 +182,9 @@ You can also rollback to the previous set of configurations.  Just hover on the 
 
 So in this tutorial, you learned how to configure different queues and allotment of resources to those queues. Hope this brief tour of using YARN's Capacity Scheduler gave you some ideas on how to achieve better utilization of Hadoop clusters.
 
-## HCC Articles <a id="hcc"></a>
+## Further Reading
 
 Check out some Hortonworks Community Connection articles to explore more about Capacity Scheduler:
 
-1\. [Yarn Queues - No Capacity Scheduler View](https://community.hortonworks.com/articles/4864/yarn-queues-no-capacity-scheduler-view.html)
-
-2\. [Control User Access to Capacity Scheduler Queues](https://community.hortonworks.com/articles/3229/capacity-scheduler-users-can-submit-to-any-queue.html)
+1. [Yarn Queues - No Capacity Scheduler View](https://community.hortonworks.com/articles/4864/yarn-queues-no-capacity-scheduler-view.html)
+2. [Control User Access to Capacity Scheduler Queues](https://community.hortonworks.com/articles/3229/capacity-scheduler-users-can-submit-to-any-queue.html)

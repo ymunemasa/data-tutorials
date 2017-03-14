@@ -7,14 +7,14 @@ tags: [ambari, pig]
 
 # How To Process Data with Apache Pig
 
-### Introduction
+## Introduction
 
 In this tutorial, we will learn to store data files using Ambari HDFS Files View. We will implement pig latin scripts to process, analyze and manipulate data files of truck drivers statistics. Let's build our own Pig Latin Scripts now.
 
 ## Prerequisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
-*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*  Allow yourself around one hour to complete this tutorial
+-  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
+-  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-  Allow yourself around one hour to complete this tutorial
 
 ## Outline
 - [What is Pig?](#what-is-pig)
@@ -22,9 +22,9 @@ In this tutorial, we will learn to store data files using Ambari HDFS Files View
 - [Our Data Processing Task](#our-data-processing-task)
 - [Step 1: Download The Data](#downloading-the-data)
 - [Step 2: Upload The Data Files](#uploading-data-files)
-- [Step 3: Create Pig Script and Run it on MapReduce](#create-pig-script)
+- [Step 3: Create Pig Script](#create-pig-script)
 - [Full Pig Latin Script for Exercise](#full-pig-script)
-- [Step 4: Run the Pig Script on Tez](#run-pig-script-tez)
+- [Step 4: Run Pig Script on Tez](#run-pig-script-tez)
 - [Further Reading](#further-reading)
 
 ## What is Pig? <a id="what-is-pig"></a>
@@ -43,12 +43,12 @@ Tez – Hindi for “speed” provides a general-purpose, highly customizable fr
 
 We are going to read in a truck driver statistics files. We are going to compute the sum of hours and miles logged driven by a truck driver for an year. Once we have the sum of hours and miles logged, we will extend the script to translate a driver id field into the name of the drivers by joining two different files.
 
-### Step 1: Download The Data <a id="downloading-the-data"></a>
+## Step 1: Download The Data <a id="downloading-the-data"></a>
 
 Download the driver data file from [here](assets/driver_data.zip).
 Once you have the file you will need to `unzip` the file into a directory. We will be uploading two csv files - `drivers.csv` and `timesheet.csv`.
 
-### Step 2: Upload the data files <a id="uploading-data-files"></a>
+## Step 2: Upload the data files <a id="uploading-data-files"></a>
 
 We start by selecting the `HDFS Files view` from the Off-canvas menu at the top. The `HDFS Files view` allows us to view the Hortonworks Data Platform(HDP) file store. This is separate from the local file system. For the Hortonworks Sandbox, it will be part of the file system in the Hortonworks Sandbox VM.
 
@@ -62,7 +62,7 @@ Click on the browse button to open a dialog box. Navigate to where you stored th
 
 ![uploaded_files](assets/uploaded_files.png)
 
-### Step 3: Create Pig Script <a id="create-pig-script"></a>
+## Step 3: Create Pig Script <a id="create-pig-script"></a>
 
 Now that we have our data files, we can start writing our `Pig script`. Click on the `Pig View` from the Off-canvas menu.
 
@@ -70,20 +70,20 @@ Now that we have our data files, we can start writing our `Pig script`. Click on
 
 You can also explore **Grunt shell** from the terminal which is used to write Pig Latin scripts. There are 3 execute modes of accessing Grunt shell:
 
-1\. local - Type `pig -x local` to enter the shell
-2\. mapreduce - Type `pig -x mapreduce` to enter the shell
-3\. tez - Type `pig -x tez` to enter the shell
+1. local - Type `pig -x local` to enter the shell
+2. mapreduce - Type `pig -x mapreduce` to enter the shell
+3. tez - Type `pig -x tez` to enter the shell
 
 Default is mapreduce, so if you just type `pig`, it will use mapreduce as the execution mode.
 Explore this [link](https://pig.apache.org/docs/r0.16.0/cmds.html) to explore more about the grunt shell.
 
-#### 3.1 Explore the Pig User Interface
+### 3.1 Explore the Pig User Interface
 
 We see the `Pig user interface` in our browser window. On the left we can choose between our `saved Pig  Scripts`,  `UDFs`  and the `Pig  Jobs` executed in the past. To the right of this menu bar we see our `saved Pig  Scripts`.
 
 ![pig_view_home_page](assets/pig_view_home_page.png)
 
-#### 3.2 Create a New Script
+### 3.2 Create a New Script
 
 To get started push the button `"New Script"` at the top right and fill in a name for your script. If you leave the gap “Script HDFS Location” empty, it will be filled automatically.
 
@@ -95,7 +95,7 @@ At the left are buttons to save, copy or delete the script and at the very botto
 
 ![new_script_page](assets/new_script_page.png)
 
-#### 3.3 Create a Script to Load drivers.csv Data
+### 3.3 Create a Script to Load drivers.csv Data
 
 The first thing we need to do is load the data. We use the load statement for this. The `PigStorage` function is what does the loading and we pass it a `comma` as the data `delimiter`. Our code is:
 
@@ -105,7 +105,7 @@ drivers = LOAD 'drivers.csv' USING PigStorage(',');
 
 ![load_driver_data](assets/load_driver_data.png)
 
-#### 3.4 Create a Script to Filter Out Data
+### 3.4 Create a Script to Filter Out Data
 
 To filter out the first row of the data we have to add this line:
 
@@ -115,7 +115,7 @@ raw_drivers = FILTER drivers BY $0>1;
 
 ![filter_driver_data](assets/filter_driver_data.png)
 
-#### 3.5 Implement a Script to Name the Fields
+### 3.5 Implement a Script to Name the Fields
 
 The next thing we want to do is name the fields. We will use a `FOREACH` statement to iterate through the raw_drivers data object. We can use `Pig  Helper` that is at the bottom of the composition area to provide us with a template. We will click on `Pig  Helper`, select Data processing functions and then click on the `FOREACH template`. We can then replace each element by hitting the tab key.
 
@@ -130,7 +130,7 @@ drivers_details = FOREACH raw_drivers GENERATE $0 AS driverId, $1 AS name;
 ![iterate_pulls_fields_driver](assets/iterate_pulls_fields_driver.png)
 
 
-#### 3.6 Perform these operations for timesheet data as well
+### 3.6 Perform these operations for timesheet data as well
 
 Load the `timesheet` data and then filter out the first row of the data to remove column headings and then use `FOREACH` statement to iterate each row and `GENERATE` to pull out selected fields and assign them names.
 
@@ -142,7 +142,7 @@ timesheet_logged = FOREACH raw_timesheet GENERATE $0 AS driverId, $2 AS hours_lo
 
 ![iterate_pulls_fields_timesheet](assets/iterate_pulls_fields_timesheet.png)
 
-#### 3.7 Use Script to Filter The Data (all hours and miles for each driverId)
+### 3.7 Use Script to Filter The Data (all hours and miles for each driverId)
 
 The next line of code is a `GROUP` statement that groups the elements in `timesheet_logged` by the `driverId` field. So the `grp_logged` object will then be indexed by `driverId`. In the next statement as we iterate through `grp_logged` we will go through driverId by driverId. Type in the code:
 
@@ -152,7 +152,7 @@ grp_logged = GROUP timesheet_logged by driverId;
 
 ![group_timesheet_by_driverId](assets/group_timesheet_by_driverId.png)
 
-#### 3.8 Compose a Script to Find the Sum of Hours and Miles Logged by each Driver
+### 3.8 Compose a Script to Find the Sum of Hours and Miles Logged by each Driver
 
 In the next `FOREACH` statement, we are going to find the sum of hours and miles logged by each driver. The code for this is:
 
@@ -164,7 +164,7 @@ SUM(timesheet_logged.miles_logged) as sum_mileslogged;
 
 ![sum_hours_miles_logged](assets/sum_hours_miles_logged.png)
 
-#### 3.9 Build a Script to join driverId, Name, Hours and Miles Logged
+### 3.9 Build a Script to join driverId, Name, Hours and Miles Logged
 
 Now that we have the sum of hours and miles logged, we need to join this with the `driver_details` data object so we can pick up the name of the driver. The result will be a dataset with `driverId, name, hours logged and miles logged`. At the end we `DUMP` the data to the output.
 
@@ -178,7 +178,7 @@ dump join_data;
 
 Let’s take a look at our script. The first thing to notice is we never really address single rows of data to the left of the equals sign and on the right we just describe what we want to do for each row. We just assume things are applied to all the rows. We also have powerful operators like `GROUP` and `JOIN` to sort rows by a key and to build new data objects.
 
-#### 3.10 Save and Execute The Script
+### 3.10 Save and Execute The Script
 
 At this point we can save our script. Let's execute our code by clicking on the `Execute` button at the top right of the composition area, which opens a new page.
 
@@ -194,7 +194,7 @@ If you scroll down to the “Logs…” and click on the link you can see the lo
 
 **NOTE : Notice, in the Logs, the script typically takes a little around 47 seconds to finish on our single node pseudo cluster.**
 
-##### Code Recap
+### Code Recap
 
 So we have created a simple `Pig script` that **reads in some comma separated data**.
 Once we have that set of records in Pig we **pull out the driverId, hours logged and miles logged fields from each row.**
@@ -222,7 +222,7 @@ join_data = FOREACH join_sum_logged GENERATE $0 as driverId, $4 as name, $1 as h
 dump join_data;
 ~~~
 
-### Step 4: Run Pig Script on Tez <a id="run-pig-script-tez"></a>
+## Step 4: Run Pig Script on Tez <a id="run-pig-script-tez"></a>
 
 Let’s run the same Pig script with Tez by clicking on `Execute on Tez` button near the `Execute` button:
 

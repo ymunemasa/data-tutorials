@@ -5,21 +5,29 @@ platform: hdp-2.5.0
 tags: [spark, zeppelin]
 ---
 
+# Interacting with Data on HDP using Apache Zeppelin and Apache Spark
+
+## Introduction
+
 In this tutorial, we are going to walk through the process of using Apache Zeppelin and Apache Spark to interactively analyze data on a Apache Hadoop Cluster. In particular, you will learn:
 
 1.  How to interact with Apache Spark from Apache Zeppelin
 2.  How to read a text file from HDFS and create a RDD
 3.  How to interactively analyze a data set through a rich set of Spark API operations
 
-### Prerequisites
+## Prerequisites
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Downloaded and Installed [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
-*   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*   Finally, make sure to review a quick tutorial on [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md).
+-   Downloaded and Installed [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   Finally, make sure to review a quick tutorial on [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md).
 
-**Create a Notebook**
+## Outline
+-   [Create a Notebook](#create-a-notebook)
+-   [Summary](#summary)
+
+## Create a Notebook
 
 If you're new to Zeppelin, make sure to checkout the [Getting Started Guide](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md) before proceeding.
 
@@ -208,4 +216,5 @@ keys.collect().foreach(println)
 
 ![](assets/68747470733a2f2f7777772e676f6f676c6564726976652e636f6d2f686f73742f30427a686c4f79776e4f707138626d6456566e4e754d5559334e484d3f7261773d74727565.png)
 
+## Summary
 I hope this has proved informative and that you have enjoyed this simple example of how you can interact with Data on HDP using Scala and Apache Spark.

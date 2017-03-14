@@ -5,11 +5,13 @@ platform: hdp-2.5.0
 tags: [hbase, phoenix, odbc, tableau]
 ---
 
-## Overview
+# HBase Reporitng with Apache Phoenix via ODBC
+
+## Introduction
 
 **Apache HBase** is a NoSQL database in the Hadoop eco-system. Many business intelligence tool and data analytic tools lack the ability to work with HBase data directly. **Apache Phoenix** enables you to interact with HBase using SQL. In **HDP 2.5**, we have introduced support for **ODBC drivers**. With this, you can connect any ODBC applications to HBase via Apache Phoenix. This enables you to use familiar business intelligence tools to run analysis on big datasets.  This tutorial is designed to help you learn how to use business intelligence tool such as Tableau to create data visualization using data in Apache Phoenix. This tutorial goes over the details on how to setup an end to end workflow.
 
-## What you’ll learn from this tutorial
+### What you’ll learn from this tutorial
 
 1. How to launch a Hortonworks Hadoop sandbox (optional)
 2. How to create a table and load data into Apache Phoenix
@@ -18,23 +20,38 @@ tags: [hbase, phoenix, odbc, tableau]
 
 ## Prerequisites
 
-* A deployment of HBase & Phoenix
-In this tutorial, I’ll be using Hortonworks Sandbox, alternatively, you can:
+- A deployment of HBase & Phoenix In this tutorial, I’ll be using Hortonworks Sandbox, alternatively, you can:
+  - Use Microsoft HDInsight
+  - Use Amazon EMR
 
-  * Use Microsoft HDInsight
-  * Use Amazon EMR
 This tutorial will not cover setup for HDInsight or Amazon EMR.
 
-* Tableau installation on Windows
+- Tableau installation on Windows
 
-* ODBC driver for your platform
+- ODBC driver for your platform
 
-  * [Windows (32-bit)](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC32.msi)
-  * [Windows (64-bit)](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC64.msi)
-  * [Linux (32-bit)](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/linux/HortonworksPhoenixODBC-32bit-1.0.0.1000-1.rpm)
-  * [Linux (64-bit)](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/linux/HortonworksPhoenixODBC-64bit-1.0.0.1000-1.rpm)
+  - [Windows (32-bit)](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC32.msi)
+  - [Windows (64-bit)](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC64.msi)
+  - [Linux (32-bit)](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/linux/HortonworksPhoenixODBC-32bit-1.0.0.1000-1.rpm)
+  - [Linux (64-bit)](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/linux/HortonworksPhoenixODBC-64bit-1.0.0.1000-1.rpm)
 
-### Getting and launching the HDP sandbox
+## Outline
+
+-   [Getting and launching the HDP sandbox](#getting-and-launching-the-hdp-sandbox)
+-   [Setting up HBase/Phoenix/Phoenix Query Server](#setting-up-hbase-phoenix-phoenix-query-server)
+-   [Running Phoenix Query Server](#running-phoenix-query-server)
+-   [Setting up port forwarding in VirtualBox](#setting-up-port-forwarding-in-virtualbox)
+-   [Verify you can access Phoenix Query Server](#verify-you-can-access-phoenix-query-server)
+-   [Getting data in](#getting-data-in)
+-   [Find your Phoenix client tools](#find-your-phoenix-client-tools)
+-   [Drop all tables (Optional)](#drop-all-tables-optional)
+-   [Create table and load data](#create-table-and-load-data)
+-   [Getting data out - Windows](#getting-data-out-windows)
+-   [Getting data out - Windows - Tableau](#getting-data-out-windows-tableau)
+-   [Important: Configuration file for Phoenix Query Server](#important-configuration-file-for-phoenix-query-server)
+-   [Further Reading](#further-reading)
+
+## Getting and launching the HDP sandbox
 
 You can get the latest version of VirtualBox here: [https://www.virtualbox.org/wiki/Downloads](https://www.virtualbox.org/wiki/Downloads)
 
@@ -62,7 +79,7 @@ Once you are logged into the shell, run the following command to reset Ambari’
 $>ambari-admin-password-reset
 ~~~
 
-### Setting up HBase/Phoenix/Phoenix Query Server
+## Setting up HBase/Phoenix/Phoenix Query Server
 
 In this section, you’ll learn how to setup HBase, Phoenix and Phoenix Query Server (PQS) using Ambari dashboard.
 
@@ -94,7 +111,7 @@ If they are **Stopped** or showing red, click on `Restart all` to ensure all HBa
 
 It is possible that your HBase instance is stuck in Maintenance Mode. To disable this, click on `Turn Off Maintenance Mode` after restart has completed.
 
-### Running Phoenix Query Server
+## Running Phoenix Query Server
 
 By default, the sandbox doesn’t have the Query Server turned on. To enable this, go to **Hosts**, select the sandbox host and click on `Add` and select `Phoenix Query Server`:
 
@@ -104,7 +121,7 @@ Once installed, scroll down in the host page and find **Phoenix Query Server** t
 
 ![start_phoenix_server](assets/start_phoenix_server.png)
 
-### Setting up port forwarding in VirtualBox
+## Setting up port forwarding in VirtualBox
 
 Phoenix Query Server listens on port **8765** by default. Thus we need to setup port forwarding to make sure we can connect to this port from the VM host.
 Right click on the Hortonworks Sandbox, pick `Settings`
@@ -121,7 +138,7 @@ The rule should have name, protocol=TCP, Host IP=127.0.0.1 and both Host Port an
 
 ![add_port](assets/add_port.png)
 
-### Verify you can access Phoenix Query Server
+## Verify you can access Phoenix Query Server
 
 Go to [http://localhost:8765/](http://localhost:8765/), you should see the following page:
 
@@ -131,7 +148,7 @@ Don’t be alarmed, PQS doesn’t provide a nice welcome page, but it does funct
 
 We are all done with setup, now onto the fun parts!
 
-### Getting data in
+## Getting data in
 
 In this part, we’ll create the basic table schemas in Phoenix and load data into them.
 
@@ -161,7 +178,7 @@ We have 5 tables in total:
 
 We’ll be using **CORP** schema in this tutorial. Thus all tables will have name such as **CORP.STORE** or **CORP.PRODUCT** etc.
 
-### Find your Phoenix client tools
+## Find your Phoenix client tools
 
 ~~~
 cd /usr/hdp/current/phoenix-client/bin
@@ -169,7 +186,7 @@ cd /usr/hdp/current/phoenix-client/bin
 
 In this directory, you should see sqlline.py or psql.py.
 
-### Drop all tables (Optional)
+## Drop all tables (Optional)
 
 If this the second time you are running or you want to reset, you can run this command to drop all tables.
 
@@ -177,7 +194,7 @@ If this the second time you are running or you want to reset, you can run this c
 $>./sqlline.py ~/tableau-odbc-phoenix-tutorial/sql/drop_tables.sql
 ~~~
 
-### Create table and load data
+## Create table and load data
 
 We’ll be using psql.py, which facilitates table creation and bulkload of data.
 
@@ -216,12 +233,13 @@ $>./psql.py -t CORP.FACT_INVENTORY ~/tableau-odbc-phoenix-tutorial/sql/table_fac
 $>./psql.py -t CORP.FACT_SALES ~/tableau-odbc-phoenix-tutorial/sql/table_fact_sales.sql ~/tableau-odbc-phoenix-tutorial/data/sales_fact_1998_out.csv
 ~~~
 
-### Getting data out - Windows
+## Getting data out - Windows
 
 In this step, we’ll setup a connection to the Phoenix Query Server using the ODBC driver on Windows.
 
 Windows
 32-bit: [http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC32.msi](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC32.msi)
+
 64-bit: [http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC64.msi](http://public-repo-1.hortonworks.com/HDP/phoenix-odbc/1.0.0.1000/windows/HortonworksPhoenixODBC64.msi)
 
 After downloading, the driver, follow the instruction to install the driver.
@@ -258,13 +276,13 @@ If you run into error, please leave a comment below and I’ll try to help you o
 
 One common error is when the VM is not reachable from the Windows machine. Try to access http://your.windows.machine:8765 in the web browser to see if you can reach the machine hosting PQS.
 
-### Getting data out - Windows - Tableau
+## Getting data out - Windows - Tableau
 
 Our goal is to generate a map that shows what % of goods sold in Washington state are using recyclable packaging.
 
 ![tableau_image](assets/tableau_image.png)
 
-### Important: Configuration file for Phoenix Query Server
+## Important: Configuration file for Phoenix Query Server
 
 Download “Hortonworks Phoenix ODBC Driver.tdc” from this location:
 [https://github.com/2bethere/tableau-odbc-phoenix-tutorial/tree/master/tdc](https://github.com/2bethere/tableau-odbc-phoenix-tutorial/tree/master/tdc)
@@ -333,14 +351,4 @@ To get better visualization, you can adjust the marks panel. For example, if the
 
 ![click_pie](assets/click_pie.png)
 
-## Coming next
-
-Write an application in your favorite language
-
-## Architecture
-
-The ODBC connector uses the Phoenix Query Server. The driver has support for both Protobuf and JSON serialization mechanisms, but Protobuf serialization should always be used except when there is an explicit reason to not do this.
-
-## Compatibility with older releases
-
-While PQS has been shipped in HDP since 2.3, the compatibility with this connector is not tested for versions older than HDP 2.5. While some basic queries/functionality may appear to operate normally, great care should be taken in using this driver with older HDP versions. Functionality may be incorrect or unimplemented.
+## Further Reading

@@ -5,6 +5,8 @@ platform: hdp-2.5.0
 tags: [falcon, ambari]
 ---
 
+# Mirroring Datasets Between Hadoop Clusters with Apache Falcon
+
 ## Introduction
 
 Apache Falcon is a framework to simplify data pipeline processing and management on Hadoop clusters.
@@ -20,11 +22,11 @@ In this tutorial we are going walk the process of mirroring the datasets between
 - Complete the [Leveraging Apache Falcon with Your Hadoop Clusters](https://github.com/hortonworks/tutorials-future/blob/master/tutorials/hortonworks/create-falcon-cluster-hdp2.5/tutorial.md) tutorial to start the falcon service, prepare HDFS directories for Falcon cluster and to create Falcon cluster entities.
 
 ## Outline
-- [1: Create ambari-qa user](#create-ambari-qa-user)
-- [2: Preparing HDFS Directories](#preparing-hdfs-directories)
-- [3: Setting up the Mirroring Job](#setting-up-mirroring-job)
-- [4: Running the Job](#running-job)
-- [5: Summary](#summary)
+- [1. Create ambari-qa user](#create-ambari-qa-user)
+- [2. Preparing HDFS Directories](#preparing-hdfs-directories)
+- [3. Setting up the Mirroring Job](#setting-up-mirroring-job)
+- [4. Running the Job](#running-job)
+- [Summary](#summary)
 
 ## 1. Create ambari-qa user <a id="create-ambari-qa-user"></a>
 
@@ -157,6 +159,6 @@ After a few minutes, use the HDFS View in the Ambari console to check the `/user
 
 ![test_file_copied](assets/test_file_copied.png)
 
-## 4. Summary <a id="summary"></a>
+## Summary <a id="summary"></a>
 
 In this tutorial we walked through the process of mirroring the datasets between two cluster entities.

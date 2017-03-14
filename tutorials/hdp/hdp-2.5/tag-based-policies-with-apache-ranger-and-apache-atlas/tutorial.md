@@ -5,6 +5,8 @@ platform: hdp-2.5.0
 tags: [atlas, ranger]
 ---
 
+# Tag Based Policies with Apache Ranger and Apache Atlas
+
 ## Introduction
 
 Hortonworks has recently announced the integration of Apache Atlas and Apache Ranger, and introduced the concept of tag or classification based policies. Enterprises can classify data in Apache Atlas and use the classification to build security policies in Apache Ranger.
@@ -18,14 +20,14 @@ This tutorial walks through an example of tagging data in Atlas and building a s
 
 ## Outline
 
-- [1: Start Kafka, HBase, Ambari Infra, Ranger and Atlas](#start-services)
-      - [1.1: View the Services Page](#view-service-page)
-      - [1.2: Start Kafka Service](#start-kafka)
-- [2: General Information](#general-information)
-- [3: Sample Ranger Policy for Different User Personas](#sample-ranger-policy)
-- [4: Access Without Tag Based Policies](#access-without-tag)
-- [5: Create Tag and Tag Based Policy](#create-tag-based-policy)
-- [6: Summary](#summary)
+- [1. Start Kafka, HBase, Ambari Infra, Ranger and Atlas](#start-services)
+      - [1.1 View the Services Page](#view-service-page)
+      - [1.2 Start Kafka Service](#start-kafka)
+- [2. General Information](#general-information)
+- [3. Sample Ranger Policy for Different User Personas](#sample-ranger-policy)
+- [4. Access Without Tag Based Policies](#access-without-tag)
+- [5. Create Tag and Tag Based Policy](#create-tag-based-policy)
+- [Summary](#summary)
 
 ## 1. Start Kafka, HBase, Ambari Infra, Ranger and Atlas <a id="start-services"></a>
 
@@ -39,7 +41,7 @@ From the Dashboard page of Ambari, click on Kafka from the list of installed ser
 
 ![new_select_kafka](assets/new_select_kafka.png)
 
-### 1.2 Start Kafka Service <a id="start kafka"></a>
+### 1.2 Start Kafka Service <a id="start-kafka"></a>
 
 From the Kafka page, click on `Service Actions -> Start`
 
@@ -335,7 +337,7 @@ The query executes successfully. The query can be checked in the Ranger audit lo
 
 > **NOTE**: There are 2 policies which provided access to raj_ops user, one is a tag based policy and the other is hive resource based policy. The associated tags (PII) is also denoted in the tags column in the audit record).
 
-## 6. Summary <a id="summary"></a>
+## Summary <a id="summary"></a>
 
 Ranger traditionally provided group or user based authorization for resources such as table, column in Hive or a file in HDFS.
 With the new Atlas -Ranger integration, administrators can conceptualize security policies based on data classification, and not necessarily in terms of tables or columns. Data stewards can easily classify data in Atlas and use in the classification in Ranger to create security policies.

@@ -5,20 +5,20 @@ platform: hdp-2.5.0
 tags: [hive, ambari, tableau]
 ---
 
-##Introduction
+# Interactive SQL on Hadoop with Hive LLAP
+
+## Introduction
 
 **Hive LLAP** combines persistent query servers and intelligent in-memory caching to deliver blazing-fast SQL queries without sacrificing the scalability Hive and Hadoop are known for. This tutorial will show you how to try LLAP on your HDP 2.5 Sandbox and experience its interactive performance firsthand using a BI tool of your choice (`Tableau` will be show in the demo but others will work as well).
 
 ![hive_llap_architecture](assets/hive_llap_architecture.png)
 
-## Benefits of Hive LLAP include:
+### Benefits of Hive LLAP include:
 
-1\. LLAP uses persistent query servers to avoid long startup times and deliver fast SQL.
-2\. LLAP shares its in-memory cache among all SQL users, maximizing the use of this scarce resource.
-3\. LLAP has fine-grained resource management and preemption, making it great for highly concurrent access across many users.
-4\. LLAP is 100% compatible with existing Hive SQL and Hive tools.
-
-This tutorial assumes you have a **16GB** (or more) laptop and does its best to maximize available resources. Since this is relatively limited, if you’re looking to try Hive LLAP at big data scales, check out the LLAP template on the cloud.
+1. LLAP uses persistent query servers to avoid long startup times and deliver fast SQL.
+2. LLAP shares its in-memory cache among all SQL users, maximizing the use of this scarce resource.
+3. LLAP has fine-grained resource management and preemption, making it great for highly concurrent access across many users.
+4. LLAP is 100% compatible with existing Hive SQL and Hive tools.
 
 ## Goals and Objectives
 
@@ -26,23 +26,20 @@ The goal of this tutorial is to learn how to enable interactive SQL query perfor
 
 ## Prerequisites
 
-1\. This tutorial requires the HDP 2.5 Sandbox.  The HDP 2.5 Sandbox can be downloaded at https://hortonworks.com/products/sandbox/
-
-2\. If you are not familiar HDP 2.5 Sandbox, the following tutorial provides an introduction:
+-   This tutorial requires the HDP 2.5 Sandbox. The HDP 2.5 Sandbox can be downloaded at https://hortonworks.com/products/sandbox/
+-   If you are not familiar HDP 2.5 Sandbox, the following tutorial provides an introduction:
 [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-
-`Hive LLAP` is a Technical Preview feature in the HDP 2.5 Sandbox. This tutorial requires making some configurations to the Sandbox and allocating additional resources. In order to run this tutorial you will need to be able to allocate **12 GB RAM** to the Sandbox VM.
-
-This tutorial also requires **Tableau version 9.X** or later.
-
+-   This tutorial assumes you have a **16GB** (or more) laptop and does its best to maximize available resources. Since this is relatively limited, if you’re looking to try Hive LLAP at big data scales, check out the LLAP template on the cloud.
+-   `Hive LLAP` is a Technical Preview feature in the HDP 2.5 Sandbox. This tutorial requires making some configurations to the Sandbox and allocating additional resources. In order to run this tutorial you will need to be able to allocate **12 GB RAM** to the Sandbox VM.
+-   This tutorial also requires **Tableau version 9.X** or later.
 
 ## Outline
 
-- [1: Hive LLAP Sandbox Setup](#hive_llap_sandbox_setup)
-- [2: Connect with a BI Tool and Run Queries](#connect_with_bi_tool)
-- [3: Connect LLAP to the Large Dataset (Optional, Advanced)](#connect_llap)
-- [4: Enhanced Monitoring for Hive and LLAP](#enhanced_monitoring)
-- [5: References and Resources](#references)
+- [1. Hive LLAP Sandbox Setup](#hive_llap_sandbox_setup)
+- [2. Connect with a BI Tool and Run Queries](#connect_with_bi_tool)
+- [3. Connect LLAP to the Large Dataset (Optional, Advanced)](#connect_llap)
+- [4. Enhanced Monitoring for Hive and LLAP](#enhanced_monitoring)
+- [Further Reading](#further-reading)
 
 ## 1. Hive LLAP Sandbox Setup <a id="hive_llap_sandbox_setup"></a>
 
@@ -289,7 +286,6 @@ There are 8 total tables here and for a realistic experience we should load all 
 | 7 |  part | Join Ps_Partkey to P_Partkey |
 | 8 |    supplier   |   Join Ps_Suppkey to S_Suppkey |
 
-
 It is important to ensure these join conditions are established properly. If they aren’t, queries will run very slow. When you’re done, the table associations should look like this:
 
 ![table_association](assets/table_association.png)
@@ -318,7 +314,8 @@ This Tez View also includes a new Vertex Swimlane view for critical path analysi
 
 ![tez_all_dags_vertex_swimlane](assets/tez_all_dags_vertex_swimlane.png)
 
-## 5. References and Resources <a id="references"></a>
+## Further Reading
 
 If you’re just getting started with Hive and want to learn about its SQL capabilities or data access options, see [Getting Started with Apache Hive](https://cwiki.apache.org/confluence/display/Hive/GettingStarted) on the wiki.
+
 For a high-level overview of Hive 2, watch [Apache Hive 2.0: SQL Speed Scale](http://www.slideshare.net/HadoopSummit/apache-hive-20-sql-speed-scale).
