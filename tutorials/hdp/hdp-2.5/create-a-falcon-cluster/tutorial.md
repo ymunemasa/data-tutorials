@@ -1,9 +1,11 @@
 ---
-title: Leveraging Apache Falcon with Your Hadoop Clusters
+title: Create a Falcon Cluster
 tutorial-id: 670
 platform: hdp-2.5.0
 tags: [falcon, ambari]
 ---
+
+# Create a Falcon Cluster
 
 ## Introduction
 
@@ -11,8 +13,8 @@ Apache Falcon is a framework to simplify data pipeline processing and management
 
 It makes it much simpler to onboard new workflows/pipelines, with support for late data handling and retry policies. It allows you to easily define relationship between various data and processing elements and integrate with metastore/catalog such as Hive/HCatalog. Finally it also lets you capture lineage information for feeds and processes. In this tutorial, we are going to create a Falcon cluster by :
 
-*   Preparing up HDFS directories
-*   Creating two cluster entities (primaryCluster and backupCluster)
+-   Preparing up HDFS directories
+-   Creating two cluster entities (primaryCluster and backupCluster)
 
 ## Prerequisite
 
@@ -24,17 +26,17 @@ Once you have downloaded the Hortonworks Sandbox and run the VM, navigate to the
 ![ambariHomePage](assets/ambariHomePage.png)
 
 ## Outline
-- [1: Scenario](#scenario)
-- [2: Starting Falcon](#starting-falcon)
-- [3: Create a Ambari Falcon user](#create-ambari-falcon-user)
-- [4: Preparing HDFS Directories](#preparing-hdfs-directories)
-- [5: Creating Cluster Entities](#creating-cluster-entities)
-      - [5.1: Creating primaryCluster Entity using Wizard](#creating-primaryCluster-wizard)
-      - [5.2: Creating primaryCluster Entity using XML](#creating-primaryCluster-XML)
-      - [5.3: Creating backupCluster Entity using Wizard](#creating-backupCluster-wizard)
-      - [5.4: Creating backupCluster Entity using XML](#creating-backupCluster-XML)
-- [6: Summary](#summary)
-- [7: Where do I go next?](#where-do-I-go-next)
+- [1. Scenario](#scenario)
+- [2. Starting Falcon](#starting-falcon)
+- [3. Create a Ambari Falcon user](#create-ambari-falcon-user)
+- [4. Preparing HDFS Directories](#preparing-hdfs-directories)
+- [5. Creating Cluster Entities](#creating-cluster-entities)
+    - [5.1 Creating primaryCluster Entity using Wizard](#creating-primaryCluster-wizard)
+    - [5.2 Creating primaryCluster Entity using XML](#creating-primaryCluster-XML)
+    - [5.3 Creating backupCluster Entity using Wizard](#creating-backupCluster-wizard)
+    - [5.4 Creating backupCluster Entity using XML](#creating-backupCluster-XML)
+- [Summary](#summary)
+- [Further Reading](#further-reading)
 
 ## 1. Scenario <a id="scenario"></a>
 
@@ -388,11 +390,11 @@ Click `Save` to persist the `backupCluster` entity.
 
 ![backup_cluster_xml_save](assets/backup_cluster_xml_save.png)
 
-## 6. Summary <a id="summary"></a>
+## Summary <a id="summary"></a>
 
 In this tutorial we learned how to create cluster entities in Apache Falcon using the Falcon UI. Now go ahead and start creating feeds and processes by exploring more Falcon tutorials.
 
-## 7. Where do I go next? <a id="where-do-I-go-next"></a>
+## Further Reading
 
 You can go to following links to explore other Falcon tutorials:
 
