@@ -1,5 +1,5 @@
 ---
-title: How to Refine and Visualize Server Log Data
+title: Refine and Visualize Server Log Data
 tutorial-id: 200
 platform: hdp-2.5.0
 tags: [nifi, ambari]
@@ -31,14 +31,15 @@ This Hadoop tutorial can be performed with the [Hortonworks Sandbox](https://hor
 - Server log tutorial files (included in this tutorial)
 
 ## Outline
-- [Background](#background)
-- [Step 1 – Configure and Install Hortonworks DataFlow](#install-hdf)
-- [Step 2 - Import the Flow](#import-flow)
-- [Step 3 - Generate the Server Log Data](#generate-server-log-ata)
-- [Step 4 - Visualize Server Log Data with Apache Zeppelin](#visualize-log-data-zeppelin)
-- [Summary](#summary-server-logs)
+-   [Concepts](#concepts)
+-   [Step 1 – Configure and Install Hortonworks DataFlow](#step-1–configure-and-install-hortonworks-dataflow)
+-   [Step 2 - Import the Flow](#import-flow)
+-   [Step 3 - Generate the Server Log Data](#generate-server-log-ata)
+-   [Step 4 - Visualize Server Log Data with Apache Zeppelin](#visualize-log-data-zeppelin)
+-   [Summary](#summary-server-logs)
+-   [Further Reading](#further-reading)
 
-## Overview
+### Overview
 
 - Understand Server Log Data, Become familiar with Server Log Data Use Cases, Hortonworks DataFlow and Apache NiFi
 - Download and configure the script which will generate our server log data
@@ -47,7 +48,7 @@ This Hadoop tutorial can be performed with the [Hortonworks Sandbox](https://hor
 - Import the server log data into Excel.
 - Visualize the server log data using Excel Power View and Apache Zeppelin.
 
-# Background <a id="background"></a>
+## Concepts
 
 ### Server Log Data
 
@@ -91,7 +92,7 @@ A FlowFile can originate from a processor in NiFi. Processors can also receive t
 
 * * *
 
-### Step 1 – Configure and Install Hortonworks DataFlow
+## Step 1 – Configure and Install Hortonworks DataFlow
 
 ### 1.1 - Install NiFi <a id="step1-install-nifi-tutorial0"></a>
 
@@ -112,7 +113,7 @@ Once you enter the NiFi HTML Interface at [http://localhost:9090/nifi](http://lo
 
 * * *
 
-### Step 2 - Import the Flow <a id="import-flow"></a>
+## Step 2 - Import the Flow <a id="import-flow"></a>
 
 We're going to import a pre-made data flow from a template which you can [**download ServerLogGeneratorSecurity.xml**](assets/templates/ServerLogGeneratorSecurity.xml).
 
@@ -126,12 +127,11 @@ Once you've uploaded the template into NiFi you can instantiate it by dragging t
 
 * * *
 
-### Step 3 - Generate the Server Log Data <a id="generate-server-log-ata"></a>
+## Step 3 - Generate the Server Log Data <a id="generate-server-log-ata"></a>
 
 Now that you've imported the data flow and everything it set up, simply click the **Run** at the top of the screen. (Make sure you haven't selected a specific processor, or  else only one of the processors will start)
 
 ![start-flow](assets/step3/start-flow.png)
-
 
 If you receive an error message stating "LzoCodec not found" and "LzopCodec not found" similar to the image below,
 
@@ -215,7 +215,7 @@ SELECT time, ip, country, cast(status as BOOLEAN) FROM firewall_logs LIMIT 100;
 
 * * *
 
-### Step 4 - Visualize Server Log Data with Apache Zeppelin <a id="visualize-log-data-zeppelin"></a>
+## Step 4 - Visualize Server Log Data with Apache Zeppelin <a id="visualize-log-data-zeppelin"></a>
 
 Why is Data Visualization important?
 Helps you analyze network data and determine effective responses to network issues.

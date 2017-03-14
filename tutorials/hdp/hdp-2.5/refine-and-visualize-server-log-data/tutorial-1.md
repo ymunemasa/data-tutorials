@@ -1,15 +1,17 @@
 ---
-title: How to Refine and Visualize Server Log Data
+title: Refine and Visualize Server Log Data
 tutorial-id: 200
 platform: hdp-2.5.0
 tags: [nifi, spark, zeppelin]
 ---
 
+# Refine and Visualize Server Log Data
+
 ## Introduction
 
 In the previous lab, you learned how to use Nifi, Hive and Zeppelin to analyze server logs. In this lab, you will explore Apache Spark to analyze the server logs. Using Spark, we can enhance the power of the log data which come from web servers, files and even user generated data.
 
-## In this tutorial, learn how to:
+### In this tutorial, learn how to:
 
 * Stream server logs and and preparation of data into Hadoop with Hortonworks Dataflow powered by Apache NiFi
 * Use [PySpark](https://spark.apache.org/docs/1.6.2/api/python/pyspark.sql.html) to clean the data
@@ -36,36 +38,35 @@ In the previous lab, you learned how to use Nifi, Hive and Zeppelin to analyze s
 - [Step 7 - Logs Analysis using Spark with Zeppelin](#visualize-log-data-zeppelin)
 - [Summary](#summary)
 - [Further Reading](#further-reading)
-- [HCC Articles](#hcc)
 
-### Dataset <a id="dataset"></a>
+## Dataset <a id="dataset"></a>
 
 Download the dataset [here](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/analyze-server-log-data/logsample.txt).
 
 The dataset which we are going to use in this lab is of NASA-HTTP. It has HTTP requests to the NASA Kennedy Space Center WWW server in Florida.
 The logs are an ASCII file with one line per request, with the following columns:
 
-1\. **host** making the request. A hostname when possible, otherwise the Internet address if the name could not be looked up.
-2\. **timestamp** in the format "DAY MON DD HH:MM:SS YYYY", where **DAY** is the day of the week, **MON** is the name of the       month, **DD** is the day of the month, **HH:MM:SS** is the time of day using a 24-hour clock, and **YYYY** is the year. The timezone is -0400.
-3\. **request** given in quotes.
-4\. **HTTP reply code**.
-5\. **bytes in the reply**.
+1. **host** making the request. A hostname when possible, otherwise the Internet address if the name could not be looked up.
+2. **timestamp** in the format "DAY MON DD HH:MM:SS YYYY", where **DAY** is the day of the week, **MON** is the name of the       month, **DD** is the day of the month, **HH:MM:SS** is the time of day using a 24-hour clock, and **YYYY** is the year. The timezone is -0400.
+3. **request** given in quotes.
+4. **HTTP reply code**.
+5. **bytes in the reply**.
 
-### Step 1 – Configure and Install Hortonworks DataFlow <a id="install-hdf"></a>
+## Step 1 – Configure and Install Hortonworks DataFlow <a id="install-hdf"></a>
 
-#### 1.1 - Install NiFi
+### 1.1 - Install NiFi
 
 NiFi needs to be installed into the Ambari Stack of the Hortonworks Sandbox VirtualBox image because it will be used to activate server log simulator and transport data to HDFS.
 If you do not have NiFi installed on your sandbox, refer to [Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)](https://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#download-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of Analyze Traffic Patterns using Apache Nifi for step-by-step instructions.
 
-#### 1.2 – Start NiFi
+### 1.2 – Start NiFi
 
 To activate the NiFi service, refer to [Step 4: Start NiFi on Sandbox](https://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox) from Tutorial 0: Download, Install, and Start NiFi of Analyze Traffic Patterns using Apache Nifi for step-by-step instructions.
 Once you enter the NiFi HTML Interface at [http://sandbox.hortonworks.com:9090/nifi](http://sandbox.hortonworks.com:9090/nifi), you should see a canvas as below:
 
 ![nifi_html_interface](assets/lab2/nifi_html_interface.png)
 
-### Step 2 - Download Input Data <a id="download-data"></a>
+## Step 2 - Download Input Data <a id="download-data"></a>
 
 First you’re going to need to login to your Sandbox via SSH. If you’re using Virtualbox you can log in with the command:
 
@@ -103,7 +104,7 @@ wget https://raw.githubusercontent.com/hortonworks/tutorials/tutorials/hortonwor
 
 ![download_geofile](assets/lab2/download_geofile.png)
 
-### Step 3 - Import the Workflow <a id="import-flow"></a>
+## Step 3 - Import the Workflow <a id="import-flow"></a>
 
 We’re going to import a data flow from a template which you can download [WebServerLogs.xml](https://raw.githubusercontent.com/hortonworks/tutorials/tutorials/hortonworks/hdp-2.5/analyze-server-log-data/assets/WebServerLogs.xml).
 Use the NiFi interface to upload the flow, and then drag it onto your workspace.
@@ -153,7 +154,7 @@ logsample-${now():format("HHmmssSSS")}-.txt
 
 10\. **PutHDFS Processor** - It writes Flow File to the HDFS directory. The output HDFS directory used here is **/tmp/nifioutput**.
 
-### Step 4 : Run the Workflow <a id="run-flow"></a>
+## Step 4 : Run the Workflow <a id="run-flow"></a>
 
 Make sure you have removed Lzo and Lzop Codec from the list of compression codecs. Refer [this](https://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-server-log-data/#generate-server-log-ata) step to do that.
 Now click `SHIFT` and select the entire workflow, then locate `Start` button in the Operate box and click it.
@@ -164,7 +165,7 @@ You can see your workflow running.
 
 Keep the workflow running for next **10 minutes** so that we have enough data to ingest into Spark.
 
-### Step 5 : Verify NiFi Output Data in HDFS <a id="nifi-output-data"></a>
+## Step 5 : Verify NiFi Output Data in HDFS <a id="nifi-output-data"></a>
 
 Next, logout from **raj_ops** user from Ambari and re-login to Ambari using user credentials **maria_dev/maria_dev**. Click on 9 square menu and select `Files View`:
 
@@ -180,7 +181,7 @@ You would see some content like the one given below. You can easily locate its a
 
 Wait for 10 minutes to store more files like this in the folder. In the meantime, you can re-open Ambari in a new tab and start Spark.
 
-### Step 6 - Turn OFF Maintenance Mode and Open Zeppelin UI <a id="turn-off"></a>
+## Step 6 - Turn OFF Maintenance Mode and Open Zeppelin UI <a id="turn-off"></a>
 
 We will be using Spark version 1.6.2 in this tutorial. Go to **Ambari dashboard**, and follow the steps as mentioned below:
 
@@ -198,9 +199,9 @@ Before moving ahead, **do not forget** to stop the workflow in Nifi. Go back to 
 
 ![stop_all](assets/lab2/stop_all.png)
 
-### Step 7 - Logs Analysis using Spark and Zeppelin <a id="visualize-log-data-zeppelin"></a>
+## Step 7 - Logs Analysis using Spark and Zeppelin <a id="visualize-log-data-zeppelin"></a>
 
-#### 7.1 - Loading External Library
+## 7.1 - Loading External Library
 
 As you explore Zeppelin you will probably want to use one or more external libraries.
 We are going to use the %dep interpreter to import the library. Copy paste the following set of lines in your Zeppelin notebook:
@@ -215,7 +216,7 @@ Then click on `Play` button next to Ready. Alternatively, you can press `Shift+E
 
 ![dep](assets/lab2/dep.png)
 
-#### 7.2 Load the DataFrame from HDFS directory
+### 7.2 Load the DataFrame from HDFS directory
 
 Next, let us create a dataframe in Spark using PySpark. Using **sqlContext.read.format()** here to load the dataframe from the HDFS directory **/tmp/nifioutput**. show() function shows the content of the dataframe,
 
@@ -248,7 +249,7 @@ logs_df.show(truncate=False)
 
 In my case, there are 700 rows in the dataframe. Your count might differ.
 
-#### 7.3 Parse the Timestamp
+### 7.3 Parse the Timestamp
 
 ~~~
 %pyspark
@@ -284,7 +285,7 @@ parsed_df.show()                                    # Displays the results
 
 ![parse_timestamp](assets/lab2/parse_timestamp.png)
 
-#### 7.4 Data Cleaning in Request_Type Column
+### 7.4 Data Cleaning in Request_Type Column
 
 Let us try to do some data cleaning in **Request_Type** column of the parsed_df dataframe. Run the following line to find out how Request_type looks like right now:
 
@@ -308,7 +309,7 @@ path_df.show(truncate=False)                                           # Display
 
 ![show_pathdf](assets/lab2/show_pathdf.png)
 
-#### 7.5 Analysis of Most Frequent Hosts
+### 7.5 Analysis of Most Frequent Hosts
 
 Next, we want to know which hosts has hit the server most times
 
@@ -336,7 +337,7 @@ You can also view this data in the form of charts, click the button which shows 
 
 You can hover in the circle to find out actual count of each hosts. Zeppelin provides other charts like bar chart, area chart, scatter chart, etc. as well.
 
-#### 7.6 Analysis of Response Code
+### 7.6 Analysis of Response Code
 
 Next, we want to know which response code has occurred how many times in the dataframe. Further, we also store the result in the temporary table called **status_count**.
 
@@ -394,7 +395,7 @@ SELECT * FROM success_logs_by_hours_df ORDER BY Hour
 
 ![select_success_logs_by_hour_df](assets/lab2/select_success_logs_by_hour_df.png)
 
-#### 7.7 Data Cleansing in Request_Path
+### 7.7 Data Cleansing in Request_Path
 
 Next, let us find out the extension of resource that was requested by the server or given to the server. We have to extract the **extension** from the Request_Path column. As earlier, we will make use of regular expression:
 
@@ -430,7 +431,7 @@ extension_df.show(truncate=False)                                               
 
 ![show_extension_df2](assets/lab2/show_extension_df2.png)
 
-#### 7.8 Analysis of Type of Extensions
+### 7.8 Analysis of Type of Extensions
 
 Now since we have the type of extensions available with us, we can find out the number of different extensions available in our data set. We will use the same approach of grouping the column and then counting the records in each group
 
@@ -453,7 +454,7 @@ SELECT * FROM extension_df_count ORDER BY count DESC
 
 > EXERCISE FOR YOU - If you see clearly, the gif extension is in both uppercase and lowercase. Try to replace either one of them to make the data more accurate.
 
-##### 7.9 Analysis of Network Traffic per Location
+### 7.9 Analysis of Network Traffic per Location
 
 Let us create a temporary table for the dataframe path_df so that we can visualize from which location, the hits are coming from.
 
@@ -495,18 +496,15 @@ SELECT city, count(city) AS count from path_df where country='United States' GRO
 
 ![select_city](assets/lab2/select_city.png)
 
-### Summary <a id = "summary"></a>
+## Summary <a id = "summary"></a>
 
 In this tutorial, we learned how to use Apache Nifi for data preparation and how to convert the raw server logs to the readable form. Next we learned about how Apache Spark can be used for further cleansing of data. We also used Apache Zeppelin interpreters which allows any language/data-processing-backend to be plugged into it. Currently Apache Zeppelin supports many interpreters such as Apache Spark, Python, JDBC, Markdown and Shell. We used pyspark and sql in this tutorial.
 
-### Further Reading <a id = "further-reading"></a>
+## Further Reading <a id = "further-reading"></a>
 
-1\. [Regular Expression Wiki](https://en.wikipedia.org/wiki/Regular_expression)
-2\. [Apache Nifi User Guide](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html)
-3\. [PySpark SQL Module](https://spark.apache.org/docs/1.6.2/api/python/pyspark.sql.html)
-
-#### HCC Articles <a id = "hcc"></a>
-
-1\. [Nifi Server Logs Geo-Enrichment and Routing](https://community.hortonworks.com/articles/56559/nifi-log-geoenrichment-and-routing.html)
-2\. [Spark RDDs vs Dataframes vs SparkSQL](https://community.hortonworks.com/articles/42027/rdd-vs-dataframe-vs-sparksql.html)
-3\. [Hive on Tez vs PySpark for Web Logs Parsing](https://community.hortonworks.com/articles/52866/hive-on-tez-vs-pyspark-for-weblogs-parsing.html)
+1. [Regular Expression Wiki](https://en.wikipedia.org/wiki/Regular_expression)
+2. [Apache Nifi User Guide](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html)
+3. [PySpark SQL Module](https://spark.apache.org/docs/1.6.2/api/python/pyspark.sql.html)
+4. [Nifi Server Logs Geo-Enrichment and Routing](https://community.hortonworks.com/articles/56559/nifi-log-geoenrichment-and-routing.html)
+5. [Spark RDDs vs Dataframes vs SparkSQL](https://community.hortonworks.com/articles/42027/rdd-vs-dataframe-vs-sparksql.html)
+6. [Hive on Tez vs PySpark for Web Logs Parsing](https://community.hortonworks.com/articles/52866/hive-on-tez-vs-pyspark-for-weblogs-parsing.html)
