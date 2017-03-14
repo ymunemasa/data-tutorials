@@ -5,37 +5,14 @@ platform: hdp-2.5.0
 tags: [knox, webhdfs]
 ---
 
+# Securing Your Hadoop Infrastructure with Apache Knox
+
 ## Introduction
 
 In this tutorial we will walk through the process of
 
-*   Configuring Apache Knox and LDAP services on HDP Sandbox
-*   Run a MapReduce Program using Apache Knox Gateway Server
-
-## What is Apache Knox?
-
-The [Apache Knox Gateway](https://hortonworks.com/hadoop/knox) is a system that provides a single point of authentication and access for Apache™ Hadoop® services. It provides the following features:
-
-*   Single REST API Access Point
-*   Centralized authentication, authorization and auditing for Hadoop REST/HTTP services
-*   LDAP/AD Authentication, Service Authorization and Audit
-*   Eliminates SSH edge node risks
-*   Hides Network Topology
-
-## Layers of Defense for a Hadoop Cluster
-
-*   Perimeter Level Security – Network Security, Apache Knox (gateway)
-*   Authentication : Kerberos
-*   Authorization
-*   OS Security : encryption of data in network and HDFS
-
-Apache Knox can also access a Hadoop cluster over HTTP or HTTPS
-
-## Current Features of Apache Knox
-
-*  Authenticate : by LDAP or Cloud SSO Provider
-*  Provides services for HDFS, HCat, HBase, Oozie, Hive, YARN, and Storm
-*  HTTP access for Hive over JDBC support is available (ODBC driver Support- In Future)
+-   Configuring Apache Knox and LDAP services on HDP Sandbox
+-   Run a MapReduce Program using Apache Knox Gateway Server
 
 ## Prerequisites
 
@@ -44,17 +21,45 @@ Apache Knox can also access a Hadoop cluster over HTTP or HTTPS
 
 ## Outline
 
-- [1: Start Knox and DEMO LDAP service](#start-knox)
-- [2: Check the accessibility of WebHDFS](#check-webhdfs)
-- [3: Accessing Hadoop Cluster via Knox](#access-cluster-knox)
-- [4: Run the WordCount Job via Knox](#run-job-knox)
-- [5: Check the Status of the Job](#check-status-job)
-- [6: View the List of HDFS Directories](#view-directories)
-- [7: List the Output Result](#list-output-result)
-- [8: View the Output File](#view-output-file)
-- [Links and Further Reading](#further-reading)
+-   [Concepts](#concepts)
+-   [1: Start Knox and DEMO LDAP service](#start-knox)
+-   [2: Check the accessibility of WebHDFS](#check-webhdfs)
+-   [3: Accessing Hadoop Cluster via Knox](#access-cluster-knox)
+-   [4: Run the WordCount Job via Knox](#run-job-knox)
+-   [5: Check the Status of the Job](#check-status-job)
+-   [6: View the List of HDFS Directories](#view-directories)
+-   [7: List the Output Result](#list-output-result)
+-   [8: View the Output File](#view-output-file)
+-   [Further Reading](#further-reading)
 
-### 1: Start Knox and DEMO LDAP service <a id="start-knox"></a>
+## Concepts
+
+### What is Apache Knox?
+
+The [Apache Knox Gateway](https://hortonworks.com/hadoop/knox) is a system that provides a single point of authentication and access for Apache™ Hadoop® services. It provides the following features:
+
+-   Single REST API Access Point
+-   Centralized authentication, authorization and auditing for Hadoop REST/HTTP services
+-   LDAP/AD Authentication, Service Authorization and Audit
+-   Eliminates SSH edge node risks
+-   Hides Network Topology
+
+### Layers of Defense for a Hadoop Cluster
+
+-   Perimeter Level Security – Network Security, Apache Knox (gateway)
+-   Authentication : Kerberos
+-   Authorization
+-   OS Security : encryption of data in network and HDFS
+
+Apache Knox can also access a Hadoop cluster over HTTP or HTTPS
+
+### Current Features of Apache Knox
+
+-  Authenticate : by LDAP or Cloud SSO Provider
+-  Provides services for HDFS, HCat, HBase, Oozie, Hive, YARN, and Storm
+-  HTTP access for Hive over JDBC support is available (ODBC driver Support- In Future)
+
+## 1: Start Knox and DEMO LDAP service <a id="start-knox"></a>
 
 Open up the Ambari user interface by using the URL http://sandbox.hortonworks.com:8080.
 Using Virtualbox it might look like http://127.0.0.1:8080. If you’re using Azure make sure to replace 127.0.0.1 with you host machine’s IP address.
@@ -93,7 +98,7 @@ The first time password to log in is: **hadoop**
 
 ![sshTerminal](assets/sshTerminal.png)
 
-### 2: Check the accessibility of WebHDFS <a id="check-webhdfs"></a>
+## 2: Check the accessibility of WebHDFS <a id="check-webhdfs"></a>
 
 Let’s check if the Hadoop Cluster is accessible via **WebHDFS**.
 Note that this request is directly accessing the WebHDFS API. This means that we are sending our request directly to WebHDFS without any security or encryption.
@@ -107,7 +112,7 @@ curl -iku guest:guest-password -X GET 'http://sandbox.hortonworks.com:50070/webh
 
 ![access_webhdfs](assets/access_webhdfs.png)
 
-### 3: Accessing Hadoop Cluster via Knox <a id="access-cluster-knox"></a>
+## 3: Accessing Hadoop Cluster via Knox <a id="access-cluster-knox"></a>
 
 Now let’s check if we can access Hadoop Cluster via Apache Knox services. Using Knox means we can utilize the HTTPS protocol which utilizes SSL to encrypt our requests and makes using it much more secure.
 
@@ -119,7 +124,7 @@ curl -iku guest:guest-password -X GET 'https://sandbox.hortonworks.com:8443/gate
 
 This requests routes through the Knox Gateway. Note that here we use the HTTPS protocol meaning our request is completely encrypted. This is great if, for example, you wanted to access Hadoop services via an insecure medium such as the internet.
 
-### 4: Run the WordCount Job via Knox <a id="run-job-knox"></a>
+## 4: Run the WordCount Job via Knox <a id="run-job-knox"></a>
 
 Let’s work on an End to end implementation use case using Apache Knox Service. Here we will take a simple example of a mapreduce jar that you might be already familiar with, the WordCount mapreduce program. We will first create the needed directories, upload the datafile into hdfs and also upload the mapreduce jar file into hdfs. Once these steps are done, using Apache Knox service, we will run this jar and process data to produce output result.
 
@@ -168,7 +173,7 @@ When you run the mapreduce execution step, you will see the following result. Pl
 
 ![run_job](assets/run_job.png)
 
-### 5: Check the Status of the Job <a id="check-status-job"></a>
+## 5: Check the Status of the Job <a id="check-status-job"></a>
 
 You can check the status of your above Job Id as follows:
 
@@ -180,7 +185,7 @@ Remember to **replace everything after `jobs/` with your job id**.
 
 ![check_status](assets/check_status.png)
 
-### 6: View the List of HDFS Directories <a id="view-directories"></a>
+## 6: View the List of HDFS Directories <a id="view-directories"></a>
 
 Let’s look at the list of directories in /knox-sample parent directory in hdfs.
 
@@ -192,7 +197,7 @@ These are the directories which we created earlier.
 
 ![list_directories](assets/list_directories.png)
 
-### 7: List the Output Result <a id="list-output-result"></a>
+## 7: List the Output Result <a id="list-output-result"></a>
 
 Let’s look at the output result file.
 
@@ -204,7 +209,7 @@ It should look something like below:
 
 ![list_output_file](assets/list_output_file.png)
 
-### 8: View the Output File <a id="view-output-file"></a>
+## 8: View the Output File <a id="view-output-file"></a>
 
 Let’s look at the output result.
 
@@ -218,7 +223,7 @@ You just ran a mapreduce program on Hadoop through the Apache Knox Gateway!
 
 Remember, **Knox** is a great way to remotely access API’s form your Hadoop cluster securely. You can add many different core Hadoop services to it, and you can even create your own services which you can route through the Gateway. This can keep your cluster safe and secure. Not to mention that there is great LDAP integration for organizations as well.
 
-## Links and Further Reading <a id="further-reading"></a>
+## Further Reading <a id="further-reading"></a>
 
 - [Knox on Hortonworks Community Connection](https://community.hortonworks.com/search.html?f=&type=question&redirect=search%2Fsearch&sort=relevance&q=knox)
 - [Apache Knox Site](http://knox.apache.org)
