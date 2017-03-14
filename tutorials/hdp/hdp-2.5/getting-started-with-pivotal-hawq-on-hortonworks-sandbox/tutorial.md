@@ -5,19 +5,29 @@ platform: hdp-2.5.0
 tags: [Pivotal HAWQ]
 ---
 
-# Do not go ahead with the tutorial, revamping is under process
+# Getting Started with Pivotal HAWQ on Hortonworks Sandbox
 
 ## Introduction
 
 Pivotal HAWQ provides strong support for low-latency analytic SQL queries, coupled with massively parallel machine learning capabilities on Hortonworks Data Platform (HDP). HAWQ is the World’s leading SQL on Hadoop tool. It provides the richest SQL dialect with an extensive data science library called MADlib at milliseconds query response times. HAWQ enables discovery-based analysis of large data sets via SQL and iterative development of data-driven analytics applications.
 
-This tutorial assumes you have already already download the HAWQ-HDP Sandbox and has it running. The tutorial is intended for someone completely new to using HAWQ. It should help you start working with the database, create tables, load data, and leverage HAWQ’s rich SQL dialect to query any data on HDFS, Hive, HBase, or other systems.
+The tutorial is intended for someone completely new to using HAWQ. It should help you start working with the database, create tables, load data, and leverage HAWQ’s rich SQL dialect to query any data on HDFS, Hive, HBase, or other systems.
 
-If you haven’t downloaded the sandbox you can download it from [here](https://hortonworks.com/downloads/#sandbox)
+## Prerequisites
 
-Pivotal also offers in-depth online and instructor lead training on HAWQ. For more information please visit Pivotal Academy and Pivotal Training.
+-   This tutorial assumes you have already already download the HAWQ-HDP Sandbox and have it running. If you haven’t downloaded the sandbox you can download it from [here](https://hortonworks.com/downloads/#sandbox)
 
-## STARTING HAWQ AND CHECKING STATE
+## Outline
+
+-   [Starting HAWQ and Checking State](#starting-hawq-and-checking-state)
+-   [Connecting to HAWQ via PSQL Command Line](#connecting-to-hawq-via-psql-command-line)
+-   [Load Sample Database](#load-sample-database)
+-   [Running Queries](#running-queries)
+-   [Using Other Tools to Work with HAWQ](#using-other-tools-to-work-with-hawq)
+-   [Connecting to HAWQ via pgAdmin](#connecting-to-hawq-via-pgadmin)
+-   [Further Reading](#further-reading)
+
+## Starting HAWQ and Checking State
 
 Start VirtualBox and log into your HDP-HAWQ virtual machine via the terminal. After logging into the virtual machine switch to HAWQ’s admin user called **gpadmin** and source the following file:
 
@@ -55,7 +65,7 @@ gpstate
 
 For complete list of HAWQ’s administrative commands refer to Management Utility Reference page. You can also read about Environment Variables, Server Configuration Parameters, and HAWQ toolkit.
 
-## CONNECTING TO HAWQ VIA PSQL COMMAND LINE
+## Connecting to HAWQ via PSQL Command Line
 
 HAWQ uses Postgres’s psql command as its main front-end command line interface. psql is a terminal-based front-end to HAWQ. It enables you to type in queries interactively, see query results, and perform administrative tasks. In addition, it provides a number of meta-commands and various shell-like features to facilitate writing scripts and automating a wide variety of tasks.
 
@@ -93,7 +103,7 @@ gpadmin# q
 
 You can follow the complete guide for psql on Postgres documentation page or on HAWQ’s documentation page.
 
-## LOAD SAMPLE DATABASE
+## Load Sample Database
 
 Let’s start creating some tables and loading sample data. In order to get you jump started we’ve created a sample database that resembles a typical retailer datamart. Download hawq-quickstart package.
 
@@ -179,7 +189,7 @@ Checksum: f
 Distributed randomly
 ~~~
 
-## RUNNING QUERIES
+## Running Queries
 Now, let’s run some queries. Either get creative and try your own queries or open ./lib/queries.sql and try some of the sample queries. You can quickly see that HAWQ can run as complex as queries that you can throw at it!
 
 For example, the following query checks for customers who have bought DVD’s in the past year and have bought as least one Blue-ray disc player in the past 6 months; but have not bought a Blu-ray disk to play! We can use the results to email these clients with our latest Blue-ray disc promotions.
@@ -227,7 +237,7 @@ free, play around! Try other SQL commands.
 
 Refer to HAWQ documentation page on Working with Databases for an in-depth guide on loading data to HAWQ and submitting queries. You also have the complete SQL Commands reference guide.
 
-## USING OTHER TOOLS TO WORK WITH HAWQ
+## Using Other Tools to Work with HAWQ
 Connecting to HAWQ via BI Tools (JDBC or ODBC)
 Aside from psql or pgAdminIII, you can use any other tool of your preference that uses JDBC or ODBC. This could be tools like Tableau, Microstrategy, SQuirreL SQL, etc…
 
@@ -265,7 +275,7 @@ This line will open the gpadmin client connection from any host. For your change
 gpstop -u
 ~~~
 
-## CONNECTING TO HAWQ VIA PGADMIN
+## Connecting to HAWQ via pgAdmin
 
 Alternatively to psql command line interface, you can use pgAdmin3 as the graphical interface to interact with HAWQ. The graphical interface allows you to create tables, submit queries, and see the query results. Download and install pgAdmin3 from [http://www.pgadmin.org/](http://www.pgadmin.org/).
 
@@ -285,6 +295,8 @@ After a successful connection you should see a screen similar to image 7:
 
 For complete guide on using pgAdminIII with HAWQ refer to pgAdmin III for HAWQ.
 
-## GOING BEYOND
+## Further Reading
 
 To become more familiar with HAWQ and all its use-cases refer to HAWQ Documentation page online . Pivotal also offers in-depth online and instructor lead training on HAWQ. For more information please visit Pivotal Academy and Pivotal Training.
+
+Pivotal also offers in-depth online and instructor lead training on HAWQ. For more information please visit Pivotal Academy and Pivotal Training.
