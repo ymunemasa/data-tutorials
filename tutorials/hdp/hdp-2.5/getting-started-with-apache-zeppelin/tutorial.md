@@ -5,23 +5,35 @@ platform: hdp-2.5.0
 tags: [zeppelin, spark]
 ---
 
+# Getting Started with Apache Zeppelin
+
+## Introduction
+
 Apache Zeppelin is a web-based notebook that enables interactive data analytics. With Zeppelin, you can make beautiful data-driven, interactive and collaborative documents with a rich set of pre-built language backends (or interpreters) such as Scala (with Apache Spark), Python (with Apache Spark), SparkSQL, Hive, Markdown, Angular, and Shell.
 
 With a focus on Enterprise, Zeppelin has the following important features:
 
-* Livy integration (REST interface for interacting with Spark)
-* Security:
+- Livy integration (REST interface for interacting with Spark)
+- Security:
 
-  * Execute jobs as authenticated user
-  * Zeppelin authentication against LDAP
-  * Notebook authorization
+  - Execute jobs as authenticated user
+  - Zeppelin authentication against LDAP
+  - Notebook authorization
 
-### **Prerequisites**
+## Prerequisites
 
-*   HDP 2.5
-*   Spark 1.6.2
+-   HDP 2.5
+-   Spark 1.6.2
 
-### **Launching Zeppelin**
+## Outline
+-   [Launching Zeppelin](#launching-zeppelin)
+-   [Creating a Notebook](#creating-a-notebook)
+-   [Importing Notebooks](#importing-notebooks)
+-   [Importing External Libraries](#importing-external-libraries)
+-   [Further Reading](#further-reading)
+
+
+## Launching Zeppelin
 
 If you haven't already, login to Ambari (operations console) using `maria_dev`/`maria_dev` as a username/password combination. Remember that Ambari is accessible on port 8080.
 
@@ -41,13 +53,13 @@ Voila, you should see default Zeppelin menu with a list of demos and labs that y
 
 Now let's create your first notebook.
 
-### **Creating a Notebook**
+## Creating a Notebook
 
 To create a notebook:
 
 1. Under the “Notebook” tab, choose **+Create new note**.
 
-2.  You will see the following window. Type a name for the new note (or accept the default): <br><br>![scr9-create-notebook](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr9-create-notebook.png)
+2. You will see the following window. Type a name for the new note (or accept the default): <br><br>![scr9-create-notebook](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr9-create-notebook.png)
 
 3.  Type sc.version into a paragraph in the note, and click the “Play” button (blue triangle): <br><br>![scr10-check-spark-version](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr10-check-spark-version.png)<br>
 SparkContext, SQLContext, ZeppelinContext will be created automatically. They will be exposed as variable names ‘sc’, ‘sqlContext’ and ‘z’, respectively, in scala and python environments.<br><br>
@@ -59,7 +71,7 @@ SparkContext, SQLContext, ZeppelinContext will be created automatically. They wi
 res0: String = 1.6.2
 ~~~
 
-### **Importing Notebooks**
+## Importing Notebooks
 
 Alternatively, instead of creating a new notebook, you may want to import an existing notebook instead.
 
@@ -97,7 +109,7 @@ Finally, copy and paste the url to the (raw) json file.
 
 Now you should see your imported notebook among other notebooks on the main Zeppelin screen.
 
-### **Importing External Libraries**
+## Importing External Libraries
 
 As you explore Zeppelin you will probably want to use one or more external libraries. For example, to run [Magellan](https://hortonworks.com/blog/magellan-geospatial-analytics-in-spark/) you need to import its dependencies; you will need to include the Magellan library in your environment. There are three ways to include an external dependency in a Zeppelin notebook: **Using the %dep interpreter** (**Note**: This will only work for libraries that are published to Maven.)
 
@@ -112,5 +124,7 @@ Here is an example that imports the dependency for Magellan:
 z.addRepo("Spark Packages Repo").url("http://dl.bintray.com/spark-packages/maven")
 z.load("com.esri.geometry:esri-geometry-api:1.2.1")
 z.load("harsha2010:magellan:1.0.3-s_2.10")</pre>
+
+## Further Reading
 
 For more information, see [https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading).
