@@ -5,11 +5,14 @@ platform: hdp-2.5.0
 tags: [spark, zeppelin]
 ---
 
+# Learning Spark with Zeppelin
+
+## Introduction
 In this tutorial, we will introduce the basic concepts of Apache Spark DataFrames in a hands-on lab.
 
 We will also introduce the necessary steps to get up and running with Apache Zeppelin on a Hortonworks Data Platform (HDP) Sandbox.
 
-### Prerequisites
+## Prerequisites
 
 Please ensure you complete the prerequisites before proceeding with this tutorial.
 
@@ -29,11 +32,17 @@ Additional resources to get you started:
 
 *   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
-### Concepts
+## Outline
+
+-   [Concepts](#concepts)
+-   [Setup](#setup)
+-   [Further Reading](#further-reading)
+
+## Concepts
 
 The core concepts of Spark DataFrames will be introduced in the lab itself. Here, we will focus on launching Zeppelin, importing and then starting the lab.
 
-### Setup
+## Setup
 
 **1. Start your Sandbox**
 
@@ -77,6 +86,6 @@ Voila! Now you should have your "Lab 101_DW: ..." listed in the main Zeppelin di
 
 Click on the lab to get started and follow the step-by-step instructions in the notebook to complete the lab.
 
-### Further Resources
+## Further Reading
 
 Once you're done with the lab, make sure to checkout other Zeppelin Labs and [Spark Tutorials](https://hortonworks.com/hadoop/spark/#tutorials).
