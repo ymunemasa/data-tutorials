@@ -4,6 +4,7 @@ tutorial-id: 760
 platform: hdp-2.5.0
 tags: [sparkr, spark, r, machine learning]
 ---
+
 # Predicting Airline Delays using SparkR
 
 ## Introduction
@@ -15,7 +16,6 @@ Spark is a distributed engine for processing many Terabytes of data. It is a ver
 SparkR combines the benefits of Spark and R by allowing Spark jobs to be called from within R. This allows the analyst to leverage Spark’s ability to build aggregate statistics over large, multi-Terabyte datasets and then bring the smaller aggregated data back into R for visualization and analysis.
 
 In this tutorial we’ll show you how to use SparkR to predict flight delays using Logistic Regression. We’ll be using RStudio as our IDE for building R models.
-
 
 ## Prerequisites
 
@@ -30,6 +30,7 @@ In this tutorial we’ll show you how to use SparkR to predict flight delays usi
 -   [Step 4 : Exploratory Data Analysis](#step-4-exploratory-data-analysis)
 -   [Step 5 : Regression Model to predict Airline delay](#step-5-regression-model-to-predict-airline-delay)
 -   [Step 6 : Logistic Regression to predict Airline delay](#step-6-logistic-regression-to-predict-airline-delay)
+-   [Summary](#summary)
 
 ## Step 1 : Download the Dataset
 
@@ -80,7 +81,7 @@ sqlContext <- sparkRSQL.init(sc)
 
 Press Enter
 
-## Step 3: Prepare a Training dataset
+## Step 3 : Prepare a Training dataset
 
 Before moving ahead, check out the SparkR documentation here to get used to SparkR API. You can either create a SparkR dataframe from the local R data frame or data sources in formats like csv or from Hive tables. We are going to use read.df() function to read the file from a data source (HDFS in our case), retain the schema and create the SparkR data frame. Type this line to create a dataframe taking the data from /tmp/train_df.csv file with headers included
 
@@ -392,12 +393,11 @@ ggplot(DF3, aes(x=ORIGIN,y=value,fill=variable)) + geom_bar(stat="identity") + g
 
 As you can see here, smaller city Origin(SNA) has a least delay ratio.
 
-## Step 5 : Regression Model to Predict Airline Delays
+## Step 5 : Regression Model to Predict Airline Delay
 
 Now that we have explored the data, let’s predict how much delayed the flight would be.
 SparkR allows the fitting of generalized linear models over DataFrames using the glm() function. Under the hood, SparkR uses MLlib to train a model of the specified family. The gaussian and binomial families are supported in 1.6 version.
 We are going to choose some variables as independent variables to predict the output variable which in our case is ARR_DELAY.
-
 
 `train_df_glm <- glm(ARR_DELAY ~ MONTH + DEP_HOUR + DEP_DELAY + WEEKEND + ORIGIN + DEST, data = train_df,  family = "gaussian")``
 
@@ -484,7 +484,7 @@ Now the formula to calculate R2 is
 
 It comes out to be 0.9023864. An R2 of 1 indicates that the regression line perfectly fits the data.
 
-## Step 6: Logistic Regression to predict Airline Delays
+## Step 6 : Logistic Regression to predict Airline Delay
 
 So far we have predicted the continuous variable by the above model. Now it is time to predict whether the flight will be delayed or not. It will be like a binary classification where we will bucket flights into delayed and ontime. But before ahead towards the development of the model, we have to some transformation to our dataset. The first transformation that we have to do is to convert the categorical variables into dummy variables. Five categorical variables are:
     1.	Day of Week
