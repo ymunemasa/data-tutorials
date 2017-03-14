@@ -1,11 +1,13 @@
 ---
-title: How to Use Basic Pig Command
+title: Beginners Guide to Apache Pig
 tutorial-id: 140
 platform: hdp-2.5.0
 tags: [ambari, pig]
 ---
 
 # Beginners Guide to Apache Pig
+
+## Introduction
 
 In this tutorial you will gain a working knowledge of Pig through the hands-on experience of creating Pig scripts to carry out essential data operations and tasks.
 
@@ -19,9 +21,9 @@ We will first read in two data files that contain driver data statistics, and th
 *   FILTER and Group the data using `‘GROUP BY’`
 
 ## Prerequisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
-*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*  Allow yourself around one hour to complete this tutorial
+-  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
+-  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-  Allow yourself around one hour to complete this tutorial
 
 ## Outline
 - [What is Pig?](#what-is-pig)
@@ -50,12 +52,12 @@ Pig works with data from many sources, including structured and unstructured dat
 
 Pig scripts are translated into a series of MapReduce jobs that are run on the Apache Hadoop cluster.
 
-### Step 1: Download the Data <a id="download-the-data"></a>
+## Step 1: Download the Data <a id="download-the-data"></a>
 
 Download the driver data file from [here](assets/driver_data.zip).
 Once you have the file you will need to unzip the file into a directory. We will be uploading two csv files - `truck_event_text_partition.csv` and `drivers.csv`.
 
-### Step 2: Upload the data files <a id="step-2-upload-the-data-files"></a>
+## Step 2: Upload the data files <a id="step-2-upload-the-data-files"></a>
 
 Select the `HDFS Files view` from the Off-canvas menu at the top. That is the `views menu`. The HDFS Files view allows you to view the Hortonworks Data Platform(HDP) file store. The HDP file system is separate from the local file system.
 
@@ -65,7 +67,7 @@ Navigate to `/user/maria_dev` or a path of your choice, click `Upload` and `Brow
 
 ![uploaded_files](assets/uploaded_files.png)
 
-### Step 3: Create Your Script <a id="step-3-create-your-script"></a>
+## Step 3: Create Your Script <a id="step-3-create-your-script"></a>
 
 Open the Pig interface by clicking the `Pig View` in the `views menu`.
 
@@ -83,7 +85,7 @@ Below you can find an overview about which functionalities the pig interface mak
 
 ![explain_pig_view_home_page](assets/explain_pig_view_home_page.png)
 
-### Step 4: Define a relation <a id="step-4-define-a-relation"></a>
+## Step 4: Define a relation <a id="step-4-define-a-relation"></a>
 
 In this step, you will create a script to load the data and define a relation.
 
@@ -101,7 +103,7 @@ DESCRIBE truck_events;
 
 ![load_truck_events_data](assets/load_truck_events_data.png)
 
-### Step 5: Save and Execute the Script <a id="step-5-save-and-execute-the-script"></a>
+## Step 5: Save and Execute the Script <a id="step-5-save-and-execute-the-script"></a>
 
 Click the `Save` button to save your changes to the script. Click `Execute` to run the script. This action creates one or more MapReduce jobs. After a moment, the script starts and the page changes. Now, you have the opportunity to Kill the job in case you want to stop the job.
 
@@ -111,7 +113,7 @@ When the job completes, check the results in the green box. You can also downloa
 
 ![save_execute_script_truck_events](assets/save_execute_script_truck_events.png)
 
-### Step 6: Define a Relation with a Schema <a id="step-6-define-a-relation-with-a-schema"></a>
+## Step 6: Define a Relation with a Schema <a id="step-6-define-a-relation-with-a-schema"></a>
 
 Let’s use the above code but this time with a schema. Modify line 1 of your script and add the following `AS` clause to define a schema for the truck events data. The complete code will be:
 
@@ -130,7 +132,7 @@ Save and execute the script again. This time you should see the schema for the t
 
 ![save_execute_script_truck_events_schema](assets/save_execute_script_truck_events_schema.png)
 
-### Step 7: Define a new relation from an existing relation <a id="step-7-define-a-new-relation-from-an-existing-relation"></a>
+## Step 7: Define a new relation from an existing relation <a id="step-7-define-a-new-relation-from-an-existing-relation"></a>
 
 You can define a new relation based on an existing one. For example, define the following truck_events_subset relation, which is a collection of 100 entries (arbitrarily selected) from the truck_events relation.
 Add the following line to the end of your code:
@@ -146,7 +148,7 @@ Save and execute the code. Notice `truck_events_subset` has the same schema as `
 
 ![save_execute_script_truck_events_subset](assets/save_execute_script_truck_events_subset.png)
 
-### Step 8: View the Data <a id="step-8-view-the-data"></a>
+## Step 8: View the Data <a id="step-8-view-the-data"></a>
 
 To view the data of a relation, use the `DUMP` command.
 Add the following `DUMP` command to your Pig script, then save and execute it again:
@@ -161,7 +163,7 @@ The command requires a MapReduce job to execute, so you will need to wait a minu
 
 ![result_truck_events_subset](assets/result_truck_events_subset.png)
 
-### Step 9: Select specific columns from a relation <a id="step-9-select-specific-columns-from-a-relation"></a>
+## Step 9: Select specific columns from a relation <a id="step-9-select-specific-columns-from-a-relation"></a>
 
 Delete the `DESCRIBE truck_events`, `DESCRIBE truck_events_subset` and `DUMP truck_events_subset` commands from your Pig script; you will no longer need those.
 One of the key uses of Pig is data transformation. You can define a new relation based on the fields of an existing relation using the `FOREACH` command. Define a new relation `specific_columns`, which will contain only the `driverId`, `eventTime` and `eventType` from relation `truck_events_subset`.
@@ -184,7 +186,7 @@ Save and execute the script and your output will look like the following:
 
 ![save_execute_script_truck_events_specific](assets/save_execute_script_truck_events_specific.png)
 
-### Step 10: Store relationship data into a HDFS File <a id="step-10-store-relationship-data-into-a-hdfs-file"></a>
+## Step 10: Store relationship data into a HDFS File <a id="step-10-store-relationship-data-into-a-hdfs-file"></a>
 
 In this step, you will use the `STORE` command to output a relation into a new file in HDFS. Enter the following command to output the `specific_columns` relation to a folder named `output/specific_columns`:
 
@@ -214,7 +216,7 @@ Click on the file `“part-r-00000”` and then click on `Open` :
 
 ![file_preview](assets/file_preview.png)
 
-### Step 11: Perform a join between 2 relations <a id="step-11-perform-a-join-between-2-relations"></a>
+## Step 11: Perform a join between 2 relations <a id="step-11-perform-a-join-between-2-relations"></a>
 
 In this step, you will perform a `join` on two driver statistics data sets: `truck_event_text_partition.csv` and the `driver.csv` files. Drivers.csv has all the details for the driver like driverId, name, ssn, location, etc.
 
@@ -244,7 +246,7 @@ Scroll right in Results section to view other attributes, or simply click `Downl
 
 ![result_join_data_download](assets/result_join_data_download.png)
 
-### Step 12: Sort the data using “ORDER BY” <a id="step-12-sort-the-data-using-order-by"></a>
+## Step 12: Sort the data using “ORDER BY” <a id="step-12-sort-the-data-using-order-by"></a>
 
 Use the `ORDER BY` command to sort a relation by one or more of its fields. Create a new Pig script named `“Pig-Sort”` and enter the following commands to sort the drivers data by name then date in ascending order:
 
@@ -262,7 +264,7 @@ Save and execute the script. Your output should be sorted as shown here:
 
 ![result_sort_drivers_data](assets/result_sort_drivers_data.png)
 
-### Step 13: Filter and Group the data using “GROUP BY” <a id="step-13-filter-and-group-the-data-using-group-by"></a>
+## Step 13: Filter and Group the data using “GROUP BY” <a id="step-13-filter-and-group-the-data-using-group-by"></a>
 
 The `GROUP` command allows you to group a relation by one of its fields. Create a new Pig script named `“Pig-Group”`. Then, enter the following commands, which group the `truck_events` relation by the `driverId` for the `eventType` which are not ‘Normal’.
 
