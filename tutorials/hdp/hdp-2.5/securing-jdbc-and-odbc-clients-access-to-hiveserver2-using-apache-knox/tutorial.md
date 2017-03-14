@@ -1,9 +1,11 @@
 ---
-title: Securing JDBC and ODBC Clients' Access to Hive Server 2 using Apache Knox
+title: Securing JDBC and ODBC Clients' Access to HiveServer2 using Apache Knox
 tutorial-id: 560
 platform: hdp-2.5.0
 tags: [knox, beeline]
 ---
+
+# Securing JDBC and ODBC Clients' Access to HiveServer2 using Apache Knox
 
 ## Introduction
 
@@ -22,15 +24,15 @@ This tutorial focuses on Beeline as the JDBC client; however, a screenshot of Si
 
 ## Outline
 
-- [1: Start Knox](#start-knox)
-- [2: Change Hive Config](#change-hive-config)
-- [3: Run Beeline Client](#run-beeline)
-- [4: Connect to Hive Server 2](#connect-hive)
-- [5: Issue the Query](#issue-query)
-- [6: Simba ODBC Client Configuration](#simba-odbc)
+- [1. Start Knox](#start-knox)
+- [2. Change Hive Config](#change-hive-config)
+- [3. Run Beeline Client](#run-beeline)
+- [4. Connect to Hive Server 2](#connect-hive)
+- [5. Issue the Query](#issue-query)
+- [6. Simba ODBC Client Configuration](#simba-odbc)
 - [Summary](#summary)
 
-### 1. Start Knox <a id="start-knox"></a>
+## 1. Start Knox <a id="start-knox"></a>
 
 Open up the Ambari user interface by using the URL http://sandbox.hortonworks.com:8080.
 Using Virtualbox it might look like http://127.0.0.1:8080. If you’re using Azure make sure to replace 127.0.0.1 with you host machine’s IP address.
@@ -52,7 +54,7 @@ Check the box for `Maintenance Mode` and click `Confirm Start`.
 
 ![knox_maintenance_mode](assets/knox_maintenance_mode.png)
 
-### 2. Change Hive Config <a id="change-hive-config"></a>
+## 2. Change Hive Config <a id="change-hive-config"></a>
 
 Using Ambari, navigate to `Hive > Config`. Type `hive.server2.transport.mode` in the Filter box. Change its value from `binary` to `http`.
 
@@ -60,7 +62,7 @@ Using Ambari, navigate to `Hive > Config`. Type `hive.server2.transport.mode` in
 
 Save these Hive settings and restart Hive with Ambari.
 
-### 3. Run Beeline Client <a id="run-beeline"></a>
+## 3. Run Beeline Client <a id="run-beeline"></a>
 
 First you’re going to need to login to your Sandbox via SSH.
 If you’re using Virtualbox you can log in with the command:
@@ -79,7 +81,7 @@ In the example here, I am connecting to Knox on [HDP 2.5 Sandbox](https://horton
 beeline
 ~~~
 
-### 4. Connect to Hive Server 2 <a id="connect-hive"></a>
+## 4. Connect to Hive Server 2 <a id="connect-hive"></a>
 
 Type the following command in the beeline shell:
 
@@ -110,7 +112,7 @@ You should see a message like this:
 In the Beeline connection string, a trust store for HTTPS connection to Knox is specified. This truststore (and its password) is needed only when Knox is not configured to use a well-known SSL certificate. For example, in an out-of-band access, Knox Gateway uses a Self-Signed certificate for SSL, and that certificate needs to be exported and put into a file that the client can use.
 However, in a production environment, Knox should be configured to use a CA authorized SSL certificate, and on the JDBC client, you need not configure a truststore and truststore password.
 
-### 5. Issue the Query <a id="issue-query"></a>
+## 5. Issue the Query <a id="issue-query"></a>
 
 Then issue any SQL query, and the request will follow the path from **Beeline > JDBC over HTTPS to Knox > over HTTP to Hive Server 2**
 
@@ -124,7 +126,7 @@ Error: org.apache.thrift.transport.TTransportException: org.apache.http.NoHttpRe
 
 Go back to Ambari and **Restart Knox**.
 
-### 6. Simba ODBC Client Configuration <a id="simba-odbc"></a>
+## 6. Simba ODBC Client Configuration <a id="simba-odbc"></a>
 
 The following screenshot illustrates the ODBC client side configuration needed to get **Simba ODBC > HTTP > Knox > HTTP > Hive Server 2** setup working.
 
