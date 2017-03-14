@@ -1,5 +1,5 @@
 ---
-title: Using HCatalog, Pig, and Hive Commands
+title: How to use HCatalog, Pig & Hive Commands
 tutorial-id: 260
 platform: hdp-2.5.0
 tags: [hcatalog, hive, pig, ambari]
@@ -13,28 +13,25 @@ In this tutorial, we will learn to use Hive and Pig along with other tools to pr
 
 ## Prerequisites
 
-*  [Apache HCatalog Video (running time: about 9 minutes)](http://www.youtube.com/watch?v=_dVlNu4lqpE)
-*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
-*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*  Allow yourself around one hour to complete this tutorial
+-  [Apache HCatalog Video (running time: about 9 minutes)](http://www.youtube.com/watch?v=_dVlNu4lqpE)
+-  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
+-  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-  Allow yourself around one hour to complete this tutorial
 
 ## Outline
 - [Step 1: Download Example Data](#download-example-data)
 - [Step 2: Upload the data files Into HDFS](#upload-data-files)
-- HDFS [Further Reading](#further-reading-hdfs)
 - [Step 3: Create tables for the Data With Hive and HCatalog](#create-tables-data-hive-hcatalog)
-- HCatalog vs. Hive [Further Reading](#further-reading-hcatalog-hive)
 - [Step 4: Explore Hive Queries to View and Structure that Table Data](#explore-hive-queries-view-structure-data)
-- Hive [Further Reading](#further-reading-hive-query)
 - [Step 5: Explore Pig Latin Data Transformation](#explore-pig-latin-data-transformation)
-- Pig [Further Reading](#further-reading-pig-latin)
+- [Further Reading](#further-reading)
 
-### Step 1: Download Example Data <a id="download-example-data"></a>
+## Step 1: Download Example Data <a id="download-example-data"></a>
 
 Download the `driver data` file from [here](assets/driver_data.zip).
 Once you have the file you will need to unzip the file into a directory. We will be uploading two csv files - `drivers.csv` and `truck_event_text_partition.csv`.
 
-### Step 2: Upload the data files Into HDFS <a id="upload-data-files"></a>
+## Step 2: Upload the data files Into HDFS <a id="upload-data-files"></a>
 
 Start by using the `HDFS Files view` from the views drop down menu in Ambari:
 
@@ -54,12 +51,7 @@ After uploading both files head back to the data folder we created. Click on dat
 
 ![edit_permissions](assets/edit_permissions.png)
 
-## Further Reading <a id="further-reading-hdfs"></a>
-- [HDFS Tutorials](https://hortonworks.com/hadoop/hdfs/#tutorials)
-- [HDFS and Apache Hadoop](https://hortonworks.com/hadoop/hdfs/)
-- [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html)
-
-### Step 3: Create tables for the Data With Hive and HCatalog <a id="create-tables-data-hive-hcatalog"></a>
+## Step 3: Create tables for the Data With Hive and HCatalog <a id="create-tables-data-hive-hcatalog"></a>
 
 HCatalog has been merged with Hive project. This means that your Hive queries will utilize HCatalog when using commands like create table and drop table.
 We are now going to utilize the `Hive view` to create tables with our data. Use the same drop down menu that you used to select the HDFS Files view, and instead click `Hive View`.
@@ -136,11 +128,7 @@ You can view the data by clicking on the box next to the table truck_events.
 
 ![select_truck_events_data](assets/select_truck_events_data.png)
 
-## Further Reading <a id="further-reading-hcatalog-hive"></a>
-
-- [Hive vs. HCatalog](https://hortonworks.com/blog/hivehcatalog-data-geeks-big-data-glue/)
-
-### Step 4: Explore Hive Queries to View and Structure that Table Data <a id="explore-hive-queries-view-structure-data"></a>
+## Step 4: Explore Hive Queries to View and Structure that Table Data <a id="explore-hive-queries-view-structure-data"></a>
 
 In the previous sections you:
 
@@ -186,12 +174,7 @@ This job is more complex so it might take longer than previous queries. You can 
 
 ![join_data](assets/join_data.png)
 
-## Further Reading <a id="further-reading-hive-query"></a>
-- [Hive Tutorials](https://hortonworks.com/hadoop/hive/#tutorials)
-- [Apache Hive and Hadoop](https://hortonworks.com/hadoop/hive/)
-- [Getting Started with Hive](https://cwiki.apache.org/confluence/display/Hive/GettingStarted)
-
-### Step 5: Explore Pig Latin Data Transformation <a id="explore-pig-latin-data-transformation"></a>
+## Step 5: Explore Pig Latin Data Transformation <a id="explore-pig-latin-data-transformation"></a>
 
 In this tutorial, you will create and execute a `Pig script`. To access the Pig interface, use the dropdown menu for views in Ambari. Select `Pig View`.
 
@@ -207,7 +190,7 @@ Click `New Script` and create a name for it.
 
 In this section, you will load the data from the table that is stored in HCatalog/Hive. Then you will make a join between two data sets on the `driverId` field in the same way that you did in the Hive section.
 
-#### 5.1 Prepare to load the data
+### 5.1 Prepare to load the data
 
 The data is already in HDFS through HCatalog. HCatalog stores schema and location information, so we can use the HCatLoader() function within the Pig script to read data from HCatalog-managed tables. In Pig, you now
 only need to give the table a name or alias so that Pig can process the
@@ -246,7 +229,7 @@ b = LOAD 'truck_events' using org.apache.hive.hcatalog.pig.HCatLoader();
 
 It is important to note that at this point, we have merely defined the aliases for our tables to hold the data (alias “a” for drivers and alias “b” for truck_events). Data is not loaded or transformed until we execute an operational command such as `DUMP` or `STORE`
 
-#### 5.2 Join both the tables on driverId
+### 5.2 Join both the tables on driverId
 
 Next, you will use the `JOIN` operator to join both tables on the `driverid`. You will create a new data set using the Pig Join function that will match the driverid field and include all of the data from both tables.
 Complete these steps:
@@ -267,7 +250,7 @@ c = join b by driverid, a by driverid;
 
 Now you have joined all the records in both of the tables on driverid.
 
-#### 5.3 Execute the script and generate output
+### 5.3 Execute the script and generate output
 
 To complete the Join operation, use the `DUMP` command to execute the results. This will show all of the records that have a common driverid. The data from both tables will be merged into one row. Complete this steps:
 
@@ -285,7 +268,7 @@ dump c;
 
 ![dump_data_in_pig](assets/dump_data_in_pig.png)
 
-#### 5.4 Save the script and execute it
+### 5.4 Save the script and execute it
 
 First you need to add the `-useHCatalog` (Case Sensitive) argument using the box box in the bottom right hand corner
 
@@ -308,6 +291,14 @@ Click the `Logs` drop down menu if you want to see what happened when your scrip
 Congratulations! You have successfully completed HCatalog, Basic Pig &
 Hive Commands.
 
-## Further Reading <a id="further-reading-pig-latin"></a>
-- [Pig Tutorials](https://hortonworks.com/hadoop/pig/#tutorials)
-- [Getting Started with Pig](http://pig.apache.org/#Getting+Started)
+## Further Reading
+
+-   [HDFS Tutorials](https://hortonworks.com/hadoop/hdfs/#tutorials)
+-   [HDFS and Apache Hadoop](https://hortonworks.com/hadoop/hdfs/)
+-   [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html)
+-   [Hive vs. HCatalog](https://hortonworks.com/blog/hivehcatalog-data-geeks-big-data-glue/)
+-   [Hive Tutorials](https://hortonworks.com/hadoop/hive/#tutorials)
+-   [Apache Hive and Hadoop](https://hortonworks.com/hadoop/hive/)
+-   [Getting Started with Hive](https://cwiki.apache.org/confluence/display/Hive/GettingStarted)
+-   [Pig Tutorials](https://hortonworks.com/hadoop/pig/#tutorials)
+-   [Getting Started with Pig](http://pig.apache.org/#Getting+Started)
