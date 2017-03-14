@@ -17,7 +17,7 @@ Next, we will use Hive to analyze the social sentiment after we have finished co
 
 Finally, we will use [Apache Zeppelin](https://hortonworks.com/hadoop/zeppelin/) to create charts, so we can visualize our data directly inside of our Hadoop cluster.
 
-## List of technologies in this tutorial:
+### List of technologies in this tutorial:
 
 - [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/)
 - [Apache NiFi](https://hortonworks.com/products/dataflow/)
@@ -34,19 +34,17 @@ Finally, we will use [Apache Zeppelin](https://hortonworks.com/hadoop/zeppelin/)
 
 ## Outline
 
-1. [Install Apache NiFi](#install-apache-nifi)
-2. [Configure and Start Solr](#configure-and-start-solr)
-3. [Create a Twitter Application](#creating-a-twitter-application)
-4. [Create a Data Flow with Nifi](#creating-a-data-flow-with-nifi)
-5. [(Optional) Generating Random Twitter Data](#generating-random-tweet-data-for-hive-and-solr)
-6. [Analyze and Search Data with Solr](#analyze-and-search-data-with-solr)
-7. [Analyze Tweet Data in Hive](#analyzing-tweet-data-in-hive)
-8. [Visualize Sentiment with Zeppelin](#visualizing-sentiment-with-zeppelin)
-
------------------
+-   [Install Apache NiFi](#install-apache-nifi)
+-   [Configure and Start Solr](#configure-and-start-solr)
+-   [Create a Twitter Application](#creating-a-twitter-application)
+-   [Create a Data Flow with Nifi](#creating-a-data-flow-with-nifi)
+-   [Generating Random Tweet Data for Hive and Solr](#generating-random-tweet-data-for-hive-and-solr)
+-   [Analyze and Search Data with Solr](#analyze-and-search-data-with-solr)
+-   [Analyze Tweet Data in Hive](#analyzing-tweet-data-in-hive)
+-   [Visualize Sentiment with Zeppelin](#visualizing-sentiment-with-zeppelin)
+-   [Further Reading](#further-reading)
 
 ## Install Apache Nifi <a id="install-apache-nifi"></a>
------------------
 
 The first thing you're going to need if you haven't done it already is install the Apache Nifi service on your Sandbox. Follow the [Set up Nifi Environment section](https://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#section_3) of [Analyze Traffic Pattern with Apache Nifi](https://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/).
 
@@ -260,7 +258,6 @@ The processors are valid since the warning symbols disappeared. Notice that the 
 
 Now that all processors are selected, go to the actions toolbar and click the start button ![play_signal](assets/images/play_signal.png). You can see your workflow running.
 
-
 ## Generating Random Tweet Data for Hive and Solr <a id="generating-random-tweet-data-for-hive-and-solr"></a>
 
 This section is for anyone who didn't want to set up a Twitter app so they could stream custom data. We're just going to use a script to generate some data and then put that into Hive and Solr. Skip to the next section if you have already set up NiFi to collect tweets.
@@ -289,9 +286,7 @@ The script will generate the data and put it in the directory `/tmp/data/`
 
 You can now continue on with the rest of the tutorial.
 
-
 ## Analyze and Search Data with Solr <a id="analyze-and-search-data-with-solr"></a>
-------------------------------------
 
 Now that we have our data in HDP-Search/Solr we can go ahead and start searching through our data.
 If you are using NiFi to stream the data you can head over to the Banana Dashboard at [http://sandbox.hortonworks.com:8983/solr/banana/index.html](http://sandbox.hortonworks.com:8983/solr/banana/index.html)
@@ -355,14 +350,7 @@ Let's try one last query. This time you can omit the **sort** field and chooses 
 
 ![Solr Query Results 3](assets/images/29_solr_query_results_3.png)
 
-
-**Further Reading**
-
-- For more information on Solr you can [go here](https://hortonworks.com/hadoop/solr/)
-- You can also visit the [Apache project Page](http://lucene.apache.org/solr/)
-
 ## Analyze Tweet Data in Hive <a id="analyzing-tweet-data-in-hive"></a>
---------------------------------
 
 Now that we've taken a look at some of our data and searched it with Solr, let's see if we can refine it a bit more.
 
@@ -601,7 +589,6 @@ This command should yield our final results table as shown below.
 Now that we can access the sentiment data in our Hive table let's do some visualization on the analysis using Apache Zeppelin.
 
 ## Visualize Sentiment With Zeppelin <a id="visualizing-sentiment-with-zeppelin"></a>
-------------------------------------------------
 
 Make sure your Zeppelin service is started in Ambari, then head over to the Zeppelin at [http://sandbox.hortonworks.com:9995](http://sandbox.hortonworks.com:9995/).
 
@@ -688,3 +675,5 @@ Using this data you can determine how you might want to market your products to 
 - [Introduction to Data Science with Apache Zeppelin](https://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/)
 - [Hortonworks Community Connection](https://hortonworks.com/community/)
 - [HDP Sandbox & Learning Forum](https://community.hortonworks.com/spaces/81/index.html)
+- For more information on Solr you can [go here](https://hortonworks.com/hadoop/solr/)
+- You can also visit the [Apache project Page](http://lucene.apache.org/solr/)
