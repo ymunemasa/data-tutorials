@@ -21,16 +21,15 @@ Hadoop has always been associated with BigData, yet the perception is it’s onl
 
 ## Outline
 
--   [Step 1: Create cluster for Hive LLAP](#create-cluster-for-hive-llap)
--   [Step 2: Create Hive tables and load data](#create-hive-tables-and-load-data)
--   [Step 3: Create data model on Tableau](#create-data-model-on-tableau)
--   [Lab 1: Airline Growth](#airline-growth)
--   [Lab 2: Airport Delay](#airport-delay)
+-   [Create cluster for Hive LLAP](#create-cluster-for-hive-llap)
+-   [Create Hive tables and load data](#create-hive-tables-and-load-data)
+-   [Create data model on Tableau](#create-data-model-on-tableau)
+-   [Lab 1: Airline Growth Trend](#Lab-1-airline-growth-trend)
+-   [Lab 2: Airport Delay](#lab-2-airport-delay)
 -   [Summary](#summary)
 -   [Further Reading](#further-reading)
 
-
-## Step 1: Create cluster for Hive LLAP
+## Create cluster for Hive LLAP
 
 A few cluster modifications are required when creating a cluster to take advantage of Hive LLAP. After you login to AWS, search or go to the CloudFormation service:
 
@@ -63,15 +62,7 @@ Once the cluster is created and running, login Ambari:
 
 ![open CloudURL](assets/cluster6.png)
 
-Now, let's fine tune our cluster by modifying the YARN service:
-1. <mark>Memory Node:</mark> 28 GB
-2. <mark>Container:</mark> 1024 GB
-3. Save changes and Restart All Affected components
-
-![open CloudURL](assets/cluster7.png)
-
-
-## Step 2: Create Hive tables and load data
+## Create Hive tables and load data
 Now, we'll go into the Hive View and create the necessary tables for our analysis:
 
 ![open CloudURL](assets/hiveview1.png)
@@ -88,8 +79,7 @@ msck repair table flights;
 
 ![open CloudURL](assets/hiveview3.png)
 
-
-## Step 3: Create data model on Tableau
+## Create data model on Tableau
 
 We'll need to know the master's node IP address so we can connect to it via Tableau. Capture the IP address from Ambari:
 
@@ -152,11 +142,3 @@ Congratulations! You've completed the tutorial.
 As seen by this tutorial, it is easy to use Hive LLAP on Amazon Web Services (AWS). In using Business intelligence tools (BI tools), like Tableau, you are able to interactively explore and analyze your data.
 
 ## Further Reading
-
-> Note: Content TBD.
-
-Suggestions:
-
-[Reference tutorial: Enhanced Monitoring for Hive and LLAP](http://xxxxxxx)
-
-[Create custom Tez tutorial based on queries used in this tutorial](http://xxxxxx)
