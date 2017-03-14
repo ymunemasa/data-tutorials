@@ -1,5 +1,5 @@
 ---
-title: A Hands-On Tour of Apache Spark in 5 Minutes
+title: Hands-On Tour of Apache Spark in 5 Minutes
 tutorial-id: 360
 platform: hdp-2.5.0
 tags: [spark, zeppelin]
@@ -13,11 +13,16 @@ In this tutorial, we will introduce the basic concepts of Apache Spark and the f
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Download and Install [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
-*   Review [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*   Review [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md)
+-   Download and Install [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
+-   Review [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   Review [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md)
 
-### Concepts
+## Outline
+
+-  [Concepts](#concepts)
+-  [A Hands-On Example](#a-hands-on-example)
+
+## Concepts
 
 At the core of Spark is the notion of a **Resilient Distributed Dataset** (RDD), which is an immutable collection of objects that is partitioned and distributed across multiple physical nodes of a YARN cluster and that can be operated in parallel.
 
@@ -27,12 +32,11 @@ Once an RDD is instantiated, you can apply a [series of operations](https://spar
 
 Let’s try it out.
 
-### A Hands-On Example
+## A Hands-On Example
 
 First, launch **Apache Zeppelin**.
 
 If you're new to Zeppelin, make sure to checkout the [Getting Started Guide](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md).
-
 
 **Create a Notebook**
 
