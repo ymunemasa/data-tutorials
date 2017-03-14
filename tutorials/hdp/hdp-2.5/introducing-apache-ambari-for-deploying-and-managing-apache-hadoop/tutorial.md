@@ -13,19 +13,18 @@ If you’re just looking to get started with Hadoop in a VM, then you can simply
 
 ## Prerequisites
 
-*   [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-*   [Vagrant](http://vagrantup.com/)
+-   [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+-   [Vagrant](http://vagrantup.com/)
 
 ## Outline
 
-- [1. Spin up a VM with Vagrant](#spin-up)
-- [2. Configure the VM](#configure-vm)
-- [3. Setting up Passwordless SSH](#passwordless-ssh)
-- [4. Set up Ambari](#setup-ambari)
-- [5. Pseudo-Mode HDP Cluster Set up using Ambari](#pseudo-mode)
+- [Spin up a VM with Vagrant](#spin-up)
+- [Configure the VM](#configure-vm)
+- [Setting up Passwordless SSH](#passwordless-ssh)
+- [Set up Ambari](#setup-ambari)
+- [Pseudo-Mde HDP Cluster Set up using Ambari](#pseudo-mode)
 
-
-### 1. Spin up a VM with Vagrant <a id="spin-up"></a>
+## Spin up a VM with Vagrant <a id="spin-up"></a>
 
 Create a folder for this VM using:
 
@@ -68,7 +67,7 @@ sudo su
 cd ~
 ~~~
 
-### 2. Configure the VM <a id="configure-vm"></a>
+## Configure the VM <a id="configure-vm"></a>
 
 Type `hostname` on command line to find out the hostname of the machine.
 
@@ -95,7 +94,7 @@ service ntpd start
 
 ![chkconfig](assets/chkconfig.png)
 
-### 3. Setting up Passwordless SSH <a id="passwordless-ssh"></a>
+## Setting up Passwordless SSH <a id="passwordless-ssh"></a>
 
 It is required so that the Ambari server installed on one host can communicate with other hosts within the cluster to install Ambari agents. The server uses the key pair to access other hosts.
 Generate the key using ssh-keygen
@@ -110,7 +109,7 @@ Also append id_rsa.pub, the public key to the authorized_keys keys file.
 
 ![authorized_keys](assets/authorized_keys.png)
 
-### 4. Set up Ambari <a id="setup-ambari"></a>
+## Set up Ambari <a id="setup-ambari"></a>
 
 Download and copy the ambari repository bits to **/etc/yum/repos.d**:
 
@@ -148,7 +147,7 @@ service ambari-server start
 
 ![ambari_start_successfully](assets/ambari_start_successfully.png)
 
-### 5. Pseudo-Mde HDP Cluster Set up using Ambari <a id="pseudo-mode"></a>
+## Pseudo-Mde HDP Cluster Set up using Ambari <a id="pseudo-mode"></a>
 
 Go to browser and type `127.0.0.1:8080` to access Ambari. The default username and password is **admin** and **admin** respectively.
 
