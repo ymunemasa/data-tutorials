@@ -1,9 +1,11 @@
 ---
-title: Securing HDFS, Hive AND HBase with Apache Knox and Apache Ranger
+title: Securing HDFS, Hive and HBase with Knox and Ranger
 tutorial-id: 571
 platform: hdp-2.5.0
 tags: [knox, ranger]
 ---
+
+# Securing HDFS, Hive and HBase with Knox and Ranger
 
 ## Introduction
 
@@ -11,30 +13,30 @@ tags: [knox, ranger]
 Apache Ranger already extends baseline features for coordinated enforcement across Hadoop workloads from batch, interactive SQL and real–time in Hadoop.
 In this tutorial, we cover using **Apache Knox** and **Apache Ranger** for HDP 2.5 to secure your Hadoop environment. We will walkthrough the following topics:
 
-1\. Support for Knox authorization and auditing
-2\. Command line policies in Hive
-3\. Command line policies in HBase
-4\. REST APIs for policy manager
-
+1. Support for Knox authorization and auditing
+2. Command line policies in Hive
+3. Command line policies in HBase
+4. REST APIs for policy manager
 
 ## Prerequisites
 
-*   Download [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
-*   Complete the [Learning the Ropes of the HDP Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) tutorial.
-
-## Background
-
-Ranger is a great tool to secure your data in Hadoop and HDP. It offers a simple centralized way to manage users’ access to data in your cluster. Cluster administrators can easily manage policies for access to files folder, databases, tables, and more! In this tutorial we’ll explore how we can use Ranger to manage access to these types of resources in the Hortonworks Sandbox
-In this tutorial we will also utilize Apache Knox which is a REST API gateway for Hadoop services like HDFS and Hive! It allows a user to plug-and-play with already existing LDAP and Microsoft AD infrastructure to manage access to Hadoop services. Not to mention it supports Kerberized clusters as well as utilizes HTTPS protocol for its communications.
+-   Download [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
+-   Complete the [Learning the Ropes of the HDP Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) tutorial.
 
 ## Outline
 
-- [1: Start Knox, Ambari Infra and Demo LDAP Services](#start-knox-infra)
-- [2: Knox Access Scenarios](#knox-access-scenarios)
-- [3: Hive Grant/Revoke Permission Scenarios](#hive-grant-revoke)
-- [4: HBase Grant/Revoke Permission Scenarios](#hbase-grant-revoke)
-- [5: REST APIs for Policy Administration](#rest-apis)
-- [6: Summary](#summary)
+-   [Concepts](#concepts)
+-   [1: Start Knox, Ambari Infra and Demo LDAP Services](#start-knox-infra)
+-   [2: Knox Access Scenarios](#knox-access-scenarios)
+-   [3: Hive Grant/Revoke Permission Scenarios](#hive-grant-revoke)
+-   [4: HBase Grant/Revoke Permission Scenarios](#hbase-grant-revoke)
+-   [5: REST APIs for Policy Administration](#rest-apis)
+-   [Summary](#summary)
+
+## Concepts
+
+Ranger is a great tool to secure your data in Hadoop and HDP. It offers a simple centralized way to manage users’ access to data in your cluster. Cluster administrators can easily manage policies for access to files folder, databases, tables, and more! In this tutorial we’ll explore how we can use Ranger to manage access to these types of resources in the Hortonworks Sandbox
+In this tutorial we will also utilize Apache Knox which is a REST API gateway for Hadoop services like HDFS and Hive! It allows a user to plug-and-play with already existing LDAP and Microsoft AD infrastructure to manage access to Hadoop services. Not to mention it supports Kerberized clusters as well as utilizes HTTPS protocol for its communications.
 
 ## Procedure
 
@@ -48,7 +50,7 @@ The first time password to log in is: **hadoop**
 
 ![sshTerminal](assets/sshTerminal.png)
 
-### 1: Start Knox, Ambari Infra and Demo LDAP Services <a id="start-knox-infra"></a>
+## 1: Start Knox, Ambari Infra and Demo LDAP Services <a id="start-knox-infra"></a>
 
 Open up the **Ambari** user interface by using the URL http://sandbox.hortonworks.com:8080.
 Using Virtualbox it might look like http://127.0.0.1:8080. If you’re using Azure make sure to replace 127.0.0.1 with you host machine’s IP address.
@@ -78,7 +80,7 @@ Next, then go back to the `Service Actions` button on the Knox service and click
 
 ![start_demo_ldap](assets/start_demo_ldap.png)
 
-### 2: Knox Access Scenarios <a id="knox-access-scenarios"></a>
+## 2: Knox Access Scenarios <a id="knox-access-scenarios"></a>
 
 Check if Ranger Admin console is running, at [http://127.0.0.1:6080/](http://127.0.0.1:6080/) from your host machine. The username is **raj_ops** and the password is **raj_ops**.
 
@@ -137,7 +139,7 @@ We can check the auditing in the `Ranger Policy Manager → Audit screen`. Searc
 Ranger plugin for Knox intercepts any request made to Knox and enforces policies which are retrieved from the Ranger Administration Portal.
 You can configure the Knox policies in Ranger to restrict to a specific service (WebHDFS, WebHCAT etc) and to a specific user or a group and you can even bind user/group to an ip address.
 
-### 3: Hive Grant/Revoke Permission Scenarios <a id="hive-grant-revoke"></a>
+## 3: Hive Grant/Revoke Permission Scenarios <a id="hive-grant-revoke"></a>
 
 Ranger supports the import of **grant/revoke** policies set through command line for Hive. Ranger can store these policies centrally along with policies created in the administration portal and enforce it in Hive using its plugin. Go to `Access Manager=>Resource Based Policies`. Click on `Sandbox_hive`.
 
@@ -198,7 +200,7 @@ If the command goes through successfully, you will see the policy created/update
 Ranger plugin intercepts GRANT/REVOKE commands in Hive and creates corresponding policies in Admin portal. The plugin then uses these policies for enforcing Hive authorization (Hiveserver2).
 Users can run further GRANT commands to update permissions and REVOKE commands to take away permissions.
 
-### 4: HBase Grant/Revoke Permission Scenarios <a id="hbase-grant-revoke"></a>
+## 4: HBase Grant/Revoke Permission Scenarios <a id="hbase-grant-revoke"></a>
 
 Ranger can support import of grant/revoke policies set through command line in HBase. Similar to Hive, Ranger can store these policies as part of the Policy Manager and enforce it in Hbase using its plugin. Go back to Ambari with user credentials **raj_ops/raj_ops**.
 
@@ -271,11 +273,11 @@ You can check the existing policy and see if it has been changed. Click on the b
 Ranger plugin intercepts GRANT/REVOKE commands in Hbase and creates corresponding policies in the Admin portal. The plugin then uses these policies for enforcing authorization.
 Users can run further GRANT commands to update permissions and REVOKE commands to take away permissions.
 
-### 5: REST APIs for Policy Administration <a id="rest-apis"></a>
+## 5: REST APIs for Policy Administration <a id="rest-apis"></a>
 
 Ranger policies administration can be managed through REST APIs. Users can use the APIs to create or update policies, instead of going into the Administration Portal.
 
-#### Running REST APIs from Command line
+### Running REST APIs from Command line
 
 From your local command line shell, run this CURL command. This API will create a policy with the name **hdfs-testing-policy** within the HDFS repository **Sandbox_hadoop**. Exit the hbase shell by typing `quit` and then run the following command:
 
@@ -320,6 +322,6 @@ curl -i -u admin:admin -X GET http://127.0.0.1:6080/service/public/api/policy/28
 We created a policy and retrieved policy details using REST APIs. Users can now manage their policies using API tools or applications integrated with the Ranger REST APIs.
 Hopefully, through this whirlwind tour of Ranger, you were introduced to the simplicity and power of Ranger for security administration.
 
-### 6: Summary <a id="summary"></a>
+## Summary <a id="summary"></a>
 
 In this tutorial, we got to know the basics about how Knox and Ranger enforce access restrictions on Hive, HBase and HDFS data.
