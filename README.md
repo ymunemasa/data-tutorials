@@ -1,4 +1,4 @@
-![HCC Community Logo](http://hortonworks.com/wp-content/uploads/2016/03/logo-hcc.png)
+![HCC Community Logo](https://hortonworks.com/wp-content/uploads/2016/03/logo-hcc.png)
 
 ## Big Data Tutorials
 
