@@ -1,5 +1,5 @@
 ---
-title: Spark on HBase: A DataFrame Based HBase Connector
+title: Spark on HBase A DataFrame Based HBase Connector
 tutorial-id: 369
 platform: hdp-2.5.0
 tags: [spark, hbase]

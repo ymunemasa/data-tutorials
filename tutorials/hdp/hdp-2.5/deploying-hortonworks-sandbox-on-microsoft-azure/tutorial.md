@@ -20,7 +20,7 @@ The Azure cloud infrastructure has become a common place for users to deploy vir
 - [Find Hortonworks Sandbox on Azure Marketplace](#find-hortonworks-sandbox-on-azure-marketplace)
 - [Creating the Sandbox](#creating-the-sandbox)
 - [Set a Static IP](#set-a-static-ip)
-- [Connecting to the Sandbox](#connecting-to-the-sandbox)
+- [Configure SSH Tunneling](#configure-ssh-tunneling)
 - [Splash Screen](#splash-screen)
 - [Further Reading](#further-reading)
 
@@ -86,9 +86,39 @@ Clicking on the IP address will bring up the IP configuration panel.  Select **S
 
 ![Set the machine's IP to static](assets/static-ip.jpg)
 
-## Connecting to the Sandbox
+## Configure SSH Tunneling
 
-Fantastic, the sandbox is now up and running!  Though we still need to set up a secure connection to it.  Head on over to [Port Forwarding To Azure Sandbox]({{ site.url }}/port-forwarding-azure-sandbox) for a quick walkthrough on connecting to Azure.
+Use your favorite editor and edit your `~/.ssh/config` file.  For example:
+```
+vi ~/.ssh/config
+```
+
+Enter the following configuration, replacing the **HostName** IP with the public IP of your instance.  More forwardings can be entered via the **LocalForward** directive similar to the ones displayed here.
+
+> Note: Spacing and capitalization is important.
+
+```
+Host azureSandbox
+  Port 22
+  User azure
+  HostName 52.175.207.131
+  LocalForward 8080 127.0.0.1:8080
+  LocalForward 8888 127.0.0.1:8888
+  LocalForward 9995 127.0.0.1:9995
+  LocalForward 9996 127.0.0.1:9996
+  LocalForward 8886 127.0.0.1:8886
+  LocalForward 10500 127.0.0.1:10500
+  LocalForward 4200 127.0.0.1:4200
+  LocalForward 2222 127.0.0.1:2222
+```
+
+Save and close the file.  Now SSH into the Azure machine by using the **Host** alias we just configured, which will connect us automatically using the IP address we specified in the config file.  You'll be asked for a password, which is the one you set during initial configuration on Azure.
+
+```
+ssh azureSandbox
+```
+
+That's it!  Keep this SSH connection open for the duration of your interaction with the sandbox on Azure.
 
 ## Splash Screen
 
