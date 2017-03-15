@@ -90,8 +90,6 @@ A FlowFile can originate from a processor in NiFi. Processors can also receive t
 - In this tutorial, we will use the Power View feature in Excel 2013 to visualize the server log data. Power View is currently only available in Microsoft Office Professional Plus and Microsoft Office 365 Professional Plus.
 - We're going to install Hortonworks DataFlow (HDF) on the Sandbox, so you'll need to download the latest HDF release
 
-* * *
-
 ## Step 1 – Configure and Install Hortonworks DataFlow
 
 ### 1.1 - Install NiFi <a id="step1-install-nifi-tutorial0"></a>
@@ -111,8 +109,6 @@ Once you enter the NiFi HTML Interface at [http://localhost:9090/nifi](http://lo
 
 ![nifi-html-interface](assets/step1/nifi_html_interface.png)
 
-* * *
-
 ## Step 2 - Import the Flow <a id="import-flow"></a>
 
 We're going to import a pre-made data flow from a template which you can [**download ServerLogGeneratorSecurity.xml**](assets/templates/ServerLogGeneratorSecurity.xml).
@@ -124,8 +120,6 @@ Use the NiFi interface to upload the flow, and then drag it onto your workspace.
 Once you've uploaded the template into NiFi you can instantiate it by dragging the template icon ![template_icon](assets/step2/template_icon.png) onto the screen. It will ask you to select your template's name and the flow will appear as in the image below.
 
 ![Instantiate NiFi Template](assets/step2/instantiate-template.png)
-
-* * *
 
 ## Step 3 - Generate the Server Log Data <a id="generate-server-log-ata"></a>
 
@@ -212,8 +206,6 @@ SELECT time, ip, country, cast(status as BOOLEAN) FROM firewall_logs LIMIT 100;
 ![test-query-results](assets/step3/test-query-results.png)
 
 > Note: In the table above, 1 is for true, 0 is for false.
-
-* * *
 
 ## Step 4 - Visualize Server Log Data with Apache Zeppelin <a id="visualize-log-data-zeppelin"></a>
 
