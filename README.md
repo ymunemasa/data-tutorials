@@ -16,7 +16,7 @@ If you run into problems that prevent you from completing a tutorial, head on ov
 
 If you are certain there is an issue with the tutorial, please [create a new issue on Github](https://github.com/hortonworks/tutorials/issues/new) and we will do our best to resolve it!
 
-## Interested In Contributing Updates Or Brand New Tutorials?
+## Interested In Contributing Updates Or New Tutorials?
 
 Fix issues, help clarify topics, update a tutorial to be compatible with newest releases, or even create a brand new tutorial!
 
