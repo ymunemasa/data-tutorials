@@ -14,6 +14,7 @@ We will install and explore the Sandbox on virtual machine and cloud environment
 Let's begin our Hadoop journey.
 
 ## Prerequisites
+
 - Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
 - Allow yourself around one hour to complete this tutorial
 - If on mac or linux, added `sandbox.hortonworks.com` to your `/private/etc/hosts` file
@@ -35,23 +36,22 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 ![changing-hosts-file.png](assets/lab0-nifi/changing-hosts-file.png)
 
 ## Outline
-- [What is the Sandbox?](#what-is-the-sandbox)
-- [Section 1: Sandbox in VM](#section1)
-- [Step 1: Explore the Sandbox in a VM](#explore-sandbox-vm)
-      - [1.1 Install the Sandbox](#install-sandbox)
-      - Add hosts alias
-      - [1.3 Connect to the Welcome Screen](#connect-to-welcome-screen)
-      - [1.5 Learn Your Sandbox Version](#learn-sandbox-version)
-- [Step 2: Explore Ambari](#explore-ambari)
-      - [Services Provided By the Sandbox](#services-provided-by-sandbox)
-      - [2.2 Setup Ambari admin Password Manually](#setup-ambari-admin-password)
-      - [2.3 Explore Ambari Welcome Screen 5 Key Capabilities](#explore-ambari-welcome-screen)
-      - [2.4 Explore Ambari Dashboard Links](#explore-ambari-dashboard)
-
-- [Section 3: New Users in Sandbox](#section3)
-- [Section 4: Troubleshoot](#section4)
-- [Step 1: Troubleshoot Problems](#troubleshoot-problems)
-- [Further Reading](#further-reading)
+-   [What is the Sandbox?](#what-is-the-sandbox)
+-   [Section 1: Sandbox in VM](#section1)
+-   [Step 1: Explore the Sandbox in a VM](#explore-sandbox-vm)
+    -   [1.1 Install the Sandbox](#learn-host-address-environment)
+    -   [1.2 Learn the Host Address of Your Environment](#)
+    -   [1.3 Connect to the Welcome Screen](#connect-to-welcome-screen)
+    -   [1.5 Learn Your Sandbox Version](#learn-sandbox-version)
+-   [Step 2: Explore Ambari](#explore-ambari)
+    -   [Services Provided By the Sandbox](#services-provided-by-sandbox)
+    -   [2.2 Setup Ambari admin Password Manually](#setup-ambari-admin-password)
+    -   [2.3 Explore Ambari Welcome Screen 5 Key Capabilities](#explore-ambari-welcome-screen)
+    -   [2.4 Explore Ambari Dashboard Links](#explore-ambari-dashboard)
+-   [Section 3: New Users in Sandbox](#section3)
+-   [Section 4: Troubleshoot](#section4)
+-   [Step 1: Troubleshoot Problems](#troubleshoot-problems)
+-   [Further Reading](#further-reading)
 
 ## What is the Sandbox? <a id="what-is-the-sandbox"></a>
 
