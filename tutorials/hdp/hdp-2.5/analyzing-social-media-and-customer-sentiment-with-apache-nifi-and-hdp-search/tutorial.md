@@ -235,6 +235,7 @@ After clicking **ADD** you should have a screen similar to the following:
 
 ![work_flow](assets/images/work_flow.png)
 
+
 Great! The NiFi flow has been set up. The _boxes_ are what NiFi calls processors. Each of the processors can be connected to one another and help make data flow. Each processor can perform specific tasks. They are at the very heart of NiFi's functionality.
 
 
@@ -257,6 +258,18 @@ Once you've got all of your properties set up you can take a look at the configu
 The processors are valid since the warning symbols disappeared. Notice that the processors have a stop symbol ![stop_signal](assets/images/stop_signal.png) in the upper left corner and are ready to run. To select all processors, hold down the shift-key and drag your mouse across the entire data flow.
 
 Now that all processors are selected, go to the actions toolbar and click the start button ![play_signal](assets/images/play_signal.png). You can see your workflow running.
+
+### Common Errors
+If the GetTwitter processor reports an authorization error, it might be because the sandbox's system clock has the wrong time. Confirm that the correct time is displayed on the Nifi dashboard. If it's off, you can fix it by running these commands:
+
+```
+yum install -y ntp
+service ntpd stop
+ntpdate pool.ntp.org
+service ntpd start
+```
+If the PutHDFS processor reports an LZOCodec error, you need to open the HDFS configuration tab in Ambari and delete all references to LZOCodec. Restarting HDFS and Nifi after making these changes should fix this issue.
+
 
 ## Generating Random Tweet Data for Hive and Solr <a id="generating-random-tweet-data-for-hive-and-solr"></a>
 
