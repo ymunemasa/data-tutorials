@@ -1,9 +1,11 @@
 ---
-title: Securing Data Lake Resources and Auditing User Access with Apache Ranger
+title: Securing Your Data Lake Resource & Auditing User Access with HDP Advanced Security
 tutorial-id: 570
 platform: hdp-2.5.0
 tags: [ranger]
 ---
+
+# Securing Your Data Lake Resource & Auditing User Access with HDP Advanced Security
 
 ## Introduction
 
@@ -17,19 +19,19 @@ In this lab of the Apache Ranger tutorial, we will use Ranger to set access poli
 
 ## Outline
 
-- [1: Download the sample data](#download-sample-data)
-- [2: Upload the data files](#upload-data-files)
-- [3: Create the tables in Hive](#create-table-hive)
-- [4: Row level filtering in Hive](#row-level-filtering)
-- [5: Dynamic Column Masking in Hive](#dynamic-column-masking)
-- [6: Summary](#summary)
+- [1. Download the sample data](#download-sample-data)
+- [2. Upload the data files](#upload-data-files)
+- [3. Create the tables in Hive](#create-table-hive)
+- [4. Row level filtering in Hive](#row-level-filtering)
+- [5. Dynamic Column Masking in Hive](#dynamic-column-masking)
+- [Summary](#summary)
 
-### 1: Download the sample data <a id="download-sample-data"></a>
+## 1. Download the sample data <a id="download-sample-data"></a>
 
 Download the driver data file from [here](assets/driver_data.zip).
 Once you have the file you will need to unzip the file into a directory. We will be uploading two csv files - **drivers.csv** and **truck_event_text_partition.csv**.
 
-### 2. Upload the data files <a id="upload-data-files"></a>
+## 2. Upload the data files <a id="upload-data-files"></a>
 
 Login to the Ambari by the following credentials:
 Username - **raj_ops**
@@ -46,7 +48,7 @@ Click on the `browse` button to open a dialog box. Navigate to where you stored 
 
 ![uploaded_files](assets/uploaded_files.png)
 
-### 3. Create the tables in Hive <a id="create-table-hive"></a>
+## 3. Create the tables in Hive <a id="create-table-hive"></a>
 
 Let’s open the **Hive View** by clicking on the Hive button in the top bar as previously when we selected the HDFS Files view.
 
@@ -118,11 +120,11 @@ Click on the box next to the table name to view the data:
 
 Now that we have the tables ready, let us explore the row level filtering and masking capabilities of Apache ranger.
 
-### 4. Row level filtering in Hive <a id="row-level-filtering"></a>
+## 4. Row level filtering in Hive <a id="row-level-filtering"></a>
 
 By providing row level filtering to Hive tables, Hive data access can be restricted to specific rows based on user role in the organization. **Row-level filter policies** are similar to other Ranger access policies. You can set filters for specific users, groups, and conditions. The filter expression should be a valid **WHERE** clause. Let us start with some use cases of row level filtering.
 
-#### 4.1 Restrict access as per different types of wage plan in drivers table
+### 4.1 Restrict access as per different types of wage plan in drivers table
 
 There are only two values for wage plan attribute in drivers table - **miles** and **hours**. We are going to use two users for this use case - **maria_dev** and **amy_ds**. Let us restrict these users to access records based on the wage plan. User maria_dev should only view records corresponding to hours wage plan and amy_ds should view records corresponding to miles wage plan.
 
@@ -180,7 +182,7 @@ Credentials: **amy_ds/amy_ds**. Repeat the same operation as above
 
 There are records corresponding to miles wage plan only.
 
-#### 4.2 Restrict Access on the drivers table data based on truck_events table data
+### 4.2 Restrict Access on the drivers table data based on truck_events table data
 
 Let us create one more Row level filter policy which makes sure that maria_dev view records only for those drivers whose **route is from Saint Louis to Memphis**. The information for route name is present in another table **truck_events**.
 
@@ -198,11 +200,11 @@ Click `Add` and go back to Hive View as **maria_dev** user. Run the query to vie
 
 ![select_data_drivers_maria_dev_1](assets/select_data_drivers_maria_dev_1.png)
 
-### 5. Dynamic Column Masking in Hive <a id="dynamic-column-masking"></a>
+## 5. Dynamic Column Masking in Hive <a id="dynamic-column-masking"></a>
 
 **Column masking policy** allows ranger to specify masking condition in hive policy to mask the sensitive data for specific users. A variety of masking types are available, such as show last 4 characters, show first 4 characters, Hash, Nullify, and date masks (show only year). Let us use drivers table data for data masking use cases as well.
 
-#### 5.1 Show only last 4 digits of SSN column
+### 5.1 Show only last 4 digits of SSN column
 
 Go back to Ranger and click on `Masking` tab:
 
@@ -242,7 +244,7 @@ Ranger replaces the first 5 digits of SSN to value 1 and retained the last 4.
 
 > NOTE: If SSN would have been in a proper format(111-22-3333) it would have given xxx-xx-3333
 
-#### 5.2 Convert location column values to hash values
+### 5.2 Convert location column values to hash values
 
 In this use case, we will see how Ranger effectively hashes the values of location column through the masking policy.
 
@@ -284,6 +286,6 @@ Next, let us see the data from the another user **amy_ds**. Sign out from Ambari
 
 There is no masking in either SSN or location location because amy_ds is not a part of the policy so it gets unmasked results.
 
-### 6. Summary <a id="summary"></a>
+## Summary <a id="summary"></a>
 
 In this tutorial, we learned how to create row level filter and masking policies in Apache Ranger to restrict access to Hive tables or columns.
