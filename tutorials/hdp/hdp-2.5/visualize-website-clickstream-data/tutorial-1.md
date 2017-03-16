@@ -1,9 +1,11 @@
 ---
-title: How to Visualize Website Clickstream Data
+title: Visualize Website Clickstream Data
 tutorial-id: 250
 platform: hdp-2.5.0
 tags: [ambari, hive, hdfs]
 ---
+
+# Visualize Website Clickstream Data
 
 ## Lab 1: Perform Web Log Analytics with Hive
 
@@ -11,50 +13,39 @@ tags: [ambari, hive, hdfs]
 
 This tutorial describes how to ingest clickstream data into HDFS, then use HCatalog to create tables and perform queries on those tables with Hive to analyze the web logs from that data. By the end of the tutorial, we will have a better understanding of how to perform web log analysis on clickstream data, so we can better understand the habits of our customers.
 
-### Overview
+## Prerequisites
 
-To load data into the Hortonworks sandbox, you will:
-
-* Download sample data to your computer.
-* Upload the data files into the sandbox
-* View and refine the data in the sandbox.
-
-### Prerequisites
-
-* Hortonworks Sandbox 2.5 (installed and running)
+-   Hortonworks Sandbox 2.5 (installed and running)
 
 ## Outline
-- [Clickstream Data](clickstream-data)
-- [Potential Uses of Clickstream Data](uses-clickstream-data)
-- [Step 1: Download the Sample Data](download-data)
-- [Step 2: Upload the Data Files into the Sandbox](upload-data-files-sandbox)
-- [Step 3: Create Hive Tables](create-hive-tables)
-- [Step 4: Load data into new tables](load-data-to-tables)
-- [Step 5: View and Refine the Data in the Sandbox](view-refine-data)
-- [Summary](summary-lab1)
-- [Further Reading](further-reading-lab1)
 
+-   [Clickstream Data](clickstream-data)
+-   [Potential Uses of Clickstream Data](uses-clickstream-data)
+-   [Step 1: Download the Sample Data](download-data)
+-   [Step 2: Upload the Data Files into the Sandbox](upload-data-files-sandbox)
+-   [Step 3: Create Hive Tables](create-hive-tables)
+-   [Step 4: Load data into new tables](load-data-to-tables)
+-   [Step 5: View and Refine the Data in the Sandbox](view-refine-data)
+-   [Summary](summary-lab1)
+-   [Further Reading](further-reading-lab1)
 
-### Clickstream Data <a id="clickstream-data"></a>
+## Clickstream Data <a id="clickstream-data"></a>
 
 Clickstream data is an information trail a user leaves behind while visiting a website. It is typically captured in semi-structured website log files.
 
 These website log files contain data elements such as a date and time stamp, the visitor’s IP address, the destination URLs of the pages visited, and a user ID that uniquely identifies the website visitor.
 
-### Potential Uses of Clickstream Data <a id="uses-clickstream-data"></a>
+## Potential Uses of Clickstream Data <a id="uses-clickstream-data"></a>
 
 One of the original uses of Hadoop at Yahoo was to store and process their massive volume of clickstream data. Now enterprises of all types can use Hadoop and the Hortonworks Data Platform (HDP) to refine and analyze clickstream data. They can then answer business questions such as:
 
-*   What is the most efficient path for a site visitor to research a product, and then buy it?
-*   What products do visitors tend to buy together, and what are they most likely to buy in the future?
-*   Where should I spend resources on fixing or enhancing the user experience on my website?
+-   What is the most efficient path for a site visitor to research a product, and then buy it?
+-   What products do visitors tend to buy together, and what are they most likely to buy in the future?
+-   Where should I spend resources on fixing or enhancing the user experience on my website?
 
 In this tutorial, we will focus on the “path optimization” use case. Specifically: how can we improve our website to reduce bounce rates and improve conversion?
 
---------------------------------------------------------------------------------
-
-
-### Step 1: Download the Sample Data <a id="download-data"></a>
+## Step 1: Download the Sample Data <a id="download-data"></a>
 
 A set of sample data contained in a compressed (.zip) folder can be downloaded here:
 
@@ -64,12 +55,11 @@ Save the sample data .zip file to your computer, then extract the files and unzi
 
 **Note**: The extracted data files should have a .tsv file extension at the end.
 
-### Step 2: Upload the Data Files into the Sandbox <a id="upload-data-files-sandbox"></a>
+## Step 2: Upload the Data Files into the Sandbox <a id="upload-data-files-sandbox"></a>
 
 First Log in to the Ambari interface at [http://localhost:8080](http://localhost:8080). You can log in with the username `maria_dev` and the password `maria_dev`
 
 Select the `Files view` from the `vies menu` ![views_menu](assets/lab1/views_menu.png) at the top. The HDFS Files view enables users to view Hortonworks Data Platform(HDP) file store. The HDP file system is separate from the local file system.
-
 
 We navigate to `/tmp`, create a **maria** folder
 
@@ -89,7 +79,7 @@ Now, we navigate to `/tmp/maria`, click on upload and browse the `Omniture.0.tsv
 
 Repeat this procedure for `users.tsv` and `products.tsv`.
 
-### Step 3: Create Hive Tables <a id="create-hive-tables"></a>
+## Step 3: Create Hive Tables <a id="create-hive-tables"></a>
 
 Let's open the `Hive View` by clicking on the Hive button from the `views menu` ![views_menu](assets/lab1/views_menu.png).
 
@@ -127,7 +117,7 @@ stored as textfile
 tblproperties ("skip.header.line.count"="1");
 ~~~
 
-### Step 4: Load data into new tables <a id="load-data-to-tables"></a>
+## Step 4: Load data into new tables <a id="load-data-to-tables"></a>
 
 Let's execute the following queries to load the data into the tables.
 
@@ -147,7 +137,7 @@ To check if the data was loaded, click on the **load sample data** icon ![load_s
 
 > Note: repeat the procedure to verify that the dataset was loaded into the products and omniturelogs tables.
 
-### Step 5: View and Refine the Data in the Sandbox <a id="view-refine-data"></a>
+## Step 5: View and Refine the Data in the Sandbox <a id="view-refine-data"></a>
 
 In the previous section, we created sandbox tables from uploaded data files. Now let’s take a closer look at that data.
 
@@ -158,6 +148,7 @@ Switch to your local machine, navigate to the location of the datasets before se
 **omniturelogs** – website logs containing information such as URL, timestamp, IP address, geocoded IP, and session ID.
 
 ![omniturelogs_dataset](assets/lab1/omniturelogs_dataset_part1.png)
+
 ![omniturelogs_dataset](assets/lab1/omniturelogs_dataset_part2.png)
 
 **users** – CRM user data listing SWIDs (Software User IDs) along with date of birth and gender.
@@ -214,10 +205,12 @@ Let's view the data generated by the script with the procedure we learned in the
 Now that you have loaded data into the Hortonworks Platform, you can use Business Intelligence (BI) applications or Data Science Notebooks such as Microsoft Excel or Apache Zeppelin to access and analyze the data.
 
 ## Summary <a id="summary-lab1"></a>
+
 Congratulations! We uploaded similar datasets for users, products and omniturelogs into HDFS. We then used Hive view to create Hive scripts that create tables and load them with datasets. We then learned to perform ETL operations on the datasets, such as joining our datasets and then further filtering down the data we wanted for our use case of webloganalytics pertaining to when, how and by whom our web server was visited. Thus, we were able to extract the following attributes: logdate, url, ip, city, state, country, category, age and gender into a new table about our customers, so we can better understand them.
 
 ## Further Reading <a id="further-reading-lab1"></a>
-- Explore Apache Hive in [Retail Analytics Demo](https://community.hortonworks.com/repos/51932/retail-analytics-demo.html) along with other components from the HDP stack.
-- [SQL to HQL Cheat Sheet](https://hortonworks.com/wp-content/uploads/2013/05/hql_cheat_sheet.pdf)
-- [Hive in the Blog](https://hortonworks.com/apache/hive/#blog)
-- [Hive Webinars & Presentations](https://hortonworks.com/apache/hive/#webinars)
+
+-   Explore Apache Hive in [Retail Analytics Demo](https://community.hortonworks.com/repos/51932/retail-analytics-demo.html) along with other components from the HDP stack.
+-   [SQL to HQL Cheat Sheet](https://hortonworks.com/wp-content/uploads/2013/05/hql_cheat_sheet.pdf)
+-   [Hive in the Blog](https://hortonworks.com/apache/hive/#blog)
+-   [Hive Webinars & Presentations](https://hortonworks.com/apache/hive/#webinars)
