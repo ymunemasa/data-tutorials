@@ -15,10 +15,10 @@ Let's begin our Hadoop journey.
 
 ## Prerequisites
 
-- Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
-- Allow yourself around one hour to complete this tutorial
-- If on mac or linux, added `sandbox.hortonworks.com` to your `/private/etc/hosts` file
-- If on windows 7, added `sandbox.hortonworks.com` to your `/c/Windows/System32/Drivers/etc/hosts` file
+-   Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
+-   Allow yourself around one hour to complete this tutorial
+-   If on mac or linux, added `sandbox.hortonworks.com` to your `/private/etc/hosts` file
+-   If on windows 7, added `sandbox.hortonworks.com` to your `/c/Windows/System32/Drivers/etc/hosts` file
 
 If on mac or linux, to add `sandbox.hortonworks.com` to your list of hosts, open the terminal, enter the following command, replace {Host-Name} with the appropriate host for your sandbox:
 
@@ -33,17 +33,18 @@ If on windows 7, to add `sandbox.hortonworks.com` to your list of hosts, open gi
 echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/etc/hosts
 ~~~
 
-![changing-hosts-file.png](assets/lab0-nifi/changing-hosts-file.png)
-
 ## Outline
+
 -   [What is the Sandbox?](#what-is-the-sandbox)
 -   [Section 1: Sandbox in VM](#section1)
 -   [Step 1: Explore the Sandbox in a VM](#explore-sandbox-vm)
-    -   [1.1 Install the Sandbox](#learn-host-address-environment)
-    -   [1.2 Learn the Host Address of Your Environment](#)
+    -   [1.1 Install the Sandbox](#install-sandbox)
+    -   [1.2 Learn the Host Address of Your Environment](#learn-host-address-environment)
     -   [1.3 Connect to the Welcome Screen](#connect-to-welcome-screen)
+    -   [1.4 Multiple Ways to Execute Terminal Commands](#ways-execute-terminal-command)
     -   [1.5 Learn Your Sandbox Version](#learn-sandbox-version)
 -   [Step 2: Explore Ambari](#explore-ambari)
+    -   [2.1 Use Terminal to Find the Host IP Sandbox Runs On](#find-host-ip-sandbox-runs-on)
     -   [Services Provided By the Sandbox](#services-provided-by-sandbox)
     -   [2.2 Setup Ambari admin Password Manually](#setup-ambari-admin-password)
     -   [2.3 Explore Ambari Welcome Screen 5 Key Capabilities](#explore-ambari-welcome-screen)
@@ -96,9 +97,10 @@ Click on `Launch Dashboard` to go to Ambari with a [Hello HDP tutorial](https://
 ### 1.4 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command"></a>
 
 > **Note:** For all methods below, the login credential instructions will be the same to access the Sandbox through the terminal.
-- Login using username as **root** and password as **hadoop**.
-- After first time login, you will be prompted to retype your current password, then change your password.
-- If you are using Putty on Windows then go to terminal of your sandbox in oracle virtualBox --> Press `Alt+F5` --> enter username - **root** --> enter password - **hadoop** --> it will ask you to set new password --> set new password.
+
+-   Login using username as **root** and password as **hadoop**.
+-   After first time login, you will be prompted to retype your current password, then change your password.
+-   If you are using Putty on Windows then go to terminal of your sandbox in oracle virtualBox --> Press `Alt+F5` --> enter username - **root** --> enter password - **hadoop** --> it will ask you to set new password --> set new password.
 
 #### Secure Shell (SSH) Method:
 
@@ -188,7 +190,6 @@ If you want to search for the host address your sandbox is running on, ssh into 
 
 ![Host_Address_Sandbox_Runs_On](assets/find_host_sandbox_runs_on_learning_the_ropes_sandbox.png)
 
-
 #### Services Provided By the Sandbox <a id="services-provided-by-sandbox"></a>
 
 | Service | URL |
@@ -217,9 +218,9 @@ Please go to [Section 3](#section3) to know more about these users.
 
 ### 2.2 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password"></a>
 
-1. Start your sandbox and open a terminal (mac or linux) or putty (windows)
-2. SSH into the sandbox as root using `ssh root@127.0.0.1 -p 2222`. For Azure and VMware users, your `_host_` and `_port_` will be different.
-3. Type the following commands:
+1.  Start your sandbox and open a terminal (mac or linux) or putty (windows)
+2.  SSH into the sandbox as root using `ssh root@127.0.0.1 -p 2222`. For Azure and VMware users, your `_host_` and `_port_` will be different.
+3.  Type the following commands:
 
 ~~~
 # Updates password
@@ -250,14 +251,13 @@ Enter the **Ambari Dashboard URL** and you should see a similar screen:
 
 ![Lab0_4](assets/Lab0_4.png)
 
-
 Click on
 
-1.  **Metrics**, **Heatmap** and **Configuration**
+1\.  **Metrics**, **Heatmap** and **Configuration**
 
 and then the
 
-2.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
+2\.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
 
 ## Section 2: Sandbox in Microsoft Azure <a id="section2"></a>
 
@@ -294,7 +294,6 @@ Open your terminal (mac and linux) or putty (windows). Here again, `host` is the
 #### Shell Web Client Method:
 
 Open your web browser. Replace the following text by your `host` into your browser to access the Sandbox through the shell. Provide the same username and password that you gave while deploying the sandbox on Azure.
-
 
 ~~~
 # Usage:
@@ -349,10 +348,7 @@ Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 | SSH Web Client | [http://_host_:4200]()|
 | Hadoop Configuration | [http://_host_:50070/dfshealth.html]()   [http://_host_:50070/explorer.html]() |
 
-
-
 #### The following Table Contains Login Credentials:
-
 
 | Service | User | Password |
 |---------|:------:|----------:|
@@ -362,15 +358,16 @@ Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 
 ### 2.1 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password-azure"></a>
 
-1. Open a terminal (mac or linux) or putty (windows)
-2. SSH into the sandbox using your username and password that you provided at the time of creating the sandbox on Azure. Your `host` is a public IP address given by Azure and sudo password is a Sandbox password.
+1\.  Open a terminal (mac or linux) or putty (windows)
+
+2\.  SSH into the sandbox using your username and password that you provided at the time of creating the sandbox on Azure. Your `host` is a public IP address given by Azure and sudo password is a Sandbox password.
 
 ~~~
 # Usage:
       ssh <username>@<host> -p 22;
 ~~~
 
-3. Type the following commands:
+3\. Type the following commands:
 
 ~~~
 # Updates password
@@ -406,7 +403,6 @@ and then you should see a similar screen:
 Enter the **Ambari Dashboard URL** and you should see a similar screen:
 
 ![Lab0_4](assets/Lab0_4.png)
-
 
 Click on
 
@@ -488,12 +484,12 @@ Check [Hortonworks Community Connection](https://hortonworks.com/community/forum
 ![Hortonworks Community Connection Main Page](assets/hcc_page_learning_the_ropes_sandbox.png)
 
 ### 1.1 Technique for Finding Answers in HCC <a id="technique-for-finding-answers-hcc"></a>
-- Insert quotes around your tutorial related problem
-- Be specific by including keywords (error, tutorial name, etc.)
+-   Insert quotes around your tutorial related problem
+-   Be specific by including keywords (error, tutorial name, etc.)
 
 ## Further Reading <a id="further-reading"></a>
 
-- To learn more about Hadoop please explore the [HDP Getting Started documentation](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.4/bk_getting-started-guide/content/ch_about-hortonworks-data-platform.html).
-- To get started with Hortonworks Data Platform, explore [Hadoop Tutorial-Getting Started with HDP](https://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/)
-- If you have questions, feedback or need help getting your environment ready visit  [developer.hortonworks.com](https://hortonworks.com/developer/).
-- Please also explore the [HDP documentation](http://docs.hortonworks.com/).
+-   To learn more about Hadoop please explore the [HDP Getting Started documentation](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.4/bk_getting-started-guide/content/ch_about-hortonworks-data-platform.html).
+-   To get started with Hortonworks Data Platform, explore [Hadoop Tutorial-Getting Started with HDP](https://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/)
+-   If you have questions, feedback or need help getting your environment ready visit  [developer.hortonworks.com](https://hortonworks.com/developer/).
+-   Please also explore the [HDP documentation](http://docs.hortonworks.com/).
