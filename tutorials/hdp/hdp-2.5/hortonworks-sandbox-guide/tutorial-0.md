@@ -5,7 +5,9 @@ platform: hdp-2.5.0
 tags: [sandbox]
 ---
 
-# Release Notes
+# Hortonworks Sandbox Guide
+
+## Release Notes
 
 Sept 2016
 Md5 **VMware** Virtual Appliance - f1d45e93ab9f2a655db559be5b2f2f43
