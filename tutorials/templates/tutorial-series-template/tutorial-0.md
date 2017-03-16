@@ -15,11 +15,11 @@ After this tutorial series, you will:
 
 ## Outline
 
-Outline the different individual tutorials of the series and what the reader will learn in each one
+Outline the different individual tutorials of the series and what the reader will learn in each one.
 
-1.  **{Tutorial_name_1}** Set Up Environment for tour Big Data tool
-2.  **{Tutorial_name_2}** Perform a particular feature of a Big Data tool to do something
-3.  **{Tutorial_name_3}** Perform yet another feature of some Big Data tool
-4.  **{Tutorial_name_N}** Perhaps you want to use the tool in this way.
+1.  **<Tutorial Section 1 Title>** - Set Up Environment for tour Big Data tool
+2.  **<Tutorial Section 2 Title>** - Perform a particular feature of a Big Data tool to do something
+3.  **<Tutorial Section 3 Title>** - Perform yet another feature of some Big Data tool
+4.  **<Tutorial Section 4 Title>** - Perhaps you want to use the tool in this way.
 
 > Suggestion: A good flow for tutorial structure is to have the first tutoral be for environment or workstation setup.  That way, all references to setup can be made to a single page.
