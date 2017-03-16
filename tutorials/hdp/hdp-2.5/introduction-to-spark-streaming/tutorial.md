@@ -31,11 +31,11 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 
 Spark Streaming is an extension of the core Spark API that enables scalable, high-throughput, fault-tolerant stream processing of live data streams. Data can be ingested from many sources like Kafka, Flume, Twitter, ZeroMQ, Kinesis, or TCP sockets, and can be processed using complex algorithms expressed with high-level functions like map, reduce, join and window. Finally, processed data can be pushed out to filesystems, databases, and live dashboards.
 
-![Spark Streaming](http://spark.apache.org/docs/1.6.0/img/streaming-arch.png)
+![Spark Streaming](assets/streaming-arch.png)
 
 Internally, it works as follows. Spark Streaming receives live input data streams and divides the data into batches, which are then processed by the Spark engine to generate the final stream of results in batches.
 
-![Spark Streaming](http://spark.apache.org/docs/1.6.0/img/streaming-flow.png)
+![Spark Streaming](assets/streaming-flow.png)
 
 **DStream**
 
