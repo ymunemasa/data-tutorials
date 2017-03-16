@@ -1,9 +1,11 @@
 ---
-title: Securing Data Lake Resources and Auditing User Access with Apache Ranger
+title: Securing Your Data Lake Resource & Auditing User Access with HDP Advanced Security
 tutorial-id: 570
 platform: hdp-2.5.0
 tags: [ranger]
 ---
+
+# Securing Your Data Lake Resource & Auditing User Access with HDP Advanced Security
 
 ## Lab 1: Securing HDFS, Hive, HBase Data using Apache Ranger
 
@@ -13,8 +15,8 @@ In this tutorial we will explore how you can use policies in Apache Ranger to pr
 
 ## Prerequisites
 
-*   Download [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
-*   Complete the [Learning the Ropes of the HDP Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) tutorial.
+-   Download [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
+-   Complete the [Learning the Ropes of the HDP Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) tutorial.
 
 ## Outline
 
@@ -26,9 +28,9 @@ In this tutorial we will explore how you can use policies in Apache Ranger to pr
 - [6: Exercise Hive Access Scenarios](#exercise-hive-access)
 - [7: Review HBase Policies](#review-hbase-policies)
 - [8: Exercise HBase Access Scenarios](#exercise-hbase-access)
-- [9: Summary](#summary)
+- [Summary](#summary)
 
-### 1: Start HBase and Ambari Infra Services <a id="start-hbase-infra"></a>
+## 1: Start HBase and Ambari Infra Services <a id="start-hbase-infra"></a>
 
 Go to Ambari and login  with user credentials **raj_ops/raj_ops**. If HBase is switched off go to `Service Actions` button on top right and `Start` the service
 
@@ -43,7 +45,7 @@ Similarly, start **Ambari Infra** to record all the audits through Ranger. Your 
 
 ![ambari_dashboard_rajops_infra](assets/ambari_dashboard_rajops_infra.png)
 
-### 2: Login to Ranger Administration Console <a id="login_ranger"></a>
+## 2: Login to Ranger Administration Console <a id="login_ranger"></a>
 
 Once the VM is running in VirtualBox, login to the Ranger Administration console at **http://localhost:6080/** from your host machine. The username is **raj_ops** and the password is **raj_ops**.
 
@@ -53,7 +55,7 @@ As soon as you login, you should see list of repositories as shown below:
 
 ![list_repositories](assets/list_repositories.png)
 
-### 3: Review Existing HDFS Policies <a id="review-hdfs-policies"></a>
+## 3: Review Existing HDFS Policies <a id="review-hdfs-policies"></a>
 
 Please click on `Sandbox_hadoop` link under HDFS section
 
@@ -65,7 +67,7 @@ User can review policy details by a single click on the box right to the policy.
 
  Then click `Save`.
 
-### 4. Exercise HDFS Access Scenarios <a id="exercise-hdfs-access"></a>
+## 4: Exercise HDFS Access Scenarios <a id="exercise-hdfs-access"></a>
 
 Login to the Ambari by the following credentials:
 
@@ -103,7 +105,7 @@ Now head back to the Audit tab in Ranger and search by `User: raj_ops`. Here you
 
 ![audit_result_hdfs_allowed](assets/audit_result_hdfs_allowed.png)
 
-### 5. Review Hive Policies <a id="review-hive-policies"></a>
+## 5: Review Hive Policies <a id="review-hive-policies"></a>
 
 Click on `Access Manager=>Resource Based Policies` section on the top menu, then click on `Sandbox_hive` link under HIVE section to view list of Hive Policies:
 
@@ -119,7 +121,7 @@ You should see a page like this:
 
 ![sandbox_hive_policies_disabled](assets/sandbox_hive_policies_disabled.png)
 
-### 6. Exercise Hive Access Scenarios <a id="exercise-hive-access"></a>
+## 6: Exercise Hive Access Scenarios <a id="exercise-hive-access"></a>
 
 Go back to Ambari and click on 9 square menu icon and select `Hive view`:
 
@@ -152,7 +154,7 @@ This time, the query runs successfully and you can see all data in product table
 
 ![audit_results_hive_allowed](assets/audit_results_hive_allowed.png)
 
-### 7. Review HBase Policies <a id="review-hbase-policies"></a>
+## 7: Review HBase Policies <a id="review-hbase-policies"></a>
 
 Click on `Access Manager=>Resource Based Policies` section on the top menu, then click on the `Sandbox_hbase` to view list of hbase Policies.
 
@@ -160,7 +162,7 @@ Click on `Access Manager=>Resource Based Policies` section on the top menu, then
 
 User can review policy details by a single click on the box right to the policy. Disable the **HBase Global Allow Policy** in the same manner that we did before.
 
-### 8. Exercise HBase Access Scenarios <a id="exercise-hbase-access"></a>
+## 8: Exercise HBase Access Scenarios <a id="exercise-hbase-access"></a>
 
 First you’re going to need to log in to your Sandbox via SSH. If you’re using Virtualbox you can log in with the command:
 
@@ -208,7 +210,7 @@ Now, you can view all the data in **iemployee** table under **rowkey 1**. Go to 
 
 ![audit_results_hbase_allowed](assets/audit%20_results_hbase_allowed.png)
 
-### 9. Summary <a id="summary"></a>
+## Summary <a id="summary"></a>
 
 Hopefully by following this tutorial, you got a taste of the power and ease of securing your key enterprise resources using Apache Ranger.
 

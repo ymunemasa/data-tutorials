@@ -1,11 +1,13 @@
 ---
-title: Hello HDP An Introduction to Hadoop with Hive and Pig
+title: Hadoop Tutorial – Getting Started with HDP
 tutorial-id: 100
 platform: hdp-2.5.0
 tags: [ambari, hive, pig, spark, zeppelin]
 ---
 
-# Report Data with Zoomdata (Optional)
+# Hadoop Tutorial – Getting Started with HDP
+
+## Report Data with Zoomdata (Optional)
 
 ## Introduction
 
@@ -14,21 +16,21 @@ settings and access refined data.
 
 ## Prerequisites
 
-- Hortonworks Sandbox
-- [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-- Lab 1: Load sensor data into HDFS
-- Lab 2: Data Manipulation with Apache Hive
-- Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor
-- Allow yourself around one hour to complete this tutorial.
-
+-   Hortonworks Sandbox
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   Lab 1: Load sensor data into HDFS
+-   Lab 2: Data Manipulation with Apache Hive
+-   Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor
+-   Allow yourself around one hour to complete this tutorial.
 
 ## Outline
 
-- [Step 7.1: Install Zoomdata](#install-zoomdata)
-- [Step 7.2: Configure Zoomdata](#configure-zoomdata)
-- [Step 7.3: Access Refined Data with Zoomdata](#access-refined-data-zoomdata)
-- [Summary](#summary-lab7)
-- [Further Reading](#further-reading-lab7)
+-   [Step 7.1: Install Zoomdata via Docker](#install-zoomdata)
+-   [Step 7.2: Configure Zoomdata](#configure-zoomdata)
+-   [Step 7.3: Access the Refined Data with Zoomdata](#step-7-3-access-the-refined-data-with-zoomdata)
+-   [Find IP Address of Your Sandbox (Optonal)](#find-ip-address-of-your-sandbox-optonal)
+-   [Summary](#summary-lab7)
+-   [Further Reading](#further-reading-lab7)
 
 ## Step 7.1: Install Zoomdata via Docker <a id="install-zoomdata"></a>
 
@@ -36,18 +38,18 @@ Please install Docker and Zoomdata on your system using the guides linked below.
 Summarized the steps from the links below to help you navigate through them as you
 install Docker and Zoomdata. You should still go to the links:
 
-- [Install and Configure Docker](https://docs.docker.com/installation/)
-  - 1\. Install Docker Engine page appears, choose your appropriate OS
-  - 2\. (Example steps done in Mac) Select Getting Started with Docker for Machine
-  - 3\. Select **Get Docker for Mac(stable)**
-  - 4\. Go through steps 1 and 2 to install and verify Docker installed successfully
+-   [Install and Configure Docker](https://docs.docker.com/installation/)
+    -   Install Docker Engine page appears, choose your appropriate OS
+    -   (Example steps done in Mac) Select Getting Started with Docker for Machine
+    -   Select **Get Docker for Mac(stable)**
+    -   Go through steps 1 and 2 to install and verify Docker installed successfully
 
-- [Install Zoomdata via Docker](http://docs.zoomdata.com/docker-install)
-  - 1\. Docker Image Installation appears
-  - 2\. View prerequisites
-  - 3\. Navigate to installation processing
-  - 4\. Run the 1st and 2nd instructions to install and setup Zoomdata
-  - 5\. If on Mac or Linux, navigate to `http://localhost/zoomdata`
+-   [Install Zoomdata via Docker](http://docs.zoomdata.com/docker-install)
+    -   Docker Image Installation appears
+    -   View prerequisites
+    -   Navigate to installation processing
+    -   Run the 1st and 2nd instructions to install and setup Zoomdata
+    -   If on Mac or Linux, navigate to `http://localhost/zoomdata`
 
 
 ## Step 7.2: Configure Zoomdata <a id="configure-zoomdata"></a>
@@ -55,8 +57,9 @@ install Docker and Zoomdata. You should still go to the links:
 In this section, we will enable the Hive on Tez connector in Zoomdata.
 
 1\. Navigate to the Zoomdata login page. Log in with username **supervisor** and the password you configured on first start up. If this is your first time accessing the Zoomdata instance, then you will have an opportunity to set this password and the password for the **admin** account.
-    - For non-linux systems: `http://_dockerhost_IPaddress_/zoomdata`
-    - For Linux systems: `http://localhost/zoomdata`
+
+-   For non-linux systems: `http://_dockerhost_IPaddress_/zoomdata`
+-   For Linux systems: `http://localhost/zoomdata`
 
 ![zoomdata_login_page](assets/zoomdata_login_screen.png)
 
@@ -79,13 +82,13 @@ In this section, we will enable the Hive on Tez connector in Zoomdata.
 In this section, we will use [Zoomdata](http://www.zoomdata.com/) to access the refined data. We’ll start by setting up a connection from Zoomdata to the HDP sandbox and configuring data sources for each of our tables. Addition product documentation can be found on [support.zoomdata.com: Hive on Tez Data Source Configuration](http://support.zoomdata.com/)
 
 1\. From the Zoomdata login screen, log in with username **admin** and the password you configured on first start up.
-    - For non-Linux systems: `http://_dockerhost_IPaddress_/zoomdata`
-    - For Linux systems: `http://localhost/zoomdata`
+
+-   For non-Linux systems: `http://_dockerhost_IPaddress_/zoomdata`
+-   For Linux systems: `http://localhost/zoomdata`
 
 2\. Click on the **Gear** icon at the top left of the page and select **Sources** from the menu
 
 ![gear_icon_zoomdata](assets/gear_icon_zoomdata.png)
-
 
 3\. Click on the **Hive on Tez** icon
 
@@ -101,7 +104,7 @@ In this section, we will use [Zoomdata](http://www.zoomdata.com/) to access the 
 Sample JDBC: `jdbc:hive2://_HDPSanboxhost_IPaddress_:10000/default`
 ~~~
 
-### Find IP Address of Your Sandbox (Optonal)
+## Find IP Address of Your Sandbox (Optonal)
 
 > **Note**: To find the IP address of your sandbox, follow the steps below. Then insert IP address into JDBC above.
 
@@ -126,12 +129,11 @@ VBoxManage guestproperty get "Hortonworks Sandbox with HDP 2.3.2"
 
 ![sandbox_welcome](assets/start_sandbox_welcome.png)
 
-### Return to Zoomdata Connection Page
+**Return to Zoomdata Connection Page**
 
 Let's come back to the **connection** page on zoomdata and enter our **credentials** now that we know our **sandbox ip address**. Your input credentials should look similar to the following screen:
 
 ![input_credentials_connection_page](assets/input_credentials_connection_page.png)
-
 
 6\. On the **Tables** page, select the **Geolocation** table from list on the left side and click **Next**.
 
@@ -163,7 +165,6 @@ Let's come back to the **connection** page on zoomdata and enter our **credentia
 
 13\. From here, we can create a simple dashboard by adding another visualization. To do this, click the **Plus** icon at the upper right corner of the graph. Select the **Geolocation** data source and then select a graph style (**Bars:Vertical** is used in this example)
 
-
 ![create_dashboard_visualization](assets/step1_select_geolocation_zoomdata.png)
 
 ![step2_select_graph_style](assets/step2_select_graph_style.png)
@@ -176,12 +177,9 @@ Let's come back to the **connection** page on zoomdata and enter our **credentia
 
 ![adjust_graphs_grouping](assets/group_state_city_zoomdata.png)
 
-
 16\. Further adjustment can be made by clicking on the **Metric:Volume** label and selecting Velocity, then clicking **Sum** and selecting **Avg** to show average Velocity by City
 
-
 ![adjustment_avg_velocity](assets/metric_velocity_sum_avg.png)
-
 
 17\. To further drill into the graph, single-click one of the bars to open the Zoomdata horseshoe menu, click **ZOOM**, and select **Event** as the new grouping for the graph.
 
@@ -197,7 +195,6 @@ Let's come back to the **connection** page on zoomdata and enter our **credentia
 
 19\. Your saved dashboard is now available on the Zoomdata **Home** screen and listed under **Favorites** in the ‘Hamburger’ menu (upper left corner, next to the ‘Gear’ icon)
 
-
 ![saved_dashboard_hamburger](assets/saved_dashboard_home_screen.png)
 
 ## Summary <a id="summary-lab7"></a>
@@ -207,5 +204,6 @@ We've shown how the Hortonworks Data Platform (HDP) can store and analyze geoloc
 Congratulations on completing our HDP tutorial labs!
 
 ## Further Reading <a id="further-reading-lab7"></a>
-- More advanced Zoomdata tutorials and product guides are available in the [Zoomdata Support Portal](http://docs.zoomdata.com/zoomdata-docs-portal).
-- To obtain product pricing, schedule a demo, or request general information, visit the [Zoomdata Contact](http://www.zoomdata.com/contact) page.
+
+-   More advanced Zoomdata tutorials and product guides are available in the [Zoomdata Support Portal](http://docs.zoomdata.com/zoomdata-docs-portal).
+-   To obtain product pricing, schedule a demo, or request general information, visit the [Zoomdata Contact](http://www.zoomdata.com/contact) page.

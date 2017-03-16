@@ -1,13 +1,13 @@
 ---
-title: Hello HDP An Introduction to Hadoop with Hive and Pig
+title: Hadoop Tutorial – Getting Started with HDP
 tutorial-id: 100
 platform: hdp-2.5.0
 tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
 ---
 
-# Lab 6: Data Reporting with Excel
+# Hadoop Tutorial – Getting Started with HDP
 
-## Data Visualization using Microsoft Excel
+# Lab 6: Data Reporting with Excel
 
 ## Introduction
 
@@ -17,23 +17,23 @@ This step is optional as it requires you to have Excel and Power View, however f
 
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Lab 0: (Hortonworks sandbox set up)
-*   Lab 1: Loading sensor data into HDFS
-*   Lab 2: Data Manipulation with Apache Hive
-*   Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor
-*   Please configure ODBC drivers on your system with the help of following tutorial:
-    *   [Installing and Configuring the Hortonworks ODBC driver on Windows 7](https://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/)
-
-*   Allow yourself around half an hour to complete this tutorial.
+-   Lab 0: (Hortonworks sandbox set up)
+-   Lab 1: Loading sensor data into HDFS
+-   Lab 2: Data Manipulation with Apache Hive
+-   Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor
+-   Please configure ODBC drivers on your system with the help of following tutorial:
+    -   [Installing and Configuring the Hortonworks ODBC driver on Windows 7](https://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/)
+-   Allow yourself around half an hour to complete this tutorial.
 
 ## Outline
 
-*   [Step 6.b.1: Access Data in Microsoft Excel](#step6.b.1)
-*   [Step 6.b.2: Visualize data with Excel](#step6.b.2)
-*   [Suggested readings](#suggested-reading)
-*   [Resources](#resources)
+-   [Step 6.b.1: Access Data in Microsoft Excel](#step6.b.1)
+-   [Step 6.b.2: Visualize Data with Microsoft Excel](#step6.b.2)
+-   [Summary](#summary)
+-   [Further Reading](#further-reading)
+-   [Resources](#resources)
 
-### Step 6.b.1: Access the Refined Data with Microsoft Excel <a id="step6.b.1"></a>
+## Step 6.b.1: Access Data in Microsoft Excel <a id="step6.b.1"></a>
 
 The [Hive ODBC driver](https://hortonworks.com/hdp/addons/) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](https://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions. Open the ODBC connection manager and open the connection you setup up. It should look like this.
 
@@ -59,7 +59,7 @@ The Hortonworks ODBC driver enables you to access Hortonworks data with Excel an
 
 ![Lab5_7](assets/Lab5_7.jpg)
 
-### Step 6.b.2: Visualize Data with Microsoft Excel <a id="step6.b.2"></a>
+## Step 6.b.2: Visualize Data with Microsoft Excel <a id="step6.b.2"></a>
 
 1)  So now we are going to insert a Power View report. Follow this [link](https://support.office.com/en-us/article/Turn-on-Power-View-in-Excel-2016-for-Windows-f8fc21a6-08fc-407a-8a91-643fa848729a) to set up the Power View Report if you do not have it. This will create a new tab in your workbook with the data inserted in the Power View page.
 
@@ -110,25 +110,25 @@ SELECT driverid, city, state FROM geolocation;
 
 ![Lab5_15](assets/Lab5_15.jpg)
 
+## Summary
+
 We’ve shown how the Hortonworks Data Platform (HDP) can store and analyze geolocation data. In addition I have shown you a few techniques on building your own queries. You can easily plot risk factor and miles per gallon as bar charts. I showed you the basics of creating maps. A good next step is to only plot certain types of events. Using the pattern I gave you it is pretty straightforward to extract the data and visualize it in Excel.
 
-## Next Steps: Try These
+Congratulations on finishing a comprehensive series on Hadoop and HDP. By now you should have a good understanding on fundamentals of Hadoop and its related ecosystem such as Map Reduce, YARN, HDFS, Hive, Pig and Spark.
 
-Congratulations on finishing a comprehensive series on Hadoop and HDP. By now you should have a good understanding on fundamentals of Hadoop and its related ecosystem such as Map Reduce, YARN, HDFS, Hive, Pig and Spark. As a Hadoop practitioner you can choose three basic personas to build upon your skill:
+## Further Reading
+As a Hadoop practitioner you can choose three basic personas to build upon your skill:
 
-*   Hadoop Developer- [Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)
-*   Hadoop Administrator-[Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-admins)
-*   Data Scientist- [Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-analysts)
+-   Hadoop Developer- [Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)
+-   Hadoop Administrator-[Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-admins)
+-   Data Scientist- [Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-analysts)
 
-### Case Studies:
+**Case Studies**
 
 Learn more about Hadoop through these case studies:
 
-*   Analytics- [New types of data and new opportunities](https://hortonworks.com/solutions/advanced-analytic-apps/)
-*   Data Architecture Optimization: [Reduce cost by moving data and processing to Hadoop](https://hortonworks.com/solutions/data-architecture-optimization/)
-*   Industry specific: [Examples of Hadoop across Industries](https://hortonworks.com/industry/)
-
-## Suggested Readings <a id="suggested-reading"></a>
-
-*   [The Definitive Guide by O`Reilly](http://hadoopbook.com/)
-*   [Hadoop for Dummies](http://www.wiley.com/WileyCDA/WileyTitle/productCd-1118607554.html)
+-   Analytics- [New types of data and new opportunities](https://hortonworks.com/solutions/advanced-analytic-apps/)
+-   Data Architecture Optimization: [Reduce cost by moving data and processing to Hadoop](https://hortonworks.com/solutions/data-architecture-optimization/)
+-   Industry specific: [Examples of Hadoop across Industries](https://hortonworks.com/industry/)
+-   [The Definitive Guide by O`Reilly](http://hadoopbook.com/)
+-   [Hadoop for Dummies](http://www.wiley.com/WileyCDA/WileyTitle/productCd-1118607554.html)

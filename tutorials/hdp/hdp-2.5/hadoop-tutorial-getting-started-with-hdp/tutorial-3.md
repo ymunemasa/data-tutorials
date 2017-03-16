@@ -1,13 +1,13 @@
 ---
-title: Hello HDP An Introduction to Hadoop with Hive and Pig
+title: Hadoop Tutorial – Getting Started with HDP
 tutorial-id: 100
 platform: hdp-2.5.0
 tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
 ---
 
-# Lab 2: Hive - Data ETL
+# Hadoop Tutorial – Getting Started with HDP
 
-## Data manipulation with Hive
+## Lab 2: Hive - Data ETL
 
 ## Introduction
 
@@ -17,28 +17,27 @@ In this tutorial, you will be introduced to Apache(<sup>TM</sup>) Hive. In the e
 
 The tutorial is a part of a series of hands on tutorials to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*   Hortonworks Sandbox
-*   Lab 1: Load sensor data into HDFS
-*   Allow yourself around **one hour** to complete this tutorial.
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   Hortonworks Sandbox
+-   Lab 1: Load sensor data into HDFS
+-   Allow yourself around **one hour** to complete this tutorial.
 
 ## Outline
 
-*   [Apache Hive basics](#hive-basics)
-*   [Step 2.1: Become Familiar with Ambari Hive View](#use-ambari-hive-user-views)
-*   [Step 2.2: Define a Hive Table](#define-a-hive-table)
-*   [Step 2.3: Explore Hive Settings on Ambari Dashboard](#explore-hive-settings)
-*   [Step 2.4: Analyze the Trucks Data](#analyze-truck-data)
-*   [Step 2.5: Define Table Schema](#define-table-schema)
-*   [Summary](#summary-lab2)
-*   [Suggested readings](#suggested-readings-lab2)
+-   [Apache Hive Basics](#hive-basics)
+-   [Step 2.1: Become Familiar with Ambari Hive View](#use-ambari-hive-user-views)
+-   [Step 2.2: Define a Hive Table](#define-a-hive-table)
+-   [Step 2.3: Explore Hive Settings on Ambari Dashboard](#explore-hive-settings)
+-   [Step 2.4: Analyze the Trucks Data](#analyze-truck-data)
+-   [Step 2.5: Define Table Schema](#define-table-schema)
+-   [Summary](#summary-lab2)
+-   [Further Reading](#further-reading)
 
-
-## Apache Hive <a id="hive-basics"></a>
+## Apache Hive Basics <a id="hive-basics"></a>
 
 Apache Hive provides  SQL interface to query data stored in various databases and files systems that integrate with Hadoop.  Hive enables analysts familiar with SQL to run queries on large volumes of data.  Hive has three main functions: data summarization, query and analysis. Hive provides tools that enable easy data extraction, transformation and loading (ETL).
 
-### Step 2.1: Become Familiar with Ambari Hive View <a id="use-ambari-hive-user-views"></a>
+## Step 2.1: Become Familiar with Ambari Hive View <a id="use-ambari-hive-user-views"></a>
 
 Apache Hive presents a relational view of data in HDFS. Hive can represent data in a tabular format managed by Hive or just stored in HDFS irrespective in the file  format their data is stored in.  Hive can query data from RCFile format, text files, ORC, JSON, parquet,  sequence files and many of other formats in a tabular view.   Through the use of SQL you can view your data as a table and create queries like you would in an RDBMS.
 
@@ -55,46 +54,45 @@ The Ambari Hive View looks like the following:
 Now let’s take a closer look at the SQL editing capabilities in the Hive View:
 
 1.  There are _five tabs_ to interact with SQL:
-    1.  **Query**: This is the interface shown above and the primary interface to write, edit and execute new SQL statements
-    2.  **Saved Queries**: You can save your favorite queries and quickly have access to them to rerun or edit.
-    3.  **History**: This allows you to look at past queries or currently running queries to view, edit and rerun.  It also allows you to see all SQL queries you have authority to view.  For example, if you are an operator and an analyst needs help with a query, then the Hadoop operator can use the History feature to see the query that was sent from the reporting tool.
-    4.  **UDFs**:  Allows you to define UDF interfaces and associated classes so you can access them from the SQL editor.
-    5.  **Upload Table**: Allows you to upload your hive query tables to your preferred database and appears instantly in the Query Editor for execution.
+    -   **Query**: This is the interface shown above and the primary interface to write, edit and execute new SQL statements
+    -   **Saved Queries**: You can save your favorite queries and quickly have access to them to rerun or edit.
+    -   **History**: This allows you to look at past queries or currently running queries to view, edit and rerun.  It also allows you to see all SQL queries you have authority to view.  For example, if you are an operator and an analyst needs help with a query, then the Hadoop operator can use the History feature to see the query that was sent from the reporting tool.
+    -   **UDFs**:  Allows you to define UDF interfaces and associated classes so you can access them from the SQL editor.
+    -   **Upload Table**: Allows you to upload your hive query tables to your preferred database and appears instantly in the Query Editor for execution.
 2.  **Database Explorer:**  The Database Explorer helps you navigate your database objects.  You can either search for a database object in the Search tables dialog box, or you can navigate through Database -> Table -> Columns in the navigation pane.
 3.  **Query Editor:** The principal pane to write and edit SQL statements. This editor includes content assist via **CTRL + Space** to help you build queries. Content assist helps you with SQL syntax and table objects.
 4.  Once you have created your SQL statement you have 4 options:
-    1.  **Execute**: This runs the SQL statement.
-    2.  **Explain**: This provides you a visual plan, from the Hive optimizer, of how the SQL statement will be executed.
-    3.  **Save as**:  Allows you to persist your queries into your list of saved queries.
-    4.  **Kill Session**: Terminates the SQL statement.
+    -   **Execute**: This runs the SQL statement.
+    -   **Explain**: This provides you a visual plan, from the Hive optimizer, of how the SQL statement will be executed.
+    -   **Save as**:  Allows you to persist your queries into your list of saved queries.
+    -   **Kill Session**: Terminates the SQL statement.
 5.  When the query is executed you can see the Logs or the actual query results.
-    1.  **Logs Tab:** When the query is executed you can see the logs associated with the query execution.  If your query fails this is a good place to get additional information for troubleshooting.
-    2.  **Results Tab**: You can view results in sets of 50 by default.
+    -   **Logs Tab:** When the query is executed you can see the logs associated with the query execution.  If your query fails this is a good place to get additional information for troubleshooting.
+    -    **Results Tab**: You can view results in sets of 50 by default.
 6.  There are five sliding views on the right hand side with the following capabilities, which are in context of the tab you are in:
-    1.  **Query**: This is the default operation,which allows you to write and edit SQL.
-    2.  **Settings**:  This allows you to set properties globally or associated with an individual query.
-    3.  **Data Visualization**: Allows you to visualize your numeric data through different charts.
-    4.  **Visual Explain**: This will generate an explain for the query.  This will also show the progress of the query.
-    5.  **TEZ**: If you use TEZ as the query execution engine then you can view the DAG associated with the query.  This integrates the TEZ User View so you can check for correctness and helps with performance tuning by visualizing the TEZ jobs associated with a SQL query.
-    6.  **Notifications**: This is how to get feedback on query execution.
+    -   **Query**: This is the default operation,which allows you to write and edit SQL.
+    -   **Settings**:  This allows you to set properties globally or associated with an individual query.
+    -   **Data Visualization**: Allows you to visualize your numeric data through different charts.
+    -   **Visual Explain**: This will generate an explain for the query.  This will also show the progress of the query.
+    -   **TEZ**: If you use TEZ as the query execution engine then you can view the DAG associated with the query.  This integrates the TEZ User View so you can check for correctness and helps with performance tuning by visualizing the TEZ jobs associated with a SQL query.
+    -   **Notifications**: This is how to get feedback on query execution.
 
 Take a few minutes to explore the various Hive View features.
 
-#### 2.1.1 Set hive.execution.engine as Tez
+### 2.1.1 Set hive.execution.engine as Tez
 
 A feature we will configure before we run our hive queries is to set the hive execution engine as Tez. You can try map reduce if you like. We will use Tez in this tutorial.
 
-1\. Click on the gear in the sidebar referred to as number 6 in the interface above.
+1.  Click on the gear in the sidebar referred to as number 6 in the interface above.
+2.  Click on the dropdown menu, choose hive.execution.engine and set the value as tez. Now we are ready to run our queries for this tutorial.
 
-2\. Click on the dropdown menu, choose hive.execution.engine and set the value as tez. Now we are ready to run our queries for this tutorial.
-
-### Step 2.2: Define a Hive Table <a id="define-a-hive-table"></a>
+## Step 2.2: Define a Hive Table <a id="define-a-hive-table"></a>
 
 Now that you are familiar with the Hive View, let’s create and load tables for the geolocation and trucks data. In this section we will learn how to use the Ambari Hive View to create two tables: geolocation and trucking using the Hive View Upload Table tab.  The Upload Table tab provides the following key options: choose input file type, storage options (i.e. Apache ORC) and set first row as header.   Here is a visual representation of the table and load creation process accomplished in the next few steps.:
 
 ![create_tables_architecture](assets/create_tables_architecture_lab2.png)
 
-#### 2.2.1 Create and load Trucks table For Staging Initial Load
+### 2.2.1 Create and load Trucks table For Staging Initial Load
 
 Navigate and select the Upload Table of the Ambari Hive View.  Then select the `Upload from HDFS` radio button, enter the HDFS path `/user/maria_dev/data/trucks.csv` and click the `Preview` button:
 
@@ -119,7 +117,7 @@ Once you have finished setting all the various properties select the `Upload Tab
 
 Before reviewing what is happening behind the covers in the Upload Progress let’s learn learn more about Hive File Formats.
 
-#### 2.2.2: Define an ORC Table in Hive Create table using Apache ORC file format
+### 2.2.2: Define an ORC Table in Hive Create table using Apache ORC file format
 
 [Apache ORC](https://orc.apache.org/) is a fast columnar storage file format for Hadoop workloads.
 
@@ -134,7 +132,7 @@ CREATE TABLE trucks STORED AS ORC AS SELECT * FROM trucks_temp_table;
 
 Similar style create statements are used with the temporary tables used in the `Upload Tables` tab.
 
-#### 2.2.3: Review Upload Table Progress Steps
+### 2.2.3: Review Upload Table Progress Steps
 
 Initially the `trucks.csv` table is created and loaded into a temporary table.  The temporary table is used to create and load data in ORC format using syntax explained in previous step.  Once the data is loaded into final table the temporary tables are deleted.
 
@@ -146,41 +144,39 @@ You can review the SQL statements issued by selecting the History tab and clicki
 
 ![job_history](assets/job_history_lab2.png)
 
-#### 2.2.4 Create and Load Geolocation Table
+### 2.2.4 Create and Load Geolocation Table
 
 Repeat the steps above with the `geolocation.csv` file to create and load the geolocation table using the ORC file format.
 
-
-#### 2.2.5 Hive Create Table Statement
+### 2.2.5 Hive Create Table Statement
 
 Let’s review some aspects of the **CREATE TABLE** statements generated and issued above.  If you have an SQL background this statement should seem very familiar except for the last 3 lines after the columns definition:
 
-*   The **ROW FORMAT** clause specifies each row is terminated by the new line character.
-*   The **FIELDS TERMINATED** BY clause specifies that the fields associated with the table (in our case, the two csv files) are to be delimited by a comma.
-*   The **STORED AS** clause specifies that the table will be stored in the TEXTFILE format.
+-   The **ROW FORMAT** clause specifies each row is terminated by the new line character.
+-   The **FIELDS TERMINATED** BY clause specifies that the fields associated with the table (in our case, the two csv files) are to be delimited by a comma.
+-   The **STORED AS** clause specifies that the table will be stored in the TEXTFILE format.
 
 > NOTE: For details on these clauses consult the [Apache Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL).
 
-#### 2.2.6 Verify New Tables Exist
+### 2.2.6 Verify New Tables Exist
 
 To verify the tables were defined successfully, click the **refresh** icon in the Database Explorer. Under Databases, click default database to expand the list of table and the new tables should appear:
 
 ![select_data_trucks](assets/select_data_trucks_lab2.png)
 
-#### 2.2.7 Sample Data from the trucks table
+### 2.2.7 Sample Data from the trucks table
 
 Click on the **Load sample data** icon to generate and execute a select SQL statement to query the table for a 100 rows.
 
-- You can have multiple SQL statements within each editor worksheet, but each statement needs to be separated by a semicolon **“;”**.
-
-- If you have multiple statements within a worksheet but you only want to run one of them just highlight the statement you want to run and then click the Execute button.
+-   You can have multiple SQL statements within each editor worksheet, but each statement needs to be separated by a semicolon **“;”**.
+-   If you have multiple statements within a worksheet but you only want to run one of them just highlight the statement you want to run and then click the Execute button.
 
 **A few additional commands to explore tables:**
 
-- `show tables;` - List the tables created in the database by looking up the list of tables from the metadata stored in HCatalogdescribe
-- `describe {table_name};` - Provides a list of columns for a particular table (ie `describe geolocation_stage;`)
-- `show create table {table_name};` - Provides the DDL to recreate a table (ie `show create table geolocation_stage;`)
-- `describe formatted {table_name};` - Explore additional metadata about the table.  For example you can verify geolocation is an ORC Table, execute the following query:
+-   `show tables;` - List the tables created in the database by looking up the list of tables from the metadata stored in HCatalogdescribe
+-   `describe {table_name};` - Provides a list of columns for a particular table (ie `describe geolocation_stage;`)
+-   `show create table {table_name};` - Provides the DDL to recreate a table (ie `show create table geolocation_stage;`)
+-   `describe formatted {table_name};` - Explore additional metadata about the table.  For example you can verify geolocation is an ORC Table, execute the following query:
 
 ~~~
 describe formatted geolocation;
@@ -194,13 +190,13 @@ By default, when you create a table in Hive, a directory with the same name gets
 
 > NOTE: The definition of a Hive table and its associated metadata (i.e., the directory the data is stored in, the file format, what Hive properties are set, etc.) are stored in the Hive metastore, which on the Sandbox is a MySQL database.
 
-#### 2.2.8 Rename Query Editor Worksheet
+### 2.2.8 Rename Query Editor Worksheet
 
 Notice the tab of your new Worksheet is labeled **trucks sample data**. Double-click on the worksheet tab to rename the label to "sample truck data".  Now save this worksheet by clicking the button.
 
 ![save_truck_sample_data](assets/save_truck_sample_data_lab2.png)
 
-#### 2.2.9 Command Line Approach: Populate Hive Table with Data
+### 2.2.9 Command Line Approach: Populate Hive Table with Data
 
 The following Hive command can be used to LOAD data into existing table from  the command line
 
@@ -210,10 +206,9 @@ LOAD DATA INPATH '/user/maria_dev/data/trucks.csv' OVERWRITE INTO TABLE trucks;
 
 If you would run the above commands and navigate to the `/user/maria_dev/data` folder.  You would notice the folder is empty! The **LOAD DATA INPATH** command moved the trucks.csv file from the **/user/maria_dev/data** folder to the **/apps/hive/warehouse/trucks_stage folder**.
 
-#### 2.2.10 Beeline - Command Shell
+### 2.2.10 Beeline - Command Shell
 
 If you want to try running some of these commands from the the command line you can use the Beeline Shell.  Beeline uses a JDBC connection to connect to HiveServer2. Follow the following steps from your shell in the box (or putty if using Windows):
-
 
 i.  Local Sandbox VM
     Open up shell in the box to ssh into HDP with
@@ -232,19 +227,19 @@ iv.  `quit;` Exits out of the Beeline shell.
 
 What did you notice about performance after running hive queries from shell?
 
-- Queries using the shell run faster because hive runs the query directory in hadoop whereas in Ambari Hive View, the query must be accepted by a rest server before it can submitted to hadoop.
-- You can get more information on the [Beeline from the Hive Wiki](https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#HiveServer2Clients-Beeline–CommandLineShell).
-- Beeline is based on [SQLLine](http://sqlline.sourceforge.net/).
+-   Queries using the shell run faster because hive runs the query directory in hadoop whereas in Ambari Hive View, the query must be accepted by a rest server before it can submitted to hadoop.
+-   You can get more information on the [Beeline from the Hive Wiki](https://cwiki.apache.org/confluence/display/Hive/HiveServer2+Clients#HiveServer2Clients-Beeline–CommandLineShell).
+-   Beeline is based on [SQLLine](http://sqlline.sourceforge.net/).
 
-### Step 2.3: Explore Hive Settings on Ambari Dashboard <a id="explore-hive-settings"></a>
+## Step 2.3: Explore Hive Settings on Ambari Dashboard <a id="explore-hive-settings"></a>
 
-#### 2.3.1 Open Ambari Dashboard in New Tab
+### 2.3.1 Open Ambari Dashboard in New Tab
 
 Click on the Dashboard tab to start exploring the Ambari Dashboard.
 
 ![ambari_dashboard](assets/ambari_dashboard_lab2.png)
 
-#### 2.3.2 Become Familiar with Hive Settings
+### 2.3.2 Become Familiar with Hive Settings
 
 Go to the **Hive page** then select the **Configs tab** then click on **Settings tab**:
 
@@ -268,10 +263,10 @@ In the above screenshot we can see:
 
 This shows the **HDP 2.5 Ambari Smart Configurations**, which simplifies setting configurations
 
-- Hadoop is configured by a **collection of XML files**.
-- In early versions of Hadoop, operators would need to do **XML editing** to **change settings**.  There was no default versioning.
-- Early Ambari interfaces made it **easier to change values** by showing the settings page with **dialog boxes** for the various settings and allowing you to edit them.  However, you needed to know what needed to go into the field and understand the range of values.
-- Now with Smart Configurations you can **toggle binary features** and use the slider bars with settings that have ranges.
+-   Hadoop is configured by a **collection of XML files**.
+-   In early versions of Hadoop, operators would need to do **XML editing** to **change settings**.  There was no default versioning.
+-   Early Ambari interfaces made it **easier to change values** by showing the settings page with **dialog boxes** for the various settings and allowing you to edit them.  However, you needed to know what needed to go into the field and understand the range of values.
+-   Now with Smart Configurations you can **toggle binary features** and use the slider bars with settings that have ranges.
 
 By default the key configurations are displayed on the first page.  If the setting you are looking for is not on this page you can find additional settings in the **Advanced** tab:
 
@@ -286,14 +281,14 @@ As you can see from the green circle above, the `Enable Vectorization and Map Ve
 
 Some **key resources** to **learn more about vectorization** and some of the **key settings in Hive tuning:**
 
-* Apache Hive docs on [Vectorized Query Execution](https://cwiki.apache.org/confluence/display/Hive/Vectorized+Query+Execution)
-* [HDP Docs Vectorization docs](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.0.9.0/bk_dataintegration/content/ch_using-hive-1a.html)
-* [Hive Blogs](https://hortonworks.com/blog/category/hive/)
-* [5 Ways to Make Your Hive Queries Run Faster](https://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/)
-* [Interactive Query for Hadoop with Apache Hive on Apache Tez](https://hortonworks.com/hadoop-tutorial/supercharging-interactive-queries-hive-tez/)
-* [Evaluating Hive with Tez as a Fast Query Engine](https://hortonworks.com/blog/evaluating-hive-with-tez-as-a-fast-query-engine/)
+-   Apache Hive docs on [Vectorized Query Execution](https://cwiki.apache.org/confluence/display/Hive/Vectorized+Query+Execution)
+-   [HDP Docs Vectorization docs](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.0.9.0/bk_dataintegration/content/ch_using-hive-1a.html)
+-   [Hive Blogs](https://hortonworks.com/blog/category/hive/)
+-   [5 Ways to Make Your Hive Queries Run Faster](https://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/)
+-   [Interactive Query for Hadoop with Apache Hive on Apache Tez](https://hortonworks.com/hadoop-tutorial/supercharging-interactive-queries-hive-tez/)
+-   [Evaluating Hive with Tez as a Fast Query Engine](https://hortonworks.com/blog/evaluating-hive-with-tez-as-a-fast-query-engine/)
 
-### Step 2.4: Analyze the Trucks Data <a id="analyze-truck-data"></a>
+## Step 2.4: Analyze the Trucks Data <a id="analyze-truck-data"></a>
 
 Next we will be using Hive, Pig and Zeppelin to analyze derived data from the geolocation and trucks tables.  The business objective is to better understand the risk the company is under from fatigue of drivers, over-used trucks, and the impact of various trucking events on risk.   In order to accomplish this, we will apply a series of transformations to the source data, mostly though SQL, and use Pig or Spark to calculate risk.   In the last lab on Data Visualization, we will be using _Zeppelin_ to **generate a series of charts to better understand risk**.
 
@@ -301,7 +296,7 @@ Next we will be using Hive, Pig and Zeppelin to analyze derived data from the ge
 
 Let’s get started with the first transformation.   We want to **calculate the miles per gallon for each truck**. We will start with our _truck data table_.  We need to _sum up all the miles and gas columns on a per truck basis_. Hive has a series of functions that can be used to reformat a table. The keyword [LATERAL VIEW](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+LateralView) is how we invoke things. The **stack function** allows us to _restructure the data into 3 columns_ labeled rdate, gas and mile (ex: 'june13', june13_miles, june13_gas) that make up a maximum of 54 rows. We pick truckid, driverid, rdate, miles, gas from our original table and add a calculated column for mpg (miles/gas).  And then we will **calculate average mileage**.
 
-#### 2.4.1 Create Table truck_mileage From Existing Trucking Data
+### 2.4.1 Create Table truck_mileage From Existing Trucking Data
 
 Using the Ambari Hive User View, execute the following query:
 
@@ -311,13 +306,13 @@ CREATE TABLE truck_mileage STORED AS ORC AS SELECT truckid, driverid, rdate, mil
 
 ![create_table_truckmileage](assets/create_table_truckmileage_lab2.png)
 
-#### 2.4.2 Explore a sampling of the data in the truck_mileage table
+### 2.4.2 Explore a sampling of the data in the truck_mileage table
 
 To view the data generated by the script, click **Load Sample Data** icon in the Database Explorer next to truck_mileage. After clicking the next button once, you should see a table that _lists each trip made by a truck and driver_:
 
 ![select_data_truck_mileage_lab2](assets/select_data_truckmileage_lab2.png)
 
-#### 2.4.3 Use the Content Assist to build a query
+### 2.4.3 Use the Content Assist to build a query
 
 1\.  Create a new **SQL Worksheet**.
 
@@ -329,9 +324,7 @@ SE
 
 3\.  Press **Ctrl+space** to view the following content assist pop-up dialog window:
 
-
 ![Lab2_24](assets/Lab2_24.png)
-
 
 > NOTE: Notice content assist shows you some options that start with an “SE”. These shortcuts will be great for when you write a lot of custom query code.
 
@@ -351,7 +344,7 @@ SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 
 7\.  Execute the “**average mpg**” query and view its results.
 
-#### 2.4.4 Explore Explain Features of the Hive Query Editor
+### 2.4.4 Explore Explain Features of the Hive Query Editor
 
 1\. Now let's **explore the various explain features** to better _understand the execution of a query_: Text Explain, Visual Explain and Tez Explain. Click on the **Explain** button:
 
@@ -365,7 +358,7 @@ SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 
 ![visual_explain_dag](assets/visual_explain_dag_lab2.png)
 
-#### 2.4.5 Explore TEZ
+### 2.4.5 Explore TEZ
 
 1\. If you click on **TEZ View** from Ambari Views at the top, you can see _DAG details_ associated with the previous hive and pig jobs.
 
@@ -375,7 +368,6 @@ SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 
 ![all_dags](assets/tez_view_dashboard_lab2.png)
 
-
 3\. There are seven tabs at the top left please take a few minutes to explore the various tabs and then click on the **Graphical View** tab and hover over one of the nodes with your cursor to get more details on the processing in that node.
 
 ![Lab2_35](assets/tez_graphical_view_lab2.png)
@@ -384,8 +376,8 @@ SELECT truckid, avg(mpg) avgmpg FROM truck_mileage GROUP BY truckid;
 
 Basic Terminology:
 
-- **Bubble** represents an event
-- **Vertex** represents the solid line, timeline of events
+-   **Bubble** represents an event
+-   **Vertex** represents the solid line, timeline of events
 
 For map1, the tooltip shows that the events vertex started and vertex initialize occur simultaneously:
 
@@ -403,11 +395,11 @@ Vertex started
 
 When you look at the tasks started for and finished (thick line) for Map1 compared to Reducer2 in the graph, what do you notice?
 
-- Map1 starts and completes before Reducer2.
+-   Map1 starts and completes before Reducer2.
 
 5\. Go back to the Hive View and save the query by clicking the **Save as ...** button.
 
-#### 2.4.6 Create Table truck avg_mileage From Existing trucks_mileage Data
+### 2.4.6 Create Table truck avg_mileage From Existing trucks_mileage Data
 
 > Note: Verify that the `hive.execution.engine` is under `tez`.
 
@@ -424,13 +416,13 @@ GROUP BY truckid;
 
 ![average_mile_table_query](assets/create_avg_mileage_table_lab2.png)
 
-#### 2.4.7 Load Sample Data of avg_mileage
+### 2.4.7 Load Sample Data of avg_mileage
 
 To view the data generated by the script, click **Load sample data** icon in the Database Explorer next to avg_mileage. You see our table is now a list of each trip made by a truck.
 
 ![results_avg_mileage_table](assets/load_sample_avg_mileage_lab2.png)
 
-### Step 2.5: Define Table Schema <a id="define-table-schema"></a>
+## Step 2.5: Define Table Schema <a id="define-table-schema"></a>
 
 Now we have refined the truck data to get the average mpg for each truck (**avg_mileage table**). The next task is to **compute the risk factor** for each driver which is the _total miles driven/abnormal events_. We can get the event information from the geolocation table.
 
@@ -438,7 +430,7 @@ Now we have refined the truck data to get the average mpg for each truck (**avg_
 
 If we look at the truck_mileage table, we have the driverid and the number of miles for each trip. To get the total miles for each driver, we can group those records by driverid and then sum the miles.
 
-#### 2.5.1 Create Table DriverMileage from Existing truck_mileage Data
+### 2.5.1 Create Table DriverMileage from Existing truck_mileage Data
 
 We will start by creating a table named driver_mileage that is created from a query of the columns we want from truck_mileage. The following query groups the records by driverid and sums the miles in the select statement. Execute the query below in a new Worksheet:
 
@@ -455,13 +447,13 @@ GROUP BY driverid;
 
 > Note: This table is essential for both Pig Latin and Spark jobs.
 
-#### 2.5.2 View Data Generated by Query
+### 2.5.2 View Data Generated by Query
 
 To view data, click the **Load sample data** icon in the Database Explorer next to drivermileage. The results should look like:
 
 ![select_data_drivermileage](assets/select_data_drivermileage_lab2.png)
 
-#### 2.5.3 Explore Hive Data Visualization
+### 2.5.3 Explore Hive Data Visualization
 
 This tool enables us to transform our hive data into a visualization that makes data easier to understand. Let's explore the Hive data explorer to see a variety of different data visualizations. We'll use these examples to build a custom
 visualization, which will show the user
@@ -479,15 +471,16 @@ visualization, which will show the user
 ![hive_visualization](assets/hive_visualization_lab2.png)
 
 ## Summary <a id="summary-lab2"></a>
+
 Congratulations! Let’s summarize some Hive commands we learned to process, filter and manipulate the geolocation and trucks data.
 We now can create Hive tables with **CREATE TABLE** and load data into them using the **LOAD DATA INPATH** command. Additionally, we learned how to change the file format of the tables to ORC, so hive is more efficient at reading, writing and processing this data. We learned to grab parameters from our existing table using **SELECT {column_name…} FROM {table_name}** to create a new filtered table.
 
-## Suggested Readings <a id="suggested-readings-lab2"></a>
+## Further Reading
 
 Augment your hive foundation with the following resources:
 
-- [Apache Hive](https://hortonworks.com/hadoop/hive/)
-- [Hive LLAP enables sub second SQL on Hadoop](https://hortonworks.com/blog/llap-enables-sub-second-sql-hadoop/)
-- [Programming Hive](http://www.amazon.com/Programming-Hive-Edward-Capriolo/dp/1449319335/ref=sr_1_3?ie=UTF8&qid=1456009871&sr=8-3&keywords=apache+hive)
-- [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)
-- [HDP DEVELOPER: APACHE PIG AND HIVE](https://hortonworks.com/training/class/hadoop-2-data-analysis-pig-hive/)
+-   [Apache Hive](https://hortonworks.com/hadoop/hive/)
+-   [Hive LLAP enables sub second SQL on Hadoop](https://hortonworks.com/blog/llap-enables-sub-second-sql-hadoop/)
+-   [Programming Hive](http://www.amazon.com/Programming-Hive-Edward-Capriolo/dp/1449319335/ref=sr_1_3?ie=UTF8&qid=1456009871&sr=8-3&keywords=apache+hive)
+-   [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)
+-   [HDP DEVELOPER: APACHE PIG AND HIVE](https://hortonworks.com/training/class/hadoop-2-data-analysis-pig-hive/)
