@@ -1,9 +1,13 @@
 ---
-title: Introduction to Phoenix Concepts
+title: Introduction to Apache HBase Concepts, Apache Phoenix and New Backup & Restore Utility in HBase
 tutorial-id: 650
 platform: hdp-2.5.0
 tags: [hbase, phoenix, ambari]
 ---
+
+# Introduction to Apache HBase Concepts, Apache Phoenix and New Backup & Restore Utility in HBase
+
+## Lab 2: Introducing Apache Phoenix Concepts
 
 ## Introduction
 
@@ -13,36 +17,36 @@ For more information about Phoenix capabilities, see the [Apache Phoenix website
 
 ## Prerequisites
 
-- [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox)
-- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
-- Lab 1 : Introduction to HBase Concepts
+-   [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox)
+-   Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
+-   Lab 1: Introducing Apache HBase Concepts
 
 ## Outline
 
-- [1: Enable Phoenix by Ambari](#enable-phoenix)
-- [2: Launch Phoenix Shell](#launch-phoenix-shell)
-- [3: Create Phoenix Table on existing HBase table](#create-phoenix-table)
-- [4: Inserting Data via Phoenix](#inserting-data)
-- [5: Setting up SQuirrel and Phoenix Integration](#squirrel-phoenix-setup)
-- [6: Summary](#summary)
+-   [1. Enable Phoenix by Ambari](#enable-phoenix)
+-   [2. Launch Phoenix Shell](#launch-phoenix-shell)
+-   [3. Create Phoenix Table on existing HBase table](#create-phoenix-table)
+-   [4. Inserting Data via Phoenix](#inserting-data)
+-   [5. Setting up SQuirrel and Phoenix Integration](#squirrel-phoenix-setup)
+-   [Summary](#summary)
 
 ## 1. Enable Phoenix by Ambari<a id="enable-phoenix"></a>
 
 There is no separate installation required for Phoenix. You can enable Phoenix with Ambari:
 
-1/ Go to Ambari and select Services tab > HBase > Configs tab.
+1\. Go to Ambari and select Services tab > HBase > Configs tab.
 
 ![config_HBase](assets/config_HBase.png)
 
-2/ Scroll down to the Phoenix SQL settings.
+2\. Scroll down to the Phoenix SQL settings.
 
 ![phoenix_tab](assets/phoenix_tab.png)
 
-3/ Click the `Enable Phoenix` slider button.
+3\. Click the `Enable Phoenix` slider button.
 
 ![enable_phoenix](assets/enable_phoenix.png)
 
-4/ You have to change 3 more properties. Click on `Advanced Tab` and then scroll down to open `Advanced hbase-site` section. Add `org.apache.ranger.authorization.hbase.RangerAuthorizationCoprocessor` in following three properties:
+4\. You have to change 3 more properties. Click on `Advanced Tab` and then scroll down to open `Advanced hbase-site` section. Add `org.apache.ranger.authorization.hbase.RangerAuthorizationCoprocessor` in following three properties:
 
 ~~~
 hbase.coprocessor.master.classes
@@ -52,7 +56,7 @@ hbase.coprocessor.regionserver.classes
 
 ![config_HBase1](assets/config_HBase1.png)
 
-5/ Scroll up and click `Save` to get your config change reflected.
+5\. Scroll up and click `Save` to get your config change reflected.
 
 ![save_phoenix_setting](assets/save_phoenix_setting.png)
 
@@ -64,7 +68,7 @@ After pressing `Save`, you will get a popup like this:
 
 ![save_configuration_changes](assets/save_configuration_changes.png)
 
-6/ Restart HBase service.
+6\. Restart HBase service.
 
 ![restart_HBase_service](assets/restart_HBase_service.png)
 
@@ -125,7 +129,7 @@ If you do not like this view, you can change it back to horizontal view by runni
 
 So with all existing HBase tables, you can query them with SQL now. You can point your Business Intelligence tools and Reporting Tools and other tools which work with SQL and query HBase as if it was another SQL database with the help of Phoenix.
 
-## 4: Inserting Data via Phoenix <a id="inserting-data"></a>
+## 4. Inserting Data via Phoenix <a id="inserting-data"></a>
 
 You can insert the data using `UPSERT` command. It inserts if not present and updates otherwise the value in the table. The list of columns is optional and if not present, the values will map to the column in the order they are declared in the schema. Copy the `UPSERT` statement given below and then view the newly added row.
 
@@ -147,6 +151,6 @@ You will see a newly added row:
 
 Go to this [article](https://community.hortonworks.com/content/kbentry/44350/setting-up-squirrel-and-phoenix-integration.html) on Hortonworks Community Connection to set up the SQuirrel client work with Phoenix.
 
-## 6. Summary <a id="summary"></a>
+## Summary <a id="summary"></a>
 
 Congratulations! Lets summarize what we learned in this tutorial. We went through the introduction of Apache Phoenix and how to use it with Apache HBase. We also learned how to integrate Phoenix with SQuirrel. Go through Lab 3 of this tutorial where we are discussing another SQL tool Apache Hive and how to integrate that with Apache HBase.
