@@ -5,17 +5,19 @@ platform: hdp-2.5.0
 tags: [sandbox]
 ---
 
-# Hortonworks Sandbox with VirtualBox
+# Hortonworks Sandbox Guide
 
-## Overview
+## Import Hortonworks Sandbox on Virtual Box
+
+## Introduction
 
 The Hortonworks Sandbox is delivered as a virtual appliance.  The virtual appliance (indicated by an .ovf or .ova extension in the filename) runs in the context of a virtual machine (VM), a piece of software that appears to be an application to the underlying (host) operating system (OS), but that looks like a bare machine, including CPU, storage, network adapters, and so forth, to the operating system and applications that run on it.
 
 To use the Hortonworks Sandbox, one of the supported virtual machine applications needs to installed on your host machine:
 
-1\. VirtualBox
-2\. VMware Fusion
-3\. Hyper-V
+-   VirtualBox
+-   VMware Fusion
+-   Hyper-V
 
 This document describes importing the Hortonworks Sandbox virtual appliance into VirtualBox.
 
@@ -25,8 +27,8 @@ To use the Hortonworks Sandbox with VirtualBox the following requirements need t
 
 **Oracle VirtualBox Installed**
 
-1\.  Version 4.2 or later
-2\.  You can download VirtualBox here: https://www.virtualbox.org/wiki/Downloads
+-   Version 4.2 or later
+-   You can download VirtualBox here: https://www.virtualbox.org/wiki/Downloads
 
 **Host Operating System**
 
@@ -34,25 +36,18 @@ Host operating system refers to the operating system of your computer.  The foll
 
 **Hardware** (The newer the hardware the better):
 
-1\. **CPU** - A 64-bit machine with a multi-core CPU that supports virtualization.  Please look into your operating system’s documentation to verify if you are running a 64 bit OS.  Below are references for Mac OS X and Windows.
-
-Windows article:
-http://windows.microsoft.com/en-us/windows7/32-bit-and-64-bit-windows-frequently-asked-questions
-Mac OS X:
-https://support.apple.com/en-us/HT3696
-
-2\. **BIOS** - Has been enabled for virtualization support.  Please contact your specific computer vendor to determine how to enable/verify this feature in your machine’s BIOS.
-
-3\. **RAM** - At least 8 GB of RAM (The more, the better)
+-   **CPU** - A 64-bit machine with a multi-core CPU that supports virtualization.  Please look into your operating system’s documentation to verify if you are running a 64 bit OS.  Below are references for Mac OS X and Windows.
+    -   [Windows article](http://windows.microsoft.com/en-us/windows7/32-bit-and-64-bit-windows-frequently-asked-questions)
+    -   [Mac OS X](https://support.apple.com/en-us/HT3696)
+-   **BIOS** - Has been enabled for virtualization support.  Please contact your specific computer vendor to determine how to enable/verify this feature in your machine’s BIOS.
+-   **RAM** - At least 8 GB of RAM (The more, the better)
 If you wish to enable services such as Ambari, HBase, Storm, Kafka, or Spark please ensure you have at least 10 Gb of physical RAM in order to run the VM using 8 GB.
 
 More information for hardware requirements for VirtualBox can be found [here](https://www.virtualbox.org/wiki/End-user_documentation).
-
-4\. **Browsers**
-
-1\.  Chrome 25+,
-2\.  IE 9+ (Sandbox will not run on IE 10)
-3\.  Safari 6+
+-   **Browsers**
+    -   Chrome 25+
+    -   IE 9+ (Sandbox will not run on IE 10)
+    -   Safari 6+
 
 **Hortonworks Sandbox virtual appliance for VirtualBox**
 
@@ -64,7 +59,7 @@ The steps provided describe how to import the Hortonworks Sandbox virtual applia
 
 1\. Open the **Oracle VM VirtualBox Manager**
 
-You can do so by double clicking the icon: ![virtualbox_logo](assets-guide/virtualbox_logo.png)
+You can do so by double clicking the icon: ![virtualbox_logo](assets/virtualbox_logo.png)
 
 On a Mac OS X machine, by default the application is installed within the Applications folder, hence the icon to launch the application can be found there.
 On a Windows machine, the executable (.exe) file is typically found in _c:\Program Files\Oracle\VirtualBox\VBoxManage.exe_
@@ -73,33 +68,33 @@ The **Oracle VM VirtualBox Manager** window opens.
 
 _Mac OS X_:
 
-![virtualbox_homepage](assets-guide/virtualbox_homepage.png)
+![virtualbox_homepage](assets/virtualbox_homepage.png)
 
 _Windows 7_
 
-![virtualbox_windows](assets-guide/virtualbox_windows.png)
+![virtualbox_windows](assets/virtualbox_windows.png)
 
 2\. 	Open the **Preferences** dialog window.
 
 _Mac OS X_:  Select **VirtualBox->Preferences…** from the menu bar while the Oracle VM VirtualBox Manager application is in focus.
 
-![virtualbox_preferences](assets-guide/virtualbox_preferences.png)
+![virtualbox_preferences](assets/virtualbox_preferences.png)
 
 _Windows 7_:
 
 Select **File->Preferences…** within the Oracle VM VirtualBox Manager
 
-![virtualbox_preferences_windows](assets-guide/virtualbox_preferences_windows.png)
+![virtualbox_preferences_windows](assets/virtualbox_preferences_windows.png)
 
 3\. 	Uncheck **Auto-Capture Keyboard** within the Preferences dialog window.
 
 _Mac OS X_: Select the **Input** icon button from the top of the window first to get to the window containing the **Auto-Capture Keyboard** checkbox.
 
-![virtualbox_autocapture](assets-guide/virtualbox_autocapture.png)
+![virtualbox_autocapture](assets/virtualbox_autocapture.png)
 
 _Windows 7_:  Select the Input icon button from the left hand pane of the window first to get to the following window.
 
-![virtualbox_autocapture_windows](assets-guide/virtualbox_autocapture_windows.png)
+![virtualbox_autocapture_windows](assets/virtualbox_autocapture_windows.png)
 
 Click the **OK** button once done.  This will close the Preferences window.
 
@@ -107,22 +102,22 @@ Click the **OK** button once done.  This will close the Preferences window.
 
 _Mac OS X_:  Select **File->Import Appliance…** from the menu bar while the Oracle VM VirtualBox Manager application is in focus.
 
-![virtualbox_importappliance](assets-guide/virtualbox_importappliance.png)
+![virtualbox_importappliance](assets/virtualbox_importappliance.png)
 
 _Windows 7_:
 Select **File->Import Appliance…** within the Oracle VM VirtualBox Manager
 
-![virtualbox_importappliance_windows](assets-guide/virtualbox_importappliance_windows.png)
+![virtualbox_importappliance_windows](assets/virtualbox_importappliance_windows.png)
 
 The **Appliance to Import** dialog window will then display allowing to select the virtual appliance to import.
 
 _Mac OS X_:
 
-![virtualbox_browse](assets-guide/virtualbox_browse.png)
+![virtualbox_browse](assets/virtualbox_browse.png)
 
 _Windows 7_: A separate dialog window is put in front of the **VM VirtualBox Manager** window
 
-![virtualbox_browse_windows](assets-guide/virtualbox_browse_windows.png)
+![virtualbox_browse_windows](assets/virtualbox_browse_windows.png)
 
 5\. 	Click on the **folder** icon that will open a file dialog window.  Select the virtual appliance file that you downloaded as a prerequisite.  After selecting the file click the **Open** button.
 
@@ -130,12 +125,12 @@ _Windows 7_: A separate dialog window is put in front of the **VM VirtualBox Man
 
 _Mac OS X_:
 
-![virtualbox_next](assets-guide/virtualbox_next.png)
+![virtualbox_next](assets/virtualbox_next.png)
 
 _Windows 7_:
 On Windows after you select the virtual appliance file, you are brought back to this window.
 
-![virtualbox_next_windows](assets-guide/virtualbox_next_windows.png)
+![virtualbox_next_windows](assets/virtualbox_next_windows.png)
 
 After clicking on Next, the Appliance Settings are displayed.
 
@@ -146,30 +141,30 @@ Within the Appliance Settings section you may wish to allocate more RAM to the v
 
 _Mac OS X_:
 
-![virtualbox_appliance_settings](assets-guide/virtualbox_appliance_settings.png)
+![virtualbox_appliance_settings](assets/virtualbox_appliance_settings.png)
 
 _Windows_:
 
-![virtualbox_appliance_settings_windows](assets-guide/virtualbox_appliance_settings_windows.png)
+![virtualbox_appliance_settings_windows](assets/virtualbox_appliance_settings_windows.png)
 
 Progress of the Import
 _Mac OS X_:
 
-![virtualbox_import](assets-guide/virtualbox_import.png)
+![virtualbox_import](assets/virtualbox_import.png)
 
 _Windows_:
 
-![virtualbox_import_windows](assets-guide/virtualbox_import_windows.png)
+![virtualbox_import_windows](assets/virtualbox_import_windows.png)
 
 7\. 	Once the import finishes, you are brought to the main Oracle VM VirtualBox Manager screen.  From the left hand pane, select the appliance you just imported and click the green **Start** arrow.
 
 _Mac OS X_:
 
-![virtualbox_start](assets-guide/virtualbox_start.png)
+![virtualbox_start](assets/virtualbox_start.png)
 
 _Windows_:
 
-![virtualbox_start_windows](assets-guide/virtualbox_start_windows.png)
+![virtualbox_start_windows](assets/virtualbox_start_windows.png)
 
 A console window opens and displaying the boot up information.
 Once the virtual machine fully boots up, the console displays the login instructions.

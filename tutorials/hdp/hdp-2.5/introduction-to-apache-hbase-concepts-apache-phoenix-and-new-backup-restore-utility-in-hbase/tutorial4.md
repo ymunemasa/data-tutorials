@@ -1,9 +1,13 @@
 ---
-title: HBase Backup and Restore Utility
+title: Introduction to Apache HBase Concepts, Apache Phoenix and New Backup & Restore Utility in HBase
 tutorial-id: 650
 platform: hdp-2.5.0
 tags: [hbase]
 ---
+
+# Introduction to Apache HBase Concepts, Apache Phoenix and New Backup & Restore Utility in HBase
+
+## Lab 4: Apache HBase Backup and Restore
 
 ## Introduction
 
@@ -11,17 +15,17 @@ The HBase backup and restore utility helps you take backup of the table schema a
 
 ## Prerequisites
 
-- [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox)
-- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
-- Lab 1 : Introduction to HBase Concepts
-- Lab 2 : Introduction to Phoenix Concepts
+-   [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox)
+-   Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
+-   Lab 1: Introducing Apache HBase Concepts
+-   Lab 2: Introducing Apache Phoenix Concepts
 
 ## Outline
 
-- [1: Creating a Full Backup](#create-full-backup)
-- [2: Backup Sets](#backup-sets)
-- [3: Restoring a Backup](#restore-backup)
-- [4: Summary](#summary)
+-   [1. Creating a Full Backup](#create-full-backup)
+-   [2. Backup Sets](#backup-sets)
+-   [3. Restoring a Backup](#restore-backup)
+-   [Summary](#summary)
 
 ## 1. Creating a Full Backup <a id="create-full-backup"></a>
 
@@ -29,21 +33,15 @@ The first step in running the backup-and-restore utilities is to capture the com
 
 `hbase backup create { {full | incremental} {backup_root_path} {[tables] | [-set backup_set_name]} } [[-silent] | [-w number_of_workers] | [-b bandwidth_per_worker]]`
 
-### Arguments:-
+### Arguments
 
-1. full | incremental - Full argument takes the full backup image. Incremental argument creates an incremental backup that has an image of data changes since the full backup or the previous incremental backup.
-
-2. backup_root_path - the root path where you want to store your backup image.
-
-3. tables (optional) - Specify the table or tables to backup. If no tables are specified, all tables are backed up.
-
-4. -set backup_set_name (optional)- Calls an existing backup set in the command.
-
-5. -silent (optional) - Ensures that the progress of the backup is not displayed on the screen.
-
-6. -w number_of_workers (optional) - Specifies the number of parallel workers to copy data of the backup.
-
-7. -b bandwidth_per_worker (optional) - Specifies the bandwidth of the worker in MB per second.
+-   full | incremental - Full argument takes the full backup image. Incremental argument creates an incremental backup that has an image of data changes since the full backup or the previous incremental backup.
+-   backup_root_path - the root path where you want to store your backup image.
+-   tables (optional) - Specify the table or tables to backup. If no tables are specified, all tables are backed up.
+-   -set backup_set_name (optional)- Calls an existing backup set in the command.
+-   -silent (optional) - Ensures that the progress of the backup is not displayed on the screen.
+6.  -w number_of_workers (optional) - Specifies the number of parallel workers to copy data of the backup.
+7.  -b bandwidth_per_worker (optional) - Specifies the bandwidth of the worker in MB per second.
 
 Now create a full backup of table `driver_dangerous_event` on `hdfs://sandbox.hortonworks.com:8020/user/hbase/backup`  HDFS path with 3 parallel workers. Run the following command from the command line:
 
@@ -79,20 +77,15 @@ You can create a group of tables into a set so that it reduces the amount of rep
 
 If you run the **hbase backup set add** command and specify a backup set name that does not yet exist on your system, a new set is created. If you run the command with the name of an existing backup set name, then the tables that you specify are added to the set.
 
-### Arguments:
+### Arguments
 
-1. add  - Add tables to a backup set. Specify a backup_set_name value after this argument to create a backup set.
+-   add  - Add tables to a backup set. Specify a backup_set_name value after this argument to create a backup set.
 remove - Removes tables from the set. Specify the tables to remove in the tables argument.
-
-2. list - Lists all backup sets.
-
-3. describe - Use this subcommand to display on the screen a description of a backup set. This subcommand must precede a valid value for the backup_set_name value.
-
-4. delete - Deletes a backup set. Enter the value for the backup_set_name option directly after the **hbase backup set delete** command.
-
-5. backup_set_name (optional) - Used to assign or invoke a set name.
-
-6. tables (optional) - list of tables to include in the backup set.
+-   list - Lists all backup sets.
+-   describe - Use this subcommand to display on the screen a description of a backup set. This subcommand must precede a valid value for the backup_set_name value.
+-   delete - Deletes a backup set. Enter the value for the backup_set_name option directly after the **hbase backup set delete** command.
+-   backup_set_name (optional) - Used to assign or invoke a set name.
+-   tables (optional) - list of tables to include in the backup set.
 
 Now create a backup set called event which has a table driver_dangerous_event.
 
@@ -116,19 +109,14 @@ The syntax for running a restore utility is as follows:
 
 `hbase restore {[backup_root_path] | [backup_ID] | [tables]} [[table_mapping] | [-overwrite]]`
 
-### Arguments:
+### Arguments
 
-1. backup_root_path - Specifies the parent location of the stored backup image.
-
-2. backup_ID - The backup ID that uniquely identifies the backup image to be restored.
-
-3. tables - Table or tables to be restored.
-
-4. table_mapping (optional)- Directs the utility to restore data in the tables that are specified in the tables option. Each table must be mapped prior to running the command.
-
-5. -overwrite  (optional) - Overwrites an existing table if there is one with the same name in the target restore location.
-
-6. -automatic (optional) - Restores both the backup image and all the dependencies following the correct order.
+-   backup_root_path - Specifies the parent location of the stored backup image.
+-   backup_ID - The backup ID that uniquely identifies the backup image to be restored.
+-   tables - Table or tables to be restored.
+-   table_mapping (optional)- Directs the utility to restore data in the tables that are specified in the tables option. Each table must be mapped prior to running the command.
+-   -overwrite  (optional) - Overwrites an existing table if there is one with the same name in the target restore location.
+-   -automatic (optional) - Restores both the backup image and all the dependencies following the correct order.
 
 Let’s drop a table so that restore utility can be tested. To drop a table in HBase, you first have to disable it and then drop it.
 
@@ -183,6 +171,6 @@ You can view the result at the end of this command’s execution.
 
 ![restore_command](assets/restore_command.png)
 
-## 4. Summary <a id="summary"></a>
+## Summary <a id="summary"></a>
 
 Congratulations! Lets summarize what we learned in this tutorial. We went through the new Backup & Restore utility in HBase. We created a full backup of our HBase table, created a backup set and then restore the deleted table.

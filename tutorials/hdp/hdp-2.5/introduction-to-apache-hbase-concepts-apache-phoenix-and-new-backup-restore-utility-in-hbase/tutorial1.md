@@ -1,9 +1,13 @@
 ---
-title: Introduction to HBase Concepts
+title: Introduction to Apache HBase Concepts, Apache Phoenix and New Backup & Restore Utility in HBase
 tutorial-id: 650
 platform: hdp-2.5.0
 tags: [hbase, ambari]
 ---
+
+# Introduction to Apache HBase Concepts, Apache Phoenix and New Backup & Restore Utility in HBase
+
+## Lab 1: Introducing Apache HBase Concepts
 
 ## Introduction
 
@@ -17,24 +21,24 @@ In this tutorial, we are going to walk you through some basic HBase shell comman
 
 ## Prerequisites
 
-- [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox)
-- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
+-   [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox)
+-   Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
 
 ## Outline
 
-- [1: Start HBase](#start-hbase)
-    - [1.1: View the HBase Services page](#view-hbase-service)
-    - [1.2: Start HBase Service](#start-hbase-service)
-- [2: Enter HBase Shell](#enter-hbase-shell)
-- [3: Data Definition Language Commands in HBase](#ddl-hbase)
-    - [3.1: Create](#create)
-    - [3.2: List](#list)
-- [4: Data Manipulation Commands in HBase](#dml-hbase)
-    - [4.1: Scan](#scan)
-    - [4.2: Put](#put)
-    - [4.3: Get](#get)
-- [5: Appendix](#appendix)
-- [6: Summary](#summary)
+-   [1. Start HBase](#start-hbase)
+    -   [1.1 View the HBase Services page](#view-hbase-service)
+    -   [1.2 Start HBase Service](#start-hbase-service)
+-   [2. Enter HBase Shell](#enter-hbase-shell)
+-   [3. Data Definition Language Commands in HBase](#ddl-hbase)
+    -   [3.1 Create](#create)
+    -   [3.2 List](#list)
+-   [4. Data Manipulation Commands in HBase](#dml-hbase)
+    -   [4.1 Scan](#scan)
+    -   [4.2 Put](#put)
+    -   [4.3 Get](#get)
+-   [Summary](#summary)
+-   [Appendix](#appendix)
 
 ## 1. Start HBase <a id="start-hbase"></a>
 
@@ -235,7 +239,11 @@ hbase>get 'driver_dangerous_event','1',{COLUMNS => ['events:driverName','events:
 
 ![get_command_two_columns](assets/get_command_two_columns.png)
 
-## 5. Appendix <a id="appendix"></a>
+## Summary <a id="summary"></a>
+
+In this tutorial, we learned about the basic concepts of Apache HBase and different types of data definition and data manipulation commands that are available in HBase shell. Check out the lab 2 of this tutorial where we are going to learn how to use Apache Phoenix with Apache HBase.
+
+## Appendix <a id="appendix"></a>
 
 **ImportTsv Utility in HBase:**
 
@@ -243,7 +251,3 @@ ImportTsv is a utility that will load data in TSV or CSV format into a specified
 
 Next argument is the table name where you want the data to be imported
 Third argument specifies the input directory of CSV data.
-
-## 6. Summary <a id="summary"></a>
-
-In this tutorial, we learned about the basic concepts of Apache HBase and different types of data definition and data manipulation commands that are available in HBase shell. Check out the lab 2 of this tutorial where we are going to learn how to use Apache Phoenix with Apache HBase.

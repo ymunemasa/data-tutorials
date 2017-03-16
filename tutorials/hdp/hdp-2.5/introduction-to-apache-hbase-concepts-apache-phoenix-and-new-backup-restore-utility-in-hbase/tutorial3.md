@@ -1,9 +1,13 @@
 ---
-title: Accessing HBase data with Hive
+title: Introduction to Apache HBase Concepts, Apache Phoenix and New Backup & Restore Utility in HBase
 tutorial-id: 650
 platform: hdp-2.5.0
 tags: [hbase, hive, ambari]
 ---
+
+# Introduction to Apache HBase Concepts, Apache Phoenix and New Backup & Restore Utility in HBase
+
+## Lab 3: Accessing Apache HBase Data with Apache Hive
 
 ## Introduction
 
@@ -11,17 +15,17 @@ We can also use **Hive** to perform SQL queries on the data stored in HBase tabl
 
 ## Prerequisites
 
-- [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox)
-- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
-- Lab 1 : Introduction to HBase Concepts
+-   [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox)
+-   Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
+-   Lab 1: Introducing Apache HBase Concepts
 
 ## Outline
 
-- [1: Setup HBase and Hive Integration](#setup-hbase-hive-integration)
-- [2: Mapping Existing HBase tables to Hive](#mapping-hbase-tables-hive)
-- [3: Summary](#summary)
+-   [1. Setup HBase and Hive Integration](#setup-hbase-hive-integration)
+-   [2. Mapping Existing HBase tables to Hive](#mapping-hbase-tables-hive)
+-   [Summary](#summary)
 
-### 1. Setup HBase and Hive Integration <a id="setup-hbase-hive-integration"></a>
+## 1. Setup HBase and Hive Integration <a id="setup-hbase-hive-integration"></a>
 
 To set up the integration, there are some jar files which need to be added to value of hive.aux.jars.path property. There are 3 jars in the lib directory of Hive:
 
@@ -74,7 +78,7 @@ Click `Add` and then `Save`. You have to restart `Hive` and `Oozie` to get your 
 
 ![restart_hive](assets/restart_hive.png)
 
-### 2. Mapping Existing HBase tables to Hive <a id="mapping-hbase-tables-hive"></a>
+## 2. Mapping Existing HBase tables to Hive <a id="mapping-hbase-tables-hive"></a>
 
 We need to use External table to give Hive access to an existing HBase table with multiple columns and families. External tables are used when you want your tables to point to data files in place, therefore it has to be a folder you point to. In normal internal table in hive, data gets stored in default location in HDFS which is `/apps/hive/warehouse`.
 
@@ -102,6 +106,6 @@ Wait for 10 seconds, you will see the data of the table.
 
 ![view_data](assets/view_data.png)
 
-## 3. Summary <a id="summary"></a>
+## Summary <a id="summary"></a>
 
 Congratulations! Lets summarize what we learned in this tutorial. Now we know how to integrate Hive with HBase and you can run any SQL query using Hive. Check out Lab 4 of this tutorial series where we will discuss about new HBase Backup and Restore utility.

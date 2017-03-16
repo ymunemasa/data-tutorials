@@ -5,7 +5,9 @@ platform: hdp-2.5.0
 tags: [sandbox]
 ---
 
-## Overview
+# Hortonworks Sandbox Guide
+
+## Introduction
 
 The **Hortonworks Sandbox** can now be imported as a docker image on those systems that support docker. It works on a virtualization layer on top of your existing hardware and allocates resources from the existing pool offered by the physical machine but without the extra overhead typically associated with virtual machines.
 
@@ -15,8 +17,8 @@ To use Hortonworks Sandbox with Docker the following requirements need to be met
 
 ### Docker Daemon Installed:
 
-1\. Docker version 1.12.1 or newer
-2\. You can find install instructions [here](https://docs.docker.com/engine/installation/).
+1.  Docker version 1.12.1 or newer
+2.  You can find install instructions [here](https://docs.docker.com/engine/installation/).
 
 ### Host Operating System:
 

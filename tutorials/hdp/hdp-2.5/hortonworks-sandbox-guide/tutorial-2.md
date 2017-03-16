@@ -5,17 +5,18 @@ platform: hdp-2.5.0
 tags: [sandbox]
 ---
 
-# Hortonworks Sandbox with VMware Fusion
+# Hortonworks Sandbox Guide
 
-## Overview
+## Hortonworks Sandbox with VMware Fusion
 
-he Hortonworks Sandbox is delivered as a virtual appliance.  The virtual appliance (indicated by an .ovf or .ova extension in the filename) runs in the context of a virtual machine (VM), a piece of software that appears to be an application to the underlying (host) operating system (OS), but that looks like a bare machine, including CPU, storage, network adapters, and so forth, to the operating system and applications that run on it.
+## Introduction
+
+The Hortonworks Sandbox is delivered as a virtual appliance.  The virtual appliance (indicated by an .ovf or .ova extension in the filename) runs in the context of a virtual machine (VM), a piece of software that appears to be an application to the underlying (host) operating system (OS), but that looks like a bare machine, including CPU, storage, network adapters, and so forth, to the operating system and applications that run on it.
 
 To use the Hortonworks Sandbox, one of the supported virtual machine applications needs to installed on your host machine:
 
-1\. VirtualBox
-2\. VMware Fusion
-
+-   VirtualBox
+-   VMware Fusion
 
 This document describes importing the Hortonworks Sandbox virtual appliance into VMware.
 
@@ -46,9 +47,9 @@ More information for hardware requirements for VMware can be found [here](https:
 
 4\. **Browsers**
 
-1\.  Chrome 25+,
-2\.  IE 9+ (Sandbox will not run on IE 10)
-3\.  Safari 6+
+1.  Chrome 25+,
+2.  IE 9+ (Sandbox will not run on IE 10)
+3.  Safari 6+
 
 NOTE: Please allow popup-blockers
 
@@ -65,54 +66,54 @@ The steps provided describe how to import the Hortonworks Sandbox virtual applia
 1\.	Open the **VMware Fusion** application.
 You can do so by double clicking the icon:
 
-![vmware_logo](assets-guide/vmware_logo.png)
+![vmware_logo](assets/vmware_logo.png)
 
 On a Mac OS X machine, by default the application is installed within the Applications folder, hence the icon to launch the application can be found there.
 
 2\.	The **VMware Fusion** window opens and prompts
 
-![vmware_installation_method](assets-guide/vmware_installation_method.png)
+![vmware_installation_method](assets/vmware_installation_method.png)
 
 > NOTE:  If you currently have existing VM’s installed you should get a different prompt from the above screenshot.
 
 3\.	Select the “Import an existing virtual machine” and click the **Continue** button.
 
-![choose_existing](assets-guide/choose_existing.png)
+![choose_existing](assets/choose_existing.png)
 
 4\.	The file browser dialog opens.  Select the virtual appliance file and click **Open**.
 
-![vmware_open](assets-guide/vmware_open.png)
+![vmware_open](assets/vmware_open.png)
 
 > NOTE:  The name of the file you have downloaded depends on the version of the Hortonworks Sandbox you have chosen to download.  The above picture is referencing Sandbox HDP version 2.2
 
 5\.	After clicking open, you will be brought back to this screen showing the file you have chosen highlighted.  Click **Continue**.
 
-![vmware_choose_existing](assets-guide/vmware_choose_existing.png)
+![vmware_choose_existing](assets/vmware_choose_existing.png)
 
 6\.	After clicking continue, a drop down window sheet displays.
 
-![vmware_save](assets-guide/vmware_save.png)
+![vmware_save](assets/vmware_save.png)
 
 Here you can choose to save the virtual machine with a different name.  If you have no preference in renaming, you can just leave the default name and click save.  You will the get the importing progress dialog:
 
-![vmware_import_progress](assets-guide/vmware_import_progress.png)
+![vmware_import_progress](assets/vmware_import_progress.png)
 
 7\.	Once finished, the following screen is displayed:
 
-![vmware_finish](assets-guide/vmware_finish.png)
+![vmware_finish](assets/vmware_finish.png)
 
 Click the **Finish** button.
 
 8\.	The next window is the console of the virtual machine, click on the **Play** icon within the console.
 
-![vmware_play](assets-guide/vmware_play.png)
+![vmware_play](assets/vmware_play.png)
 
 9\. Eventually you will see the screen below indicating Hortonworks Sandbox is fully booted and displays login instructions.
 
-![vmware_console](assets-guide/vmware_booted.png)
+![vmware_console](assets/vmware_booted.png)
 
 > NOTE: Because what is being displayed is a conceptually separate machine, control of the mouse and the keyboard must be passed back and forth between the host and the VM. This is particularly useful when the VM has a GUI.  If you accidently let the console “capture” your mouse or keyboard, you can release them back to the host machine by pressing the Ctrl and Command keys. A reminder appears in the upper right corner of the console window if you forget.
 
 10\. Use one of the supported browsers mentioned in the prerequisites section of this document within your host machine.  Enter the URL displayed on the console which brings you to the Splash page.  That’s it. Read over the information and links to get started in exploring HDP with the Hortonworks Sandbox!
 
-![new_splashscreen](assets-guide/new_splashscreen.png)
+![new_splashscreen](assets/new_splashscreen.png)
