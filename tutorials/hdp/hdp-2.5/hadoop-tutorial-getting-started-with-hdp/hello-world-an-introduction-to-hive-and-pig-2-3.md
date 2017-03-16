@@ -1,9 +1,11 @@
 ---
-title: Hello HDP An Introduction to Hadoop with Hive and Pig
+title: Hadoop Tutorial – Getting Started with HDP
 tutorial-id: 100
 platform: hdp-2.4.0
 tags: [ambari, hive, pig, spark, zeppelin]
 ---
+
+# Hadoop Tutorial – Getting Started with HDP
 
 ## Introduction
 
