@@ -1,5 +1,7 @@
 # Sample Tutorial Series (this is the title of the entire series)
 
+## Tutorial Section Title (this is the title of this specific tutorial section)
+
 ## Introduction
 
 This is the introductory paragraph for the tutorial.  It should introduce the reader to what they're about to learn and do in this particular section of the tutorial series.

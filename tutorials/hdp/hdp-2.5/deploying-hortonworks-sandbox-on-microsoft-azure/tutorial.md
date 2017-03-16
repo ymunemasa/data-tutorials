@@ -22,11 +22,12 @@ The Azure cloud infrastructure has become a common place for users to deploy vir
 - [Set a Static IP](#set-a-static-ip)
 - [Configure SSH Tunneling](#configure-ssh-tunneling)
 - [Splash Screen](#splash-screen)
+- [Summary](#summary)
 - [Further Reading](#further-reading)
 
 ## Find Hortonworks Sandbox on Azure Marketplace
 
-Go to [https://azuremarketplace.microsoft.com/en-us/marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace) and enter "Hortonworks" into the search bar.  Submit, and the **Hortonworks Sandbox** product should appear as shown in this screenshot.
+Go to [Microsoft Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace) and enter "Hortonworks" into the search bar.  Submit, and the **Hortonworks Sandbox** product should appear as shown in this screenshot.
 
 ![Select "Hortonworks Sandbox" from the bottom view.](assets/1.jpg)
 
@@ -72,7 +73,7 @@ Look over the summary and continue when ready.
 
 Alright, we're ready to deploy!  Review the offer details and purchase when ready.
 
-![Review the offer details.](assets/9.jpg)https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure
+![Review the offer details.](assets/9.jpg)
 
 Once the offer is submitted by selecting **Purchase**, the sandbox will take a few minutes to set up and deploy.  After deployment is complete, we can move on to connecting to the sandbox.
 
@@ -87,6 +88,8 @@ Clicking on the IP address will bring up the IP configuration panel.  Select **S
 ![Set the machine's IP to static](assets/static-ip.jpg)
 
 ## Configure SSH Tunneling
+
+SSH tunneling allows us a way to port forward securely, without actually opening the machine's ports for the entire world to access.  Follow these steps to access the endpoints of your Azure deployment from your computer.
 
 Use your favorite editor and edit your `~/.ssh/config` file.  For example:
 ```
@@ -122,7 +125,7 @@ That's it!  Keep this SSH connection open for the duration of your interaction w
 
 ## Splash Screen
 
-Now that you've port forwarded by following the tutorial linked above, you can explore the sandbox as you see fit.  Point your browser to [http://localhost:8888](http://localhost:8888) for the sandbox's splash screen.
+Now that you've port forwarded by following the tutorial linked above, you can explore the sandbox as you see fit.  Point your browser to <http://localhost:8888> for the sandbox's splash screen.
 
 ![Sandbox registration form](assets/sandbox-registration.jpg)
 
@@ -130,8 +133,15 @@ Fill out the form and hit **Submit** to access the sandbox.
 
 ![The sandbox splash page.](assets/sandbox-splash.jpg)
 
+## Summary
+
+You can now access all forwarded ports by pointing a browser to <http://localhost:portNumber>.  For example: <http://localhost:8888> will connect to the Azure machine and sandbox over port 8888.
+
+SSH tunneling allows us a way to port forward securely, without actually opening the machine's ports for the entire world to access.
+
 ## Further Reading
 
 Now that you've got HDP up and running, check out our other tutorials to learn how to leverage its power.
 
 - [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox)
+- [SSH Tunneling Explained](https://chamibuddhika.wordpress.com/2012/03/21/ssh-tunnelling-explained)
