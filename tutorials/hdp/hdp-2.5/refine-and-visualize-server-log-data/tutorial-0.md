@@ -21,32 +21,32 @@ In this demo, we demonstrate how an enterprise security breach analysis and resp
 *   Use [Oozie](https://hortonworks.com/hadoop/oozie) to automatically update a firewall
 *   Visualize the data with [Apache Zeppelin](https://hortonworks.com/hadoop/zeppelin)
 
+### Overview
+
+-   Understand Server Log Data, Become familiar with Server Log Data Use Cases, Hortonworks DataFlow and Apache NiFi
+-   Download and configure the script which will generate our server log data
+-   Install, configure, and start Hortonworks DataFlow
+-   Generate the server log data.
+-   Import the server log data into Excel.
+-   Visualize the server log data using Excel Power View and Apache Zeppelin.
+
 This Hadoop tutorial can be performed with the [Hortonworks Sandbox](https://hortonworks.com/products/sandbox) – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series. The tutorial presented here is for Sandbox HDP 2.5.
 
 ## Prerequisites
 
-- Hortonworks Sandbox (installed and running)
-- Hortonworks DataFlow - [Download here](https://hortonworks.com/downloads/#dataflow)
-- If you'd like to use Tableau to explore the data, please see this HOWTO on the Hortonworks website: [HOWTO: Connect Tableau to the Hortonworks Sandbox](https://hortonworks.com/kb/how-to-connect-tableau-to-hortonworks-sandbox/)
-- Server log tutorial files (included in this tutorial)
+-   Hortonworks Sandbox (installed and running)
+-   Hortonworks DataFlow - [Download here](https://hortonworks.com/downloads/#dataflow)
+-   If you'd like to use Tableau to explore the data, please see this HOWTO on the Hortonworks website: [HOWTO: Connect Tableau to the Hortonworks Sandbox](https://hortonworks.com/kb/how-to-connect-tableau-to-hortonworks-sandbox/)
+-   Server log tutorial files (included in this tutorial)
 
 ## Outline
 -   [Concepts](#concepts)
--   [Step 1 – Configure and Install Hortonworks DataFlow](#step-1–configure-and-install-hortonworks-dataflow)
+-   [Step 1 - Configure and Install Hortonworks DataFlow](#step-1-configure-and-install-hortonworks-dataflow)
 -   [Step 2 - Import the Flow](#import-flow)
 -   [Step 3 - Generate the Server Log Data](#generate-server-log-ata)
 -   [Step 4 - Visualize Server Log Data with Apache Zeppelin](#visualize-log-data-zeppelin)
 -   [Summary](#summary-server-logs)
 -   [Further Reading](#further-reading)
-
-### Overview
-
-- Understand Server Log Data, Become familiar with Server Log Data Use Cases, Hortonworks DataFlow and Apache NiFi
-- Download and configure the script which will generate our server log data
-- Install, configure, and start Hortonworks DataFlow
-- Generate the server log data.
-- Import the server log data into Excel.
-- Visualize the server log data using Excel Power View and Apache Zeppelin.
 
 ## Concepts
 
