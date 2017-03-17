@@ -63,7 +63,7 @@ To check that the image was successfully imported try running the docker images 
 
 3\. Download and run the start sandbox script
 
-You can download the start script [here](LINKME(start_sandbox.sh))
+You can download the [start script here](assets/start_sandbox.sh)
 
 Save it to your computer and execute it, you can ignore the $TERM warnings:
 
