@@ -20,14 +20,14 @@ In this section, You can choose to use  Excel Professional Plus 2013  or Apache 
 
 ## Outline
 
--   [Section 1: Visualize Data with Apache Zeppelin](visualize-data-zeppelin)
--   [Step 1: Identify from which State's Customers Visit the Website Most](identify-customers-website)
--   [Step 2: Understand Demographics from Data to Pull in More Customers](demographics-pull-customers)
--   [Step 3: Analyze the Interest Category Distribution for Users](interest-category-distribution)
--   [Section 2: Visualize Data with Excel](visualize-data-excel)
--   [Step 1: Connect Microsoft Excel](connect-excel)
--   [Step 2: Visualize the Website Clickstream Data Using Excel Power View](visualize-web-clickstream-excel)
--   [Summary](summary-clickstream)
+-   [Section 1: Visualize Data with Apache Zeppelin](#visualize-data-zeppelin)
+-   [Step 1: Identify from which State's Customers Visit the Website Most](#identify-customers-website)
+-   [Step 2: Understand Demographics from Data to Pull in More Customers](#demographics-pull-customers)
+-   [Step 3: Analyze the Interest Category Distribution for Users](#interest-category-distribution)
+-   [Section 2: Visualize Data with Excel](#visualize-data-excel)
+-   [Step 1: Connect Microsoft Excel](#connect-excel)
+-   [Step 2: Visualize the Website Clickstream Data Using Excel Power View](#visualize-web-clickstream-excel)
+-   [Summary](#summary-clickstream)
 -   [Further Reading](#further-reading)
 
 
@@ -237,5 +237,6 @@ Now that you have successfully analyzed and visualized Hortonworks Sandbox data 
 The data in the Hortonworks platform can be refreshed frequently and used for basket analysis, A/B testing, personalized product recommendations, and other sales optimization activities.
 
 ## Further Reading
+
 -   [Zeppelin Notebook for Analysing Web Server Logs](https://community.hortonworks.com/content/repo/56765/zeppelin-notebook-for-analysing-web-server-logs.html)
 -   [Zeppelin in Hortonworks Blog](https://hortonworks.com/apache/zeppelin/#blog)

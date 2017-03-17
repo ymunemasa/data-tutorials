@@ -61,10 +61,7 @@ There are two options for setting up the Hortonworks Sandbox:
 2.  **Deploy [Hortonworks Sandbox on Microsoft Azure](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)**
 
 
-## Overview
+## Outline
 
-To analyze and visualize website clickstream data, we will:
-
--   Use Hortonworks to view and refine website clickstream data.
--   Access the clickstream data with Excel.
--   Visualize the clickstream data using Excel Power View.
+1.  **Lab 1** - Perform Web Log Analysis with Hive introduction
+2.  **Lab 2** - Visualize Clickstream Logs with Excel
