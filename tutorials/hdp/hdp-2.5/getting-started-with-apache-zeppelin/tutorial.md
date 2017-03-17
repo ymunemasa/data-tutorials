@@ -30,8 +30,6 @@ With a focus on Enterprise, Zeppelin has the following important features:
 -   [Creating a Notebook](#creating-a-notebook)
 -   [Importing Notebooks](#importing-notebooks)
 -   [Importing External Libraries](#importing-external-libraries)
--   [Further Reading](#further-reading)
-
 
 ## Launching Zeppelin
 

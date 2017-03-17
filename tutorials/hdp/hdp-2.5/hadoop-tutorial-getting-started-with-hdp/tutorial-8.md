@@ -27,7 +27,7 @@ settings and access refined data.
 
 -   [Step 7.1: Install Zoomdata via Docker](#install-zoomdata)
 -   [Step 7.2: Configure Zoomdata](#configure-zoomdata)
--   [Step 7.3: Access the Refined Data with Zoomdata](#step-7-3-access-the-refined-data-with-zoomdata)
+-   [Step 7.3: Access the Refined Data with Zoomdata](#step-73-access-the-refined-data-with-zoomdata)
 -   [Find IP Address of Your Sandbox (Optonal)](#find-ip-address-of-your-sandbox-optonal)
 -   [Summary](#summary-lab7)
 -   [Further Reading](#further-reading-lab7)
