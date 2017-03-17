@@ -45,7 +45,7 @@ Similarly, start **Ambari Infra** to record all the audits through Ranger. Your 
 
 ![ambari_dashboard_rajops_infra](assets/ambari_dashboard_rajops_infra.png)
 
-## 2: Login to Ranger Administration Console <a id="login_ranger"></a>
+## 2: Login to Ranger Administration Console <a id="login-ranger"></a>
 
 Once the VM is running in VirtualBox, login to the Ranger Administration console at **http://localhost:6080/** from your host machine. The username is **raj_ops** and the password is **raj_ops**.
 
