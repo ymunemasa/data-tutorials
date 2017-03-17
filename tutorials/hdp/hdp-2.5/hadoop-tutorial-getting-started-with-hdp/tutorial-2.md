@@ -59,13 +59,13 @@ A single physical machine gets saturated with its storage capacity as the data g
 
 ### 1.2.1 Upload Geolocation and Trucks CSV Files to data Folder
 
-4\.   If you're not already in your newly created directory path `/user/maria_dev/data`, go to the **data** folder. Then  click on the ![upload_icon_lab1](assets/upload_icon_lab1.png) button to upload the corresponding **geolocation.csv** and **trucks.csv** files into it.
+1\.   If you're not already in your newly created directory path `/user/maria_dev/data`, go to the **data** folder. Then  click on the ![upload_icon_lab1](assets/upload_icon_lab1.png) button to upload the corresponding **geolocation.csv** and **trucks.csv** files into it.
 
-5\. An **Upload file** window will appear, click on the cloud symbol.
+2\. An **Upload file** window will appear, click on the cloud symbol.
 
 ![upload_file_lab1](assets/upload_file_lab1.png)
 
-6\. Another window will appear, navigate to the destination the two csv files were downloaded. Click on one at a time, press open to complete the upload. Repeat the process until both files are uploaded.
+3\. Another window will appear, navigate to the destination the two csv files were downloaded. Click on one at a time, press open to complete the upload. Repeat the process until both files are uploaded.
 
 ![upload_file_window_lab1](assets/upload_file_window_lab1.png)
 
@@ -77,9 +77,9 @@ You can also perform the following operations on a file or folder by clicking on
 
 ### 1.2.2 Set Write Permissions to Write to data Folder
 
-1. click on the `data` folder's row, which is contained within the directory path `/user/maria_dev`.
-2. Click **Permissions**.
-3. Make sure that the background of all the **write** boxes are checked (**blue**).
+1.  click on the `data` folder's row, which is contained within the directory path `/user/maria_dev`.
+2.  Click **Permissions**.
+3.  Make sure that the background of all the **write** boxes are checked (**blue**).
 
 Refer to image for a visual explanation.
 

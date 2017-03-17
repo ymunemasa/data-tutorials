@@ -31,7 +31,6 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 -   [Step 6.b.2: Visualize Data with Microsoft Excel](#step6.b.2)
 -   [Summary](#summary)
 -   [Further Reading](#further-reading)
--   [Resources](#resources)
 
 ## Step 6.b.1: Access Data in Microsoft Excel <a id="step6.b.1"></a>
 
@@ -119,9 +118,9 @@ Congratulations on finishing a comprehensive series on Hadoop and HDP. By now yo
 ## Further Reading
 As a Hadoop practitioner you can choose three basic personas to build upon your skill:
 
--   Hadoop Developer- [Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-developers)
--   Hadoop Administrator-[Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-admins)
--   Data Scientist- [Click Here!](https://hortonworks.com/products/hortonworks-sandbox/#tuts-analysts)
+-   Hadoop Developer- [Click Here!](https://hortonworks.com/tutorials/#tuts-developers)
+-   Hadoop Administrator-[Click Here!](https://hortonworks.com/tutorials/#tuts-admins)
+-   Data Scientist- [Click Here!](https://hortonworks.com/tutorials/#tuts-analysts)
 
 **Case Studies**
 

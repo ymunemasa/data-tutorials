@@ -513,11 +513,11 @@ Congratulations! You made it to the end of the tutorial and built a NiFi DataFlo
 
 ## Further Reading <a id="further-reading-tutorial1"></a>
 
-- [Apache NiFi](https://hortonworks.com/apache/nifi/)
-- [Hortonworks DataFlow Documentation](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html)
-- [NiFi Expression Language Guide](https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html)
-- [XPath Expression Tutorial](http://www.w3schools.com/xsl/xpath_intro.asp)
-- [JSON Tutorial](http://www.w3schools.com/json/)
+-   [Apache NiFi](https://hortonworks.com/apache/nifi/)
+-   [Hortonworks DataFlow Documentation](https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.0.0/bk_user-guide/content/index.html)
+-   [NiFi Expression Language Guide](https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html)
+-   [XPath Expression Tutorial](http://www.w3schools.com/xml/xpath_intro.asp)
+-   [JSON Tutorial](https://www.w3schools.com/js/js_json_intro.asp)
 
 ## Appendix A: Review of the NiFi DataFlow <a id="appendix-a-review-dataflow"></a>
 

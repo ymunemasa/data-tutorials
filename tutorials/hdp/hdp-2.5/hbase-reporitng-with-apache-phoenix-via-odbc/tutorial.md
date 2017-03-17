@@ -38,7 +38,7 @@ This tutorial will not cover setup for HDInsight or Amazon EMR.
 ## Outline
 
 -   [Getting and launching the HDP sandbox](#getting-and-launching-the-hdp-sandbox)
--   [Setting up HBase/Phoenix/Phoenix Query Server](#setting-up-hbase-phoenix-phoenix-query-server)
+-   [Setting up HBase/Phoenix/Phoenix Query Server](#setting-up-hbasephoenixphoenix-query-server)
 -   [Running Phoenix Query Server](#running-phoenix-query-server)
 -   [Setting up port forwarding in VirtualBox](#setting-up-port-forwarding-in-virtualbox)
 -   [Verify you can access Phoenix Query Server](#verify-you-can-access-phoenix-query-server)
@@ -46,10 +46,9 @@ This tutorial will not cover setup for HDInsight or Amazon EMR.
 -   [Find your Phoenix client tools](#find-your-phoenix-client-tools)
 -   [Drop all tables (Optional)](#drop-all-tables-optional)
 -   [Create table and load data](#create-table-and-load-data)
--   [Getting data out - Windows](#getting-data-out-windows)
--   [Getting data out - Windows - Tableau](#getting-data-out-windows-tableau)
+-   [Getting data out - Windows](#getting-data-out---windows)
+-   [Getting data out - Windows - Tableau](#getting-data-out---windows---tableau)
 -   [Important: Configuration file for Phoenix Query Server](#important-configuration-file-for-phoenix-query-server)
--   [Further Reading](#further-reading)
 
 ## Getting and launching the HDP sandbox
 
@@ -350,5 +349,3 @@ Let’s narrow it down to WA, drag `Store state` under **Store** into filter and
 To get better visualization, you can adjust the marks panel. For example, if the pie chart doesn’t show up automatically, pick `Pie` from the marks and adjust the color scheme.
 
 ![click_pie](assets/click_pie.png)
-
-## Further Reading

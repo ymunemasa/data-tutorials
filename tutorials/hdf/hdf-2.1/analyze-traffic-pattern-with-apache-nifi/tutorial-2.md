@@ -12,11 +12,11 @@ tags: [nifi]
 In this tutorial, you learn about the NiFi environment, how to install NiFi onto Hortonworks Sandbox or on a local machine, and how to start NiFi.
 
 ## Prerequisites
-- Completed Learning the Ropes of Apache NiFi-Introduction.
-- Downloaded and installed [Hortonworks Sandbox](https://hortonworks.com/products/sandbox/). (Required for Section 2 and 3 for NiFi installation.)
-- If on mac or linux, add an IP and `sandbox.hortonworks.com` to your `/private/etc/hosts` file
-- If on windows 7, add an IP and `sandbox.hortonworks.com` to your `C://Windows/System32/Drivers/etc/hosts` file
-- For Windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run Linux terminal commands in these tutorials.
+-   Completed Learning the Ropes of Apache NiFi-Introduction.
+-   Downloaded and installed [Hortonworks Sandbox](https://hortonworks.com/products/sandbox/). (Required for Section 2 and 3 for NiFi installation.)
+-   If on mac or linux, add an IP and `sandbox.hortonworks.com` to your `/private/etc/hosts` file
+-   If on windows 7, add an IP and `sandbox.hortonworks.com` to your `C://Windows/System32/Drivers/etc/hosts` file
+-   For Windows users, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash) to run Linux terminal commands in these tutorials.
 
 The following terminal commands in the tutorial instructions are performed in VirtualBox Sandbox and Mac machine. For windows users, to run the following terminal commands, download [Git Bash](https://openhatch.org/missions/windows-setup/install-git-bash).
 
@@ -33,30 +33,28 @@ echo '{Host-Name} sandbox.hortonworks.com' | tee -a /c/Windows/System32/Drivers/
 ~~~
 
 ## Outline
-- [Section 0: Explore NiFi Environment Before NiFi Installation](#explore-nifi-environment)
-  - [0.A Plan to Install HDF 2.0 on Sandbox](#install-hdf-on-sandbox)
-  - [0.B Plan to Install HDF 2.0 on Local Machine](#install-hdf-on-machine)
-- [Section 1: Setup NiFi on Local Machine](#setup-nifi-locally)
-  - [Step 1: Download and Install NiFi Locally](#download-nifi-machine)
-  - [Step 2: Start NiFi](#start-nifi-locally)
-- [Section 2: Setup NiFi on Sandbox by Ambari Wizard](#nifi-ambari-wizard)
-  - [Step 1: Install NiFi By Ambari Wizard](#install-NiFi-ambari)
-  - [Step 2: Start NiFi via Ambari Service](#start-nifi-ambari)
-- [Section 3: Setup NiFi on Sandbox By CLI](#setup-nifi-sandbox)
-  - [Step 1: Install NiFi By Sandbox Shell](#install-NiFi-cli)
-  - [Step 2: Start NiFi via Sandbox Shell](#start-nifi-cli)
-  - [Step 3A: Forward Port with VirtualBox GUI](#forward-port-virtualbox)
-  - [Step 3B: Forward Port with Azure GUI](#forward-port-azure)
-- [Conclusion](#conclusion-lab0)
-- [Appendix A: Troubleshoot NiFi Installation](#troubleshoot-nifi-installation)
-
-* * *
+-   [Section 0: Explore NiFi Environment Before NiFi Installation](#explore-nifi-environment)
+    -   [0.A Plan to Install HDF 2.0 on Sandbox](#install-hdf-on-sandbox)
+    -   [0.B Plan to Install HDF 2.0 on Local Machine](#install-hdf-on-machine)
+-   [Section 1: Setup NiFi on Local Machine](#setup-nifi-locally)
+    -   [Step 1: Download and Install NiFi Locally](#download-nifi-machine)
+    -   [Step 2: Start NiFi](#start-nifi-locally)
+-   [Section 2: Setup NiFi on Sandbox by Ambari Wizard](#nifi-ambari-wizard)
+    -   [Step 1: Install NiFi By Ambari Wizard](#install-NiFi-ambari)
+    -   [Step 2: Start NiFi via Ambari Service](#start-nifi-ambari)
+-   [Section 3: Setup NiFi on Sandbox By CLI](#setup-nifi-sandbox)
+    -   [Step 1: Install NiFi By Sandbox Shell](#install-NiFi-cli)
+    -   [Step 2: Start NiFi via Sandbox Shell](#start-nifi-cli)
+    -   [Step 3A: Forward Port with VirtualBox GUI](#forward-port-virtualbox)
+    -   [Step 3B: Forward Port with Azure GUI](#forward-port-azure)
+-   [Summary](#summary)
+-   [Appendix A: Troubleshoot NiFi Installation](#troubleshoot-nifi-installation)
 
 ## Section 0: Explore NiFi Environment Before NiFi Installation <a id="explore-nifi-environment"></a>
 
 FOr this tutorial you can run NiFi inside a single virtual machine or on your local computer. This version of the tutorial instructions are based on [Hortonworks DataFlow 2.0 GZipped](https://hortonworks.com/downloads/). There are 2 ways to download and install HDF 2.0: Option 1 on a Hortonworks Sandbox 2.5 Virtual Image (via Ambari Wizard, Sandbox Shell) or Option 2 on your local machine. HDF comes in 2 versions with only **NiFi** or with **NiFi, Kafka, Storm, and Zookeeper**. For this tutorial series, you should download HDF with NiFi only. The necessary components are:
-- HDF 2.0 (NiFi only)
-- Internet Access
+-   HDF 2.0 (NiFi only)
+-   Internet Access
 
 ### 0.A Plan to Install HDF 2.0 on HDP Sandbox <a id="install-hdf-on-sandbox"></a>
 
@@ -127,8 +125,6 @@ Version 2 comes with Ambari, Ranger, NiFi, Kafka, Storm and Zookeeper
 There are 2 ways to install the NiFi Service by local machine, Hortonworks
 Sandbox via Ambari Service Wizard or Sandbox Shell.
 
-* * *
-
 ## Section 1: Setup NiFi on Local Machine <a id="setup-nifi-locally"></a>
 
 ### Step 1: Download and Install NiFi Locally <a id="download-nifi-machine"></a>
@@ -158,8 +154,6 @@ There are 3 methods to start NiFi: launch NiFi in foreground, in the background 
 2\. Open NiFi at `http://sandbox.hortonworks.com:8080/nifi/`. Wait 1 to 2 minutes for NiFi to load.
 
 Now that you started NiFi, review the [conclusion](#conclusion-lab0) and then we can move onto the tutorial 1.
-
-* * *
 
 ## Section 2: Setup NiFi on Sandbox by Ambari Wizard <a id="nifi-ambari-wizard"></a>
 
@@ -222,9 +216,6 @@ If NiFi is not already running, we will use Ambari Service Tool to launch NiFi.
 ![open_nifi_html_interface](assets/lab0-download-install-start-nifi/open_nifi_html_interface.png)
 
 Now that you started NiFi, review the [conclusion](#conclusion-lab0) and then we can move onto the tutorial 1.
-
-
-* * *
 
 ## Section 3: Setup NiFi on Sandbox By CLI <a id="setup-nifi-sandbox"></a>
 
@@ -333,7 +324,6 @@ Click the button that says **Port Forwarding**. Overwrite NiFi entry with the fo
 
 ![port_forward_nifi_iot](assets/lab0-download-install-start-nifi/port_forward_nifi_iot.png)
 
-
 4\. Open NiFi at `http://sandbox.hortonworks.com:9090/nifi/`. Wait 1 to 2 minutes for NiFi to load.
 
 > Note: If you have not configured the `sandbox.hortonworks.com` alias in `/etc/hosts`, try the `http://localhost:9090/nifi` URL as well.
@@ -364,10 +354,7 @@ Now that you started NiFi, review the [conclusion](#conclusion-lab0) and then we
 
 Now that you started NiFi, review the [conclusion](#conclusion-lab0) and then we can move onto the tutorial 1.
 
-* * *
-
-
-## Conclusion <a id="conclusion-lab0"></a>
+## Summary
 
 Congratulations! You learned that NiFi can be installed on a VM or directly on your computer. You also learned to download, install, and start NiFi. Now that you have NiFi is up and running, you are ready to build a dataflow.
 
@@ -388,6 +375,3 @@ ambari-server restart
 4\. Once the service is reinstalled, if there is a **green check symbol** next to the name, then the reinstallation was successful.
 
 ![service_installed_succesfully](assets/lab0-download-install-start-nifi/service_installed_succesfully.png)
-
-## Further Reading
-For more information on NiFi Configuration, see the [System Administrator's Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_AdminGuide/content/index.html).

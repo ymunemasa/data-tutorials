@@ -34,7 +34,7 @@ export SPARK_HOME=/usr/hdp/current/spark-client
 -   [Perform WordCount with Spark](#perform-wordcount-with-spark)
 -   [Running Hive UDF](#running-hive-udf)
 -   [Reading & Writing ORC Files](#reading-writing-orc-files)
--   [Using SparkSQL Thrift Server for JDBC/ODBC Access](#using-sparksql-thrift-server-for-jdbc-odbc-access)
+-   [Using SparkSQL Thrift Server for JDBC/ODBC Access](#using-sparksql-thrift-server-for-jdbcodbc-access)
 -   [Running SparkR](#running-sparkr)
 -   [Using the DataSet API](#using-the-dataset-api)
 -   [Running the Machine Learning Spark Application](#running-the-machine-learning-spark-application)

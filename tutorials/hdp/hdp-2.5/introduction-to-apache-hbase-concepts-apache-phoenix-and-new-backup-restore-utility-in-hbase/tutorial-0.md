@@ -83,7 +83,7 @@ Wait for HBase to start (It may take a few minutes to turn green)
 
 ![hbaseStartedIot](assets/hbase_started_iot.png)
 
-## 2. Enter HBase Shell <a id="enter-hbase_shell"></a>
+## 2. Enter HBase Shell <a id="enter-hbase-shell"></a>
 
 HBase comes with an interactive shell from where you can communicate with HBase components and perform operations on them.
 

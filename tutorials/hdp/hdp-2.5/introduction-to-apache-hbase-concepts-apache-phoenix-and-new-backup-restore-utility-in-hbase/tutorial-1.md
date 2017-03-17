@@ -13,7 +13,7 @@ tags: [hbase, phoenix, ambari]
 
 Apache Phoenix is a SQL abstraction layer for interacting with HBase.  Phoenix translates SQL to native HBase API calls.  Phoenix provide JDBC/ODBC and Python drivers.
 
-For more information about Phoenix capabilities, see the [Apache Phoenix website](#https://phoenix.apache.org/).
+For more information about Phoenix capabilities, see the [Apache Phoenix website](https://phoenix.apache.org/).
 
 ## Prerequisites
 

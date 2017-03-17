@@ -147,8 +147,7 @@ Congratulations, you've finished your first tutorial! Now you know about the dif
 
 Check [Hortonworks Community Connection](https://hortonworks.com/community/forums/)(HCC) for answers to problems you may come across during your hadoop journey.
 
-![Hortonworks Community Connection Main Page](assets/hcc_page_learning_the_ropes_sandbox.png)
-
 ### Technique for Finding Answers in HCC <a id="technique-for-finding-answers-hcc"></a>
-- Insert quotes around your tutorial related problem
-- Be specific by including keywords (error, tutorial name, etc.)
+
+-   Insert quotes around your tutorial related problem
+-   Be specific by including keywords (error, tutorial name, etc.)

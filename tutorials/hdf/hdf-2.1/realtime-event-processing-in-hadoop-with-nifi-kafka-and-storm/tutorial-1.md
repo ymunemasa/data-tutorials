@@ -188,7 +188,7 @@ A topology runs forever, or until you kill it. Storm will automatically reassign
 
 ## 4th Concept: Kafka on Storm <a id="concepts-kafka-on-storm"></a>
 
-Hortonworks Data Platform’s YARN-based architecture enables multiple applications to share a common cluster and data set while ensuring consistent levels of response made possible by a centralized architecture. Hortonworks led the efforts to on-board open source data processing engines, such as [Apache Hive](https://hortonworks.com/hadoop/hive), [HBase](https://hortonworks.com/hadoop/hbase), [Accumulo](https://hortonworks.com/hadoop/accumulo), [Spark](https://hortonworks.com/hadoop/spark),[Storm](https://hortonworks.com/hadoop/storm) and others, on [Apache Hadoop YARN](https://hortonworks.com/hadoop/yarn/).
+Hortonworks Data Platform’s YARN-based architecture enables multiple applications to share a common cluster and data set while ensuring consistent levels of response made possible by a centralized architecture. Hortonworks led the efforts to on-board open source data processing engines, such as [Apache Hive](https://hortonworks.com/hadoop/hive), [HBase](https://hortonworks.com/hadoop/hbase), [Accumulo](https://hortonworks.com/hadoop/accumulo), [Spark](https://hortonworks.com/hadoop/spark), [Storm](https://hortonworks.com/hadoop/storm) and others, on [Apache Hadoop YARN](https://hortonworks.com/hadoop/yarn/).
 
 In this tutorial, we will focus on one of those data processing engines—[Apache Storm](https://hortonworks.com/hadoop/storm)—and its relationship with [Apache Kafka](https://hortonworks.com/hadoop/kafka). I will describe how Storm and Kafka form a multi-stage event processing pipeline, discuss some use cases, and explain Storm topologies.
 
@@ -235,12 +235,11 @@ To perform real-time computation on Storm, we create “topologies.” A topolog
 Hortonworks’ focus for Apache Storm and Kafka has been to make it easier for developers to ingest and publish data streams from Storm topologies. The first topology ingests raw data streams from Kafka and fans out to HDFS, which serves as persistent store for raw events. Next, a filter Bolt emits the enriched event to a downstream Kafka Bolt that publishes it to a Kafka Topic. As events flow through these stages, the system can keep track of data lineage that allows drill-down from aggregated events to its constituents and can be used for forensic analysis. In a multi-stage pipeline architecture, providing right cluster resources to most intense part of the data processing stages is very critical, an “Isolation Scheduler” in Storm provides the ability to easily and safely share a cluster among many topologies.
 In summary, refinery style data processing architecture enables you to:
 
-- Incrementally add more topologies/use cases
-- Tap into raw or refined data streams at any stage of the processing
-- Modularize your key cluster resources to most intense processing phase of the pipeline
+-   Incrementally add more topologies/use cases
+-   Tap into raw or refined data streams at any stage of the processing
+-   Modularize your key cluster resources to most intense processing phase of the pipeline
 
 ## Further Reading <a id="further-reading-concepts"></a>
-- [Apache NiFi](https://nifi.apache.org/docs/nifi-docs/)
-- [Apache Storm](http://storm.apache.org/)
-- [Apache Kafka](http://kafka.apache.org/)
-- [Storm Kafka Integration](http://storm.apache.org/documentation/storm-kafka.html)
+-   [Apache NiFi](https://nifi.apache.org/docs/nifi-docs/)
+-   [Apache Storm](http://storm.apache.org/)
+-   [Apache Kafka](http://kafka.apache.org/)
