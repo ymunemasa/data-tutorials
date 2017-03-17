@@ -24,12 +24,12 @@ In this tutorial we’ll show you how to use SparkR to predict flight delays usi
 -   Follow this [article](https://community.hortonworks.com/content/kbentry/69424/setting-up-rstudio-on-hortonworks-docker-sandbox-2.html) on Hortonworks Community to install RStudio on the Sandbox.
 
 ## Outline
--   [Step 1 : Download the Dataset](#step-1-download-the-dataset)
--   [Step 2 : Setup SparkR on RStudio](#step-2-setup-sparkr-on-rstudio)
--   [Step 3 : Prepare a Training Dataset](#step-3-prepare-a-training-dataset)
--   [Step 4 : Exploratory Data Analysis](#step-4-exploratory-data-analysis)
--   [Step 5 : Regression Model to predict Airline delay](#step-5-regression-model-to-predict-airline-delay)
--   [Step 6 : Logistic Regression to predict Airline delay](#step-6-logistic-regression-to-predict-airline-delay)
+-   [Step 1 : Download the Dataset](#step-1--download-the-dataset)
+-   [Step 2 : Setup SparkR on RStudio](#step-2--setup-sparkr-on-rstudio)
+-   [Step 3 : Prepare a Training Dataset](#step-3--prepare-a-training-dataset)
+-   [Step 4 : Exploratory Data Analysis](#step-4--exploratory-data-analysis)
+-   [Step 5 : Regression Model to predict Airline delay](#step-5--regression-model-to-predict-airline-delay)
+-   [Step 6 : Logistic Regression to predict Airline delay](#step-6--logistic-regression-to-predict-airline-delay)
 -   [Summary](#summary)
 
 ## Step 1 : Download the Dataset
