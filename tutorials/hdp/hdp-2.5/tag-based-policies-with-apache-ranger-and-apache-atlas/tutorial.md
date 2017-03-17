@@ -15,19 +15,19 @@ This tutorial walks through an example of tagging data in Atlas and building a s
 
 ## Prerequisites
 
-- [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox)
-- Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
+-   [Download Hortonworks 2.5 Sandbox](https://hortonworks.com/downloads/#sandbox)
+-   Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
 
 ## Outline
 
-- [1. Start Kafka, HBase, Ambari Infra, Ranger and Atlas](#start-services)
-      - [1.1 View the Services Page](#view-service-page)
-      - [1.2 Start Kafka Service](#start-kafka)
-- [2. General Information](#general-information)
-- [3. Sample Ranger Policy for Different User Personas](#sample-ranger-policy)
-- [4. Access Without Tag Based Policies](#access-without-tag)
-- [5. Create Tag and Tag Based Policy](#create-tag-based-policy)
-- [Summary](#summary)
+-   [1. Start Kafka, HBase, Ambari Infra, Ranger and Atlas](#start-services)
+    -   [1.1 View the Services Page](#view-service-page)
+    -   [1.2 Start Kafka Service](#start-kafka)
+-   [2. General Information](#general-information)
+-   [3. Sample Ranger Policy for Different User Personas](#sample-ranger-policy)
+-   [4. Access Without Tag Based Policies](#access-without-tag)
+-   [5. Create Tag and Tag Based Policy](#create-tag-based-policy)
+-   [Summary](#summary)
 
 ## 1. Start Kafka, HBase, Ambari Infra, Ranger and Atlas <a id="start-services"></a>
 
