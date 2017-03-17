@@ -5,25 +5,41 @@ platform: hdp-2.5.0
 tags: [spark, hive, orc]
 ---
 
+# Using Hive with ORC from Apache Spark
+
+## Introduction
+
 In this tutorial, we will explore how you can access and analyze data on Hive from Spark. In particular, you will learn:
 
-*   How to interact with Apache Spark through an interactive Spark shell
-*   How to read a text file from HDFS and create a RDD
-*   How to interactively analyze a data set through a rich set of Spark API operations
-*   How to create a Hive table in ORC File format
-*   How to query a Hive table using Spark SQL
-*   How to persist data in ORC file format
+-   How to interact with Apache Spark through an interactive Spark shell
+-   How to read a text file from HDFS and create a RDD
+-   How to interactively analyze a data set through a rich set of Spark API operations
+-   How to create a Hive table in ORC File format
+-   How to query a Hive table using Spark SQL
+-   How to persist data in ORC file format
 
 Spark SQL uses the Spark engine to execute SQL queries either on data sets persisted in HDFS or on existing RDDs. It allows you to manipulate data with SQL statements within a Spark program.
 
-### Prerequisites
+## Prerequisites
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
-*   Download and Install [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
-*   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   Download and Install [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
-### Getting the dataset
+## Outline
+
+-   [Getting the dataset](#getting-the-dataset)
+-   [Starting the Spark shell](#starting-the-spark-shell)
+-   [Creating HiveContext](#creating-hivecontext)
+-   [Creating ORC tables](#creating-orc-tables)
+-   [Loading the file and creating a RDD](#loading-the-file-and-creating-a-rdd)
+-   [Creating a schema](#creating-a-schema)
+-   [Registering a temporary table](#registering-a-temporary-table)
+-   [Saving as an ORC file](#saving-as-an-orc-file)
+-   [Summary](#summary)
+
+## Getting the dataset
 
 To begin, login to Hortonworks Sandbox through SSH:
 
@@ -47,7 +63,7 @@ hadoop fs -put ./yahoo_stocks.csv /tmp/
 
 ![](assets/Screenshot%202015-05-28%2008.49.55.png?dl=1)
 
-### Starting the Spark shell
+## Starting the Spark shell
 
 Use the command below to launch the Scala REPL for Apache Spark:
 
@@ -68,7 +84,7 @@ import org.apache.spark.sql._
 
 ![](assets/Screenshot%202015-05-21%2011.43.56.png?dl=1)
 
-### Creating HiveContext
+## Creating HiveContext
 
 HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
 
@@ -78,7 +94,7 @@ val hiveContext = new org.apache.spark.sql.hive.HiveContext(sc)
 
 ![](assets/Screenshot%202015-05-21%2011.47.33.png?dl=1)
 
-### Creating ORC tables
+## Creating ORC tables
 
 ORC is a self-describing type-aware columnar file format designed for Hadoop workloads. It is optimized for large streaming reads and with integrated support for finding required rows fast. Storing data in a columnar format lets the reader read, decompress, and process only the values required for the current query. Because ORC files are type aware, the writer chooses the most appropriate encoding for the type and builds an internal index as the file is persisted.
 
@@ -92,7 +108,7 @@ hiveContext.sql("create table yahoo_orc_table (date STRING, open_price FLOAT, hi
 
 ![](assets/Screenshot%202015-05-28%2009.33.34.png?dl=1)
 
-### Loading the file and creating a RDD
+## Loading the file and creating a RDD
 
 A **Resilient Distributed Dataset** (RDD), is an immutable collection of objects that is partitioned and distributed across multiple physical nodes of a YARN cluster and that can be operated in parallel.
 
@@ -146,7 +162,7 @@ the first row to be seen is indeed only the data in the RDD
 data.first
 ~~~
 
-### Creating a schema
+## Creating a schema
 
 There’s two ways of doing this.
 
@@ -190,7 +206,7 @@ stockprice.printSchema
 
 ![](assets/Screenshot%202015-05-28%2014.12.38.png?dl=1)
 
-### Registering a temporary table
+## Registering a temporary table
 
 Now let’s give this RDD a name, so that we can use it in Spark SQL statements:
 
@@ -218,7 +234,7 @@ results.map(t => "Stock Entry: " + t.toString).collect().foreach(println)
 
 ![](assets/Screenshot%202015-05-21%2013.08.32.png?dl=1)
 
-### Saving as an ORC file
+## Saving as an ORC file
 
 Now let’s persist back the RDD into the Hive ORC table we created before.
 
@@ -267,6 +283,8 @@ hiveContext.sql("SELECT * from orcTest").collect.foreach(println)
 ~~~
 
 ![](assets/Screenshot%202015-05-28%2017.26.08.png?dl=1)
+
+## Summary
 
 Voila! We just did a round trip of using Spark shell, reading data from HDFS, creating an Hive table in ORC format, querying the Hive Table, and persisting data using Spark SQL.
 
