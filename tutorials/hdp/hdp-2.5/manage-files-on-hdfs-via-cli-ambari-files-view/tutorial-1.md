@@ -1,27 +1,30 @@
 ---
-title: Using the Command Line to Manage Files on HDFS
+title: Manage Files on HDFS via Cli/Ambari Files View
 tutorial-id: 120
 platform: hdp-2.5.0
 tags: [ambari, hdfs]
 ---
 
-# Manage Files on HDFS with Ambari Files View
+# Manage Files on HDFS via Cli/Ambari Files View
 
-### Introduction
+## Tutorial 2: Manage Files on HDFS with Ambari Files View
+
+## Introduction
 
 In the previous tutorial, we learned to manage files on the Hadoop Distributed File System (HDFS) with the command line. Now we will use Ambari Files View to perform many of the file management operations on HDFS that we learned with CLI, but through the web-based interface.
 
-## Pre-Requisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
-*  If you're planning to deploy your sandbox on Azure, refer to this tutorial: [Deploying the Sandbox on Azure](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
-*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*  Allow yourself around **1 hour** to complete this tutorial.
+## Prerequisites
+
+-   Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
+-   If you're planning to deploy your sandbox on Azure, refer to this tutorial: [Deploying the Sandbox on Azure](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   Allow yourself around **1 hour** to complete this tutorial.
 
 ### Download San Francisco Salary Related Datasets
 
 We will download **sf-salaries-2011-2013.csv** and **sf-salaries-2014.csv** data onto our local filesystems of our computer. The commands are tailored for mac and linux users.
 
-1\. Open a terminal on your local machine, copy and paste the commands to download the **sf-salaries-2011-2013.csv** and **sf-salaries-2014.csv** files. We will use them while we learn file management operations.
+Open a terminal on your local machine, copy and paste the commands to download the **sf-salaries-2011-2013.csv** and **sf-salaries-2014.csv** files. We will use them while we learn file management operations.
 
 ~~~
 cd ~/Downloads
@@ -33,19 +36,15 @@ mkdir sf-salary-datasets
 mv sf-salaries-2011-2013.csv sf-salaries-2014.csv sf-salary-datasets/
 ~~~
 
-
-## Goals for this Module:
-*  Learn how to use HDFS from Ambari Files View
-
 ## Outline
-- [Step 1: Create a Directory in HDFS, Upload a file and List Contents](#create-a-directory-in-hdfs-upload-a-file-and-list-contents)
-- [Step 2: Find Out Space Utilization in a HDFS Directory](#find-out-space-utilization-in-a-hdfs-directory)
-- [Step 3: Download Files From HDFS to Local Machine() ](#download-files-hdfs-to-local-file-system)
-- [Step 4: Explore Two Advanced Features](#explore-two-advanced-features)
-- [Summary](#summary)
-- [Further Reading](#further-reading)
+-   [Step 1: Create a Directory in HDFS, Upload a file and List Contents](#create-a-directory-in-hdfs-upload-a-file-and-list-contents)
+-   [Step 2: Find Out Space Utilization in a HDFS Directory](#find-out-space-utilization-in-a-hdfs-directory)
+-   [Step 3: Download File From HDFS to Local Machine(Mac, Windows, Linux)](#download-files-hdfs-to-local-file-system)
+-   [Step 4: Explore Two Advanced Features](#explore-two-advanced-features)
+-   [Summary](#summary)
+-   [Further Reading](#further-reading)
 
-### Step 1: Create Directories in HDFS, Upload files and List Contents <a id="create-a-directory-in-hdfs-upload-a-file-and-list-contents"></a>
+## Step 1: Create a Directory in HDFS, Upload a file and List Contents <a id="create-a-directory-in-hdfs-upload-a-file-and-list-contents"></a>
 
 ### Create Directory Tree in User
 
@@ -111,25 +110,23 @@ Each time we open a directory, the Files View automatically lists the contents. 
 
 ![files_view_web_interface](assets/tutorial2/files_view_web_interface.png)
 
-### Step 2: Find Out Space Utilization in a HDFS Directory <a id="find-out-space-utilization-in-a-hdfs-directory"></a>
+## Step 2: Find Out Space Utilization in a HDFS Directory <a id="find-out-space-utilization-in-a-hdfs-directory"></a>
 
 In the command line when the directories and files are listed with the `hadoop fs -du /user/hadoop/`, the size of the directory and file is shown. In Files View, we must navigate to the file to see the size, we are not able to see the **size** of the directory even if it contains files.
 
-1\.  Let's view the size of **sf-salaries-2011-2013.csv** file. Navigate through `/user/hadoop/sf-salaries-2011-2013`. How much space has the file utilized? Files View shows **11.2 MB** for **sf-salaries-2011-2013.csv**.
+Let's view the size of **sf-salaries-2011-2013.csv** file. Navigate through `/user/hadoop/sf-salaries-2011-2013`. How much space has the file utilized? Files View shows **11.2 MB** for **sf-salaries-2011-2013.csv**.
 
 ![sf_salaries_2011_2013_csv](assets/tutorial2/sf_salaries_2011_2013_csv.png)
 
-
-### Step 3: Download File From HDFS to Local Machine(Mac, Windows, Linux) <a id="download-files-hdfs-to-local-file-system"></a>
+## Step 3: Download File From HDFS to Local Machine(Mac, Windows, Linux) <a id="download-files-hdfs-to-local-file-system"></a>
 
 Files View enables users to download files and folders to their local machine with ease.
 
-1\.  Let's download the **sf-salaries-2011-2013.csv** file to our computer. Click on the file's row, the row's color becomes blue, a group of file operations will appear, select the Download button. The default directory the file downloads to is our **Download** folder on our local machine.
+Let's download the **sf-salaries-2011-2013.csv** file to our computer. Click on the file's row, the row's color becomes blue, a group of file operations will appear, select the Download button. The default directory the file downloads to is our **Download** folder on our local machine.
 
 ![download_file_hdfs_local_machine](assets/tutorial2/download_file_hdfs_local_machine.png)
 
-
-### Step 4: Explore Two Advanced Features <a id="explore-two-advanced-features"></a>
+## Step 4: Explore Two Advanced Features <a id="explore-two-advanced-features"></a>
 
 ### Concatenate Files
 
@@ -159,11 +156,10 @@ Copy file or directories recursively means all the directory's files and subdire
 
 ![hadoop_copied_to_tmp](assets/tutorial2/hadoop_copied_to_tmp.png)
 
-## Summary <a id="summary-lab2">
+## Summary
 
 Congratulations! We just learned to use the Files View to manage our **sf-salaries-2011-2013.csv** and **sf-salaries-2014.csv** dataset files in HDFS. We learned to create, upload and list the the contents in our directories. We also acquired the skills to download files from HDFS to our local file system and explored a few advanced features of HDFS file management.
 
-
 ## Further Reading
 
-- [HDFS Overview](https://hortonworks.com/apache/hdfs/)
+-   [HDFS Overview](https://hortonworks.com/apache/hdfs/)

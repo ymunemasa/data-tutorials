@@ -1,21 +1,23 @@
 ---
-title: Manage Files on HDFS with the Command Line
+title: Manage Files on HDFS via Cli/Ambari Files View
 tutorial-id: 120
 platform: hdp-2.5.0
 tags: [hdfs]
 ---
 
-# Manage Files on HDFS with the Command Line
+# Manage Files on HDFS via Cli/Ambari Files View
 
-### Introduction
+## Tutorial 1: Manage Files on HDFS with the Command Line
+
+## Introduction
 
 In this tutorial, we will walk through many of the common of the basic Hadoop Distributed File System (HDFS) commands you will need to manage files on HDFS. The particular datasets we will utilize to learn HDFS file management are San Francisco salaries from 2011-2014.
 
 ## Prerequisites
-*  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
-*  If you're planning to deploy your sandbox on Azure, refer to this tutorial: [Deploying the Sandbox on Azure](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
-*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*  Allow yourself around **1 hour** to complete this tutorial.
+-   Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
+-   If you're planning to deploy your sandbox on Azure, refer to this tutorial: [Deploying the Sandbox on Azure](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   Allow yourself around **1 hour** to complete this tutorial.
 
 ### Download San Francisco Salary Related Datasets
 
@@ -41,15 +43,15 @@ wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/using-th
 ![sf_salary_datasets](assets/sf_salary_datasets.png)
 
 ## Outline
-- [Step 1: Create a Directory in HDFS, Upload a file and List Contents](#create-a-directory-in-hdfs-upload-a-file-and-list-contents)
-- [Step 2: Find Out Space Utilization in a HDFS Directory](#find-out-space-utilization-in-a-hdfs-directory)
-- [Step 3: Download Files From HDFS to Local File System](#download-files-hdfs-to-local-file-system)
-- [Step 4: Explore Two Advanced Features](#explore-two-advanced-features)
-- [Step 5: Use Help Command to access Hadoop Command Manual](#use-help-command-access-hadoop-command-manual)
-- [Summary](#summary)
-- [Further Reading](#further-reading)
+-   [Step 1: Create a Directory in HDFS, Upload a file and List Contents](#create-a-directory-in-hdfs-upload-a-file-and-list-contents)
+-   [Step 2: Find Out Space Utilization in a HDFS Directory](#find-out-space-utilization-in-a-hdfs-directory)
+-   [Step 3: Download Files From HDFS to Local File System](#download-files-hdfs-to-local-file-system)
+-   [Step 4: Explore Two Advanced Features](#explore-two-advanced-features)
+-   [Step 5: Use Help Command to access Hadoop Command Manual](#use-help-command-access-hadoop-command-manual)
+-   [Summary](#summary)
+-   [Further Reading](#further-reading)
 
-### Step 1: Create a Directory in HDFS, Upload a file and List Contents <a id="create-a-directory-in-hdfs-upload-a-file-and-list-contents"></a>
+## Step 1: Create a Directory in HDFS, Upload a file and List Contents <a id="create-a-directory-in-hdfs-upload-a-file-and-list-contents"></a>
 
 Let's learn by writing the syntax. You will be able to copy and paste the following example commands into your terminal. Let's login under **hdfs** user, so we can give root user permission to perform file operations:
 
@@ -68,14 +70,14 @@ hdfs dfs [command_operation]
 
 ### hdfs dfs -chmod:
 
-* Affects the permissions of the folder or file. Controls who has read/write/execute privileges
-* We will give root access to read and write to the user directory. Later we will perform an operation in which we send a file from our local filesystem to hdfs.
+-   Affects the permissions of the folder or file. Controls who has read/write/execute privileges
+-   We will give root access to read and write to the user directory. Later we will perform an operation in which we send a file from our local filesystem to hdfs.
 
 ~~~
 hdfs dfs -chmod 777 /user
 ~~~
 
-* Warning in production environments, setting the folder with the permissions above is not a good idea because anyone can read/write/execute files or folders.
+-   Warning in production environments, setting the folder with the permissions above is not a good idea because anyone can read/write/execute files or folders.
 
 Type the following command, so we can switch back to the root user. We can perform the remaining file operations under the **user** folder since the permissions were changed.
 
@@ -95,7 +97,6 @@ exit
         hdfs dfs -mkdir /user/hadoop/sf-salaries-2011-2013 /user/hadoop/sf-salaries /user/hadoop/sf-salaries-2014
 ~~~
 
-
 ### hdfs dfs -put:
 
 *   Copies single src file or multiple src files from local file system to the Hadoop Distributed File System.
@@ -107,7 +108,6 @@ exit
         hdfs dfs -put sf-salaries-2011-2013.csv /user/hadoop/sf-salaries-2011-2013/sf-salaries-2011-2013.csv
         hdfs dfs -put sf-salaries-2014.csv /user/hadoop/sf-salaries-2014/sf-salaries-2014.csv
 ~~~
-
 
 ### hdfs dfs -ls:
 
@@ -125,8 +125,7 @@ exit
 
 ![list_folder_contents](assets/tutorial1/list_folder_contents.png)
 
-
-### Step 2: Find Out Space Utilization in a HDFS Directory <a id="find-out-space-utilization-in-a-hdfs-directory"></a>
+## Step 2: Find Out Space Utilization in a HDFS Directory <a id="find-out-space-utilization-in-a-hdfs-directory"></a>
 
 ### hdfs dfs -du:
 
@@ -141,8 +140,7 @@ exit
 
 ![displays_entity_size](assets/tutorial1/displays_entity_size.png)
 
-
-### Step 3: Download File From HDFS to Local File System <a id="download-files-hdfs-to-local-file-system"></a>
+## Step 3: Download Files From HDFS to Local File System <a id="download-files-hdfs-to-local-file-system"></a>
 
 ### hdfs dfs -get:
 
@@ -155,8 +153,7 @@ exit
         hdfs dfs -get /user/hadoop/sf-salaries-2011-2013/sf-salaries-2011-2013.csv /home/
 ~~~
 
-
-### Step 4: Explore Two Advanced Features <a id="explore-two-advanced-features"></a>
+## Step 4: Explore Two Advanced Features <a id="explore-two-advanced-features"></a>
 
 ### hdfs dfs -getmerge
 
@@ -174,9 +171,7 @@ exit
         hdfs dfs -getmerge /user/hadoop/sf-salaries-2011-2013/ /user/hadoop/sf-salaries-2014/ /root/output.csv
 ~~~
 
-
 > Merges the files in sf-salaries-2011-2013 and sf-salaries-2014 to output.csv in the root directory of the local filesystem. The first file contained about 120,000 rows and the second file contained almost 30,000 rows. This file operation is important because it will save you time from having to manually concatenate them.
-
 
 ### hdfs dfs -cp:
 
@@ -189,7 +184,6 @@ exit
 # Example:
         hdfs dfs -cp /user/hadoop/sf-salaries-2011-2013/ /user/hadoop/sf-salaries-2014/ /user/hadoop/sf-salaries
 ~~~
-
 
 > -cp: copies sf-salaries-2011-2013, sf-salaries-2014 and all their contents to sf-salaries
 
@@ -205,8 +199,7 @@ hdfs dfs -ls /user/hadoop/sf-salaries/sf-salaries-2014
 
 > Visual result of distcp file operation. Notice that both src1 and src2 directories and their contents were copied to the dest directory.
 
-
-### Step 5: Use Help Command to access Hadoop Command Manual <a id="use-help-command-access-hadoop-command-manual"></a>
+## Step 5: Use Help Command to access Hadoop Command Manual <a id="use-help-command-access-hadoop-command-manual"></a>
 
 Help command opens the list of commands supported by Hadoop Data File System (HDFS)
 
@@ -215,14 +208,13 @@ Help command opens the list of commands supported by Hadoop Data File System (HD
         hdfs dfs  -help
 ~~~
 
-
 ![hadoop_help_command_manual](assets/tutorial1/help_command.png)
 
 Hope this short tutorial was useful to get the basics of file management.
 
-## Summary <a id="summary-lab1">
+## Summary
 Congratulations! We just learned to use commands to manage our **sf-salaries-2011-2013.csv** and **sf-salaries-2014.csv** dataset files in HDFS. We learned to create, upload and list the the contents in our directories. We also acquired the skills to download files from HDFS to our local file system and explored a few advanced features of HDFS file management using the command line.
 
 ## Further Reading <a id="further-reading"></a>
-- [HDFS Overview](https://hortonworks.com/hadoop/hdfs/)
-- [Hadoop File System Documentation](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html)
+-   [HDFS Overview](https://hortonworks.com/hadoop/hdfs/)
+-   [Hadoop File System Documentation](https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html)
