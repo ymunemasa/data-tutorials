@@ -26,7 +26,7 @@ The docker version of the Hortonworks Sandbox was developed on a native linux pl
 
 Information on launching the sandbox on Windows/ Mac OS-boxes without bash will be summarily provided at the end of the tutorials.
 
-Host operating system refers to the operating system of your computer. You can find the list of supported operating systems [here](https://docs.docker.com/v1.8/installation/).
+Host operating system refers to the operating system of your computer. You can find the list of supported operating systems [here](https://docs.docker.com/).
 
 ### Hardware ( The newer the hardware the better )
 
