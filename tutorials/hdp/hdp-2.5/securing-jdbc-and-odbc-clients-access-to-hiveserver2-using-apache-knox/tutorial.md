@@ -9,7 +9,7 @@ tags: [knox, beeline]
 
 ## Introduction
 
-[HDP 2.5](#https://hortonworks.com/products/data-center/hdp/) ships with Apache Knox 0.6.0. This release of Apache Knox supports WebHDFS, WebHCAT, Oozie, Hive, and HBase REST APIs.
+[HDP 2.5](https://hortonworks.com/products/data-center/hdp/) ships with Apache Knox 0.6.0. This release of Apache Knox supports WebHDFS, WebHCAT, Oozie, Hive, and HBase REST APIs.
 
 Apache Hive is a popular component used for SQL access to Hadoop, and the Hive Server 2 with Thrift supports JDBC access over HTTP. The following steps show the configuration to enable a JDBC client to talk to Hive Server 2 via Knox **(Beeline > JDBC over HTTPS > Knox > HTTP > Hive Server2)**. The picture describes the scenario that the tutorial covers.
 
