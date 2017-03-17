@@ -24,7 +24,7 @@ Hadoop has always been associated with BigData, yet the perception is it’s onl
 -   [Create cluster for Hive LLAP](#create-cluster-for-hive-llap)
 -   [Create Hive tables and load data](#create-hive-tables-and-load-data)
 -   [Create data model on Tableau](#create-data-model-on-tableau)
--   [Lab 1: Airline Growth Trend](#Lab-1-airline-growth-trend)
+-   [Lab 1: Airline Growth Trend](#lab-1-airline-growth-trend)
 -   [Lab 2: Airport Delay](#lab-2-airport-delay)
 -   [Summary](#summary)
 -   [Further Reading](#further-reading)
