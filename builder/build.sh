@@ -14,7 +14,7 @@ githubRawUrl="https://raw.githubusercontent.com/$gitUserAndRepository/$gitBranch
 cp -r $baseDir/../tutorials $settingsDir/_tutorials
 
 # Preprocessing: Go through the raw pages and do the following:
-# - Prepare to replace relative asset references to their Github equivalents
+# - Prepare to replace relative asset references to their GitHub equivalents
 # - Replace curly quotes with straight quotes
 echo "Performing preprocessing..."
 for f in $(find $settingsDir/_tutorials -type f -name "*.md")
@@ -42,7 +42,8 @@ echo "Performing postprocessing..."
 for f in $(find ./output -type f -name "*.html")
 do
   echo "Processing file $f"
-  sed -i '' "s|\(_\)\(.*\)\/\(.*md\)|$githubRawUrl/\2|g" $f
+  # Not the *most* pefect regex expression, but all edge cases caught thus far.
+  sed -i '' "s|\(_\)\(tutorials.*\)\/\(.*[.]md\)|$githubRawUrl/\2|g" $f
 done
 
 # Remove the copied files
