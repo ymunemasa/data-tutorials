@@ -18,7 +18,7 @@ In this demo, we demonstrate how an online retailer can optimize buying paths to
 ### In this tutorial, learn how to:
 
 -   Upload twitter feeds into [HDFS](https://hortonworks.com/hadoop/hdfs)
--   Use [HCatalog](https://hortonworks.com/hadoop/hcatalog) to build a relational view of the data
+-   Use [HCatalog](https://hortonworks.com/apache/hive/#section_4) to build a relational view of the data
 -   Use [Hive](https://hortonworks.com/hadoop/hive) to query and refine the data
 -   Import the data into Microsoft Excel with the [ODBC Driver for Apache Hive (v2.1.5)](https://hortonworks.com/downloads/#data-platform)
 -   Visualize Data with Powerview

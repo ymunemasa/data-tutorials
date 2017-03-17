@@ -19,15 +19,15 @@ This tutorial describes how to ingest clickstream data into HDFS, then use HCata
 
 ## Outline
 
--   [Clickstream Data](clickstream-data)
--   [Potential Uses of Clickstream Data](uses-clickstream-data)
--   [Step 1: Download the Sample Data](download-data)
--   [Step 2: Upload the Data Files into the Sandbox](upload-data-files-sandbox)
--   [Step 3: Create Hive Tables](create-hive-tables)
--   [Step 4: Load data into new tables](load-data-to-tables)
--   [Step 5: View and Refine the Data in the Sandbox](view-refine-data)
--   [Summary](summary-lab1)
--   [Further Reading](further-reading-lab1)
+-   [Clickstream Data](#clickstream-data)
+-   [Potential Uses of Clickstream Data](#uses-clickstream-data)
+-   [Step 1: Download the Sample Data](#download-data)
+-   [Step 2: Upload the Data Files into the Sandbox](#upload-data-files-sandbox)
+-   [Step 3: Create Hive Tables](#create-hive-tables)
+-   [Step 4: Load data into new tables](#load-data-to-tables)
+-   [Step 5: View and Refine the Data in the Sandbox](#view-refine-data)
+-   [Summary](#summary-lab1)
+-   [Further Reading](#further-reading-lab1)
 
 ## Clickstream Data <a id="clickstream-data"></a>
 
