@@ -124,7 +124,3 @@ Here is an example that imports the dependency for Magellan:
 z.addRepo("Spark Packages Repo").url("http://dl.bintray.com/spark-packages/maven")
 z.load("com.esri.geometry:esri-geometry-api:1.2.1")
 z.load("harsha2010:magellan:1.0.3-s_2.10")</pre>
-
-## Further Reading
-
-For more information, see [https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading).
