@@ -26,9 +26,9 @@ With a focus on Enterprise, Zeppelin has the following important features:
 
 ## Outline
 
--   [Launching Zeppelin](#launching-zeppelin))
+-   [Launching Zeppelin](#launching-zeppelin)
     -   [Case 1: Launching Zeppelin from HDCloud](#case-1-launching-zeppelin-from-hdcloud)
-    -   [Case 2: Launching Zeppelin from HDP Sandbox](case-2-launching-zeppelin-from-hdp-sandbox)
+    -   [Case 2: Launching Zeppelin from HDP Sandbox](#case-2-launching-zeppelin-from-hdp-sandbox)
 -   [Creating a Notebook](#creating-a-notebook)
 -   [Importing Notebooks](#importing-notebooks)
 -   [Importing External Libraries](#importing-external-libraries)
@@ -146,5 +146,3 @@ z.addRepo("Spark Packages Repo").url("http://dl.bintray.com/spark-packages/maven
 z.load("com.esri.geometry:esri-geometry-api:1.2.1")
 z.load("harsha2010:magellan:1.0.3-s_2.10")
 ```
-
-For more information, see [https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading](https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading).
