@@ -33,7 +33,7 @@ In this tutorial, we will build a solution to ingest real time streaming data in
 *   [Step 1: Create Tables in HBase](#step1-create-tables-hbase-lab3)
 *   [Step 2: Launch new Storm Topology](#step3-launch-new-storm-topology-lab3)
 *   [Step 3: Verify Data in HBase](#step4-verify-data-hdfs-hbase-lab3)
-*   [Conclusion](#conclusion-lab3)
+*   [Summary](#summary)
 *   [Further Reading](#further-reading-lab3)
 
 <!--
@@ -302,7 +302,7 @@ storm kill TruckEventKafkaExperimTopology
 ![storm_topology_actions_iot](assets/lab2-hbase-hive-storm/storm_topology_actions_iot.png)
 
 
-## Conclusion <a id="conclusion-lab3"></a>
+## Summary
 
 Congratulations, you built your first Hortonworks DataFlow Application.
 When NiFi, Kafka and Storm are combined, they create the Hortonworks DataFlow.
