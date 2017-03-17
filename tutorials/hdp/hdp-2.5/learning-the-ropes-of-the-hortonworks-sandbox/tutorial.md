@@ -473,7 +473,7 @@ Some notable differences between these users in the Sandbox are mentioned below:
 | Amy (amy_ds) | Service Operator | Yes | Yes | No | No | No | No | No | No | SELECT |
 | Holger (holger_gov) | Service Administrator | Yes | Yes | Yes | No | No | No | No | Yes | SELECT, CREATE, DROP |
 
-**Do not forget** to check out the [scripts](https://github.com/hortonworks/tutorials/tree/hdp-2.5/tutorials/hortonworks/learning-the-ropes-of-the-hortonworks-sandbox/User_Scripts) from which these users and their operations are created.
+**Do not forget** to check out the [scripts](assets/User_Scripts) from which these users and their operations are created.
 
 ## Section 4: Troubleshoot <a id="section4"></a>
 
@@ -491,5 +491,5 @@ Check [Hortonworks Community Connection](https://hortonworks.com/community/forum
 
 -   To learn more about Hadoop please explore the [HDP Getting Started documentation](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.4/bk_getting-started-guide/content/ch_about-hortonworks-data-platform.html).
 -   To get started with Hortonworks Data Platform, explore [Hadoop Tutorial-Getting Started with HDP](https://hortonworks.com/hadoop-tutorial/hello-world-an-introduction-to-hadoop-hcatalog-hive-and-pig/)
--   If you have questions, feedback or need help getting your environment ready visit  [developer.hortonworks.com](https://hortonworks.com/developer/).
+-   If you have questions, feedback or need help getting your environment ready visit  [Hortonworks](https://hortonworks.com/).
 -   Please also explore the [HDP documentation](http://docs.hortonworks.com/).
