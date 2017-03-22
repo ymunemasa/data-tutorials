@@ -102,8 +102,8 @@ Run the following command to get to the scripts for the tutorial.
 ~~~
 mkdir crosscomponent_demo
 cd crosscomponent_demo
-wget [crosscomponent_scripts.zip](assets/crosscomponent_scripts.zip)
-unzip crosscomponent_scripts.zip\?raw\=true
+wget https://raw.githubusercontent.com/hortonworks/data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/crosscomponent_scripts.zip
+unzip crosscomponent_scripts.zip
 cd crosscomponent_scripts/sqoop-demo
 ~~~
 
