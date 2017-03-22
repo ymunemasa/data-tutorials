@@ -91,7 +91,7 @@ Before you start, here's a preview of the notebook.
 
 ![](assets/large-notebook-preview.jpg)
 
-A dynamic preview can be found [here](https://www.zeppelinhub.com/viewer/notebooks/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3JvYmVydGhyeW5pZXdpY3ovemVwcGVsaW4tbm90ZWJvb2tzL21hc3Rlci9TcGFyayUyMDIueCUyMEh3eCUyME5vdGVib29rcy9MYWIlMjBEUyUyMFNjYWxhJTIwMTAxL1ByZXZpZXclMjAtJTIwTGFicyUyMC0lMjBTcGFyayUyMDIueCUyMC0lMjBEYXRhJTIwU2NpZW50aXN0JTIwLSUyMFNjYWxhJTIwLSUyMDEwMSUyMC0lMjBJbnRybyUyMHRvJTIwTWFjaGluZSUyMExlYXJuaW5nLmpzb24).
+A dynamic preview (allowing code copy) can be found [here](https://www.zeppelinhub.com/viewer/notebooks/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2hvcnRvbndvcmtzLWdhbGxlcnkvemVwcGVsaW4tbm90ZWJvb2tzL2hkcC0yLjYvMkNDQk5aNVlZL25vdGUuanNvbg).
 
 
 ## Start the Tutorial
