@@ -83,6 +83,8 @@ Before you start, here's a preview of the notebook.
 
 ![Notebook Preview](assets/notebook-preview-large.jpg)
 
+A dynamic preview can be found [here](https://www.zeppelinhub.com/viewer/notebooks/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3JvYmVydGhyeW5pZXdpY3ovemVwcGVsaW4tbm90ZWJvb2tzL21hc3Rlci9TcGFyayUyMDIueCUyMEh3eCUyME5vdGVib29rcy9HZXR0aW5nJTIwU3RhcnRlZC9QcmV2aWV3JTIwLSUyMEdldHRpbmclMjBTdGFydGVkJTIwLSUyMEFwYWNoZSUyMFNwYXJrJTIwaW4lMjA1JTIwTWludXRlcy5qc29u).
+
 ## Start the Tutorial
 
 To begin the tutorial, import the *Apache Spark in 5 Minutes* notebook into your Zeppelin environment. (If at any point you have any issues, make sure to checkout the [Getting Started with Zeppelin](https://hortonworks.com/hadoop-tutorial/getting-started-apache-zeppelin/) tutorial.)
