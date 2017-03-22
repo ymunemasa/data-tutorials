@@ -1,28 +1,32 @@
-# Hortonworks Tutorials
+![HCC Community Logo](https://hortonworks.com/wp-content/uploads/2016/03/logo-hcc.png)
 
-This repository contains tutorials for many versions of the [Hortonworks Sandbox](http://hortonworks.com/products/hortonworks-sandbox/). We encourage and accept contributions from our community. You can also submit issues and pull requests to contribute and fix these tutorials.
+## Big Data Tutorials
 
-This branch contains tutorials for the latest version of HDP. You can check out the tutorials by heading into the [tutorials](tutorials/) folder.
+Hortonworks created **Big Data Tutorials** out of inspiration from the open source community for people can come together to learn Big Data through practical step-by-step tutorials.  Tutorials housed here are targetted at people of all skill levels.
 
-If you're looking for tutorials which are compatible with older versions of HDP look in any of the following branches:
+Tutorials are developed and maintained on Github and published onto the Hortonworks site.
 
-- [HDP 1.3](https://github.com/hortonworks/tutorials/tree/hdp-1.3)
-- [HDP 2.0](https://github.com/hortonworks/tutorials/tree/hdp-2.0)
-- [HDP 2.1](https://github.com/hortonworks/tutorials/tree/hdp-2.1)
-- [HDP 2.2](https://github.com/hortonworks/tutorials/tree/hdp-2.2)
-- [HDP 2.3](https://github.com/hortonworks/tutorials/tree/hdp-2.3)
-- [HDP 2.4](https://github.com/hortonworks/tutorials/tree/hdp/tutorials)
+## New To Big Data And Want To Learn?
 
-# Contributing 
+Begin your journey by browsing the [tutorials directory](https://github.com/hortonworks/big-data-tutorials/tree/master/tutorials) of this Git repository, or head on over to the [recommended starting tutorial on the Hortonworks site](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox).
 
-If you would like to write a tutorial or make a contribution to the repository, please see the wiki guides. 
+## Running Into Issues With Tutorials?
 
-[**Contribution Guides**](https://github.com/hortonworks/tutorials/wiki)
+If you run into problems that prevent you from completing a tutorial, head on over to [Hortonworks Community Connection (HCC)](https://community.hortonworks.com/spaces/81/sandbox-track.html).  Plenty of people from the open source community are willing to lend a helping hand!
 
-If there is an issue with a tutorial you want to bring to our attention, please create an **Issue** and make sure to add the label **bug**.
+If you are certain there is an issue with the tutorial, please [create a new issue on Github](https://github.com/hortonworks/tutorials/issues/new) and we will do our best to resolve it!
 
-If there is a tutorial which you have an idea for, but don't have the time to contribute then you may create an issue with the **new tutorial** label.
+## Interested In Contributing Updates Or New Tutorials?
 
-# Questions
+Fix issues, help clarify topics, update a tutorial to be compatible with newest releases, or even create a brand new tutorial!
 
-Questions about anything related to this repository will be answered if you create an issue with a **question** label.
+-   [Contribute Tutorial Updates](https://github.com/hortonworks/big-data-tutorials/wiki/Contribute-Tutorial-Updates)
+-   [Write A New Tutorial](https://github.com/hortonworks/big-data-tutorials/wiki/Write-A-New-Tutorial)
+
+If you'd rather simply suggest changes or fixes to make, or have an idea for a new tutorial you'd like to see, feel free to [create a new issue](https://github.com/hortonworks/big-data-tutorials/issues/new) and a community member will check it out.
+
+## Already a Repo Committer?
+
+Check out our guide for updating the repository with the community's latest changes:
+
+-   [Committer Guide](https://github.com/hortonworks/big-data-tutorials/wiki/Committer-Guide)

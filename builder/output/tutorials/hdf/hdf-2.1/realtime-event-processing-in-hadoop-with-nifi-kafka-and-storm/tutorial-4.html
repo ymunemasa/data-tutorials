@@ -1,0 +1,208 @@
+<div class="tutorial-content">
+  <h1 id="tutorial-2-capture-real-time-event-stream-with-apache-kafka">Tutorial 2: Capture Real Time Event Stream with Apache Kafka</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p><a href="http://kafka.apache.org/">Apache Kafka</a> can be used on the Hortonworks Data Platform to capture real-time events. We will begin with showing you how to configure Apache Kafka and Zookeeper. Next we will show you how to capture truck event data from Apache NiFi using Kafka.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+  <li>Tutorial 0: Set Up Simulator, Apache Services and IDE Environment</li>
+  <li>Tutorial 1: Ingest, Route and Land Real Time Events with Apache NiFi</li>
+  <li>Downloaded and Installed latest <a href="https://hortonworks.com/products/hortonworks-sandbox/#install">Hortonworks Sandbox</a></li>
+  <li>You will need admin privileges for this tutorial, refer to <a href="https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox</a> to setup your Ambari admin password</li>
+  <li>Memory must be at least 8GB RAM, preferably 4 processor cores, else errors may occur in third tutorial</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#apache-kafka-tutorial1">Apache Kafka</a></li>
+  <li><a href="#define-kafka-topic-tutorial1">Step 1: Create Kafka Topic</a></li>
+  <li><a href="#create-nifi-putkafka-tutorial1">Step 2: Create NiFi PutKafka Processor</a></li>
+  <li><a href="#summary-tutorial1">Summary</a></li>
+  <li><a href="#further-reading-tutorial1">Further Reading</a></li>
+</ul>
+
+<h2 id="apache-kafka-">Apache Kafka <a id="apache-kafka-tutorial1"></a></h2>
+
+<p><a href="http://kafka.apache.org/">Apache Kafka</a> is an open source messaging system designed for:</p>
+
+<ul>
+  <li>Persistent messaging</li>
+  <li>High throughput</li>
+  <li>Distributed</li>
+  <li>Multi-client support</li>
+  <li>Real time</li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdf/hdf-2.1/realtime-event-processing-in-hadoop-with-nifi-kafka-and-storm/assets/lab1-kafka/Kafka-Broker-Diagram.png" alt="Kafka Producer-Broker-Consumer" /></p>
+
+<p>Kafka Producer-Broker-Consumer</p>
+
+<h2 id="tutorial-overview">Tutorial Overview</h2>
+
+<ol>
+  <li>Create Kafka topics for Truck events.</li>
+  <li>Write Kafka Producers for Truck events.</li>
+</ol>
+
+<h3 id="step-1-create-kafka-topic-">Step 1: Create Kafka Topic <a id="define-kafka-topic-tutorial1"></a></h3>
+
+<h4 id="11-ssh-into-the-sandbox">1.1 SSH into the Sandbox</h4>
+
+<p>SSH into the Sandbox to define the Kafka topic. Type the following command:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>ssh root@sandbox.hortonworks.com -p 2222
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdf/hdf-2.1/realtime-event-processing-in-hadoop-with-nifi-kafka-and-storm/assets/lab1-kafka/ssh_into_sandbox_shell_kafka_iot.png" alt="ssh_into_sandbox_shell_kafka_iot" /></p>
+
+<blockquote>
+  <p>NOTE: You can also SSH using a program like Putty for Windows or the Terminal application on a Mac.</p>
+</blockquote>
+
+<h4 id="12-create-a-new-topic">1.2 Create a new Topic</h4>
+
+<p>Use the <code class="highlighter-rouge">kafka-topics.sh</code> script (which should be in your PATH), create a new topic named <code class="highlighter-rouge">truck_events</code>:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>root@sandbox ~]# kafka-topics.sh --create --zookeeper sandbox.hortonworks.com:2181 --replication-factor 1 --partitions 2 --topic truck_events
+</code></pre>
+</div>
+
+<p>If the <code class="highlighter-rouge">kafka-topics.sh</code> script is not in your PATH and you get a command not found error, then change directories to where the Kafka scripts are installed:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>root@sandbox ~]# <span class="nb">cd</span> /usr/hdp/current/kafka-broker/bin/
+</code></pre>
+</div>
+
+<p>You will need to <strong>add a dot and a slash (./)</strong> to the beginning of the commands:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>root@sandbox bin]# ./kafka-topics.sh --create --zookeeper sandbox.hortonworks.com:2181 --replication-factor 1 --partitions 2 --topic truck_events
+</code></pre>
+</div>
+
+<p>Also note that sometimes ZooKeeper does not listen on <code class="highlighter-rouge">localhost</code>, so you may need to use <code class="highlighter-rouge">sandbox.hortonworks.com</code> or the Sandbox’s IP address instead.</p>
+
+<p>The output should show your topic was created:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdf/hdf-2.1/realtime-event-processing-in-hadoop-with-nifi-kafka-and-storm/assets/lab1-kafka/created_kafka_topic_iot.png" alt="created_kafka_topic_iot" /></p>
+
+<h4 id="13-verify-the-topic-was-created-successfully">1.3 Verify the topic was created successfully</h4>
+
+<p>Check if topic <code class="highlighter-rouge">truck_events</code> was created successfully with the following command:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>root@sandbox ~]# ./kafka-topics.sh --list --zookeeper sandbox.hortonworks.com:2181
+</code></pre>
+</div>
+
+<p>You should see <code class="highlighter-rouge">truck_events</code> in the list of topics (and probably your only topic):</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdf/hdf-2.1/realtime-event-processing-in-hadoop-with-nifi-kafka-and-storm/assets/lab1-kafka/verify_kafka_topic_created_iot.png" alt="" /></p>
+
+<h3 id="step-2-create-nifi-putkafka-processor-">Step 2: Create NiFi PutKafka Processor <a id="create-nifi-putkafka-tutorial1"></a></h3>
+
+<p>In the previous tutorial, we stored the truck event data into a file. Now we can use the <a href="https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi.processors.kafka.PutKafka/index.html">PutKafka</a> processor since the Kafka service is running, we have access to the “Known Broker”, “Topic Name” and “Client Name.” We will send the truck event contents of a FlowFile to Kafka as a message. Similar to the Kafka Producer, NiFi acts as a producer since it creates messages and publishes them to the Kafka broker for further consumption.</p>
+
+<p>1. If not already open, navigate to the NiFi Web Interface at <code class="highlighter-rouge">http://sandbox.hortonworks.com:9090/nifi/</code>. For vmware and azure, the port may be different.</p>
+
+<p>2. If your data flow is still running, click on the stop button <img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdf/hdf-2.1/realtime-event-processing-in-hadoop-with-nifi-kafka-and-storm/assets/lab0-nifi/stop_symbol_nifi_iot.png" alt="stop_symbol_nifi_iot" /> in the <strong>actions</strong> toolbar to stop the flow.</p>
+
+<h4 id="21-add-putkafka-processor">2.1 Add PutKafka Processor</h4>
+
+<p>1. Drag the processor icon onto your graph. Add the <strong>PutKafka</strong> processor.</p>
+
+<p>2. Right click on the Putkafka processor, click on <strong>configure</strong>.</p>
+
+<p>3. The warning message tells us, we need to add “Known Broker”, “Topic Name” and “Client Name” values to our Properties section. Enter the following information into the <strong>Properties</strong> section in the <strong>Configure Processor</strong> window:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Property = Value
+Known Brokers = sandbox.hortonworks.com:6667
+Topic Name = truck_events
+Message Delimiter = press "Shift+enter"
+Client Name = truck_events_client
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdf/hdf-2.1/realtime-event-processing-in-hadoop-with-nifi-kafka-and-storm/assets/lab1-kafka/putkafka_processor_config_nifi_iot.png" alt="putkafka_processor_config_nifi_iot" /></p>
+
+<blockquote>
+  <p>Note: Every property above is required except <strong>Message Delimiter</strong>, but this property is helpful with splitting apart the contents of the FlowFile.</p>
+</blockquote>
+
+<p><strong>Known Brokers</strong> can be found in <strong>Kafka</strong> configs under listeners</p>
+
+<p><strong>Topic Name</strong> is the name you created earlier for Kafka. Type the following command to see your topic name: ./kafka-topics.sh –list –zookeeper sandbox.hortonworks.com:2181.</p>
+
+<p><strong>Message Delimiter</strong> set as “Shift+enter” in the value field makes each line of incoming FlowFile a single message, so kafka does not receive an enormous flowfile as a single message.</p>
+
+<p><strong>Client Name</strong> can be named to your liking, it is the name that is used when communicating with kafka.</p>
+
+<p>4. Open the Configure Processor window again, navigate to the <strong>Settings</strong> tab. Set the <strong>Auto termination relationship</strong> to <code class="highlighter-rouge">success</code> and <code class="highlighter-rouge">failure</code>. Click <strong>apply</strong>.</p>
+
+<p>5. Connect the <strong>MergeContent(truck_events)</strong> processor to <strong>PutKafka</strong>. A Create Connection window will appear, set the <strong>For relationship</strong> to <code class="highlighter-rouge">merged</code>.</p>
+
+<p>You should obtain a similar dataflow as the following:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdf/hdf-2.1/realtime-event-processing-in-hadoop-with-nifi-kafka-and-storm/assets/lab1-kafka/dataflow_final_withkafka_iot.png" alt="dataflow_final_withkafka_iot" /></p>
+
+<blockquote>
+  <p>Note: If there is a warning symbol after updating the PutKafka, verify that the property values are correct. Check <strong>3</strong>. in case you need to review the values changed.</p>
+</blockquote>
+
+<p>6. Let’s start our Hortonworks DataFlow to see a real live stream of truck event data be read from NiFi and written to a Kafka cluster. In the <strong>actions</strong> toolbar, hit the <strong>start</strong> button.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdf/hdf-2.1/realtime-event-processing-in-hadoop-with-nifi-kafka-and-storm/assets/lab1-kafka/dataflow_withKafka_running_iot.png" alt="dataflow_withKafka_running_iot" /></p>
+
+<blockquote>
+  <p>Dataflow generates data, filtering truck events from the dataflow and sending those events to kafka.</p>
+</blockquote>
+
+<h4 id="22-verify-putkafka-published-message-to-kafka">2.2 Verify PutKafka Published Message to Kafka</h4>
+
+<p>After a few seconds, stop the NiFi DataFlow using the <strong>stop</strong> button in the <strong>actions</strong> toolbar.
+To verify that the PutKafka processor successfully published messages to the Kafka cluster, execute the following command to start a consumer to see the produced events:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="o">[</span>root@sandbox ~]# <span class="nb">cd</span> /usr/hdp/current/kafka-broker/bin/
+<span class="o">[</span>root@sandbox bin]# ./kafka-console-consumer.sh --zookeeper sandbox.hortonworks.com:2181 --topic truck_events --from-beginning
+</code></pre>
+</div>
+
+<p>Your terminal should show that messages successfully published to Kafka:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdf/hdf-2.1/realtime-event-processing-in-hadoop-with-nifi-kafka-and-storm/assets/lab1-kafka/messages_published_toKafka.png" alt="messages_published_toKafka" /></p>
+
+<h2 id="summary-">Summary <a id="summary-tutorial1"></a></h2>
+
+<p>This tutorial gave you brief glimpse of how to use Apache Kafka to capture real-time event data as a message and verify that Kafka successfully received those messages. In our next tutorial, you will create HBase and Hive tables to ingest real-time streaming data using Storm.</p>
+
+<h2 id="further-reading-">Further Reading <a id="further-reading-tutorial1"></a></h2>
+<ul>
+  <li><a href="http://kafka.apache.org/">Apache Kafka Documentation</a></li>
+  <li><a href="https://hortonworks.com/hadoop/kafka/">Kafka Overview</a></li>
+  <li><a href="https://zookeeper.apache.org/">Apache Zookeeper Documentation</a></li>
+  <li>HCC Article: <a href="https://community.hortonworks.com/content/kbentry/49789/kafka-best-practices.html">Kafka Best Practices</a></li>
+</ul>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-220.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-220&amp;topics=hdp-2.5.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Realtime Event Processing in Hadoop with NiFi, Kafka and Storm</strong></p>
+  <p>HCC Tags:<strong> tutorial-220</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+

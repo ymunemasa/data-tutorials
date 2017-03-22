@@ -1,0 +1,268 @@
+<div class="tutorial-content">
+  <h1 id="cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka--storm">Cross Component Lineage with Apache Atlas across Apache Sqoop, Hive, Kafka &amp; Storm</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Hortonworks introduced <a href="https://hortonworks.com/blog/apache-atlas-project-proposed-for-hadoop-governance/">Apache Atlas</a> as part of the <a href="https://hortonworks.com/press-releases/hortonworks-establishes-data-governance-initiative/">Data Governance Initiative</a>, and has continued to deliver on the vision for open source solution for centralized metadata store, data classification, data lifecycle management and centralized security.
+Atlas is now offering, as a tech preview, cross component lineage functionality, delivering a complete view of data movement across a number of analytic engines such as Apache Storm, Kafka, Falcon and Hive.
+This tutorial walks through the steps for creating data in Apache Hive through Apache Sqoop and using Apache Kafka with Apache Storm.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li><a href="https://hortonworks.com/downloads/#sandbox">Download Hortonworks 2.5 Sandbox</a></li>
+  <li>Complete the <a href="https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox tutorial,</a> you will need it for logging into Ambari.</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#configure-hive-with-atlas">1: Configure Hive to work with Atlas</a></li>
+  <li><a href="#start-services">2: Start Kafka, Storm, HBase, Ambari Infra and Atlas</a></li>
+  <li><a href="#sqoop-hive-lineage">3: Sqoop-Hive Lineage</a></li>
+  <li><a href="#kafka-storm-lineage">4: Kafka – Storm Lineage</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+</ul>
+
+<h2 id="1-configure-hive-to-work-with-atlas-">1: Configure Hive to work with Atlas <a id="configure-hive-with-atlas"></a></h2>
+
+<p>Started by logging into Ambari as <strong>raj_ops</strong> user. User name - <strong>raj_ops</strong> and password - <strong>raj_ops</strong>.</p>
+
+<h3 id="11-view-the-services-page">1.1: View the Services Page</h3>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/ambari_dashboard_rajops.png" alt="ambari_dashboard_rajops" /></p>
+
+<p>From the Dashboard page of Ambari, click on <code class="highlighter-rouge">Hive</code> from the list of installed services.
+Then click on <code class="highlighter-rouge">Config</code> tab and search <code class="highlighter-rouge">atlas.hook.hive.synchronous</code> in the filter text box.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/search_hive_config.png" alt="search_hive_config" /></p>
+
+<p>This property takes a boolean value and specifies whether to run the Atlas-Hive hook synchronously or not. By default, it is false, change it to <code class="highlighter-rouge">true</code> so that you can capture the lineage for hive operations. Click <code class="highlighter-rouge">Save</code> after you make the change.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/save_hive_config.png" alt="save_hive_config" /></p>
+
+<p>Write <strong>Atlas-hive hook enabled</strong> in the prompt and then proceed with saving the change. You have to Restart Hive now. Click on <code class="highlighter-rouge">Restart</code> and then <code class="highlighter-rouge">Restart All Affected</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/restart_hive.png" alt="restart_hive" /></p>
+
+<h2 id="2-start-kafka-storm-hbase-ambari-infra-and-atlas-">2: Start Kafka, Storm, HBase, Ambari Infra and Atlas <a id="start-services"></a></h2>
+
+<p>From the Dashboard page of Ambari, click on <code class="highlighter-rouge">Kafka</code> from the list of installed services.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/new_select_kafka.png" alt="new_select_kafka" /></p>
+
+<h3 id="21-start-kafka-service">2.1: Start Kafka Service</h3>
+
+<p>From the Kafka page, click on <code class="highlighter-rouge">Service Actions -&gt; Start</code></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/start_kafka.png" alt="start_kafka" /></p>
+
+<p>Check the <code class="highlighter-rouge">Maintenance Mode</code> box and click on <code class="highlighter-rouge">Confirm Start</code>:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/confirmation_kafka.png" alt="confirmation_kafka" /></p>
+
+<p>Wait for Kafka to start (It may take a few minutes to turn green)</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/new_started_kafka.png" alt="new_started_kafka" /></p>
+
+<p>Now start other required services as well. Start <strong>Atlas</strong> at the end.</p>
+
+<h3 id="22-stop-services">2.2: Stop Services</h3>
+
+<p>Stop some services like <strong>Spark, Oozie, Flume and Zeppelin</strong> which are not required in this tutorial. Turn On the <strong>Maintenance mode</strong> also.
+Your Ambari dashboard page should look like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/new_ambari_dashboard_rajops.png" alt="new_ambari_dashboard_rajops" /></p>
+
+<h2 id="3-sqoop-hive-lineage-">3: Sqoop-Hive Lineage <a id="sqoop-hive-lineage"></a></h2>
+
+<p>We need a script for creating a MySQL table, then importing the table using Sqoop into Hive.</p>
+
+<h3 id="31-log-into-the-sandbox">3.1: Log into the Sandbox.</h3>
+
+<p>First do ssh into the terminal by the user <strong>root</strong>. The first time password for root user is <code class="highlighter-rouge">hadoop</code> :</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh root@127.0.0.1 -p 2222
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/sshTerminal.png" alt="sshTerminal" /></p>
+
+<h3 id="32-download--extract-the-demo-script">3.2: Download &amp; extract the demo script</h3>
+
+<p>Run the following command to get to the scripts for the tutorial.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mkdir crosscomponent_demo
+cd crosscomponent_demo
+wget [crosscomponent_scripts.zip](https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/crosscomponent_scripts.zip)
+unzip crosscomponent_scripts.zip\?raw\=true
+cd crosscomponent_scripts/sqoop-demo
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/download_and_extract.png" alt="download_and_extract" /></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/download_and_extract2.png" alt="download_and_extract2" /></p>
+
+<h3 id="33-create-a-mysql-table">3.3: Create a mysql table</h3>
+
+<p>Run the below command in your terminal to login into mysql shell, create a table called <strong>test_table_sqoop1</strong> and then insert two records:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cat 001-setup-mysql.sql | mysql -u root -p
+</code></pre>
+</div>
+
+<blockquote>
+  <p>NOTE: default password for mysql root user is hadoop. Enter it then press enter when prompted for password</p>
+</blockquote>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/setup_mysql_script.png" alt="setup_mysql_script" /></p>
+
+<h3 id="34-run-the-sqoop-job">3.4: Run the SQOOP Job</h3>
+
+<p>Run the below command in your terminal. It is a <strong>sqoop import</strong> command to transfer the data from mysql table <strong>test_table_sqoop1</strong> to the hive table <strong>test_hive_table1</strong>. The hive table do not have to be pre-created, it would be created on fly.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sh 002-run-sqoop-import.sh
+</code></pre>
+</div>
+
+<blockquote>
+  <p>NOTE: default password for mysql root user is hadoop. Enter it then press enter when prompted for password</p>
+</blockquote>
+
+<p>Here is the screenshot of results you would see in the screen when you run the above script.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/sqoop_import_script.png" alt="sqoop_import_script" /></p>
+
+<p>It will run the map-reduce job and at the end, you can see your new Hive table created:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/sqoop_import_script2.png" alt="sqoop_import_script2" /></p>
+
+<h3 id="35-create-ctas-sql-command">3.5: Create CTAS sql command</h3>
+
+<p>CTAS stands for <strong>create table as select</strong>. We would create one more table in Hive from the table imported by the sqoop job above. The second table name is <strong>cur_hive_table1</strong> and we will create the table using beeline shell:
+Run the below command in your terminal</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cat 003-ctas-hive.sql | beeline -u "jdbc:hive2://localhost:10000/default" -n hive -p hive -d org.apache.hive.jdbc.HiveDriver
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/ctas_script.png" alt="ctas_script" /></p>
+
+<h3 id="36-view-atlas-ui-for-the-lineage">3.6: View ATLAS UI for the lineage</h3>
+
+<p>Click on http://127.0.0.1:21000. Credentials are:</p>
+
+<p>User name - <strong>holger_gov</strong>
+Password - <strong>holger_gov</strong></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/atlas_login.png" alt="atlas_login" /></p>
+
+<p>Click on <code class="highlighter-rouge">Search</code> tab and type <strong>cur_hive_table1</strong></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/search_hive_table.png" alt="search_hive_table" /></p>
+
+<p>You will see the lineage like given below. You can hover at each one of them to see the operations performed:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/hive_lineage.png" alt="hive_lineage" /></p>
+
+<h2 id="4-kafka--storm-lineage-">4: Kafka – Storm Lineage <a id="kafka-storm-lineage"></a></h2>
+
+<p>The following steps will show the lineage of data between Kafka topic <strong>my-topic-01</strong> to Storm topology <strong>storm-demo-topology-01</strong>, which stores the output in the HDFS folder (/user/storm/storm-hdfs-test).</p>
+
+<h3 id="41-create-a-kafka-topic-to-be-used-in-the-demo">4.1: Create a Kafka topic to be used in the demo</h3>
+
+<p>Run the following commands to create a new Kafka topic <strong>my-topic-01</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd ../storm-demo
+sh 001-create_topic.sh
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/create_topic_script.png" alt="create_topic_script" /></p>
+
+<h3 id="42-create-a-hdfs-folder-for-output">4.2: Create a HDFS folder for output</h3>
+
+<p>Run the following command to create a new HDFS directory under /user/storm</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sh 002-create-hdfs-outdir.sh
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/create_hdfs_directory_script.png" alt="create_hdfs_directory_script" /></p>
+
+<h3 id="43-download-storm-job-jar-file-optional">4.3: Download STORM job jar file (optional)</h3>
+
+<p>Source is available at https://github.com/yhemanth/storm-samples.
+Run the following command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sh 003-download-storm-sample.sh
+</code></pre>
+</div>
+
+<p>As the jar files is already downloaded in the vm, you would see the below information:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Storm Jar file is already download in /root/crosscomponent_demo/crosscomponent_scripts/storm-demo/lib folder
+You can view the source for this at https://github.com/yhemanth/storm-samples
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/download_storm_script.png" alt="download_storm_script" /></p>
+
+<h3 id="44-run-the-storm-job">4.4: Run the Storm Job</h3>
+
+<p>Run the following command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sh 004-run-storm-job.sh
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/run_storm_script.png" alt="run_storm_script" /></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/run_storm_script2.png" alt="run_storm_script2" /></p>
+
+<h3 id="45-view-atlas-ui-for-the-lineage">4.5: View ATLAS UI for the lineage</h3>
+
+<p>Go to the Atlas UI http://localhost:21000/. Search for: <strong>kafka_topic</strong> this time and Click on: <code class="highlighter-rouge">my-topic-01</code></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/search_kafka_topic.png" alt="search_kafka_topic" /></p>
+
+<p>Scroll down and you will see a lineage of all the operations from Kafka to Storm.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/cross-component-lineage-with-apache-atlas-across-apache-sqoop-hive-kafka-storm/assets/kafka_storm_lineage.png" alt="kafka_storm_lineage" /></p>
+
+<h2 id="summary-">Summary <a id="summary"></a></h2>
+
+<p><strong>Apache Atlas</strong> is the only governance solution for Hadoop that has native hooks within multiple Hadoop components and delivers lineage across these components. With the new preview release, Atlas now supports lineage across data movement in Apache Sqoop, Hive, Kafka, Storm and in Falcon.</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<p>Please go through following Hortonworks Community articles to know more about Apache Atlas:</p>
+
+<ol>
+  <li><a href="https://community.hortonworks.com/articles/58932/understanding-taxonomy-in-apache-atlas.html">Understanding Taxonomy in Apache Atlas</a></li>
+  <li><a href="https://community.hortonworks.com/content/kbentry/58885/hive-data-lineage-using-apache-atlas.html">Hive Data Lineage using Apache Atlas</a></li>
+</ol>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-610.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-610&amp;topics=hdp-2.5.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Cross Component Lineage with Apache Atlas across Apache Sqoop, Hive, Kafka & Storm</strong></p>
+  <p>HCC Tags:<strong> tutorial-610</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+

@@ -1,0 +1,147 @@
+<div class="tutorial-content">
+  <h1 id="hortonworks-sandbox-guide">Hortonworks Sandbox Guide</h1>
+
+<h2 id="hortonworks-sandbox-with-vmware-fusion">Hortonworks Sandbox with VMware Fusion</h2>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The Hortonworks Sandbox is delivered as a virtual appliance.  The virtual appliance (indicated by an .ovf or .ova extension in the filename) runs in the context of a virtual machine (VM), a piece of software that appears to be an application to the underlying (host) operating system (OS), but that looks like a bare machine, including CPU, storage, network adapters, and so forth, to the operating system and applications that run on it.</p>
+
+<p>To use the Hortonworks Sandbox, one of the supported virtual machine applications needs to installed on your host machine:</p>
+
+<ul>
+  <li>VirtualBox</li>
+  <li>VMware Fusion</li>
+</ul>
+
+<p>This document describes importing the Hortonworks Sandbox virtual appliance into VMware.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>To use the Hortonworks Sandbox with VMware Fusion the following requirements need to be met:</p>
+
+<p><strong>VMware Fusion Installed</strong></p>
+
+<p>Version 5 or later (Version 7 recommended). You can download VMware Fusion <a href="https://my.vmware.com/web/vmware/info/slug/desktop_end_user_computing/vmware_fusion/7_0#product_downloads">link here:</a></p>
+
+<p><strong>Host Operating System</strong></p>
+
+<p>Host operating system refers to the operating system of your computer.  The following <a href="https://www.vmware.com/support/fusion/faq/requirements">link</a> gives an exhaustive list of operating systems supported to run VMware Fusion.</p>
+
+<p><strong>Hardware</strong> (The newer the hardware the better):</p>
+
+<p>1. A 64-bit machine with a multi-core CPU that supports virtualization. Please look into your operating system’s documentation to verify if you are running a 64 bit OS.
+<em>Mac OS X</em>:
+https://support.apple.com/en-us/HT3696</p>
+
+<p>2. <strong>BIOS</strong> - Has been enabled for virtualization support.  Please contact your specific computer vendor to determine how to enable/verify this feature in your machine’s BIOS.</p>
+
+<p>3. <strong>RAM</strong> - At least 8 GB of RAM for the VM (The more, the better)
+If you wish to enable services such as Ambari, HBase, Storm, Kafka, or Spark please ensure you have at least 10 Gb of physical RAM in order to run the VM using 8 GB.</p>
+
+<p>More information for hardware requirements for VMware can be found <a href="https://www.vmware.com/support/fusion/faq/requirements">here</a>.</p>
+
+<p>4. <strong>Browsers</strong></p>
+
+<ol>
+  <li>Chrome 25+,</li>
+  <li>IE 9+ (Sandbox will not run on IE 10)</li>
+  <li>Safari 6+</li>
+</ol>
+
+<p>NOTE: Please allow popup-blockers</p>
+
+<p><strong>Hortonworks Sandbox virtual appliance for VMware Fusion</strong></p>
+
+<p>Download the correct virtual appliance file for your environment from https://hortonworks.com/products/hortonworks-sandbox/#install
+The file extension for a virtual appliance for VMware Fusion should be .ova</p>
+
+<h2 id="procedure">Procedure</h2>
+<p>The steps provided describe how to import the Hortonworks Sandbox virtual appliance into VMware Fusion.  The screenshots displayed are taken from Mac OS X machine running the VMware Fusion 7.1.1 software.</p>
+
+<blockquote>
+  <p>NOTE:  The instructions provided is for a VMware Fusion application that currently does not have any existing virtual machines imported.</p>
+</blockquote>
+
+<p>1.	Open the <strong>VMware Fusion</strong> application.
+You can do so by double clicking the icon:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hortonworks-sandbox-guide/assets/vmware_logo.png" alt="vmware_logo" /></p>
+
+<p>On a Mac OS X machine, by default the application is installed within the Applications folder, hence the icon to launch the application can be found there.</p>
+
+<p>2.	The <strong>VMware Fusion</strong> window opens and prompts</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hortonworks-sandbox-guide/assets/vmware_installation_method.png" alt="vmware_installation_method" /></p>
+
+<blockquote>
+  <p>NOTE:  If you currently have existing VM’s installed you should get a different prompt from the above screenshot.</p>
+</blockquote>
+
+<p>3.	Select the “Import an existing virtual machine” and click the <strong>Continue</strong> button.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hortonworks-sandbox-guide/assets/choose_existing.png" alt="choose_existing" /></p>
+
+<p>4.	The file browser dialog opens.  Select the virtual appliance file and click <strong>Open</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hortonworks-sandbox-guide/assets/vmware_open.png" alt="vmware_open" /></p>
+
+<blockquote>
+  <p>NOTE:  The name of the file you have downloaded depends on the version of the Hortonworks Sandbox you have chosen to download.  The above picture is referencing Sandbox HDP version 2.2</p>
+</blockquote>
+
+<p>5.	After clicking open, you will be brought back to this screen showing the file you have chosen highlighted.  Click <strong>Continue</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hortonworks-sandbox-guide/assets/vmware_choose_existing.png" alt="vmware_choose_existing" /></p>
+
+<p>6.	After clicking continue, a drop down window sheet displays.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hortonworks-sandbox-guide/assets/vmware_save.png" alt="vmware_save" /></p>
+
+<p>Here you can choose to save the virtual machine with a different name.  If you have no preference in renaming, you can just leave the default name and click save.  You will the get the importing progress dialog:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hortonworks-sandbox-guide/assets/vmware_import_progress.png" alt="vmware_import_progress" /></p>
+
+<p>7.	Once finished, the following screen is displayed:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hortonworks-sandbox-guide/assets/vmware_finish.png" alt="vmware_finish" /></p>
+
+<p>Click the <strong>Finish</strong> button.</p>
+
+<p>8.	The next window is the console of the virtual machine, click on the <strong>Play</strong> icon within the console.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hortonworks-sandbox-guide/assets/vmware_play.png" alt="vmware_play" /></p>
+
+<p>9. Eventually you will see the screen below indicating Hortonworks Sandbox is fully booted and displays login instructions.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hortonworks-sandbox-guide/assets/vmware_booted.png" alt="vmware_console" /></p>
+
+<blockquote>
+  <p>NOTE: Because what is being displayed is a conceptually separate machine, control of the mouse and the keyboard must be passed back and forth between the host and the VM. This is particularly useful when the VM has a GUI.  If you accidently let the console “capture” your mouse or keyboard, you can release them back to the host machine by pressing the Ctrl and Command keys. A reminder appears in the upper right corner of the console window if you forget.</p>
+</blockquote>
+
+<p>10. Use one of the supported browsers mentioned in the prerequisites section of this document within your host machine.  Enter the URL displayed on the console which brings you to the Splash page.  That’s it. Read over the information and links to get started in exploring HDP with the Hortonworks Sandbox!</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hortonworks-sandbox-guide/assets/new_splashscreen.png" alt="new_splashscreen" /></p>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-730.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-730&amp;topics=hdp-2.5.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Hortonworks Sandbox Guide</strong></p>
+  <p>HCC Tags:<strong> tutorial-730</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+

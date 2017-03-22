@@ -1,0 +1,238 @@
+<div class="tutorial-content">
+  <h1 id="getting-started-with-hdf-sandbox">Getting Started with HDF Sandbox</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In this tutorial, you will learn about the different features available in the HDF sandbox. HDF stands for Hortonworks DataFlow. HDF was built to make processing data-in-motion an easier task while also directing the data from source to the destination. You will learn about quick links to access these tools that way when you finish the tutorial, you will know how to access NiFi, Storm, Ranger and Ambari UIs. Therefore, you will be able to focus on using these apache tools for dealing with data-in-motion.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>Downloaded and Installed <a href="https://hortonworks.com/downloads/">HDF Sandbox</a></li>
+  <li>Read <a href="https://hortonworks.com/hadoop-tutorial/hortonworks-sandbox-guide/">Hortonworks Sandbox Guide</a></li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#concepts">Concepts</a></li>
+  <li><a href="#learn-the-host-address-of-your-environment">Learn the Host Address of Your Environment</a></li>
+  <li><a href="#connect-to-the-welcome-screen">Connect to the Welcome Screen</a></li>
+  <li><a href="#multiple-ways-to-execute-terminal-commands">Multiple Ways to Execute Terminal Commands</a></li>
+  <li><a href="#explore-ambari">Explore Ambari</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+  <li><a href="#appendix-a-troubleshoot">Appendix A: Troubleshoot</a></li>
+</ul>
+
+<blockquote>
+  <p>Note: It may be good idea for each procedure to start with an action verb (e.g. Install, Create, Implement, etc.)</p>
+</blockquote>
+
+<h2 id="concepts">Concepts</h2>
+
+<h3 id="what-is-the-sandbox">What is the Sandbox?</h3>
+
+<p>The Sandbox is a straightforward, pre-configured, learning environment that contains the latest developments from Apache Big Data related tools, specifically these tools were assembled together into Hortonworks DataFlow. The Sandbox comes packaged in a virtual environment that can run in the cloud or on your personal machine. The Sandbox allows you to learn and explore HDP on your own.</p>
+
+<h2 id="learn-the-host-address-of-your-environment">Learn the Host Address of Your Environment</h2>
+
+<p>Once you installed the Sandbox VM or container, it resolves to the host on your environment, the address of which varies depending upon the Virtual Machine you are using(Vmware, VirtualBox, etc) or container (Docker, etc). As, a general thumb rule, wait for the installation to complete and confirmation screen will tell you the host your sandbox resolves to. For example:</p>
+
+<p>In case of Docker: <code class="highlighter-rouge">host</code> would be <code class="highlighter-rouge">127.0.0.1</code></p>
+
+<h2 id="connect-to-the-welcome-screen">Connect to the Welcome Screen</h2>
+
+<p>Append the port number :18888 to your host address, open your browser, and access Sandbox Welcome page at <code class="highlighter-rouge">http://_host_:18888/.</code></p>
+
+<p>Click on <code class="highlighter-rouge">Launch Dashboard</code> to go to Ambari with a <a href="#">Analyze Traffic Patterns with Aapche NiFi tutorial</a> and <code class="highlighter-rouge">Quick Links</code> to view some services of HDP environment.</p>
+
+<h2 id="multiple-ways-to-execute-terminal-commands">Multiple Ways to Execute Terminal Commands</h2>
+
+<blockquote>
+  <p><strong>Note:</strong> For all methods below, the login credential instructions will be the same to access the Sandbox through the terminal.</p>
+  <ul>
+    <li>Login using username as <strong>root</strong> and password as <strong>hadoop</strong>.</li>
+    <li>After first time login, you will be prompted to retype your current password, then change your password.</li>
+    <li>If you are using Putty on Windows then go to terminal of your sandbox in oracle virtualBox –&gt; Press <code class="highlighter-rouge">Alt+F5</code> –&gt; enter username - <strong>root</strong> –&gt; enter password - <strong>hadoop</strong> –&gt; it will ask you to set new password –&gt; set new password.</li>
+  </ul>
+</blockquote>
+
+<p>Open your terminal (mac and linux) or putty (windows). Type the following command to access the Sandbox through SSH:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Usage:
+      ssh &lt;username&gt;@&lt;hostname&gt; -p &lt;port&gt;;
+# Example:
+      ssh root@127.0.0.1 -p 12222;
+</code></pre>
+</div>
+
+<h4 id="shell-web-client-method">Shell Web Client Method:</h4>
+
+<p>Open your web browser. Type the following text into your browser to access the Sandbox through the shell:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Usage:
+    #  _host_:14200
+Example:
+      127.0.0.1:14200
+</code></pre>
+</div>
+
+<h2 id="explore-ambari">Explore Ambari</h2>
+
+<p>Navigate to Ambari welcome page using the <strong>url</strong> given on Sandbox welcome page or access at <code class="highlighter-rouge">_host_:18080</code>.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> Both the username and password to login are <strong>admin</strong>.</p>
+</blockquote>
+
+<h3 id="services-provided-by-the-ambari">Services Provided By the Ambari</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th style="text-align: right">URL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sandbox Welcome Page</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:18888</a></td>
+    </tr>
+    <tr>
+      <td>Ambari Dashboard</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:18080</a></td>
+    </tr>
+    <tr>
+      <td>NiFi UI</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:19090/nifi</a></td>
+    </tr>
+    <tr>
+      <td>Ranger UI</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:16080</a></td>
+    </tr>
+    <tr>
+      <td>Storm UI</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:18744</a></td>
+    </tr>
+    <tr>
+      <td>Solr UI</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:18886</a></td>
+    </tr>
+    <tr>
+      <td>Grafana UI</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:13000</a></td>
+    </tr>
+    <tr>
+      <td>Log Search UI</td>
+      <td style="text-align: right"><a href="">http://<em>host</em>:62888</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="the-following-table-contains-login-credentials">The following Table Contains Login Credentials:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Service</th>
+      <th style="text-align: center">User</th>
+      <th style="text-align: right">Password</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ambari, OS</td>
+      <td style="text-align: center">admin</td>
+      <td style="text-align: right">refer to <a href="#setup-ambari-admin-password">setup ambari admin password</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="setup-ambari-admin-password-manually">Setup Ambari admin Password Manually</h3>
+
+<ol>
+  <li>Start your sandbox and open a terminal (mac or linux) or putty (windows)</li>
+  <li>SSH into the sandbox as root using <code class="highlighter-rouge">ssh root@127.0.0.1 -p 2222</code>. For Azure and VMware users, your <code class="highlighter-rouge">_host_</code> and <code class="highlighter-rouge">_port_</code> will be different.</li>
+  <li>Type the following commands:</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># Updates password
+ambari-admin-password-reset
+# If Ambari doesn't restart automatically, restart ambari service
+ambari-agent restart
+</code></pre>
+</div>
+
+<blockquote>
+  <p><strong>Note:</strong> Now you can login to ambari as an admin user to perform operations, such as starting and stopping services.</p>
+</blockquote>
+
+<h3 id="explore-ambari-welcome-screen-5-key-capabilities">Explore Ambari Welcome Screen 5 Key Capabilities</h3>
+
+<p>Enter the <strong>Ambari Welcome URL</strong> and then you should see the following options:</p>
+
+<ol>
+  <li>“<strong>Operate Your Cluster</strong>” will take you to the Ambari Dashboard which is the primary UI for Hadoop Operators</li>
+  <li>“<strong>Manage Users + Groups</strong>” allows you to add &amp; remove Ambari users and groups</li>
+  <li>“<strong>Clusters</strong>” allows you to grant permission to Ambari users and groups</li>
+  <li>“<strong>Ambari User Views</strong>” list the set of Ambari Users views that are part of the cluster</li>
+  <li>“<strong>Deploy Views</strong>” provides administration for adding and removing Ambari User Views</li>
+</ol>
+
+<h3 id="explore-ambari-dashboard-links">Explore Ambari Dashboard Links</h3>
+
+<p>Enter the <strong>Ambari Dashboard URL</strong> and Click on:</p>
+
+<p>1.  <strong>Metrics</strong>, <strong>Heatmap</strong> and <strong>Configuration</strong></p>
+
+<p>and then the</p>
+
+<p>2.  <strong>Dashboard</strong>, <strong>Services</strong>, <strong>Hosts</strong>, <strong>Alerts</strong>, <strong>Admin</strong> and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>Congratulations, you’ve finished your first tutorial! Now you know about the different features available in the HDF sandbox. You know how to access NiFi, Storm, Ranger and Ambari UIs. Therefore, you are now ready to focus on using these apache tools for dealing with data-in-motion. If you want to learn more about HDF, check out the documentation in the Further Reading section below.</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+  <li><a href="https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.1.2/index.html">HDF Documentation</a></li>
+</ul>
+
+<h2 id="appendix-a-troubleshoot">Appendix A: Troubleshoot</h2>
+
+<h3 id="troubleshoot-problems-">Troubleshoot Problems <a id="troubleshoot-problems"></a></h3>
+
+<p>Check <a href="https://hortonworks.com/community/forums/">Hortonworks Community Connection</a>(HCC) for answers to problems you may come across during your hadoop journey.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdf/hdf-2.1/getting_started_with_hdf_sandbox/assets/hcc_page_learning_the_ropes_sandbox.png" alt="Hortonworks Community Connection Main Page" /></p>
+
+<h3 id="technique-for-finding-answers-in-hcc-">Technique for Finding Answers in HCC <a id="technique-for-finding-answers-hcc"></a></h3>
+<ul>
+  <li>Insert quotes around your tutorial related problem</li>
+  <li>Be specific by including keywords (error, tutorial name, etc.)</li>
+</ul>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-760.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-760&amp;topics=hdf-2.1" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Getting Started with HDF Sandbox</strong></p>
+  <p>HCC Tags:<strong> tutorial-760</strong> and <strong>hdf-2.1</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+
