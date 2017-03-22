@@ -36,7 +36,7 @@ Started by logging into Ambari as **raj_ops** user. User name - **raj_ops** and 
 ![ambari_dashboard_rajops](assets/ambari_dashboard_rajops.png)
 
 From the Dashboard page of Ambari, click on `Hive` from the list of installed services.
-Then click on `Config` tab and search `atlas.hook.hive.synchronous` in the filter text box.
+Then click on `Configs` tab and search `atlas.hook.hive.synchronous` in the filter text box.
 
 ![search_hive_config](assets/search_hive_config.png)
 
@@ -68,7 +68,11 @@ Wait for Kafka to start (It may take a few minutes to turn green)
 
 ![new_started_kafka](assets/new_started_kafka.png)
 
-Now start other required services as well. Start **Atlas** at the end.
+In the same way you started Kafka above, start other required services (in order):
+1. Storm
+2. HBase
+3. Ambari Infra
+4. Atlas
 
 ### 2.2: Stop Services
 
