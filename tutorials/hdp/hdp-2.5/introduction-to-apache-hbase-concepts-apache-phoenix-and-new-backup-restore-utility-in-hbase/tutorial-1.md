@@ -29,6 +29,8 @@ For more information about Phoenix capabilities, see the [Apache Phoenix website
 -   [4. Inserting Data via Phoenix](#inserting-data)
 -   [5. Setting up SQuirrel and Phoenix Integration](#squirrel-phoenix-setup)
 -   [Summary](#summary)
+-   [Further Reading](#further-reading)
+
 
 ## 1. Enable Phoenix by Ambari<a id="enable-phoenix"></a>
 
@@ -154,3 +156,7 @@ Go to this [article](https://community.hortonworks.com/content/kbentry/44350/set
 ## Summary <a id="summary"></a>
 
 Congratulations! Lets summarize what we learned in this tutorial. We went through the introduction of Apache Phoenix and how to use it with Apache HBase. We also learned how to integrate Phoenix with SQuirrel. Go through Lab 3 of this tutorial where we are discussing another SQL tool Apache Hive and how to integrate that with Apache HBase.
+
+## Further Reading
+
+-   [Create Phoenix Schema](https://community.hortonworks.com/articles/89464/create-phoenix-schemas-in-hdp-25.html)
