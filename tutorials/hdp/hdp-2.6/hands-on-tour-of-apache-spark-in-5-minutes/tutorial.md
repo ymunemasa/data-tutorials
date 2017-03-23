@@ -23,20 +23,20 @@ To make things fun and interesting, we will introduce a film series dataset from
 
 ## Prerequisites
 
--   This tutorial is a part of series of hands-on tutorials to get you started with [Hortonworks Data Platform (HDP)](https://hortonworks.com/products/data-center/hdp/) using either the [Hortonworks Data Cloud (HDCloud)](https://hortonworks.com/products/cloud/aws/) or a pre-configured downloadable [HDP Sandbox](https://hortonworks.com/products/sandbox/).
--   The Zeppelin notebook uses basic Scala and SQL syntax and a Python version is coming soon.
+-   This tutorial is a part of series of hands-on tutorials using the [Hortonworks Data Platform (HDP)](https://hortonworks.com/products/data-center/hdp/) via either the [Hortonworks Data Cloud (HDCloud)](https://hortonworks.com/products/cloud/aws/) or a pre-configured downloadable [HDP Sandbox](https://hortonworks.com/products/sandbox/).
+-   The Zeppelin notebook uses basic [Scala](http://www.dhgarrette.com/nlpclass/scala/basics.html) syntax. A Python version is coming soon.
 -   (Optional) If you are new to Zeppelin, review the following tutorial: [Getting Started with Apache Zeppelin](https://hortonworks.com/hadoop-tutorial/getting-started-apache-zeppelin/)
 
 ## Outline
--   [Concepts](#concepts)
+-   [Tutorial Details](#tutorial-details)
 -   [Environment Setup](#environment-setup)
     -   [Option 1: Setup Hortonworks Data Cloud (HDCloud) on AWS](#option-1-setup-hortonworks-data-cloud-hdcloud-on-aws)
     -   [Option 2: Download and Setup Hortonworks Data Platform (HDP) Sandbox](#option-2-download-and-setup-hortonworks-data-platform-hdp-sandbox)
 -   [Notebook Preview](#notebook-preview)
 -   [Start the Tutorial](#start-the-tutorial)
--   [Summary](#summary)
+-   [Final Words](#final-words)
 
-## Concepts
+## Tutorial Details
 
 As mentioned earlier, we will download and ingest an external dataset about the Silicon Valley Show episodes into a Spark Dataset and perform basic analysis, filtering, and word count.
 
@@ -77,6 +77,10 @@ Keep in mind, that you will need **8GB** of memory dedicated for the virtual mac
 
 2b. Review [Learning the Ropes of HDP Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
+#### Review Zeppelin Tutorial (optional)
+
+If you are new to Zeppelin, review the following tutorial [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md)
+
 ## Notebook Preview
 
 Before you start, here's a preview of the notebook.
@@ -96,7 +100,7 @@ Once your notebook is imported, you can open it from the Zeppelin home screen by
 
  Once the *Apache Spark in 5 Minutes* notebook is up, follow all the directions within the notebook to complete the tutorial.
 
-## Summary
+## Final Words
 
 We hope that you've been able to successfully run this short introductory notebook in either your cloud or local environment and we've got you interested and excited enough to further explore Spark with Zeppelin.
 

@@ -1,81 +1,86 @@
 ---
-title: Learning Spark with Zeppelin
+title: Learning Spark SQL with Zeppelin
 tutorial-id: 365
 platform: hdp-2.6.0
 tags: [spark, zeppelin]
 ---
 
-# Learning Spark with Zeppelin
+# Learning Spark SQL with Zeppelin
 
 ## Introduction
 
-In this tutorial, we will introduce the basic concepts of Apache Spark DataFrames in a hands-on lab.
+In this tutorial, we will introduce you to Apache Spark SQL. Spark SQL is a higher-level module that allows you to operate on DataFrames and Datasets, which we will cover in more detail later.
 
-We will also introduce the necessary steps to get up and running with Apache Zeppelin on a Hortonworks Data Platform (HDP) Sandbox.
+In the second part of the lab, we will explore an airline dataset using higher-level SQL API. We will visualize the dataset and write SQL queries to find insights on when and where we can expect highest delays in flight arrivals and departures.
 
 ## Prerequisites
 
--   Install and/or launch the HDP Sandbox:
-    -   Download and Install [HDP Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
-    -   Or deploy the [HDP Sandbox in the Azure Cloud](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/). (FREE for the first month.)
-
-> Note: If you're attending a Crash Course or a Meetup, the instructor may have additional information on how to get a HDP Sandbox installed.
+-   This tutorial is a part of series of hands-on tutorials using the [Hortonworks Data Platform (HDP)](https://hortonworks.com/products/data-center/hdp/) via either the [Hortonworks Data Cloud (HDCloud)](https://hortonworks.com/products/cloud/aws/) or a pre-configured downloadable [HDP Sandbox](https://hortonworks.com/products/sandbox/).
+-   The Zeppelin notebook uses basic [Scala](http://www.dhgarrette.com/nlpclass/scala/basics.html) syntax. A Python version is coming soon.
+-   (Optional) If you are new to Zeppelin, review the following tutorial: [Getting Started with Apache Zeppelin](https://hortonworks.com/hadoop-tutorial/getting-started-apache-zeppelin/)
 
 ## Outline
+-   [Tutorial Details](#tutorial-details)
+-   [Environment Setup](#environment-setup)
+    -   [Option 1: Setup Hortonworks Data Cloud (HDCloud) on AWS](#option-1-setup-hortonworks-data-cloud-hdcloud-on-aws)
+    -   [Option 2: Download and Setup Hortonworks Data Platform (HDP) Sandbox](#option-2-download-and-setup-hortonworks-data-platform-hdp-sandbox)
+-   [Notebook Preview](#notebook-preview)
+-   [Start the Tutorial](#start-the-tutorial)
+-   [Final Words](#final-words)
 
--   [Concepts](#concepts)
--   [Setup](#setup)
--   [Further Reading](#further-reading)
+## Tutorial Details
 
-## Concepts
+TODO:
 
-The core concepts of Spark DataFrames will be introduced in the lab itself. Here, we will focus on launching Zeppelin, importing and then starting the lab.
+## Environment Setup
 
-## Setup
+### Option 1: Setup Hortonworks Data Cloud (HDCloud) on AWS
 
-**1. Start your Sandbox**
+1a. Create an [Amazon Web Services (AWS) Account](https://aws.amazon.com/) if you don't have one
 
-First, start your Sandbox Virtual Machine (VM) in either a local VirtualBox/VMware (or Azure cloud) environment and note your VM IP address.
+1b. Follow this step-by-step doc to [Setup and Launch a Controller on HDCloud](https://hortonworks.github.io/hdp-aws/launch/index.html)
 
-We will refer to your VM IP address as `<HOST IP>` throughout this tutorial.
+1c. Create a *Data Science* [Cluster](https://hortonworks.github.io/hdp-aws/create/index.html) (use settings listed below)
 
-If you need help finding your `<HOST IP>` checkout [Learning the Ropes](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#learn-host-address-environment).
+Select/specify the following for your cluster:
 
-**2. Launch Zeppelin**
+-   HDP Version: HDP 2.6 or later
+-   Cluster Type: "Data Science: Apache Spark 2.1+, Apache Zeppelin 0.6.2+" or later
+-   Worker instance count: one or more
+-   Remote Access: 0.0.0.0/0
 
-Now that your Sandbox is running, open a web browser and go to: `http://<HOST IP>:9995`
+Here's a screenshot with sample settings:
 
-Where `<HOST IP>` is the IP address of your Sandbox machine.
+![setting-up-hd-cloud](assets/spinning-up-hdcloud-cluster.jpg)
 
-For example, the default address for **VirtualBox** is [http://127.0.0.1:9995](http://127.0.0.1:9995)
+### Option 2: Download and Setup Hortonworks Data Platform (HDP) Sandbox
 
-**3. Import Lab**
+This option is optimal if you prefer to run everything in local environment (laptop/PC).
 
-The name of the lab you will be running today is *Lab 101_DW: Hands-on Intro to Spark with Scala*.
+Keep in mind, that you will need **8GB** of memory dedicated for the virtual machine, meaning that you should have at least **12GB** of memory on your system.
 
-By now you should see the main Zeppelin screen with a list of notebooks that you can explore later.
+2a. Download and Install [HDP Sandbox 2.6](https://hortonworks.com/products/sandbox/)
 
-Right now, let's import today's lab.
+2b. Review [Learning the Ropes of HDP Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
-Click Import
+#### Review Zeppelin Tutorial (optional)
 
-![scr4-import](assets/scr4-import.png)
+If you are new to Zeppelin, review the following tutorial [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md)
 
-Next, click "Add from URL" button.
+## Notebook Preview
 
-![src7-click-url](assets/scr7-click-url.png)
+Before you start, here's a preview of the notebook.
 
-Finally, copy and paste the following url: [note.json](assets/note.json)
+![Notebook Preview](assets/large-notebook-preview.jpg)
 
-and click "Import Note"
+A dynamic preview (allowing code copy) can be found [here](https://www.zeppelinhub.com/viewer/notebooks/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2hvcnRvbndvcmtzLWdhbGxlcnkvemVwcGVsaW4tbm90ZWJvb2tzL2hkcC0yLjYvMkNBNTg3Szc3L25vdGUuanNvbg).
 
-![src8-import-url](assets/scr8-import-url.png)
+## Start Tutorial
 
-Voila! Now you should have your "Lab 101_DW: ..." listed in the main Zeppelin directory.
+TODO:
 
-Click on the lab to get started and follow the step-by-step instructions in the notebook to complete the lab.
+- Download Notebook Link: https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.6/2CA587K77/note.json
 
-## Further Reading
+## Final Words
 
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
--   Once you're done with the lab, make sure to checkout other Zeppelin Labs and [Spark Tutorials](https://hortonworks.com/hadoop/spark/#tutorials).
+TODO:
