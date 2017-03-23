@@ -5,10 +5,12 @@ settingsDir=$baseDir/config
 
 # Get git values
 gitBranch=$(git rev-parse --abbrev-ref HEAD) # (e.g. master)
+gitCommit=$(git rev-parse --verify HEAD) # (last commit hash)
 gitUserAndRepository=$(git remote get-url origin | sed s/.*github.com\\///g | sed s/\.git//g) # (e.g. orendain/big-data-tutorials)
 
 # Github raw content base URL (e.g. https://raw.githubusercontent.com/orendain/big-data-tutorials/master)
-githubRawUrl="https://raw.githubusercontent.com/$gitUserAndRepository/$gitBranch"
+#githubRawUrl="https://raw.githubusercontent.com/$gitUserAndRepository/$gitBranch"
+githubRawUrl="https://raw.githubusercontent.com/$gitUserAndRepository/$gitCommit"
 
 # Copy over the files (rather than symlink because we'll be making temporary source changes)
 cp -r $baseDir/../tutorials $settingsDir/_tutorials
