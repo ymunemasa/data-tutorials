@@ -1,10 +1,17 @@
+---
+title: Sentiment Analysis with Apache Spark
+tutorial-id: 765
+platform: hdp-2.6.0
+tags: [spark, hdfs]
+---
+
 # Sentiment Analysis with Apache Spark
 
 ## Introduction
 
 This tutorial will teach you how to build sentiment analysis algorithms with Apache Spark. We will be doing data transformation using Scala and Apache Spark 2, and we will be classifying tweets as happy or sad using a Gradient Boosting algorithm. Although this tutorial is focused on sentiment analysis, Gradient Boosting is a versatile technique that can be applied to many classification problems. You should be able to reuse this code to classify text in many other ways, such as spam or not spam, news or not news, provided you can create enough labeled examples with which to train a model.
 
-You can follow this tutorial by running the accompanying [Zeppelin notebook](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/sentiment-analysis-spark/SentimentAnalysisZeppelin.json).
+You can follow this tutorial by running the accompanying [Zeppelin notebook](assets/SentimentAnalysisZeppelin.json).
 
 ## Prerequisites
 
@@ -21,7 +28,8 @@ Before starting this model you should make sure HDFS and Spark2 are started.
 -   [Clean and Label Records](#clean-records)
 -   [Transform Data for Machine Learning](#transform-data)
 -   [Build and Evaluate Model](#build-the-model)
--   [Further Reading](#summary)
+-   [Summary](#summary)
+-   [Further Reading](#further-reading)
 
 
 ## Download Tweets
@@ -41,7 +49,7 @@ ssh -p 2222 root@127.0.0.1
 mkdir /tmp/tweets
 rm -rf /tmp/tweets/*
 cd /tmp/tweets
-wget -O /tmp/tweets/tweets.zip https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/sentiment-analysis-spark/tweets.zip?raw=true
+wget -O /tmp/tweets/tweets.zip https://raw.githubusercontent.com/hortonworks/data-tutorials/master/tutorials/hdp/hdp-2.6/sentiment-analysis-with-apache-spark/assets/tweets.zip
 unzip /tmp/tweets/tweets.zip
 rm /tmp/tweets/tweets.zip
 
@@ -94,7 +102,7 @@ The output should look like this:
 ...
 ```
 
-### Clean Records
+## Clean Records
 
 We want to remove any tweet that doesn't contain "happy" or "sad". We've also chosen to select an equal number of happy and sad tweets to prevent bias in the model. Since we've loaded our data into a Spark DataFrame, we can use SQL-like statements to transform and select our data.
 
@@ -169,7 +177,7 @@ Output:
 (1,WrappedArray(rt, cwatkins199, adairbriones6, , birthday, manhave, a, good, one💪🏻🎉))
 ```
 
-### Transform Data
+## Transform Data
 
 Gradient Boosting expects as input a vector (feature array) of fixed length, so we need a way to convert our tweets into some numeric vector that represents that tweet. A standard way to do this is to use the hashing trick, in which we hash each word and index it into a fixed-length array. What we get back is an array that represents the count of each word in the tweet. This approach is called the bag of words model, which means we are representing each sentence or document as a collection of discrete words and ignore grammar or the order in which words appear in a sentence. An alternative approach to bag of words would be to use an algorithm like Doc2Vec or Latent Semantic Indexing, which would use machine learning to build a vector representations of tweets.
 
@@ -214,7 +222,7 @@ When training any machine learning model you want to separate your data into a t
 
 This situation is called overfitting. A good predictive model will build a generalized representation of your data in a way that reflects real things going on in your problem domain, and this generalization gives it predictive power. A model that overfits will instead try to predict the exact answer for each piece of your input data, and in doing so it will fail to generalize. The way we know a model is overfitting is when it has high accuracy on the training dataset but poor or no accuracy when tested against the validation set. This is why it’s important to always test your model against a validation set.
 
-#### Fixing overfitting:
+### Fixing overfitting
 
 A little overfitting is usually expected and can often be ignored. If you see that your validation accuracy is very low compared to your training accuracy, you can fix this overfitting by either increasing the size of your training data or by decreasing the number of parameters in your model. By decreasing the number of parameters you decrease the model’s ability to memorize large numbers of patterns. This forces it to build a model of your data in general, which makes it represent your problem domain instead of just memorizing your training data.
 
@@ -225,7 +233,7 @@ A little overfitting is usually expected and can often be ignored. If you see th
    val (trainingData, validationData) = (splits(0), splits(1))
   ```
 
-### Build the Model
+## Build the Model
 
 We’re using a Gradient Boosting model. The reason we chose Gradient Boosting for classification over some other model is because it’s easy to use (doesn’t require tons of parameter tuning), and it tends to have a high classification accuracy. For this reason it is frequently used in machine learning competitions.
 
