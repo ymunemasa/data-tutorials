@@ -210,7 +210,7 @@ Add Pig argument **-useHCatalog** (Case Sensitive).
 
 ![-useHCatalog Pig argument](assets/pig_script_argument.png)
 
-**Our completed riskfactor Geolocation has data stored in ORC format**
+**Final Pig script should look like:**
 
 ~~~
 a = LOAD 'geolocation' using org.apache.hive.hcatalog.pig.HCatLoader();
