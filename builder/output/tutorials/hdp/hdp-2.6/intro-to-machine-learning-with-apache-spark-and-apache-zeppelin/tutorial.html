@@ -1,0 +1,135 @@
+<div class="tutorial-content">
+  <h1 id="intro-to-machine-learning-with-apache-spark-and-apache-zeppelin">Intro to Machine Learning with Apache Spark and Apache Zeppelin</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/intro-to-machine-learning-with-apache-spark-and-apache-zeppelin/assets/spark-mllib-logo.png" alt="Spark MLlib Logo" /></p>
+
+<p>In this tutorial, we will introduce you to Machine Learning with Apache Spark. The hands-on lab for this tutorial is an Apache Zeppelin notebook that has all the steps necessary to ingest and explore data, train, test, visualize, and save a model. We will cover a basic Linear Regression model that will allow us perform simple predictions on a sample data. This model can be further expanded and modified to fit your needs. Most importantly, by the end of this tutorial, you will understand how to create an end-to-end pipeline for setting up and training simple models in Spark.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>This tutorial is a part of series of hands-on tutorials to get you started with <a href="https://hortonworks.com/products/data-center/hdp/">Hortonworks Data Platform (HDP)</a> using either the <a href="https://hortonworks.com/products/cloud/aws/">Hortonworks Data Cloud (HDCloud)</a> or a pre-configured downloadable <a href="https://hortonworks.com/products/sandbox/">HDP Sandbox</a>.</li>
+  <li>The Zeppelin notebook uses basic <a href="http://www.dhgarrette.com/nlpclass/scala/basics.html">Scala</a> syntax. A Python version is coming soon.</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li><a href="#concepts">Concepts</a></li>
+  <li><a href="#environment-setup">Environment Setup</a>
+    <ul>
+      <li><a href="#option-1-setup-hortonworks-data-cloud-hdcloud-on-aws">Option 1: Setup Hortonworks Data Cloud (HDCloud) on AWS</a></li>
+      <li><a href="#option-2-download-and-setup-hortonworks-data-platform-hdp-sandbox">Option 2: Download and Setup Hortonworks Data Platform (HDP) Sandbox</a></li>
+    </ul>
+  </li>
+  <li><a href="#setup">Setup</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+</ul>
+
+<h2 id="concepts">Concepts</h2>
+
+<p>The core concepts of Spark DataFrames will be introduced in the lab itself. Here, we will focus on launching Zeppelin, importing and then starting the lab.</p>
+
+<h2 id="environment-setup">Environment Setup</h2>
+
+<h3 id="option-1-setup-hortonworks-data-cloud-hdcloud-on-aws">Option 1: Setup Hortonworks Data Cloud (HDCloud) on AWS</h3>
+
+<p>1a. Create an <a href="https://aws.amazon.com/">Amazon Web Services (AWS) Account</a> if you don’t have one</p>
+
+<p>1b. Follow this step-by-step doc to <a href="https://hortonworks.github.io/hdp-aws/launch/index.html">Setup and Launch a Controller on HDCloud</a></p>
+
+<p>1c. Create a <em>Data Science</em> <a href="https://hortonworks.github.io/hdp-aws/create/index.html">Cluster</a> (use settings listed below)</p>
+
+<p>Select/specify the following for your cluster:</p>
+
+<ul>
+  <li>HDP Version: HDP 2.6 or later</li>
+  <li>Cluster Type: “Data Science: Apache Spark 2.1+, Apache Zeppelin 0.6.2+” or later</li>
+  <li>Worker instance count: one or more</li>
+  <li>Remote Access: 0.0.0.0/0</li>
+</ul>
+
+<p>Here’s a screenshot with sample settings:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/intro-to-machine-learning-with-apache-spark-and-apache-zeppelin/assets/spinning-up-hdcloud-cluster.jpg" alt="setting-up-hd-cloud" /></p>
+
+<h3 id="option-2-download-and-setup-hortonworks-data-platform-hdp-sandbox">Option 2: Download and Setup Hortonworks Data Platform (HDP) Sandbox</h3>
+
+<p>This option is optimal if you prefer to run everything in local environment (laptop/PC).</p>
+
+<p>Keep in mind, that you will need <strong>8GB</strong> of memory dedicated for the virtual machine, meaning that you should have at least <strong>12GB</strong> of memory on your system.</p>
+
+<p>2a. Download and Install <a href="https://hortonworks.com/products/sandbox/">HDP Sandbox 2.6</a></p>
+
+<p>2b. Review <a href="https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of HDP Sandbox</a></p>
+
+<h2 id="setup">Setup</h2>
+
+<p><strong>1. Start your Sandbox</strong></p>
+
+<p>First, start your Sandbox Virtual Machine (VM) in either a local VirtualBox/VMware (or Azure cloud) environment and note your VM IP address.</p>
+
+<p>We will refer to your VM IP address as <code class="highlighter-rouge">&lt;HOST IP&gt;</code> throughout this tutorial.</p>
+
+<p>If you need help finding your <code class="highlighter-rouge">&lt;HOST IP&gt;</code> checkout <a href="https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#learn-host-address-environment">Learning the Ropes</a>.</p>
+
+<p><strong>2. Launch Zeppelin</strong></p>
+
+<p>Now that your Sandbox is running, open a web browser and go to: <code class="highlighter-rouge">http://&lt;HOST IP&gt;:9995</code></p>
+
+<p>Where <code class="highlighter-rouge">&lt;HOST IP&gt;</code> is the IP address of your Sandbox machine.</p>
+
+<p>For example, the default address for <strong>VirtualBox</strong> is <a href="http://127.0.0.1:9995">http://127.0.0.1:9995</a></p>
+
+<p><strong>3. Import Lab</strong></p>
+
+<p>The name of the lab you will be running today is <em>Lab 101_DS: Machine Learning with Spark</em>.</p>
+
+<p>By now you should see the main Zeppelin screen with a list of notebooks that you can explore later.</p>
+
+<p>Right now, let’s import today’s lab.</p>
+
+<p>Click Import</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/intro-to-machine-learning-with-apache-spark-and-apache-zeppelin/assets/scr4-import.png" alt="scr4-import" /></p>
+
+<p>Next, click “Add from URL” button.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/intro-to-machine-learning-with-apache-spark-and-apache-zeppelin/assets/scr7-click-url.png" alt="src7-click-url" /></p>
+
+<p>Finally, copy and paste the following url: <a href="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/intro-to-machine-learning-with-apache-spark-and-apache-zeppelin/assets/note.json">note.json</a></p>
+
+<p>and click “Import Note”</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/intro-to-machine-learning-with-apache-spark-and-apache-zeppelin/assets/scr8-import-url.png" alt="src8-import-url" /></p>
+
+<p>Voila! Now you should have your <em>Lab 101_DS: Machine Learning with Spark</em> listed in the main Zeppelin directory.</p>
+
+<p>Click on the lab to get started and follow the step-by-step instructions in the notebook to complete the lab.</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<p>Once you’re done with the lab, make sure to checkout other Zeppelin Labs and <a href="https://hortonworks.com/hadoop/spark/#tutorials">Spark Tutorials</a>.</p>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-367.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-367&amp;topics=hdp-2.6.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Intro to Machine Learning with Apache Spark and Apache Zeppelin</strong></p>
+  <p>HCC Tags:<strong> tutorial-367</strong> and <strong>hdp-2.6.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+

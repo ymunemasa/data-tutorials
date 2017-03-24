@@ -1,0 +1,175 @@
+<div class="tutorial-content">
+  <h1 id="deploying-hortonworks-sandbox-on-microsoft-azure">Deploying Hortonworks Sandbox on Microsoft Azure</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The Azure cloud infrastructure has become a common place for users to deploy virtual machines on the cloud due to its flexibility, ease of deployment, and cost benefits.  Microsoft has expanded Azure to include a marketplace with thousands of certified, open source, and community software applications and developer services, pre-configured for Microsoft Azure.  This tutorial covers deploying the Hortonworks Sandbox offering via the Azure Marketplace.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li><a href="https://azure.microsoft.com/en-us/free/">A Microsoft Azure account. You can sign up for an evaluation account if you do not already have one.</a></li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#find-hortonworks-sandbox-on-azure-marketplace">Find Hortonworks Sandbox on Azure Marketplace</a></li>
+  <li><a href="#creating-the-sandbox">Creating the Sandbox</a></li>
+  <li><a href="#set-a-static-ip">Set a Static IP</a></li>
+  <li><a href="#configure-ssh-tunneling">Configure SSH Tunneling</a></li>
+  <li><a href="#splash-screen">Splash Screen</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+</ul>
+
+<h2 id="find-hortonworks-sandbox-on-azure-marketplace">Find Hortonworks Sandbox on Azure Marketplace</h2>
+
+<p>Go to <a href="https://azuremarketplace.microsoft.com/en-us/marketplace">Microsoft Azure Marketplace</a> and enter “Hortonworks” into the search bar.  Submit, and the <strong>Hortonworks Sandbox</strong> product should appear as shown in this screenshot.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/1.jpg" alt="Select &quot;Hortonworks Sandbox&quot; from the bottom view." /></p>
+
+<p>Select the Hortonworks Sandbox product and its Overview will display.  Click on <strong>Get It Now</strong> to start the setup process.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/2.jpg" alt="Select &quot;GET IT NOW&quot; to begin the setup process." /></p>
+
+<p>If prompted, sign in to Azure Marketplace.  Afterward, you’ll be asked to confirm your selection, as shown below.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/3.jpg" alt="Select &quot;Continue&quot; to continue the process." /></p>
+
+<h2 id="creating-the-sandbox">Creating the Sandbox</h2>
+
+<p>An explanation of the Hortonworks Sandbox will come on the screen.  When ready to begin the deployment process, select <strong>Create</strong> from the bottom of the screen.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/4.jpg" alt="Select &quot;Create&quot; on the bottom of the screen." /></p>
+
+<p>Fill out some basic sandbox configuration settings.  Scroll down for an explanation of the different fields.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/5.jpg" alt="The basic configuration page with filled-out fields." /></p>
+
+<p>The different fields:</p>
+<ul>
+  <li><strong>Name</strong>: This is the name you want to use to reference the machine.  In the example above, we use the name “MySandbox”</li>
+  <li><strong>User name</strong>: The name of the user account that will be used to log into the machine.  Throughout these tutorials, we will use azure as the user name.</li>
+  <li><strong>Authentication type</strong>: By default, the machine will be deployed and allow you to connect via SSH key or password.  In this example, we opt to use a password.</li>
+  <li><strong>Subscription</strong>: The subscription to deploy the machine under.  Select one already in your list.</li>
+  <li><strong>Resource group</strong>: The name of the resource group to create, or use an existing one.  Here, we create a new one with the same name as the machine itself.</li>
+  <li><strong>Location</strong>: Which region in the Azure offering to deploy the machine to.</li>
+</ul>
+
+<blockquote>
+  <p>Note: Make sure to write down or remember your username and password.  If using SSH, ensure you have the corresponding private key.  Otherwise, you will not be able to log in to the machine.</p>
+</blockquote>
+
+<p>The next step is to choose a size for the virtual machine.  It is recommended to use a machine with A4 specifications, or higher.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/6.jpg" alt="Select a size for your virtual machine." /></p>
+
+<p>Optional settings to configure.  You can safely leave these at their defaults.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/7.jpg" alt="Optional settings for the machine." /></p>
+
+<p>Look over the summary and continue when ready.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/8.jpg" alt="Summary of the deployment settings." /></p>
+
+<p>Alright, we’re ready to deploy!  Review the offer details and purchase when ready.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/9.jpg" alt="Review the offer details." /></p>
+
+<p>Once the offer is submitted by selecting <strong>Purchase</strong>, the sandbox will take a few minutes to set up and deploy.  After deployment is complete, we can move on to connecting to the sandbox.</p>
+
+<h2 id="set-a-static-ip">Set a Static IP</h2>
+
+<p>Once the machine is deployed, it’s overview will appear on the screen.  Find the sandbox’s public IP address and click on it.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/10.jpg" alt="Find the machine's IP address." /></p>
+
+<p>Clicking on the IP address will bring up the IP configuration panel.  Select <strong>Static</strong> as the Assignment, and then make sure to save your changes.  This will keep the sandbox from changing IP addresses each time it’s rebooted.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/static-ip.jpg" alt="Set the machine's IP to static" /></p>
+
+<h2 id="configure-ssh-tunneling">Configure SSH Tunneling</h2>
+
+<p>SSH tunneling allows us a way to port forward securely, without actually opening the machine’s ports for the entire world to access.  Follow these steps to access the endpoints of your Azure deployment from your computer.</p>
+
+<p>Use your favorite editor and edit your <code class="highlighter-rouge">~/.ssh/config</code> file.  For example:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>vi ~/.ssh/config
+</code></pre>
+</div>
+
+<p>Enter the following configuration, replacing the <strong>HostName</strong> IP with the public IP of your instance.  More forwardings can be entered via the <strong>LocalForward</strong> directive similar to the ones displayed here.</p>
+
+<blockquote>
+  <p>Note: Spacing and capitalization is important.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Host azureSandbox
+  Port 22
+  User azure
+  HostName 52.175.207.131
+  LocalForward 8080 127.0.0.1:8080
+  LocalForward 8888 127.0.0.1:8888
+  LocalForward 9995 127.0.0.1:9995
+  LocalForward 9996 127.0.0.1:9996
+  LocalForward 8886 127.0.0.1:8886
+  LocalForward 10500 127.0.0.1:10500
+  LocalForward 4200 127.0.0.1:4200
+  LocalForward 2222 127.0.0.1:2222
+</code></pre>
+</div>
+
+<p>Save and close the file.  Now SSH into the Azure machine by using the <strong>Host</strong> alias we just configured, which will connect us automatically using the IP address we specified in the config file.  You’ll be asked for a password, which is the one you set during initial configuration on Azure.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh azureSandbox
+</code></pre>
+</div>
+
+<p>That’s it!  Keep this SSH connection open for the duration of your interaction with the sandbox on Azure.</p>
+
+<h2 id="splash-screen">Splash Screen</h2>
+
+<p>Now that you’ve port forwarded by following the tutorial linked above, you can explore the sandbox as you see fit.  Point your browser to <a href="http://localhost:8888">http://localhost:8888</a> for the sandbox’s splash screen.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/sandbox-registration.jpg" alt="Sandbox registration form" /></p>
+
+<p>Fill out the form and hit <strong>Submit</strong> to access the sandbox.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/deploying-hortonworks-sandbox-on-microsoft-azure/assets/sandbox-splash.jpg" alt="The sandbox splash page." /></p>
+
+<h2 id="summary">Summary</h2>
+
+<p>You can now access all forwarded ports by pointing a browser to <a href="http://localhost:portNumber">http://localhost:portNumber</a>.  For example: <a href="http://localhost:8888">http://localhost:8888</a> will connect to the Azure machine and sandbox over port 8888.</p>
+
+<p>SSH tunneling allows us a way to port forward securely, without actually opening the machine’s ports for the entire world to access.</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<p>Now that you’ve got HDP up and running, check out our other tutorials to learn how to leverage its power.</p>
+
+<ul>
+  <li><a href="https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox">Learning the Ropes of the Hortonworks Sandbox</a></li>
+  <li><a href="https://chamibuddhika.wordpress.com/2012/03/21/ssh-tunnelling-explained">SSH Tunneling Explained</a></li>
+</ul>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-620.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-620&amp;topics=hdp-2.5.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Deploying Hortonworks Sandbox on Microsoft Azure</strong></p>
+  <p>HCC Tags:<strong> tutorial-620</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+

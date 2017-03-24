@@ -1,0 +1,162 @@
+<div class="tutorial-content">
+  <h1 id="getting-started-with-apache-zeppelin">Getting Started with Apache Zeppelin</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Apache Zeppelin is a web-based notebook that enables interactive data analytics. With Zeppelin, you can make beautiful data-driven, interactive and collaborative documents with a rich set of pre-built language backends (or interpreters) such as Scala (with Apache Spark), Python (with Apache Spark), SparkSQL, Hive, Markdown, Angular, and Shell.</p>
+
+<p>With a focus on Enterprise, Zeppelin has the following important features:</p>
+
+<ul>
+  <li>Livy integration (REST interface for interacting with Spark)</li>
+  <li>
+    <p>Security:</p>
+
+    <ul>
+      <li>Execute jobs as authenticated user</li>
+      <li>Zeppelin authentication against LDAP</li>
+      <li>Notebook authorization</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>HDP 2.5</li>
+  <li>Spark 1.6.2</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li><a href="#launching-zeppelin">Launching Zeppelin</a></li>
+  <li><a href="#creating-a-notebook">Creating a Notebook</a></li>
+  <li><a href="#importing-notebooks">Importing Notebooks</a></li>
+  <li><a href="#importing-external-libraries">Importing External Libraries</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+</ul>
+
+<h2 id="launching-zeppelin">Launching Zeppelin</h2>
+
+<p>If you haven’t already, login to Ambari (operations console) using <code class="highlighter-rouge">maria_dev</code>/<code class="highlighter-rouge">maria_dev</code> as a username/password combination. Remember that Ambari is accessible on port 8080.</p>
+
+<p>E.g. on a VirtualBox Sandbox, Ambari would be accessible at http://127.0.0.1:8080.</p>
+
+<p>Note: If you’re new to the HDP Sandbox environment, make sure to review <a href="https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox</a>.</p>
+
+<p><img src="https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr1-login.png" alt="scr1-login" /></p>
+
+<p>Okay, once you’re in Ambari just click the Views dropdown (upper-right corner) and select Zeppelin.</p>
+
+<p><img src="https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr2-views.png" alt="scr2-views" /></p>
+
+<p>Voila, you should see default Zeppelin menu with a list of demos and labs that you can run to explore great examples to get you quickly up and running.</p>
+
+<p><img src="https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr3-zeppelin-main.png" alt="scr3-zeppelin-main" /></p>
+
+<p>Now let’s create your first notebook.</p>
+
+<h2 id="creating-a-notebook">Creating a Notebook</h2>
+
+<p>To create a notebook:</p>
+
+<ol>
+  <li>
+    <p>Under the “Notebook” tab, choose <strong>+Create new note</strong>.</p>
+  </li>
+  <li>
+    <p>You will see the following window. Type a name for the new note (or accept the default): <br /><br /><img src="https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr9-create-notebook.png" alt="scr9-create-notebook" /></p>
+  </li>
+  <li>
+    <p>Type sc.version into a paragraph in the note, and click the “Play” button (blue triangle): <br /><br /><img src="https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr10-check-spark-version.png" alt="scr10-check-spark-version" /><br />
+SparkContext, SQLContext, ZeppelinContext will be created automatically. They will be exposed as variable names ‘sc’, ‘sqlContext’ and ‘z’, respectively, in scala and python environments.<br /><br />
+<strong>Note:</strong> The first run will take some time, because it is launching a new Spark job to run against YARN. Subsequent paragraphs will run much faster.<br /><br /></p>
+  </li>
+  <li>
+    <p>When finished, the status indicator on the right will say “FINISHED”. The output should list the version of Spark in your cluster: <br /></p>
+  </li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>res0: String = 1.6.2
+</code></pre>
+</div>
+
+<h2 id="importing-notebooks">Importing Notebooks</h2>
+
+<p>Alternatively, instead of creating a new notebook, you may want to import an existing notebook instead.</p>
+
+<p>There are two ways to import Zeppelin notebooks, either by pointing to json notebook file local to your environment or by providing a url to raw file hosted elsewhere, e.g. on github. We’ll cover both ways of importing those files.</p>
+
+<p><strong>1. Importing a JSON file</strong></p>
+
+<p>Click Import.</p>
+
+<p><img src="https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr4-import.png" alt="scr4-import" /></p>
+
+<p>Next, click “Choose a JSON here” button.</p>
+
+<p><img src="https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr5-click-json.png" alt="src5-click-json" /></p>
+
+<p>Finally, select the notebook you want to import.</p>
+
+<p><img src="https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr6-choose-json.png" alt="src6-choose-json" /></p>
+
+<p>Now you should see your imported notebook among other notebooks on the main Zeppelin screen.</p>
+
+<p><strong>2. Importing a Notebook with a URL</strong></p>
+
+<p>Click Import.</p>
+
+<p><img src="https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr4-import.png" alt="scr4-import" /></p>
+
+<p>Next, click “Add from URL” button.</p>
+
+<p><img src="https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr7-click-url.png" alt="src7-click-url" /></p>
+
+<p>Finally, copy and paste the url to the (raw) json file.</p>
+
+<p><img src="https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr8-import-url.png" alt="src8-import-url" /></p>
+
+<p>Now you should see your imported notebook among other notebooks on the main Zeppelin screen.</p>
+
+<h2 id="importing-external-libraries">Importing External Libraries</h2>
+
+<p>As you explore Zeppelin you will probably want to use one or more external libraries. For example, to run <a href="https://hortonworks.com/blog/magellan-geospatial-analytics-in-spark/">Magellan</a> you need to import its dependencies; you will need to include the Magellan library in your environment. There are three ways to include an external dependency in a Zeppelin notebook: <strong>Using the %dep interpreter</strong> (<strong>Note</strong>: This will only work for libraries that are published to Maven.)</p>
+
+<pre>%dep
+z.load("group:artifact:version")
+%spark
+import ...</pre>
+
+<p>Here is an example that imports the dependency for Magellan:</p>
+
+<pre>%dep
+z.addRepo("Spark Packages Repo").url("http://dl.bintray.com/spark-packages/maven")
+z.load("com.esri.geometry:esri-geometry-api:1.2.1")
+z.load("harsha2010:magellan:1.0.3-s_2.10")</pre>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<p>For more information, see <a href="https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading">https://zeppelin.incubator.apache.org/docs/interpreter/spark.html#dependencyloading</a>.</p>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-368.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-368&amp;topics=hdp-2.5.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Getting Started with Apache Zeppelin</strong></p>
+  <p>HCC Tags:<strong> tutorial-368</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+
