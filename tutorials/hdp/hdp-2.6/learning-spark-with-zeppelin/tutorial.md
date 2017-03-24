@@ -73,7 +73,7 @@ Keep in mind, that you will need **8GB** of memory dedicated for the virtual mac
 
 2b. Review [Learning the Ropes of HDP Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
-#### Review Zeppelin Tutorial (optional)
+#### Review Zeppelin Tutorial
 
 If you are new to Zeppelin, review the following tutorial [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md)
 
