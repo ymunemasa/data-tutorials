@@ -1,0 +1,126 @@
+<div class="tutorial-content">
+  <h1 id="hands-on-tour-of-apache-spark-in-5-minutes">Hands-On Tour of Apache Spark in 5 Minutes</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/hands-on-tour-of-apache-spark-in-5-minutes/assets/spark-logo.png" alt="Spark Logo" /></p>
+
+<p>Apache Spark is a fast, in-memory data processing engine with elegant and expressive development APIs in Scala, Java, Python, and R that allow developers to execute a variety of data intensive workloads.</p>
+
+<p>In this tutorial, we will use an <a href="https://zeppelin.apache.org/">Apache Zeppelin</a> notebook for our development environment to keep things simple and elegant. Zeppelin will allow us to run in a pre-configured environment and execute code written for Spark in Scala and SQL, a few basic Shell commands, pre-written Markdown directions, and an HTML formatted table.</p>
+
+<h3 id="the-dataset">The Dataset</h3>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/hands-on-tour-of-apache-spark-in-5-minutes/assets/silicon_valley_corporation.jpg" alt="Silicon Valley Image" /></p>
+
+<p>To make things fun and interesting, we will introduce a film series dataset from the <a href="https://www.imdb.com/title/tt2575988/">Silicon Valley Comedy TV show</a> and perform some basic operations with Spark in Zeppelin.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>This tutorial is a part of series of hands-on tutorials to get you started with <a href="https://hortonworks.com/products/data-center/hdp/">Hortonworks Data Platform (HDP)</a> using either the <a href="https://hortonworks.com/products/cloud/aws/">Hortonworks Data Cloud (HDCloud)</a> or a pre-configured downloadable <a href="https://hortonworks.com/products/sandbox/">HDP Sandbox</a>.</li>
+  <li>The Zeppelin notebook uses basic Scala and SQL syntax and a Python version is coming soon.</li>
+  <li>(Optional) If you are new to Zeppelin, review the following tutorial: <a href="https://hortonworks.com/hadoop-tutorial/getting-started-apache-zeppelin/">Getting Started with Apache Zeppelin</a></li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li><a href="#concepts">Concepts</a></li>
+  <li><a href="#environment-setup">Environment Setup</a>
+    <ul>
+      <li><a href="#option-1-setup-hortonworks-data-cloud-hdcloud-on-aws">Option 1: Setup Hortonworks Data Cloud (HDCloud) on AWS</a></li>
+      <li><a href="#option-2-download-and-setup-hortonworks-data-platform-hdp-sandbox">Option 2: Download and Setup Hortonworks Data Platform (HDP) Sandbox</a></li>
+    </ul>
+  </li>
+  <li><a href="#notebook-preview">Notebook Preview</a></li>
+  <li><a href="#start-the-tutorial">Start the Tutorial</a></li>
+  <li><a href="#summary">Summary</a></li>
+</ul>
+
+<h2 id="concepts">Concepts</h2>
+
+<p>As mentioned earlier, we will download and ingest an external dataset about the Silicon Valley Show episodes into a Spark Dataset and perform basic analysis, filtering, and word count.</p>
+
+<p>Spark Datasets are strongly typed distributed collections of data created from a variety of sources: JSON and XML files, tables in Hive, external databases and more. Conceptually, they are equivalent to a table in a relational database or a DataFrame in R or Python.</p>
+
+<p>After a series of transformations, applied to the Datasets, we will define a temporary view (table) that you will be able to explore using SQL queries. Once you have a handle on the data and perform a basic word count, we will add a few more steps for a more sophisticated word count analysis.</p>
+
+<p>By the end of this tutorial, you should have a basic understanding of Spark and an appreciation for its powerful and expressive APIs with the added bonus of a developer friendly Zeppelin notebook environment.</p>
+
+<h2 id="environment-setup">Environment Setup</h2>
+
+<h3 id="option-1-setup-hortonworks-data-cloud-hdcloud-on-aws">Option 1: Setup Hortonworks Data Cloud (HDCloud) on AWS</h3>
+
+<p>1a. Create an <a href="https://aws.amazon.com/">Amazon Web Services (AWS) Account</a> if you don’t have one</p>
+
+<p>1b. Follow this step-by-step doc to <a href="https://hortonworks.github.io/hdp-aws/launch/index.html">Setup and Launch a Controller on HDCloud</a></p>
+
+<p>1c. Create a <em>Data Science</em> <a href="https://hortonworks.github.io/hdp-aws/create/index.html">Cluster</a> (use settings listed below)</p>
+
+<p>Select/specify the following for your cluster:</p>
+
+<ul>
+  <li>HDP Version: HDP 2.6 or later</li>
+  <li>Cluster Type: “Data Science: Apache Spark 2.1+, Apache Zeppelin 0.6.2+” or later</li>
+  <li>Worker instance count: one or more</li>
+  <li>Remote Access: 0.0.0.0/0</li>
+</ul>
+
+<p>Here’s a screenshot with sample settings:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/hands-on-tour-of-apache-spark-in-5-minutes/assets/spinning-up-hdcloud-cluster.jpg" alt="setting-up-hd-cloud" /></p>
+
+<h3 id="option-2-download-and-setup-hortonworks-data-platform-hdp-sandbox">Option 2: Download and Setup Hortonworks Data Platform (HDP) Sandbox</h3>
+
+<p>This option is optimal if you prefer to run everything in local environment (laptop/PC).</p>
+
+<p>Keep in mind, that you will need <strong>8GB</strong> of memory dedicated for the virtual machine, meaning that you should have at least <strong>12GB</strong> of memory on your system.</p>
+
+<p>2a. Download and Install <a href="https://hortonworks.com/products/sandbox/">HDP Sandbox 2.6</a></p>
+
+<p>2b. Review <a href="https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of HDP Sandbox</a></p>
+
+<h2 id="notebook-preview">Notebook Preview</h2>
+
+<p>Before you start, here’s a preview of the notebook.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/hands-on-tour-of-apache-spark-in-5-minutes/assets/notebook-preview-large.jpg" alt="Notebook Preview" /></p>
+
+<h2 id="start-the-tutorial">Start the Tutorial</h2>
+
+<p>To begin the tutorial, import the <em>Apache Spark in 5 Minutes</em> notebook into your Zeppelin environment. (If at any point you have any issues, make sure to checkout the <a href="https://hortonworks.com/hadoop-tutorial/getting-started-apache-zeppelin/">Getting Started with Zeppelin</a> tutorial.)</p>
+
+<p>On the Zeppelin home screen click <code class="highlighter-rouge">Import note</code> -&gt; <code class="highlighter-rouge">Add from URL</code> and copy and paste the following URL: <a href="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/hands-on-tour-of-apache-spark-in-5-minutes/assets/note.json">note.json</a></p>
+
+<p>Once your notebook is imported, you can open it from the Zeppelin home screen by clicking
+<code class="highlighter-rouge">Getting Started</code> -&gt; <code class="highlighter-rouge">Apache Spark in 5 Minutes</code></p>
+
+<p>Once the <em>Apache Spark in 5 Minutes</em> notebook is up, follow all the directions within the notebook to complete the tutorial.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>We hope that you’ve been able to successfully run this short introductory notebook in either your cloud or local environment and we’ve got you interested and excited enough to further explore Spark with Zeppelin.</p>
+
+<p>Make sure to checkout other <a href="https://hortonworks.com/tutorials/">tutorials</a> for more in-depth examples of the Spark SQL module, as well as other Spark modules used for Streaming and/or Machine Learning tasks.</p>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-360.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-360&amp;topics=hdp-2.6.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Hands-On Tour of Apache Spark in 5 Minutes</strong></p>
+  <p>HCC Tags:<strong> tutorial-360</strong> and <strong>hdp-2.6.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+

@@ -1,0 +1,200 @@
+<div class="tutorial-content">
+  <h1 id="fast-analytics-in-the-cloud-with-hive-llap">Fast analytics in the cloud with Hive LLAP</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Hadoop has always been associated with BigData, yet the perception is it’s only suitable for high latency, high throughput queries. With the contribution of the community, you can use Hadoop interactively for data exploration and visualization.  In this tutorial you’ll learn how to analyze large datasets using Apache Hive LLAP on Amazon Web Services (AWS) through the use of Business Intelligence (BI) tools like Tableau.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>
+    <p><a href="https://hortonworks.com/products/cloud/aws/">Hortonworks Data Cloud (HDCloud) for AWS</a> is a platform for analyzing and processing data, enabling businesses to achieve insights more quickly and with greater flexibility than ever before. Instead of going through infinite configuration options, you can choose from a set of prescriptive cluster configurations and you can start modeling and analyzing your data sets in minutes. When you are done with your analysis, you can give the resources back to the cloud, reducing your costs. <a href="http://hortonworks.github.io/hdp-aws/">Get Started</a> with general instructions on how to launch a cloud controller instance and create cluster(s).</p>
+  </li>
+  <li>Must have an <a href="https://aws.amazon.com/">Amazon Web Services(AWS)</a> account</li>
+  <li>Must have installed <a href="http://hortonworks.com/downloads/#addons">Hortonworks ODBC Driver for Apache Hive</a></li>
+  <li>Must have installed <a href="https://www.tableau.com/">Tableau</a>. For this tutorial, we’re using Tableau version 10.2.0.</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#create-cluster-for-hive-llap">Create cluster for Hive LLAP</a></li>
+  <li><a href="#create-hive-tables-and-load-data">Create Hive tables and load data</a></li>
+  <li><a href="#create-data-model-on-tableau">Create data model on Tableau</a></li>
+  <li><a href="#Lab-1-airline-growth-trend">Lab 1: Airline Growth Trend</a></li>
+  <li><a href="#lab-2-airport-delay">Lab 2: Airport Delay</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+</ul>
+
+<h2 id="create-cluster-for-hive-llap">Create cluster for Hive LLAP</h2>
+
+<p>A few cluster modifications are required when creating a cluster to take advantage of Hive LLAP. After you login to AWS, search or go to the CloudFormation service:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/cluster1.png" alt="search for CloudFormation service" /></p>
+
+<p>From the CloudFormation service screen, Open CloudURL:</p>
+<ol>
+  <li>Select your CloudController Stack Name</li>
+  <li>Select the Outputs tab</li>
+  <li>Search for the Key “CloudURL” and open the URL provided.</li>
+</ol>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/cluster2.png" alt="open CloudURL" /></p>
+
+<p>Login using your credentials:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/cluster3.png" alt="open CloudURL" /></p>
+
+<p>Create a cluster as you normally do, with the exception of:</p>
+<ol>
+  <li><mark>Cluster Type:</mark> EDW-Analytics: Apache Hive 2 LLAP, Apache Zeppelin 0.6.0</li>
+  <li><mark>Master Instance Type:</mark> m4.xlarge (4vCPU, 16.0 GB Memory)</li>
+  <li><mark>Worker Instance Type:</mark> m3.2xlarge (8vCPU, 30.0 GB Memory, 2x80 GB Local Storage)</li>
+  <li><mark>Instance Count:</mark> 3</li>
+</ol>
+
+<p>Settings should look similar to:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/cluster4.png" alt="open CloudURL" /></p>
+
+<p>Once the cluster is created and running, login Ambari:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/cluster5.png" alt="open CloudURL" /></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/cluster6.png" alt="open CloudURL" /></p>
+
+<h2 id="create-hive-tables-and-load-data">Create Hive tables and load data</h2>
+<p>Now, we’ll go into the Hive View and create the necessary tables for our analysis:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/hiveview1.png" alt="open CloudURL" /></p>
+
+<p>Cut-Paste <a href="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/hiveview-ddl.sql">DDL</a> into the Hive Query Editor and execute:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/hiveview2.png" alt="open CloudURL" /></p>
+
+<p>Cut-Paste the following command into the Hive Query Editor to reload all the partitions from S3. We now have some data to play with:</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="n">msck</span> <span class="n">repair</span> <span class="k">table</span> <span class="n">flights</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/hiveview3.png" alt="open CloudURL" /></p>
+
+<h2 id="create-data-model-on-tableau">Create data model on Tableau</h2>
+
+<p>We’ll need to know the master’s node IP address so we can connect to it via Tableau. Capture the IP address from Ambari:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/tableau-ip.png" alt="open CloudURL" /></p>
+
+<p>Startup Tableau and connect using “Hortonworks Hadoop Hive” server. If the server is not displayed, click on “More…”:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/tableau1.png" alt="open CloudURL" /></p>
+
+<p>Connect to Hortonworks Hadoop Hive using the master’s node IP address.</p>
+<ol>
+  <li><mark>Server</mark>: master’s node IP address</li>
+  <li><mark>Port</mark>: 8443</li>
+  <li><mark>Type</mark>: HiveServer2</li>
+  <li><mark>Authentication</mark>: Username and Password</li>
+  <li><mark>Transport</mark>: HTTP</li>
+  <li><mark>HTTP Path</mark>: gateway/hdc/hive</li>
+  <li>Do not use a custom SSL certificate file</li>
+  <li><strong>Sign In</strong></li>
+</ol>
+
+<p>The settings look like:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/tableau2.png" alt="open CloudURL" /></p>
+
+<p>Now that we’re connected with Tableau, we’ll select the “hwxdemo” schema for our analysis.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/tableau3.png" alt="open CloudURL" /></p>
+
+<p>We’ll create our data model using the following 4 tables:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/tableau4.png" alt="open CloudURL" /></p>
+
+<p>We create our data model using the following tables loaded in order with associations as described below:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Load Order</th>
+      <th style="text-align: center">Table</th>
+      <th style="text-align: left">Inner Join Condition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">1</td>
+      <td style="text-align: center">flights</td>
+      <td style="text-align: left">n/a</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">airlines</td>
+      <td style="text-align: left">Uniquecarrier = Code</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">planes</td>
+      <td style="text-align: left">Tailnum = Tailnum(Planes)</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">4</td>
+      <td style="text-align: center">airports</td>
+      <td style="text-align: left">Origin = Iata, rename “airports” to “airports_origin”</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">airports</td>
+      <td style="text-align: left">Dest = Iata(Airports), rename “airports” to “airports_dest”</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The final table associations should look like this:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/tableau5.png" alt="open CloudURL" /></p>
+
+<h2 id="lab-1-airline-growth-trend">Lab 1: Airline Growth Trend</h2>
+
+<p>Using the data model built, we can visualize airline growth over the years:
+<a href="https://www.youtube.com/embed/6ED4I2KME0w?start=847&amp;end=984"><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/airline-growth.png" alt="Airline Growth Trend" /></a></p>
+
+<h2 id="lab-2-airport-delay">Lab 2: Airport Delay</h2>
+
+<p>Using the data model built, we can visualize which airports have most delays:
+<a href="https://www.youtube.com/embed/6ED4I2KME0w?start=994&amp;end=1373"><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.6/fast-analytics-in-the-cloud-with-hive-llap/assets/airport-delay.png" alt="Airport Delay" /></a></p>
+
+<h2 id="summary">Summary</h2>
+
+<p>Congratulations! You’ve completed the tutorial.</p>
+
+<p>As seen by this tutorial, it is easy to use Hive LLAP on Amazon Web Services (AWS). In using Business intelligence tools (BI tools), like Tableau, you are able to interactively explore and analyze your data.</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-&amp;topics=hdp-2.6.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Fast analytics in the cloud with Hive LLAP</strong></p>
+  <p>HCC Tags:<strong> tutorial-</strong> and <strong>hdp-2.6.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+

@@ -1,0 +1,351 @@
+<div class="tutorial-content">
+  <h1 id="refine-and-visualize-server-log-data">Refine and Visualize Server Log Data</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Security breaches happen. And when they do, your server logs may be your best line of defense. Hadoop takes server-log analysis to the next level by speeding and improving security forensics and providing a low cost platform to show compliance.</p>
+
+<p>In this demo, we demonstrate how an enterprise security breach analysis and response might be performed.</p>
+
+<h3 id="in-this-tutorial-learn-how-to">In this tutorial, learn how to:</h3>
+
+<ul>
+  <li>Stream server logs into Hadoop with <a href="https://hortonworks.com/hdf/">Hortonworks Dataflow</a> powered by <strong>Apache NiFi</strong></li>
+  <li>Use <a href="https://hortonworks.com/hadoop/hive">Hive</a> to build a relational view of the data</li>
+  <li>Use Elastic Search for high-level visualization</li>
+  <li>Use <a href="https://hortonworks.com/hadoop/oozie">Oozie</a> to automatically update a firewall</li>
+  <li>Visualize the data with <a href="https://hortonworks.com/hadoop/zeppelin">Apache Zeppelin</a></li>
+</ul>
+
+<p>This Hadoop tutorial can be performed with the <a href="https://hortonworks.com/products/sandbox">Hortonworks Sandbox</a> – a single-node Hadoop cluster running in a virtual machine. Download to run this and other tutorials in the series. The tutorial presented here is for Sandbox HDP 2.5.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>Hortonworks Sandbox (installed and running)</li>
+  <li>Hortonworks DataFlow - <a href="https://hortonworks.com/downloads/#dataflow">Download here</a></li>
+  <li>If you’d like to use Tableau to explore the data, please see this HOWTO on the Hortonworks website: <a href="https://hortonworks.com/kb/how-to-connect-tableau-to-hortonworks-sandbox/">HOWTO: Connect Tableau to the Hortonworks Sandbox</a></li>
+  <li>Server log tutorial files (included in this tutorial)</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li><a href="#concepts">Concepts</a></li>
+  <li><a href="#step-1–configure-and-install-hortonworks-dataflow">Step 1 – Configure and Install Hortonworks DataFlow</a></li>
+  <li><a href="#import-flow">Step 2 - Import the Flow</a></li>
+  <li><a href="#generate-server-log-ata">Step 3 - Generate the Server Log Data</a></li>
+  <li><a href="#visualize-log-data-zeppelin">Step 4 - Visualize Server Log Data with Apache Zeppelin</a></li>
+  <li><a href="#summary-server-logs">Summary</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+</ul>
+
+<h3 id="overview">Overview</h3>
+
+<ul>
+  <li>Understand Server Log Data, Become familiar with Server Log Data Use Cases, Hortonworks DataFlow and Apache NiFi</li>
+  <li>Download and configure the script which will generate our server log data</li>
+  <li>Install, configure, and start Hortonworks DataFlow</li>
+  <li>Generate the server log data.</li>
+  <li>Import the server log data into Excel.</li>
+  <li>Visualize the server log data using Excel Power View and Apache Zeppelin.</li>
+</ul>
+
+<h2 id="concepts">Concepts</h2>
+
+<h3 id="server-log-data">Server Log Data</h3>
+
+<p>Server logs are computer-generated log files that capture network and server operations data. They are useful for managing network operations, especially for security and regulatory compliance.</p>
+
+<h3 id="potential-uses-of-server-log-data">Potential Uses of Server Log Data</h3>
+
+<p>IT organizations use server log analysis to answer questions about:</p>
+
+<ul>
+  <li><strong>Security</strong> – For example, if we suspect a security breach, how can we use server log data to identify and repair the vulnerability?</li>
+  <li><strong>Compliance</strong> – Large organizations are bound by regulations such as HIPAA and Sarbanes-Oxley. How can IT administrators prepare for system audits?</li>
+</ul>
+
+<p>In this tutorial, we will focus on a network security use case. Specifically, we will look at how Apache Hadoop can help the administrator of a large enterprise network diagnose and respond to a distributed denial-of-service attack.</p>
+
+<h3 id="what-is-hortonworks-dataflow-and-apache-nifi">What Is Hortonworks Dataflow and Apache NiFi?</h3>
+
+<p><strong>Apache NiFi</strong> is a secure integrated platform for real time data collection, simple event processing, transport and delivery from source to storage. It is useful for moving distributed data to and from your Hadoop cluster. NiFi has lots of distributed processing capability to help reduce processing cost and get real-time insights from many different data sources across many large systems and can help aggregate that data into a single, or many different places.</p>
+
+<p><strong>NiFi</strong> lets users get the most value from their data. Specifically NiFi allows users to:</p>
+
+<ul>
+  <li>Stream data from multiple source</li>
+  <li>Collect high volumes of data in real time</li>
+  <li>Guarantee delivery of data</li>
+  <li>Scale horizontally across many machines</li>
+</ul>
+
+<p><strong>How NiFi Works</strong>. NiFi’s high-level architecture is focused on delivering a streamlined interface that is easy to use and easy to set up. There is a little bit of terminology that are an integral part to understanding how NiFi works.</p>
+
+<ul>
+  <li><strong>Processor</strong>: Processors in NiFi are what makes the data move. Processors can help generate data, run commands, move data, convert data, and many many more. NiFi’s architecture and feature set is designed to be extended these processors. They are at the very core of NiFi’s functionality.</li>
+  <li><strong>Processing Group</strong>: When data flows get very complex, it can be very useful to group different parts together which perform certain functions. NiFi abstracts this concept and calls them processing groups.</li>
+  <li><strong>FlowFile</strong>: A FlowFile in NiFi represents just a single piece of data. It is made of different parts. <strong>Attributes</strong> and <strong>Contents</strong>. Attributes help give the data context which are made of key-value pairs. Typically there are 3 attributes which are present on all FlowFiles: <strong>uuid</strong>, <strong>filename</strong>, and <strong>path</strong></li>
+  <li><strong>Connections</strong> and <strong>Relationships</strong>: NiFi allows users to simply drag and drop connections between processors which controls how the data will flow. Each connection will be assigned to different types of relationships for the FlowFiles (such as successful processing, or a failure to process)</li>
+</ul>
+
+<p>A FlowFile can originate from a processor in NiFi. Processors can also receive the flowfiles and transmit them to many other processors. These processors can then drop the data in the flowfile into various places depending on the function of the processor.</p>
+
+<p><strong>Notes:</strong></p>
+
+<ul>
+  <li>In this tutorial, the Hortonworks Sandbox is installed on an Oracle VirtualBox virtual machine (VM).</li>
+  <li>Install the ODBC driver that matches the version of Excel you are using (32-bit or 64-bit).</li>
+  <li>In this tutorial, we will use the Power View feature in Excel 2013 to visualize the server log data. Power View is currently only available in Microsoft Office Professional Plus and Microsoft Office 365 Professional Plus.</li>
+  <li>We’re going to install Hortonworks DataFlow (HDF) on the Sandbox, so you’ll need to download the latest HDF release</li>
+</ul>
+
+<h2 id="step-1--configure-and-install-hortonworks-dataflow">Step 1 – Configure and Install Hortonworks DataFlow</h2>
+
+<h3 id="11---install-nifi-">1.1 - Install NiFi <a id="step1-install-nifi-tutorial0"></a></h3>
+
+<p>NiFi will be installed into the Ambari Stack of the Hortonworks Sandbox VirtualBox image because it
+will be used to activate server log simulator and transport data to HDFS.</p>
+
+<p>1. If you do not have NiFi installed on your sandbox, refer to <a href="https://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#download-nifi-sandbox">Step 2: Download and Install NiFi on Hortonworks Sandbox (Option 1)</a> from Tutorial 0: Download, Install, and Start NiFi of
+Learning the Ropes of Apache NiFi for step-by-step instructions.</p>
+
+<h3 id="12---start-nifi-">1.2 - Start NiFi <a id="step2-start-nifi-tutorial0"></a></h3>
+
+<p>1. To activate the NiFi service, refer to <a href="https://hortonworks.com/hadoop-tutorial/learning-ropes-apache-nifi/#start-nifi-sandbox">Step 4: Start NiFi on Sandbox</a> from Tutorial 0: Download, Install, and Start NiFi of
+Learning the Ropes of Apache NiFi for step-by-step instructions.</p>
+
+<p>Once you enter the NiFi HTML Interface at <a href="http://localhost:9090/nifi">http://localhost:9090/nifi</a>, you should see a canvas as below:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step1/nifi_html_interface.png" alt="nifi-html-interface" /></p>
+
+<h2 id="step-2---import-the-flow-">Step 2 - Import the Flow <a id="import-flow"></a></h2>
+
+<p>We’re going to import a pre-made data flow from a template which you can <a href="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/templates/ServerLogGeneratorSecurity.xml"><strong>download ServerLogGeneratorSecurity.xml</strong></a>.</p>
+
+<p>Use the NiFi interface to upload the flow, and then drag it onto your workspace.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step2/upload_template.png" alt="Upload NiFi Template" /></p>
+
+<p>Once you’ve uploaded the template into NiFi you can instantiate it by dragging the template icon <img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step2/template_icon.png" alt="template_icon" /> onto the screen. It will ask you to select your template’s name and the flow will appear as in the image below.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step2/instantiate-template.png" alt="Instantiate NiFi Template" /></p>
+
+<h2 id="step-3---generate-the-server-log-data-">Step 3 - Generate the Server Log Data <a id="generate-server-log-ata"></a></h2>
+
+<p>Now that you’ve imported the data flow and everything it set up, simply click the <strong>Run</strong> at the top of the screen. (Make sure you haven’t selected a specific processor, or  else only one of the processors will start)</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step3/start-flow.png" alt="start-flow" /></p>
+
+<p>If you receive an error message stating “LzoCodec not found” and “LzopCodec not found” similar to the image below,</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step3/error_puthdfs_troubleshoot.png" alt="error_puthdfs_troubleshoot" /></p>
+
+<p>Login to Ambari Dashboard at <a href="http://localhost:8080">http://localhost:8080</a> as raj_ops user. The login credentials are <strong>raj_ops/raj_ops</strong>. Once inside Ambari, click <strong>HDFS</strong> in the left hand sidebar, then click on the <strong>Configs</strong> tab. Scroll down the page, next to Settings tab, click on the <strong>Advanced</strong> tab to open the Advanced configs. Navigate to <strong>Advanced core-site</strong> file, we will need to change property value for the <strong>io.compression.codecs</strong> setting.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step3/advanced_core_site_change_config.png" alt="advanced_core_site_change_config" /></p>
+
+<p>when you find the <strong>LzoCodec</strong> and <strong>LzopCodec</strong>, which are values within the <strong>io.compression.codecs</strong> property, the line will look as below:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.SnappyCodec,com.hadoop.compression.lzo.LzoCodec,com.hadoop.compression.lzo.LzopCodec
+</code></pre>
+</div>
+
+<p>Remove <strong>com.hadoop.compression.lzo.LzoCodec</strong> and <strong>com.hadoop.compression.lzo.LzopCodec</strong> from the config values.</p>
+
+<p>You should see the updated content in the <strong>io.compression.codecs</strong> value field as below:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.SnappyCodec
+</code></pre>
+</div>
+
+<p>Save the configuration change. Ambari will notify us that we need to restart HDFS, scroll to the top of HDFS Configs page, you should see a <strong>Orange Restart</strong> button, select <strong>Restart All Affected</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step3/restart_all_affected.png" alt="restart_all_affected" /></p>
+
+<p>Now that we are done setting configuration changes, navigate back to the dataflow at <a href="http://localhost:9090/nifi">http://localhost:9090/nifi</a> Now that we made the change, let’s rerun the DataFlow, those errors should be resolved.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step3/start-flow.png" alt="start-flow" /></p>
+
+<p>Now that everything is running we can check in the places where we see the data being deposited in HDFS. Since we will be checking if the NiFi DataFlow performs as expected, log out of raj_ops user, then login to Ambari as maria_dev user. Login to the Ambari Dashboard at <a href="http://localhost:8080">http://localhost:8080</a>. Login credentials are <strong>maria_dev/maria_dev</strong>.</p>
+
+<h3 id="31-verify-nifi-populates-hdfs-with-data-files">3.1 Verify NiFi Populates HDFS with Data Files</h3>
+
+<p>Open up the <strong>Files View</strong>, and then navigate to <code class="highlighter-rouge">/tmp/server-logs/</code>. Files should start appearing a few seconds after you start the flow. You can click on them to view the content.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step3/explore-output-files.png" alt="Explore Output" /></p>
+
+<ul>
+  <li>Next we will create an Hive table from the log file.</li>
+</ul>
+
+<h3 id="32-format-the-data-with-hive">3.2 Format the Data with Hive</h3>
+
+<p>Open the Ambari UI and head to the views dropdown list. Select <strong>Hive</strong> and then paste the following query.</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">FIREWALL_LOGS</span><span class="p">(</span>
+  <span class="n">time</span> <span class="n">STRING</span><span class="p">,</span>
+  <span class="n">ip</span> <span class="n">STRING</span><span class="p">,</span>
+  <span class="n">country</span> <span class="n">STRING</span><span class="p">,</span>
+  <span class="n">status</span> <span class="n">INT</span>
+<span class="p">)</span>
+<span class="n">CLUSTERED</span> <span class="k">BY</span> <span class="p">(</span><span class="n">time</span><span class="p">)</span> <span class="k">into</span> <span class="mi">25</span> <span class="n">buckets</span>
+<span class="n">STORED</span> <span class="k">AS</span> <span class="n">ORC</span>
+<span class="n">TBLPROPERTIES</span><span class="p">(</span><span class="nv">"transactional"</span><span class="o">=</span><span class="nv">"true"</span><span class="p">)</span>
+<span class="n">FIELDS</span> <span class="n">TERMINATED</span> <span class="k">BY</span> <span class="s1">'|'</span>
+<span class="k">LOCATION</span> <span class="s1">'/tmp/server-logs'</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p>We will define an ORC Table in Hive Create table using Apache ORC file format.</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">FIREWALL</span> <span class="k">AS</span> <span class="n">STORED</span> <span class="k">AS</span> <span class="n">ORC</span> <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">FIREWALL_LOGS</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<p><strong>Note</strong> if the query doesn’t run successfully due to a permissions error you then might need to update the permission on the directory. Run the following commands over SSH on the Sandbox</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sudo -u hdfs hadoop fs -chmod -R 777 /tmp
+</code></pre>
+</div>
+
+<p>When the table has been created you should now be able to query the data table for data using a query like</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>SELECT <span class="nb">time</span>, ip, country, cast<span class="o">(</span>status as BOOLEAN<span class="o">)</span> FROM firewall_logs LIMIT 100;
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step3/test-query-results.png" alt="test-query-results" /></p>
+
+<blockquote>
+  <p>Note: In the table above, 1 is for true, 0 is for false.</p>
+</blockquote>
+
+<h2 id="step-4---visualize-server-log-data-with-apache-zeppelin-">Step 4 - Visualize Server Log Data with Apache Zeppelin <a id="visualize-log-data-zeppelin"></a></h2>
+
+<p>Why is Data Visualization important?
+Helps you analyze network data and determine effective responses to network issues.</p>
+
+<!---
+First, make sure that the Apache Zeppelin service is started in Ambari. Then use the **Views Dropdown Menu** and select the **Zeppelin View**.
+--->
+
+<p>Go to browser and type <code class="highlighter-rouge">sandbox.hortonworks.com:9995</code> to open Zeppelin UI</p>
+
+<p>You should be greeted by the following screen where you can choose to view notes, or create a new one.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/zeppelin_create_note.png" alt="zeppelin_create_note" /></p>
+
+<h3 id="41-import-notebook-nifiserverlogs-option-1">4.1 Import notebook NiFiServerLogs (Option 1)</h3>
+
+<p>You can choose to <strong>Import note</strong> from this tutorial. Click on <strong>Import note</strong>, an <strong>Import new note</strong> window will appear, select <strong>Add from URL</strong>. The window will transition to a new window that has two fields: <strong>Import AS</strong> and <strong>URL</strong>. Copy &amp; Paste the following URL into the <strong>URL</strong> field:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>https://raw.githubusercontent.com/hortonworks/tutorials/tutorials/hortonworks/hdp-2.5/analyze-server-log-data/assets/NiFiServerLogs.json
+</code></pre>
+</div>
+
+<p>Then click the <strong>Import note</strong> button.</p>
+
+<h3 id="42-create-notebook-nifiserverlogs-option-2">4.2 Create notebook NiFiServerLogs (Option 2)</h3>
+
+<p>If you prefer to go through the steps to create the notebook, follow the steps below. Click on the <strong>Create new note</strong> in the Zeppelin Welcome page. Enter <strong>NiFiServerLogs</strong> as the notebook name and create the notebook. Click on the new notebook you created in the list of notebooks to open the <strong>NiFiServerLogs</strong> notebook. Our notebook will have 3 sections in which we will analyze data for denial-of-service attack:</p>
+
+<ul>
+  <li>review network traffic by country</li>
+  <li>zoom in one particular country</li>
+  <li>generate list of attacking IP addresses</li>
+</ul>
+
+<h3 id="find-network-traffic-per-country">Find Network Traffic Per Country</h3>
+
+<p>Let’s filter the data in our hive table, so it only shows <strong>country</strong> and <strong>status</strong>. Copy &amp; Paste the query into Zeppelin:</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="o">%</span><span class="n">jdbc</span><span class="p">(</span><span class="n">hive</span><span class="p">)</span>
+<span class="k">SELECT</span> <span class="n">country</span><span class="p">,</span> <span class="k">cast</span><span class="p">(</span><span class="n">status</span> <span class="k">as</span> <span class="n">BOOLEAN</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">firewall_logs</span>
+</code></pre>
+</div>
+
+<p>We were able to generate a table in zeppelin that shows us country associated with whether the network connection status was a success or not. Let’s visualize this table as a Bar Graph, select the option that looks like a Bar Graph. Now let’s setup the Advanced settings: <strong>Keys</strong>, <strong>Groups</strong>, <strong>Values</strong>. You should have two fields: country and success. Drag the country field into the <strong>Keys</strong> box, then do the same operation for the <strong>status</strong> field. To sum up the <strong>status</strong> values for true and false,  drag another status field into the <strong>Values</strong>. Now the countries will have true or false association and when you hover over a piece of the bar graph, you should see the sum value for status: false or true.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step4/network_traffic_per_country.png" alt="network_traffic_per_country" /></p>
+
+<p>Legend:
+Blue represents successful, authorized network connections
+Light Blue represents connections from unauthorized sources</p>
+
+<h3 id="zoom-into-one-particular-country">Zoom into One Particular Country</h3>
+
+<p>Let’s assume the recent denial-of-service attacks originated in INDIA. Let’s further filter the data by selecting the country with value IND. Copy &amp; Paste the query into the second text space available:</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="o">%</span><span class="n">jdbc</span><span class="p">(</span><span class="n">hive</span><span class="p">)</span>
+<span class="k">SELECT</span> <span class="n">country</span><span class="p">,</span> <span class="k">cast</span><span class="p">(</span><span class="n">status</span> <span class="k">as</span> <span class="n">BOOLEAN</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">firewall_logs</span> <span class="k">WHERE</span> <span class="n">country</span> <span class="o">=</span> <span class="s1">'IND'</span>
+</code></pre>
+</div>
+
+<p>Let’s make an assumption that the recent denial-service attacks originate in INDIA, we will use Zeppelin’s data visualization feature to zoom in on the status errors or unauthorized network connections for INDIA. Under the query, there are 6 visualization choices, we will choose 2 leftmost choice, a bar graph.</p>
+
+<p>Remember we want to know the total for unauthorized network connections, so drag the success square into the <strong>Values</strong> box. Since there are multiple values for success, “true” or “false”, let’s drag another success box into the groups box. The key that is associated with both types of values for success is “IND”, so drag the country square into the <strong>Keys</strong> box. Refer to the image as below:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step4/network_traffic_by_one_country.png" alt="network_traffic_by_one_country" /></p>
+
+<p>Legend:
+Blue represents successful, authorized network connections
+Light Blue represents connections from unauthorized sources</p>
+
+<h3 id="generate-list-of-attacking-ip-addresses">Generate List of Attacking IP Addresses</h3>
+
+<p>Let’s generate a record of unauthorized IP addresses. We will need to query the table with the parameters time, ip, country, success. Copy &amp; Paste the following query into Zeppelin:</p>
+
+<p>Run the following query:</p>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="o">%</span><span class="n">jdbc</span><span class="p">(</span><span class="n">hive</span><span class="p">)</span>
+<span class="k">SELECT</span> <span class="n">time</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">country</span><span class="p">,</span> <span class="k">cast</span><span class="p">(</span><span class="n">status</span> <span class="k">as</span> <span class="n">BOOLEAN</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">firewall_logs</span> <span class="k">WHERE</span> <span class="n">status</span> <span class="o">=</span> <span class="s1">'0'</span>
+</code></pre>
+</div>
+
+<p>Generates List of IP Address Attacks Per Country. The ‘0’ signifies connections from unauthorized sources. Therefore, we can update the network firewall to deny requests from those attacking IP addresses</p>
+
+<p>Let’s visualize the IP Address Attacks in a Pie Chart.</p>
+
+<p>Drag country into the <strong>Keys</strong> box and move <strong>ip</strong> field into the <strong>values</strong> box. Make sure that you selected the count option for the <strong>ip</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/step4/generate_list_unauthorized_ip_addresses.png" alt="generate_list_unauthorized_ip_addresses" /></p>
+
+<p>Our visualization counts the number of unauthorized IP Addresses per country.
+As you can see each piece of the pie represents a country and when you hover over one slice, you can see the total count for unauthorized IP addresses.</p>
+
+<h2 id="summary-">Summary <a id="summary-server-logs"></a></h2>
+
+<p>We’ve shown how the Hortonworks Data Platform can help system administrators capture, store, and analyze server log data. With real-time access to massive amounts of data on the Hortonworks Data Platform, we were able to block unauthorized access, restore VPN access to authorized users.</p>
+
+<p>With log data flowing continuously into the Hortonworks Data Platform “data lake,” we can protect the company network from similar attacks in the future. The data can be refreshed frequently and accessed to respond to security threats, or to prepare for compliance audits.</p>
+
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+  <li><a href="http://bryanbende.com/development/2015/05/17/collecting-logs-with-apache-nifi">Collecting Logs with Apache NiFi</a></li>
+  <li><a href="https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Select">Hive LanguageManual Select</a></li>
+  <li><a href="https://www.youtube.com/watch?v=_PQbVH_aO5E&amp;feature=youtu.be">Zeppelin Overview Video</a></li>
+  <li><a href="https://www.youtube.com/embed/BPC_mClNSXk?feature=oembed">Manage Server Log Data with HDP Video</a></li>
+</ul>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-200.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-200&amp;topics=hdp-2.5.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Refine and Visualize Server Log Data</strong></p>
+  <p>HCC Tags:<strong> tutorial-200</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+

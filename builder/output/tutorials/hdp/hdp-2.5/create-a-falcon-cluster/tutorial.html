@@ -1,0 +1,431 @@
+<div class="tutorial-content">
+  <h1 id="create-a-falcon-cluster">Create a Falcon Cluster</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>Apache Falcon is a framework to simplify data pipeline processing and management on Hadoop clusters.</p>
+
+<p>It makes it much simpler to onboard new workflows/pipelines, with support for late data handling and retry policies. It allows you to easily define relationship between various data and processing elements and integrate with metastore/catalog such as Hive/HCatalog. Finally it also lets you capture lineage information for feeds and processes. In this tutorial, we are going to create a Falcon cluster by :</p>
+
+<ul>
+  <li>Preparing up HDFS directories</li>
+  <li>Creating two cluster entities (primaryCluster and backupCluster)</li>
+</ul>
+
+<h2 id="prerequisite">Prerequisite</h2>
+
+<ul>
+  <li><a href="https://hortonworks.com/downloads/#sandbox">Download Hortonworks Sandbox 2.5</a></li>
+  <li>Complete the <a href="https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox tutorial,</a> you will need it for logging into Ambari as an administrator user.</li>
+</ul>
+
+<p>Once you have downloaded the Hortonworks Sandbox and run the VM, navigate to the Ambari interface on the port <code class="highlighter-rouge">8080</code> of the IP address of your Sandbox VM. Login with the username of <code class="highlighter-rouge">admin</code> and the password that you set for the Ambari admin user. You should have a similar image as below:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/ambariHomePage.png" alt="ambariHomePage" /></p>
+
+<h2 id="outline">Outline</h2>
+<ul>
+  <li><a href="#scenario">1. Scenario</a></li>
+  <li><a href="#starting-falcon">2. Starting Falcon</a></li>
+  <li><a href="#create-ambari-falcon-user">3. Create a Ambari Falcon user</a></li>
+  <li><a href="#preparing-hdfs-directories">4. Preparing HDFS Directories</a></li>
+  <li><a href="#creating-cluster-entities">5. Creating Cluster Entities</a>
+    <ul>
+      <li><a href="#creating-primaryCluster-wizard">5.1 Creating primaryCluster Entity using Wizard</a></li>
+      <li><a href="#creating-primaryCluster-XML">5.2 Creating primaryCluster Entity using XML</a></li>
+      <li><a href="#creating-backupCluster-wizard">5.3 Creating backupCluster Entity using Wizard</a></li>
+      <li><a href="#creating-backupCluster-XML">5.4 Creating backupCluster Entity using XML</a></li>
+    </ul>
+  </li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+</ul>
+
+<h2 id="1-scenario-">1. Scenario <a id="scenario"></a></h2>
+
+<p>In this tutorial, we are going to create a Falcon cluster so that we can configure data pipelines and then perform the feed management services such as feed retention, data replication across clusters and archival. This tutorial is the starting point of all Falcon tutorials where we create two cluster entities which define where the data and the processes for your data pipeline are stored. Allow yourself 1 quality hour to complete this tutorial.</p>
+
+<h2 id="2-starting-falcon-">2. Starting Falcon <a id="starting-falcon"></a></h2>
+
+<p>By default, Falcon is not started on the Sandbox. You can start the Falcon service from Ambari by clicking on the Falcon icon in the left hand pane:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/falconHomePage.png" alt="falconHomePage" /></p>
+
+<p>Then click on the <code class="highlighter-rouge">Service  Actions</code> button on the top right:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/falconStart.png" alt="falconStart" /></p>
+
+<p>Then click on <code class="highlighter-rouge">Start</code>:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/falconStartProgress.png" alt="falconStartProgress" /></p>
+
+<p>Once Falcon starts, Ambari should clearly indicate as below that the service has started:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/falconStarted.png" alt="falconStarted" /></p>
+
+<h2 id="3-create-a-ambari-falcon-user-">3. Create a Ambari falcon user <a id="create-ambari-falcon-user"></a></h2>
+
+<p>Click the button at the top of the Ambari screen with admin menu drop down and click <code class="highlighter-rouge">Manage Ambari</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/manage_ambari.png" alt="manage_ambari" /></p>
+
+<p>Click the blue <code class="highlighter-rouge">Users</code> button in the bottom box as given below:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/manage_users.png" alt="manage_users" /></p>
+
+<p>Click the <code class="highlighter-rouge">Create Local User</code> button at the top of the page.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/create_local_user.png" alt="create_local_user" /></p>
+
+<p>Enter <code class="highlighter-rouge">falcon</code> as the user name and then set the password for it. Enter it again for confirmation and <code class="highlighter-rouge">Save</code> the user.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/save_local_user.png" alt="save_local_user" /></p>
+
+<p>You can see the newly added <code class="highlighter-rouge">falcon</code> user. Click on it to assign it a group so that it can access Ambari views.
+Write <code class="highlighter-rouge">"views"</code> and select it in <code class="highlighter-rouge">Local Group Membership</code> box and then click on <code class="highlighter-rouge">tick</code> mark to add a falcon user in the <code class="highlighter-rouge">"views"</code> group.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/local_group_permission.png" alt="local_group_permission" /></p>
+
+<p>Now logout of Ambari from the admin user and login to Ambari as falcon user.</p>
+
+<h2 id="4-preparing-hdfs-directories-">4. Preparing HDFS Directories <a id="preparing-hdfs-directories"></a></h2>
+
+<p>Select the Files View like given below:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/select_files_view.png" alt="select_files_view" /></p>
+
+<p>The Files View Interface will appear with the following default folders.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/files_view_home_page.png" alt="files_view_home_page" /></p>
+
+<p>We need to create the directories on HDFS representing the two clusters that we are going to define, namely <code class="highlighter-rouge">primaryCluster</code> and <code class="highlighter-rouge">backupCluster</code>.
+Navigate to <code class="highlighter-rouge">/apps/falcon</code> folder, click the <code class="highlighter-rouge">New Folder</code> button <img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/new_folder_button.png" alt="new_folder_button" />, an add new folder window appears and name the folder primaryCluster. Press enter or <code class="highlighter-rouge">Add</code></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/add_new_folder_primary.png" alt="add_new_folder_primary" /></p>
+
+<p>Similarly, create another folder called <code class="highlighter-rouge">backupCluster</code>, you will see your new directories created successfully:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/primary_backup_folders_created.png" alt="primary_backup_folders_created" /></p>
+
+<p>Click on the row of <code class="highlighter-rouge">primaryCluster</code> directory and then click on <code class="highlighter-rouge">Permissions</code> button:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/click_permissions.png" alt="click_permissions" /></p>
+
+<p>Add <code class="highlighter-rouge">Write</code> permission for both Group and Others and then click <code class="highlighter-rouge">Save</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/edit_permissions.png" alt="edit_permissions" /></p>
+
+<p>Do the same for <code class="highlighter-rouge">backupCluster</code> directory. Now navigate down into the <code class="highlighter-rouge">primaryCluster</code> directory and create two new directories: <code class="highlighter-rouge">staging</code> and <code class="highlighter-rouge">working</code>. Click on the row for the <code class="highlighter-rouge">staging</code> directory and add <code class="highlighter-rouge">Write</code> permission for both Group and Others. Refresh the page and then navigate to <code class="highlighter-rouge">/apps/falcon/primaryCluster</code> to see the changes:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/staging_working_folders.png" alt="staging_working_folders" /></p>
+
+<p>Repeat the same steps for <code class="highlighter-rouge">backupCluster</code>. Create two directories- <code class="highlighter-rouge">staging</code> and <code class="highlighter-rouge">working</code> and then assign <code class="highlighter-rouge">Write</code> permission in <code class="highlighter-rouge">staging</code> directory for Group and Others.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/staging_working_folders_backup.png" alt="staging_working_folders_backup" />
+&lt;!—
+First SSH into the Hortonworks Sandbox with the command:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh root@127.0.0.1 -p 2222
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/sshTerminal.png" alt="sshTerminal" /></p>
+
+<p>The default password is <code class="highlighter-rouge">hadoop</code>. If you have changed it earlier, then enter the new one.</p>
+
+<p>We need to create the directories on HDFS representing the two clusters that we are going to define, namely <code class="highlighter-rouge">primaryCluster</code> and <code class="highlighter-rouge">backupCluster</code>.</p>
+
+<p>First, from the command line, check whether the Falcon server is running or not.
+Switch the user to Falcon using:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>su - falcon
+</code></pre>
+</div>
+
+<p>Change the directory to your HDP version:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /usr/hdp/current/falcon-server
+</code></pre>
+</div>
+
+<p>And run the below script to find the status of Falcon server:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>./bin/falcon-status
+</code></pre>
+</div>
+
+<p>Next, use <code class="highlighter-rouge">hadoop fs -mkdir</code> commands to create the directories <code class="highlighter-rouge">/apps/falcon/primaryCluster</code> and <code class="highlighter-rouge">/apps/falcon/backupCluster</code> on HDFS.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> hadoop fs -mkdir /apps/falcon/primaryCluster
+ hadoop fs -mkdir /apps/falcon/backupCluster
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/create_hdfs_directory.png" alt="create_hdfs_directory" /></p>
+
+<p>Further create directories called <code class="highlighter-rouge">staging</code> inside each of the directories we created above:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> hadoop fs -mkdir /apps/falcon/primaryCluster/staging
+ hadoop fs -mkdir /apps/falcon/backupCluster/staging
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/create_staging_directory.png" alt="create_staging_directory" /></p>
+
+<p>Next, create the <code class="highlighter-rouge">working</code> directories for <code class="highlighter-rouge">primaryCluster</code> and <code class="highlighter-rouge">backupCluster</code>:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> hadoop fs -mkdir /apps/falcon/primaryCluster/working
+ hadoop fs -mkdir /apps/falcon/backupCluster/working
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/create_working_directory.png" alt="create_working_directory" /></p>
+
+<p>Finally you need to set the proper permissions on the staging/working directories:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>hadoop fs -chmod 777 /apps/falcon/primaryCluster/staging
+hadoop fs -chmod 755 /apps/falcon/primaryCluster/working
+hadoop fs -chmod 777 /apps/falcon/backupCluster/staging
+hadoop fs -chmod 755 /apps/falcon/backupCluster/working
+</code></pre>
+</div>
+<p>–&gt;</p>
+
+<h2 id="5-creating-cluster-entities-">5. Creating Cluster Entities <a id="creating-cluster-entities"></a></h2>
+
+<p>Let’s open the Falcon Web UI. You can navigate to the Falcon Web UI directly on the browser. Type <code class="highlighter-rouge">127.0.0.1:15000</code>. The Falcon UI is by default at port 15000. The default username is <code class="highlighter-rouge">ambari-qa</code>.
+&lt;!—
+You can easily launch the Falcon Web UI from Ambari:
+Navigate to the Falcon Summary page and click <code class="highlighter-rouge">Quick Links&gt;Falcon Web UI</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/quickLinksFalconUI.png" alt="quickLinksFalconUI" />
+–&gt;</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/falcon_login_page.png" alt="falcon_login_page" /></p>
+
+<p>This UI allows us to create and manage the various entities like Cluster, Feed, Process and Mirror. Each of these entities are represented by an XML file that you either directly upload or generate by filling out the various fields.
+You can also search for existing entities and then edit, change state, etc.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/falcon_front_page.png" alt="falcon_front_page" /></p>
+
+<p>Let’s first create a couple of cluster entities. To create a cluster entity click on the <code class="highlighter-rouge">Create</code> dropdown,</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/select_cluster.png" alt="select_cluster" /></p>
+
+<p>Click <code class="highlighter-rouge">Cluster</code> on the top.</p>
+
+<p><strong>NOTE : If you want to create it from XML, skip the wizard section, and move on to the next one.</strong></p>
+
+<h3 id="51-creating-primarycluster-entity-using-wizard-">5.1 Creating primaryCluster Entity using Wizard <a id="creating-primaryCluster-wizard"></a></h3>
+
+<p>A cluster entity defines the default access points for various resources on the cluster as well as default working directories to be used by Falcon jobs.</p>
+
+<p>To define a cluster entity, we must specify a unique name by which we can identify the cluster. In this tutorial, we use:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>primaryCluster
+</code></pre>
+</div>
+
+<p>Next enter a data center name or location of the cluster and a description for the cluster. The data center name can be used by Falcon to improve performance of jobs that run locally or across data centers. Mention <code class="highlighter-rouge">primaryColo</code> in Colo and <code class="highlighter-rouge">this is primary cluster</code> in description.</p>
+
+<p>All entities defined in Falcon can be grouped and located using tags. To clearly identify and locate entities, we assign the tag:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>EntityType
+</code></pre>
+</div>
+
+<p>With the value</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Cluster
+</code></pre>
+</div>
+
+<p>Next, we enter the URI for the various resources Falcon requires to manage data on the clusters. These include the NameNode dfs.http.address, the NameNode IPC address used for file system metadata operations, the Yarn client IPC address used for executing jobs on Yarn, the Oozie address used for running Falcon Feeds and Processes, and the Falcon messaging address. The values we will use are the defaults for the Hortonworks Sandbox; if you run this tutorial on your own test cluster, modify the addresses to match those defined in Ambari:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Namenode DFS Address - hftp://sandbox.hortonworks.com:50070
+File System Default Address - hdfs://sandbox.hortonworks.com:8020
+YARN Resource Manager Address - sandbox.hortonworks.com:8050
+Workflow Address - http://sandbox.hortonworks.com:11000/oozie/
+Message Broker Address - tcp://sandbox.hortonworks.com:61616?daemon=true
+</code></pre>
+</div>
+
+<p>You can also override cluster properties for a specific cluster. This can be useful for test or backup clusters which may have different physical configurations. In this tutorial, we’ll just use the properties defined in Ambari.
+After the resources are defined, you must define default staging, temporary, and working directories for use by Falcon jobs based on the HDFS directories you created earlier in the tutorial. These can be overridden by specific jobs, but will be used in the event no directories are defined at the job level. In the current version of the UI, these directories must exist, be owned by Falcon, and have the proper permissions.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Staging*  - /apps/falcon/primaryCluster/staging
+Temp* - /tmp
+Working* - /apps/falcon/primaryCluster/working
+</code></pre>
+</div>
+
+<p>We then need to specify the owner and permissions for the cluster. Click on Advanced Options drop down menu</p>
+
+<p>So we enter:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Owner:  ambari-qa
+Group: users
+Permissions: 755
+Owner - Check box Read, Write and Execute
+Group - Check box Read and Execute
+Others - Check box Read and Execute
+</code></pre>
+</div>
+
+<p>If you want to view the XML preview of whatever values you are entering, you can click on XML preview. Click Next to view the summary.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/cluster1.png" alt="cluster1" /></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/cluster2.png" alt="cluster2" /></p>
+
+<p>Click <code class="highlighter-rouge">Save</code> to persist the entity.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/cluster_save.png" alt="cluster_save" /></p>
+
+<h3 id="52-creating-primarycluster-entity-using-xml-">5.2 Creating primaryCluster Entity using XML <a id="creating-primaryCluster-XML"></a></h3>
+
+<p>After clicking on the <code class="highlighter-rouge">Create</code> drop down menu, select <code class="highlighter-rouge">Cluster</code> button and click on the <code class="highlighter-rouge">Edit XML</code> button over XML Preview area. Replace the XML content with the XML document below:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;</span>
+<span class="nt">&lt;cluster</span> <span class="na">name=</span><span class="s">"primaryCluster"</span> <span class="na">description=</span><span class="s">"this is primary cluster"</span> <span class="na">colo=</span><span class="s">"primaryColo"</span> <span class="na">xmlns=</span><span class="s">"uri:falcon:cluster:0.1"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tags&gt;</span>primaryKey=primaryValue<span class="nt">&lt;/tags&gt;</span>
+    <span class="nt">&lt;interfaces&gt;</span>
+        <span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">"readonly"</span> <span class="na">endpoint=</span><span class="s">"hftp://sandbox.hortonworks.com:50070"</span> <span class="na">version=</span><span class="s">"2.2.0"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">"write"</span> <span class="na">endpoint=</span><span class="s">"hdfs://sandbox.hortonworks.com:8020"</span> <span class="na">version=</span><span class="s">"2.2.0"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">"execute"</span> <span class="na">endpoint=</span><span class="s">"sandbox.hortonworks.com:8050"</span> <span class="na">version=</span><span class="s">"2.2.0"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">"workflow"</span> <span class="na">endpoint=</span><span class="s">"http://sandbox.hortonworks.com:11000/oozie/"</span> <span class="na">version=</span><span class="s">"4.0.0"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">"messaging"</span> <span class="na">endpoint=</span><span class="s">"tcp://sandbox.hortonworks.com:61616?daemon=true"</span> <span class="na">version=</span><span class="s">"5.1.6"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/interfaces&gt;</span>
+    <span class="nt">&lt;locations&gt;</span>
+        <span class="nt">&lt;location</span> <span class="na">name=</span><span class="s">"staging"</span> <span class="na">path=</span><span class="s">"/apps/falcon/primaryCluster/staging"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;location</span> <span class="na">name=</span><span class="s">"temp"</span> <span class="na">path=</span><span class="s">"/tmp"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;location</span> <span class="na">name=</span><span class="s">"working"</span> <span class="na">path=</span><span class="s">"/apps/falcon/primaryCluster/working"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/locations&gt;</span>
+    <span class="nt">&lt;ACL</span> <span class="na">owner=</span><span class="s">"ambari-qa"</span> <span class="na">group=</span><span class="s">"users"</span> <span class="na">permission=</span><span class="s">"0x755"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;properties&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"test"</span> <span class="na">value=</span><span class="s">"value1"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/properties&gt;</span>
+<span class="nt">&lt;/cluster&gt;</span>
+</code></pre>
+</div>
+
+<p>Click <code class="highlighter-rouge">Finish</code> on top of the XML Preview area to save the XML.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/cluster_xml_1.png" alt="cluster_xml_1" /></p>
+
+<p>Falcon UI should have automatically parsed out the values from the XML and populated in the right fields. Once you have verified that these are the correct values press <code class="highlighter-rouge">Next</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/cluster_xml_2.png" alt="cluster_xml_2" /></p>
+
+<p>Click <code class="highlighter-rouge">Save</code> to persist the entity.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/cluster_xml_save.png" alt="cluster_xml_save" /></p>
+
+<p>You should receive a notification that the operation was successful.</p>
+
+<p>Falcon jobs require a source cluster and a destination, or target, cluster. For some jobs, this may be the same cluster, for others, such as Mirroring and Disaster Recovery, the source and target clusters will be different.</p>
+
+<p><strong>NOTE : If you want to create it from XML, skip the wizard section, and move on to the next one.</strong></p>
+
+<h3 id="53-creating-backupcluster-entity-using-wizard-">5.3 Creating backupCluster Entity using Wizard <a id="creating-backupCluster-wizard"></a></h3>
+
+<p>Let’s go ahead and create a second cluster by creating a cluster with the name:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>backupCluster
+</code></pre>
+</div>
+
+<p>Mention <code class="highlighter-rouge">backupColo</code> in Colo and <code class="highlighter-rouge">this is backup cluster</code> in description.</p>
+
+<p>Reenter the same information you used above except for the directory information. For the directories, use the backupCluster directories created earlier in the tutorial.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Staging* - /apps/falcon/backupCluster/staging
+Temp* - /tmp
+Working* - /apps/falcon/backupCluster/working
+</code></pre>
+</div>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/backup_cluster1.png" alt="backup_cluster1" /></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/backup_cluster2.png" alt="backup_cluster2" /></p>
+
+<p>Click <code class="highlighter-rouge">Save</code> to persist the <code class="highlighter-rouge">backupCluster</code> entity.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/backup_cluster_save.png" alt="backup_cluster_save" /></p>
+
+<h3 id="54-creating-backupcluster-entity-using-xml-">5.4 Creating backupCluster Entity using XML <a id="creating-backupCluster-XML"></a></h3>
+
+<p>Click on <code class="highlighter-rouge">Create</code> drop down menu and click <code class="highlighter-rouge">Cluster</code> button to open up the form to create the cluster entity.
+Click on the <code class="highlighter-rouge">Edit XML</code> button over XML Preview area. Replace the XML content with the XML document below:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;</span>
+<span class="nt">&lt;cluster</span> <span class="na">name=</span><span class="s">"backupCluster"</span> <span class="na">description=</span><span class="s">"this is backup colo"</span> <span class="na">colo=</span><span class="s">"backupColo"</span> <span class="na">xmlns=</span><span class="s">"uri:falcon:cluster:0.1"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;tags&gt;</span>backupKey=backupValue<span class="nt">&lt;/tags&gt;</span>
+    <span class="nt">&lt;interfaces&gt;</span>
+        <span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">"readonly"</span> <span class="na">endpoint=</span><span class="s">"hftp://sandbox.hortonworks.com:50070"</span> <span class="na">version=</span><span class="s">"2.2.0"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">"write"</span> <span class="na">endpoint=</span><span class="s">"hdfs://sandbox.hortonworks.com:8020"</span> <span class="na">version=</span><span class="s">"2.2.0"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">"execute"</span> <span class="na">endpoint=</span><span class="s">"sandbox.hortonworks.com:8050"</span> <span class="na">version=</span><span class="s">"2.2.0"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">"workflow"</span> <span class="na">endpoint=</span><span class="s">"http://sandbox.hortonworks.com:11000/oozie/"</span> <span class="na">version=</span><span class="s">"4.0.0"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;interface</span> <span class="na">type=</span><span class="s">"messaging"</span> <span class="na">endpoint=</span><span class="s">"tcp://sandbox.hortonworks.com:61616?daemon=true"</span> <span class="na">version=</span><span class="s">"5.1.6"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/interfaces&gt;</span>
+    <span class="nt">&lt;locations&gt;</span>
+        <span class="nt">&lt;location</span> <span class="na">name=</span><span class="s">"staging"</span> <span class="na">path=</span><span class="s">"/apps/falcon/backupCluster/staging"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;location</span> <span class="na">name=</span><span class="s">"temp"</span> <span class="na">path=</span><span class="s">"/tmp"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;location</span> <span class="na">name=</span><span class="s">"working"</span> <span class="na">path=</span><span class="s">"/apps/falcon/backupCluster/working"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/locations&gt;</span>
+    <span class="nt">&lt;ACL</span> <span class="na">owner=</span><span class="s">"ambari-qa"</span> <span class="na">group=</span><span class="s">"users"</span> <span class="na">permission=</span><span class="s">"0x755"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;properties&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"test2"</span> <span class="na">value=</span><span class="s">"value2"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/properties&gt;</span>
+<span class="nt">&lt;/cluster&gt;</span>
+</code></pre>
+</div>
+
+<p>Click <code class="highlighter-rouge">Finish</code> on top of the XML Preview area to save the XML and then the Next button to verify the values.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/backup_cluster_xml_1.png" alt="backup_cluster_xml_1" /></p>
+
+<p>Once you have verified that these are the correct values press <code class="highlighter-rouge">Next</code>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/backup_cluster_xml_2.png" alt="backup_cluster_xml_2" /></p>
+
+<p>Click <code class="highlighter-rouge">Save</code> to persist the <code class="highlighter-rouge">backupCluster</code> entity.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/create-a-falcon-cluster/assets/backup_cluster_xml_save.png" alt="backup_cluster_xml_save" /></p>
+
+<h2 id="summary-">Summary <a id="summary"></a></h2>
+
+<p>In this tutorial we learned how to create cluster entities in Apache Falcon using the Falcon UI. Now go ahead and start creating feeds and processes by exploring more Falcon tutorials.</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<p>You can go to following links to explore other Falcon tutorials:</p>
+
+<ol>
+  <li><a href="https://hortonworks.com/hadoop-tutorial/mirroring-datasets-between-hadoop-clusters-with-apache-falcon/">Mirroring Datasets between Hadoop Clusters with Apache Falcon</a></li>
+  <li><a href="https://hortonworks.com/hadoop-tutorial/defining-processing-data-end-end-data-pipeline-apache-falcon/">Define and Process Data Pipelines in Hadoop with Apache Falcon</a></li>
+  <li><a href="https://hortonworks.com/hadoop-tutorial/incremental-backup-data-hdp-azure-disaster-recovery-burst-capacity/">Incremental Backup of data from HDP to Azure using Falcon for Disaster Recovery and Burst Capacity</a></li>
+  <li><a href="https://hortonworks.com/hadoop-tutorial/defining-processing-data-end-end-data-pipeline-apache-falcon/">Processing Data Pipeline using Apache Falcon</a></li>
+</ol>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-670.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-670&amp;topics=hdp-2.5.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Create a Falcon Cluster</strong></p>
+  <p>HCC Tags:<strong> tutorial-670</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+

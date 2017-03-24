@@ -1,0 +1,131 @@
+<div class="tutorial-content">
+  <p>Apache Spark is a fast, in-memory data processing engine with elegant and expressive development APIs in Scala, Java, Python, and R that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets (see <a href="http://spark.apache.org/docs/latest/api.html">Spark API Documentation</a> for more info). Spark on <a href="https://hortonworks.com/hadoop/YARN" title="Apache Hadoop YARN">Apache Hadoop YARN</a> enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.</p>
+
+<p>In this tutorial, we will introduce the basic concepts of Apache Spark and the first few necessary steps to get started with Spark using an Apache Zeppelin Notebook on a Hortonworks Data Platform (HDP) Sandbox.</p>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<p>This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.</p>
+
+<ul>
+  <li>Download and Install <a href="https://hortonworks.com/products/sandbox/">Hortonworks Sandbox 2.5</a></li>
+  <li>Review <a href="https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox</a></li>
+  <li>Review <a href="https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md">Getting Started with Apache Zeppelin</a></li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#concepts">Concepts</a></li>
+  <li><a href="#a-hands-on-example">A Hands-On Example</a></li>
+</ul>
+
+<h2 id="concepts">Concepts</h2>
+
+<p>At the core of Spark is the notion of a <strong>Resilient Distributed Dataset</strong> (RDD), which is an immutable collection of objects that is partitioned and distributed across multiple physical nodes of a YARN cluster and that can be operated in parallel.</p>
+
+<p>Typically, RDDs are instantiated by loading data from a shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat on a YARN cluster.</p>
+
+<p>Once an RDD is instantiated, you can apply a <a href="https://spark.apache.org/docs/latest/programming-guide.html#rdd-operations">series of operations</a>. All operations fall into one of two types: <a href="https://spark.apache.org/docs/latest/programming-guide.html#transformations">transformations</a> or <a href="https://spark.apache.org/docs/latest/programming-guide.html#actions">actions</a>. <strong>Transformation</strong> operations, as the name suggests, create new datasets from an existing RDD and build out the processing Directed Acyclic Graph (DAG) that can then be applied on the partitioned dataset across the YARN cluster. An <strong>Action</strong> operation, on the other hand, executes DAG and returns a value.</p>
+
+<p>Let’s try it out.</p>
+
+<h2 id="a-hands-on-example">A Hands-On Example</h2>
+
+<p>First, launch <strong>Apache Zeppelin</strong>.</p>
+
+<p>If you’re new to Zeppelin, make sure to checkout the <a href="https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md">Getting Started Guide</a>.</p>
+
+<p><strong>Create a Notebook</strong></p>
+
+<p>Create a new note, and give it a meaningful name, e.g. <em>Apache Spark in 5 Minutes</em></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hands-on-tour-of-apache-spark-in-5-minutes/assets/3-apache-spark-tour-in-5-minutes.png" alt="" /></p>
+
+<p>Zeppelin comes with several interpreters pre-configured on Sandbox. In this tutorial we will use a shell interpreter <code class="highlighter-rouge">%sh</code> and a pyspark interpreter <code class="highlighter-rouge">%pyspark</code>.</p>
+
+<p>Let’s start with a shell interpreter <code class="highlighter-rouge">%sh</code> and bring in some Hortonworks related Wikipedia data.</p>
+
+<p>Type the following in your Zeppelin Notebook and hit <strong>shift + enter</strong> to execute the code:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>%sh
+wget http://en.wikipedia.org/wiki/Hortonworks
+</code></pre>
+</div>
+
+<p>You should see an output similar to this</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hands-on-tour-of-apache-spark-in-5-minutes/assets/5-apache-spark-tour-in-5-minutes.png" alt="" /></p>
+
+<p>Next, let’s copy the data over to HDFS. Type and execute the following:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>%sh
+hadoop fs -put ~/Hortonworks /tmp
+</code></pre>
+</div>
+
+<p>Now we are ready to run a simple Python program with Spark. This time we will use the python interpreter <code class="highlighter-rouge">%pyspark</code>. Copy and execute this code:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="o">%</span><span class="n">pyspark</span>
+<span class="n">myLines</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s">'hdfs://sandbox.hortonworks.com/tmp/Hortonworks'</span><span class="p">)</span>
+<span class="n">myLinesFiltered</span> <span class="o">=</span> <span class="n">myLines</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
+<span class="n">count</span> <span class="o">=</span> <span class="n">myLinesFiltered</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">count</span>
+</code></pre>
+</div>
+
+<p>When you execute the above you should get only a number as an output. I got <code class="highlighter-rouge">311</code> but it may vary depending on the Wikipedia entry.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hands-on-tour-of-apache-spark-in-5-minutes/assets/6-apache-spark-tour-in-5-minutes.png" alt="" /></p>
+
+<p>Let’s go over what’s actually going on. After the python interpreter <code class="highlighter-rouge">%pyspark</code> is initialized we instantiate an RDD using a Spark Context <code class="highlighter-rouge">sc</code> with a <code class="highlighter-rouge">Hortonworks</code> file on HDFS:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">myLines</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="p">(</span><span class="s">'hdfs://sandbox.hortonworks.com/tmp/Hortonworks'</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<p>After we instantiate the RDD, we apply a transformation operation on the RDD. In this case, a simple transformation operation using a Python lambda expression to filter out all the empty lines:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">myLinesFiltered</span> <span class="o">=</span> <span class="n">myLines</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
+</code></pre>
+</div>
+
+<p>At this point, the transformation operation above did not touch the data in any way. It has only modified the processing graph.</p>
+
+<p>We finally execute an action operation using the aggregate function <code class="highlighter-rouge">count()</code>, which then executes all the transformation operations:</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">count</span> <span class="o">=</span> <span class="n">myLinesFiltered</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<p>Lastly, with <code class="highlighter-rouge">print count</code> we display the final count value, which returns <code class="highlighter-rouge">311</code>.</p>
+
+<p>That’s it! Your complete notebook should look like this after you run your code in all paragraphs:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hands-on-tour-of-apache-spark-in-5-minutes/assets/1-apache-spark-tour-in-5-minutes.png" alt="" /></p>
+
+<p>We hope that this little example wets your appetite for more ambitious data science projects on the Hortonworks Data Platform (HDP) Sandbox.</p>
+
+<p>If you’re feeling adventurous checkout our other great  <a href="https://hortonworks.com/hadoop/spark/#tutorials">Apache Spark &amp; Hadoop</a> tutorials.</p>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-360.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-360&amp;topics=hdp-2.5.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Hands-On Tour of Apache Spark in 5 Minutes</strong></p>
+  <p>HCC Tags:<strong> tutorial-360</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+
