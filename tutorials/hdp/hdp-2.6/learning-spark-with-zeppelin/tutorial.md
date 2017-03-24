@@ -27,7 +27,7 @@ The lab is part of our Apache Zeppelin based lab series, providing an intuitive 
     -   [Option 1: Setup Hortonworks Data Cloud (HDCloud) on AWS](#option-1-setup-hortonworks-data-cloud-hdcloud-on-aws)
     -   [Option 2: Download and Setup Hortonworks Data Platform (HDP) Sandbox](#option-2-download-and-setup-hortonworks-data-platform-hdp-sandbox)
 -   [Notebook Preview](#notebook-preview)
--   [Start the Tutorial](#start-the-tutorial)
+-   [Start Tutorial](#start-tutorial)
 -   [Final Words](#final-words)
 
 ## Tutorial Details
@@ -87,10 +87,17 @@ A dynamic preview (allowing code copy) can be found [here](https://www.zeppelinh
 
 ## Start Tutorial
 
-TODO:
+To begin the tutorial, import the *Exploring Spark SQL Module* notebook into your Zeppelin environment. (If at any point you have any issues, make sure to checkout the [Getting Started with Zeppelin](https://hortonworks.com/hadoop-tutorial/getting-started-apache-zeppelin/) tutorial.)
 
-- Download Notebook Link: https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.6/2CA587K77/note.json
+On the Zeppelin home screen click `Import note` -> `Add from URL` and copy and paste the following URL: [https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.6/2CA587K77/note.json](https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.6/2CA587K77/note.json)
+
+Once your notebook is imported, you can open it from the Zeppelin home screen by clicking
+`Labs` -> `Spark 2.x` -> `Data Worker` -> `Scala` -> `101 - Intro to SparkSQL`
+
+ Once the *Exploring Spark SQL Module* notebook is up, follow all the directions within the notebook to complete the tutorial.
 
 ## Final Words
 
-TODO:
+Once you have completed part one and part two of the lab you should have a basic toolset to start exploring new datasets using a high-level  programatic Dataset or DataFrame APIs, or a SQL API. Both APIs provide the same performance while giving you the choice to choose one or both to accomplish a task demanding high performance data exploration, wrangling, munging, and visualization.
+
+Make sure to checkout other Spark [tutorials](https://hortonworks.com/tutorials/) where you will find more hands-on tutorials with labs as well as tutorials covering Spark Streaming, Machine Learning and more.
