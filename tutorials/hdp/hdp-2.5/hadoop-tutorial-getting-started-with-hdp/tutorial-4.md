@@ -204,7 +204,13 @@ Here is the final code and what it will look like once you paste it into the edi
 
 > Note: Refer to [Pig Latin Basics - store](http://pig.apache.org/docs/r0.14.0/basic.html#store) to learn more about the **store** operator.
 
-**Geolocation has data stored in ORC format**
+### 3.1.9 Add Pig argument
+
+Add Pig argument **-useHCatalog** (Case Sensitive).
+
+![-useHCatalog Pig argument](assets/pig_script_argument.png)
+
+**Final Pig script should look like:**
 
 ~~~
 a = LOAD 'geolocation' using org.apache.hive.hcatalog.pig.HCatLoader();
@@ -287,7 +293,7 @@ Go back to the Ambari Hive User View and browse the data in the **riskfactor** t
 ![Lab3_14](assets/pig_populated_riskfactor_table_hello_hdp_lab3.png)
 
 At this point we now have our truck miles per gallon table and our risk factor table. The next step is to pull this data into Excel to create the charts for the visualization step.
-                   
+
 ## Summary <a id="summary-lab3"></a>
 
 Congratulations! Let’s summarize the Pig commands we learned in this tutorial to compute risk factor analysis on the geolocation and truck data. We learned to use Pig to access the data from Hive using the **LOAD {hive_table} …HCatLoader()** script. Therefore, we were able to perform the **filter**, **foreach**, **group**, **join**, and **store {hive_table} …HCatStorer()** scripts to manipulate, transform and process this data. To review these bold pig latin operators, view the [Pig Latin Basics](http://pig.apache.org/docs/r0.14.0/basic.html), which contains documentation on each operator.
