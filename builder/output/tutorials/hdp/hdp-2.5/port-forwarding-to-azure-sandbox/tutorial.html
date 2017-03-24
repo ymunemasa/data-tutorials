@@ -1,0 +1,102 @@
+<div class="tutorial-content">
+  <h1 id="port-forwarding-to-azure-sandbox">Port Forwarding To Azure Sandbox</h1>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>When you deploy virtual machines on Azure, a good practice is to set up Azure <a href="https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-nsg">Network Security Groups</a> (NSG) to minimize the exposure of endpoints and limit access to those endpoints to only known IPs from the Internet.  In order to access the rest of the endpoints in your Virtual Network (VNet) on Azure, you can set up an SSH tunnel.</p>
+
+<p>SSH tunneling allows us a way to port forward securely, without actually opening the machine’s ports for the entire world to access.  Follow these steps to access the endpoints of your Azure deployment from your computer.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li><a href="https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure">Deploy Hortonworks Sandbox on Microsoft Azure</a></li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#find-the-sandbox-ip">Find the sandbox IP</a></li>
+  <li><a href="#configure-ssh-tunneling">Configure SSH Tunneling</a></li>
+  <li><a href="#summary">Summary</a></li>
+  <li><a href="#further-reading">Further Reading</a></li>
+</ul>
+
+<h2 id="find-the-sandbox-ip">Find the sandbox IP</h2>
+
+<p>Log into Microsoft Azure and select the sandbox you have already deployed.  When its overview appears, take note of the sandbox’s public IP address, as we will use this to connect to the sandbox.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/port-forwarding-to-azure-sandbox/assets/10.jpg" alt="Take note of the machine's IP address." /></p>
+
+<h2 id="configure-ssh-tunneling">Configure SSH Tunneling</h2>
+
+<p>Use your favorite editor and edit your <code class="highlighter-rouge">~/.ssh/config</code> file.  For example:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>vi ~/.ssh/config
+</code></pre>
+</div>
+
+<p>Enter the following configuration, replacing the <strong>HostName</strong> IP with the public IP of your instance.  More forwardings can be entered via the <strong>LocalForward</strong> directive similar to the ones displayed here.</p>
+
+<blockquote>
+  <p>Note: Spacing and capitalization is important.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Host azureSandbox
+  Port 22
+  User azure
+  HostName 52.175.207.131
+  LocalForward 8080 127.0.0.1:8080
+  LocalForward 8888 127.0.0.1:8888
+  LocalForward 9995 127.0.0.1:9995
+  LocalForward 9996 127.0.0.1:9996
+  LocalForward 8886 127.0.0.1:8886
+  LocalForward 10500 127.0.0.1:10500
+  LocalForward 4200 127.0.0.1:4200
+  LocalForward 2222 127.0.0.1:2222
+</code></pre>
+</div>
+
+<p>Save and close the file.  Now SSH into the Azure machine by using the <strong>Host</strong> alias we just configured, which will connect us automatically using the IP address we specified in the config file.  You’ll be asked for a password, which is the one you set during initial configuration on Azure.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh azureSandbox
+</code></pre>
+</div>
+
+<p>That’s it!  Keep this SSH connection open for the duration of your interaction with the sandbox on Azure.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>You can now access all forwarded ports by pointing a browser to <a href="http://localhost:portNumber">http://localhost:portNumber</a>.  For example: <a href="http://localhost:8888">http://localhost:8888</a> will connect to the Azure machine and sandbox over port 8888.</p>
+
+<p>SSH tunneling allows us a way to port forward securely, without actually opening the machine’s ports for the entire world to access.</p>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<p>Dive into how to use the Sandbox, or read more about exactly how SSH tunneling works.</p>
+
+<ul>
+  <li><a href="https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox">Learning the Ropes of the Hortonworks Sandbox</a></li>
+  <li><a href="https://chamibuddhika.wordpress.com/2012/03/21/ssh-tunnelling-explained">SSH Tunneling Explained</a></li>
+</ul>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-621.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-621&amp;topics=hdp-2.5.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Port Forwarding to Azure Sandbox</strong></p>
+  <p>HCC Tags:<strong> tutorial-621</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+

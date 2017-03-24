@@ -1,0 +1,243 @@
+<div class="tutorial-content">
+  <h1 id="hadoop-tutorial--getting-started-with-hdp">Hadoop Tutorial – Getting Started with HDP</h1>
+
+<h2 id="report-data-with-zoomdata-optional">Report Data with Zoomdata (Optional)</h2>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In this tutorial, we will get Zoomdata running using Docker, configure Zoomdata
+settings and access refined data.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>Hortonworks Sandbox</li>
+  <li><a href="https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/">Learning the Ropes of the Hortonworks Sandbox</a></li>
+  <li>Lab 1: Load sensor data into HDFS</li>
+  <li>Lab 2: Data Manipulation with Apache Hive</li>
+  <li>Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor</li>
+  <li>Allow yourself around one hour to complete this tutorial.</li>
+</ul>
+
+<h2 id="outline">Outline</h2>
+
+<ul>
+  <li><a href="#install-zoomdata">Step 7.1: Install Zoomdata via Docker</a></li>
+  <li><a href="#configure-zoomdata">Step 7.2: Configure Zoomdata</a></li>
+  <li><a href="#step-7-3-access-the-refined-data-with-zoomdata">Step 7.3: Access the Refined Data with Zoomdata</a></li>
+  <li><a href="#find-ip-address-of-your-sandbox-optonal">Find IP Address of Your Sandbox (Optonal)</a></li>
+  <li><a href="#summary-lab7">Summary</a></li>
+  <li><a href="#further-reading-lab7">Further Reading</a></li>
+</ul>
+
+<h2 id="step-71-install-zoomdata-via-docker-">Step 7.1: Install Zoomdata via Docker <a id="install-zoomdata"></a></h2>
+
+<p>Please install Docker and Zoomdata on your system using the guides linked below.
+Summarized the steps from the links below to help you navigate through them as you
+install Docker and Zoomdata. You should still go to the links:</p>
+
+<ul>
+  <li><a href="https://docs.docker.com/installation/">Install and Configure Docker</a>
+    <ul>
+      <li>Install Docker Engine page appears, choose your appropriate OS</li>
+      <li>(Example steps done in Mac) Select Getting Started with Docker for Machine</li>
+      <li>Select <strong>Get Docker for Mac(stable)</strong></li>
+      <li>Go through steps 1 and 2 to install and verify Docker installed successfully</li>
+    </ul>
+  </li>
+  <li><a href="http://docs.zoomdata.com/docker-install">Install Zoomdata via Docker</a>
+    <ul>
+      <li>Docker Image Installation appears</li>
+      <li>View prerequisites</li>
+      <li>Navigate to installation processing</li>
+      <li>Run the 1st and 2nd instructions to install and setup Zoomdata</li>
+      <li>If on Mac or Linux, navigate to <code class="highlighter-rouge">http://localhost/zoomdata</code></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="step-72-configure-zoomdata-">Step 7.2: Configure Zoomdata <a id="configure-zoomdata"></a></h2>
+
+<p>In this section, we will enable the Hive on Tez connector in Zoomdata.</p>
+
+<p>1. Navigate to the Zoomdata login page. Log in with username <strong>supervisor</strong> and the password you configured on first start up. If this is your first time accessing the Zoomdata instance, then you will have an opportunity to set this password and the password for the <strong>admin</strong> account.</p>
+
+<ul>
+  <li>For non-linux systems: <code class="highlighter-rouge">http://_dockerhost_IPaddress_/zoomdata</code></li>
+  <li>For Linux systems: <code class="highlighter-rouge">http://localhost/zoomdata</code></li>
+</ul>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/zoomdata_login_screen.png" alt="zoomdata_login_page" /></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/after_password_set_login.png" alt="after_password_set_login" /></p>
+
+<p>2. After login, click on <strong>Advanced</strong> in the upper left side of the page.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/advanced_afterlogin.png" alt="advanced_afterlogin" /></p>
+
+<p>3. In the Key-Value list, change the value to <strong>true</strong> for key <strong>connector-HIVE_ON_TEZ</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/key_value_list_connector_hive_on_tez.png" alt="key_value_list_connector_hive_on_tez" /></p>
+
+<p>4. Click the <strong>Save</strong> button at the bottom the screen and logout.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/save_logout_button.png" alt="save_logout_button" /></p>
+
+<h2 id="step-73-access-the-refined-data-with-zoomdata">Step 7.3: Access the Refined Data with Zoomdata</h2>
+
+<p>In this section, we will use <a href="http://www.zoomdata.com/">Zoomdata</a> to access the refined data. We’ll start by setting up a connection from Zoomdata to the HDP sandbox and configuring data sources for each of our tables. Addition product documentation can be found on <a href="http://support.zoomdata.com/">support.zoomdata.com: Hive on Tez Data Source Configuration</a></p>
+
+<p>1. From the Zoomdata login screen, log in with username <strong>admin</strong> and the password you configured on first start up.</p>
+
+<ul>
+  <li>For non-Linux systems: <code class="highlighter-rouge">http://_dockerhost_IPaddress_/zoomdata</code></li>
+  <li>For Linux systems: <code class="highlighter-rouge">http://localhost/zoomdata</code></li>
+</ul>
+
+<p>2. Click on the <strong>Gear</strong> icon at the top left of the page and select <strong>Sources</strong> from the menu</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/gear_icon_zoomdata.png" alt="gear_icon_zoomdata" /></p>
+
+<p>3. Click on the <strong>Hive on Tez</strong> icon</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/hive_on_tez.png" alt="hive_on_tez_icon" /></p>
+
+<p>4. Specify a <strong>Name</strong> and <strong>Description</strong> (optional) for your data source. For this example, we will name the source <strong>Geolocation</strong>. Click <strong>Next</strong></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/name_source_geolocation.png" alt="name_description_data_source" /></p>
+
+<p>5. On the Connection page, specify the <strong>Connection Name</strong> as <strong>Hortonworks HDP</strong> and <strong>JDBC URL</strong> (sample below). Leave the <strong>User Name</strong> and <strong>Password</strong> fields blank. Click <strong>Validate</strong>. When the connection has completed validation, click <strong>Save</strong> then click <strong>Next</strong>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Sample JDBC: `jdbc:hive2://_HDPSanboxhost_IPaddress_:10000/default`
+</code></pre>
+</div>
+
+<h2 id="find-ip-address-of-your-sandbox-optonal">Find IP Address of Your Sandbox (Optonal)</h2>
+
+<blockquote>
+  <p><strong>Note</strong>: To find the IP address of your sandbox, follow the steps below. Then insert IP address into JDBC above.</p>
+</blockquote>
+
+<p>1. Change the settings for your VirtualBox that is <strong>hosting Hortonworks Sandbox</strong>:</p>
+
+<p>2. Vbox settings &gt; Network &gt; Adapter 1 &gt; change “Attached to:” to <strong>Host-only</strong> Adapter &gt; Name <strong>vboxnet0</strong> &gt; Advanced &gt; Adapter Type: <strong>Paravirtualized Network</strong> (virtio-net) &gt; Promiscuous Mode: <strong>Allow All</strong></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/change_vbox_settings.png" alt="change_vbox_settings" /></p>
+
+<p>3. You can look up sandbox ip address by typing following on the terminal:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>VBoxManage guestproperty get <span class="s2">"Hortonworks Sandbox with HDP 2.3.2"</span>
+<span class="s2">"/VirtualBox/GuestInfo/Net/0/V4/IP"</span>
+</code></pre>
+</div>
+
+<p>4. Replace <code class="highlighter-rouge">"Hortonworks Sandbox with HDP 2.3.2"</code> with the the name of your Sandbox.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/look_up_sandbox_ip_address.png" alt="look_up_sandbox_ip_address" /></p>
+
+<p>5. Start the Sandbox. You wont be able to access login page using the default http://localhost:8888. Instead use the ip address you obtained in the above step to go to welcome page. Eg: http://192.168.99.101:8888</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/start_sandbox_welcome.png" alt="sandbox_welcome" /></p>
+
+<p><strong>Return to Zoomdata Connection Page</strong></p>
+
+<p>Let’s come back to the <strong>connection</strong> page on zoomdata and enter our <strong>credentials</strong> now that we know our <strong>sandbox ip address</strong>. Your input credentials should look similar to the following screen:</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/input_credentials_connection_page.png" alt="input_credentials_connection_page" /></p>
+
+<p>6. On the <strong>Tables</strong> page, select the <strong>Geolocation</strong> table from list on the left side and click <strong>Next</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/geolocation_table_zoomdata.png" alt="geolocation_table_field" /></p>
+
+<p>7. On the <strong>Fields</strong> page, do not make any changes and click <strong>Next</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/fields_page_zoomdata.png" alt="fields_page_zoomdata" /></p>
+
+<p>8. On the Visualizations page, scroll to and select the <strong>Map:Markers</strong> visualization. Set the <strong>Latitude</strong> and <strong>Longitude</strong> drop downs to fields of the <em>same name</em> and click <strong>Finish</strong> at the bottom of the screen.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/map_markers_lat_long_zoomdata.png" alt="visualization_map_markers" /></p>
+
+<p>9. Once returned to the Sources page, click on the link at the top for <strong>See Charts</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/see_charts_zoomdata.png" alt="data_source_geolocation_saved" /></p>
+
+<p>10. Scroll down the page and select the icon labeled <strong>Map:Markers</strong></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/map_markers_charts_page_zoomdata.png" alt="icon_map_markers" /></p>
+
+<p>11. On open, the <strong>Map:Markers</strong> visualization will read the geolocation data from your HDP Sandbox and render the points on the map.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/map_markers_visual_read_geo_data_zoomdata.png" alt="map_markers_render_points_map" /></p>
+
+<p>12. Click on the <strong>yellow point</strong> over California to drill into that area. Further drill down is possible by clicking on any point on the map. Use the minus control in the upper left corner to zoom back out.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/drill_into_map.png" alt="yellow_point_map_california" /></p>
+
+<p>13. From here, we can create a simple dashboard by adding another visualization. To do this, click the <strong>Plus</strong> icon at the upper right corner of the graph. Select the <strong>Geolocation</strong> data source and then select a graph style (<strong>Bars:Vertical</strong> is used in this example)</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/step1_select_geolocation_zoomdata.png" alt="create_dashboard_visualization" /></p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/step2_select_graph_style.png" alt="step2_select_graph_style" /></p>
+
+<p>14. Once the new visualization has completed rendering, we can adjust the graph’s grouping by clicking on the <strong>Sub-Group:Event</strong> label on the X axis, and we’ll change it to <strong>none</strong>.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/geolocation_bar_graph_state_event.png" alt="geolocation_bar_graph_state_event" /></p>
+
+<p>15. For <strong>Group:State</strong> label, let’s select <strong>city</strong> from the group list.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/group_state_city_zoomdata.png" alt="adjust_graphs_grouping" /></p>
+
+<p>16. Further adjustment can be made by clicking on the <strong>Metric:Volume</strong> label and selecting Velocity, then clicking <strong>Sum</strong> and selecting <strong>Avg</strong> to show average Velocity by City</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/metric_velocity_sum_avg.png" alt="adjustment_avg_velocity" /></p>
+
+<p>17. To further drill into the graph, single-click one of the bars to open the Zoomdata horseshoe menu, click <strong>ZOOM</strong>, and select <strong>Event</strong> as the new grouping for the graph.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/zoom_event_zoomdata.png" alt="zoom_event_zoomdata" /></p>
+
+<p>17. Your graph should now display <strong>Event</strong> statistics for the selected <strong>City</strong>. You can undo changes to a graph at anytime by using the back arrow at the bottom left corner of the selected graph. In our case, the graph below shows event statistics for Bakersfield.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/event_statistics_for_city.png" alt="event_statistics_city" /></p>
+
+<p>18. To save your dashboard, click the star icon in the upper right corner, rename the dashboard, and click save at the bottom of the menu.</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/save_geolocation_graph.png" alt="save_dashboard_bottom_screen" /></p>
+
+<p>19. Your saved dashboard is now available on the Zoomdata <strong>Home</strong> screen and listed under <strong>Favorites</strong> in the ‘Hamburger’ menu (upper left corner, next to the ‘Gear’ icon)</p>
+
+<p><img src="https://raw.githubusercontent.com/orendain/big-data-tutorials/master/tutorials/hdp/hdp-2.5/hadoop-tutorial-getting-started-with-hdp/assets/saved_dashboard_home_screen.png" alt="saved_dashboard_hamburger" /></p>
+
+<h2 id="summary-">Summary <a id="summary-lab7"></a></h2>
+
+<p>We’ve shown how the Hortonworks Data Platform (HDP) can store and analyze geolocation data. We’ve also reviewed some basic techniques for connecting, visualizing, and navigating the HDP data using Zoomdata.</p>
+
+<p>Congratulations on completing our HDP tutorial labs!</p>
+
+<h2 id="further-reading-">Further Reading <a id="further-reading-lab7"></a></h2>
+
+<ul>
+  <li>More advanced Zoomdata tutorials and product guides are available in the <a href="http://docs.zoomdata.com/zoomdata-docs-portal">Zoomdata Support Portal</a>.</li>
+  <li>To obtain product pricing, schedule a demo, or request general information, visit the <a href="http://www.zoomdata.com/contact">Zoomdata Contact</a> page.</li>
+</ul>
+
+</div>
+
+<hr>
+
+<div id="tutorial-footer">
+  <h2>Tutorial Q&amp;A and Reporting Issues</h2>
+
+  <p>If you need help or have questions with this tutorial, please check HCC for answers to existing questions about this tutorial by using the Find Answers button below.  You can post a new HCC question by using the Ask Questions button below.</p>
+
+  <p>
+    <a class="btn" href="https://community.hortonworks.com/topics/tutorial-100.html" role="button">Find Answers</a>
+    <a class="btn pull-right" href="https://community.hortonworks.com/questions/ask.html?space=81&topics=tutorial-100&amp;topics=hdp-2.5.0" role="button">Ask Questions</a>
+  </p>
+
+  <p>Tutorial Name: <strong>Hadoop Tutorial – Getting Started with HDP</strong></p>
+  <p>HCC Tags:<strong> tutorial-100</strong> and <strong>hdp-2.5.0</strong></p>
+  <p>If the tutorial has multiple components please indicate which one your question relates to.</p>
+
+  <p>All Hortonworks, partner and community tutorials are posted in the Hortonworks GitHub repository and can be contributed to by following the <a href="https://github.com/hortonworks/big-data-tutorials/wiki">Tutorial Contribution Guide</a>.  For issues/bugs/feedback, please <a href="https://github.com/hortonworks/big-data-tutorials/issues/new">submit an issue</a> and we will do our best to resolve it!</p>
+</div>
+
