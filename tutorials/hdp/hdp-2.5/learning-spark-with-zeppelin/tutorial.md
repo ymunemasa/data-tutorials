@@ -14,23 +14,11 @@ We will also introduce the necessary steps to get up and running with Apache Zep
 
 ## Prerequisites
 
-Please ensure you complete the prerequisites before proceeding with this tutorial.
-
-There are multiple ways to install and/or launch the HDP Sandbox:
-
-*   Download and Install [HDP Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
-
-or
-
-*   Deploy the [HDP Sandbox in the Azure Cloud](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/). (FREE for the first month.)
-
-
-**Note**: If you're attending a Crash Course or a Meetup, the instructor may have additional information on how to get a HDP Sandbox installed.
-
-
-Additional resources to get you started:
-
-*   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   Download and Install [HDP Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
+-   Or deploy the [HDP Sandbox in the Azure Cloud](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/). (FREE for the first month.)
+-   Additional resource to get you started: [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-
+> Note: If you're attending a Crash Course or a Meetup, the instructor may have additional information on how to get a HDP Sandbox installed.
 
 ## Outline
 
@@ -70,17 +58,17 @@ Right now, let's import today's lab.
 
 Click Import
 
-![scr4-import](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr4-import.png)
+![scr4-import](assets/scr4-import.png)
 
 Next, click "Add from URL" button.
 
-![src7-click-url](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr7-click-url.png)
+![src7-click-url](asssets/scr7-click-url.png)
 
 Finally, copy and paste the following url: [https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.5/2BSVWUZEW/note.json](https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.5/2BSVWUZEW/note.json)
 
 and click "Import Note"
 
-![src8-import-url](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr8-import-url.png)
+![src8-import-url](assets/scr8-import-url.png)
 
 Voila! Now you should have your "Lab 101_DW: ..." listed in the main Zeppelin directory.
 
