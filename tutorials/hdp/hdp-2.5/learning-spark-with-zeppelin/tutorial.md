@@ -62,7 +62,7 @@ Click Import
 
 Next, click "Add from URL" button.
 
-![src7-click-url](asssets/scr7-click-url.png)
+![src7-click-url](assets/scr7-click-url.png)
 
 Finally, copy and paste the following url: [https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.5/2BSVWUZEW/note.json](https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.5/2BSVWUZEW/note.json)
 
