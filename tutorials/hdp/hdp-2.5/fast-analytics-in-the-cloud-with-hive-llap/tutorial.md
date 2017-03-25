@@ -1,6 +1,6 @@
 ---
 title: Fast analytics in the cloud with Hive LLAP
-id:
+tutorial-id: 410
 platform: hdp-2.5.0
 components: [ambari, hive]
 ---
