@@ -15,9 +15,9 @@ We will also introduce the necessary steps to get up and running with Apache Zep
 ## Prerequisites
 
 -   Download and Install [HDP Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
--   Or deploy the [HDP Sandbox in the Azure Cloud](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/). (FREE for the first month.)
+-   Or deploy the [HDP Sandbox in the Azure Cloud](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/) (FREE for the first month)
 -   Additional resource to get you started: [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
--
+
 > Note: If you're attending a Crash Course or a Meetup, the instructor may have additional information on how to get a HDP Sandbox installed.
 
 ## Outline
