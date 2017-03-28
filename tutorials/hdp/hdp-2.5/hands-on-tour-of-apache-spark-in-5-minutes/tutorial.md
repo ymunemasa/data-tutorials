@@ -5,11 +5,15 @@ platform: hdp-2.5.0
 tags: [spark, zeppelin]
 ---
 
+# Hands-On Tour of Apache Spark in 5 Minutes
+
+## Introduction
+
 Apache Spark is a fast, in-memory data processing engine with elegant and expressive development APIs in Scala, Java, Python, and R that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets (see [Spark API Documentation](http://spark.apache.org/docs/latest/api.html) for more info). Spark on [Apache Hadoop YARN](https://hortonworks.com/hadoop/YARN "Apache Hadoop YARN") enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.
 
 In this tutorial, we will introduce the basic concepts of Apache Spark and the first few necessary steps to get started with Spark using an Apache Zeppelin Notebook on a Hortonworks Data Platform (HDP) Sandbox.
 
-### Prerequisites
+## Prerequisites
 
 This tutorial is a part of series of hands-on tutorials to get you started with HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
