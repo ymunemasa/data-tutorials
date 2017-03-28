@@ -1,6 +1,6 @@
 ---
 title: Fast analytics in the cloud with Hive LLAP
-id:
+tutorial-id: 410
 platform: hdp-2.5.0
 components: [ambari, hive]
 ---
@@ -139,5 +139,3 @@ Using the data model built, we can visualize which airports have most delays:
 Congratulations! You've completed the tutorial.
 
 As seen by this tutorial, it is easy to use Hive LLAP on Amazon Web Services (AWS). In using Business intelligence tools (BI tools), like Tableau, you are able to interactively explore and analyze your data.
-
-## Further Reading
