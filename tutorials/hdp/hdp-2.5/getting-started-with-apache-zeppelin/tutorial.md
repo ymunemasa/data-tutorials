@@ -13,12 +13,11 @@ Apache Zeppelin is a web-based notebook that enables interactive data analytics.
 
 With a focus on Enterprise, Zeppelin has the following important features:
 
-- Livy integration (REST interface for interacting with Spark)
-- Security:
-
-  - Execute jobs as authenticated user
-  - Zeppelin authentication against LDAP
-  - Notebook authorization
+-   Livy integration (REST interface for interacting with Spark)
+-   Security:
+    -   Execute jobs as authenticated user
+    -   Zeppelin authentication against LDAP
+    -   Notebook authorization
 
 ## Prerequisites
 
@@ -39,15 +38,15 @@ E.g. on a VirtualBox Sandbox, Ambari would be accessible at http://127.0.0.1:808
 
 Note: If you're new to the HDP Sandbox environment, make sure to review [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/).
 
-![scr1-login](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr1-login.png)
+![scr1-login](assets/scr1-login.png)
 
 Okay, once you're in Ambari just click the Views dropdown (upper-right corner) and select Zeppelin.
 
-![scr2-views](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr2-views.png)
+![scr2-views](assets/scr2-views.png)
 
 Voila, you should see default Zeppelin menu with a list of demos and labs that you can run to explore great examples to get you quickly up and running.
 
-![scr3-zeppelin-main](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr3-zeppelin-main.png)
+![scr3-zeppelin-main](assets/scr3-zeppelin-main.png)
 
 Now let's create your first notebook.
 
@@ -55,15 +54,21 @@ Now let's create your first notebook.
 
 To create a notebook:
 
-1. Under the “Notebook” tab, choose **+Create new note**.
+1\. Under the “Notebook” tab, choose **+Create new note**.
 
-2. You will see the following window. Type a name for the new note (or accept the default): <br><br>![scr9-create-notebook](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr9-create-notebook.png)
+2\. You will see the following window. Type a name for the new note (or accept the default):
 
-3.  Type sc.version into a paragraph in the note, and click the “Play” button (blue triangle): <br><br>![scr10-check-spark-version](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr10-check-spark-version.png)<br>
-SparkContext, SQLContext, ZeppelinContext will be created automatically. They will be exposed as variable names ‘sc’, ‘sqlContext’ and ‘z’, respectively, in scala and python environments.<br><br>
-**Note:** The first run will take some time, because it is launching a new Spark job to run against YARN. Subsequent paragraphs will run much faster.<br><br>
+![scr9-create-notebook](assets/scr9-create-notebook.png)
 
-4.  When finished, the status indicator on the right will say "FINISHED". The output should list the version of Spark in your cluster: <br>
+3\.  Type sc.version into a paragraph in the note, and click the “Play” button (blue triangle):
+
+![scr10-check-spark-version](assets/scr10-check-spark-version.png)
+
+SparkContext, SQLContext, ZeppelinContext will be created automatically. They will be exposed as variable names ‘sc’, ‘sqlContext’ and ‘z’, respectively, in scala and python environments.
+
+> **Note:** The first run will take some time, because it is launching a new Spark job to run against YARN. Subsequent paragraphs will run much faster.
+
+4\.  When finished, the status indicator on the right will say "FINISHED". The output should list the version of Spark in your cluster:
 
 ~~~
 res0: String = 1.6.2
@@ -79,15 +84,15 @@ There are two ways to import Zeppelin notebooks, either by pointing to json note
 
 Click Import.
 
-![scr4-import](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr4-import.png)
+![scr4-import](assets/scr4-import.png)
 
 Next, click "Choose a JSON here" button.
 
-![src5-click-json](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr5-click-json.png)
+![src5-click-json](assets/scr5-click-json.png)
 
 Finally, select the notebook you want to import.
 
-![src6-choose-json](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr6-choose-json.png)
+![src6-choose-json](assets/scr6-choose-json.png)
 
 Now you should see your imported notebook among other notebooks on the main Zeppelin screen.
 
@@ -95,15 +100,15 @@ Now you should see your imported notebook among other notebooks on the main Zepp
 
 Click Import.
 
-![scr4-import](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr4-import.png)
+![scr4-import](assets/scr4-import.png)
 
 Next, click "Add from URL" button.
 
-![src7-click-url](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr7-click-url.png)
+![src7-click-url](assets/scr7-click-url.png)
 
 Finally, copy and paste the url to the (raw) json file.
 
-![src8-import-url](https://raw.github.com/hortonworks/tutorials/hdp-2.5/assets/getting-started-with-apache-zeppelin/scr8-import-url.png)
+![src8-import-url](assets/scr8-import-url.png)
 
 Now you should see your imported notebook among other notebooks on the main Zeppelin screen.
 
@@ -111,14 +116,18 @@ Now you should see your imported notebook among other notebooks on the main Zepp
 
 As you explore Zeppelin you will probably want to use one or more external libraries. For example, to run [Magellan](https://hortonworks.com/blog/magellan-geospatial-analytics-in-spark/) you need to import its dependencies; you will need to include the Magellan library in your environment. There are three ways to include an external dependency in a Zeppelin notebook: **Using the %dep interpreter** (**Note**: This will only work for libraries that are published to Maven.)
 
-<pre>%dep
+```
+%dep
 z.load("group:artifact:version")
 %spark
-import ...</pre>
+import ...
+```
 
 Here is an example that imports the dependency for Magellan:
 
-<pre>%dep
+```
+%dep
 z.addRepo("Spark Packages Repo").url("http://dl.bintray.com/spark-packages/maven")
 z.load("com.esri.geometry:esri-geometry-api:1.2.1")
-z.load("harsha2010:magellan:1.0.3-s_2.10")</pre>
+z.load("harsha2010:magellan:1.0.3-s_2.10")
+```
