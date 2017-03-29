@@ -8,6 +8,8 @@ url:          https://hortonworks.com/hadoop-tutorial
 collections:
   tutorials:
     output: true
+  articles:
+    output: true
 
 defaults:
   -
@@ -16,3 +18,9 @@ defaults:
       type: "tutorials"
     values:
       layout: "tutorial"
+  -
+    scope:
+      path: ""
+      type: "articles"
+    values:
+      layout: "article"
