@@ -14,7 +14,7 @@ In this tutorial, you will build the Ingest NextBus SF Muni Live Stream section 
 
 ![complete_dataflow_lab3_live_stream_ingestion](assets/lab3-ingest-nextbus-live-stream-nifi-lab-series/complete_dataflow_lab3_live_stream_ingestion.png)
 
-Feel free to download the [Lab3-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab3-template/Lab3-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to the lab.
+Feel free to download the [Lab3-NiFi-Learn-Ropes.xml](assets/lab3-template/Lab3-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to the lab.
 
 ## Prerequisites
 - Completed Tutorial 0: Download, Install and Start NiFi
