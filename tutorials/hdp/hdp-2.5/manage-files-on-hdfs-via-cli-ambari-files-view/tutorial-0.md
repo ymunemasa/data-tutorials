@@ -35,9 +35,9 @@ ssh root@127.0.0.1 -p 2222
 
 ~~~
 # download sf-salaries-2011-2013
-wget https://raw.githubusercontent.com/hortonworks/data-tutorials/cf9f67737c3f1677b595673fc685670b44d9890f/tutorials/hdp/hdp-2.5/manage-files-on-hdfs-via-cli-ambari-files-view/assets/sf-salary-datasets/sf-salaries-2011-2013.csv
+wget https://raw.githubusercontent.com/hortonworks/data-tutorials/893ba0221e2c76c91e9e2baa030323a42abcdf09/tutorials/hdp/hdp-2.5/manage-files-on-hdfs-via-cli-ambari-files-view/assets/sf-salary-datasets/sf-salaries-2011-2013.csv
 # download sf-salaries-2014
-wget https://raw.githubusercontent.com/hortonworks/data-tutorials/cf9f67737c3f1677b595673fc685670b44d9890f/tutorials/hdp/hdp-2.5/manage-files-on-hdfs-via-cli-ambari-files-view/assets/sf-salary-datasets/sf-salaries-2014.csv
+wget https://raw.githubusercontent.com/hortonworks/data-tutorials/893ba0221e2c76c91e9e2baa030323a42abcdf09/tutorials/hdp/hdp-2.5/manage-files-on-hdfs-via-cli-ambari-files-view/assets/sf-salary-datasets/sf-salaries-2014.csv
 ~~~
 
 ![sf_salary_datasets](assets/sf_salary_datasets.png)
