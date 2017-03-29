@@ -36,7 +36,7 @@ In this tutorial, you will build the following dataflow:
 
 ## Approach 1 <a id="approach1"></a>
 
-Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/lab1-template/Lab1-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to **Step 1**.
+Feel free to download the [Lab1-NiFi-Learn-Ropes.xml](assets/lab1-template/Lab1-NiFi-Learn-Ropes.xml) template file or if you prefer to build the dataflow from scratch, continue on to **Step 1**.
 
 1\. Click on the template icon ![nifi_template_icon](assets/lab1-build-nifi-dataflow/nifi_template_icon.png) located in the actions toolbar.
 
