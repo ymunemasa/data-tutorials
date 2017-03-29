@@ -21,7 +21,7 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 
 -   Downloaded and Installed [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
 -   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
--   Finally, make sure to review a quick tutorial on [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md).
+-   Finally, make sure to review a quick tutorial on [Getting Started with Apache Zeppelin](https://hortonworks.com/hadoop-tutorial/getting-started-apache-zeppelin/).
 
 ## Outline
 -   [Create a Notebook](#create-a-notebook)
