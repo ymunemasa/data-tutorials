@@ -227,7 +227,7 @@ You should be greeted by the following screen where you can choose to view notes
 You can choose to **Import note** from this tutorial. Click on **Import note**, an **Import new note** window will appear, select **Add from URL**. The window will transition to a new window that has two fields: **Import AS** and **URL**. Copy & Paste the following URL into the **URL** field:
 
 ~~~
-https://raw.githubusercontent.com/hortonworks/tutorials/tutorials/hortonworks/hdp-2.5/analyze-server-log-data/assets/NiFiServerLogs.json
+https://raw.githubusercontent.com/hortonworks/data-tutorials/cf9f67737c3f1677b595673fc685670b44d9890f/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/NiFiServerLogs.json
 ~~~
 
 Then click the **Import note** button.
