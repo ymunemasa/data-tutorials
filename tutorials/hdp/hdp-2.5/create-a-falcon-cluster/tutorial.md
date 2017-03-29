@@ -151,11 +151,11 @@ And run the below script to find the status of Falcon server:
 ./bin/falcon-status
 ~~~
 
- Next, use `hadoop fs -mkdir` commands to create the directories `/apps/falcon/primaryCluster` and `/apps/falcon/backupCluster` on HDFS.
+ Next, use `hdfs dfs -mkdir` commands to create the directories `/apps/falcon/primaryCluster` and `/apps/falcon/backupCluster` on HDFS.
 
  ~~~
- hadoop fs -mkdir /apps/falcon/primaryCluster
- hadoop fs -mkdir /apps/falcon/backupCluster
+ hdfs dfs -mkdir /apps/falcon/primaryCluster
+ hdfs dfs -mkdir /apps/falcon/backupCluster
  ~~~
 
  ![create_hdfs_directory](assets/create_hdfs_directory.png)
@@ -163,8 +163,8 @@ And run the below script to find the status of Falcon server:
  Further create directories called `staging` inside each of the directories we created above:
 
  ~~~
- hadoop fs -mkdir /apps/falcon/primaryCluster/staging
- hadoop fs -mkdir /apps/falcon/backupCluster/staging
+ hdfs dfs -mkdir /apps/falcon/primaryCluster/staging
+ hdfs dfs -mkdir /apps/falcon/backupCluster/staging
  ~~~
 
  ![create_staging_directory](assets/create_staging_directory.png)
@@ -172,8 +172,8 @@ And run the below script to find the status of Falcon server:
  Next, create the `working` directories for `primaryCluster` and `backupCluster`:
 
  ~~~
- hadoop fs -mkdir /apps/falcon/primaryCluster/working
- hadoop fs -mkdir /apps/falcon/backupCluster/working
+ hdfs dfs -mkdir /apps/falcon/primaryCluster/working
+ hdfs dfs -mkdir /apps/falcon/backupCluster/working
  ~~~
 
 ![create_working_directory](assets/create_working_directory.png)
@@ -181,10 +181,10 @@ And run the below script to find the status of Falcon server:
 Finally you need to set the proper permissions on the staging/working directories:
 
 ~~~
-hadoop fs -chmod 777 /apps/falcon/primaryCluster/staging
-hadoop fs -chmod 755 /apps/falcon/primaryCluster/working
-hadoop fs -chmod 777 /apps/falcon/backupCluster/staging
-hadoop fs -chmod 755 /apps/falcon/backupCluster/working
+hdfs dfs -chmod 777 /apps/falcon/primaryCluster/staging
+hdfs dfs -chmod 755 /apps/falcon/primaryCluster/working
+hdfs dfs -chmod 777 /apps/falcon/backupCluster/staging
+hdfs dfs -chmod 755 /apps/falcon/backupCluster/working
 ~~~
 -->
 

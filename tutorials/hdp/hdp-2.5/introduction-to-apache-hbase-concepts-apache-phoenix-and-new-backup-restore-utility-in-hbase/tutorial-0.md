@@ -136,7 +136,7 @@ Open a new terminal and ssh into the Sandbox. Download the data.csv file and let
 ~~~
 $>ssh root@127.0.0.1 -p 2222
 
-$>curl -o ~/data.csv https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/data.csv
+$>curl -o ~/data.csv https://raw.githubusercontent.com/hortonworks/data-tutorials/d0468e45ad38b7405570e250a39cf998def5af0f/tutorials/hdp/hdp-2.5/introduction-to-apache-hbase-concepts-apache-phoenix-and-new-backup-restore-utility-in-hbase/assets/data.csv
 
 $>hadoop fs -copyFromLocal ~/data.csv /tmp
 ~~~

@@ -21,8 +21,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 -   Lab 1: Loading sensor data into HDFS
 -   Lab 2: Data Manipulation with Apache Hive
 -   Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor
--   Please configure ODBC drivers on your system with the help of following tutorial:
-    -   [Installing and Configuring the Hortonworks ODBC driver on Windows 7](https://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/)
+-   Install and configure [Hortonworks ODBC Driver](http://hortonworks.com/downloads/#addons)
 -   Allow yourself around half an hour to complete this tutorial.
 
 ## Outline
@@ -34,7 +33,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 
 ## Step 6.b.1: Access Data in Microsoft Excel <a id="step6.b.1"></a>
 
-The [Hive ODBC driver](https://hortonworks.com/hdp/addons/) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](https://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions. Open the ODBC connection manager and open the connection you setup up. It should look like this.
+The [Hive ODBC driver](http://hortonworks.com/downloads/#addons) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](https://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions. Open the ODBC connection manager and open the connection you setup up. It should look like this.
 
 **For Windows users**:-
 
