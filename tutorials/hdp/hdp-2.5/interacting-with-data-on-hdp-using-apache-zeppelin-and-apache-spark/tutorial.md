@@ -29,7 +29,7 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 
 ## Create a Notebook
 
-If you're new to Zeppelin, make sure to checkout the [Getting Started Guide](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md) before proceeding.
+If you're new to Zeppelin, make sure to checkout the [Getting Started Guide](https://hortonworks.com/hadoop-tutorial/getting-started-apache-zeppelin/) before proceeding.
 
 Create a new note and give it a meaningful name, e.g. I gave it *Interacting with Data on HDP*
 
