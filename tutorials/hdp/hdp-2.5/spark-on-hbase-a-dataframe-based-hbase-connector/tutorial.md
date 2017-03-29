@@ -14,7 +14,7 @@ The technical preview of the [Spark-HBase connector](https://github.com/hortonwo
 
 *   Download and Install [Hortonworks Sandbox 2.5](https://hortonworks.com/products/sandbox/)
 *   Review [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-*   Review [Getting Started with Apache Zeppelin](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md)
+*   Review [Getting Started with Apache Zeppelin](https://hortonworks.com/hadoop-tutorial/getting-started-apache-zeppelin/)
 
 ## Outline
 
@@ -35,7 +35,7 @@ The following illustrates the basic procedure on how to use the connector. For m
 
 For this example, we have prepared and written a fully functional Zeppelin notebook example: "Spark HBase - A DataFrame Based Connector."
 
-If you're new to Zeppelin make sure to checkout the [Getting Started Guide](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/getting-started-with-apache-zeppelin/tutorial.md).
+If you're new to Zeppelin make sure to checkout the [Getting Started Guide](https://hortonworks.com/hadoop-tutorial/getting-started-apache-zeppelin/).
 
 You can preview the completed notebook [here](https://www.zeppelinhub.com/viewer/notebooks/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2hvcnRvbndvcmtzLWdhbGxlcnkvemVwcGVsaW4tbm90ZWJvb2tzL2hkcC0yLjUvMkJSWkNBTTRFL25vdGUuanNvbg).
 
