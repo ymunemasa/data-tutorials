@@ -1,4 +1,10 @@
-# Sample Tutorial (this is the title)
+---
+title: Sample Article (this is the title of your article)
+platform: hdp-2.5.0
+tags: [azure, sandbox]
+---
+
+# Sample Article (this is the title of your article)
 
 ## Introduction
 
