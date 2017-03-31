@@ -1,10 +1,10 @@
 #!/bin/bash
 USERNAME=maria_dev
-#PASSWORD=maria_dev
+PASSWORD=maria_dev
 user_exists=$(id -u $USERNAME > /dev/null 2>&1; echo $?)
 if [ $user_exists -eq 1 ]; then
 sudo useradd $USERNAME
-read -s -p "Enter password : " PASSWORD
+#read -s -p "Enter password : " PASSWORD
 echo $USERNAME:$PASSWORD | sudo chpasswd
 sudo -u hdfs hdfs dfs -mkdir /user/maria_dev
 sudo -u hdfs hdfs dfs -chown -R maria_dev:hdfs /user/maria_dev
