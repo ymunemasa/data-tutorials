@@ -1,10 +1,10 @@
 #!/bin/bash
 USERNAME=amy_ds
-#PASSWORD=amy_ds
+PASSWORD=amy_ds
 user_exists=$(id -u $USERNAME > /dev/null 2>&1; echo $?)
 if [ $user_exists -eq 1 ]; then
 sudo useradd $USERNAME
-read -s -p "Enter password : " PASSWORD
+#read -s -p "Enter password : " PASSWORD
 echo $USERNAME:$PASSWORD | sudo chpasswd
 #egrep "^$USERNAME" /etc/passwd >/dev/null
 echo "Creating a HDFS directory"
