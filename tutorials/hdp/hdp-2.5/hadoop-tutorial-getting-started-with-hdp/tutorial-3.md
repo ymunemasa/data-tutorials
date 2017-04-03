@@ -41,7 +41,7 @@ Apache Hive provides  SQL interface to query data stored in various databases an
 
 Apache Hive presents a relational view of data in HDFS. Hive can represent data in a tabular format managed by Hive or just stored in HDFS irrespective in the file  format their data is stored in.  Hive can query data from RCFile format, text files, ORC, JSON, parquet,  sequence files and many of other formats in a tabular view.   Through the use of SQL you can view your data as a table and create queries like you would in an RDBMS.
 
-To make it easy to interact with Hive we use a tool in the Hortonworks Sandbox called the Ambari Hive View.   [Ambari Hive View](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.1/bk_ambari-views/content/section_using_hive_view.html) provides an interactive interface to Hive.   We can create, edit, save and run queries, and have Hive evaluate them for us using a series of MapReduce jobs or Tez jobs.
+To make it easy to interact with Hive we use a tool in the Hortonworks Sandbox called the Ambari Hive View.   [Ambari Hive View](https://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.1/bk_ambari-views/content/section_using_hive_view.html) provides an interactive interface to Hive.   We can create, edit, save and run queries, and have Hive evaluate them for us using a series of MapReduce jobs or Tez jobs.
 
 Let’s now open the Ambari Hive View and get introduced to the environment. Go to the 9 square Ambari User View icon and select Hive View:
 
@@ -174,12 +174,22 @@ Click on the **Load sample data** icon to generate and execute a select SQL stat
 **A few additional commands to explore tables:**
 
 -   `show tables;` - List the tables created in the database by looking up the list of tables from the metadata stored in HCatalogdescribe
--   `describe {table_name};` - Provides a list of columns for a particular table (ie `describe geolocation_stage;`)
--   `show create table {table_name};` - Provides the DDL to recreate a table (ie `show create table geolocation_stage;`)
+-   `describe {table_name};` - Provides a list of columns for a particular table
+
+~~~
+   describe geolocation;
+~~~
+
+-   `show create table {table_name};` - Provides the DDL to recreate a table
+
+~~~
+   show create table geolocation;
+~~~
+
 -   `describe formatted {table_name};` - Explore additional metadata about the table.  For example you can verify geolocation is an ORC Table, execute the following query:
 
 ~~~
-describe formatted geolocation;
+   describe formatted geolocation;
 ~~~
 
 Scroll down to the bottom of the Results tab and you will see a section labeled Storage Information. The output should look like:
@@ -196,17 +206,7 @@ Notice the tab of your new Worksheet is labeled **trucks sample data**. Double-c
 
 ![save_truck_sample_data](assets/save_truck_sample_data_lab2.png)
 
-### 2.2.9 Command Line Approach: Populate Hive Table with Data
-
-The following Hive command can be used to LOAD data into existing table from  the command line
-
-~~~
-LOAD DATA INPATH '/user/maria_dev/data/trucks.csv' OVERWRITE INTO TABLE trucks;
-~~~
-
-If you would run the above commands and navigate to the `/user/maria_dev/data` folder.  You would notice the folder is empty! The **LOAD DATA INPATH** command moved the trucks.csv file from the **/user/maria_dev/data** folder to the **/apps/hive/warehouse/trucks_stage folder**.
-
-### 2.2.10 Beeline - Command Shell
+### 2.2.9 Beeline - Command Shell
 
 If you want to try running some of these commands from the the command line you can use the Beeline Shell.  Beeline uses a JDBC connection to connect to HiveServer2. Follow the following steps from your shell in the box (or putty if using Windows):
 
@@ -282,7 +282,7 @@ As you can see from the green circle above, the `Enable Vectorization and Map Ve
 Some **key resources** to **learn more about vectorization** and some of the **key settings in Hive tuning:**
 
 -   Apache Hive docs on [Vectorized Query Execution](https://cwiki.apache.org/confluence/display/Hive/Vectorized+Query+Execution)
--   [HDP Docs Vectorization docs](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.0.9.0/bk_dataintegration/content/ch_using-hive-1a.html)
+-   [HDP Docs Vectorization docs](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.0.9.0/bk_dataintegration/content/ch_using-hive-1a.html)
 -   [Hive Blogs](https://hortonworks.com/blog/category/hive/)
 -   [5 Ways to Make Your Hive Queries Run Faster](https://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/)
 -   [Interactive Query for Hadoop with Apache Hive on Apache Tez](https://hortonworks.com/hadoop-tutorial/supercharging-interactive-queries-hive-tez/)
