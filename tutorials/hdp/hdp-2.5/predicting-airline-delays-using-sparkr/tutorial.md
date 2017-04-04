@@ -34,7 +34,7 @@ In this tutorial we’ll show you how to use SparkR to predict flight delays usi
 
 ## Step 1 : Download the Dataset
 
-Every year approximately 20% of airline flights are delayed or cancelled, resulting in significant costs to both travelers and airlines. As our example use-case, we will build a supervised learning model that predicts airline delay from historical flight data. Download the dataset from here and which includes details about flights in the US for 2015. Every row in the dataset has 16 attributes:
+Every year approximately 20% of airline flights are delayed or cancelled, resulting in significant costs to both travelers and airlines. As our example use-case, we will build a supervised learning model that predicts airline delay from historical flight data. [Download the dataset from here](assets/airline_data.zip) and which includes details about flights in the US for 2015. Every row in the dataset has 16 attributes:
 
 -   Year
 -   Month
