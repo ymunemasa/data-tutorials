@@ -30,7 +30,7 @@ This tutorial walks through installing the Hortonworks Sandbox onto Virtualbox o
 Start by importing the Hortonworks Sandbox into VirtualBox.  You can do this in two ways:
 
 -   Double-click on the [sandbox image you download](https://hortonworks.com/downloads/#sandbox) from the Prerequisite section above.
--   Or open VirtualBox and navigate to File -> Import Appliance.  Select the sandbox image you downloaded and hit 'Next'.
+-   Or open VirtualBox and navigate to File -> Import Appliance.  Select the sandbox image you downloaded and click "Next".
 
 You should end up with a screen like this:
 
@@ -42,7 +42,7 @@ Click "Import" and wait for VirtualBox to import the sandbox.
 
 ## Start the Hortonworks Sandbox
 
-Once the sandbox has finished being imported, you may start it by selecting the sandbox and clicking "Start" from the VirtualBox menu.
+Once the sandbox has finished being imported, you may start it by selecting the sandbox and clicking "**Start**" from the VirtualBox menu.
 
 ![virtualbox_start_windows](assets/vbox-start.jpg)
 
