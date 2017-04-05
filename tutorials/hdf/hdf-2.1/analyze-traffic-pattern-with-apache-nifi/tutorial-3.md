@@ -49,7 +49,7 @@ If you want to see the NiFi flow in action within minutes, refer to **Approach 1
 5\. Run the following shell script, so NiFi has Vehicle Location input source data:
 
 ~~~bash
-./init_nifi_src_data.sh
+./auto_scripts/docker-scripts/init_nifi_src_data.sh
 ~~~
 
 6\. Hit the **start** button ![start_button_nifi_iot](assets/tutorial-1-build-a-simple-nifi-dataflow/start_button_nifi_iot.png). to activate the dataflow.
