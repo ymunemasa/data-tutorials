@@ -34,7 +34,7 @@ Download [auto_scripts.zip](assets/auto_scripts.zip)
 
 ~~~bash
 cd ~/Downloads
-unzip auto-scripts.zip
+unzip auto_scripts.zip
 chmod -R 755 auto_scripts
 ~~~
 
