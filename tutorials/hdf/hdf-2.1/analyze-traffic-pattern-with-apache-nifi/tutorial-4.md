@@ -15,20 +15,35 @@ In this tutorial, you will build the Geo Location Enrichment section of the data
 
 ![complete_dataflow_lab2_geoEnrich](assets/tutorial-2-enrich-simple-dataflow-via-places-api/complete_dataflow_lab2_geoEnrich.png)
 
-Feel free to download the [Tutorial-2-enrich-flow-via-places-api.xml](assets/tutorial-2-enrich-simple-dataflow-via-places-api/nifi-template/tutorial-2-enrich-flow-via-places-api.xml) template file or if you prefer to build the dataflow from scratch, continue on to the tutorial.
-Refer Step 1 to obtain the API key to build HTTP URL.
-
 ## Prerequisites
 - Completed Tutorial 0: Download, Install and Start NiFi
 - Completed Tutorial 1: Build A Simple NiFi DataFlow
 
 ## Outline
+- [Approach 1: Import Enriched NiFi Flow Via Places API](#approach1-import-enriched-nifi-flow-via-places-api)
+- [Approach 2: Manually Build Enriched NiFi Flow Via Places API](#approach2-manually-build-enriched-nifi-flow-via-places-api)
 - [Google Places API](#google-places-api)
 - [Step 1: Obtain API Key for NiFi to Build HTTP URL](#obtain-api-key-for-flow)
 - [Step 2: Build Geo Location Enrichment DataFlow Section](#build-geo-loc-enrich)
 - [Step 3: Run NiFi DataFlow](#run-nifi-flow)
 - [Summary](#summary-tutorial2)
 - [Further Reading](#further-reading-tutorial2)
+
+If you want to see the NiFi flow in action within minutes, refer to **Approach 1**. Else if you prefer to build the dataflow manually step-by-step, continue on to **Approach 2**.
+
+## Approach 1: Import Enriched NiFi Flow Via Places API
+
+1\. Download the [Tutorial-2-enrich-flow-via-places-api.xml](assets/tutorial-2-enrich-simple-dataflow-via-places-api/nifi-template/tutorial-2-enrich-flow-via-places-api.xml) template file.
+
+2\. Refer to **Step 1** in **Approach 2** to obtain the Google API key and set up **Google Places API: HTTP URL**.
+
+3\. Replace the **InvokeHTTP** processor's **Remote URL** property value with the new **Google Places API: HTTP URL** value.
+
+4\. Hit the **start** button ![start_button_nifi_iot](assets/tutorial-2-enrich-simple-dataflow-via-places-api/start_button_nifi_iot.png). to activate the dataflow.
+
+![complete_dataflow_lab2_geoEnrich](assets/tutorial-2-enrich-simple-dataflow-via-places-api/running_dataflow_lab2_geoEnrich.png)
+
+## Approach 2: Manually Build Enriched NiFi Flow Via Places API
 
 ## Google Places API <a id="google-places-api"></a>
 
@@ -40,7 +55,7 @@ What are the necessary components to use the Places API?
 - https:// protocol
 - API Key
 
-## Step 1: Obtain API Key for NiFi to Build HTTP URL <a id="obtain-api-key-for-flow"></a>
+### Step 1: Obtain API Key for NiFi to Build HTTP URL <a id="obtain-api-key-for-flow"></a>
 
 For our dataflow, our task is to enrich the data by searching for neighborhoods within proximity of a vehicle's varying location. We will retrieve two parameters from this data: name of the neighborhoods and San Francisco Muni Transit Agency. So, we will integrate Nearby Search HTTP request with NiFi.
 
@@ -80,7 +95,7 @@ https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Latitude
 
 > Note: Your API Key will be different than the one in the URL above.
 
-## Step 2: Build Geo Location Enrichment DataFlow Section <a id="build-geo-loc-enrich"></a>
+### Step 2: Build Geo Location Enrichment DataFlow Section <a id="build-geo-loc-enrich"></a>
 
 Six processors are needed to add geographic location enrichment to your dataflow. Each processor holds a critical role in transporting the enriched data to a destination:
 
@@ -209,7 +224,7 @@ Six processors are needed to add geographic location enrichment to your dataflow
 
 3\. Navigate  to the **Settings** tab, under Auto terminate relationships check the **success** checkbox. Click **Apply** button. Connect the processor to itself and when the Create Connection window appears, select **failure** checkbox.
 
-## Step 3: Run NiFi DataFlow <a id="run-nifi-flow"></a>
+### Step 3: Run NiFi DataFlow <a id="run-nifi-flow"></a>
 
 Now that we added geographic location enrichment dataflow section to our previous dataflow, let's run the dataflow and verify if we receive the expected results in our output directory.
 
