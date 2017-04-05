@@ -21,7 +21,6 @@ With the HDF Sandbox, Apache NiFi comes preinstalled in the Ambari Stack and pre
 -   [Section 1: Access NiFi HTML UI via Shell Script](#access-nifi-html-ui-via-shell-script)
 -   [Section 2: Access NiFi HTML UI via Ambari](#access-nifi-html-ui-via-ambari)
 -   [Summary](#summary)
--   [Appendix A: Troubleshoot NiFi Installation](#troubleshoot-nifi-installation)
 
 Refer to Section 1 to quickly launch NiFi HTML UI via script,
 else go to Section 2 to launch NiFi HTML UI from Ambari,
