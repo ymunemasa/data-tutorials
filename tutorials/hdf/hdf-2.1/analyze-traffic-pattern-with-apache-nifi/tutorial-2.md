@@ -45,7 +45,7 @@ chmod -R 755 auto_scripts
 1\. Execute the script:
 
 ~~~bash
-./launch_nifi_ui.sh
+./auto_scripts/launch_nifi_ui.sh
 ~~~
 
 NiFi HTML UI will open in your chrome browser as below:
@@ -57,7 +57,7 @@ NiFi HTML UI will open in your chrome browser as below:
 1\. Start HDF Sandbox via Script:
 
 ~~~bash
-./docker_sandbox_hdf.sh
+./auto_scripts/docker_sandbox_hdf.sh
 ~~~
 
 2\. Login to Ambari UI in your favorite browser at `sandbox.hortonworks.com:28080/#/login`.
