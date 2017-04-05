@@ -80,4 +80,4 @@ NiFi HTML UI will open as below:
 
 ## Summary
 
-Congratulations! You learned that NiFi can be installed on a VM or directly on your computer. You also learned to download, install, and start NiFi. Now that you have NiFi is up and running, you are ready to build a dataflow.
+Congratulations! As a review, HDF Sandbox comes preinstalled and preconfigured with NiFi. Therefore, you launched NiFi HTML UI through Ambari or via Shell Script within a few minutes. Now that you have NiFi running, let's head to the next tutorial to began building our simple dataflow.
