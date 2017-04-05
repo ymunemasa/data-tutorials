@@ -18,12 +18,12 @@ With the HDF Sandbox, Apache NiFi comes preinstalled in the Ambari Stack and pre
 
 ## Outline
 -   [Step 1: Download HDF NiFi Shell Script](#download-hdf-nifi-shell-script)
--   [Section 1: Access NiFi HTML UI via Shell Script](#access-nifi-html-ui-via-shell-script)
--   [Section 2: Access NiFi HTML UI via Ambari](#access-nifi-html-ui-via-ambari)
+-   [Approach 1: Access NiFi HTML UI via Shell Script](#access-nifi-html-ui-via-shell-script)
+-   [Approach 2: Access NiFi HTML UI via Ambari](#access-nifi-html-ui-via-ambari)
 -   [Summary](#summary)
 
-Refer to Section 1 to quickly launch NiFi HTML UI via script,
-else go to Section 2 to launch NiFi HTML UI from Ambari,
+Refer to Approach 1 to quickly launch NiFi HTML UI via script,
+else go to Approach 2 to launch NiFi HTML UI from Ambari,
 but first complete Step 1.
 
 ### Step 1: Download HDF NiFi Shell Script
@@ -40,7 +40,7 @@ chmod -R 755 auto_scripts
 
 > Note: You will utilize these scripts throughout either section.
 
-### Section 1: Launch NiFi HTML UI via Shell Script
+### Approach 1: Launch NiFi HTML UI via Shell Script
 
 1\. Execute the script:
 
@@ -52,7 +52,7 @@ NiFi HTML UI will open in your chrome browser as below:
 
 ![open_nifi_html_interface.png](assets/tutorial-0-launch-nifi-html-ui/open_nifi_html_interface.png)
 
-### Section 2: Access NiFi HTML UI via Ambari
+### Approach 2: Access NiFi HTML UI via Ambari
 
 1\. Start HDF Sandbox via Script:
 
