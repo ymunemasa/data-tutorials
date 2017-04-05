@@ -60,7 +60,7 @@ NiFi HTML UI will open in your chrome browser as below:
 ./auto_scripts/docker_sandbox_hdf.sh
 ~~~
 
-2\. Login to Ambari UI in your favorite browser at `sandbox.hortonworks.com:28080/#/login`.
+2\. Login to Ambari UI with credentials (admin/admin) in your favorite browser at `sandbox.hortonworks.com:28080/#/login`.
 
 The Ambari Login UI will look as below:
 
