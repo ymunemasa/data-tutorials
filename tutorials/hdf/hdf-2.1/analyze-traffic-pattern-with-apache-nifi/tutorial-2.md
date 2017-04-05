@@ -30,7 +30,7 @@ but first complete Step 1.
 
 Download the auto-scripts and change permissions for the scripts:
 
-Download [auto_scripts.zip](assets/auto_scripts)
+Download [auto_scripts.zip](assets/auto_scripts.zip)
 
 ~~~bash
 unzip auto-scripts.zip
