@@ -16,7 +16,7 @@ In this tutorial, you will build the Geo Location Enrichment section of the data
 ![complete_dataflow_lab2_geoEnrich](assets/tutorial-2-enrich-simple-dataflow-via-places-api/complete_dataflow_lab2_geoEnrich.png)
 
 ## Prerequisites
-- Completed Tutorial 0: Download, Install and Start NiFi
+- Completed Tutorial 0: Launch NiFi HTML UI
 - Completed Tutorial 1: Build A Simple NiFi DataFlow
 
 ## Outline
@@ -33,7 +33,7 @@ If you want to see the NiFi flow in action within minutes, refer to **Approach 1
 
 ## Approach 1: Import Enriched NiFi Flow Via Places API
 
-1\. Download the [Tutorial-2-enrich-flow-via-places-api.xml](assets/tutorial-2-enrich-simple-dataflow-via-places-api/nifi-template/tutorial-2-enrich-flow-via-places-api.xml) template file.
+1\. Download the [Tutorial-2-enrich-flow-via-places-api.xml](assets/tutorial-2-enrich-simple-dataflow-via-places-api/nifi-template/tutorial-2-enrich-flow-via-places-api.xml) template file. Then import the template file into NiFi.
 
 2\. Refer to **Step 1** in **Approach 2** to obtain the Google API key and set up **Google Places API: HTTP URL**.
 
