@@ -14,19 +14,31 @@ In this tutorial, you will build the Ingest NextBus SF Muni Live Stream section 
 
 ![complete_dataflow_lab3_live_stream_ingestion](assets/tutorial-3-ingest-live-vehicle-routes-via-nextbus-api/complete_dataflow_lab3_live_stream_ingestion.png)
 
-Feel free to download the [Tutorial-3-ingest-live-vehicle-routes-nextbus-api.xml](assets/tutorial-3-ingest-live-vehicle-routes-via-nextbus-api/nifi-template/tutorial-3-ingest-live-vehicle-routes-nextbus-api.xml) template file or if you prefer to build the dataflow from scratch, continue on to the lab.
-
 ## Prerequisites
-- Completed Tutorial 0: Download, Install and Start NiFi
+- Completed Tutorial 0: Launch NiFi HTML UI
 - Completed Tutorial 1: Build A Simple NiFi DataFlow
-- Completed Tutorial 2: Enhance the DataFlow with Geo Location Enrichment
+- Completed Tutorial 2: Enrich Simple DataFlow via Places API
 
 ## Outline
+- [Approach 1: Import Live Vehicle Routes NiFi Flow](#approach1-import-live-vehicle-routes-nifi-flow)
+- [Approach 2: Manually Build Live Vehicle Routes NiFi Flow](##approach2-manually-build-live-vehicle-routes-nifi-flow)
 - [NextBus Live Feed](#nextbus-live-feed)
 - [Step 1: Attach NextBus Live Stream to the DataFlow](#attach-nextbus-live-stream)
 - [Step 2: Run the NiFi DataFlow](#run-nifi-dataflow)
 - [Summary](#summary-tutorial3)
 - [Further Reading](#further-reading-tutorial3)
+
+If you want to see the NiFi flow in action within minutes, refer to **Approach 1**. Else if you prefer to build the dataflow manually step-by-step, continue on to **Approach 2**.
+
+## Approach 1: Import Live Vehicle Routes NiFi Flow
+
+1\. Download the [Tutorial-3-ingest-live-vehicle-routes-nextbus-api.xml](assets/tutorial-3-ingest-live-vehicle-routes-via-nextbus-api/nifi-template/tutorial-3-ingest-live-vehicle-routes-nextbus-api.xml) template file. Then import the template file into NiFi.
+
+2\. Hit the **start** button ![start_button_nifi_iot](assets/tutorial-2-enrich-simple-dataflow-via-places-api/start_button_nifi_iot.png). to activate the dataflow.
+
+![complete_dataflow_lab3_live_stream_ingestion](assets/tutorial-3-ingest-live-vehicle-routes-via-nextbus-api/complete_dataflow_lab3_live_stream_ingestion.png)
+
+## Approach 2: Manually Build Live Vehicle Routes NiFi Flow
 
 ## NextBus Live Feed <a id="nextbus-live-feed"></a>
 
@@ -47,7 +59,7 @@ Let’s break apart the parameters, so we can better understand how to create cu
 
 Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDocs/NextBusXMLFeed.pdf) to learn more about each parameter.
 
-## Step 1: Attach NextBus Live Stream to the DataFlow <a id="attach-nextbus-live-stream"></a>
+### Step 1: Attach NextBus Live Stream to the DataFlow <a id="attach-nextbus-live-stream"></a>
 
 ### GetHTTP
 
@@ -84,7 +96,7 @@ Refer to [NextBus’s Live Feed Documentation](https://www.nextbus.com/xmlFeedDo
 
 2\. Click **Apply**.
 
-## Step 2: Run the NiFi DataFlow <a id="run-nifi-dataflow"></a>
+### Step 2: Run the NiFi DataFlow <a id="run-nifi-dataflow"></a>
 
 Now that we added NextBus San Francisco Muni Live Stream Ingestion to our dataflow , let's run the dataflow and verify if we receive the expected results in our output directory.
 
