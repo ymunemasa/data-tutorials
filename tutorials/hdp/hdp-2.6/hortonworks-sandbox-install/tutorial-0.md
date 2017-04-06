@@ -18,3 +18,4 @@ The Hortonworks Sandbox can be installed in a myriad of virtualization platforms
 1.  **Install Hortonworks Sandbox on VirtualBox** - If you prefer VirtualBox
 2.  **Install Hortonworks Sandbox on VMWare** - If you prefer VMWare
 3.  **Install Hortonworks Sandbox on Docker** - If you prefer Docker
+4.  **Install Hortonworks Sandbox on Microsoft Azure** - If you prefer Microsoft Azure (in the cloud)

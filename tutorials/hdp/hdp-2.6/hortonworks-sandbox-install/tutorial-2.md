@@ -47,7 +47,7 @@ Next, you're given the opportunity to save the virtual machine under a different
 
 Once finished, the following screen is displayed:
 
-![vmware_finish](assets/vmware_finish.png)
+![vmware_finish](assets/vmware-finish.jpg)
 
 Click the **Finish** button and start your new virtual machine.  A window opens and displays the boot process.  Once the virtual machine fully boots up, you may begin using the sandbox.
 
