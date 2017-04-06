@@ -1,13 +1,11 @@
 ---
-title: Hortonworks Sandbox Install Guide
-tutorial-id: 730
+title: Sandbox Deployment and Install Guide
+tutorial-id:
 platform: hdp-2.6.0
-tags: [sandbox, docker]
+tags: [sandbox, deploy, install, docker]
 ---
 
-# Hortonworks Sandbox Install Guide
-
-## Install Hortonworks Sandbox on Docker
+# Deploying Hortonworks Sandbox on Docker
 
 ## Introduction
 

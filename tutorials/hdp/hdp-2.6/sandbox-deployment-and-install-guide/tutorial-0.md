@@ -1,11 +1,11 @@
 ---
-title: Hortonworks Sandbox Install Guide
-tutorial-id: 730
+title: Sandbox Deployment and Install Guide
+tutorial-id:
 platform: hdp-2.6.0
-tags: [sandbox, install]
+tags: [sandbox, deploy, install]
 ---
 
-# Hortonworks Sandbox Install Guide
+# Sandbox Deployment and Install Guide
 
 ## Introduction
 
@@ -15,7 +15,7 @@ The Hortonworks Sandbox is delivered as a virtual machine.  A virtual machine is
 
 The Hortonworks Sandbox can be installed in a myriad of virtualization platforms.  Jump to the tutorial for the platform that you prefer.
 
-1.  **Install Hortonworks Sandbox on VirtualBox** - If you prefer VirtualBox
-2.  **Install Hortonworks Sandbox on VMWare** - If you prefer VMWare
-3.  **Install Hortonworks Sandbox on Docker** - If you prefer Docker
-4.  **Install Hortonworks Sandbox on Microsoft Azure** - If you prefer Microsoft Azure (in the cloud)
+1.  **Deploying Hortonworks Sandbox on VirtualBox**
+2.  **Deploying Hortonworks Sandbox on VMWare**
+3.  **Deploying Hortonworks Sandbox on Docker**
+4.  **Deploying Hortonworks Sandbox on Microsoft Azure**
