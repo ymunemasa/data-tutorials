@@ -9,6 +9,11 @@ tags: [sandbox, documentation]
 
 ## Introduction
 
+possible links:
+https://hortonworks.com/press-releases/hortonworks-leads-industry-performance-customer-choice-hdp-2-6/
+https://hortonworks.com/products/data-center/hdp/
+https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.0/index.html
+
 ## Outline
 
 -   [Release Notes]()

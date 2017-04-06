@@ -9,6 +9,10 @@ tags: [sandbox, documentation]
 
 ## Introduction
 
+possible links:
+https://hortonworks.com/products/data-center/hdf/
+https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.1.2/index.html
+
 ## Outline
 
 -   [Release Notes]()
