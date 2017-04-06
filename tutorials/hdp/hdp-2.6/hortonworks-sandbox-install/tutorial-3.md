@@ -1,13 +1,13 @@
 ---
-title: Hortonworks Sandbox Guide
+title: Hortonworks Sandbox Install Guide
 tutorial-id: 730
 platform: hdp-2.6.0
 tags: [sandbox, docker]
 ---
 
-# Hortonworks Sandbox Guide
+# Hortonworks Sandbox Install Guide
 
-## Hortonworks Sandbox with VMware
+## Install Hortonworks Sandbox on Docker
 
 ## Introduction
 
@@ -24,7 +24,7 @@ This tutorial walks through installing the Hortonworks Sandbox onto Docker on yo
 
 ## Outline
 
--   [Install and Configure Docker](#install-and-configure-docker)
+-   [Configure Docker Memory](#configure-docker-memory)
     -   [For Linux](#for-linux)
     -   [For Windows](#for-windows)
     -   [For Mac](#for-mac)
@@ -32,11 +32,21 @@ This tutorial walks through installing the Hortonworks Sandbox onto Docker on yo
 -   [Start Sandbox](#start-sandbox)
 -   [Further Reading](#further-reading)
 
-## Install and Configure Docker
+## Configure Docker Memeory
 
 ### For Linux
 
+No special configuration needed for Linux.
+
 ### For Windows
+
+After [installing Docker For Windows](https://docs.docker.com/docker-for-windows/install/), open the application and click on the Docker icon in the menu bar.  Select **Settings**.
+
+![Docker Settings](assets/docker-windows-settings.jpg)
+
+Select the **Advanced** tab and adjust the dedicated memory to **at least 8GB of RAM**.
+
+![Configure Docker RAM](assets/docker-windows-configure.jpg)
 
 ### For Mac
 
@@ -50,13 +60,13 @@ Select the **Advanced** tab and adjust the dedicated memory to **at least 8GB of
 
 ## Load Sandbox Into Docker
 
-Open up a console and load in the sandbox image you downloaded with the following command.
+Open up a console and use the following command to load in the sandbox image you downloaded from <https://hortonworks.com/downloads/#sandbox>.
 
 ```
 docker load -i /path/to/image/HDP_2.6_docker.tar.gz
 ```
 
-To check that the image was successfully imported, run the following command.  You should see the sandbox docker image on the list.
+To check that the image was imported successfully, run the following command.  You should see the sandbox docker image on the list.
 
 ```
 docker images
@@ -64,19 +74,16 @@ docker images
 
 ## Start Sandbox
 
-Download the sandbox's [start_sandbox.sh script here](assets/start_sandbox.sh), saving it somewhere on your computer.
+Download one of the following scripts and save it somewhere on your computer.
 
-https://github.com/hortonworks/sandbox-shared/blob/master/deploy/packer/docker_resources/singlenode/scripts/start_scripts/start_sandbox-hdp.sh
+-   For Linux/Mac: Use the [start-sandbox-hdp.sh](assets/start-sandbox-hdp.sh)
+-   For Windows: Use the [start-sandbox-hdp.ps1](assets/start-sandbox-hdp.ps1)
 
-Run the script you just downloaded.  It will start the sandbox for you, creating a container in the process if it's the first time running this command.
-
-```
-bash /path/to/start_sandbox.sh
-```
+Run the script you just downloaded.  It will start the sandbox for you, creating the sandbox docker container in the process if neceesary.
 
 You should see something like the following:
 
-![start_sandbox.sh ouput](assets/docker-start-sandbox-output.jpg)
+![start script ouput](assets/docker-start-sandbox-output.jpg)
 
 The sandbox is now created and ready for use.
 

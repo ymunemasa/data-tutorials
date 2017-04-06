@@ -1,13 +1,13 @@
 ---
-title: Hortonworks Sandbox Guide
+title: Hortonworks Sandbox Install Guide
 tutorial-id: 730
 platform: hdp-2.6.0
 tags: [sandbox, virtualbox]
 ---
 
-# Hortonworks Sandbox Guide
+# Hortonworks Sandbox Install Guide
 
-## Import Hortonworks Sandbox on VirtualBox
+## Install Hortonworks Sandbox on VirtualBox
 
 ## Introduction
 
