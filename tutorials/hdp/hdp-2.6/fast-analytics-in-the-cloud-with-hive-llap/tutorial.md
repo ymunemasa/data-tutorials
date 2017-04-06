@@ -38,7 +38,7 @@ A few cluster modifications are required when creating a cluster to take advanta
 From the CloudFormation service screen, Open CloudURL:
 1. Select your CloudController Stack Name
 2. Select the Outputs tab
-3. Search for the Key "CloudURL" and open the URL provided.
+3. Search for the Key "CloudController" and open the URL provided.
 
 ![open CloudURL](assets/cluster2.png)
 
@@ -47,7 +47,7 @@ Login using your credentials:
 ![open CloudURL](assets/cluster3.png)
 
 Create a cluster as you normally do, with the exception of:
-1. <mark>Cluster Type:</mark> EDW-Analytics: Apache Hive 2 LLAP, Apache Zeppelin 0.6.0
+1. <mark>Cluster Type:</mark> EDW-Analytics: Apache Hive 2 LLAP, Apache Zeppelin 0.7.0
 2. <mark>Master Instance Type:</mark> m4.xlarge (4vCPU, 16.0 GB Memory)
 3. <mark>Worker Instance Type:</mark> m3.2xlarge (8vCPU, 30.0 GB Memory, 2x80 GB Local Storage)
 4. <mark>Instance Count:</mark> 3
@@ -113,13 +113,18 @@ We'll create our data model using the following 4 tables:
 
 We create our data model using the following tables loaded in order with associations as described below:
 
-| Load Order  | Table     | Inner Join Condition                                        |
-| :---------: | :-------: | :---------------------------------------------------------- |
-| 1           | flights   | n/a                                                         |
-| 2           | airlines  | Uniquecarrier = Code                                        |
-| 3           | planes    | Tailnum = Tailnum(Planes)                                   |
-| 4           | airports  | Origin = Iata, rename "airports" to "airports_origin"       |
-| 5           | airports  | Dest = Iata(Airports), rename "airports" to "airports_dest" |
+1.  drag `flights` table
+   -  no join condition needed
+2.  drag `airlines` table
+   - join condition: `Uniquecarrier = Code`
+3. drag `planes` table
+   - join condition: `Tailnum = Tailnum(Planes)`
+4.  drag `airports` table
+   - join condition: `Origin = Iata`
+   - rename `airports` to `airports_origin`
+5.  drag `airports` table
+   - join condition: `Dest = Iata(Airports)`
+   - rename `airports` to `airports_dest`
 
 The final table associations should look like this:
 
