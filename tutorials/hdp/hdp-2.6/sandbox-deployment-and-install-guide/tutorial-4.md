@@ -13,7 +13,7 @@ The Azure cloud infrastructure has become a common place for users to deploy vir
 
 ## Prerequisites
 
-- [A Microsoft Azure account. You can sign up for an evaluation account if you do not already have one.](https://azure.microsoft.com/en-us/free/)
+-   [A Microsoft Azure account. You can sign up for an evaluation account if you do not already have one.](https://azure.microsoft.com/en-us/free/)
 
 ## Outline
 
