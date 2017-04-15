@@ -1,7 +1,7 @@
 ---
 title: Hadoop Tutorial – Getting Started with HDP
 tutorial-id: 100
-platform: hdp-2.5.0
+platform: hdp-2.6.0
 tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
 ---
 
@@ -22,8 +22,8 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 -   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 -   Lab 1: Load sensor data into HDFS
 -   Lab 2: Data Manipulation with Apache Hive
--   Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor
--   Working Zeppelin installation
+-   Lab 3: Use Pig to compute Driver Risk Factor
+-   Lab 4: Use Spark to compute Driver Risk Factor
 -   Allow yourself approximately one hour to complete this tutorial.
 
 ## Outline
@@ -49,11 +49,15 @@ NOTE: We can also run queries via various interpreters for the following (but no
 
 ### 5.1.1 Navigate to Zeppelin Notebook
 
-1) Navigate to http://sandbox.hortonworks.com:9995 directly to open the Zeppelin interface.
+Open Zeppelin interface using browser URL:
+
+~~~
+http://sandbox.hortonworks.com:9995
+~~~
 
 ![Zeppelin Dashboard](assets/zeppelin_welcome_page_hello_hdp_lab4.png)
 
-2) Click on create note, name the notebook **Driver Risk Factor** and a new notebook shall get started.
+Click on a Notebook tab at the top left and select **Create new note**. Name your notebook `Driver Risk Factor`.
 
 ![Zeppelin Create New Notebook](assets/zeppelin_create_new_notebook.png)
 
@@ -61,13 +65,12 @@ NOTE: We can also run queries via various interpreters for the following (but no
 
 ### 5.2.1 Visualize finalresults Data in Tabular Format
 
-In the previous Spark and Pig tutorials you already created a table finalresults or riskfactor which gives the risk factor associated with every driver. We will use the data we generated in this table to visualize which drivers have the highest risk factor. We will use the jdbc hive interpreter to write queries in Zeppelin. jdbc by default runs hive.
+In the previous Spark and Pig tutorials you already created a table finalresults or riskfactor which gives the risk factor associated with every driver. We will use the data we generated in this table to visualize which drivers have the highest risk factor. We will use the jdbc hive interpreter to write queries in Zeppelin.
 
 1) Copy and paste the code below into your Zeppelin note.
 
 ~~~
 %jdbc(hive)
-
 SELECT * FROM riskfactor
 ~~~
 
@@ -108,28 +111,24 @@ Each one will display a different type of chart depending on the data that is re
 7\. Try experimenting with the different types of charts as well as dragging and
 dropping the different table fields to see what kind of results you can obtain.
 
-8\. Let' try a different query to find which cities and states contain the drivers with the highest riskfactors.
+8\. Let' try a different query to find which cities and states contain the drivers with the highest risk factors.
 
 ~~~
 %jdbc(hive)
-
 SELECT a.driverid, a.riskfactor, b.city, b.state
 FROM riskfactor a, geolocation b where a.driverid=b.driverid
 ~~~
 
-9\. Run the query above using the keyboard shortcut Shift+Enter.
-You should eventually end up with the results in a table below.
-
 ![Filter City and States](assets/queryFor_cities_states_highest_driver_riskfactor.png)
 
-10\. After changing a few of the settings we can figure out which of the cities have the high risk factors.
+9\. After changing a few of the settings we can figure out which of the cities have the high risk factors.
 Try changing the chart settings by clicking the **scatterplot** icon. Then make sure that the keys a.driverid
 is within the xAxis field, a.riskfactor is in the yAxis field, and b.city is in the group field.
 The chart should look similar to the following.
 
 ![Scatter Plot Graph](assets/visualize_cities_highest_driver_riskfactor_lab6.png)
 
-The graph shows that driver id number A39 has a high risk factor of 652417 and drives in Santa Maria.
+You can hover over the highest point to determine which driver has highest risk factor and where the live.
 
 ## Summary <a id="summary-lab5"></a>
 

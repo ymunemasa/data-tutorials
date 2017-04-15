@@ -259,7 +259,7 @@ In the above screenshot we can see:
 1.  **Tez** is set as the optimization engine
 2.  **Cost Based Optimizer** (CBO) is turned on
 
-This shows the **HDP 2.5 Ambari Smart Configurations**, which simplifies setting configurations
+This shows the **HDP Ambari Smart Configurations**, which simplifies setting configurations
 
 -   Hadoop is configured by a **collection of XML files**.
 -   In early versions of Hadoop, operators would need to do **XML editing** to **change settings**.  There was no default versioning.

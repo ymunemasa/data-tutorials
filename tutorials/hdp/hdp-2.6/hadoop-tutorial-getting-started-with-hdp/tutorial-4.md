@@ -113,7 +113,6 @@ The next step is to **select a subset of the records**, so we have the records o
 -   We can use Pig Help again by clicking on the **Pig helper-> Relational Operators -> FILTER** template
 -   We can replace **%VAR%** with **“a”** (hint: tab jumps you to the next field)
 -   Our **%COND%** is “**event !='normal';** ” (note: single quotes are needed around normal and don’t forget the trailing semi-colon)
-hdp-2.5
 -   Complete line of code will look like:
 
 ~~~pig

@@ -63,7 +63,7 @@ Let's get started!
 
 ![ambari_dashboard_lab4](assets/ambari_dashboard_lab4.png)
 
-2\. Access Zeppelin using browser URL:
+2\. Open Zeppelin interface using browser URL:
 
 ~~~
 http://sandbox.hortonworks.com:9995
@@ -77,7 +77,7 @@ Optionally, if you want to find out how to access the Spark shell to run code on
 
 3\.  Create a Zeppelin Notebook
 
-Click on a Notebook tab at the top left and hit **Create new note**. Name your notebook `Compute Riskfactor with Spark`.
+Click on a Notebook tab at the top left and select **Create new note**. Name your notebook `Compute Riskfactor with Spark`.
 
 ![create_new_notebook](assets/create_new_notebook_hello_hdp_lab4.png)
 
