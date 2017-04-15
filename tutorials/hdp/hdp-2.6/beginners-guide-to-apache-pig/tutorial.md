@@ -1,7 +1,7 @@
 ---
 title: Beginners Guide to Apache Pig
 tutorial-id: 140
-platform: hdp-2.5.0
+platform: hdp-2.6.0
 tags: [ambari, pig]
 ---
 
