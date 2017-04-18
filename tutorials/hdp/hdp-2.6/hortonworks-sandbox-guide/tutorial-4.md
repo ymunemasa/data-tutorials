@@ -26,9 +26,10 @@ For reference, the port forwarding pattern is:
 12181 -> 2181 -- Zookeeper
 13000 -> 3000 -- Grafana
 14200 -> 4200 -- Ambari Shell
+14557 -> 4557 -- NiFi DistributedMapCacheServer
 16080 -> 6080 -- Ranger
 18000 -> 8000 -- Storm Logviewer
-18080 -> 8080 -- Ambari
+9080  -> 8080 -- Ambari
 18744 -> 8744 -- StormUI
 18886 -> 8886 -- Ambari Infra
 18888 -> 8888 -- Tutorials splash page
@@ -40,12 +41,12 @@ For reference, the port forwarding pattern is:
 62888 -> 61888 -- LogsearchUI
 
 12222 -> 22 -- Sandbox container SSH
-25000 -> 15000 -- Port for custom use
-25001 -> 15001 -- Port for custom use
-25002 -> 15002 -- Port for custom use
-25003 -> 15003 -- Port for custom use
-25004 -> 15004 -- Port for custom use
-25005 -> 15005 -- Port for custom use
+25100 -> 15100 -- Port for custom use
+25101 -> 15101 -- Port for custom use
+25102 -> 15102 -- Port for custom use
+25103 -> 15103 -- Port for custom use
+25104 -> 15104 -- Port for custom use
+25105 -> 15105 -- Port for custom use
 17000 -> 17000 -- Reserved for services that require direct forwarding
 17001 -> 17001 -- Reserved for services that require direct forwarding
 17002 -> 17002 -- Reserved for services that require direct forwarding

@@ -16,16 +16,19 @@ Listed below are the ports that the HDP Sandbox forwards by default, and what so
 ## Port Forwards
 
 ```
+111 -> 111 -- NFS gateway
 1000 -> 1000 -- Unused? Can remove?
 1100 -> 1100 -- Unused? Can remove?
 1220 -> 1220 -- Unused? Can remove?
 1988 -> 1988 -- Unused? Can remove?
+2049 -> 2049 -- NFS gateway
 2100 -> 2100 -- Unused? Can remove?
 2181 -> 2181 -- Zookeeper
 3000 -> 3000 -- Grafana
 4040 -> 4040 -- Spark
 4200 -> 4200 -- Ambari Shell
-4557 -> 4557 -- Unused? Can remove?
+4242 -> 4242 -- NFS gateway
+4557 -> 4557 -- NiFi DistributedMapCacheServer
 5007 -> 5007 -- Unused? Can remove?
 5011 -> 5011 -- Unused? Can remove?
 6001 -> 6001 -- Unused? Can remove?
@@ -36,6 +39,7 @@ Listed below are the ports that the HDP Sandbox forwards by default, and what so
 8000 -> 8000 -- Storm Logviewer
 8005 -> 8005 -- Sqoop / Common Tomcat port
 8020 -> 8020 -- HDFS
+8032 -> 8032 -- Yarn ResourceManager
 8040 -> 8040 -- NodeManager
 8042 -> 8042 -- NodeManager
 8050 -> 8050 -- Yarn ResourceManager
@@ -65,17 +69,22 @@ Listed below are the ports that the HDP Sandbox forwards by default, and what so
 10000 -> 10000 -- HiveServer2
 10001 -> 10001 -- HiveServer2Http
 10500 -> 10500 -- HiveServer2v2
+10502 -> 10502 -- HiveServer2 Interactive UI
 11000 -> 11000 -- Oozie
 15000 -> 15000 -- Falcon
+15002 -> 15002 -- Hive LLAP
 16010 -> 16010 -- HBaseMaster
 16030 -> 16030 -- HBaseRegion
 18080 -> 18080 -- SparkHistoryServer
 18081 -> 18081 -- Spark2 History Server
 19888 -> 19888 -- JobHistory
 21000 -> 21000 -- Atlas
+33553 -> 33553 -- Hive LLAP
+39419 -> 39419 -- Hive LLAP
 42111 -> 42111 -- NFS
 50070 -> 50070 -- Webhdfs
 50075 -> 50075 -- Datanode
+50079 -> 50079 -- NFS gateway
 50095 -> 50095 -- Accumulo
 50111 -> 50111 -- WebHcat
 60000 -> 60000 -- HBase (needs verification)
