@@ -316,3 +316,6 @@ return builder.createTopology();
 ## Next: Deploying the Storm topology
 
 Phew!  We've now learned about how a Storm topology is developed.  In the next section, we'll package this project up into a portable JAR file and run a quick command that will deploy this code onto a cluster.
+
+
+http://storm.apache.org/releases/1.1.0/storm-kafka-client.html

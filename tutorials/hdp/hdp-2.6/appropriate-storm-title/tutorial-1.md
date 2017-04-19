@@ -1,45 +1,40 @@
 # Trucking IoT Use Case
 
-## Introduction
-
-Eh?
-
-
 ## Outline
 
--   [The Use Case](#)
--   [Flow Overview](#)
--   [What is Storm](#)
--   [Benefits of Storm](#)
--   [Next: Storm in Action](#)
+-   [The IoT Use Case](#the-iot-use-case)
+-   [Architectural Overview](#architectural-overview)
+-   [What is Storm](#what-is-storm)
+-   [Benefits of Storm](#benefits-of-storm)
+-   [Next: Storm in Action](#next:-storm-in-action)
 
 
-## Our use case
+## The IoT Use Case
 
-Imagine a trucking company that dispatches trucks across the country.  The trucks are outfitted with sensors that collect data - data like the name of the driver, the route the truck is bound for, the speed of the truck, and even what event recently occured (speeding, the truck weaving out of its lane, following too closely, etc).  Data like this is generated very often, say once per second and is then streamed back to the company's servers.
+Imagine a trucking company that dispatches trucks across the country.  The trucks are outfitted with sensors that collect data - data like the name of the driver, the route the truck is bound for, the speed of the truck, and even what event recently occured (speeding, the truck weaving out of its lane, following too closely, etc).  Data like this is generated very often, say once per second and is streamed back to the company's servers.
 
-Additionally, the company is also polling an internet service for information about traffic congestion on the different trucking routes.  However, since congestion changes gradually, this information is being generated only once a minute.
+Additionally, the company is also polling an internet service for information about traffic congestion on the different trucking routes.
 
-The company needs a way to process both these streams of data, and combine them in such a way that data from the truck is combined with the most up-to-date congestion data.  Additionally, they want to run some analysis on the data so that it can make sure trucks are traveling on time but also keeping cargo safe.  Oh, and this also needs to be done in real-time!
+The company needs a way to process both of these streams of data and combine them in such a way that data from the truck is combined with the most up-to-date congestion data.  Additionally, they want to run some analysis on the data so that it can make sure trucks are traveling on time but also keeping cargo safe.  Oh, and this also needs to be done in real-time!
 
 Why real-time?  The trucking company benefits by having a system in place that injests data from multiple sources, correlates these independant sources of data, runs analysis and intelligently reports on important events going on and even actions that the company can do to immediately improve the situation.  This even includes catching imminent truck breakdowns before they occur and analyzing driving habits to predit accidents before the driver gets into one!
 
 Sounds like an important task - this is where Storm comes in.
 
 
-## Flow Overview
+## Architectural Overview
 
 At a high level, our data pipeline requirement looks like the following.
 
-![High Level Data Pipeline](assets/something.jpg)
+![Architectural Overview](assets/architectural-overview.jpg)
 
-In the first section, data from sensors onboard each truck will be streamed to the system in real-time and buffered into Kafka topics.  A second, separate, data stream holding traffic congestion information about trucking routes is also streamed into the system and stored in a Kafka topic.
+In the first section, continous and real-time data from sensors onboard each truck is streamed to the system in real-time and published to Kafka topics.  A separate, second, stream carrying traffic congestion information about trucking routes is also streamed into the system and stored in a Kafka topic.
 
-The third section represents the visualization and persistance of the data after it's been processed by the second section.
+The second section represents the biggest requirement.  We need something capable of: unpacking the compressed and serialized sensor data, merging independant streams together, performing aggregation and analytics, reserializing the transformed data, and sending streams back out for persistance and visualization.  All this should be done in real-time and in distributed fashion while guaranteeing message processing and low-latency.
 
-The second section represents the biggest requirement.  We need something capable of unpacking the compressed IoT data, merging independant streams of data based on some correlation, perform aggregation and analytics, and finally send back out for persistance and visualization.  All this should be done in real-time and in distributed fashion while guaranteeing message processing and low-latency.
+For these critical tasks we use Apache Storm.
 
-For this, we leverage Apache Storm.
+The third section represents the post-ETL process, in this case being visualizing the processed data by a web application.
 
 
 ## What is Storm
@@ -63,6 +58,4 @@ Storm can be used for processing messages and updating databases (stream process
 
 ## Next: Storm in Action
 
-Now that we've got a high-level overview of what our use-case looks like, let's move on to seeing how these different parts go together in an actual demo.
-
-http://storm.apache.org/releases/1.1.0/storm-kafka-client.html
+Now that we've got a high-level overview of what our use case looks like, let's move on to seeing this use case and our solution in an actual running demo application.

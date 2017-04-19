@@ -4,26 +4,31 @@
 
 ## Outline
 
--   [Environment Setup](#)
--   [The Data Involved](#)
--   [Demo Start!](#)
--   [What's going on](#)
--   [Next: Building the Topology](#)
+-   [Environment Setup](#environment-setup)
+-   [Generate Sensor Data](#generate-sensor-data)
+-   [Deploy the Storm Topology](#deploy-the-storm-topology)
+-   [Visualize the Processed Data](#visualize-the-processed-data)
+-   [Next: Building a Storm Topology](#next:-building-a-storm-topology)
 
-## Setup
 
-SSH into your HDP environment and download the two components to this reference application:
+## Environment Setup
+
+SSH into your HDP environment and download the corresponding demo project.
 
 ```
-git clone https://github.com/orendain/trucking-iot
 git clone https://github.com/orendain/trucking-iot-demo-1
 ```
 
-## The Data Involved
+Run the automated setup script to download and prepare necessary dependencies.
+```
+cd trucking-iot-demo-1
+./scripts/setup.sh
+```
 
-### Simulated Data
 
-The project includes a very robust data simulator, which generates data of two types and stores them in Kafka topics.
+## Generate Sensor Data
+
+The demo application leverages a very robust data simulator, which generates data of two types and publishes them to Kafka topics as a CSV string.
 
 `EnrichedTruckData`: Data simulated by sensors onboard each truck.  For the purposes of this demo, this data has been pre-enriched with data from a weather service.
 
@@ -32,7 +37,6 @@ The project includes a very robust data simulator, which generates data of two t
 ```
 ![EnrichedTruckData fields](assets/enriched-truck-data_fields.png)
 
-
 `TrafficData`: Data simulated from an online traffic service, which reports on traffic congestion on any particular trucking route.
 
 ```
@@ -40,34 +44,35 @@ The project includes a very robust data simulator, which generates data of two t
 ```
 ![TrafficData fields](assets/traffic-data_fields.png)
 
-### Data Processing
+Start the data generator by executing the appropriate script:
+```
+./scripts/run-simulator.sh
+```
 
-With the simulated data available in Kakfa topics, we leverage Storm and put the data through the following flow.
+## Deploy the Storm Topology
+
+With simulated data now being pumped into Kafka topics, we power up Storm and process this data.  In a separate terminal window, run the following command:
+
+```
+./scripts/deploy-topology.sh
+```
+
+> Note: We'll cover what exactly a "topology" is in the next section.
+
+Here is a slightly more in-depth look at the steps Storm is taking in processing and transforming the two types of simulated data from above.
 
 ![General Storm Process](assets/storm-flow-general.jpg)
 
-### Visualization
 
-With the processed data in a Kafka topic, our reactive web application subscribes to this Kafka topic, reading in data as it shows up in the topic.
+## Visualize the Processed Data
 
+With the data now fully processed by Storm and published back into accessible Kafka topics, it's time to visualize some of our handiwork.  Start up the included reactive web application, which subscribes to a Kafka topic that processed data is stored in and renders these merged and processed truck and traffic data points on a map.
 
-## Demo Start
-
-Now that we know what to expect, let's run the demo and see the data flow in action:
 ```
-./trucking-iot/scripts/demo-1/run-simulator-and-webapp.sh
-./trucking-iot-demo-1/scripts/deploy-topology.sh
+./scripts/start-web-application.sh
 ```
 
-The first script does the following:
--  Start the simulator and generates IoT data
--  Bring up the web application so we can visualize the data processed by Storm
-
-The second script deploys the Storm topology to handle the data processing.
-
-Next, bring up the web application, accessible through your brower at: `sandbox.hortonworks.com:17000`
-
-This application is rendering data after it has made its way through the pipeline.
+Bring up the web application by accessing it through your broswer at: `sandbox.hortonworks.com:15100`
 
 
 ## What Storm is Doing
@@ -79,6 +84,6 @@ In order to make this happen, Storm is doing the following:
 - Here's the same graphic as before, only this time with terminology. (color-coded/arrows)
 
 
-## Next: Build
+## Next: Building a Storm Topology
 
-Now that we know the work that Storm is doing, let's dive into the code that powers this topology and see exactly how this system is built with actual code.
+Now that we know how Storm fits into this data pipeline and what type of ETL work it is performing, let's dive into the actual code and see exactly how it is built.
