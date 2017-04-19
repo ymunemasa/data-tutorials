@@ -75,7 +75,8 @@ Listed below are the ports that the HDP Sandbox forwards by default, and what so
 15002 -> 15002 -- Hive LLAP
 16000 -> 16000 -- HBase Master
 16010 -> 16010 -- HBase Master Info
-16030 -> 16030 -- HBase Region
+16020 -> 16020 -- HBase Regionserver
+16030 -> 16030 -- HBase Regionserver Info
 18080 -> 18080 -- SparkHistoryServer
 18081 -> 18081 -- Spark2 History Server
 19888 -> 19888 -- JobHistory
