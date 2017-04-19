@@ -87,8 +87,6 @@ Listed below are the ports that the HDP Sandbox forwards by default, and what so
 50079 -> 50079 -- NFS gateway
 50095 -> 50095 -- Accumulo
 50111 -> 50111 -- WebHcat
-60000 -> 60000 -- HBase (needs verification)
-60080 -> 60080 -- WebHBase
 61888 -> 61888 -- LogsearchUI
 
 2222 -> 22 -- Sandbox container SSH
