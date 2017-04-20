@@ -2,6 +2,8 @@
 
 ## Introduction
 
+Let's walk through the demo and get an understanding for the data pipeline before we dive deeper into Storm internals.
+
 ## Outline
 
 -   [Environment Setup](#environment-setup)
@@ -61,7 +63,7 @@ With simulated data now being pumped into Kafka topics, we power up Storm and pr
 
 Here is a slightly more in-depth look at the steps Storm is taking in processing and transforming the two types of simulated data from above.
 
-![General Storm Process](assets/storm-flow-general.jpg)
+![General Storm Process](assets/storm-flow-overview.jpg)
 
 
 ## Visualize the Processed Data
@@ -72,16 +74,7 @@ With the data now fully processed by Storm and published back into accessible Ka
 ./scripts/start-web-application.sh
 ```
 
-Bring up the web application by accessing it through your broswer at: `sandbox.hortonworks.com:15100`
-
-
-## What Storm is Doing
-
-In order to make this happen, Storm is doing the following:
-
-![Storm Process - High Level Overview](assets/storm-flow-overview.jpg)
-
-- Here's the same graphic as before, only this time with terminology. (color-coded/arrows)
+Bring up the web application by accessing it through your broswer at: `sandbox.hortonworks.com:15500`
 
 
 ## Next: Building a Storm Topology

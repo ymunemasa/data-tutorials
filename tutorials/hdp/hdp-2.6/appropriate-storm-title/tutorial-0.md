@@ -11,7 +11,7 @@ We will build a Storm topology from the ground up and demonstrate a full data pi
 
 ## Outline
 
--   **IoT Use Case** - sdf
--   **Running The Demo** - sdf
--   **Building The Topology** - sdf
+-   **Trucking IoT Use Case** - sdf
+-   **Running the Demo** - sdf
+-   **Building a Storm Topology** - sdf
 -   **Deploying the Topology** - asf

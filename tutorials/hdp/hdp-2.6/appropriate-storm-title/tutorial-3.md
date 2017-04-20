@@ -1,4 +1,4 @@
-# Building The topology
+# Building a Storm Topology
 
 ## Introduction
 
@@ -6,16 +6,20 @@ We now know the role that Storm plays in this Trucking IoT system.  Let's dive i
 
 ## Outline
 
--   Storm Components
--   Environment Setup
--   The Workflow
--   Building a KafkaSpout
--   Building a Custom Bolt
--   Building a Tumbling Windowed Bolt
--   Building a Sliding Windowed Bolt
--   Building a KafkaBolt
+-   [Storm Components](#storm-components)
+-   [Environment Setup](#environment-setup)
+-   [Topology Build and Submit Overview](#topology-build-and-submit-overview)
+-   [Starting to Build a Storm Topology](#starting-to-build-a-storm-topology)
+-   [Building a Kafka Spout](#building-a-kafka-spout)
+-   [Building a Custom Bolt](#building-a-custom-bolt)
+-   [Building a Tumbling Windowed Bolt](#building-a-tumbling-windowed-bolt)
+-   [Building a Sliding Windowed Bolt](#building-a-sliding-windowed-bolt)
+-   [Building a Kafka Bolt](#building-a-kafka-bolt)
+-   [Creating the Topology](#creating-the-topology)
+-   [Next: Deploying the Storm topology](#next:-deploying-the-storm-topology)
 
-## Storm components
+
+## Storm Components
 
 Now that we have a general idea of the power of Storm, let's look at its different components, our building blocks when defining a Storm process, and what they're used for.
 
@@ -27,7 +31,8 @@ Now that we have a general idea of the power of Storm, let's look at its differe
 
 ![A Storm topology: spouts, streams and bolts](assets/storm-100_topology.png)
 
-##  Setup
+
+##  Environment Setup
 
 We will be working with the `trucking-iot-demo-1` project that you downloaded in previous sections.  Feel free to download the project again on your local environment so you can open it with your favorite text editor or IDE.
 
@@ -35,11 +40,12 @@ We will be working with the `trucking-iot-demo-1` project that you downloaded in
 git clone https://github.com/orendain/trucking-iot-demo-1
 ```
 
-> Alternatively, if you would prefer not to download the code, you may view this project directly on [GitHub](#).
+> Alternatively, if you would prefer not to download the code, and simply follow along, you may view this project directly on [GitHub](https://github.com/orendain/trucking-iot-demo-1/tree/master/trucking-storm-topology-java/src/main/java/com/orendainx/hortonworks/trucking/storm/java).
 
-## Workflow
 
-Look inside the `/path/to/KafkaToKafka.java` class and you'll find two methods: our standard entry point, `main`, and a method named `buildTopology`, which handles the building of our Storm topology.
+## Topology Build and Submit Overview
+
+Look inside the `KafkaToKafka.java` class and you'll find two methods: our standard entry point, `main`, and a method named `buildTopology`, which handles the building of our Storm topology.
 
 The primary purpose of our `main` method is to configure and build our topology and then submit it for deployment onto our cluster.  Let's take a closer look at what's inside:
 
@@ -68,7 +74,8 @@ try {
 
 Here, we invoke the `buildTopology` method of our class, which is responsible for building a StormTopology.  With the topology that is returned, we used the `StormSubmitter` class to submit topologies to run on the Storm cluster.
 
-##
+
+## Starting to Build a Storm Topology
 
 Let's dive into the `buildTopology` method to see exactly how to build a topology from the ground up.
 
@@ -85,7 +92,8 @@ String groupId = config.getString("kafka.group-id");
 
 We start by creating an instance of `TopologyBuilder`, which exposes an easy-to-use Java API for putting together a topology.  Next, we pull in some values from our configuration file (`application.conf`).
 
-##
+
+## Building a Kafka Spout
 
 ```
 /*
@@ -109,15 +117,14 @@ This `KafkaSpoutConfig.builder` method takes in a list of Kafka bootstrap server
 
 `setRecordTranslator` allows you to modify how the spout converts a Kafka Consumer Record into a Tuple.  Here, we're using a Java 8 lambda expression to map a record to the Storm Tuple that we want to produce.  We're producing a Tuple where the first field is the name of the data, "EnrichedTruckData", and the second is the record itself (r.value()).  The second argument to this function are the names we give these fields ("dataType" and "data").
 
-`setFirstPollOffsetStrategy` allows you to set where to start consuming data from. This is used both in case of failure recovery and starting the spout for the first time. Allowed values include:
-
-`EARLIEST` means that the kafka spout polls records starting in the first offset of the partition, regardless of previous commits
-`LATEST` means that the kafka spout polls records with offsets greater than the last offset in the partition, regardless of previous commits
-`UNCOMMITTED_EARLIEST` (DEFAULT) means that the kafka spout polls records from the last committed offset, if any. If no offset has been committed, it behaves as `EARLIEST`.
-`UNCOMMITTED_LATEST` means that the kafka spout polls records from the last committed offset, if any. If no offset has been committed, it behaves as `LATEST`.
-
 `setGroupId` lets you set the id of the kafka consumer group property.
 
+`setFirstPollOffsetStrategy` allows you to set where to start consuming data from. This is used both in case of failure recovery and starting the spout for the first time. Allowed values include:
+
+-   `EARLIEST` means that the kafka spout polls records starting in the first offset of the partition, regardless of previous commits
+-   `LATEST` means that the kafka spout polls records with offsets greater than the last offset in the partition, regardless of previous commits
+-   `UNCOMMITTED_EARLIEST` (DEFAULT) means that the kafka spout polls records from the last committed offset, if any. If no offset has been committed, it behaves as `EARLIEST`.
+-   `UNCOMMITTED_LATEST` means that the kafka spout polls records from the last committed offset, if any. If no offset has been committed, it behaves as `LATEST`.
 
 Now that we have a KafkaSpoutConfig, we use it to build a KafkaSpout and place it in the topology.
 
@@ -128,9 +135,8 @@ builder.setSpout("enrichedTruckData", new KafkaSpout<>(truckSpoutConfig), 1);
 
 Remember that `builder` refers to the `TopologyBuilder`.  We're creating a new `KafkaSpout` with a parallelism_hint of `1` (how many tasks, or instances, of the component to run on the cluster).  We place the spout in the topology blueprint with the name "enrichedTruckData".
 
-Next, we build a second KafkaSpout, but this time for the Kafka spout with traffic data.
 
-##
+## Building a Custom Bolt
 
 Excellent, we now have a way to ingest our CSV-delimited strings from Kafka topics and into our Storm topology.  We now need a way to unpackage these strings into Java objects so we can more easily interact with them.
 
@@ -146,11 +152,7 @@ We create a new CSVStringToObjectBolt bolt, and tell spot to assign only a singl
 
 `ShuffleGrouping` shuffles data flowing in from the specified spouts evenly across all instances of the newly created bolt.
 
-Okay, now let's dig in and see how we create this bolt from scratch.
-
-##
-
-Check out the `CSVStringToObjectBolt` class in the file `CSVStringToObjectBolt.java`.
+Let's dig in and see how we create this bolt from scratch: check out the `CSVStringToObjectBolt.java` file.
 
 ```
 public class CSVStringToObjectBolt extends BaseRichBolt {
@@ -196,7 +198,6 @@ We start by extracting the value of the tuple stored under the name "dataType", 
 Next, we use the `outputCollector` to emit a Tuple onto this bolt's outbound stream.
 Finally, we `ack` (acknowledge) that the bolt has processed this tuple.  This is part of Storm's reliability API for guaranteeing no data loss.
 
-
 The last method in this bolt is a short one:
 ```
 public void declareOutputFields(OutputFieldsDeclarer declarer) {
@@ -208,7 +209,8 @@ The declareOutputFields method declares that this bolt emits 2-tuples with field
 
 That's it!  We've just seen how to build a custom Storm bolt from scratch.
 
-##
+
+## Building a Tumbling Windowed Bolt
 
 Let's get back to our KafkaToKafka class and look at what other components we're adding downstream of the CSVStringToObjectBolt.
 
@@ -232,7 +234,8 @@ A tumbling window with a duration means the stream of incoming Tuples are partit
 
 We'll take a look at how to build a custom windowed bolt in the next section.
 
-##
+
+## Building a Sliding Windowed Bolt
 
 Now that we have successfully joined data coming in from two streams, let's perform some windowed analytics on this data.
 
@@ -255,13 +258,8 @@ Build a bolt and then place it in the topology blueprint connected to the "joine
 
 Create 5 tasks for this bolt, to ease the load for any single instance of this bolt.  FieldsGrouping partitions the stream of tuples by the fields specified.  Tuples with the same driverId will always go to the same task.  Tuples with different driverIds may go to different tasks.
 
-##
 
-Let's take a very quick look at how a windowed bolt differs from a regular bolt.
-
-...
-
-##
+## Building a Kafka Bolt
 
 Before we push our Storm-processed data back out to Kafka, we want to serialize the Java objects we've been working with into string form.
 
@@ -304,7 +302,8 @@ KafkaBolt statsKafkaBolt = new KafkaBolt<String, String>()
 
 `withProducerProperties` takes in properties to set itself up with.
 
-###
+
+## Creating the Topology
 
 Now that we have specified the entire Storm topology by adding components into our `TopologyBuilder`, we create an actual topology using the builder's blueprint and return it.
 
@@ -316,6 +315,3 @@ return builder.createTopology();
 ## Next: Deploying the Storm topology
 
 Phew!  We've now learned about how a Storm topology is developed.  In the next section, we'll package this project up into a portable JAR file and run a quick command that will deploy this code onto a cluster.
-
-
-http://storm.apache.org/releases/1.1.0/storm-kafka-client.html
