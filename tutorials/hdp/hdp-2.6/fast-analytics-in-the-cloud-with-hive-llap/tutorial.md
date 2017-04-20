@@ -27,7 +27,6 @@ Hadoop has always been associated with BigData, yet the perception is it’s onl
 -   [Lab 1: Airline Growth Trend](#lab-1-airline-growth-trend)
 -   [Lab 2: Airport Delay](#lab-2-airport-delay)
 -   [Summary](#summary)
--   [Further Reading](#further-reading)
 
 ## Create cluster for Hive LLAP
 
@@ -38,7 +37,7 @@ A few cluster modifications are required when creating a cluster to take advanta
 From the CloudFormation service screen, Open CloudURL:
 1. Select your CloudController Stack Name
 2. Select the Outputs tab
-3. Search for the Key "CloudURL" and open the URL provided.
+3. Search for the Key "CloudController" and open the URL provided.
 
 ![open CloudURL](assets/cluster2.png)
 
@@ -47,7 +46,7 @@ Login using your credentials:
 ![open CloudURL](assets/cluster3.png)
 
 Create a cluster as you normally do, with the exception of:
-1. <mark>Cluster Type:</mark> EDW-Analytics: Apache Hive 2 LLAP, Apache Zeppelin 0.6.0
+1. <mark>Cluster Type:</mark> EDW-Analytics: Apache Hive 2 LLAP, Apache Zeppelin 0.7.0
 2. <mark>Master Instance Type:</mark> m4.xlarge (4vCPU, 16.0 GB Memory)
 3. <mark>Worker Instance Type:</mark> m3.2xlarge (8vCPU, 30.0 GB Memory, 2x80 GB Local Storage)
 4. <mark>Instance Count:</mark> 3
@@ -63,7 +62,7 @@ Once the cluster is created and running, login Ambari:
 ![open CloudURL](assets/cluster6.png)
 
 ## Create Hive tables and load data
-Now, we'll go into the Hive View and create the necessary tables for our analysis:
+Now, we'll go into the Hive View 2.0 and create the necessary tables for our analysis:
 
 ![open CloudURL](assets/hiveview1.png)
 
@@ -113,13 +112,18 @@ We'll create our data model using the following 4 tables:
 
 We create our data model using the following tables loaded in order with associations as described below:
 
-| Load Order  | Table     | Inner Join Condition                                        |
-| :---------: | :-------: | :---------------------------------------------------------- |
-| 1           | flights   | n/a                                                         |
-| 2           | airlines  | Uniquecarrier = Code                                        |
-| 3           | planes    | Tailnum = Tailnum(Planes)                                   |
-| 4           | airports  | Origin = Iata, rename "airports" to "airports_origin"       |
-| 5           | airports  | Dest = Iata(Airports), rename "airports" to "airports_dest" |
+1.  drag `flights` table
+   -  no join condition needed
+2.  drag `airlines` table
+   - join condition: `Uniquecarrier = Code`
+3. drag `planes` table
+   - join condition: `Tailnum = Tailnum(Planes)`
+4.  drag `airports` table
+   - join condition: `Origin = Iata`
+   - rename `airports` to `airports_origin`
+5.  drag `airports` table
+   - join condition: `Dest = Iata(Airports)`
+   - rename `airports` to `airports_dest`
 
 The final table associations should look like this:
 
@@ -140,5 +144,3 @@ Using the data model built, we can visualize which airports have most delays:
 Congratulations! You've completed the tutorial.
 
 As seen by this tutorial, it is easy to use Hive LLAP on Amazon Web Services (AWS). In using Business intelligence tools (BI tools), like Tableau, you are able to interactively explore and analyze your data.
-
-## Further Reading
