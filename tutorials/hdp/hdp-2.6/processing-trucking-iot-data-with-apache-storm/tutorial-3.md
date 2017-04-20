@@ -1,3 +1,10 @@
+---
+title: Processing Trucking IoT Data with Apache Storm
+tutorial-id: 800
+platform: hdp-2.6.0
+tags: [storm, trucking, iot, kafka]
+---
+
 # Building a Storm Topology
 
 ## Introduction
