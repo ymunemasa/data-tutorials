@@ -27,7 +27,6 @@ Hadoop has always been associated with BigData, yet the perception is it’s onl
 -   [Lab 1: Airline Growth Trend](#lab-1-airline-growth-trend)
 -   [Lab 2: Airport Delay](#lab-2-airport-delay)
 -   [Summary](#summary)
--   [Further Reading](#further-reading)
 
 ## Create cluster for Hive LLAP
 
@@ -63,7 +62,7 @@ Once the cluster is created and running, login Ambari:
 ![open CloudURL](assets/cluster6.png)
 
 ## Create Hive tables and load data
-Now, we'll go into the Hive View and create the necessary tables for our analysis:
+Now, we'll go into the Hive View 2.0 and create the necessary tables for our analysis:
 
 ![open CloudURL](assets/hiveview1.png)
 
@@ -145,5 +144,3 @@ Using the data model built, we can visualize which airports have most delays:
 Congratulations! You've completed the tutorial.
 
 As seen by this tutorial, it is easy to use Hive LLAP on Amazon Web Services (AWS). In using Business intelligence tools (BI tools), like Tableau, you are able to interactively explore and analyze your data.
-
-## Further Reading
