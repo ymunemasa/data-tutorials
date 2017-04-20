@@ -1,6 +1,6 @@
 ---
 title: Sandbox Deployment and Install Guide
-tutorial-id:
+tutorial-id: 350
 platform: hdp-2.6.0
 tags: [sandbox, deploy, install, virtualbox]
 ---
