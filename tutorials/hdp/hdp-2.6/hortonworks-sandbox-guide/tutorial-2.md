@@ -7,14 +7,11 @@ tags: [sandbox, documentation]
 
 # Sandbox Docs - HDF 2.1
 
-## Introduction
-
-possible links:
-https://hortonworks.com/products/data-center/hdf/
-https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.1.2/index.html
-
 ## Outline
 
--   [Release Notes]()
--   [Release Notes]()
--   [Release Notes]()
+-   [Further Reading](#further-reading)
+
+
+## Further Reading
+-   <https://hortonworks.com/products/data-center/hdf/>
+-   <https://docs.hortonworks.com/HDPDocuments/HDF2/HDF-2.1.2/index.html>

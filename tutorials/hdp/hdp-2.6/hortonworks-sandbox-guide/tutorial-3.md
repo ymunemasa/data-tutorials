@@ -16,7 +16,7 @@ Listed below are the ports that the HDP Sandbox forwards by default, and what so
 ## Port Forwards
 
 ```
-111 -> 111 -- NFS gateway
+1111 -> 111 -- NFS gateway
 1000 -> 1000 -- Unused? Can remove?
 1100 -> 1100 -- Unused? Can remove?
 1220 -> 1220 -- Unused? Can remove?
