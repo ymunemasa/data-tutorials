@@ -28,9 +28,7 @@ cd trucking-iot-demo-1
 ./scripts/setup.sh
 ```
 
-> Note: The script above makes the following assumptions:
-Ambari admin password is set to: admin
-Kafka and Storm started
+> Note: The script assumes that Kafka and Storm services are started within Ambari and that the Ambari login credentials are admin/admin.
 
 ## Generate Sensor Data
 
