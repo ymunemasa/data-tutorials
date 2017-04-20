@@ -1,6 +1,6 @@
 ---
 title: Sandbox Port Forwarding Guide
-tutorial-id:
+tutorial-id: 623
 platform: hdp-2.6.0
 tags: [sandbox, ports, port forwarding, vmware]
 ---
