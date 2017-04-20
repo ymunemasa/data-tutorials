@@ -4,6 +4,7 @@
 
 Let's walk through the demo and get an understanding for the data pipeline before we dive deeper into Storm internals.
 
+
 ## Outline
 
 -   [Environment Setup](#environment-setup)
@@ -27,6 +28,9 @@ cd trucking-iot-demo-1
 ./scripts/setup.sh
 ```
 
+> Note: The script above makes the following assumptions:
+Ambari admin password is set to: admin
+Kafka and Storm started
 
 ## Generate Sensor Data
 

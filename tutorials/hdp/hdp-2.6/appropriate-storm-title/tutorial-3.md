@@ -4,6 +4,7 @@
 
 We now know the role that Storm plays in this Trucking IoT system.  Let's dive into the code and dissect what the code is doing and also learn how to build this topology.
 
+
 ## Outline
 
 -   [Storm Components](#storm-components)
