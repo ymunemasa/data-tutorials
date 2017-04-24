@@ -9,7 +9,7 @@ tags: [sandbox]
 
 ## Introduction
 
-Welcome to the Hortonworks Sandbox!  Look at the attached sections for sandbox documenation.
+Welcome to the Hortonworks Sandbox!  Look at the attached sections for sandbox documentation.
 
 ## Outline
 

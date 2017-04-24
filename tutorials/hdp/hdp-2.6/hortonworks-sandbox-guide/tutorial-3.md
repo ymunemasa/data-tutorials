@@ -17,23 +17,13 @@ Listed below are the ports that the HDP Sandbox forwards by default, and what so
 
 ```
 1111 -> 111 -- NFS gateway
-1000 -> 1000 -- Unused? Can remove?
-1100 -> 1100 -- Unused? Can remove?
-1220 -> 1220 -- Unused? Can remove?
-1988 -> 1988 -- Unused? Can remove?
 2049 -> 2049 -- NFS gateway
-2100 -> 2100 -- Unused? Can remove?
 2181 -> 2181 -- Zookeeper
 3000 -> 3000 -- Grafana
 4040 -> 4040 -- Spark
 4200 -> 4200 -- Ambari Shell
 4242 -> 4242 -- NFS gateway
 4557 -> 4557 -- NiFi DistributedMapCacheServer
-5007 -> 5007 -- Unused? Can remove?
-5011 -> 5011 -- Unused? Can remove?
-6001 -> 6001 -- Unused? Can remove?
-6003 -> 6003 -- Unused? Can remove?
-6008 -> 6008 -- Unused? Can remove?
 6080 -> 6080 -- Ranger
 6188 -> 6188 -- Ambari Metrics Timeline Server
 8000 -> 8000 -- Storm Logviewer
@@ -59,7 +49,6 @@ Listed below are the ports that the HDP Sandbox forwards by default, and what so
 8983 -> 8983 -- SolrAdmin
 8993 -> 8993 -- Solr
 9000 -> 9000 -- HST (Smartsense)
-9083 -> 9083 -- Unused? Can remove?
 9090 -> 9090 -- NiFi
 9090 -> 9091 -- NiFi SSL
 9995 -> 9995 -- Zeppelin
