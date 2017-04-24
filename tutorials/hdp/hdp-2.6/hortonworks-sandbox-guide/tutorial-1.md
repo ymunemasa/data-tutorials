@@ -25,12 +25,13 @@ tags: [sandbox, documentation]
 ## Release Notes
 
 Apr 2017
--    Md5 VMware Virtual Appliance - **50aab8be7ef25418d475000045abe571**
--    Md5 Virtualbox Virtual Appliance - **9cb91797dc2a53bf3799007c5c80770e**
--    Md5 Docker - **f1663bbff04721c3b1a32a39fef676e3**
--    HDP Stack and Ambari: The Sandbox uses the following versions of Ambari and HDP stack. Please use the following release note links provided to view Ambari and HDP stack specific information.
-     -    [HDP 2.6 Product Release Notes](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.0/bk_release-notes/content/ch_relnotes.html)
-     -    [Ambari 2.5 Release Notes](https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.0.3/bk_ambari-release-notes/content/ch_relnotes-ambari-2.5.0.3.html)
+
+-   Md5 VMware Virtual Appliance - **50aab8be7ef25418d475000045abe571**
+-   Md5 Virtualbox Virtual Appliance - **9cb91797dc2a53bf3799007c5c80770e**
+-   Md5 Docker - **f1663bbff04721c3b1a32a39fef676e3**
+-   HDP Stack and Ambari: The Sandbox uses the following versions of Ambari and HDP stack. Please use the following release note links provided to view Ambari and HDP stack specific information.
+    -   [HDP 2.6 Product Release Notes](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.0/bk_release-notes/content/ch_relnotes.html)
+    -   [Ambari 2.5 Release Notes](https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.0.3/bk_ambari-release-notes/content/ch_relnotes-ambari-2.5.0.3.html)
 
 
 ## Behavior Changes
