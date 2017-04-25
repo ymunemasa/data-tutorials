@@ -9,7 +9,7 @@ tags: [spark]
 
 ## Introduction
 
-This is the third tutorial in a series about building and deploying machine learning models with Apache Nifi and Spark. In [Part 1](https://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-sentiment-data/) of the series we learned how to use Nifi to ingest and store Twitter Streams. In Part 2 we ran Spark from a Zeppelin notebook to design a machine learning model that classified tweets as happy or sad. In this tutorial we'll combine our results from Part 1 and Part 2 to stream tweets and perform sentiment analysis in real-time. To accomplish this we're going to build a Spark Streaming program which will deploy our model.
+This is the third tutorial in a series about building and deploying machine learning models with Apache Nifi and Spark. In [Part 1](https://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-sentiment-data/) of the series we learned how to use Nifi to ingest and store Twitter Streams. In [Part 2](https://hortonworks.com/hadoop-tutorial/sentiment-analysis-apache-spark/) we ran Spark from a Zeppelin notebook to design a machine learning model that classified tweets as happy or sad. In this tutorial we'll combine our results from Part 1 and Part 2 to stream tweets and perform sentiment analysis in real-time. To accomplish this we're going to build a Spark Streaming program which will deploy our model.
 
 ## Prerequisites
 
