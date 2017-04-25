@@ -1,3 +1,10 @@
+---
+title: Deploying Machine Learning Models using Spark Structured Streaming
+tutorial-id: 371
+platform: hdp-2.6.0
+tags: [spark]
+---
+
 # Deploying Machine Learning Models using Spark Structured Streaming
 
 ## Introduction
