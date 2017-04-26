@@ -1,27 +1,30 @@
 #!/bin/bash
 USERNAME=holger_gov
-#PASSWORD=holger_gov
+PASSWORD=holger_gov
 user_exists=$(id -u $USERNAME > /dev/null 2>&1; echo $?)
 if [ $user_exists -eq 1 ]; then
 sudo useradd $USERNAME
-read -s -p "Enter password : " PASSWORD
+#read -s -p "Enter password : " PASSWORD
 echo $USERNAME:$PASSWORD | sudo chpasswd
 #egrep "^$USERNAME" /etc/passwd >/dev/null
 echo "Creating a HDFS directory"
 sudo -u hdfs hdfs dfs -mkdir /user/holger_gov
 sudo -u hdfs hdfs dfs -chown -R holger_gov:hdfs /user/holger_gov
+AMBARI_HOST=$(hostname -f)
+CLUSTER_NAME=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/clusters |grep cluster_name|grep -Po ': "(.+)'|grep -Po '[a-zA-Z0-9\-_!?.]+')
+
 echo "Giving access to holger_gov for Atlas Web UI"
 sha_value=$(echo -n $PASSWORD | sha256sum)
 sed -i "4 a holger_gov=ROLE_ADMIN::${sha_value}" /etc/atlas/conf/users-credentials.properties
 sed -i "$ s/.$//" /etc/atlas/conf/users-credentials.properties
 echo "Creating a user in ambari"
-curl -iv -u admin:admin -H "X-Requested-By: ambari" -X POST -d '{"Users/user_name":"holger_gov","Users/password":"holger_gov","Users/active":"true","Users/admin":"false"}' http://sandbox.hortonworks.com:8080/api/v1/users
+curl -iv -u admin:admin -H "X-Requested-By: ambari" -X POST -d '{"Users/user_name":"holger_gov","Users/password":"holger_gov","Users/active":"true","Users/admin":"false"}' http://$AMBARI_HOST:8080/api/v1/users
 echo "Assigning the user to a group in ambari"
-curl -iv -u admin:admin -H "X-Requested-By: ambari"-X POST -d '[{"MemberInfo/user_name":"holger_gov","MemberInfo/group_name":"views"}]' http://sandbox.hortonworks.com:8080/api/v1/groups/views/members
+curl -iv -u admin:admin -H "X-Requested-By: ambari"-X POST -d '[{"MemberInfo/user_name":"holger_gov","MemberInfo/group_name":"views"}]' http://$AMBARI_HOST:8080/api/v1/groups/views/members
 echo "Assigning user to a Sandbox role Service Administrator"
-curl -iv -u admin:admin -H "X-Requested-By: ambari" -X POST -d '[{"PrivilegeInfo":{"permission_name":"SERVICE.ADMINISTRATOR", "principal_name":"holger_gov","principal_type":"USER"}}]' http://sandbox.hortonworks.com:8080/api/v1/clusters/Sandbox/privileges
-echo "Assigning Ambari Views"
-curl -iv -u admin:admin -H  "X-Requested-By: ambari" -X POST -d '[{"PrivilegeInfo":{"permission_name":"VIEW.USER", "principal_name":"holger_gov","principal_type":"USER"}}]' http://127.0.0.1:8080/api/v1/views/HIVE/versions/1.5.0/instances/AUTO_HIVE_INSTANCE/privileges/
+curl -iv -u admin:admin -H "X-Requested-By: ambari" -X POST -d '[{"PrivilegeInfo":{"permission_name":"SERVICE.ADMINISTRATOR", "principal_name":"holger_gov","principal_type":"USER"}}]' http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER_NAME/privileges
+#echo "Assigning Ambari Views"
+#curl -iv -u admin:admin -H  "X-Requested-By: ambari" -X POST -d '[{"PrivilegeInfo":{"permission_name":"VIEW.USER", "principal_name":"holger_gov","principal_type":"USER"}}]' http://127.0.0.1:8080/api/v1/views/HIVE/versions/1.5.0/instances/AUTO_HIVE_INSTANCE/privileges/
 #Get Pig view versions
 pig_version=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/views/PIG/versions | jq -r '.items[].ViewVersionInfo.version')
 #Get Pig View instance name

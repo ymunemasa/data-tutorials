@@ -41,7 +41,7 @@ In the previous lab, you learned how to use Nifi, Hive and Zeppelin to analyze s
 
 ## Dataset <a id="dataset"></a>
 
-Download the dataset [here](https://github.com/hortonworks/tutorials/blob/hdp-2.5/tutorials/hortonworks/analyze-server-log-data/logsample.txt).
+[Download the dataset here](assets/logsample.txt).
 
 The dataset which we are going to use in this lab is of NASA-HTTP. It has HTTP requests to the NASA Kennedy Space Center WWW server in Florida.
 The logs are an ASCII file with one line per request, with the following columns:
@@ -92,21 +92,21 @@ Download files using wget utility:
 
 ~~~
 cd /tmp/nifi/input
-wget https://raw.githubusercontent.com/hortonworks/tutorials/tutorials/hortonworks/hdp-2.5/analyze-server-log-data/assets/logsample.txt
+wget https://raw.githubusercontent.com/hortonworks/data-tutorials/cf9f67737c3f1677b595673fc685670b44d9890f/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/logsample.txt
 ~~~
 
 ![download_logsample](assets/lab2/download_logsample.png)
 
 ~~~
 cd /tmp/nifi/GeoFile
-wget https://raw.githubusercontent.com/hortonworks/tutorials/tutorials/hortonworks/hdp-2.5/analyze-server-log-data/assets/GeoLite2-City.mmdb
+wget https://raw.githubusercontent.com/hortonworks/data-tutorials/cf9f67737c3f1677b595673fc685670b44d9890f/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/GeoLite2-City.mmdb
 ~~~
 
 ![download_geofile](assets/lab2/download_geofile.png)
 
 ## Step 3 - Import the Workflow <a id="import-flow"></a>
 
-We’re going to import a data flow from a template which you can download [WebServerLogs.xml](https://raw.githubusercontent.com/hortonworks/tutorials/tutorials/hortonworks/hdp-2.5/analyze-server-log-data/assets/WebServerLogs.xml).
+We’re going to import a data flow from a template which you can download [WebServerLogs.xml](https://raw.githubusercontent.com/hortonworks/data-tutorials/cf9f67737c3f1677b595673fc685670b44d9890f/tutorials/hdp/hdp-2.5/refine-and-visualize-server-log-data/assets/WebServerLogs.xml).
 Use the NiFi interface to upload the flow, and then drag it onto your workspace.
 
 ![upload_template](assets/lab2/upload_template.png)

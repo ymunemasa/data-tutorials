@@ -45,7 +45,7 @@ Open up Ambari and make sure Zeppelin is running. If not, start the service. Go 
 
 Once the Zeppelin UI is open you can either create a new note and run the commands, or import the following notebook from this URL: `
 
-`https://raw.githubusercontent.com/hortonworks/tutorials/hdp-2.4/data/zeppelin-notes/ClickstreamAnalytics.json`
+`https://raw.githubusercontent.com/hortonworks/data-tutorials/cf9f67737c3f1677b595673fc685670b44d9890f/tutorials/hdp/hdp-2.5/visualize-website-clickstream-data/assets/ClickstreamAnalytics.json`
 
 ## Step 1: Identify from which State's Customers Visit the Website Most <a id="identify-customers-website"></a>
 

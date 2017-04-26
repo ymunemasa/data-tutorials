@@ -1,10 +1,10 @@
 #!/bin/bash
 USERNAME=maria_dev
-#PASSWORD=maria_dev
+PASSWORD=maria_dev
 user_exists=$(id -u $USERNAME > /dev/null 2>&1; echo $?)
 if [ $user_exists -eq 1 ]; then
 sudo useradd $USERNAME
-read -s -p "Enter password : " PASSWORD
+#read -s -p "Enter password : " PASSWORD
 echo $USERNAME:$PASSWORD | sudo chpasswd
 sudo -u hdfs hdfs dfs -mkdir /user/maria_dev
 sudo -u hdfs hdfs dfs -chown -R maria_dev:hdfs /user/maria_dev
@@ -14,8 +14,8 @@ echo "Assigning user to a Sandbox role Service Operator"
 curl -iv -u admin:admin -H "X-Requested-By: ambari" -X POST -d '[{"PrivilegeInfo":{"permission_name":"SERVICE.OPERATOR", "principal_name":"maria_dev","principal_type":"USER"}}]' http://$AMBARI_HOST:8080/api/v1/clusters/$CLUSTER_NAME/privileges
 echo "Assigning the user to a group in ambari"
 curl -iv -u admin:admin -H "X-Requested-By: ambari"-X POST -d '[{"MemberInfo/user_name":"maria_dev","MemberInfo/group_name":"views"}]' http://$AMBARI_HOST:8080/api/v1/groups/views/members
-echo "Assigning Ambari Views"
-curl -iv -u admin:admin -H  "X-Requested-By: ambari" -X POST -d '[{"PrivilegeInfo":{"permission_name":"VIEW.USER", "principal_name":"maria_dev","principal_type":"USER"}}]' http://$AMBARI_HOST:8080/api/v1/views/HIVE/versions/1.5.0/instances/AUTO_HIVE_INSTANCE/privileges/
+#echo "Assigning Ambari Views"
+#curl -iv -u admin:admin -H  "X-Requested-By: ambari" -X POST -d '[{"PrivilegeInfo":{"permission_name":"VIEW.USER", "principal_name":"maria_dev","principal_type":"USER"}}]' http://$AMBARI_HOST:8080/api/v1/views/HIVE/versions/1.5.0/instances/AUTO_HIVE_INSTANCE/privileges/
 
 #Get Pig view versions
 pig_version=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/views/PIG/versions | jq -r '.items[].ViewVersionInfo.version')

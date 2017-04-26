@@ -19,7 +19,7 @@ In this tutorial we are going walk the process of mirroring the datasets between
 
 - [Download Hortonworks Sandbox 2.5](https://hortonworks.com/downloads/#sandbox)
 - Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari as an administrator user.
-- Complete the [Leveraging Apache Falcon with Your Hadoop Clusters](https://github.com/hortonworks/tutorials-future/blob/master/tutorials/hortonworks/create-falcon-cluster-hdp2.5/tutorial.md) tutorial to start the falcon service, prepare HDFS directories for Falcon cluster and to create Falcon cluster entities.
+- Complete the [Leveraging Apache Falcon with Your Hadoop Clusters](https://hortonworks.com/hadoop-tutorial/mirroring-datasets-between-hadoop-clusters-with-apache-falcon/) tutorial to start the falcon service, prepare HDFS directories for Falcon cluster and to create Falcon cluster entities.
 
 ## Outline
 - [1. Create ambari-qa user](#create-ambari-qa-user)

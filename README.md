@@ -25,6 +25,12 @@ Fix issues, help clarify topics, update a tutorial to be compatible with newest 
 
 If you'd rather simply suggest changes or fixes to make, or have an idea for a new tutorial you'd like to see, feel free to [create a new issue](https://github.com/hortonworks/data-tutorials/issues/new) and a community member will check it out.
 
+## Looking to Write an HCC Article?
+
+Follow our guide to develop an HCC article using markdown, letting our scripts do some of the heavy lifting for you.
+
+-   [Write An HCC Article](https://github.com/hortonworks/data-tutorials/wiki/Write-An-HCC-Article)
+
 ## Already a Repo Committer?
 
 Check out our guide for updating the repository with the community's latest changes:

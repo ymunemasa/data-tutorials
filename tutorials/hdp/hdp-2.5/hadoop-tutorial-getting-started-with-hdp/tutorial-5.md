@@ -158,8 +158,6 @@ show tables
 
 ![drop_table_lab4](assets/drop_table_lab4.png)
 
-Now create it back with the same DDL that we executed in the Pig section, Write the following query:
-
 We can either run the original `%spark` interpreter or the `%livy` spark interpreter to run spark code. The difference is that livy comes with more security. The default interpreter for spark jobs is `%spark`.
 
 ~~~scala
@@ -355,7 +353,7 @@ Create a table and store it as ORC. Specifying as *orc* at the end of the SQL st
 
 ~~~scala
 %spark
-hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
+hiveContext.sql("create table finalresults( driverid String, occurance bigint, totmiles bigint, riskfactor double) stored as orc").toDF()
 ~~~
 
 > Note: toDF() creates a DataFrame with columns driverid String, occurance bigin, etc.
@@ -366,20 +364,9 @@ hiveContext.sql("create table finalresults( driverid String, occurance bigint,to
 
 Before we load the data into hive table that we created above, we will have to convert our data file into ORC format too.
 
-> **Note:** For Spark 1.4.1 and higher, use
-
 ~~~scala
 %spark
 risk_factor_spark.write.format("orc").save("risk_factor_spark")
-~~~
-
-If you used the above script, skip the following instruction and move to 4.5.3.
-
-> **Note:** For Spark 1.3.1, use
-
-~~~scala
-%spark
-risk_factor_spark.saveAsOrcFile("risk_factor_spark")
 ~~~
 
 ![risk_factor_orc](assets/convert_orc_table_hello_hdp_lab4.png)
@@ -486,7 +473,7 @@ risk_factor_spark.take(10).foreach(println)
 and then create the final table called riskfactor using CTAS**
 
 ~~~scala
-hiveContext.sql("create table finalresults( driverid String, occurance bigint,totmiles bigint,riskfactor double) stored as orc").toDF()
+hiveContext.sql("create table finalresults( driverid String, occurance bigint, totmiles bigint, riskfactor double) stored as orc").toDF()
 
 risk_factor_spark.write.format("orc").save("risk_factor_spark")
 

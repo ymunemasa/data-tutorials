@@ -233,7 +233,7 @@ ssh root@sandbox.hortonworks.com -p 2222
 
 ~~~bash
 cd
-wget https://raw.githubusercontent.com/hortonworks/tutorials/hdp/assets/learning-ropes-nifi-lab-series/automation-scripts/jdkinstall_nifi.sh
+wget https://raw.githubusercontent.com/hortonworks/data-tutorials/40f2357dc6a6b847e180d50d21f5a858526f81a9/tutorials/hdp/hdp-2.5/analyze-traffic-pattern-with-apache-nifi/assets/jdkinstall_nifi.sh
 chmod +x ./jdkinstall_nifi.sh
 ~~~
 
