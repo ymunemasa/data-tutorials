@@ -36,7 +36,6 @@ In this tutorial, we will focus on the “path optimization” use case. Specifi
 
 ## Prerequisites
 
--   [HDP 2.6 Sandbox](https://hortonworks.com/downloads/#sandbox)
 -   [Hortonworks ODBC driver for Apache Hive](https://hortonworks.com/downloads/#addons)
 -   [Sample retail data loaded into the sandbox](https://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox)
 
