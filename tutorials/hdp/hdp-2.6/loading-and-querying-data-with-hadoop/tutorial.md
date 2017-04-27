@@ -25,7 +25,7 @@ We will describe how to ingest data into HDFS, to create tables and perform quer
 ## Outline
 
 -   [Download Sample Data](#download-sample-data)
--   [Upload Sample Data Into HDFS](#upload-sample-data-into-hdfs)
+-   [Upload Data Into HDFS](#upload-sample-data-into-hdfs)
 -   [Create Hive Tables](#create-hive-tables)
 -   [Load Data Into Tables](#load-data-into-tables)
 -   [Save and Execute a Query](#save-and-execute-a-query)
@@ -36,9 +36,9 @@ We will describe how to ingest data into HDFS, to create tables and perform quer
 
 ## Download Sample Data
 
-Download the [sample data for this tutorial](assets/retail-store-logs-sample-data.zip).
+Download the sample data for this tutorial: [retail-store-logs-sample-data.zip](assets/retail-store-logs-sample-data.zip)
 
-Extract this archive anywhere you'd like - we will upload the contents into our sandbox in the following step.  You should see the following files:
+Extract the archive anywhere you'd like - we will upload the contents into our sandbox in the following step.  You should see the following files after the archive is extracted:
 
 ```
 omniture-logs.tsv
@@ -47,13 +47,13 @@ users.tsv
 ```
 
 
-## Upload Sample Data Into HDFS
+## Upload Data Into HDFS
 
-2.1) Select the HDFS `Files View` from the Views menu on the navigation bar. The Files View allows you to view the Hortonworks Data Platform (HDP) file store.  The HDFS file system is separate from the local file system.
+Select the HDFS `Files View` from the Views menu on the navigation bar. The Files View allows you to view the Hortonworks Data Platform (HDP) file store.  The HDFS file system is separate from the local file system.
 
 ![Navigate to the Files View](assets/files-view-navigate.jpg)
 
-2.2) Navigate to `/tmp` by clicking on the "**tmp**" folder.  Select "**New Folder**" and name it `maria_dev`.
+Navigate to `/tmp` by clicking on the "**tmp**" folder.  Select "**New Folder**" and name it `maria_dev`.
 
 ![Create a new folder](assets/files-view-create-folder.jpg)
 
