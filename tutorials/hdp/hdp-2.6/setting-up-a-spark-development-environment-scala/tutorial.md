@@ -1,8 +1,14 @@
-# Configuring and Debugging Spark
+---
+title: Configuring a Spark Development Environment with Scala
+platform: hdp-2.6.0
+tags: [spark]
+---
+
+# Configuring a Spark Development Environment with Scala
 
 ## Introduction
 
-This tutorial will teach you how to set up a full development environment for developing and debugging Spark applications. For this tutorial we'll be using Scala, but Spark also supports development with Java, Python, and R. We'll be using IntelliJ as our IDE, and since we're using Scala we'll use SBT as our build manager. By the end of the tutorial, you'll know how to set up IntelliJ, how to use SBT to manage dependencies, how to package and deploy your Spark application, and how to connect your live program to a debugger.
+This tutorial will teach you how to set up a full development environment for developing and debugging Spark applications. For this tutorial we'll be using Scala, but Spark also supports development with Java, Python, and R. The Java version of this tutorial can be found [here](https://hortonworks.com/hadoop-tutorial/configuring-a-spark-development-environment-with-java/), and the Python version [here](https://hortonworks.com/hadoop-tutorial/configuring-a-spark-development-environment-with-python/). We'll be using IntelliJ as our IDE, and since we're using Scala we'll use SBT as our build manager. By the end of the tutorial, you'll know how to set up IntelliJ, how to use SBT to manage dependencies, how to package and deploy your Spark application, and how to connect your live program to a debugger.
 
 ## Prerequisites
 
@@ -284,3 +290,5 @@ Then click the + button at the upper-left and add a new remote configuration. Fi
 ![intellij7](assets/intellij7.png)
 
 If you run this debug configuration from your IDE immediately after submitting your Spark job, the debugger will attach and Spark will stop at breakpoints. You can also inspect the values of live variables within your program. This is invaluable when trying to pin down bugs in your code.
+
+Tutorial By Greg Womack (Twitter: @gregw134)
