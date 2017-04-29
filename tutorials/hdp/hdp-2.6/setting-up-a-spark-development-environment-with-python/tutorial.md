@@ -1,6 +1,7 @@
 ---
 title: Setting up a Spark Development Environment with Python
 platform: hdp-2.6.0
+tutorial-id: 801
 tags: [spark]
 ---
 

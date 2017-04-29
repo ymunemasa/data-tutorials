@@ -1,6 +1,7 @@
 ---
 title: Setting up a Spark Development Environment with Java
 platform: hdp-2.6.0
+tutorial-id: 802
 tags: [spark]
 ---
 

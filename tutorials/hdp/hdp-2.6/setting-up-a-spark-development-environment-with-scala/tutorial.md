@@ -1,6 +1,7 @@
 ---
 title: Configuring a Spark Development Environment with Scala
 platform: hdp-2.6.0
+tutorial-id: 803
 tags: [spark]
 ---
 
