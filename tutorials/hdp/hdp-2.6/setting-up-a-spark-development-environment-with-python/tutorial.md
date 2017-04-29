@@ -9,7 +9,11 @@ tags: [spark]
 
 ## Introduction
 
+<<<<<<< HEAD
 This tutorial will teach you how to set up a full development environment for developing and debugging Spark applications. For this tutorial we'll be using Python, but Spark also supports development with Java, Python, and R. The Scala version of this tutorial can be found [here](https://hortonworks.com/hadoop-tutorial/setting-spark-development-environment-scala/), and the Java version [here](https://hortonworks.com/hadoop-tutorial/setting-spark-development-environment-java/). We'll be using PyCharm Professional Edition as our IDE. PyCharm community edition can also be used, but some of the techniques we'll show you in this tutorial will only work with Professional Edition. By the end of the tutorial, you'll know how to set up Spark with PyCharm, how to deploy your code to the sandbox or a cluster, and how to debug your Spark code on a remote cluster.
+=======
+This tutorial will teach you how to set up a full development environment for developing and debugging Spark applications. For this tutorial we'll be using Python, but Spark also supports development with Java, Python, and R. The Scala version of this tutorial can be found [here](https://hortonworks.com/hadoop-tutorial/setting-up-a-spark-development-environment-with-scala/), and the Java version [here](https://hortonworks.com/hadoop-tutorial/setting-up-a-spark-development-environment-with-java/). We'll be using PyCharm as our IDE. By the end of the tutorial, you'll know how to set up Spark with PyCharm, how to deploy your code to the sandbox or a cluster, and how to debug your Spark code on a remote cluster.
+>>>>>>> 06aba3e60004247bad62e4c81b34900376e69521
 
 ## Prerequisites
 
