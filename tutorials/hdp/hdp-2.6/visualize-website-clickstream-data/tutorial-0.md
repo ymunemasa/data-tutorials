@@ -16,6 +16,12 @@ We will cover an established use case for Hadoop: deriving insights from large d
 <iframe width="700" height="394" src="https://www.youtube.com/embed/weJI6Lp9Vw0?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player0"></iframe>
 
 
+## Prerequisites
+
+-   Downloaded and installed the [HDP 2.6 Sandbox](https://hortonworks.com/downloads/#sandbox)
+-   Have sample retail data already loaded [by completing this tutorial](https://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox)
+
+
 ### Clickstream Data
 
 Clickstream data is an information trail a user leaves behind while visiting a website. It is typically captured in semi-structured website log files.
@@ -32,12 +38,6 @@ One of the original uses of Hadoop at Yahoo was to store and process their massi
 -   Where should I spend resources on fixing or enhancing the user experience on my website?
 
 In this tutorial, we will focus on the “path optimization” use case. Specifically: how can we improve our website to reduce bounce rates and improve conversion?
-
-
-## Prerequisites
-
--   Downloaded and installed the [HDP 2.6 Sandbox](https://hortonworks.com/downloads/#sandbox)
--   Have sample retail data already loaded [by completing this tutorial](https://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox)
 
 
 ## Outline
