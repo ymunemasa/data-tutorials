@@ -36,12 +36,11 @@ In this tutorial, we will focus on the “path optimization” use case. Specifi
 
 ## Prerequisites
 
--   [Hortonworks ODBC driver for Apache Hive](https://hortonworks.com/downloads/#addons)
--   [Sample retail data loaded into the sandbox](https://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox)
+-   Downloaded and installed the [HDP 2.6 Sandbox](https://hortonworks.com/downloads/#sandbox)
+-   Have sample retail data already loaded [by completing this tutorial](https://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox)
 
 
 ## Outline
 
--   **Loading and Querying Data with Hadoop** - Upload logs into HDFS, load them into Hive tables and perform queries via an Ambari view.
--   **Visualize Logs with Apache Zeppelin** - Use Apache Zeppelin to analyze logs for customer demographics and their product interests.
--   **Visualize Logs with Excel** - Use Microsoft Excel to map user demographics and graph log data.
+-   **Visualize Log Data with Apache Zeppelin** - Use Apache Zeppelin to analyze logs for customer demographics and their product interests.
+-   **Visualize Log Data with Microsoft Excel** - Use Microsoft Excel to map user demographics and graph log data.

@@ -19,7 +19,7 @@ We will describe how to ingest data into HDFS, to create tables and perform quer
 ## Prerequisites
 
 -   Downloaded and installed the [HDP 2.6 Sandbox](https://hortonworks.com/downloads/#sandbox)
--   Completed [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   Completed the [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) tutorial
 
 
 ## Outline
@@ -138,7 +138,7 @@ The "QUERY" tab should automatically open up, with your saved query preloaded.  
 Let's play with our data further, taking specific fields from different tables and creating a custom table from them.
 
 ```
-CREATE TABLE loganalytics as
+CREATE TABLE webloganalytics as
 SELECT to_date(o.ts) logdate, o.url, o.ip, o.city, upper(o.state) state,
 o.country, p.category, CAST(datediff(from_unixtime(unix_timestamp()), from_unixtime(unix_timestamp(u.birth_dt, 'dd-MMM-yy'))) / 365 AS INT) age, u.gender_cd
 FROM omniture o
