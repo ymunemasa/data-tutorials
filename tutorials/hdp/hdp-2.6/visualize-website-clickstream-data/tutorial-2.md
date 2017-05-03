@@ -2,7 +2,7 @@
 title: Visualize Website Clickstream Data
 tutorial-id: 250
 platform: hdp-2.6.0
-tags: [ambari, hive, excel]
+tags: [ambari, hive, excel, power view]
 ---
 
 # Visualize Log Data with Microsoft Excel
