@@ -73,7 +73,7 @@ spark@sandbox spark2-client$ ./bin/spark-submit --class org.apache.spark.example
 root@sandbox# export SPARK_MAJOR_VERSION=1
 root@sandbox# cd /usr/hdp/current/spark-client
 root@sandbox spark-client# su spark
-spark@sandbox spark-client$ ./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 lib/spark-examples*.jar 10
+spark@sandbox spark-client$ ./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 lib/spark-examples*.jar 10
 ~~~
 
 **Note:** The Pi job should complete without any failure messages and produce output similar to below, note the value of Pi in the output message:
@@ -609,7 +609,7 @@ To exit SparkR type:
 quit()
 ~~~
 
- 
+
 ## Further Reading
 
 For more tutorials on Spark, visit: [https://hortonworks.com/tutorials](https://hortonworks.com/tutorials).
