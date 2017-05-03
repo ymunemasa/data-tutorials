@@ -16,7 +16,7 @@ This tutorial will get you started with Apache Spark and will cover:
 - How to use SparkSQL Thrift Server for JDBC/ODBC access
 - How to use SparkR
 
-You can either use Spark 1.6.x or Spark 2.x versions to run all of the examples.
+You will mostly use Spark 1.6.x with some Spark 2.x examples provided for comparison.
 
 Interacting with Spark will be done via the terminal (i.e. command line).
 
