@@ -29,15 +29,6 @@ Please ensure you complete the prerequisites before proceeding with this tutoria
 -   Downloaded and Installed the [Hortonworks Sandbox](https://hortonworks.com/products/sandbox/)
 -   Reviewed [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
-**Set SPARK_HOME**
-
-If you haven't already, make sure to set `SPARK_HOME` before proceeding:
-
-~~~ bash
-export SPARK_HOME=/usr/hdp/current/spark-client
-~~~
-
-
 ## Outline
 
 -   [Pi Example](#pi-example)
@@ -58,7 +49,7 @@ To calculate Pi with Spark in yarn-client mode.
 
 Assuming you start as `root` user follow these steps depending on your Spark version.
 
-**Spark 2.x+**
+**Spark 2.x**
 
 ~~~ bash
 root@sandbox# export SPARK_MAJOR_VERSION=2
@@ -97,12 +88,103 @@ Upload the input file you want to use in WordCount to HDFS. You can use any text
 As user `spark`:
 
 ~~~ bash
-hadoop fs -copyFromLocal /etc/hadoop/conf/log4j.properties /tmp/data
+cd /usr/hdp/current/spark2-client/
+su spark
+hdfs dfs -copyFromLocal /etc/hadoop/conf/log4j.properties /tmp/data.txt
 ~~~
+
+#### Spark 2.x Version
+
+Here's an example of a WordCount in Spark 2.x. (For Spark 1.6.x scroll down.)
 
 **Run the Spark shell:**
 
 ~~~ bash
+./bin/spark-shell 
+~~~
+
+Output similar to the following will be displayed, followed by a `scala>` REPL prompt:
+
+~~~ bash
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /___/ .__/\_,_/_/ /_/\_\   version 2.1.0.2.6.0.3-8
+      /_/
+
+Using Scala version 2.11.8 (OpenJDK 64-Bit Server VM, Java 1.8.0_121)
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala>
+~~~
+
+Read data and convert to Dataset
+
+~~~ js
+val data = spark.read.textFile("/tmp/data.txt").as[String]
+~~~
+
+Split and group by lowercased word
+
+~~~ js
+val words = data.flatMap(value => value.split("\\s+"))
+val groupedWords = words.groupByKey(_.toLowerCase)
+~~~
+
+Count words
+
+~~~ js
+val counts = groupedWords.count()
+~~~
+
+Show results
+
+~~~ js
+counts.show()
+~~~
+
+You should see the following output
+
+~~~ bash
++--------------------+--------+
+|               value|count(1)|
++--------------------+--------+
+|                some|       1|
+|hadoop.security.l...|       1|
+|log4j.rootlogger=...|       1|
+|log4j.appender.nn...|       1|
+|log4j.appender.tl...|       1|
+|hadoop.security.l...|       1|
+|            license,|       1|
+|                 two|       1|
+|             counter|       1|
+|log4j.appender.dr...|       1|
+|hdfs.audit.logger...|       1|
+|yarn.ewma.maxuniq...|       1|
+|log4j.appender.nm...|       1|
+|              daemon|       1|
+|log4j.category.se...|       1|
+|log4j.appender.js...|       1|
+|log4j.appender.dr...|       1|
+|        blockmanager|       1|
+|log4j.appender.js...|       1|
+|                 set|       4|
++--------------------+--------+
+only showing top 20 rows
+~~~
+
+#### Spark 1.6.x Version
+
+Here's how to run a WordCount example in Spark 1.6.x
+
+**Run the Spark shell:**
+
+As user `spark`:
+
+~~~ bash
+cd /usr/hdp/current/spark-client/
 ./bin/spark-shell 
 ~~~
 
@@ -127,7 +209,7 @@ scala>
 At the `scala` REPL prompt enter:
 
 ~~~ js
-val file = sc.textFile("/tmp/data")
+val file = sc.textFile("/tmp/data.txt")
 val counts = file.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)
 ~~~
 
@@ -187,7 +269,7 @@ exit
 View WordCount Results:
 
 ~~~ bash
-hadoop fs -ls /tmp/wordcount
+hdfs dfs -ls /tmp/wordcount
 ~~~
 
 You should see an output similar to:
@@ -201,11 +283,13 @@ You should see an output similar to:
 Use the HDFS `cat` command to see the WordCount output. For example,
 
 ~~~ bash
-hadoop fs -cat /tmp/wordcount/part-00000
+hdfs dfs -cat /tmp/wordcount/part-00000
 ~~~
 
 
 ## DataFrame API Example
+
+#### Spark 1.6.x Version
 
  DataFrame API provides easier access to data since it looks conceptually like a Table and a lot of developers from Python/R/Pandas are familiar with it.
 
@@ -214,22 +298,22 @@ As a `spark` user, upload people.txt and people.json files to HDFS:
 ~~~ bash
 cd /usr/hdp/current/spark-client
 su spark
-hadoop fs -copyFromLocal examples/src/main/resources/people.txt people.txt
-hadoop fs -copyFromLocal examples/src/main/resources/people.json people.json
+hdfs dfs -copyFromLocal examples/src/main/resources/people.txt /tmp/people.txt
+hdfs dfs -copyFromLocal examples/src/main/resources/people.json /tmp/people.json
 ~~~
 
-As a `spark` user, launch the Spark Shell:
+Launch the Spark Shell:
+
+As `spark` user:
 
 ~~~ bash
-cd /usr/hdp/current/spark-client
-su spark
 ./bin/spark-shell
 ~~~
 
 At a `scala>` REPL prompt, type the following:
 
 ~~~ js
-val df = sqlContext.jsonFile("people.json")
+val df = sqlContext.jsonFile("/tmp/people.json")
 ~~~
 
 Using `df.show`, display the contents of the DataFrame:
@@ -332,7 +416,7 @@ import org.apache.spark.sql._ 
 val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 
 // Create people RDD
-val people = sc.textFile("people.txt")
+val people = sc.textFile("/tmp/people.txt")
 
 // Encode schema in a string
 val schemaString = "name age"
@@ -377,6 +461,17 @@ scala>
 
 ## DataSet API Example
 
+If you haven't done so already in previous sections, make sure to upload people data sets (people.txt and people.json) to HDFS:
+
+~~~ bash
+cd /usr/hdp/current/spark-client
+su spark
+hdfs dfs -copyFromLocal examples/src/main/resources/people.txt /tmp/people.txt
+hdfs dfs -copyFromLocal examples/src/main/resources/people.json /tmp/people.json
+~~~
+
+#### Spark 1.6.x Version
+
 The Spark Dataset API brings the best of RDD and Data Frames together, for type safety and user functions that run directly on existing JVM types.
 
 **Launch Spark**
@@ -384,8 +479,7 @@ The Spark Dataset API brings the best of RDD and Data Frames together, for type 
 As `spark` user, launch the Spark Shell:
 
 ~~~ bash
-cd $SPARK_HOME
-su spark
+cd /usr/hdp/current/spark-client
 ./bin/spark-shell
 ~~~
 
@@ -400,7 +494,7 @@ case class Person(name: String, age: Long)
 val ds = Seq(Person("Andy", 32)).toDS()
 
 // DataFrames can be converted to a Dataset by providing a class. Mapping will be done by name.
-val path = "people.json"
+val path = "/tmp/people.json"
 val people = sqlContext.read.json(path).as[Person]
 ~~~
 To view contents of people type:
@@ -436,7 +530,7 @@ SparkSQL’s thrift server provides JDBC access to SparkSQL.
 Change ownership of `logs` directory from `root` to `spark` user:
 
 ~~~ bash
-cd $SPARK_HOME
+cd /usr/hdp/current/spark-client
 chown spark:hadoop logs
 ~~~
 
@@ -512,22 +606,34 @@ Type `Ctrl+C` to exit beeline.
 
 ## SparkR Example
 
+#### Spark 1.6.x Version
+
 **Prerequisites**
 
 Before you can run SparkR, you need to install R linux distribution by following these steps as a `root` user:
 
 ~~~ bash
-cd $SPARK_HOME
+cd /usr/hdp/current/spark-client
 su -c 'rpm -Uvh http://download.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm'
 sudo yum update
 sudo yum install R
 ~~~
 
-**Launch SparkR**
+**Upload data set**
+
+If you haven't done so already in previous sections, make sure to upload people.json to HDFS:
 
 ~~~ bash
-su spark
-cd $SPARK_HOME
+cd /usr/hdp/current/spark-client
+su spark
+hdfs dfs -copyFromLocal examples/src/main/resources/people.json /tmp/people.json
+~~~
+
+**Launch SparkR**
+
+As `spark` user:
+
+~~~ bash
 ./bin/sparkR
 ~~~
 
@@ -582,7 +688,7 @@ eruptions waiting
 Create people DataFrame from 'people.json':
 
 ~~~ js
-people <- read.df(sqlContext, "people.json", "json")
+people <- read.df(sqlContext, "/tmp/people.json", "json")
 ~~~
 
 List the first few lines:
