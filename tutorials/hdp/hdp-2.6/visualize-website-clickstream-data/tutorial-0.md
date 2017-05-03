@@ -13,12 +13,10 @@ Your home page looks great. But how do you move customers on to bigger things - 
 
 We will cover an established use case for Hadoop: deriving insights from large data sources such as web logs. By combining web logs with more traditional customer data, we can better understand customers and understand how to optimize future promotions and advertising.  We demonstrate how an online retailer can optimize buying paths to reduce bounce rate and improve conversion.
 
-<iframe width="700" height="394" src="https://www.youtube.com/embed/weJI6Lp9Vw0?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player0"></iframe>
-
 
 ## Prerequisites
 
--   Downloaded and installed the [HDP 2.6 Sandbox](https://hortonworks.com/downloads/#sandbox)
+-   Installed the [HDP 2.6 Sandbox](https://hortonworks.com/downloads/#sandbox)
 -   Have sample retail data already loaded [by completing this tutorial](https://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox)
 
 
