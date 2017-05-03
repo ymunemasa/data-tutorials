@@ -33,7 +33,7 @@ If you don't have access to Microsoft Excel Professional Plus, you can also util
 
 Open up Ambari and make sure Zeppelin is running.  As shown in the screenshot below, use the "**Quick Links**" dropdown menu to access the **Zeppelin UI**.
 
-![Open Zeppelin UI](assets/open-zeppelin.jpg)
+![Open Zeppelin UI](assets/zeppelin-open.jpg)
 
 Once the Zeppelin UI is open, click on "**Import note**".
 
