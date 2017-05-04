@@ -701,30 +701,25 @@ Before you can run SparkR, you need to install R linux distribution by following
 
 ~~~ bash
 cd /usr/hdp/current/spark-client
-su -c 'rpm -Uvh http://download.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm'
 sudo yum update
 sudo yum install R
 ~~~
 
-**Upload data set**
-
-If you haven't done so already in previous sections, make sure to upload people.json to HDFS:
-
-~~~ bash
-cd /usr/hdp/current/spark-client
-su spark
-hdfs dfs -copyFromLocal examples/src/main/resources/people.json /tmp/people.json
-~~~
-
-**Launch SparkR**
-
-If you haven't already, switch to user *spark*:
+Switch to user *spark*:
 
 ~~~ bash
 su spark
 ~~~
 
-Next,
+**Upload data set**
+
+If you haven't done so already in previous sections, make sure to upload *people.json* to HDFS:
+
+~~~ bash
+hdfs dfs -copyFromLocal examples/src/main/resources/people.json /tmp/people.json
+~~~
+
+**Launch SparkR**
 
 ~~~ bash
 ./bin/sparkR
