@@ -91,6 +91,14 @@ After successfully SSHing into the Raspberry Pi, your console will look similar:
 
 ![successful_ssh_to_rpi](assets/tutorial2/successful_ssh_to_rpi.png)
 
+### 2.1 Install SenseHAT Software
+
+~~~bash
+sudo apt-get update
+sudo apt-get install sense-hat
+sudo pip3 install pillow
+~~~
+
 ### Step 3: Install MiNiFi Java Agent onto Raspberry Pi
 
 1\. In Raspbian's OS terminal, download Java 8 and JDK1.8 using the following command:
