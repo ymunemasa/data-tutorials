@@ -9,7 +9,7 @@ tags: [sandbox, deploy, install, vmware]
 
 ## Introduction
 
-This tutorial walks through installing the Hortonworks Sandbox onto VMware on your computer.
+This tutorial walks through the general approach for installing the Hortonworks Sandbox (HDP or HDF) onto VMware on your computer.
 
 ## Prerequisites
 
@@ -33,11 +33,11 @@ On Mac OSX:
 
 ![VMWare Installation Method](assets/vmware-install.jpg)
 
-Select "**Import an existing virtual machine**" and click the Continue button.
+Select "**Import an existing virtual machine**" and click the **Continue** button.
 
 ![choose_existing](assets/vmware-choose.jpg)
 
-"**Choose File...**" to browse to and select the sandbox image you downloaded.  Click the Continue button.
+"**Choose File...**" to browse to and select the sandbox image you downloaded.  Click the **Continue** button.
 
 Next, you're given the opportunity to save the virtual machine under a different name.  If you have no preference in renaming, you can just leave the default name and click Save.  You should then see the importing progress dialog:
 

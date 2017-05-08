@@ -49,7 +49,7 @@ To calculate Pi with Spark in yarn-client mode.
 
 Assuming you start as `root` user follow these steps depending on your Spark version.
 
-**Spark 2.x**
+**Spark 2.x Version**
 
 ~~~ bash
 root@sandbox# export SPARK_MAJOR_VERSION=2
@@ -58,7 +58,7 @@ root@sandbox spark2-client# su spark
 spark@sandbox spark2-client$ ./bin/spark-submit --class org.apache.spark.examples.SparkPi --master yarn-client --num-executors 3 --driver-memory 512m --executor-memory 512m --executor-cores 1 examples/jars/spark-examples*.jar 10
 ~~~
 
-**Spark 1.6.x**
+**Spark 1.6.x Version**
 
 ~~~ bash
 root@sandbox# export SPARK_MAJOR_VERSION=1
@@ -85,15 +85,20 @@ Pi is roughly 3.143648
 
 Upload the input file you want to use in WordCount to HDFS. You can use any text file as input. In the following example, log4j.properties is used as an example:
 
-As user `spark`:
+If you haven't already, switch to user *spark*:
+
+~~~ bash
+su spark
+~~~
+
+Next,
 
 ~~~ bash
 cd /usr/hdp/current/spark2-client/
-su spark
 hdfs dfs -copyFromLocal /etc/hadoop/conf/log4j.properties /tmp/data.txt
 ~~~
 
-#### Spark 2.x Version
+**Spark 2.x Version**
 
 Here's an example of a WordCount in Spark 2.x. (For Spark 1.6.x scroll down.)
 
@@ -175,13 +180,19 @@ You should see the following output
 only showing top 20 rows
 ~~~
 
-#### Spark 1.6.x Version
+**Spark 1.6.x Version**
 
 Here's how to run a WordCount example in Spark 1.6.x
 
 **Run the Spark shell:**
 
-As user `spark`:
+If you haven't already, switch to user *spark*:
+
+~~~ bash
+su spark
+~~~
+
+Next,
 
 ~~~ bash
 cd /usr/hdp/current/spark-client/
@@ -289,22 +300,26 @@ hdfs dfs -cat /tmp/wordcount/part-00000
 
 ## DataFrame API Example
 
-#### Spark 1.6.x Version
+**Spark 1.6.x Version**
 
  DataFrame API provides easier access to data since it looks conceptually like a Table and a lot of developers from Python/R/Pandas are familiar with it.
 
-As a `spark` user, upload people.txt and people.json files to HDFS:
+ If you haven't already, switch to user *spark*:
+
+~~~ bash
+su spark
+~~~
+
+
+Next, upload people.txt and people.json files to HDFS:
 
 ~~~ bash
 cd /usr/hdp/current/spark-client
-su spark
 hdfs dfs -copyFromLocal examples/src/main/resources/people.txt /tmp/people.txt
 hdfs dfs -copyFromLocal examples/src/main/resources/people.json /tmp/people.json
 ~~~
 
 Launch the Spark Shell:
-
-As `spark` user:
 
 ~~~ bash
 ./bin/spark-shell
@@ -458,54 +473,99 @@ Name: Justin
 scala>
 ~~~
 
+To exit type `exit`.
+
 
 ## DataSet API Example
 
 If you haven't done so already in previous sections, make sure to upload people data sets (people.txt and people.json) to HDFS:
 
+If you haven't already, switch to user *spark*:
+
+~~~ bash
+su spark
+~~~
+
+Next, copy datasets for this example if you haven't done so earlier:
+
 ~~~ bash
 cd /usr/hdp/current/spark-client
-su spark
 hdfs dfs -copyFromLocal examples/src/main/resources/people.txt /tmp/people.txt
 hdfs dfs -copyFromLocal examples/src/main/resources/people.json /tmp/people.json
 ~~~
 
-#### Spark 1.6.x Version
+**Spark 1.6.x Version**
 
 The Spark Dataset API brings the best of RDD and Data Frames together, for type safety and user functions that run directly on existing JVM types.
 
-**Launch Spark**
-
-As `spark` user, launch the Spark Shell:
+**Launch Spark Shell**
 
 ~~~ bash
-cd /usr/hdp/current/spark-client
 ./bin/spark-shell
 ~~~
+
+Let's try the simplest example of creating a dataset by applying a *toDS()* function to a sequence of numbers.
 
 At the `scala>` prompt, copy & paste the following:
 
 ~~~ js
 val ds = Seq(1, 2, 3).toDS()
-ds.map(_ + 1).collect() // Returns: Array(2, 3, 4)
+ds.show
+~~~
 
-// Encoders are also created for case classes.
+You should see the following output:
+
+~~~ bash
++-----+
+|value|
++-----+
+|    1|
+|    2|
+|    3|
++-----+
+~~~
+
+Moving on to a slightly more interesting example, let's prepare a *Person* class to hold our person data. We will use it in two ways by applying it directly on a hardcoded data and then on a data read from a json file.
+
+To apply *Person* class to hardcoded data type:
+
+~~~ bash
 case class Person(name: String, age: Long)
 val ds = Seq(Person("Andy", 32)).toDS()
-
-// DataFrames can be converted to a Dataset by providing a class. Mapping will be done by name.
-val path = "/tmp/people.json"
-val people = sqlContext.read.json(path).as[Person]
 ~~~
-To view contents of people type:
+
+When you type
+
+~~~ bash
+ds.show
+~~~
+
+you should see the following output of the *ds* Dataset
+
+~~~ bash
++----+---+
+|name|age|
++----+---+
+|Andy| 32|
++----+---+
+~~~
+
+Finally, let's map data read from *people.json* to a *Person* class. The mapping will be done by name.
+
+~~~ bash
+val path = "/tmp/people.json"
+val people = sqlContext.read.json(path) // Creates a DataFrame
+~~~
+
+To view contents of people DataFrame type:
 
 ~~~ js
-people.show()
+people.show
 ~~~
 
 You should see an output similar to the following:
 
-~~~
+~~~ bash
 ...
 +----+-------+
 | age|   name|
@@ -514,8 +574,35 @@ You should see an output similar to the following:
 |  30|   Andy|
 |  19| Justin|
 +----+-------+
+~~~
 
-scala>
+Note that the *age* column contains a *null* value. Before we can convert our people DataFrame to a Dataset, let's filter out the *null* value first:
+
+~~~ bash
+val pplFiltered = people.filter("age is not null")
+~~~
+
+Now we can map to the *Person* class and convert our DataFrame to a Dataset.
+
+~~~ bash
+val pplDS = pplFiltered.as[Person]
+~~~
+
+View the contents of the Dataset type
+
+~~~ bash
+pplDS.show
+~~~
+
+You should see the following
+
+~~~ bash
++------+---+
+|  name|age|
++------+---+
+|  Andy| 30|
+|Justin| 19|
++------+---+
 ~~~
 
 To exit type `exit`.
@@ -606,7 +693,7 @@ Type `Ctrl+C` to exit beeline.
 
 ## SparkR Example
 
-#### Spark 1.6.x Version
+**Spark 1.6.x Version**
 
 **Prerequisites**
 
@@ -614,24 +701,25 @@ Before you can run SparkR, you need to install R linux distribution by following
 
 ~~~ bash
 cd /usr/hdp/current/spark-client
-su -c 'rpm -Uvh http://download.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm'
 sudo yum update
 sudo yum install R
 ~~~
 
-**Upload data set**
-
-If you haven't done so already in previous sections, make sure to upload people.json to HDFS:
+Switch to user *spark*:
 
 ~~~ bash
-cd /usr/hdp/current/spark-client
-su spark
+su spark
+~~~
+
+**Upload data set**
+
+If you haven't done so already in previous sections, make sure to upload *people.json* to HDFS:
+
+~~~ bash
 hdfs dfs -copyFromLocal examples/src/main/resources/people.json /tmp/people.json
 ~~~
 
 **Launch SparkR**
-
-As `spark` user:
 
 ~~~ bash
 ./bin/sparkR
@@ -718,4 +806,4 @@ quit()
 
 ## Further Reading
 
-For more tutorials on Spark, visit: [https://hortonworks.com/tutorials](https://hortonworks.com/tutorials).
+Checkout other Spark tutorials: [https://hortonworks.com/tutorials](https://hortonworks.com/tutorials).
