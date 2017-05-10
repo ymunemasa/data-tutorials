@@ -4,6 +4,7 @@ tutorial-id: 820
 platform: hdp-2.6.0
 tags: [nifi, minifi, raspberry pi, connected data architecture, hbase, iot, weather]
 ---
+
 # IoT and Connected Data Architecture Concepts
 
 ## Introduction
