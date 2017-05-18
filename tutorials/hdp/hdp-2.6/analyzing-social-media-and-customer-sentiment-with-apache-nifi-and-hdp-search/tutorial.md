@@ -1,8 +1,16 @@
 ---
 title: Analyzing Social Media and Customer Sentiment With Apache NiFi and HDP Search
+author: James Medel
 tutorial-id: 210
-platform: hdp-2.5.0
-tags: [solr, nifi, hive, ambari, zeppelin]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Solr, Apache Hive, Apache NiFi, Apache Ambari Apache Zeppelin
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Real World Examples, HDP > Hadoop for Data Scientists & Analysts > Real World Examples
 ---
 
 # Analyzing Social Media and Customer Sentiment With Apache NiFi and HDP Search

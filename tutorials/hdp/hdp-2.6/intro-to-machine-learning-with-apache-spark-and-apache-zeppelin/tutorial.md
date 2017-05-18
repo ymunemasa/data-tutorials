@@ -1,8 +1,16 @@
 ---
 title: Intro to Machine Learning with Apache Spark and Apache Zeppelin
+author: Robert Hryniewicz
 tutorial-id: 367
-platform: hdp-2.6.0
-tags: [spark, zeppelin]
+experience: Beginner
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Predictive
+technology: Apache Spark, Apache Zeppelin
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark
 ---
 
 # Intro to Machine Learning with Apache Spark and Apache Zeppelin

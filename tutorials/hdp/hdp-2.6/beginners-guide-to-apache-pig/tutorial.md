@@ -1,8 +1,16 @@
 ---
 title: Beginners Guide to Apache Pig
+author: George Rueda de Leon
 tutorial-id: 140
-platform: hdp-2.6.0
-tags: [ambari, pig]
+experience: Beginner
+persona: Developer
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Ambari, Apache Pig
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
 # Beginners Guide to Apache Pig

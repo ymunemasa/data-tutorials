@@ -1,9 +1,18 @@
 ---
 title: Getting Started with HDF Sandbox
+author: Edgar Orendain
 tutorial-id: 760
-platform: hdf-2.1
-tags: [ambari]
+experience: Beginner
+persona: Administrator
+source: Hortonworks
+use case: Single View
+technology: Apache Ambari
+release: hdf-2.1.0
+environment: Sandbox
+product: HDF
+series: HDF > Develop with Hadoop > Hello World
 ---
+
 # Getting Started with HDF Sandbox
 
 ## Introduction

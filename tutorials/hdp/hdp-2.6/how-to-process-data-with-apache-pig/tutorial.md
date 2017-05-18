@@ -1,8 +1,16 @@
 ---
 title: How to Process Data with Apache Pig
+author: George Rueda de Leon
 tutorial-id: 150
-platform: hdp-2.6.0
-tags: [ambari, pig]
+experience: Beginner
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Ambari, Apache Pig
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World, HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
 # How To Process Data with Apache Pig

@@ -1,8 +1,16 @@
 ---
 title: Hands-On Tour of Apache Spark in 5 Minutes
+author: Robert Hryniewicz
 tutorial-id: 360
-platform: hdp-2.6.0
-tags: [spark, zeppelin]
+experience: Beginner
+persona: Developer
+source: Hortonworks
+use case: Predictive
+technology: Apache Spark, Apache Zeppelin
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark
 ---
 
 # Hands-On Tour of Apache Spark in 5 Minutes

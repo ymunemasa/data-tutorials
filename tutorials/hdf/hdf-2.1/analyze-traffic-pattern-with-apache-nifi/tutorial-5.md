@@ -1,8 +1,5 @@
 ---
-title: Analyze Traffic Pattern with Apache NiFi
-tutorial-id: 640
-platform: hdf-2.1.0
-tags: [nifi]
+title: Analyze Traffic Patterns with Apache NiFi - Tutorial 3: Ingest Live Vehicle Routes via NextBus API
 ---
 
 # Tutorial 3: Ingest Live Vehicle Routes via NextBus API

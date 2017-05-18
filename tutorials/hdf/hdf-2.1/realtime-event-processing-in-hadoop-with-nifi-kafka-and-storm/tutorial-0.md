@@ -1,8 +1,16 @@
 ---
 title: Realtime Event Processing in Hadoop with NiFi, Kafka and Storm
+author: James Medel
 tutorial-id: 220
-platform: hdp-2.5.0
-tags: [nifi, storm, kafka, hbase, hive, hdfs]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Streaming
+technology: Apache NiFi, Apache Storm, Apache Kafka, Apache Hive, HDFS, Apache HBase
+release: hdf-2.1.0
+environment: Sandbox
+product: HDF
+series: HDF > Develop with Hadoop > Real World Examples
 ---
 
 # Realtime Event Processing in Hadoop with NiFi, Kafka and Storm

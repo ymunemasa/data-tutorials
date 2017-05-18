@@ -1,8 +1,16 @@
 ---
 title: Predicting Airline Delays using SparkR
+author: Robert Hryniewicz
 tutorial-id: 760
-platform: hdp-2.5.0
-tags: [sparkr, spark, r, machine learning]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Predictive
+technology: Apache Spark, Apache SparkR, Machine Learning
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
 # Predicting Airline Delays using SparkR

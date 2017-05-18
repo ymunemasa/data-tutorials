@@ -1,8 +1,5 @@
 ---
-title: Realtime Event Processing in Hadoop with NiFi, Kafka and Storm
-tutorial-id: 220
-platform: hdp-2.5.0
-tags: [nifi]
+title: Realtime Event Processing in Hadoop with NiFi, Kafka and Storm - Tutorial 1: Ingest, Route and Land Real Time Events with Apache NiFi
 ---
 
 # Tutorial 1: Ingest, Route and Land Real Time Events with Apache NiFi

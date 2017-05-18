@@ -1,8 +1,16 @@
 ---
 title: Fast analytics in the cloud with Hive LLAP
+author: George Rueda de Leon
 tutorial-id: 410
-platform: hdp-2.6.0
-tags: [ambari, hive, tableau]
+experience: Beginner
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: EDW Optimization
+technology: Apache Hive, Tableau
+release: hdp-2.6.0
+environment: HDCloud
+product: HDP
+series: HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
 # Fast analytics in the cloud with Hive LLAP

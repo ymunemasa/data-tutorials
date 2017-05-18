@@ -1,8 +1,5 @@
 ---
-title: Hadoop Tutorial – Getting Started with HDP
-tutorial-id: 100
-platform: hdp-2.5.0
-tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
+title: Hadoop Tutorial – Getting Started with HDP - Lab 6: Data Reporting with Excel
 ---
 
 # Hadoop Tutorial – Getting Started with HDP

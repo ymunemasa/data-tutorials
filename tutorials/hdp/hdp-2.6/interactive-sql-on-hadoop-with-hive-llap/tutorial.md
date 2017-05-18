@@ -1,8 +1,16 @@
 ---
 title: Interactive SQL on Hadoop with Hive LLAP
+author: George Rueda de Leon
 tutorial-id: 720
-platform: hdp-2.6.0
-tags: [hive, ambari, tableau]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: EDW Optimization
+technology: Apache Ambari, Apache Hive, Tableau
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World
 ---
 
 # Interactive SQL on Hadoop with Hive LLAP

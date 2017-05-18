@@ -1,8 +1,16 @@
 ---
 title: Sentiment Analysis with Apache Spark
+author: Robert Hryniewicz
 tutorial-id: 765
-platform: hdp-2.6.0
-tags: [spark, hdfs]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Spark, HDFS
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark
 ---
 
 # Sentiment Analysis with Apache Spark

@@ -1,8 +1,5 @@
 ---
-title: Visualize Website Clickstream Data
-tutorial-id: 250
-platform: hdp-2.6.0
-tags: [ambari, hive, zeppelin]
+title: Visualize Website Clickstream Data - Visualize Log Data with Apache Zeppelin
 ---
 
 # Visualize Log Data with Apache Zeppelin

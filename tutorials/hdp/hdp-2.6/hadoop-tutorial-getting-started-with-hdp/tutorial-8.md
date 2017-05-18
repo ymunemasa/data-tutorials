@@ -1,8 +1,5 @@
 ---
-title: Hadoop Tutorial – Getting Started with HDP
-tutorial-id: 100
-platform: hdp-2.5.0
-tags: [ambari, hive, pig, spark, zeppelin]
+title: Hadoop Tutorial – Getting Started with HDP - Report Data with Zoomdata (Optional)
 ---
 
 # Hadoop Tutorial – Getting Started with HDP

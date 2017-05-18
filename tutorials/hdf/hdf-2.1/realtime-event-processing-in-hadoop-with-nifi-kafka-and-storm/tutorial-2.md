@@ -1,8 +1,5 @@
 ---
-title: Realtime Event Processing in Hadoop with NiFi, Kafka and Storm
-tutorial-id: 220
-platform: hdp-2.5.0
-tags: [nifi, storm, kafka, hbase]
+title: Realtime Event Processing in Hadoop with NiFi, Kafka and Storm - Tutorial 0: Set Up Simulator, Apache Services and IDE Environment
 ---
 
 # Tutorial 0: Set Up Simulator, Apache Services and IDE Environment

@@ -1,8 +1,5 @@
 ---
-title: Sandbox Port Forwarding Guide
-tutorial-id: 623
-platform: hdp-2.6.0
-tags: [sandbox, ports, port forwarding, azure]
+title: Sandbox Port Forwarding Guide - Sandbox Port Forwarding on Azure
 ---
 
 # Sandbox Port Forwarding on Azure

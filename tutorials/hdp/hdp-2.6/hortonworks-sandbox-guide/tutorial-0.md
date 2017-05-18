@@ -1,8 +1,16 @@
 ---
 title: Hortonworks Sandbox Guide
+author: Edgar Orendain
 tutorial-id: 730
-platform: hdp-2.6.0
-tags: [sandbox]
+experience: Beginner
+persona: Administrator
+source: Hortonworks
+use case: Single View
+technology: Hortonworks Sandbox
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Hadoop Administration > Hortonworks Sandbox
 ---
 
 # Hortonworks Sandbox Guide
