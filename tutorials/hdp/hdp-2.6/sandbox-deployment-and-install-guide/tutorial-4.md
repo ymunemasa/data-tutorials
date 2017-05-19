@@ -1,8 +1,5 @@
 ---
-title: Sandbox Deployment and Install Guide
-tutorial-id: 350
-platform: hdp-2.6.0
-tags: [sandbox, deploy, install, microsoft, azure]
+title: Sandbox Deployment and Install Guide - Deploying Hortonworks Sandbox on Microsoft Azure
 ---
 
 # Deploying Hortonworks Sandbox on Microsoft Azure

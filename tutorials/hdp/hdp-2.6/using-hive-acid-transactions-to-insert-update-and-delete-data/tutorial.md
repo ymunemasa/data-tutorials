@@ -1,8 +1,16 @@
 ---
 title: Using Hive ACID Transactions to Insert, Update and Delete Data
+author: George Rueda de Leon
 tutorial-id: 750
-platform: hdp-2.6.0
-tags: [hive]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: EDW Optimization
+technology: Apache Hive
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World
 ---
 
 # Using Hive ACID Transactions to Insert, Update and Delete Data

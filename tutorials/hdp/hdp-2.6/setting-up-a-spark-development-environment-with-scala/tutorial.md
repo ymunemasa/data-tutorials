@@ -1,8 +1,16 @@
 ---
 title: Configuring a Spark Development Environment with Scala
-platform: hdp-2.6.0
+author: Edgar Orendain
 tutorial-id: 803
-tags: [spark]
+experience: Intermediate
+persona: Developer
+source: Hortonworks
+use case: Predictive
+technology: Apache Spark
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark
 ---
 
 # Configuring a Spark Development Environment with Scala

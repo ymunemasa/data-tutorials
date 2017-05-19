@@ -1,8 +1,16 @@
 ---
 title: How to Process Data with Apache Hive
+author: George Rueda de Leon
 tutorial-id: 110
-platform: hdp-2.6.0
-tags: [ambari, hive]
+experience: Beginner
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: EDW Optimization
+technology: Apache Ambari, Apache Hive
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World, HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
 # How to Process Data with Apache Hive

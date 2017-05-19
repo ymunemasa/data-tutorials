@@ -1,8 +1,16 @@
 ---
 title: Using Hive with ORC from Apache Spark
+author: Robert Hryniewicz
 tutorial-id: 400
-platform: hdp-2.6.0
-tags: [spark, hive, orc]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Predictive
+technology: Apache Hive, Apache Spark, Apache ORC
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark on HDP
 ---
 
 # Using Hive with ORC from Apache Spark

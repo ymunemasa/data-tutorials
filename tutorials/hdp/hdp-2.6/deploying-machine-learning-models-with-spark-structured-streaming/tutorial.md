@@ -1,8 +1,16 @@
 ---
 title: Deploying Machine Learning Models using Spark Structured Streaming
+author: Robert Hryniewicz
 tutorial-id: 371
-platform: hdp-2.6.0
-tags: [spark]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Streaming
+technology: Apache Spark
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark
 ---
 
 # Deploying Machine Learning Models using Spark Structured Streaming

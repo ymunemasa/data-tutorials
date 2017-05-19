@@ -1,8 +1,5 @@
 ---
-title: Hortonworks Sandbox Guide
-tutorial-id: 730
-platform: hdp-2.6.0
-tags: [sandbox, ports, port forwarding]
+title: Hortonworks Sandbox Guide - Sandbox Port Forwards - HDP 2.6
 ---
 
 # Sandbox Port Forwards - HDP 2.6

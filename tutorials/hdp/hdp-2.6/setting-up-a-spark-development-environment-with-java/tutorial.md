@@ -1,8 +1,16 @@
 ---
 title: Setting up a Spark Development Environment with Java
-platform: hdp-2.6.0
+author: Robert Hryniewicz
 tutorial-id: 802
-tags: [spark]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Spark
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark
 ---
 
 # Setting up a Spark Development Environment with Java

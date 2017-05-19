@@ -1,8 +1,16 @@
 ---
 title: Sandbox Port Forwarding Guide
+author: Edgar Orendain
 tutorial-id: 623
-platform: hdp-2.6.0
-tags: [sandbox, ports, port fowarding]
+experience: Intermediate
+persona: Administrator
+source: Hortonworks
+use case: Single View
+technology: Sandbox, Ports, Port Forwarding
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Hadoop Administration > Hortonworks Sandbox
 ---
 
 # Sandbox Port Forwarding Guide

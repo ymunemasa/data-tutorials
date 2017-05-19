@@ -1,8 +1,16 @@
 ---
 title: Tag Based Policies with Apache Ranger and Apache Atlas
+author: James Medel
 tutorial-id: 660
-platform: hdp-2.6.0
-tags: [atlas, ranger]
+experience: Intermediate
+persona: Administrator
+source: Hortonworks
+use case: Security
+technology: Apache Atlas, Apache Ranger
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Hadoop Administration > Security, HDP > Hadoop Administration > Security and Governance
 ---
 
 # Tag Based Policies with Apache Ranger and Apache Atlas

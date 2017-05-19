@@ -1,8 +1,16 @@
 ---
 title: Getting Started with Apache Zeppelin
+author: Robert Hryniewicz
 tutorial-id: 368
-platform: hdp-2.6.0
-tags: [zeppelin, spark]
+experience: Beginner
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Spark, Apache Zeppelin
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark
 ---
 
 # Getting Started with Apache Zeppelin

@@ -1,8 +1,16 @@
 ---
 title: Loading and Querying Data with Hadoop
+author: George Rueda de Leon
 tutorial-id: 230
-platform: hdp-2.6.0
-tags: [ambari, hdfs, hive]
+experience: Beginner
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: EDW Optimization
+technology: Apache Ambari, Apache Hive, HDFS
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World
 ---
 
 # Loading and Querying Data with Hadoop

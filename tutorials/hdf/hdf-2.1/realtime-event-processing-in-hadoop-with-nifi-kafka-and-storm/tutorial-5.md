@@ -1,8 +1,5 @@
 ---
-title: Realtime Event Processing in Hadoop with NiFi, Kafka and Storm
-tutorial-id: 220
-platform: hdp-2.5.0
-tags: [storm, hbase, hive, kafka, nifi]
+title: Realtime Event Processing in Hadoop with NiFi, Kafka and Storm - Tutorial 3: Real Time Data Ingestion in HBase and Hive using Storm
 ---
 
 # Tutorial 3: Real Time Data Ingestion in HBase and Hive using Storm

@@ -1,8 +1,16 @@
 ---
 title: Introduction to Spark Streaming
+author: Robert Hryniewicz
 tutorial-id: 366
-platform: hdp-2.6.0
-tags: [spark]
+experience: Beginner
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Streaming
+technology: Apache Spark
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark
 ---
 
 # Introduction to Spark Streaming

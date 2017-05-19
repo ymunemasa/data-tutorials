@@ -1,8 +1,5 @@
 ---
-title: Hortonworks Sandbox Guide
-tutorial-id: 730
-platform: hdf-2.1.0
-tags: [sandbox, ports, port forwarding]
+title: Hortonworks Sandbox Guide - Sandbox Port Forwards - HDF 2.1
 ---
 
 # Sandbox Port Forwards - HDF 2.1

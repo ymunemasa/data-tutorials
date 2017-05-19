@@ -1,8 +1,16 @@
 ---
 title: Hadoop Tutorial – Getting Started with HDP
+author: Edgar Orendain
 tutorial-id: 100
-platform: hdp-2.6.0
-tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
+experience: Beginner
+persona: Developer
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Ambari, Apache Hive, Apache Pig, Apache Spark, Apache Zeppelin
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World
 ---
 
 # Hadoop Tutorial – Getting Started with HDP

@@ -1,8 +1,16 @@
 ---
 title: Interactive Query for Hadoop with Apache Hive on Apache Tez
+author: George Rueda de Leon
 tutorial-id: 290
-platform: hdp-2.6.0
-tags: [hive, tez, ambari]
+experience: Intermediate
+persona: Developer, Administrator, Data Scientist & Analyst
+source: Hortonworks
+use case: Data Discovery(sentiment analysis), Single View(integration), Predictive(spark), EDW Optimization (hive), Streaming (NiFi, storm, kafka)
+technology: Apache Ambari, Apache Hive, Apache Tez
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World, HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
 # Interactive Query for Hadoop with Apache Hive on Apache Tez

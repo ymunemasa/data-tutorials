@@ -1,8 +1,16 @@
 ---
 title: Sandbox Deployment and Install Guide
+author: Edgar Orendain
 tutorial-id: 350
-platform: hdp-2.6.0
-tags: [sandbox, deploy, install]
+experience: Intermediate
+persona: Administrator
+source: Hortonworks
+use case: Single View
+technology: Sandbox, Deploy, Install
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Hadoop Administration > Hortonworks Sandbox
 ---
 
 # Sandbox Deployment and Install Guide
