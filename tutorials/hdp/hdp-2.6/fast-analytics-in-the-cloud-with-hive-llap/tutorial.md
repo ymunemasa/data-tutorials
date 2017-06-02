@@ -13,7 +13,7 @@ Hadoop has always been associated with BigData, yet the perception is it’s onl
 
 ## Prerequisites
 
--   [Hortonworks Data Cloud (HDCloud) for AWS](https://hortonworks.com/products/cloud/aws/) is a platform for analyzing and processing data, enabling businesses to achieve insights more quickly and with greater flexibility than ever before. Instead of going through infinite configuration options, you can choose from a set of prescriptive cluster configurations and you can start modeling and analyzing your data sets in minutes. When you are done with your analysis, you can give the resources back to the cloud, reducing your costs. [Get Started](http://hortonworks.github.io/hdp-aws/) with general instructions on how to launch a cloud controller instance and create cluster(s).
+-   [Hortonworks Data Cloud (HDCloud) for AWS](https://hortonworks.com/products/cloud/aws/) is a platform for analyzing and processing data, enabling businesses to achieve insights more quickly and with greater flexibility than ever before. Instead of going through infinite configuration options, you can choose from a set of prescriptive cluster configurations and you can start modeling and analyzing your data sets in minutes. When you are done with your analysis, you can give the resources back to the cloud, reducing your costs. [Get Started](https://docs.hortonworks.com/HDPDocuments/HDCloudAWS/HDCloudAWS-1.14.4/index.html) with general instructions on how to launch a cloud controller instance and create cluster(s).
 
 -   Must have an [Amazon Web Services(AWS)](https://aws.amazon.com/) account
 -   Must have installed [Hortonworks ODBC Driver for Apache Hive](http://hortonworks.com/downloads/#addons)
