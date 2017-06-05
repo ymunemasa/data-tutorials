@@ -13,6 +13,7 @@ product: HDP
 series: HDP > Develop with Hadoop > Apache Spark
 ---
 
+
 # Learning Spark SQL with Zeppelin
 
 ## Introduction

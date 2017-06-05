@@ -13,6 +13,7 @@ product: HDF
 series: HDF > Develop with Hadoop > Hello World
 ---
 
+
 # Analyze Traffic Patterns with Apache NiFi
 
 ## Introduction
