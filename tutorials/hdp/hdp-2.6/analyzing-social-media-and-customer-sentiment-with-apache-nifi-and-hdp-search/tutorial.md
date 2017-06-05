@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Develop with Hadoop > Real World Examples, HDP > Hadoop for Data Scientists & Analysts > Real World Examples
 ---
 
-
 # Analyzing Social Media and Customer Sentiment With Apache NiFi and HDP Search
 
 ## Introduction
