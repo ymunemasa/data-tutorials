@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
-
 # Beginners Guide to Apache Pig
 
 ## Introduction
