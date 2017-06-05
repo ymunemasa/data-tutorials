@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Develop with Hadoop > Apache Spark
 ---
 
-
 # Intro to Machine Learning with Apache Spark and Apache Zeppelin
 
 ## Introduction

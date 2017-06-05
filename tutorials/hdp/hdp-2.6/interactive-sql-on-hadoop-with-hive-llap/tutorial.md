@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Develop with Hadoop > Hello World
 ---
 
-
 # Interactive SQL on Hadoop with Hive LLAP
 
 ## Introduction
