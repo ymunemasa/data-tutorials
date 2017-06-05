@@ -13,6 +13,7 @@ product: HDP
 series: HDP > Develop with Hadoop > Real World Examples, HDP > Hadoop for Data Scientists & Analysts > Real World Examples
 ---
 
+
 # Visualize Website Clickstream Data
 
 ## Introduction

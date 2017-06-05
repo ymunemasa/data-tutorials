@@ -13,6 +13,7 @@ product: HDP
 series: HDP > Develop with Hadoop > Hello World
 ---
 
+
 # Using Hive ACID Transactions to Insert, Update and Delete Data
 
 ## Introduction
