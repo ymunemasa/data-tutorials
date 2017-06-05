@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Hadoop Administration > Security, HDP > Hadoop Administration > Security and Governance
 ---
 
-
 # Tag Based Policies with Apache Ranger and Apache Atlas
 
 ## Introduction

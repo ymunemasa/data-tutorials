@@ -13,7 +13,6 @@ product: HDF
 series: HDF > Develop with Hadoop > Real World Examples
 ---
 
-
 # Realtime Event Processing in Hadoop with NiFi, Kafka and Storm
 
 ## Introduction

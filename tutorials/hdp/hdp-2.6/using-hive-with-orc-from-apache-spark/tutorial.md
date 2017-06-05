@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Develop with Hadoop > Apache Spark on HDP
 ---
 
-
 # Using Hive with ORC from Apache Spark
 
 ## Introduction
