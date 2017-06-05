@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Develop with Hadoop > Apache Spark
 ---
 
-
 # Deploying Machine Learning Models using Spark Structured Streaming
 
 ## Introduction
