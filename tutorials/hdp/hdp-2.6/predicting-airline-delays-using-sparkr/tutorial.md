@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
-
 # Predicting Airline Delays using SparkR
 
 ## Introduction
