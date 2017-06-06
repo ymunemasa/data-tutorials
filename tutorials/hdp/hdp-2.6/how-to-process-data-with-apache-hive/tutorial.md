@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Develop with Hadoop > Hello World, HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
-
 # How to Process Data with Apache Hive
 
 ## Introduction

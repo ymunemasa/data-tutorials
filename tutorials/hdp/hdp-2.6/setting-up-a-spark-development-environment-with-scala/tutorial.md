@@ -13,6 +13,7 @@ product: HDP
 series: HDP > Develop with Hadoop > Apache Spark
 ---
 
+
 # Configuring a Spark Development Environment with Scala
 
 ## Introduction

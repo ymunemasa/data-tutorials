@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Hadoop Administration > Hortonworks Sandbox
 ---
 
-
 # Hortonworks Sandbox Guide
 
 ## Introduction

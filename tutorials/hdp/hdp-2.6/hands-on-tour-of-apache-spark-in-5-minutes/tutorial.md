@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Develop with Hadoop > Apache Spark
 ---
 
-
 # Hands-On Tour of Apache Spark in 5 Minutes
 
 ## Introduction
