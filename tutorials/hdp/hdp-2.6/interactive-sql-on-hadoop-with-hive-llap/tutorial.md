@@ -26,7 +26,7 @@ The goal of this tutorial is to learn how to enable interactive SQL query perfor
 
 ## Prerequisites
 
--   This tutorial requires [HDP 2.6 Sandbox](https://hortonworks.com/products/sandbox/).
+-   This tutorial requires [HDP Sandbox](https://hortonworks.com/products/sandbox/).
 -   Must have installed [Hortonworks ODBC Driver for Apache Hive](https://hortonworks.com/downloads/#addons)
 -   Must have installed [Tableau](https://www.tableau.com/). For this tutorial, we’re using Tableau version 10.2.
 -   This tutorial assumes you have a **16GB** memory (or more) computer and does its best to maximize available resources. Working on the sandbox is limited. If you’re looking to try Hive LLAP at big data scales, check out [Fast Analytics in the Cloud with Hive LLAP](https://hortonworks.com/hadoop-tutorial/fast-analytics-cloud-hive-llap/).
@@ -78,13 +78,13 @@ su - hive
 3\. Download the data generator bundle:
 
 ~~~
-wget  https://github.com/cartershanklin/sandbox-datagen/blob/master/datagen.tgz?raw=true
+wget  https://github.com/cartershanklin/sandbox-datagen/raw/master/datagen.tgz
 ~~~
 
 4\. Extract the bundle:
 
 ~~~
-tar -zxf datagen.tgz?raw=true
+tar -zxf datagen.tgz
 ~~~
 
 5\. Enter the datagen directory:
@@ -143,7 +143,7 @@ We need to make sure we have sufficient memory in **YARN** to take advantage of 
 
 ### Enable and Configure Interactive Query (Hive LLAP)
 
-Enabling Hive LLAP is a simple and require the following modifications. Start with **Ambari** -> **Configs** -> **Settings**:
+Enabling Hive LLAP is a simple and require the following modifications. Start with **Ambari** -> **Hive** -> **Configs** -> **Settings**:
 
 1.  Set **Enable Interactive Query** to **Yes**
 2.  Set **ACID Transactions** to **On**
@@ -193,52 +193,62 @@ Next click `Select Schema` and click the magnifying glass to show available sche
 
 ![select_schema](assets/select_schema.png)
 
-Select `default` and click the magnifying glass to reveal all tables.
+Select `foodmart` and click the magnifying glass to reveal all tables.
 
-![select_default](assets/select_default.png)
+![select_foodmart](assets/select_foodmart.png)
 
-Drag `sample_08` to the workspace.
+-   Drag **sales_fact_dec_1998** to the workspace.
+-   Drag **product** to the workspace.
 
-![sample_08](assets/sample_08.png)
+The model should look like this:
 
-Click on `Sheet` 1 to go to the worksheet.
+![model](assets/model.png)
 
-This table has data on professions, numbers of people within those professions and average salaries for these professions. We can now easily explore this data interactively. For example let’s create a packed bubble chart that shows the relative numbers of people in different professions as in this chart.
+Click on **Sheet 1** to work on new worksheet.
 
-![bubble_chart](assets/bubble_chart.png)
+![sheet1](assets/sheet1.png)
+
+The model we've created will help us visualize products that produced the most sales. We can explore this data interactively. Let’s create a horizontal bar graph as described below:
+
+![bar_chart](assets/bar_chart.png)
 
 To reproduce this chart:
 
-1\. Drag the **Total Emp** measure to the bottom right section of the main pallette:
+1\. Drag the **Product Name** from Dimensions to the Rows shelf ![rows_icon](assets/rows_icon.png).
 
-![measures](assets/measures.png)
+2\. Drag the **Product Name** from Dimensions to the Color icon ![color_icon](assets/color_icon.png).
 
-You should see a value of 405,555,870.
+3\. Drag the **Store Sales** from Measures to the Columns shelf ![columns_icon](assets/columns_icon.png).
 
-2\. Drag the **Description** from Dimension to the Rows shelf. The result should look like:
+4\. Drag the **Store Sales** from Measures to Filters ![](assets/icon_Filters.png).
 
-![description_dimension](assets/description_dimension.png)
+-   Select **Sum**, then press Next.
+-   Set `Range of values` between 1450 and 1600.
+-   Select **Show filter**
 
-3\. Select the packed bubble visualization from the **Show Me** button:
+![show_filter](assets/show_filter.png)
 
-![packed_bubble_visualization](assets/packed_bubble_visualization.png)
+5\. Drag the **Store Sales** from Measures to the label icon ![icon_label](assets/icon_label.png).
 
-This will give a visualization that makes it very easy to spot ratios. Unfortunately the All Occupations value is included, so let’s filter it out.
+6\. Save worksheet as `Top Products`.
 
-4\. Drag **Description** from Dimensions to the Filters section. Unselect “All Occupations” from the Filter and press Ok.
+The result should look like:
 
-![filter_description](assets/filter_description.png)
+![top_product](assets/top_product.png)
 
-Your visualization should now look like the diagram above. You can continue to explore this dataset interactively if you want. For example, see if you can recreate this visualization, which sorts job categories by average salary and mentions how many individuals belong to each profession.
+Your visualization should now look like the diagram above. You can continue to explore this dataset interactively if you want. For example, you can adjust the **SUM(Store Sales) slider** to interactively modify which sales you want to see.
 
 ## 3. Connect LLAP to the Large Dataset (Optional, Advanced) <a id="connect_llap"></a>
 
 If you generated the large dataset above, here’s how to load it into Tableau and explore it. The data schema has a total of 8 tables and it’s important to relate them correctly. Each BI tool will have its own way of doing that, and here we’ll talk about how to do that in Tableau.
 
-First we optimize the dataset for analytics. This means 2 things:
+First we optimize the dataset for analytics. This means 3 things:
 
 1\. We convert the data to ORCFile format.
-2\. We create primary and foreign keys for the dataset. This allows BI tools to do what’s called “join elimination” to greatly improve performance.
+
+2\. Generate statistics.
+
+3\. We create primary and foreign keys for the dataset. This allows BI tools to do what’s called “join elimination” to greatly improve performance.
 
 To load the data, navigate back to `http://127.0.0.1:4200/` and run:
 
@@ -276,7 +286,17 @@ It is important to ensure these join conditions are established properly. If the
 
 ![table_association](assets/table_association.png)
 
-At this point it’s a good idea to save your workbook to avoid having to do this again. Here’s an example visualization you can do with this data. First drag the L_Extendedprice measure to the bottom right of the workspace. Next, drag the L_Shipinstruct Dimension to the Columns shelf and the L_Shipmode Dimension to the Rows shelf. When you’re done you should see a table like this:
+At this point it’s a good idea to save your workbook to avoid having to do this again.
+
+Click on an empty Sheet or create a new worksheet.
+
+Here’s an example visualization you can do with this data:
+
+-   Drag **L_Extendedprice** from lineitem Measure to the bottom right of the workspace.
+-   Drag **L_Shipinstruct** from lineitem Dimension to the Columns shelf
+-   Drag **L_Shipmode** from lineitem Dimension to the Rows shelf.
+
+When you’re done you should see a table like this:
 
 ![shipinstruct_shipmode](assets/shipinstruct_shipmode.png)
 
@@ -284,7 +304,7 @@ As you’re interacting, these queries should take no longer than about 5 second
 
 ## 4. Enhanced Monitoring for Hive and LLAP <a id="enhanced_monitoring"></a>
 
-HDP 2.5 includes some nice new ways to debug and diagnose Hive and Tez jobs. First let’s look at the Tez View. In Ambari hover over the “more items” icon in the top right and click `Tez View`.
+HDP includes some nice new ways to debug and diagnose Hive and Tez jobs. First let’s look at the Tez View. In Ambari hover over the “more items” icon in the top right and click `Tez View`.
 
 ![click_tez_view](assets/click_tez_view.png)
 
