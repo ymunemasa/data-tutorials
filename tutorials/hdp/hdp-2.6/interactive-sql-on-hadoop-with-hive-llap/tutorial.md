@@ -304,7 +304,9 @@ As you’re interacting, these queries should take no longer than about 5 second
 
 ## 4. Enhanced Monitoring for Hive and LLAP <a id="enhanced_monitoring"></a>
 
-HDP includes some nice new ways to debug and diagnose Hive and Tez jobs. First let’s look at the Tez View. In Ambari hover over the “more items” icon in the top right and click `Tez View`.
+HDP includes some nice new ways to debug and diagnose Hive and Tez jobs.
+
+First let’s look at the Tez View:
 
 ![click_tez_view](assets/click_tez_view.png)
 
@@ -312,7 +314,7 @@ Here you’ll see a screen that includes all the queries that have been run thro
 
 ![tez_all_dags](assets/tez_all_dags.png)
 
-If we drill into a particular query we can see the exact query text that Tableau generates:
+If we drill into a particular query (DAG ID), we can see the exact query text that Tableau generated:
 
 ![tableau_generated_query](assets/tableau_generated_query.png)
 
