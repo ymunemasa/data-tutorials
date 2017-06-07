@@ -5,7 +5,7 @@ tutorial-id: 290
 experience: Intermediate
 persona: Developer, Administrator, Data Scientist & Analyst
 source: Hortonworks
-use case: Data Discovery(sentiment analysis), Single View(integration), Predictive(spark), EDW Optimization (hive), Streaming (NiFi, storm, kafka)
+use case: EDW Optimization
 technology: Apache Ambari, Apache Hive, Apache Tez
 release: hdp-2.6.0
 environment: Sandbox
