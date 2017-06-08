@@ -1,5 +1,5 @@
 ---
-title: Hadoop Tutorial – Getting Started with HDP - Report Data with Zoomdata (Optional)
+title: Report Data with Zoomdata (Optional)
 ---
 
 # Hadoop Tutorial – Getting Started with HDP

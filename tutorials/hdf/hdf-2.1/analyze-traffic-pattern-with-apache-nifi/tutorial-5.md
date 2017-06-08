@@ -1,5 +1,5 @@
 ---
-title: Analyze Traffic Patterns with Apache NiFi - Tutorial 3: Ingest Live Vehicle Routes via NextBus API
+title: Tutorial 3: Ingest Live Vehicle Routes via NextBus API
 ---
 
 # Tutorial 3: Ingest Live Vehicle Routes via NextBus API

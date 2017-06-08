@@ -1,5 +1,5 @@
 ---
-title: Hortonworks Sandbox Guide - Sandbox Port Forwards - HDF 2.1
+title: Sandbox Port Forwards - HDF 2.1
 ---
 
 # Sandbox Port Forwards - HDF 2.1

@@ -1,5 +1,5 @@
 ---
-title: Sandbox Port Forwarding Guide - Sandbox Port Forwarding on VirtualBox
+title: Sandbox Port Forwarding on VirtualBox
 ---
 
 # Sandbox Port Forwarding on VirtualBox

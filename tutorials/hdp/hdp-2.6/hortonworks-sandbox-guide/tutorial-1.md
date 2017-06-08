@@ -1,5 +1,5 @@
 ---
-title: Hortonworks Sandbox Guide - Sandbox Docs - HDP 2.6
+title: Sandbox Docs - HDP 2.6
 ---
 
 # Sandbox Docs - HDP 2.6

@@ -1,5 +1,5 @@
 ---
-title: Hadoop Tutorial – Getting Started with HDP - Lab 4: Spark - Risk Factor
+title: Lab 4: Spark - Risk Factor
 ---
 
 # Hadoop Tutorial – Getting Started with HDP

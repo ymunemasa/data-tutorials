@@ -1,5 +1,5 @@
 ---
-title: Analyze Traffic Patterns with Apache NiFi - Tutorial 0: Launch NiFi HTML UI
+title: Tutorial 0: Launch NiFi HTML UI
 ---
 
 # Tutorial 0: Launch NiFi HTML UI

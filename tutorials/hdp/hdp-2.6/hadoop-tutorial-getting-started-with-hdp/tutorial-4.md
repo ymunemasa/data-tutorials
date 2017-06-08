@@ -1,5 +1,5 @@
 ---
-title: Hadoop Tutorial – Getting Started with HDP - Lab 3: Pig - Risk Factor
+title: Lab 3: Pig - Risk Factor
 ---
 
 # Hadoop Tutorial – Getting Started with HDP

@@ -1,5 +1,5 @@
 ---
-title: Analyze Traffic Patterns with Apache NiFi - Tutorial 2: Enrich Simple DataFlow via Places API
+title: Tutorial 2: Enrich Simple DataFlow via Places API
 ---
 
 # Tutorial 2: Enrich Simple DataFlow via Places API

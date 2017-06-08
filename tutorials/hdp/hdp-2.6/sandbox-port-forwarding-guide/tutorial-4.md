@@ -1,5 +1,5 @@
 ---
-title: Sandbox Port Forwarding Guide - Sandbox Port Forwarding on Azure
+title: Sandbox Port Forwarding on Azure
 ---
 
 # Sandbox Port Forwarding on Azure

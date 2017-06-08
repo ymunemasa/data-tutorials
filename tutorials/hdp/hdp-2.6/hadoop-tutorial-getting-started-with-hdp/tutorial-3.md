@@ -1,5 +1,5 @@
 ---
-title: Hadoop Tutorial – Getting Started with HDP - Lab 2: Hive - Data ETL
+title: Lab 2: Hive - Data ETL
 ---
 
 # Hadoop Tutorial – Getting Started with HDP

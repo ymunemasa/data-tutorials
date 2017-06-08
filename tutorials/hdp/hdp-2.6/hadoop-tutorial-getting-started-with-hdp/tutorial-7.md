@@ -1,5 +1,5 @@
 ---
-title: Hadoop Tutorial – Getting Started with HDP - Lab 6: Data Reporting with Excel
+title: Lab 6: Data Reporting with Excel
 ---
 
 # Hadoop Tutorial – Getting Started with HDP

@@ -1,5 +1,5 @@
 ---
-title: Hadoop Tutorial – Getting Started with HDP - Concepts
+title: Concepts
 ---
 
 # Hadoop Tutorial – Getting Started with HDP

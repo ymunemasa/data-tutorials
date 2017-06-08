@@ -1,5 +1,5 @@
 ---
-title: Hortonworks Sandbox Guide - Sandbox Docs - HDF 2.1
+title: Sandbox Docs - HDF 2.1
 ---
 
 # Sandbox Docs - HDF 2.1
