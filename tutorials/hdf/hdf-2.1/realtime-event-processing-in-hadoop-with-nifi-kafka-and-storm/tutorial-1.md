@@ -1,5 +1,5 @@
 ---
-title: Realtime Event Processing in Hadoop with NiFi, Kafka and Storm - Concepts
+title: Concepts
 ---
 
 # Concepts

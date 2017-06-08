@@ -1,5 +1,5 @@
 ---
-title: Sandbox Deployment and Install Guide - Deploying Hortonworks Sandbox on VirtualBox
+title: Deploying Hortonworks Sandbox on VirtualBox
 ---
 
 # Deploying Hortonworks Sandbox on VirtualBox

@@ -1,5 +1,5 @@
 ---
-title: Hortonworks Sandbox Guide - Sandbox Port Forwards - HDP 2.6
+title: Sandbox Port Forwards - HDP 2.6
 ---
 
 # Sandbox Port Forwards - HDP 2.6

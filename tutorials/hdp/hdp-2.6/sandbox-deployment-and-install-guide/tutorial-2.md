@@ -1,5 +1,5 @@
 ---
-title: Sandbox Deployment and Install Guide - Deploying Hortonworks Sandbox on VMWare
+title: Deploying Hortonworks Sandbox on VMWare
 ---
 
 # Deploying Hortonworks Sandbox on VMWare

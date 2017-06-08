@@ -1,5 +1,5 @@
 ---
-title: Sandbox Deployment and Install Guide - Deploying Hortonworks Sandbox on Docker
+title: Deploying Hortonworks Sandbox on Docker
 ---
 
 # Deploying Hortonworks Sandbox on Docker

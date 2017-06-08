@@ -1,5 +1,5 @@
 ---
-title: Realtime Event Processing in Hadoop with NiFi, Kafka and Storm - Tutorial 0: Set Up Simulator, Apache Services and IDE Environment
+title: Tutorial 0: Set Up Simulator, Apache Services and IDE Environment
 ---
 
 # Tutorial 0: Set Up Simulator, Apache Services and IDE Environment

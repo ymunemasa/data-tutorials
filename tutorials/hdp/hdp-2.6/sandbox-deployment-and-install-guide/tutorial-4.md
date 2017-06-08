@@ -1,5 +1,5 @@
 ---
-title: Sandbox Deployment and Install Guide - Deploying Hortonworks Sandbox on Microsoft Azure
+title: Deploying Hortonworks Sandbox on Microsoft Azure
 ---
 
 # Deploying Hortonworks Sandbox on Microsoft Azure

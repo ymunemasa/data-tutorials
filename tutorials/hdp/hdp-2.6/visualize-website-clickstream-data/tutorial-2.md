@@ -1,5 +1,5 @@
 ---
-title: Visualize Website Clickstream Data - Visualize Log Data with Microsoft Excel
+title: Visualize Log Data with Microsoft Excel
 ---
 
 # Visualize Log Data with Microsoft Excel

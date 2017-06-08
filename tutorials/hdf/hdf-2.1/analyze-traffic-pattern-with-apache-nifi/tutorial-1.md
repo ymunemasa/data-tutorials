@@ -1,5 +1,5 @@
 ---
-title: Analyze Traffic Patterns with Apache NiFi - NiFi DataFlow Automation Concepts
+title: NiFi DataFlow Automation Concepts
 ---
 
 # NiFi DataFlow Automation Concepts

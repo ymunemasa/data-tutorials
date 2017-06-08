@@ -1,5 +1,5 @@
 ---
-title: Sandbox Port Forwarding Guide - Sandbox Port Forwarding on VMWare
+title: Sandbox Port Forwarding on VMWare
 ---
 
 # Sandbox Port Forwarding on VMWare

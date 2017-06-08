@@ -1,5 +1,5 @@
 ---
-title: Visualize Website Clickstream Data - Visualize Log Data with Apache Zeppelin
+title: Visualize Log Data with Apache Zeppelin
 ---
 
 # Visualize Log Data with Apache Zeppelin
