@@ -10,7 +10,7 @@ technology: Apache Atlas, Apache Ranger
 release: hdp-2.6.0
 environment: Sandbox
 product: HDP
-series: HDP > Hadoop Administration > Security, HDP > Hadoop Administration > Security and Governance
+series: HDP > Hadoop Administration > Security
 ---
 
 
@@ -25,7 +25,7 @@ This tutorial walks through an example of tagging data in Atlas and building a s
 ## Prerequisites
 
 -   [Download Hortonworks 2.6 Sandbox](https://hortonworks.com/downloads/#sandbox)
--   Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
+-   Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
 
 ## Outline
 

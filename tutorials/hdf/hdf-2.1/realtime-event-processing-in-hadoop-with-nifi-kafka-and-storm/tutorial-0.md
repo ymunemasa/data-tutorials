@@ -23,7 +23,7 @@ Welcome to a three part tutorial series on real-time data ingesting and analysis
 ## Prerequisites
 
 *  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
-*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *   8GB+ RAM (Assigning more is recommended) and preferably 4 processor cores, otherwise you may encounter errors in the third tutorial
 *   Data sets used:
   *   New York City Truck Routes from NYC DOT.

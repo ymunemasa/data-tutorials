@@ -1,5 +1,5 @@
 ---
-title: Tutorial 0: Launch NiFi HTML UI
+title: Launch NiFi HTML UI
 ---
 
 # Tutorial 0: Launch NiFi HTML UI

@@ -1,5 +1,5 @@
 ---
-title: Tutorial 3: Real Time Data Ingestion in HBase and Hive using Storm
+title: Real Time Data Ingestion in HBase and Hive using Storm
 ---
 
 # Tutorial 3: Real Time Data Ingestion in HBase and Hive using Storm
@@ -10,7 +10,7 @@ The Trucking business is a high-risk business in which truck drivers venture in
 
 This system can take into consideration adverse weather conditions, the driver's driving patterns, current traffic conditions and other criteria to alert and inform the management staff and the drivers themselves when risk factors run high.
 
-In previous tutorial, we have explored generating and capturing streaming data with [Apache NiFi](https://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm#section_4) and [Apache Kafka](https://hortonworks.com/hadoop-tutorial/realtime-event-processing-nifi-kafka-storm#section_5).
+In previous tutorial, we have explored generating and capturing streaming data with [Apache NiFi](https://hortonworks.com/tutorial/realtime-event-processing-nifi-kafka-storm#section_4) and [Apache Kafka](https://hortonworks.com/tutorial/realtime-event-processing-nifi-kafka-storm#section_5).
 
 In this tutorial, we will build a solution to ingest real time streaming data into HBase using Storm. Storm has a spout that reads truck_events data from Kafka and passes it to bolts, which process and persist the data into Hive & HBase tables.
 
@@ -20,7 +20,7 @@ In this tutorial, we will build a solution to ingest real time streaming data in
 - Tutorial 1: Ingest, Route and Land Real Time Events with Apache NiFi
 - Tutorial 2: Capture Real Time Events with Apache Kafka
 - Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
-- [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+- [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 - [Hive Quick Start](https://hbase.apache.org/book.html#quickstart)
 
 ## Outline

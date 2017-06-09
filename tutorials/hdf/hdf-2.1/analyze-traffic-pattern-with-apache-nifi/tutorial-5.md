@@ -1,5 +1,5 @@
 ---
-title: Tutorial 3: Ingest Live Vehicle Routes via NextBus API
+title: Ingest Live Vehicle Routes via NextBus API
 ---
 
 # Tutorial 3: Ingest Live Vehicle Routes via NextBus API
