@@ -1,12 +1,10 @@
 ---
-title: Lab 3: Pig - Risk Factor
+title: Pig - Risk Factor
 ---
 
 # Hadoop Tutorial – Getting Started with HDP
 
-# Lab 3: Pig - Risk Factor
-
-## Use Pig to compute Driver Risk Factor
+## Pig - Risk Factor
 
 ## Introduction
 
@@ -17,7 +15,7 @@ In this tutorial, you will be introduced to [Apache Pig](https://hortonworks.com
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
 -   Hortonworks Sandbox
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 -   Lab 1: Load sensor data into HDFS
 -   Lab 2: Data Manipulation with Apache Hive
 -   Allow yourself around **one hour** to complete this tutorial.

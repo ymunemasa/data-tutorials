@@ -1,10 +1,10 @@
 ---
-title: Lab 6: Data Reporting with Excel
+title: Data Reporting with Excel
 ---
 
 # Hadoop Tutorial – Getting Started with HDP
 
-# Lab 6: Data Reporting with Excel
+## Data Reporting with Excel
 
 ## Introduction
 
@@ -30,7 +30,7 @@ The tutorial is a part of series of hands on tutorial to get you started on HDP 
 
 ## Step 6.b.1: Access Data in Microsoft Excel <a id="step6.b.1"></a>
 
-The [Hive ODBC driver](http://hortonworks.com/downloads/#addons) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](https://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions. Open the ODBC connection manager and open the connection you setup up. It should look like this.
+The [Hive ODBC driver](http://hortonworks.com/downloads/#addons) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](https://hortonworks.com/tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions. Open the ODBC connection manager and open the connection you setup up. It should look like this.
 
 **For Windows users**:-
 

@@ -23,7 +23,7 @@ In this tutorial, you will learn about the different features available in the H
 ## Prerequisites
 
 -   Downloaded and Installed [HDF Sandbox](https://hortonworks.com/downloads/)
--   Read [Hortonworks Sandbox Guide](https://hortonworks.com/hadoop-tutorial/hortonworks-sandbox-guide/)
+-   Read [Hortonworks Sandbox Guide](https://hortonworks.com/tutorial/hortonworks-sandbox-guide/)
 
 ## Outline
 

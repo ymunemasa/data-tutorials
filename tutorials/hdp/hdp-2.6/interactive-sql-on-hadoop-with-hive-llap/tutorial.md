@@ -37,10 +37,10 @@ The goal of this tutorial is to learn how to enable interactive SQL query perfor
 -   This tutorial requires [HDP 2.6 Sandbox](https://hortonworks.com/products/sandbox/).
 -   Must have installed [Hortonworks ODBC Driver for Apache Hive](https://hortonworks.com/downloads/#addons)
 -   Must have installed [Tableau](https://www.tableau.com/). For this tutorial, we’re using Tableau version 10.2.
--   This tutorial assumes you have a **16GB** memory (or more) computer and does its best to maximize available resources. Working on the sandbox is limited. If you’re looking to try Hive LLAP at big data scales, check out [Fast Analytics in the Cloud with Hive LLAP](https://hortonworks.com/hadoop-tutorial/fast-analytics-cloud-hive-llap/).
+-   This tutorial assumes you have a **16GB** memory (or more) computer and does its best to maximize available resources. Working on the sandbox is limited. If you’re looking to try Hive LLAP at big data scales, check out [Fast Analytics in the Cloud with Hive LLAP](https://hortonworks.com/tutorial/fast-analytics-cloud-hive-llap/).
 -   This tutorial requires making some configurations to the Sandbox and allocating additional resources. In order to run this tutorial you will need to be able to allocate **11 GB RAM** to the Sandbox virtual machine.
 -   If you are not familiar with HDP Sandbox, the following tutorial provides an introduction:
-[Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+[Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ## Outline
 
@@ -65,7 +65,7 @@ When you import the Sandbox in VirtualBox, change the Appliance settings to incr
 
 ### Enable Ambari Admin Login
 
-We need to change the Sandbox configuration using Ambari to enable LLAP. This requires us to first [reset Ambari admin password](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password) and then logon.
+We need to change the Sandbox configuration using Ambari to enable LLAP. This requires us to first [reset Ambari admin password](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#setup-ambari-admin-password) and then logon.
 
 > NOTE: Confirm you can log into Ambari as **admin** before continuing.
 

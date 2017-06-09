@@ -25,7 +25,7 @@ Missing column statistics is one of the leading causes of sub-optimal query perf
 
 ## Prerequisites
 
--   Complete [How to Process Data with Apache Hive](https://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-hive/) tutorial
+-   Complete [How to Process Data with Apache Hive](https://hortonworks.com/tutorial/how-to-process-data-with-apache-hive/) tutorial
 
 ## Outline
 
@@ -39,7 +39,7 @@ Missing column statistics is one of the leading causes of sub-optimal query perf
 
 ## Environment Setup
 
-We will use the same tables as in [How to Process Data with Apache Hive](https://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-hive/) tutorial (**drivers** and **timesheet**).
+We will use the same tables as in [How to Process Data with Apache Hive](https://hortonworks.com/tutorial/how-to-process-data-with-apache-hive/) tutorial (**drivers** and **timesheet**).
 
 For the time being, we will create tables without computing statistics. Later, we will comparing plans generated with and without statists.
 

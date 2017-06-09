@@ -25,7 +25,7 @@ In this tutorial, we will introduce you to Machine Learning with Apache Spark. T
 
 -   This tutorial is a part of series of hands-on tutorials using the [Hortonworks Data Platform (HDP)](https://hortonworks.com/products/data-center/hdp/) via either the [Hortonworks Data Cloud (HDCloud)](https://hortonworks.com/products/cloud/aws/) or a pre-configured downloadable [HDP Sandbox](https://hortonworks.com/products/sandbox/).
 -   The Zeppelin notebook uses mostly [Scala](http://www.dhgarrette.com/nlpclass/scala/basics.html) syntax. A pure Python version is coming soon.
--   If you are new to Zeppelin, review the following tutorial: [Getting Started with Apache Zeppelin](https://hortonworks.com/hadoop-tutorial/getting-started-apache-zeppelin/)
+-   If you are new to Zeppelin, review the following tutorial: [Getting Started with Apache Zeppelin](https://hortonworks.com/tutorial/getting-started-apache-zeppelin/)
 
 ## Outline
 -   [Tutorial Details](#tutorial-details)
@@ -85,7 +85,7 @@ Keep in mind, that you will need **8GB** of memory dedicated for the virtual mac
 
 2a. Download and Install [HDP Sandbox 2.6](https://hortonworks.com/products/sandbox/)
 
-2b. Review [Learning the Ropes of HDP Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+2b. Review [Learning the Ropes of HDP Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 #### Review Zeppelin Tutorial
 
@@ -101,7 +101,7 @@ A dynamic preview (allowing code copy) can be found [here](https://www.zeppelinh
 
 ## Start the Tutorial
 
-To begin the tutorial, import the *Intro to Machine Learning* notebook into your Zeppelin environment. (If at any point you have any issues, make sure to checkout the [Getting Started with Zeppelin](https://hortonworks.com/hadoop-tutorial/getting-started-apache-zeppelin/) tutorial.)
+To begin the tutorial, import the *Intro to Machine Learning* notebook into your Zeppelin environment. (If at any point you have any issues, make sure to checkout the [Getting Started with Zeppelin](https://hortonworks.com/tutorial/getting-started-apache-zeppelin/) tutorial.)
 
 On the Zeppelin home screen click `Import note` -> `Add from URL` and copy and paste the following URL:
 https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.6/2CCBNZ5YY/note.json

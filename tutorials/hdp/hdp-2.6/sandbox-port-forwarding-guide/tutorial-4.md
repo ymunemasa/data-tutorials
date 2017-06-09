@@ -14,7 +14,7 @@ The graphic below shows where the sandbox exists in relation to the Azure VM and
 
 ## Prerequisites
 
--   [Deploying Hortonworks Sandbox on Microsoft Azure](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
+-   [Deploying Hortonworks Sandbox on Microsoft Azure](https://hortonworks.com/tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
 
 ## Outline
 
@@ -26,7 +26,7 @@ The graphic below shows where the sandbox exists in relation to the Azure VM and
 
 ## SSH Into the Azure VM
 
-If you followed the previous tutorial, [Deploying Hortonworks Sandbox on Microsoft Azure](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/), this step is as easy as running:
+If you followed the previous tutorial, [Deploying Hortonworks Sandbox on Microsoft Azure](https://hortonworks.com/tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/), this step is as easy as running:
 
 ```
 ssh azureSandbox
@@ -91,4 +91,4 @@ sudo init 6
 
 ## (Optional) Add New Ports to the SSH Config
 
-If you're connecting to Azure via SSH tunneling, be sure to add new forwarding directives to your SSH config.  See the [Deploying Hortonworks Sandbox on Microsoft Azure tutorial](https://hortonworks.com/hadoop-tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/#configure-ssh-tunneling) for more information.
+If you're connecting to Azure via SSH tunneling, be sure to add new forwarding directives to your SSH config.  See the [Deploying Hortonworks Sandbox on Microsoft Azure tutorial](https://hortonworks.com/tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/#configure-ssh-tunneling) for more information.

@@ -1,8 +1,8 @@
 ---
-title: Tutorial 1: Build A Simple NiFi DataFlow
+title: Build A Simple NiFi DataFlow
 ---
 
-# Tutorial 1: Build A Simple NiFi DataFlow
+# Build A Simple NiFi DataFlow
 
 ## Introduction
 

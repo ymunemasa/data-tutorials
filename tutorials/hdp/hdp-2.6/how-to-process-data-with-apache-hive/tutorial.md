@@ -21,7 +21,7 @@ In this tutorial, we will use the [Ambari](https://hortonworks.com/hadoop/ambari
 
 ## Prerequisites
 -   Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 -   Allow yourself around one hour to complete this tutorial
 
 ## Outline

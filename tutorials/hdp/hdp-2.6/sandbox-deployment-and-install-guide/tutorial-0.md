@@ -6,7 +6,7 @@ experience: Intermediate
 persona: Administrator
 source: Hortonworks
 use case: Single View
-technology: Sandbox, Deploy, Install
+technology: Sandbox
 release: hdp-2.6.0
 environment: Sandbox
 product: HDP

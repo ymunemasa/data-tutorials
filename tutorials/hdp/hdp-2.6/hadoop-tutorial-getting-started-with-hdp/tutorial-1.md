@@ -12,7 +12,7 @@ In this tutorial, we will explore important concepts that will strengthen your f
 
 ## Prerequisites
 -   Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ## Outline
 
@@ -400,6 +400,6 @@ The following screenshot shows and describes the various components and features
 **Capacity Scheduler Blogs:**
 
 -   [Understanding Apache Hadoop’s Capacity Scheduler](https://hortonworks.com/blog/understanding-apache-hadoops-capacity-scheduler/)
--   [Configuring YARN Capacity Scheduler with Ambari](https://hortonworks.com/hadoop-tutorial/configuring-yarn-capacity-scheduler-ambari/)
+-   [Configuring YARN Capacity Scheduler with Ambari](https://hortonworks.com/tutorial/configuring-yarn-capacity-scheduler-ambari/)
 -   [Multi-Tenancy in HDP 2.0: Capacity Scheduler and YARN](https://hortonworks.com/blog/multi-tenancy-in-hdp-2-0-capacity-scheduler-and-yarn/)
 -   [Better SLAs via Resource-preemption in YARN’s Capacity Scheduler](https://hortonworks.com/blog/better-slas-via-resource-preemption-in-yarns-capacityscheduler/)

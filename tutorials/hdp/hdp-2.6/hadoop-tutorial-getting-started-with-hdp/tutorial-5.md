@@ -1,12 +1,10 @@
 ---
-title: Lab 4: Spark - Risk Factor
+title: Spark - Risk Factor
 ---
 
 # Hadoop Tutorial – Getting Started with HDP
 
-## Lab 4: Spark - Risk Factor
-
-**Note:**  This lab is optional and produces the same result as in Lab 3. You may continue on to the next lab if you wish.
+## Spark - Risk Factor
 
 ## Introduction
 
@@ -17,7 +15,7 @@ In this tutorial we will introduce Apache Spark. In the earlier section of the l
 This tutorial is a part of a series of hands on tutorials to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
 -   Hortonworks Sandbox
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 -   Lab 1: Loading sensor data into HDFS
 -   Lab 2: Data Manipulation with Apache Hive
 -   Allow yourself around one hour to complete this tutorial.
