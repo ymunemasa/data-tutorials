@@ -4,9 +4,7 @@ title: Spark - Risk Factor
 
 # Hadoop Tutorial – Getting Started with HDP
 
-## Lab 4: Spark - Risk Factor
-
-**Note:**  This lab is optional and produces the same result as in Lab 3. You may continue on to the next lab if you wish.
+## Spark - Risk Factor
 
 ## Introduction
 

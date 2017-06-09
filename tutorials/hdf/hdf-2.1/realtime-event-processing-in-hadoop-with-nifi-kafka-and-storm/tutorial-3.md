@@ -2,7 +2,7 @@
 title: Ingest, Route and Land Real Time Events with Apache NiFi
 ---
 
-# Tutorial 1: Ingest, Route and Land Real Time Events with Apache NiFi
+# Ingest, Route and Land Real Time Events with Apache NiFi
 
 ## Introduction
 

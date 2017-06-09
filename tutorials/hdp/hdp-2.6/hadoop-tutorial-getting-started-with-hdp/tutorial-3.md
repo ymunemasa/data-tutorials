@@ -4,7 +4,7 @@ title: Hive - Data ETL
 
 # Hadoop Tutorial – Getting Started with HDP
 
-## Lab 2: Hive - Data ETL
+## Hive - Data ETL
 
 ## Introduction
 

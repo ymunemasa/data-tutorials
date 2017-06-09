@@ -2,7 +2,7 @@
 title: Capture Real Time Event Stream with Apache Kafka
 ---
 
-# Tutorial 2: Capture Real Time Event Stream with Apache Kafka
+# Capture Real Time Event Stream with Apache Kafka
 
 ## Introduction
 

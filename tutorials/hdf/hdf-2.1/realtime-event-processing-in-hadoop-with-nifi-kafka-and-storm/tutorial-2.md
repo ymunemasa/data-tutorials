@@ -2,7 +2,7 @@
 title: Set Up Simulator, Apache Services and IDE Environment
 ---
 
-# Tutorial 0: Set Up Simulator, Apache Services and IDE Environment
+# Set Up Simulator, Apache Services and IDE Environment
 
 ## Introduction
 

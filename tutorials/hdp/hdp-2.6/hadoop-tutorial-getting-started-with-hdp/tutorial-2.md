@@ -4,7 +4,7 @@ title: Loading Sensor Data into HDFS
 
 # Hadoop Tutorial – Getting Started with HDP
 
-## Lab 1: Loading Sensor Data into HDFS
+## Loading Sensor Data into HDFS
 
 ## Introduction
 

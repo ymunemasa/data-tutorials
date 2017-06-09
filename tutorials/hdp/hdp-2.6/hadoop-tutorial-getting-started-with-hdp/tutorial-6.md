@@ -4,7 +4,7 @@ title: Data Reporting With Zeppelin
 
 # Hadoop Tutorial – Getting Started with HDP
 
-## Lab 5: Data Reporting With Zeppelin
+## Data Reporting With Zeppelin
 
 ## Introduction
 

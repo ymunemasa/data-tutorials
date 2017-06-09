@@ -2,7 +2,7 @@
 title: Ingest Live Vehicle Routes via NextBus API
 ---
 
-# Tutorial 3: Ingest Live Vehicle Routes via NextBus API
+# Ingest Live Vehicle Routes via NextBus API
 
 ## Introduction
 In this tutorial, you will replace the section of our dataflow that generates the simulation of vehicle location XML data with a new section that ingests a live stream of data from NextBus San Francisco Muni Agency on route OceanView into our NiFi DataFlow.

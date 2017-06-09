@@ -2,7 +2,7 @@
 title: Real Time Data Ingestion in HBase and Hive using Storm
 ---
 
-# Tutorial 3: Real Time Data Ingestion in HBase and Hive using Storm
+# Real Time Data Ingestion in HBase and Hive using Storm
 
 ## Introduction
 

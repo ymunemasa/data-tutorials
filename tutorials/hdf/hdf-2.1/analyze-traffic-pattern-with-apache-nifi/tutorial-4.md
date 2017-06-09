@@ -2,7 +2,7 @@
 title: Enrich Simple DataFlow via Places API
 ---
 
-# Tutorial 2: Enrich Simple DataFlow via Places API
+# Enrich Simple DataFlow via Places API
 
 ## Introduction
 

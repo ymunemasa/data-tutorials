@@ -2,7 +2,7 @@
 title: Launch NiFi HTML UI
 ---
 
-# Tutorial 0: Launch NiFi HTML UI
+# Launch NiFi HTML UI
 
 ## Introduction
 

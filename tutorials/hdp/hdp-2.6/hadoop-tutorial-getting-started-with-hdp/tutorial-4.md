@@ -4,9 +4,7 @@ title: Pig - Risk Factor
 
 # Hadoop Tutorial – Getting Started with HDP
 
-# Lab 3: Pig - Risk Factor
-
-## Use Pig to compute Driver Risk Factor
+## Pig - Risk Factor
 
 ## Introduction
 
