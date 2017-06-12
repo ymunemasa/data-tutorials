@@ -1,8 +1,5 @@
 ---
-title: Sandbox Deployment and Install Guide
-tutorial-id: 350
-platform: hdp-2.6.0
-tags: [sandbox, deploy, install, microsoft, azure]
+title: Deploying Hortonworks Sandbox on Microsoft Azure
 ---
 
 # Deploying Hortonworks Sandbox on Microsoft Azure
@@ -182,5 +179,5 @@ SSH tunneling allows us a way to port forward securely, without actually opening
 
 Now that you've got HDP up and running, check out our other tutorials to learn how to leverage its power.
 
-- [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox)
+- [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox)
 - [SSH Tunneling Explained](https://chamibuddhika.wordpress.com/2012/03/21/ssh-tunnelling-explained)

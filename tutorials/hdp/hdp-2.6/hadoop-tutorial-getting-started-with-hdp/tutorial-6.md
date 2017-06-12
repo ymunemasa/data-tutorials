@@ -1,13 +1,10 @@
 ---
-title: Hadoop Tutorial – Getting Started with HDP
-tutorial-id: 100
-platform: hdp-2.6.0
-tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
+title: Data Reporting With Zeppelin
 ---
 
 # Hadoop Tutorial – Getting Started with HDP
 
-## Lab 5: Data Reporting With Zeppelin
+## Data Reporting With Zeppelin
 
 ## Introduction
 
@@ -19,7 +16,7 @@ using Excel. This section will teach you to visualize data using Zeppelin.
 The tutorial is a part of series of hands on tutorial to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
 -   Hortonworks Sandbox
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 -   Lab 1: Load sensor data into HDFS
 -   Lab 2: Data Manipulation with Apache Hive
 -   Lab 3: Use Pig to compute Driver Risk Factor

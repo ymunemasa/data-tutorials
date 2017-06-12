@@ -1,8 +1,16 @@
 ---
 title: Introduction to Spark Streaming
+author: Robert Hryniewicz
 tutorial-id: 366
-platform: hdp-2.6.0
-tags: [spark]
+experience: Beginner
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Streaming
+technology: Apache Spark
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark
 ---
 
 # Introduction to Spark Streaming
@@ -17,7 +25,7 @@ This tutorial is a part of series of hands-on tutorials to get you started with 
 
 -   Downloaded and installed latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
 
--   Reviewed [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   Reviewed [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ## Outline
 
@@ -47,7 +55,7 @@ First, start your Sandbox Virtual Machine (VM) in either a VirtualBox or VMware 
 
 We will refer to your VM IP address as `<HOST IP>` throughout this tutorial.
 
-If you need help finding your `<HOST IP>` checkout [Learning the Ropes](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#learn-host-address-environment).
+If you need help finding your `<HOST IP>` checkout [Learning the Ropes](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/#learn-host-address-environment).
 
 **2. Launch a "Shell in a Box"**
 

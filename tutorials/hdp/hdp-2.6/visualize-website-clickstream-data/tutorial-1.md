@@ -1,8 +1,5 @@
 ---
-title: Visualize Website Clickstream Data
-tutorial-id: 250
-platform: hdp-2.6.0
-tags: [ambari, hive, zeppelin]
+title: Visualize Log Data with Apache Zeppelin
 ---
 
 # Visualize Log Data with Apache Zeppelin
@@ -14,7 +11,7 @@ In this section, we will use Apache Zeppelin to access refined clickstream data.
 
 ## Prerequisites
 
--   Have sample retail data already loaded [by completing this tutorial](https://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox)
+-   Have sample retail data already loaded [by completing this tutorial](https://hortonworks.com/tutorial/loading-data-into-the-hortonworks-sandbox)
 
 
 ## Outline

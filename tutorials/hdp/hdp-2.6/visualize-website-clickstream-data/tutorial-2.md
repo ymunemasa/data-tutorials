@@ -1,8 +1,5 @@
 ---
-title: Visualize Website Clickstream Data
-tutorial-id: 250
-platform: hdp-2.6.0
-tags: [ambari, hive, excel, power view]
+title: Visualize Log Data with Microsoft Excel
 ---
 
 # Visualize Log Data with Microsoft Excel
@@ -15,7 +12,7 @@ In this section, we will use Microsoft Excel to access refined clickstream data.
 ## Prerequisites
 
 -   Have installed the [Hortonworks ODBC driver for Apache Hive](https://hortonworks.com/downloads/#addons) (check [the driver documentation](https://hortonworks.com/wp-content/uploads/2016/08/Hortonworks-Hive-ODBC-Driver-User-Guide.pdf) for help with installation)
--   Have sample retail data already loaded [by completing this tutorial](https://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox)
+-   Have sample retail data already loaded [by completing this tutorial](https://hortonworks.com/tutorial/loading-data-into-the-hortonworks-sandbox)
 -   Have a version of Excel with Power View (i.e. Excel 2013), which is currently only offered for Windows computers.
 
 

@@ -1,9 +1,18 @@
 ---
 title: Realtime Event Processing in Hadoop with NiFi, Kafka and Storm
+author: James Medel
 tutorial-id: 220
-platform: hdp-2.5.0
-tags: [nifi, storm, kafka, hbase, hive, hdfs]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Streaming
+technology: Apache NiFi, Apache Storm, Apache Kafka, Apache Hive, HDFS, Apache HBase
+release: hdf-2.1.0
+environment: Sandbox
+product: HDF
+series: HDF > Develop with Hadoop > Real World Examples
 ---
+
 
 # Realtime Event Processing in Hadoop with NiFi, Kafka and Storm
 
@@ -14,7 +23,7 @@ Welcome to a three part tutorial series on real-time data ingesting and analysis
 ## Prerequisites
 
 *  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
-*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+*  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 *   8GB+ RAM (Assigning more is recommended) and preferably 4 processor cores, otherwise you may encounter errors in the third tutorial
 *   Data sets used:
   *   New York City Truck Routes from NYC DOT.

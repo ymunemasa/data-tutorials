@@ -1,15 +1,24 @@
 ---
 title: Setting up a Spark Development Environment with Python
-platform: hdp-2.6.0
+author: Robert Hryniewicz
 tutorial-id: 801
-tags: [spark]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Predictive
+technology: Apache Spark
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark
 ---
+
 
 # Setting up a Spark Development Environment with Python
 
 ## Introduction
 
-This tutorial will teach you how to set up a full development environment for developing and debugging Spark applications. For this tutorial we'll be using Python, but Spark also supports development with Java, Python, and R. The Scala version of this tutorial can be found [here](https://hortonworks.com/hadoop-tutorial/setting-spark-development-environment-scala/), and the Java version [here](https://hortonworks.com/hadoop-tutorial/setting-spark-development-environment-java/). We'll be using PyCharm Professional Edition as our IDE. PyCharm community edition can also be used, but some of the techniques we'll show you in this tutorial will only work with Professional Edition. By the end of the tutorial, you'll know how to set up Spark with PyCharm, how to deploy your code to the sandbox or a cluster, and how to debug your Spark code on a remote cluster.
+This tutorial will teach you how to set up a full development environment for developing and debugging Spark applications. For this tutorial we'll be using Python, but Spark also supports development with Java, Python, and R. The Scala version of this tutorial can be found [here](https://hortonworks.com/tutorial/setting-spark-development-environment-scala/), and the Java version [here](https://hortonworks.com/tutorial/setting-spark-development-environment-java/). We'll be using PyCharm Professional Edition as our IDE. PyCharm community edition can also be used, but some of the techniques we'll show you in this tutorial will only work with Professional Edition. By the end of the tutorial, you'll know how to set up Spark with PyCharm, how to deploy your code to the sandbox or a cluster, and how to debug your Spark code on a remote cluster.
 
 ## Prerequisites
 

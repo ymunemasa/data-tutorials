@@ -1,9 +1,18 @@
 ---
-title: Analyze Traffic Pattern with Apache NiFi
+title: Analyze Traffic Patterns with Apache NiFi
+author: James Medel
 tutorial-id: 640
-platform: hdf-2.1.0
-tags: [nifi]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Streaming
+technology: Apache NiFi
+release: hdf-2.1.0
+environment: Sandbox
+product: HDF
+series: HDF > Develop with Hadoop > Hello World
 ---
+
 
 # Analyze Traffic Patterns with Apache NiFi
 

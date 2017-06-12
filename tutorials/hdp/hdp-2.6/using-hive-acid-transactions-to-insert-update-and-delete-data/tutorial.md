@@ -1,9 +1,18 @@
 ---
 title: Using Hive ACID Transactions to Insert, Update and Delete Data
+author: George Rueda de Leon
 tutorial-id: 750
-platform: hdp-2.6.0
-tags: [hive]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: EDW Optimization
+technology: Apache Hive
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World
 ---
+
 
 # Using Hive ACID Transactions to Insert, Update and Delete Data
 
@@ -23,7 +32,7 @@ Standard SQL provides ACID operations through INSERT, UPDATE, DELETE, transactio
 ## Prerequisites
 
 -   [Download Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
--   Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
+-   Complete the [Learning the Ropes of the Hortonworks Sandbox tutorial,](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) you will need it for logging into Ambari.
 
 ## Outline
 

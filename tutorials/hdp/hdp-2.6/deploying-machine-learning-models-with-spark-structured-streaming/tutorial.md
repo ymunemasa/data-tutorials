@@ -1,20 +1,28 @@
 ---
 title: Deploying Machine Learning Models using Spark Structured Streaming
+author: Robert Hryniewicz
 tutorial-id: 371
-platform: hdp-2.6.0
-tags: [spark]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Streaming
+technology: Apache Spark
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark
 ---
 
 # Deploying Machine Learning Models using Spark Structured Streaming
 
 ## Introduction
 
-This is the third tutorial in a series about building and deploying machine learning models with Apache Nifi and Spark. In [Part 1](https://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-sentiment-data/) of the series we learned how to use Nifi to ingest and store Twitter Streams. In [Part 2](https://hortonworks.com/hadoop-tutorial/sentiment-analysis-apache-spark/) we ran Spark from a Zeppelin notebook to design a machine learning model that classified tweets as happy or sad. In this tutorial we'll combine our results from Part 1 and Part 2 to stream tweets and perform sentiment analysis in real-time. To accomplish this we're going to build a Spark Streaming program which will deploy our model.
+This is the third tutorial in a series about building and deploying machine learning models with Apache Nifi and Spark. In [Part 1](https://hortonworks.com/tutorial/how-to-refine-and-visualize-sentiment-data/) of the series we learned how to use Nifi to ingest and store Twitter Streams. In [Part 2](https://hortonworks.com/tutorial/sentiment-analysis-apache-spark/) we ran Spark from a Zeppelin notebook to design a machine learning model that classified tweets as happy or sad. In this tutorial we'll combine our results from Part 1 and Part 2 to stream tweets and perform sentiment analysis in real-time. To accomplish this we're going to build a Spark Streaming program which will deploy our model.
 
 ## Prerequisites
 
 -   [Install the Hortonworks Sandbox](https://hortonworks.com/downloads/)
--   Complete [Part 1](https://hortonworks.com/hadoop-tutorial/how-to-refine-and-visualize-sentiment-data/) and [Part 2](https://hortonworks.com/hadoop-tutorial/sentiment-analysis-apache-spark/) of the tutorial
+-   Complete [Part 1](https://hortonworks.com/tutorial/how-to-refine-and-visualize-sentiment-data/) and [Part 2](https://hortonworks.com/tutorial/sentiment-analysis-apache-spark/) of the tutorial
 
 
 ## Outline
@@ -178,6 +186,6 @@ You'll then be able to see a sentiment score for each tweet, where 1 indicates h
 
 ## Summary
 
-In this series of tutorials you've now seen how to ingest data using Nifi, how to build a machine learning model using Spark and Zeppelin, and how to deploy models into production using Spark Streaming. You've also learned how to use Kafka, and how to compile code using SBT and deploy it to a cluster. Now that you're ready to build sophisticated Spark programs, you may be interested in [this](https://hortonworks.com/hadoop-tutorial/setting-spark-development-environment-scala/) guide about debugging Spark jobs from an IDE.
+In this series of tutorials you've now seen how to ingest data using Nifi, how to build a machine learning model using Spark and Zeppelin, and how to deploy models into production using Spark Streaming. You've also learned how to use Kafka, and how to compile code using SBT and deploy it to a cluster. Now that you're ready to build sophisticated Spark programs, you may be interested in [this](https://hortonworks.com/tutorial/setting-spark-development-environment-scala/) guide about debugging Spark jobs from an IDE.
 
 Tutorial By Greg Womack (Twitter: @gregw134)

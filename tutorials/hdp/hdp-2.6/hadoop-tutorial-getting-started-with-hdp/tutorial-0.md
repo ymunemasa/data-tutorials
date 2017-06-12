@@ -1,9 +1,18 @@
 ---
 title: Hadoop Tutorial – Getting Started with HDP
+author: Edgar Orendain
 tutorial-id: 100
-platform: hdp-2.6.0
-tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
+experience: Beginner
+persona: Developer
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Ambari, Apache Hive, Apache Pig, Apache Spark, Apache Zeppelin
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World
 ---
+
 
 # Hadoop Tutorial – Getting Started with HDP
 
@@ -20,7 +29,7 @@ Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) t
 ## Prerequisites
 
 -   Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
--   Before entering hello HDP labs, we **highly recommend** you go through [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to become familiar with the Sandbox in a VM and the Ambari Interface.
+-   Before entering hello HDP labs, we **highly recommend** you go through [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to become familiar with the Sandbox in a VM and the Ambari Interface.
 -   Data Set Used: [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
 -   ***Optional*** Install [Hortonworks ODBC Driver](http://hortonworks.com/downloads/#addons)
 -   In this tutorial, the Hortonworks Sandbox is installed on an Oracle VirtualBox virtual machine (VM) – your screens may be different.

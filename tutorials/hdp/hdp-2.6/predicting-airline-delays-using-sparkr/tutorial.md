@@ -1,8 +1,16 @@
 ---
 title: Predicting Airline Delays using SparkR
+author: Robert Hryniewicz
 tutorial-id: 760
-platform: hdp-2.5.0
-tags: [sparkr, spark, r, machine learning]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Predictive
+technology: Apache Spark, Apache SparkR, Machine Learning
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
 # Predicting Airline Delays using SparkR
@@ -20,7 +28,7 @@ In this tutorial we’ll show you how to use SparkR to predict flight delays usi
 ## Prerequisites
 
 -   Download and install the latest [Hortonworks Sandbox](https://hortonworks.com/downloads/)
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to get used to Sandbox.
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to get used to Sandbox.
 -   Follow this [article](https://community.hortonworks.com/content/kbentry/69424/setting-up-rstudio-on-hortonworks-docker-sandbox-2.html) on Hortonworks Community to install RStudio on the Sandbox.
 
 ## Outline
@@ -619,5 +627,5 @@ This signifies that the flight got delayed 1635 times but predicted 2146 by the 
 ## Summary
 
 Congratulations, you now know how to use SparkR.  If you want to learn more about using Apache Spark for machine learning and processing large datasets please check out these tutorials:
--   [5-Minute tour of Apache Spark](https://hortonworks.com/hadoop-tutorial/hands-on-tour-of-apache-spark-in-5-minutes/)
--   [Intro to Machine Learning with Spark](https://hortonworks.com/hadoop-tutorial/intro-machine-learning-apache-spark-apache-zeppelin/)
+-   [5-Minute tour of Apache Spark](https://hortonworks.com/tutorial/hands-on-tour-of-apache-spark-in-5-minutes/)
+-   [Intro to Machine Learning with Spark](https://hortonworks.com/tutorial/intro-machine-learning-apache-spark-apache-zeppelin/)

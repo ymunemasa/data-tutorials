@@ -1,11 +1,8 @@
 ---
-title: Analyze Traffic Pattern with Apache NiFi
-tutorial-id: 640
-platform: hdf-2.1.0
-tags: [nifi]
+title: Enrich Simple DataFlow via Places API
 ---
 
-# Tutorial 2: Enrich Simple DataFlow via Places API
+# Enrich Simple DataFlow via Places API
 
 ## Introduction
 

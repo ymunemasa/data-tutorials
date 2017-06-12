@@ -1,8 +1,16 @@
 ---
 title: A Lap Around Apache Spark
+author: Robert Hryniewicz
 tutorial-id: 390
-platform: hdp-2.6.0
-tags: [spark]
+experience: Intermediate
+persona: Developer
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Spark
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Apache Spark
 ---
 
 # A Lap Around Apache Spark
@@ -27,7 +35,7 @@ This tutorial assumes that you are running an HDP Sandbox.
 Please ensure you complete the prerequisites before proceeding with this tutorial.
 
 -   Downloaded and Installed the [Hortonworks Sandbox](https://hortonworks.com/products/sandbox/)
--   Reviewed [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   Reviewed [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ## Outline
 

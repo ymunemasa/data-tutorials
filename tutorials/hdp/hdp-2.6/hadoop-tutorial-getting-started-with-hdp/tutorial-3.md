@@ -1,13 +1,10 @@
 ---
-title: Hadoop Tutorial – Getting Started with HDP
-tutorial-id: 100
-platform: hdp-2.6.0
-tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
+title: Hive - Data ETL
 ---
 
 # Hadoop Tutorial – Getting Started with HDP
 
-## Lab 2: Hive - Data ETL
+## Hive - Data ETL
 
 ## Introduction
 
@@ -17,7 +14,7 @@ In this tutorial, you will be introduced to Apache(<sup>TM</sup>) Hive. In the e
 
 The tutorial is a part of a series of hands on tutorials to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 -   Hortonworks Sandbox
 -   Lab 1: Load sensor data into HDFS
 -   Allow yourself around **one hour** to complete this tutorial.
@@ -283,7 +280,7 @@ Some **key resources** to **learn more about vectorization** and some of the **k
 -   [HDP Docs Vectorization docs](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.0.9.0/bk_dataintegration/content/ch_using-hive-1a.html)
 -   [Hive Blogs](https://hortonworks.com/blog/category/hive/)
 -   [5 Ways to Make Your Hive Queries Run Faster](https://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/)
--   [Interactive Query for Hadoop with Apache Hive on Apache Tez](https://hortonworks.com/hadoop-tutorial/supercharging-interactive-queries-hive-tez/)
+-   [Interactive Query for Hadoop with Apache Hive on Apache Tez](https://hortonworks.com/tutorial/supercharging-interactive-queries-hive-tez/)
 -   [Evaluating Hive with Tez as a Fast Query Engine](https://hortonworks.com/blog/evaluating-hive-with-tez-as-a-fast-query-engine/)
 
 ## Step 2.4: Analyze the Trucks Data <a id="analyze-truck-data"></a>

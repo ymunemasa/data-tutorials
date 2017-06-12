@@ -1,9 +1,19 @@
 ---
 title: Getting Started with HDF Sandbox
+author: Edgar Orendain
 tutorial-id: 760
-platform: hdf-2.1
-tags: [ambari]
+experience: Beginner
+persona: Administrator
+source: Hortonworks
+use case: Single View
+technology: Apache Ambari
+release: hdf-2.1.0
+environment: Sandbox
+product: HDF
+series: HDF > Develop with Hadoop > Hello World
 ---
+
+
 # Getting Started with HDF Sandbox
 
 ## Introduction
@@ -13,7 +23,7 @@ In this tutorial, you will learn about the different features available in the H
 ## Prerequisites
 
 -   Downloaded and Installed [HDF Sandbox](https://hortonworks.com/downloads/)
--   Read [Hortonworks Sandbox Guide](https://hortonworks.com/hadoop-tutorial/hortonworks-sandbox-guide/)
+-   Read [Hortonworks Sandbox Guide](https://hortonworks.com/tutorial/hortonworks-sandbox-guide/)
 
 ## Outline
 

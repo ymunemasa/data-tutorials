@@ -1,13 +1,10 @@
 ---
-title: Hadoop Tutorial – Getting Started with HDP
-tutorial-id: 100
-platform: hdp-2.6.0
-tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
+title: Loading Sensor Data into HDFS
 ---
 
 # Hadoop Tutorial – Getting Started with HDP
 
-## Lab 1: Loading Sensor Data into HDFS
+## Loading Sensor Data into HDFS
 
 ## Introduction
 
@@ -18,7 +15,7 @@ In this section, you will download the sensor data and load that into HDFS using
 The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
 
 -   Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) (Optional)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) (Optional)
 -   Allow yourself around **20 minutes** to complete this tutorial.
 
 ## Outline
@@ -92,7 +89,7 @@ Congratulations! Let’s summarize the skills and knowledge we acquired from thi
 
 ## Further Reading
 -   [HDFS](https://hortonworks.com/hadoop/hdfs/)
--   [Manage Files on HDFS with Command Line: Hands-on Tutorial](https://hortonworks.com/hadoop-tutorial/using-commandline-manage-files-hdfs/)
+-   [Manage Files on HDFS with Command Line: Hands-on Tutorial](https://hortonworks.com/tutorial/using-commandline-manage-files-hdfs/)
 -   [HDFS User Guide](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html)
 -   Build your HDFS Architecture Knowledge [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.0.4/hdfs_design.html)
 -   [HDP OPERATIONS: HADOOP ADMINISTRATION](https://hortonworks.com/training/class/hdp-operations-hadoop-administration-fundamentals/)

@@ -1,8 +1,16 @@
 ---
 title: Interactive Query for Hadoop with Apache Hive on Apache Tez
+author: George Rueda de Leon
 tutorial-id: 290
-platform: hdp-2.6.0
-tags: [hive, tez, ambari]
+experience: Intermediate
+persona: Developer, Administrator, Data Scientist & Analyst
+source: Hortonworks
+use case: EDW Optimization
+technology: Apache Ambari, Apache Hive, Apache Tez
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World, HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
 # Interactive Query for Hadoop with Apache Hive on Apache Tez
@@ -19,7 +27,7 @@ In this tutorial, we’ll focus on taking advantage of the improvements to [Apac
 
 ## Prerequisites
 -  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
--  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 -  Allow yourself around one hour to complete this tutorial
 
 ## Outline

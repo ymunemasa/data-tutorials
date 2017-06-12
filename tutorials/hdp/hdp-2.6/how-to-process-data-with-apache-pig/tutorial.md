@@ -1,8 +1,16 @@
 ---
 title: How to Process Data with Apache Pig
+author: George Rueda de Leon
 tutorial-id: 150
-platform: hdp-2.6.0
-tags: [ambari, pig]
+experience: Beginner
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Ambari, Apache Pig
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World, HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
 # How To Process Data with Apache Pig
@@ -13,7 +21,7 @@ In this tutorial, we will learn to store data files using Ambari HDFS Files View
 
 ## Prerequisites
 -  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
--  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 -  Allow yourself around one hour to complete this tutorial
 
 ## Outline

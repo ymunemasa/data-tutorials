@@ -1,8 +1,16 @@
 ---
 title: Beginners Guide to Apache Pig
+author: George Rueda de Leon
 tutorial-id: 140
-platform: hdp-2.6.0
-tags: [ambari, pig]
+experience: Beginner
+persona: Developer
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Ambari, Apache Pig
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
 # Beginners Guide to Apache Pig
@@ -22,7 +30,7 @@ We will first read in two data files that contain driver data statistics, and th
 
 ## Prerequisites
 -  Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
--  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-  [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 -  Allow yourself around one hour to complete this tutorial
 
 ## Outline
@@ -293,7 +301,7 @@ Scroll right to view all non-Normal events grouped under each driverId. You can 
 Congratulations! You have successfully completed the tutorial and well on your way to pigging on Big Data.
 
 ## Further Reading <a id="further-reading"></a>
-- [Apache Pig](https://hortonworks.com/hadoop-tutorial/how-to-process-data-with-apache-pig/)
+- [Apache Pig](https://hortonworks.com/tutorial/how-to-process-data-with-apache-pig/)
 - [Welcome to Apache Pig!](https://pig.apache.org/)
 - [Pig Latin Basics](https://pig.apache.org/docs/r0.12.0/basic.html#store)
 - [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645)

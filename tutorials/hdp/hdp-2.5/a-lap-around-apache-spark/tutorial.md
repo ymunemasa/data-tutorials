@@ -1,8 +1,16 @@
 ---
 title: A Lap Around Apache Spark
+author: Rafael Coss
 tutorial-id: 390
-platform: hdp-2.5.0
-tags: [spark]
+experience: Intermediate
+persona: Developer
+source: Partner
+use case: Data Discovery
+technology: Spark, Apache
+release: hdp-2.5.0
+environment: Sandbox
+product: HDP
+series: HDP > Developer Path > Hello World, HDF > Developer Path > Real World Examples
 ---
 
 # A Lap Around Apache Spark

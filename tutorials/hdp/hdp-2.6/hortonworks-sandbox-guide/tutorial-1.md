@@ -1,8 +1,5 @@
 ---
-title: Hortonworks Sandbox Guide
-tutorial-id: 730
-platform: hdp-2.6.0
-tags: [sandbox, documentation]
+title: Sandbox Docs - HDP 2.6
 ---
 
 # Sandbox Docs - HDP 2.6

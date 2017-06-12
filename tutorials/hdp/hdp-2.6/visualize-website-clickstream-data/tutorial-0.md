@@ -1,9 +1,18 @@
 ---
 title: Visualize Website Clickstream Data
+author: James Medel
 tutorial-id: 250
-platform: hdp-2.6.0
-tags: [ambari, hive, hdfs, zeppelin]
+experience: Intermediate
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Ambari, Apache Hive, Apache Zeppelin, HDFS
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Real World Examples, HDP > Hadoop for Data Scientists & Analysts > Real World Examples
 ---
+
 
 # Visualize Website Clickstream Data
 
@@ -35,7 +44,7 @@ In this tutorial, we will focus on the “path optimization” use case. Specifi
 ## Prerequisites
 
 -   Installed the [HDP 2.6 Sandbox](https://hortonworks.com/downloads/#sandbox)
--   Have sample retail data already loaded [by completing this tutorial](https://hortonworks.com/hadoop-tutorial/loading-data-into-the-hortonworks-sandbox)
+-   Have sample retail data already loaded [by completing this tutorial](https://hortonworks.com/tutorial/loading-data-into-the-hortonworks-sandbox)
 
 
 ## Outline

@@ -1,8 +1,16 @@
 ---
 title: How to Process Data with Apache Hive
+author: George Rueda de Leon
 tutorial-id: 110
-platform: hdp-2.6.0
-tags: [ambari, hive]
+experience: Beginner
+persona: Data Scientist & Analyst
+source: Hortonworks
+use case: EDW Optimization
+technology: Apache Ambari, Apache Hive
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World, HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
 # How to Process Data with Apache Hive
@@ -13,7 +21,7 @@ In this tutorial, we will use the [Ambari](https://hortonworks.com/hadoop/ambari
 
 ## Prerequisites
 -   Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+-   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 -   Allow yourself around one hour to complete this tutorial
 
 ## Outline

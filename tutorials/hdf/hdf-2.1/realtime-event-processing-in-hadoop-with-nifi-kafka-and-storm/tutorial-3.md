@@ -1,11 +1,8 @@
 ---
-title: Realtime Event Processing in Hadoop with NiFi, Kafka and Storm
-tutorial-id: 220
-platform: hdp-2.5.0
-tags: [nifi]
+title: Ingest, Route and Land Real Time Events with Apache NiFi
 ---
 
-# Tutorial 1: Ingest, Route and Land Real Time Events with Apache NiFi
+# Ingest, Route and Land Real Time Events with Apache NiFi
 
 ## Introduction
 
@@ -14,7 +11,7 @@ Apache NiFi can collect and transport data from numerous sources and provide int
 ## Prerequisites
 - Tutorial 0: Set Up Simulator, Apache Services and IDE Environment
 - Downloaded and Installed latest [Hortonworks Sandbox](https://hortonworks.com/products/hortonworks-sandbox/#install)
-- If you are new to the sandbox shell, refer to [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+- If you are new to the sandbox shell, refer to [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
 ## Outline
 - [Apache NiFi](#apache-nifi-lab0)
