@@ -13,6 +13,7 @@ product: HDP
 series: HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
+
 # Fast analytics in the cloud with Hive LLAP
 
 ## Introduction
