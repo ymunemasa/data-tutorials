@@ -13,7 +13,6 @@ product: HDF
 series: HDF > Develop with Hadoop > Hello World
 ---
 
-
 # Getting Started with HDF Sandbox
 
 ## Introduction
