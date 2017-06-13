@@ -13,6 +13,7 @@ product: HDP
 series: HDP > Develop with Hadoop > Hello World, HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
 ---
 
+
 # How To Process Data with Apache Pig
 
 ## Introduction
