@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Develop with Hadoop > Hello World
 ---
 
-
 # Hadoop Tutorial – Getting Started with HDP
 
 ## Introduction

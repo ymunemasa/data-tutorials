@@ -13,6 +13,7 @@ product: HDP
 series: HDP > Develop with Hadoop
 ---
 
+
 # Hive Statistics
 
 ## Introduction
