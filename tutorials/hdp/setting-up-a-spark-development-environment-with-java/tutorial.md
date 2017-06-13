@@ -13,7 +13,6 @@ product: HDP
 series: HDP > Develop with Hadoop > Apache Spark
 ---
 
-
 # Setting up a Spark Development Environment with Java
 
 ## Introduction
