@@ -1,217 +1,214 @@
----
-title: Hadoop Tutorial – Getting Started with HDP
-tutorial-id: 100
-platform: hdp-2.6.0
-tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
----
+# Lab 3：Pigでリスクファクタを算出しよう
+## はじめに
 
-# Hadoop Tutorial – Getting Started with HDP
+このチュートリアルでは，[Apache Pig](https://hortonworks.com/hadoop/pig/)について説明します．最初のセクションでは，HDFSにデータを読み込ませ，Hiveを利用してデータを操作する方法を学習しました．Truckのセンサデータを利用して，全てのドライバに関するリスクをよく理解しているはずです．このセクションでは，Apache Pigを利用して，リスクを計算する方法について説明します．
 
-# Lab 3: Pig - Risk Factor
 
-## Use Pig to compute Driver Risk Factor
+## 前提条件
 
-## Introduction
+このチュートリアルは，Hortonworks Sandboxを利用して，HDPに入門するための一連のチュートリアルの一部です．このチュートリアルを進める前に，以下の条件を満たしていることを確認してください．
 
-In this tutorial, you will be introduced to [Apache Pig](https://hortonworks.com/hadoop/pig/). In the earlier section of lab, you learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand risk associated with every driver. This section will teach you to **compute risk using Apache Pig**.
+- Hortonworks Sandbox
+- [Hortonworks Sandboxの使い方を学習している](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+- Lab 1：センサデータをHDFSに読み込ませよう
+- Lab 2：Hiveでデータ操作をしよう
+- このチュートリアルを完了するのに1時間ほど掛かります．
 
-## Prerequisites
 
-The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
+## 概要
+- [Pigの基本](#pig-basics)
+- [Step 3.1：Pigスクリプトの作成](#step3.1)
+- [Step 3.2：Quick Recap](#step3.2)
+- [Step 3.3：TezでPigスクリプトを実行](#step3.3)
+- [まとめ](#summary)
+- [参考文献](#further-reading)
 
--   Hortonworks Sandbox
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
--   Lab 1: Load sensor data into HDFS
--   Lab 2: Data Manipulation with Apache Hive
--   Allow yourself around **one hour** to complete this tutorial.
 
-## Outline
+## Pigの基本 <a id="pig-basics"></a>
 
--   [Pig Basics](#pig-basics)
--   [Step 3.1: Create Pig Script](#step3.2)
--   [Step 3.2: Quick Recap](#step3.3)
--   [Step 3.3: Execute Pig Script on Tez](#step3.4)
--   [Summary](#summary-lab3)
--   [Further Reading](#further-reading)
+PigはApache Hadoopで利用される高水準なスクリプト言語です．Pigを利用すると，データを扱う人はJavaを知らずとも複雑なデータ変換を記述できます．PigのシンプルなSQLのようなスクリプト言語はPig Latinと呼ばれ，スクリプト言語やSQLに精通している開発者には魅力的です．
 
-## Pig Basics <a id="pig-basics"></a>
+Apache Hadoopで必要な全てのデータ操作はPigで行うことができます．Pigのユーザ定義関数（UDF）機能により，JRuby，Jython，Javaなどの多くの言語でコードを呼び出すことができます．他の言語のPigスクリプトも埋め込むことができます．それにより，Pigをコンポーネントとして利用して，実際のビジネス上の問題に取り組む，より巨大で複雑なアプリケーションを構築できるようになります．
 
-Pig is a **high-level scripting language** used with Apache Hadoop. Pig enables data workers to **write complex data transformations** without knowing Java. Pig’s _simple SQL-like scripting language_ is called Pig Latin, and appeals to developers already familiar with scripting languages and SQL.
+Pigは構造化データや非構造化データを含む，多くのソースからデータを処理し，その結果をHadoopデータファイルシステムに格納します．
 
-Pig is complete, so you can do all required data manipulations in Apache Hadoop with Pig. Through the **User Defined Functions**(UDF) facility in Pig, Pig can invoke code in many languages like _JRuby, Jython and Java_. You can also embed Pig scripts in other languages. The result is that you can use Pig as a component to build larger and more complex applications that tackle real business problems.
+Pigのスクリプトは，Apache Hadoopクラスタで実行される一連のMapReduceジョブに変換されます．
 
-Pig works with data from many sources, including **structured and unstructured data**, and store the results into the Hadoop Data File System.
+**trucks_mileageデータからriskfactorテーブルを作成する**
 
-Pig scripts are **translated into a series of MapReduce jobs** that are **run on the Apache Hadoop cluster**.
+次にPigを利用して各ドライバのリスクファクタを計算します．Pigコードを実行する前に，HCatStorer() クラスの要件を1つ満たすテーブルがHiveに存在している必要があります．Pigコードは，riskfactorという名前のテーブルに対して次の構造を想定しています．Hive View 2.0クエリエディタで以下のDDLを実行します．
 
-### Create Table riskfactor from Existing trucks_mileage Data
-
-Next, you will use Pig to compute the risk factor of each driver. Before we can run the Pig code, the _table must already exist in Hive_ to satisfy one of the _requirements for the HCatStorer() class_. The Pig code expects the following structure for a table named `riskfactor`. Execute the following DDL in the Hive View 2.0 query editor:
-
-~~~sql
+```sql
 CREATE TABLE riskfactor (driverid string, events bigint, totmiles bigint, riskfactor float)
 STORED AS ORC;
-~~~
+```
 
-![riskfactor_table](assets/riskfactor_lab3.png)
+![](assets/lab3/lab3-1.png)
 
-### Verify Table riskfactor was Created Successfully
+**riskfactorテーブルが正常に作成されたことを確認する**
 
-Verify the `riskfactor` table was created successfully. It will be empty now, but you will populate it from a Pig script. You are now ready to compute the risk factor using Pig. Let’s take a look at Pig and how to execute Pig scripts from within Ambari.
+`riskfactor`テーブルが正常に作成されたことを確認します．今は中には何もありませんが，Pigスクリプトを入力していきます．これで，Pigを利用してリスクファクタを計算する準備が整いました．PigとAmbariの中からPigスクリプトを実行する方法を確認していきましょう．
 
-## Step 3.1: Create Pig Script <a id="step3.2"></a>
 
-In this phase of the tutorial, we create and run a Pig script. We will use the Ambari Pig View. Let’s get started…
+## Step 3.1：Pigスクリプトの作成 <a id="step3.1"></a>
 
-### 3.1.1 Log in to Ambari Pig User Views
+このステップでは，Pigスクリプトを作成して実行します．Ambari Pig Viewを利用します．それでは始めましょう．
 
-To get to the Ambari Pig View, click on the Ambari Views icon at top right and select **Pig**:
+**Step 3.1.1：Ambari Pig User Viewの画面に入る**
 
-![Screen Shot 2015-07-21 at 10.12.41 AM](assets/ambari_pig_view_lab3.png)
+メニューからPig Viewを選択して，Ambari Pig User Viewに移動します．
 
-This will bring up the Ambari Pig User View interface. Your Pig View does not have any scripts to display, so it will look like the following:
+![](assets/lab3/lab3-2.png)
 
-![Lab3_4](assets/Lab3_4.png)
+Ambari Pig User Viewのインターフェースには，まだスクリプトが存在しないので以下のように表示されます．
 
-On the left is a list of your scripts, and on the right is a composition box for writing scripts. A **special interface feature** is the _Pig helper_ located below the name of your script file. The _Pig helper_ provides us with templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. At the very bottom are status areas that will show the results of our script and log files.
+![](assets/lab3/lab3-3.png)
 
-The following screenshot shows and describes the various components and features of the Pig View:
+左側にはスクリプトのリストがあり，右側にはスクリプトを書くための構成ボックスがあります．特別なインターフェース機能は，スクリプトファイルの名前の下に存在する`PIG helper`です．Pigヘルパーはステートメント，関数，I/Oステートメント，HCatLoader()およびPythonユーザ定義関数のテンプレートを提供します．一番下にはスクリプトとログファイルの結果を示すステータス領域があります．
 
-![Lab3_5](assets/pig_user_view_components_hello_hdp.png)
+次のスクリーンショットでは，Pig Viewの様々なコンポーネントと機能を示しています．
 
-### 3.1.2 Create a New Script
+![](assets/lab3/lab3-4.png)
 
-Let’s enter a Pig script. Click the **New Script** button in the upper-right corner of the view:
+**Step 3.1.2：新しいスクリプトを作成する**
 
-![Lab3_6](assets/new_script_hello_hdp_lab3.png)
+それではPigスクリプトを記述しましょう．ビューの右上隅にある**New Script**ボタンをクリックします．
 
-Name the script **riskfactor.pig**, then click the **Create** button:
+![](assets/lab3/lab3-5.png)
 
-![Lab3_7](assets/Lab3_7.png)
+名前を`riskfactor.pig`にし，**Create**ボタンをクリックします．
 
-### 3.1.3 Load Data in Pig using Hcatalog
+![](assets/lab3/lab3-6.png)
 
-We will use **HCatalog** to _load data into Pig_. HCatalog allows us to _share schema across tools_ and users within our Hadoop environment. It also allows us to _factor out schema_ and _location information from_ our _queries and scripts_ and _centralize them in a common repository_. Since it is in HCatalog we can use the **HCatLoader() function**. Pig allows us to give the table a name or alias and not have to worry about allocating space and defining the structure. We just have to worry about how we are processing the table.
+**Step 3.1.3：HCatalogを利用して，Pigのデータを読み込む**
 
--   We can use the Pig helper located below the name of your script file to give us a template for the line. Click on the **Pig helper -> HCatalog -> LOAD** template
--   The entry **%TABLE%** is highlighted in red for us. Type the name of the table which is `geolocation`.
--   Remember to add the **a =** before the template. This saves the results into a. Note the **‘=’** has to have a space before and after it.
--   Our completed line of code will look like:
+HCatalogを利用してPigのデータを読み込みます．HCatalogでは，Hadoop環境内のツールやユーザ間でスキーマを共有できます．また，クエリやスクリプトからスキーマや位置情報を除外し，それらを共有のスクリプトに集約させることもできます．HCatalogにあるので，HCatLoader()関数も利用することができます．Pigではテーブルに名前やエイリアスをつけることができ，スペースの割り当てや構造の定義を気にする必要はありません．テーブルをどのように処理しているかを気にする必要があります．
 
-~~~pig
+
+- スクリプトファイルの名前の下にあるPig helperを利用して，その行のテンプレートを利用することができます．Pig helper => HCatalog => LOAD テンプレートをクリックしてください．
+- %TABLE%エントリは赤色で強調表示されています．`geolocation`であるテーブルの名前を入力します．
+- テンプレートの前に`a =` を忘れずに入力してください．これで結果をaに保存します．`=`の前後にスペースが必要であることに注意してください．
+- 完成したコードは以下のようになります．
+
+```pig
 a = LOAD 'geolocation' USING org.apache.hive.hcatalog.pig.HCatLoader();
-~~~
+```
 
-The script above loads data, in our case, from a file named **geolocation** using the _HCatLoader()_ function. Copy-and-paste the above Pig code into the riskfactor.pig window.
+上記のスクリプトはこの場合，HCatLoader()関数を利用して`geolocation`という名前のファイルからデータを読み込みます．上記のPigコードをriskfactor.pigウィンドウにコピー＆ペーストします．
 
-> Note: Refer to [Pig Latin Basics - load](http://pig.apache.org/docs/r0.14.0/basic.html#load) to learn more about the **load** operator.
+注：load演算子の詳細は，[Pig Latin Basics - load](http://pig.apache.org/docs/r0.14.0/basic.html#load)を参照してください．
 
-### 3.1.4 Filter your data set
+**Step 3.1.4：データセットをフィルタリングする**
 
-The next step is to **select a subset of the records**, so we have the records of drivers _for which the event is not normal_. To do this in Pig we **use the Filter operator**. We **instruct Pig to Filter** our table and keep _all records where event !=“normal”_ and store this in b. With this one simple statement, Pig will look at each record in the table and filter out all the ones that do not meet our criteria.
+次のステップは，レコードのサブセットを選択することです．そのためイベントが正常ではないドライバのレコードが存在します．これをPigで行うためにFilter演算子を利用します．テーブルをPigでフィルタリンクし，`event !=` `"``normal``"`な全てのレコードを保存し，これをbに格納します．この簡単なステートメントで，Pigはテーブルの各レコードを検索し，条件を満たさないレコードを全て除外してくれます．
 
--   We can use Pig Help again by clicking on the **Pig helper-> Relational Operators -> FILTER** template
--   We can replace **%VAR%** with **“a”** (hint: tab jumps you to the next field)
--   Our **%COND%** is “**event !='normal';** ” (note: single quotes are needed around normal and don’t forget the trailing semi-colon)
--   Complete line of code will look like:
 
-~~~pig
+- Pig Helper => Relatinal Operators => FILTERテンプレートをクリックして，Pigヘルプを再び利用することができます．
+- %VAR%を”a”に置き換えることができます（ヒント：タブは次のフィールドにジャンプします）．
+- %COND%は`event !=` `'``normal``'``;`です（注：通常は一重引用符を利用し，忘れずに末尾のセミコロンを付ける必要があります）．
+- 完成したコードは以下のようになります．
+
+```pig
 b = filter a by event != 'normal';
-~~~
+```
 
-Copy-and-paste the above Pig code into the riskfactor.pig window.
+上記のPigコードをriskfactor.pigウィンドウにコピー＆ペーストします．
 
-> Note: Refer to [Pig Latin Basics - filter](http://pig.apache.org/docs/r0.14.0/basic.html#filter) to learn more about the **filter** operator.
+注：filter演算子の詳細は，[Pig Latin Basics - filter](http://pig.apache.org/docs/r0.14.0/basic.html#filter)を参照してください．
 
-### 3.1.5 Iterate your data set
+**Step 3.1.5：データセットをイテレートする**
 
-Since we have the right set of records, let's iterate through them. We use the **“foreach”** operator on the grouped data to iterate through all the records. We would also like to **know the number of non normal events associated with a driver**, so to achieve this we _add ‘1’ to every row_ in the data set.
+適切なレコードセットがあるので，それらを繰り返し処理してみましょう．グループ化されたデータに対して，`foreach`演算子を利用して，すべてのレコードを反復処理します．また，ドライバに関する非正常なイベントの数を知りたいので，データセットの全ての行に`1`を追加します．
 
--   Use Pig Help again by clicking on the **Pig helper -> Relational Operators -> FOREACH** template
--   Our **%DATA%** is **b** and the second **%NEW_DATA%** is “**driverid, event, (int) ‘1’ as occurance;**”
--   Complete line of code will look like:
 
-~~~pig
+- Pig helper => Relation Operators => FOREACHテンプレートをクリックして，再度Pig Helpを利用してください．
+- %DATA%はbで，2番目の%NEW_DATA%はdriveid，event，整数1として存在します
+- 完成したコードは以下のようになります
+
+```pig
 c = foreach b generate driverid, event, (int) '1' as occurance;
-~~~
+```
 
-Copy-and-paste the above Pig code into the riskfactor.pig window:
+上記のPigコードを`riskfactor.pig`ウィンドウにコピー＆ペーストします．
 
-> Note: Refer to [Pig Latin Basics - foreach](http://pig.apache.org/docs/r0.14.0/basic.html#foreach) to learn more about the **foreach** operator.
+注：foreach演算子の詳細は，[Pig Latin Basics - foreach](http://pig.apache.org/docs/r0.14.0/basic.html#foreach)を参照してください．
 
-### 3.1.6 Calculate the total non normal events for each driver
+**Step 3.1.6：各ドライバの非正常なイベントの総数を計算する**
 
-The **group** statement is important because it _groups the records by one or more relations_. In our case, we want to group by driver id and iterate over each row again to sum the non normal events.
+group文は，レコードを1つ以上の関係でグループ化することができます．今回の場合，ドライバIDをグループ化して，各行を繰り返して，非正常なイベントを合計します．
 
--   Use the template **Pig helper -> Relational Operators -> GROUP %VAR% BY %VAR%**
--   First **%VAR%** takes **“c”** and second **%VAR%** takes “**driverid;**”
--   Complete line of code will look like:
 
-~~~pig
+- Pig helper => Relational Operators => GROUP %VAR% BY %VAR%テンプレートを利用します．
+- 最初の%VAR%はcで，2番めの%VAR%はdriveidです
+- 完成したコードは以下のようになります
+
+```pig
 d = group c by driverid;
-~~~
+```
 
-Copy-and-paste the above Pig code into the riskfactor.pig window.
+上記のPigコードを`riskfactor.pig`ウィンドウにコピー＆ペーストします．
+次にイベントを追加するためにForeach文を再度利用します．
 
-*   Next use Foreach statement again to add the occurance.
-
-~~~pig
+```pig
 e = foreach d generate group as driverid, SUM(c.occurance) as t_occ;
-~~~
+```
 
-> Note: Refer to [Pig Latin Basics - group](http://pig.apache.org/docs/r0.14.0/basic.html#group) to learn more about the **group** operator.
+注：group演算子の詳細は，[Pig Latin Basics - group](http://pig.apache.org/docs/r0.14.0/basic.html#group)を参照してください．
 
-### 3.1.7 Load drivermileage Table and Perform a Join Operation
+**Step 3.1.7：drivermileageテーブルの読み込みと結合操作を実行する**
 
-In this section, we will load drivermileage table into Pig using **Hcatlog** and perform a **join** operation on driverid. The **resulting data** set will _give us total miles and total non normal events_ for a particular driver.
+このセクションでは，Hcatalogを利用してdrivemileageテーブルをPigに読み込ませ，driveidに対して結合操作を実行します．得られたデータセットは，特定のドライバの合計マイル数と非正常イベント総数を返します．
 
--   Load drivermileage using HcatLoader()
 
-~~~pig
+- Hcatloader()を利用してdrivermileageを読み込む
+
+```pig
 g = LOAD 'drivermileage' using org.apache.hive.hcatalog.pig.HCatLoader();
-~~~
+```
 
--   Use the template **Pig helper ->Relational Operators->JOIN %VAR% BY**
--   Replace **%VAR%** by ‘**e**’ and after **BY** put ‘**driverid, g by driverid;**’
--   Complete line of code will look like:
+- Pig helper => Relational Operators => JOIN %VAR% BYテンプレートを利用します．
+- %VAR％をeに置換し，BYのあとに`driverid， g by driverid;`を挿入します 
+- 完成したコードは以下のようになります．
 
-~~~pig
+```sql
 h = join e by driverid, g by driverid;
-~~~
+```
 
-Copy-and-paste the above two Pig codes into the riskfactor.pig window.
+上記のPigコードを`riskfactor.pig`ウィンドウにコピー＆ペーストします．
 
-> Note: Refer to [Pig Latin Basics - join](http://pig.apache.org/docs/r0.14.0/basic.html#join) to learn more about the **join** operator.
+注：join演算子の詳細は，[Pig Latin Basics - join](http://pig.apache.org/docs/r0.14.0/basic.html#join)を参照してください．
 
-### 3.1.8 Compute Driver Risk factor
+**Step 3.1.8：ドライバのリスクファクタを算出する**
 
-In this section, we will associate a driver risk factor with every driver. To **calculate driver risk factor**, _divide total miles travelled by non normal event occurrences_.
+このセクションでは，ドライバのリスクファクタを全てのドライバに関連付けます．ドライバのリスクファクタを計算するには，非正常な事故の発生数を合計マイル数で除算します．
 
--   We will use **Foreach** statement again to compute driver risk factor for each driver.
--   Use the following code and paste it into your Pig script.
 
-~~~pig
+- Foreach文を利用して，ドライバごとのドライバリスク係数を計算します．
+- 以下のコードを利用して，Pigスクリプトに貼り付けます．
+
+```pig
 final_data = foreach h generate $0 as driverid, $1 as events, $3 as totmiles, (float) $3/$1 as riskfactor;
-~~~
+```
 
--   As a final step, **store the data** into a table _using Hcatalog_.
+- 最後のステップとして，Hcatalogを利用してデータをテーブルに格納します．
 
-~~~pig
+```pig
 store final_data into 'riskfactor' using org.apache.hive.hcatalog.pig.HCatStorer();
-~~~
-Here is the final code and what it will look like once you paste it into the editor.
+```
 
-> Note: Refer to [Pig Latin Basics - store](http://pig.apache.org/docs/r0.14.0/basic.html#store) to learn more about the **store** operator.
+上記に最終的なコードを示します．
 
-### 3.1.9 Add Pig argument
+注：store演算子の詳細は，[Pig Latin Basics - store](http://pig.apache.org/docs/r0.14.0/basic.html#store)を参照してください．
 
-Add Pig argument **-useHCatalog** (Case Sensitive).
+**Step 3.1.9：Pig引数を追加**
 
-![-useHCatalog Pig argument](assets/pig_script_argument.png)
+引数`-useHCatalog`（大文字小文字を区別します）をPigに追加します．
 
-**Final Pig script should look like:**
+![](assets/lab3/lab3-7.png)
 
-~~~pig
+最終的なPigスクリプトは以下のようになります．
+
+```pig
 a = LOAD 'geolocation' using org.apache.hive.hcatalog.pig.HCatLoader();
 b = filter a by event != 'normal';
 c = foreach b generate driverid, event, (int) '1' as occurance;
@@ -221,85 +218,88 @@ g = LOAD 'drivermileage' using org.apache.hive.hcatalog.pig.HCatLoader();
 h = join e by driverid, g by driverid;
 final_data = foreach h generate $0 as driverid, $1 as events, $3 as totmiles, (float) $3/$1 as riskfactor;
 store final_data into 'riskfactor' using org.apache.hive.hcatalog.pig.HCatStorer();
-~~~
+```
 
-![Lab3_8](assets/riskfactor_computation_script_lab3.png)
+![](assets/lab3/lab3-8.png)
 
-Save the file `riskfactor.pig` by clicking the **Save** button in the left-hand column.
+`riskfactor.pig`を保存するには，左側の列の`Save`ボタンをクリックします．
 
-## Step 3.2: Quick Recap <a id="step3.3"></a>
+## Step 3.2：Quick Recap <a id="step3.2"></a>
 
-Before we execute the code, let’s review the code again:
+コードを実行する前にもう一度見直しましょう．
 
--   The line `a = ` loads the geolocation table from HCatalog.
--   The line `b = ` filters out all the rows where the event is not ‘Normal’.
--   Then we add a column called occurrence and assign it a value of 1.
--   We then group the records by driverid and sum up the occurrences for each driver.
--   At this point we need the miles driven by each driver, so we load the table we created using Hive.
--   To get our final result, we join by the driverid the count of events in e with the mileage data in g.
--   Now it is real simple to calculate the risk factor by dividing the miles driven by the number of events
+- 行aは，HCatalogからGeolocationテーブルを読み込みます．
+- 行bは，イベントが「正常」ではない全て行をフィルタリングします．
+- 次に，occurrenceという列を追加し，値`1`を割り当てます．
+- レコードをdriveridでグループ化し，各ドライバの発生数を合成します．
+- この時点で各ドライバのマイル情報が必要なので，Hiveを利用して作成したテーブルを読み込みます．
+- 最終結果を出すため，driveridによってeでのイベント数とgのマイレージデータを結合します．
+- 現在のマイル数をイベント数で除算することで，簡単にリスク係数を計算することができます．
 
-You need to configure the Pig Editor to use HCatalog so that the Pig script can load the proper libraries. In the Pig arguments text box, enter **-useHCatalog** and click the **Add** button:
+Pigスクリプトが適切なライブラリを読み込めるよう，HCatalogを利用するようにPig Editorに設定する必要があります．Pig引数のテキストボックスに，`-useHCatalog`と入力し，Addボタンをクリックします．
 
-> **Note** this argument is **case sensitive**. It should be typed exactly `-useHCatalog`.
+![](assets/lab3/lab3-9.png)
 
-![Lab3_9](assets/Lab3_9.png)
+Pig Viewでの引数セクションは次のようになります．
 
-The **Arguments** section of the Pig View should now look like the following:
-![Lab3_10](assets/Lab3_10.png)
+![](assets/lab3/lab3-10.png)
 
-## Step 3.3: Execute Pig Script on Tez <a id="step3.4"></a>
 
-### 3.3.1 Execute Pig Script
+## Step 3.3：TezでPigスクリプトを実行 <a id="step3.3"></a>
 
-Click **Execute on Tez** checkbox and finally hit the blue **Execute** button to submit the job. Pig job will be submitted to the cluster. This will generate a new tab with a status of the running of the Pig job and at the top you will find a progress bar that shows the job status.
+**Step 3.3.1：Pigスクリプトを実行する**
 
-![Lab3_11](assets/execute_pig_script_compute_riskfactor_hello_hdp_lab3.png)
+**Execute on Tez**チェックボックスをクリックし，最後に青の**Execute**ボタンを押してジョブを送信します．Pigのジョブはクラスタに送られ，Pigジョブの実行状況を示す新しいタブが生成されます．上部にはジョブの進捗状況バーが表示されます．
 
-### 3.3.2 View Results Section
+![](assets/lab3/lab3-11.png)
 
-Wait for the job to complete. The output of the job is displayed in the **Results** section. Notice your script does not output any result – it stores the result into a Hive table – so your Results section will be empty.
+**Step 3.3.2：結果セクションの表示**
 
-![Lab3_12](assets/running_script_riskfactor_hello_hdp_lab3.png)
+ジョブが完了するのを待機すると，ジョブの出力が結果セクションに表示されます．スクリプトは結果を出力しないことに注意してください．結果はHiveテーブルに保存されるので，結果セクションには何も表示されません．
 
-![Lab3_13](assets/completed_riskfactor_script_hello_hdp_lab3.png)
+![](assets/lab3/lab3-12.png)
 
-Click on the **Logs** dropdown menu to see what happened when your script ran. Errors will appear here.
+![](assets/lab3/lab3-13.png)
 
-### 3.3.3 View Logs section (Debugging Practice)
+**Logs**ドロップダウンメニューをクリックして，スクリプト実行時の状況を確認します．ここにエラーが表示されます．
+
+**Step 3.3.3：ログの表示セクション（デバッグ練習）**
 
 **Why are Logs important?**
 
-The logs section is helpful when debugging code after expected output does not happen. For instance, say in the next section, we load the sample data from our **riskfactor** table and nothing appears. Logs will tell us why the job failed. A common issue that could happen is that pig does not successfully read data from the **geolocation** table or **drivermileage** table. Therefore, we can effectively address the issue.
+ログセクションは，期待していた出力が行われなかった後にコードをデバッグするのに役立ちます．例えば，次のセクションでは，riskfactorテーブルからサンプルデータを読み込み，何も表示されません．ジョブが失敗した原因をログに記録します．起こりうる共通の問題はPigがGeolocationテーブルやdrivermileageテーブルからデータを正常に読み取ることができない場合です．
 
-Let's verify pig read from these tables successfully and stored the data into our **riskfactor** table. You should receive similar output:
+これらのテーブルから読み取られたPigが正常か確認し，そのデータをriskfactorテーブルに格納しましょう．以下と同様の出力が得られるはずです．
 
-![debug_through_logs_lab3](assets/debug_through_logs_lab3.png)
+![](assets/lab3/lab3-14.png)
 
-What results do our logs show us about our Pig Script?
+ログはPigスクリプトについてどのような結果を示しているか．
 
--   Read 8000 records from our **geolocation** table
--   Read 100 records from our **drivermileage** table
--   Stored 99 records into our **riskfactor** table
 
-### 3.3.4 Verify Pig Script Successfully Populated Hive Table
+- Geolocationテーブルから8000レコードを読み込む
+- drivermileageテーブルから100レコードを読み込む
+- riskfactorテーブルに99レコードを格納
 
-Go back to the Ambari Hive View 2.0 and browse the data in the `riskfactor` table to verify that your Pig job successfully populated this table. Here is what is should look like:
+**Step 3.3.4：Pigスクリプトが正常にHiveテーブルに挿入されたかどうか確認**
 
-![Lab3_14](assets/pig_populated_riskfactor_table_hello_hdp_lab3.png)
+Ambari Hive View 2.0に戻って，riskfactorテーブルを参照して，Pigジョブがこのテーブルに正常に入力されているか確認します．ここには以下のように表示されているはずです．
 
-At this point we now have our truck average miles per gallon table (`avg_mileage`) and our risk factor table (`riskfactor`).
+![](assets/lab3/lab3-15.png)
 
-## Summary <a id="summary-lab3"></a>
+このとき，ガロンあたりの平均トラックマイルテーブル（avg_mileage）とリスクファクタテーブル（riskfactor）が存在しているはずです．
 
-Congratulations! Let’s summarize the Pig commands we learned in this tutorial to compute risk factor analysis on the geolocation and truck data. We learned to use Pig to access the data from Hive using the **LOAD {hive_table} …HCatLoader()** script. Therefore, we were able to perform the **filter**, **foreach**, **group**, **join**, and **store {hive_table} …HCatStorer()** scripts to manipulate, transform and process this data. To review these bold pig latin operators, view the [Pig Latin Basics](http://pig.apache.org/docs/r0.14.0/basic.html), which contains documentation on each operator.
+## まとめ <a id="summary"></a>
 
-## Further Reading
+おめでとうございます！このチュートリアルで学んだPigコマンドをまとめて，GeolocationデータとTruckデータのリスクファクタ分析を計算しましょう．今回，HiveからLOAD {hive_table}…HCatLoader()スクリプトを利用してデータにアクセスする方法を学びました．foreach，group，joinまたはstore {hive_table}…HCatStorer()スクリプトを利用して，データを操作，変換，および処理できるようになりました．これらの演算子の詳細を確認するには各演算子のドキュメントを含む[Pig Latin Basics](http://pig.apache.org/docs/r0.14.0/basic.html)をご覧ください．
 
-Strengthen your foundation of pig latin and reinforce why this scripting platform is benficial for processing and analyzing massive data sets with these resources:
+## 参考文献 <a id="furher-reading"></a>
 
--   To practice more pig programming, visit [Pig Tutorials](https://hortonworks.com/hadoop/pig/#tutorials)
--   [Apache Pig](https://hortonworks.com/hadoop/pig/)
--   [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645/ref=sr_1_2?ie=UTF8&qid=1455994738&sr=8-2&keywords=pig+latin&refinements=p_72%3A2661618011)
--   learn more about the various Pig operators, refer to [Pig Latin Basics](http://pig.apache.org/docs/r0.14.0/basic.html)
--   [HDP DEVELOPER: APACHE PIG AND HIVE](https://hortonworks.com/training/class/hadoop-2-data-analysis-pig-hive/)
+Pig Latinの基礎を学び，これらのリソースを利用して膨大なデータセットを処理および分析する上で，このスクリプトプラットフォームが有益である理由を更に知ることができます．
+
+
+- Pigプログラミングについては更に勉強したいときは[Pig Tutorials](https://hortonworks.com/hadoop/pig/#tutorials)をどうぞ
+- [Apache Pig](https://hortonworks.com/hadoop/pig/)
+- [Programming Pig](http://www.amazon.com/Programming-Pig-Alan-Gates/dp/1449302645/ref=sr_1_2?ie=UTF8&qid=1455994738&sr=8-2&keywords=pig+latin&refinements=p_72%3A2661618011)
+- Pigの様々な演算子については[Pig Latin Basics](http://pig.apache.org/docs/r0.14.0/basic.html)を参照してください
+- [HDP DEVELOPER: APACHE PIG AND HIVE](https://hortonworks.com/training/class/hadoop-2-data-analysis-pig-hive/)
+

@@ -1,143 +1,134 @@
----
-title: Hadoop Tutorial – Getting Started with HDP
-tutorial-id: 100
-platform: hdp-2.6.0
-tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
----
+# Lab 5：Zeppelinでデータレポーティングをしよう
+## はじめに
 
-# Hadoop Tutorial – Getting Started with HDP
+このチュートリアルでは，Apache Zeppelinについて説明します．このセクションでは，Zeppelinを利用してデータを視覚化する方法について学びましょう．
 
-## Lab 5: Data Reporting With Zeppelin
+## 前提条件
 
-## Introduction
+このチュートリアルは，Hortonworks Sandboxを利用して，HDPに入門するための一連のチュートリアルの一部です．このチュートリアルを進める前に，以下の条件を満たしていることを確認してください．
 
-In this tutorial you will be introduced to Apache Zeppelin. In the earlier section of lab, you learned how to perform data visualization
-using Excel. This section will teach you to visualize data using Zeppelin.
 
-## Prerequisites
+- Hortonworks Sandbox
+- [Hortonworks Sandboxの使い方を学習している](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+- Lab 1：センサデータをHDFSに読み込ませよう
+- Lab 2：Hiveでデータ操作をしよう
+- Lab 3：Pigでリスクファクタを算出しよう
+- Lab 4：Spackでリスクファクタを算出しよう
+- このチュートリアルを完了するのに1時間ほど掛かります．
 
-The tutorial is a part of series of hands on tutorial to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
+## 概要
+- [Apache Zeppelin](#zeppelin)
+- [Step 5.1：Zeppelin Notebookを作成する](#step5.1)
+- [Step 5.2：Hiveクエリを実行する](#step5.2)
+- [Step 5.3：Zeppelinを利用してグラフを生成しよう](#step5.3)
+- [まとめ](#summary)
+- [参考文献](#further-reading)
 
--   Hortonworks Sandbox
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
--   Lab 1: Load sensor data into HDFS
--   Lab 2: Data Manipulation with Apache Hive
--   Lab 3: Use Pig to compute Driver Risk Factor
--   Lab 4: Use Spark to compute Driver Risk Factor
--   Allow yourself approximately one hour to complete this tutorial.
+## Apache Zeppelin <a id="zeppelin"></a>
 
-## Outline
+Apache Zeppelinは，データ分析と発見のための強力なWebベースのノートブックプラットフォームを提供します．Spark上での他の言語バインディングと同様のSpark分散コンテキストもサポートしています．
 
--   [Apache Zeppelin](#apache-zeppelin)
--   [Step 5.1: Create a Zeppelin Notebook](#step5.1)
--   [Step 5.2: Execute a Hive Query](#step5.2)
--   [Step 5.3: Build Charts Using Zeppelin](#step5.3)
--   [Summary](#summary-lab5)
--   [Further Reading](#further-reading)
+このチュートリアルでは，Apache Zeppelinを利用して，以前に収集したgeolocation，trucks，riskfactorのデータに対してSQLクエリを実行し，グラフを利用して結果を視覚化します．
 
-## Apache Zeppelin <a id="apache-zeppelin"></a>
+注：sparkやhawqおよびpostgresqlなどについては，様々なインタプリタを介してクエリを実行することもできます．
 
-Apache Zeppelin provides a powerful web-based notebook platform for data analysis and discovery.
-Behind the scenes it supports Spark distributed contexts as well as other language bindings on top of Spark.
+## Step 5.1：Zeppelin Notebookを作成する <a id="step5.1"></a>
 
-In this tutorial we will be using Apache Zeppelin to run SQL queries on our geolocation, trucks, and
-riskfactor data that we've collected earlier and visualize the result through graphs and charts.
+**Step 5.1.1：Zeppelin Notebookの案内**
 
-NOTE: We can also run queries via various interpreters for the following (but not limited to) spark, hawq and postgresql.
+ブラウザにURLを入力して，Zeppelinを開く
 
-## Step 5.1: Create a Zeppelin Notebook <a id="step5.1"></a>
-
-### 5.1.1 Navigate to Zeppelin Notebook
-
-Open Zeppelin interface using browser URL:
-
-~~~
+```
 http://sandbox.hortonworks.com:9995
-~~~
+```
 
-![Zeppelin Dashboard](assets/zeppelin_welcome_page_hello_hdp_lab4.png)
+![](assets/lab5/lab5-1.png)
 
-Click on a Notebook tab at the top left and select **Create new note**. Name your notebook `Driver Risk Factor`.
+上部の**Notebook**タブをクリックして，**Create new note**を選択する．ノートブックの名前を`Driver Risk Factor`に設定します．
 
-![Zeppelin Create New Notebook](assets/zeppelin_create_new_notebook.png)
+![](assets/lab5/lab5-2.png)
 
-## Step 5.2: Execute a Hive Query <a id="step5.2"></a>
 
-### 5.2.1 Visualize finalresults Data in Tabular Format
+## Step 5.2：Hiveクエリを実行する <a id="step5.2"></a>
 
-In the previous Spark and Pig tutorials you already created a table finalresults or riskfactor which gives the risk factor associated with every driver. We will use the data we generated in this table to visualize which drivers have the highest risk factor. We will use the jdbc hive interpreter to write queries in Zeppelin.
 
-1) Copy and paste the code below into your Zeppelin note.
+**Step 5.2.1： 最終結果を表形式で視覚化する**
 
-~~~
-%jdbc(hive)
-SELECT * FROM riskfactor
-~~~
+前のSparkとPigのチュートリアルでは，全てのドライバにリスクファクタが関連付けられたriskfactorテーブルとfinalresultsテーブルを作成しました．この表で生成したデータを利用して，どのドライバが最も高いリスクファクタを持っているかを視覚化します．Zeppelinでクエリを記述するために，jdbc hiveインタプリタを利用します．
 
-2) Click the play button next to "ready" or "finished" to run the query in the Zeppelin notebook.
-Alternative way to run query is "shift+enter."
 
-Initially, the query will produce the data in tabular format as shown in the screenshot.
+1. 以下のコードをコピーしてZeppelinノートに貼り付けます．
 
-![play_button_zeppelin_workbook](assets/output_riskfactor_zeppelin_lab6.png)
+	```
+	%jdbc(hive)
+	SELECT * FROM riskfactor
+	```
 
-## Step 5.3: Build Charts using Zeppelin <a id="step5.3"></a>
+2.  readyまたはfinishedの横にある**play**ボタンをクリックして，Zeppelinノートブックでクエリを実行します．**Shift+Enter**でもクエリを実行することができます．
 
-### 5.3.1 Visualize finalresults Data in Chart Format
+	最初に，クエリは表形式のデータを生成します．
 
-1\. Iterate through each of the tabs that appear underneath the query.
-Each one will display a different type of chart depending on the data that is returned in the query.
+	![](assets/lab5/lab5-3.png)
 
-![charts_tab_under_query_lab6](assets/charts_tab_jdbc_lab6.png)
 
-2\. After clicking on a chart, we can view extra advanced settings to tailor the view of the data we want
+## Step 5.3：Zeppelinを利用してグラフを生成しよう <a id="step5.3"></a>
 
-![Chart Advanced Settings](assets/bar_graph_zeppelin_lab6.png)
 
-3\. Click settings to open the advanced chart features.
+**Step 5.3.1：最終結果をグラフ形式で可視化する**
 
-4\. To make a chart with `riskfactor.driverid` and `riskfactor.riskfactor SUM`, drag the table relations into the boxes as shown in the image below.
 
-![Advanced Settings Boxes](assets/fields_set_keys_values_chart_lab6.png)
+1. クエリの下に表示される各タブを選択します．クエリで返されるデータに応じて，それぞれ異なる種類のグラフが表示されます．
 
-5\. You should now see an image like the one below.
+	![](assets/lab5/lab5-4.png)
 
-![Bar Graph Example Image](assets/driverid_riskfactor_chart_lab6.png)
 
-6\. If you hover on the peaks, each will give the driverid and riskfactor.
+2. グラフをクリックすると，追加の詳細設定が表示され，必要なデータの表示を調整できます．
 
-![driverid_riskfactor_peak](assets/hover_over_peaks_lab6.png)
+	![](assets/lab5/lab5-5.png)
 
-7\. Try experimenting with the different types of charts as well as dragging and
-dropping the different table fields to see what kind of results you can obtain.
 
-8\. Let' try a different query to find which cities and states contain the drivers with the highest risk factors.
+3. 設定をクリックして，高度なチャート機能を開きます．
+4. `riskfactor.driverid`と`riskfactor.riskfactor SUM`のグラフを作成するには，下の画像のようにテーブルをボックスにドラッグします．
 
-~~~
-%jdbc(hive)
-SELECT a.driverid, a.riskfactor, b.city, b.state
-FROM riskfactor a, geolocation b where a.driverid=b.driverid
-~~~
+	![](assets/lab5/lab5-6.png)
 
-![Filter City and States](assets/queryFor_cities_states_highest_driver_riskfactor.png)
 
-9\. After changing a few of the settings we can figure out which of the cities have the high risk factors.
-Try changing the chart settings by clicking the **scatterplot** icon. Then make sure that the keys a.driverid
-is within the xAxis field, a.riskfactor is in the yAxis field, and b.city is in the group field.
-The chart should look similar to the following.
+5. 次のような画像が表示されます．
 
-![Scatter Plot Graph](assets/visualize_cities_highest_driver_riskfactor_lab6.png)
+	![](assets/lab5/lab5-7.png)
 
-You can hover over the highest point to determine which driver has highest risk factor and where the live.
 
-## Summary <a id="summary-lab5"></a>
+6. 大きいデータにホバーすれば，driveridとriskfactorのそれぞれが表示されます．
 
-Now that we know how to use Apache Zeppelin to obtain and visualize our data, we can use the skills
-we've learned from our Hive, Pig, and Spark labs, as well and apply them to new kinds of data to
-try to make better sense and meaning from the numbers!
+	![](assets/lab5/lab5-8.png)
 
-## Further Reading
 
--   [Zeppelin on HDP](https://hortonworks.com/hadoop/zeppelin/)
--   [Apache Zeppelin Docs](https://zeppelin.incubator.apache.org/docs/)
--   [Zeppelin Homepage](https://zeppelin.incubator.apache.org/)
+7. 様々な種類のグラフを試す，異なるテーブルをドラッグするなどをして，どのような結果が得られるか確認してください．
+8. どの都市や州に最も大きいリスクファクタを持つドライバがいるかを見つけるために，別のクエリを試してみましょう．
+
+	```
+	%jdbc(hive)
+	SELECT a.driverid, a.riskfactor, b.city, b.state
+	FROM riskfactor a, geolocation b where a.driverid=b.driverid
+	```
+
+	![](assets/lab5/lab5-9.png)
+
+
+9. いくつかの設定を変更して，どの都市に大きいリスクファクタがあるかを探しましょう．散布図アイコンをクリックしてグラフを変更してみてください．その後，a.driveridキーがxAxisフィールドに，a.riskfactorがyAxisフィールドに，b.cityがグループフィールド内にあることを確認します．グラフは次のようになります．
+
+	![](assets/lab5/lab5-10.png)
+
+	最高値のポイントにカーソルを合わせると，どのドライバが最も大きいリスクファクタを持ち，どのドライバがどこにいるのかを知ることができます．
+
+## まとめ <a id="summary"></a>
+
+
+Apache Zeppelinを利用して，データを取得して視覚化する方法を学習しました．HiveやPig，Sparkのチュートリアルで学んだスキルを利用して，データの数値の意味をより深く理解してみましょう！
+
+## 参考文献 <a id="further-reading"></a>
+
+- [Zeppelin on HDP](https://hortonworks.com/hadoop/zeppelin/)
+- [Apache Zeppelin Docs](https://zeppelin.incubator.apache.org/docs/)
+- [Zeppelin Homepage](https://zeppelin.incubator.apache.org/)
+

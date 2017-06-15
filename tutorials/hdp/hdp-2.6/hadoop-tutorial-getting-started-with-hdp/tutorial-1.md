@@ -1,133 +1,122 @@
----
-title: Hadoop Tutorial – Getting Started with HDP
-tutorial-id: 100
-platform: hdp-2.6.0
-tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
----
-
-# Hadoop Tutorial – Getting Started with HDP
-
 # Concepts
 
-## Introduction
+## はじめに
 
-In this tutorial, we will explore important concepts that will strengthen your foundation in the Hortonworks Data Platform (HDP). Apache Hadoop is a layered structure to process and store massive amounts of data. In our case, Apache<sup>TM</sup> Hadoop will be recognized as an enterprise solution in the form of HDP. At the base of HDP exists our data storage environment known as the Hadoop Distributed File System. When data files are accessed by Hive, Pig or another coding language, YARN is the Data Operating System that enables them to analyze, manipulate or process that data. HDP includes various components that open new opportunities and efficiencies in healthcare, finance, insurance and other industries that impact people.
+このチュートリアルでは，Hortonworks Data Platform（HDP）の基礎を固める重要な概念について説明します．Apache Hadoopは膨大な量のデータを処理し，保存するための階層構造です．私達の場合，Apache（TM）HadoopはHDPという形式のエンタープライズ・ソリューションとして知られていますHDPの基盤には，Hadoop分散ファイルシステムと呼ばれる弊社のデータストレージ環境が存在します．HiveやPig，他のコーディング言語でデータファイルにアクセスするとき，YARNはデータの分析や操作，処理を可能にするデータオペレーティングシステムとなります．HDPには，人々に影響を与えるヘルスケア，ファイナンス，保険，その他の産業に新しい機会と効率を提供するコンポーネントが含まれています．
 
-## Prerequisites
--   Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+## 前提条件
+-   [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)をダウンロードおよびインストール済み
+-   [Hortonworks Sandboxの使い方を学習している](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
-## Outline
+## 概要
 
 -   [1. Concept: Hadoop & HDP](#concepts-hadoop-hdp)
 -   [2. Concept: HDFS](#concepts-hdfs)
 -   [3. Concept: MapReduce & YARN](#concepts-mapreduce-yarn)
 -   [4. Concept: Hive and Pig](#concepts-hive-pig)
--   [Further Reading](#further-reading)
+-   [参考文献](#further-reading)
 
 ## 1. Concept: Hadoop & HDP <a id="concepts-hadoop-hdp"></a>
 
-In this module you will learn about Apache<sup>TM</sup> Hadoop® and what makes it scale to large data sets. We will also talk about various components of the Hadoop ecosystem that make Apache Hadoop enterprise ready in the form of Hortonworks Data Platform (HDP) distribution. This module discusses Apache Hadoop and its capabilities as a data platform. The core of Hadoop and its surrounding ecosystem solution vendors provide enterprise requirements to integrate alongside Data Warehouses and other enterprise data systems. These are steps towards the implementation of a modern data architecture, and towards delivering an enterprise ‘Data Lake’
+このモジュールでは，Apache Hadoopについて学び，大規模なデータセットを拡張することについて説明します．Apache HadoopエンタープライズをHortonworks Data Platform（HDP）ディストリビューションの形式で用意したHadoopエコシステムの様々なコンポーネントについても説明します．このモジュールでは，Apache Hadoopとそのデータプラットフォームとしての機能について説明します．Hadoopのコアとその周辺のエコシステムソリューションベンダーは，データウェアハウスや他のエンタープライズデータシステムと統合するためのエンタープライズ要件を提供します．これらは，最新のデータアーキテクチャの実装に向けたステップであり，エンタープライズの「データレイク」の提供に向けたステップです．
 
-### 1.1 Goals of this module
+### 1.1 このモジュールの目的
 
--   Understanding Hadoop.
--   Understanding five pillars of HDP
--   Understanding HDP components and their purpose.
+- Hadoopについて理解すること
+- HDPの5つの中核について理解すること
+- HDPコンポーネントとその目的を理解すること
 
 ### 1.2 Apache Hadoop
-
-Apache Hadoop is an open source framework for distributed storage and processing of large sets of data on commodity hardware. Hadoop enables businesses to quickly gain insight from massive amounts of structured and unstructured data. Numerous Apache Software Foundation projects make up the services required by an enterprise to deploy, integrate and work with Hadoop. Refer to the blog reference below for more information on Hadoop.
+- **Apache Hadoop**は，汎用ハードウェア上の大量のデータを分散格納および処理するためのオープンソースのフレームワークです． Hadoopを使用すると，大量の構造化データや非構造化データから迅速に洞察を得ることができます． 数多くのApache Software Foundationプロジェクトは，Hadoopを導入，統合，および使用するために企業が必要とするサービスを構成します． Hadoopの詳細については，下記のブログのリファレンスを参照してください．
 
 -   Hortonworks Blog : [Understanding Hadoop 2.0](https://hortonworks.com/blog/understanding-hadoop-2-0/)
 
-The base Apache Hadoop framework is composed of the following modules:
+基本的なApache Hadoopフレームワークは以下のモジュールで構成されています:
 
--   **Hadoop Common** – contains libraries and utilities needed by other Hadoop modules.
--   **Hadoop Distributed File System (HDFS)** – a distributed file-system that stores data on commodity machines, providing very high aggregate bandwidth across the cluster.
--   **Hadoop YARN** – a resource-management platform responsible for managing computing resources in clusters and using them for scheduling of users’ applications.
--   **Hadoop MapReduce** – a programming model for large scale data processing.
+-   **Hadoop Common** – 他のHadoopモジュールに必要なライブラリとユーティリティが含まれています．
+-   **Hadoop Distributed File System (HDFS)** – コモディティマシン上にデータを格納する分散ファイルシステムで，クラスタ全体で非常に高い帯域幅を提供します．
+-   **Hadoop YARN** – クラスタ内のコンピューティングリソースを管理し，ユーザのアプリケーションのスケジューリングに利用するリソース管理プラットフォームです．
+-   **Hadoop MapReduce** – 大規模データ処理のためのプログラミングモデルです．
 
-Each project has been developed to deliver an explicit function and each has its own community of developers and individual release cycles. There are five pillars to Hadoop that make it enterprise ready:
+各プロジェクトは，明示的な機能を提供するように開発されており，それぞれ独自の開発コミュニティと個々のリリースサイクルがあります．Hadoopにはエンタープライズ向けの5つの中枢があります．
 
--   **Data Management**– Store and process vast quantities of data in a storage layer that scales linearly. Hadoop Distributed File System (HDFS) is the core technology for the efficient scale out storage layer, and is designed to run across low-cost commodity hardware. Apache Hadoop YARN is the pre-requisite for Enterprise Hadoop as it provides the resource management and pluggable architecture for enabling a wide variety of data access methods to operate on data stored in Hadoop with predictable performance and service levels.
-    -   **[Apache Hadoop YARN](https://hortonworks.com/hadoop/yarn)– **Part of the core Hadoop project, YARN is a next-generation framework for  Hadoop data processing extending MapReduce capabilities by supporting non-MapReduce workloads associated with other programming models.
-    -   **[HDFS](https://hortonworks.com/hadoop/hdfs/)– **Hadoop Distributed File System (HDFS) is a Java-based file system that provides scalable and reliable data storage that is designed to span large clusters of commodity servers.
--   **Data Access**– Interact with your data in a wide variety of ways – from batch to real-time. Apache Hive is the most widely adopted data access technology, though there are many specialized engines. For instance, Apache Pig provides scripting capabilities, Apache Storm offers real-time processing, Apache HBase offers columnar NoSQL storage and Apache Accumulo offers cell-level access control. All of these engines can work across one set of data and resources thanks to YARN and intermediate engines such as Apache Tez for interactive access and Apache Slider for long-running applications. YARN also provides flexibility for new and emerging data access methods, such as Apache Solr for search and programming frameworks such as Cascading.
-    -   **[Apache Hive](https://hortonworks.com/hadoop/hive)– **Built on the MapReduce framework, Hive is a data warehouse that enables easy data summarization and ad-hoc queries via an SQL-like interface for large datasets stored in HDFS.
-    -   **[Apache Pig](https://hortonworks.com/hadoop/pig)– **A platform for processing and analyzing large data sets. Pig consists of a high-level language (Pig Latin) for expressing data analysis programs paired with the MapReduce framework for processing these programs.
-    -   **[MapReduce](https://hortonworks.com/hadoop/mapreduce/)– **MapReduce is a framework for writing applications that process large amounts of structured and unstructured data in parallel across a cluster of thousands of machines, in a reliable and fault-tolerant manner.
-    -   **[Apache Spark](https://hortonworks.com/hadoop/spark)– **Spark is ideal for in-memory data processing. It allows data scientists to implement fast, iterative algorithms for advanced analytics such as clustering and classification of datasets.
-    -   **[Apache Storm](https://hortonworks.com/hadoop/storm)– **Storm is a distributed real-time computation system for processing fast, large streams of data adding reliable real-time data processing capabilities to Apache Hadoop® 2.x
-    -   **[Apache HBase](https://hortonworks.com/hadoop/hbase)– **A column-oriented NoSQL data storage system that provides random real-time read/write access to big data for user applications.
-    -   **[Apache Tez](https://hortonworks.com/hadoop/tez)– **Tez generalizes the MapReduce paradigm to a more powerful framework for executing a complex DAG (directed acyclic graph) of tasks for near real-time big data processing.
-    -   **[Apache Kafka](https://hortonworks.com/hadoop/kafka)– **Kafka is a fast and scalable publish-subscribe messaging system that is often used in place of traditional message brokers because of its higher throughput, replication, and fault tolerance.
-    -   **[Apache HCatalog](https://hortonworks.com/hadoop/hcatalog)– **A table and metadata management service that provides a centralized way for data processing systems to understand the structure and location of the data stored within Apache Hadoop.
-    -   **[Apache Slider](https://hortonworks.com/hadoop/slider)– **A framework for deployment of long-running data access applications in Hadoop. Slider leverages YARN’s resource management capabilities to deploy those applications, to manage their lifecycles and scale them up or down.
-    -   **[Apache Solr](https://hortonworks.com/hadoop/solr)– **Solr is the open source platform for searches of data stored in Hadoop. Solr enables powerful full-text search and near real-time indexing on many of the world’s largest Internet sites.
-    -   **[Apache Mahout](https://hortonworks.com/hadoop/mahout)– **Mahout provides scalable machine learning algorithms for Hadoop which aids with data science for clustering, classification and batch based collaborative filtering.
-    -   **[Apache Accumulo](https://hortonworks.com/hadoop/accumulo)– **Accumulo is a high performance data storage and retrieval system with cell-level access control. It is a scalable implementation of Google’s Big Table design that works on top of Apache Hadoop and Apache ZooKeeper.
--   **Data Governance and Integration**– Quickly and easily load data, and manage according to policy. Workflow Manager provides workflows for data governance, while Apache Flume and Sqoop enable easy data ingestion, as do the NFS and WebHDFS interfaces to HDFS.
-    -   **[Workflow Management](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.0/bk_workflow-management/content/index.html)– **Workflow Manager allows you to easily create and schedule workflows and monitor workflow jobs. It is based on the Apache Oozie workflow engine that allows users to connect and automate the execution of big data processing tasks into a defined workflow.
-    -   **[Apache Flume](https://hortonworks.com/hadoop/flume)– **Flume allows you to efficiently aggregate and move large amounts of log data from many different sources to Hadoop.
-    -   **[Apache Sqoop](https://hortonworks.com/hadoop/sqoop)– **Sqoop is a tool that speeds and eases movement of data in and out of Hadoop. It provides a reliable parallel load for various, popular enterprise data sources.
+-   **Data Management** – ストレージレイヤに膨大な量のデータを線形に格納して処理します．Hadoop分散ファイルシステム（HDFS）は，効率的なスケールアウトストレージレイヤのコアテクノロジであり，低コストのコモディティハードウェアで動作するように設計されています．Apache Hadoop YARNは，さまざまなデータアクセス方法を実現するためのリソース管理とプラグインが利用可能なアーキテクチャを提供するために必要なエンタープライズHadoopの前提条件となります．予測可能なパフォーマンスとサービスレベルでHadoopに格納されたデータを操作します．
+    -   **[Apache Hadoop YARN](https://hortonworks.com/hadoop/yarn)** – Hadoopプロジェクトの中核の一部であるYARNは，他のプログラミングモデルに関連する非MapReduceワークロードのサポートをすることで，MapReduce機能を拡張するHadoopのデータ処理用の次世代フレームワークです．
+    -   **[HDFS](https://hortonworks.com/hadoop/hdfs/)** – Hadoop分散ファイルシステム（HDFS）は，大規模な汎用サーバクラスタにまたがるよう設計されたスケーラブルで信頼性の高いデータストレージを提供する，Javaベースのファイルシステムです．
 
--   **Security**– Address requirements of Authentication, Authorization, Accounting and Data Protection. Security is provided at every layer of the Hadoop stack from HDFS and YARN to Hive and the other Data Access components on up through the entire perimeter of the cluster via Apache Knox.
-    -   **[Apache Knox](https://hortonworks.com/hadoop/knox)– **The Knox Gateway (“Knox”) provides a single point of authentication and access for Apache Hadoop services in a cluster. The goal of the project is to simplify Hadoop security for users who access the cluster data and execute jobs, and for operators who control access to the cluster.
-    -   **[Apache Ranger](https://hortonworks.com/hadoop/ranger)– **Apache Ranger delivers a comprehensive approach to security for a Hadoop cluster. It provides central security policy administration across the core enterprise security requirements of authorization, accounting and data protection.
+-   **Data Access** – 様々な方法でデータと対話します． – バッチからリアルタイムまで，Apache Hiveは，最も広く採用されているデータアクセス技術ですが，多くの特殊なエンジンが存在します．例えば，Apache Pigはスクリプト機能を提供し，Apache Stormはリアルタイム処理を，Apache HBaseはNoSQLストレージを提供，Apache Accumuloはセルレベルのアクセス制御を提供します．これらのエンジンは全て，対話型アクセス用のApache Tezや長時間実行するアプリケーション用のApache SliderなどのYARNと中間エンジンのおかげで，1セットのデータとリソースで動作します．YARNは，Cascadingのような検索およびプログラミングフレームワークのApache Solrなどの新しく登場するデータアクセス方法にも柔軟性を提供します．
+    -   **[Apache Hive](https://hortonworks.com/hadoop/hive)** -MapReduceフレームワーク上に構築されたHiveは，HDFSに格納された大規模なデータセットに対して，SQLライクなインターフェースを介し，簡単なデータ集計とアドホッククエリを可能にするデータウェアハウスです．
+    -   **[Apache Pig](https://hortonworks.com/hadoop/pig)** -大規模なデータセットを処理および分析するためのプラットフォームです．Pigはこれらのプログラムを処理するためのMapReduceフレームワークと組み合わせたデータ分析プログラムを表現するための高水準言語（Pig Latin）で構成されています．    
+    -   **[MapReduce](https://hortonworks.com/hadoop/mapreduce/)** -MapReduceは，大量の構造化データおよび非構造化データを信頼性の高いフォールトトレラントな方法で，何千ものマシンクラスタに渡って並列に処理するアプリケーションを作成するためのフレームワークです．
+    -   **[Apache Spark](https://hortonworks.com/hadoop/spark)** -Sparkはメモリ内データ処理に最適です．データセットのクラスタリングや分類などの高度な分析のための，高速で反復的なアルゴリズムを実装できます．    
+    -   **[Apache Storm](https://hortonworks.com/hadoop/storm)** -Stormは高速かつ大量のデータストリームを処理するための分散型リアルタイムコンピューティングシステムで，Apache Hadoop 2.xに信頼性の高いリアルタイムデータ処理機能を追加しています．
+    -   **[Apache HBase](https://hortonworks.com/hadoop/hbase)** - ユーザアプリケーション用の大きなデータへのランダムなリアルタイムアクセスを提供する列指向のNoSQLデータストレージシステムです．   
+    -   **[Apache Tez](https://hortonworks.com/hadoop/tez)** -TezはMapReduceをほぼリアルタイムのビッグデータ処理のための複雑なDAG（有効非周期グラフ）を実行するための強力なフレームワークとして一般化します．    -   **[Apache Kafka](https://hortonworks.com/hadoop/kafka)** -Kafkaは，スループット，レプリケーション，およびフォールトトレランスが高いため，伝統的なメッセージブローカーの代わりに頻繁に利用される高速でスケーラブルなパブリッシュサブスクライブメッセージングシステムです．
+    -   **[Apache HCatalog](https://hortonworks.com/hadoop/hcatalog)** - データ管理システムがApache Hadoopに格納されているデータの構造と場所を理解するために集中化されたテーブルとメタデータ管理サービスです．
+    -   **[Apache Slider](https://hortonworks.com/hadoop/slider)** -Hadoopで長時間実行されるデータアクセスアプリケーションを展開するためのフレームワークです．Sliderは，YARNのリソース管理機能を活用して，それらのアプリケーションを配備し，ライフライクルを管理して，それらの規模を拡大または縮小します．
+    -   **[Apache Solr](https://hortonworks.com/hadoop/solr)** -Solrは，Hadoopに格納されたデータを検索するためのオープンソースプラットフォームです．Solrは，世界最大のインターネットサイトの多くで，強力なフルテキスト検索とほぼリアルタイムでのインデックス作成を可能にします．
+    -   **[Apache Mahout](https://hortonworks.com/hadoop/mahout)** -Mahoutは，クラスタリング，分類，バッチベースの協調フィルタリングのためのデータサイエンスを支援するスケーラブルな機械学習アルゴリズムをHadoopに提供します．
+    -   **[Apache Accumulo](https://hortonworks.com/hadoop/accumulo)** -Accumuloは，セルレベルのアクセス制御を備えた高性能データストレージおよび検索システムです．これはApache HadoopとApache ZooKeeperの上で動作するGoogle Big Tableのスケーラブルな実装です．
+-   **Data Governance and Integration** – すばやく簡単にデータを読み込み，ポリシーに従って管理します．Workflow Managerはデータガバナンスのワークフローを提供しますが，Apache FlumeとNFSとWebHDFSのHDFSインターフェースと同様にデータの取り込みを容易にします．
+    -   **[Workflow Management](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.0/bk_workflow-management/content/index.html)** - Workflow Managementを利用すると，ワークフローを簡単に作成およびスケージュルし，ワークフロージョブを監視できます．これはApache Oozieワークフローエンジンに基づいており，ユーザは大きなデータ処理タスクの実行を定義されたワークフローに接続して自動化できます．
+    -   **[Apache Flume](https://hortonworks.com/hadoop/flume)** -Flumeを利用すると，多数の異なるソースから大量のログデータを効率的に集約してHadoopに移すことができます．
+    -   **[Apache Sqoop](https://hortonworks.com/hadoop/sqoop)** -Sqoopは，Hadoop内外のデータの移動を高速化し，容易にするツールです．一般的な様々なエンタープライズデータソースに対して，信頼性の高い並列読み込みを提供します．
 
--   **Operations**–  Provision, manage, monitor and operate Hadoop clusters at scale.
-    -   **[Apache Ambari](https://hortonworks.com/hadoop/ambari)– **An open source installation lifecycle management, administration and monitoring system for Apache Hadoop clusters.
-    -   **[Apache Oozie](https://hortonworks.com/hadoop/oozie)– **Oozie Java Web application used to schedule Apache Hadoop jobs. Oozie combines multiple jobs sequentially into one logical unit of work.
-    -   **[Apache ZooKeeper](https://hortonworks.com/hadoop/zookeeper)– **A highly available system for coordinating distributed processes. Distributed applications use ZooKeeper to store and mediate updates to important configuration information.
+-   **Security** – 認証，認可，経理，データ保護の要件を満たします．HDFSとYARNからHiveまでのHadoopスタックの全てのレイヤと，Apache knox経由でクラスタ全てにわたる他のデータアクセスコンポーネントにセキュリティが提供されます．
+    -   **[Apache Knox](https://hortonworks.com/hadoop/knox)** -The Knox Gateway（Knox）は，クラスタ内のApache Hadoopサービスに対する認証とアクセスの単一ポイントを提供します．このプロジェクトの目的は，クラスタデータにアクセスしてジョブを実行するユーザおよびクラスタへのアクセスを制御する管理者のHadoopセキュリティを簡素化することです．
+    -   **[Apache Ranger](https://hortonworks.com/hadoop/ranger)** -Apache Rangerは，Hadoopクラスタのセキュリティに対する包括的なアプローチを提供します．これは認証やアカウンティング，およびデータ保護の主要なエンタープライズセキュリティ要件全体にわたる，コアなセキュリティポリシー管理を提供します．
+-   **Operations**–  Hadoopクラスタのプロビジョニング，管理，監視，運用を提供します．
+    -   **[Apache Ambari](https://hortonworks.com/hadoop/ambari)** -Apache Hadoopクラスタ用のオープンソースインストールライフサイクル管理，運用，および監視システムを提供します．
+    -   **[Apache Oozie](https://hortonworks.com/hadoop/oozie)** -Oozie Java Webアプリケーションは，Apache Hadoopジョブをスケジューリングするために利用されます．Oozieは複数のジョブを1つの作業をロジカルユニットに順次結合します．
+    -   **[Apache ZooKeeper](https://hortonworks.com/hadoop/zookeeper)** -分散プロセスを調整する高可用性システムを提供します．分散アプリケーションは，ZooKeeperを利用して，重要な構成情報への更新を保存および仲介をします．
 
-Apache Hadoop can be useful across a range of use cases spanning virtually every vertical industry. It is becoming popular anywhere that you need to store, process, and analyze large volumes of data. Examples include digital marketing automation, fraud detection and prevention, social network and relationship analysis, predictive modeling for new drugs, retail in-store behavior analysis, and mobile device location-based marketing.  To learn more about Apache Hadoop, watch the following introduction:
+Apache Hadoopは，ほぼすべての業種にまたがるさまざまなユースケースで役立ちます． 大量のデータを格納，処理，分析する必要があるあらゆる場所に普及しています． 例としては，デジタルマーケティング自動化，詐欺の検出と防止，ソーシャルネットワークと関係分析，新薬の予測モデリング，小売店内行動分析，モバイルデバイスの位置情報ベースのマーケティングなどがあります． Apache Hadoopの詳細については，以下を参照してください．
 
-<iframe width="500" height="375" src="https://www.youtube.com/embed/6UtD53BzDNk?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player0"></iframe>
+[https://www.youtube.com/watch?v=6UtD53BzDNk](https://www.youtube.com/watch?v=6UtD53BzDNk)
 
 ### 1.3 Hortonworks Data Platform (HDP)
 
-Hortonworks Data Platform (HDP) is a packaged software Hadoop distribution that aims to ease deployment and management of Hadoop clusters. Compared with simply downloading the various Apache code bases and trying to run them together a system, HDP greatly simplifies the use of Hadoop. Architected, developed, and built completely in the open, HDP provides an enterprise ready data platform that enables organizations to adopt a Modern Data Architecture.
+Hortonworks Data Platform（HDP）は，Hadoopクラスタの展開と管理を容易にするパッケージ化されたソフトウェアHadoopディストリビューションです．さまざまなApache製品をダウンロードしてシステムを同時実行するのと比較すると，HDPはHadoopの利用を大幅に簡素化します．オープンに構築，開発，構築されたHDPは，エンタープライズ対応のデータプラットフォームを提供し，企業は最新のデータアーキテクチャを採用することができます．
 
-With YARN as its architectural center it provides a data platform for multi-workload data processing across an array of processing methods – from batch through interactive to real-time, supported by key capabilities required of an enterprise data platform — spanning Governance, Security and Operations.
+YARNをアーキテクチャセンターとして使用することで，エンタープライズデータプラットフォームに必要な主要機能（ガバナンス，セキュリティ，および運用）に対応したバッチ処理からインタラクティブ処理まで，一連の処理方法にわたるマルチワークロードデータ処理のためのデータプラットフォームを提供します．
 
-The Hortonworks **Sandbox** is a single node implementation of HDP. It is packaged as a virtual machine to make evaluation and experimentation with HDP fast and easy. The tutorials and features in the Sandbox are oriented towards exploring how HDP can help you solve your business big data problems. The Sandbox tutorials will walk you through how to bring some sample data into HDP and how to manipulate it using the tools built into HDP. The idea is to show you how you can get started and show you how to accomplish tasks in HDP. HDP is free to download and use in your enterprise and you can download it here: [Hortonworks Data Platform](https://hortonworks.com/download/)
+Hortonworks **Sandbox**はHDPの単一ノード実装です． HDPの評価と実験を迅速かつ容易に行うための仮想マシンとしてパッケージ化されています． Sandboxのチュートリアルと機能は，HDPがビジネス上の大きなデータ問題を解決する方法を探ることに向けられています． Sandboxチュートリアルでは，サンプルデータをHDPに取り込む方法と，HDPに組み込まれたツールを利用してサンプルデータを操作する方法について説明します．このアイデアは，HDPでどのように作業を開始するかを示すことができます． HDPは，企業内で自由にダウンロードして使用でき，ここからダウンロードできます．[Hortonworks Data Platform](https://hortonworks.com/download/)
 
 ## 2. Concept: HDFS <a id="concepts-hdfs"></a>
 
-A single physical machine gets saturated with its storage capacity as data grows. With this growth comes the impending need to partition your data across separate machines. This type of File system that manages storage of data across a network of machines is called a Distributed File System. [HDFS](https://hortonworks.com/blog/thinking-about-the-hdfs-vs-other-storage-technologies/) is a core component of Apache Hadoop and is designed to store large files with streaming data access patterns, running on clusters of commodity hardware. With Hortonworks Data Platform HDP 2.2, HDFS is now expanded to support [heterogeneous storage](https://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)  media within the HDFS cluster.
+単一の物理マシンは，データが増加するにつれてそのストレージ容量が飽和します． このような経過に伴い，データを別々のマシンに分割する必要があります． ネットワークのマシン間でデータのストレージを管理するこのタイプのファイルシステムは，分散ファイルシステムと呼ばれます． [HDFS](https://hortonworks.com/blog/thinking-about-the-hdfs-vs-other-storage-technologies/)はApache Hadoopの中心的なコンポーネントであり，コモディティハードウェアのクラスタ上で動作するストリーミングデータアクセスパターンを含む大きなファイルを格納するように設計されています． Hortonworks Data Platform HDP 2.2では，HDFSがHDFSクラスタ内の[heterogeneous storage](https://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)メディアをサポートするように拡張されました．
 
-### 2.1 Goals of this module
+### 2.1 このモジュールの目的
 
--   Understanding HDFS architecture
--   Understanding Hortonworks Sandbox Amabri File User View
+-   HDFSアーキテクチャについて理解すること
+-   Hortonworks Sandbox Amabri File User Viewについて理解すること
 
 ### 2.2 Hadoop Distributed File System
 
-HDFS is a distributed file system that is designed for storing large data files. HDFS is a Java-based file system that provides scalable and reliable data storage, and it was designed to span large clusters of commodity servers. HDFS has demonstrated production scalability of up to 200 PB of storage and a single cluster of 4500 servers, supporting close to a billion files and blocks. HDFS is a scalable, fault-tolerant, distributed storage system that works closely with a wide variety of concurrent data access applications, coordinated by YARN. HDFS will “just work” under a variety of physical and systemic circumstances. By distributing storage and computation across many servers, the combined storage resource can grow linearly with demand while remaining economical at every amount of storage.
+HDFSは，大きなデータファイルを格納するために設計された分散ファイルシステムです． HDFSは，スケーラブルで信頼性の高いデータストレージを提供するJavaベースのファイルシステムであり，コモディティサーバの大規模なクラスタにまたがるように設計されています． HDFSは，最大200PBのストレージと1台の4500台のサーバの生産スケーラビリティを実証し，10億に近いファイルとブロックをサポートしています． HDFSはスケーラブルでフォールトトレラントな分散ストレージシステムであり，さまざまな同時データアクセスアプリケーションと緊密に連携し，YARNによって調整されています． HDFSは，さまざまな物理的および体系的な状況下で適任でしょう． ストレージと計算を多くのサーバーに分散することにより，ストレージリソースを組み合わせることで，必要なストレージ容量を直線的に増やすことができます．
 
 ![HDSF_1](assets/HDSF_1.png)
 
-An HDFS cluster is comprised of a NameNode, which manages the cluster metadata, and DataNodes that store the data. Files and directories are represented on the NameNode by inodes. Inodes record attributes like permissions, modification and access times, or namespace and disk space quotas.
+HDFSクラスタは，クラスタメタデータを管理するNameNodeと，データを格納するDataNodeで構成されています．ファイルとディレクトリは，inodeによってNameNodeで表されます． inodeは，パーミッション，変更，アクセス時間，名前空間，ディスクスペースクォータなどの属性を記録します．
 
-The file content is split into large blocks (typically 128 megabytes), and each block of the file is independently replicated at multiple DataNodes. The blocks are stored on the local file system on the DataNodes.
+ファイルの内容は大きなブロック（通常128MB）に分割され，ファイルの各ブロックは複数のDataNodeで独立して複製されます．ブロックは，DataNodeのローカルファイルシステムに格納されます．
 
-The Namenode actively monitors the number of replicas of a block. When a replica of a block is lost due to a DataNode failure or disk failure, the NameNode creates another replica of the block. The NameNode maintains the namespace tree and the mapping of blocks to DataNodes, holding the entire namespace image in RAM.
+NameNodeは，ブロックのレプリカ数を積極的に監視します． DataNodeの障害またはディスクの障害によってブロックのレプリカが失われた場合，NameNodeはブロックの別のレプリカを作成します． NameNodeは名前空間ツリーとブロックのデータノードへのマッピングを保持し，名前空間イメージ全体をRAMに保持します．
 
-The NameNode does not directly send requests to DataNodes. It sends instructions to the DataNodes by replying to heartbeats sent by those DataNodes. The instructions include commands to:
+NameNodeはDataNodeに要求を直接送信しません．これらのDataNodeによって送信されたハートビートに応答することによって，DataNodeに指示を送信します．指示には次のコマンドが含まれています．
 
--   replicate blocks to other nodes,
--   remove local block replicas,
--   re-register and send an immediate block report, or
--   shut down the node.
+- ブロックを他のノードに複製し，
+- ローカルブロックの複製を削除し，
+- 即時ブロックレポートを再登録して送信し，
+- ノードをシャットダウンします．
 
 ![HDFS_2](assets/HDFS_2.png)
 
--   For more details on HDFS: [https://hortonworks.com/hadoop/hdfs/](https://hortonworks.com/hadoop/hdfs/)
+-   HDFSの詳細について: [https://hortonworks.com/hadoop/hdfs/](https://hortonworks.com/hadoop/hdfs/)
 
-With the [next generation HDFS data architecture](https://hortonworks.com/blog/hdfs-2-0-next-generation-architecture/) that comes with HDP 2.4, HDFS has evolved to provide [automated failure](https://hortonworks.com/blog/namenode-high-availability-in-hdp-2-0/) with a hot standby, with full stack resiliency. The video provides more clarity on HDFS.
+HDFS 2.4に付属している[次世代のHDFSデータアーキテクチャ]((https://hortonworks.com/blog/hdfs-2-0-next-generation-architecture/))では，HDFSは，完全なスタックの[復元性を備えた](https://hortonworks.com/blog/namenode-high-availability-in-hdp-2-0/)ホットスタンバイで自動化された障害を提供するようになりました． 詳細は動画をご覧ください．
 
-<iframe width="500" height="281" src="https://www.youtube.com/embed/1_ly9dZnmWc?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player1"></iframe>
+[https://www.youtube.com/watch?v=1_ly9dZnmWc](https://www.youtube.com/watch?v=1_ly9dZnmWc)
 
 ### 2.3 Ambari Files User View on Hortonworks Sandbox
 
@@ -135,116 +124,120 @@ Ambari Files User View
 
 ![HDFS_3](assets/hdfs_files_view_base_folder_concepts.png)
 
-Ambari Files User View provides a user friendly interface to upload, store and move data. Underlying all components in Hadoop is the Hadoop Distributed File System([HDFS](https://hortonworks.com/hadoop/hdfs/)™).  This is the foundation of the Hadoop cluster. The HDFS file system manages how the datasets are stored in the Hadoop cluster. It is responsible for distributing the data across the datanodes, managing replication for redundancy and administrative tasks like adding, removing and recovery of data nodes.
+Ambari Files User Viewは，データをアップロード，保存，移動するための使いやすいインターフェイスを提供します． Hadoopのすべてのコンポーネントには，Hadoop分散ファイルシステム（[HDFS](https://hortonworks.com/hadoop/hdfs/)™）があります． これはHadoopクラスタの基礎です． HDFSファイルシステムは，データセットがHadoopクラスタにどのように格納されるかを管理します． データノード全体にデータを分散し，冗長性のためのレプリケーションを管理し，データノードの追加，削除，回復などの管理タスクを担当します．
 
 ## 3. Concept: MapReduce & YARN <a id="concepts-mapreduce-yarn"></a>
 
-Cluster computing faces several challenges such as how to store data persistently and keep it available if nodes fail or how to deal with node failures during a long running computation. Also there is network bottleneck which delays the time of processing data. MapReduce offers a solution by bring computation close to data thereby minimizing data movement. It is a simple programming model designed to process large volumes of data in parallel by dividing the job into a set of independent tasks.
+クラスタコンピューティングは，データを永続的に格納する方法，ノードが失敗した場合に利用可能に，長期間の計算中にノード障害を処理する方法など，いくつかの課題に直面しています． また，データ処理の時間が遅くなるネットワークボトルネックもあります． MapReduceは，計算処理をデータに近づけることでデータ移動を最小限に抑えることで解決策を提供します． これは，ジョブを独立したタスクのセットに分割することによって，大量のデータを並列処理するように設計された単純なプログラミングモデルです．
 
-The biggest limitation with MapReduce programming is that map and reduce jobs are not stateless. This means that Reduce jobs have to wait for map jobs to be completed first. This limits maximum parallelism and therefore [YARN](https://hortonworks.com/blog/philosophy-behind-yarn-resource-management/) was born as a generic resource management and distributed application framework.
+MapReduceプログラミングの最大の制限は，MapジョブとReduceジョブがステートレスではないということです． つまり，ReduceジョブはMapジョブが最初に完了するのを待たなければなりません． この最大の並列性を制御するため，[YARN](https://hortonworks.com/blog/philosophy-behind-yarn-resource-management/)は一般的なリソース管理と分散アプリケーションフレームワークとして開発されました．
 
-### 3.1 Goals of the Module
+### 3.1 このモジュールの目的
 
--   Understanding Map and Reduce jobs.
--   Understanding YARN
+-   MapとReduceジョブについて理解すること
+-   YARNについて理解すること
 
 ### [3.2 Apache MapReduce](https://hortonworks.com/hadoop/mapreduce/)
 
-MapReduce is the key algorithm that the Hadoop data processing engine uses to distribute work around a cluster. A MapReduce job splits a large data set into independent chunks and organizes them into key, value pairs for parallel processing. This parallel processing improves the speed and reliability of the cluster, returning solutions more quickly and with greater reliability.
+MapReduceは，Hadoopのデータ処理エンジンがクラスタの周りに作業を分散するために使用する重要なアルゴリズムです． MapReduceジョブは，大きなデータセットを独立したチャンクに分割し，それらを並列処理用のキー，値ペアに整理します． この並列処理により，クラスターの速度と信頼性が向上し，より迅速かつ信頼性の高いソリューションが返されます．
 
-The **Map** function divides the input into ranges by the InputFormat and creates a map task for each range in the input. The JobTracker distributes those tasks to the worker nodes. The output of each map task is partitioned into a group of key-value pairs for each reduce.
+**Map**機能は，入力をInputFormatで範囲に分割し，入力内の各範囲のマップタスクを作成します． JobTrackerは，これらのタスクをワーカーノードに配布します． 各マップタスクの出力は，それぞれの削減のためのキーと値のペアのグループに分割されます．
 
 -   `map(key1,value) -> list<key2,value2>`
 
-The **Reduce** function then collects the various results and combines them to answer the larger problem that the master node needs to solve. Each reduce pulls the relevant partition from the machines where the maps executed, then writes its output back into HDFS. Thus, the reduce is able to collect the data from all of the maps for the keys and combine them to solve the problem.
+**Reduce**機能は，さまざまな結果を収集し，それらを組み合わせて，マスターノードが解決する必要のあるだろうより大きな問題に答えるものです．各reduceは，マップが実行されたマシンから該当するパーティションを取り出し，その出力をHDFSに書き戻します． したがって，reduceはキーのすべてのマップからデータを収集し，それらを組み合わせて問題を解決することができます．
 
 -   `reduce(key2, list<value2>) -> list<value3>`
 
-The current Apache Hadoop MapReduce System is composed of the JobTracker, which is the master, and the per-node slaves called TaskTrackers. The JobTracker is responsible for _resource management_ (managing the worker nodes i.e. TaskTrackers), _tracking resource consumption/availability_ and also _job life-cycle management_ (scheduling individual tasks of the job, tracking progress, providing fault-tolerance for tasks etc).
+現在のApache Hadoop MapReduceシステムは，マスタであるJobTrackerとTaskTrackersと呼ばれるノードごとのスレーブで構成されています． JobTrackerは，リソース管理（ワーカーノードを管理，つまりTaskTrackers），資源消費量/可用性，ライフサイクル管理ジョブの個々のタスクのスケジューリング，進行状況の追跡，タスクのフォールトトレランスの提供などを担当します．
 
-The TaskTracker has simple responsibilities – launch/teardown tasks on orders from the JobTracker and provide task-status information to the JobTracker periodically.
+TaskTrackerは，JohnTrackerからの要求を起動/分解し，JobTrackerにタスクステータス情報を定期的に提供します．
 
 ![MapR_1](assets/MapR_1.png)
 
-The Apache Hadoop projects provide a series of tools designed to solve big data problems. The Hadoop cluster implements a parallel computing cluster using inexpensive commodity hardware. The cluster is partitioned across many servers to provide a near linear scalability. The philosophy of the cluster design is to bring the computing to the data. So each datanode will hold part of the overall data and be able to process the data that it holds. The overall framework for the processing software is called MapReduce. Here’s a short video introduction to MapReduce:
+Apache Hadoopプロジェクトには，巨大なデータの問題を解決するための一連のツールが用意されています． Hadoopクラスタは，安価なコモディティハードウェアを利用して並列コンピューティングクラスタを実装します． クラスタは，ほぼ直線的なスケーラビリティを提供するために多数のサーバーに分割されています． クラスタ設計の哲学は，コンピューティングをデータにもたらすことです． したがって，各データノードは全体のデータの一部を保持し，保持しているデータを処理することができます． 処理ソフトウェアの全体的なフレームワークはMapReduceと呼ばれます． MapReduceの紹介動画をご覧ください．
 
-<iframe width="500" height="281" src="https://www.youtube.com/embed/ht3dNvdNDzI?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player2"></iframe>
+[https://www.youtube.com/watch?v=ht3dNvdNDzI](https://www.youtube.com/watch?v=ht3dNvdNDzI)
 
 ![MapR_2](assets/MapR_2.png)
 
 ### [3.3 Apache YARN](https://hortonworks.com/blog/apache-hadoop-yarn-background-and-an-overview/) (Yet Another Resource Negotiator)
 
-Hadoop HDFS is the data storage layer for Hadoop and MapReduce was the data-processing layer in Hadoop 1x. However, the MapReduce algorithm, by itself, isn’t sufficient for the very wide variety of use-cases we see Hadoop being employed to solve. Hadoop 2.0 presents YARN, as a generic resource-management and distributed application framework, whereby, one can implement multiple data processing applications customized for the task at hand. The fundamental idea of YARN is to split up the two major responsibilities of the JobTracker i.e. resource management and job scheduling/monitoring, into separate daemons: a global **ResourceManager** and per-application **ApplicationMaster** (AM).
+Hadoop HDFSはHadoopのデータストレージレイヤーで，MapReduceはHadoop 1xのデータ処理レイヤーでした． しかし，MapReduceアルゴリズムだけでは，Hadoopを使用して解決する非常に幅広いユースケースには十分ではありません． Hadoop 2.0は，一般的なリソース管理および分散アプリケーションフレームワークとしてYARNを提供します．これにより，手元にあるタスク用にカスタマイズされた複数のデータ処理アプリケーションを実装できます． YARNの基本的な考え方は，JobTrackerの2つの主要な責任，すなわちリソース管理とジョブスケジューリング/モニタリングを別々のデーモン，すなわちGlobal**ResourceManager**とアプリケーションごとの**ApplicationMaster**（AM）に分割することです．
 
-The ResourceManager and per-node slave, the NodeManager (NM), form the new, and generic, **system** for managing applications in a distributed manner.
+ResourceManagerとノード単位のスレーブであるNodeManager（NM）は，分散してアプリケーションを管理するための新しい汎用の**システム**を形成します．
 
-The ResourceManager is the ultimate authority that arbitrates resources among all the applications in the system. The per-application ApplicationMaster is, in effect, a _framework specific_ entity and is tasked with negotiating resources from the ResourceManager and working with the NodeManager(s) to execute and monitor the component tasks.
+ResourceManagerは，システム内のすべてのアプリケーション間でリソースを調停する最終的な権限です． アプリケーションごとのApplicationMasterは事実上_framework specific_エンティティであり，ResourceManagerからリソースをネゴシエートし，NodeManagerと連携してコンポーネントのタスクを実行および監視することが任されています．
 
-[ResourceManager](https://hortonworks.com/blog/apache-hadoop-yarn-resourcemanager/) has a pluggable **Scheduler**, which is responsible for allocating resources to the various running applications subject to familiar constraints of capacities, queues etc. The Scheduler is a _pure scheduler_ in the sense that it performs no monitoring or tracking of status for the application, offering no guarantees on restarting failed tasks either due to application failure or hardware failures. The Scheduler performs its scheduling function based on the _resource requirements_ of the applications; it does so based on the abstract notion of a **_Resource Container_ **which incorporates resource elements such as memory, CPU, disk, network etc.
+[ResourceManager](https://hortonworks.com/blog/apache-hadoop-yarn-resourcemanager/)にはプラグイン可能な**スケジューラ**があり，キャパシティ，キューなどに慣れ親しんだ制約のもとで実行中のさまざまなアプリケーションにリソースを割り当てる役割を担っています．スケジューラは，アプリケーションのステータスの監視や追跡を行わない純粋なスケジューラです． アプリケーションの障害やハードウェアの障害のために，失敗したタスクの再起動を保証するものではありません． スケジューラは，アプリケーションのリソース要件に基づいてスケジューリング機能を実行します． メモリ，CPU，ディスク，ネットワークなどのリソース要素を組み込んだ**リソースコンテナ**の抽象概念に基づいています．
 
 [NodeManager](https://hortonworks.com/blog/apache-hadoop-yarn-nodemanager/) is the per-machine slave, which is responsible for launching the applications’ containers, monitoring their resource usage (CPU, memory, disk, network) and reporting the same to the ResourceManager.
 
-The per-application ApplicationMaster has the responsibility of negotiating appropriate resource containers from the Scheduler, tracking their status and monitoring for progress. From the system perspective, the ApplicationMaster itself runs as a normal _container_.
+[NodeManager](https://hortonworks.com/blog/apache-hadoop-yarn-nodemanager/)はマシンごとのスレーブであり，アプリケーションのコンテナを起動し，リソースの使用状況（CPU，メモリ，ディスク，ネットワーク）を監視し，ResourceManagerに報告します．
 
-Here is an architectural view of YARN:
+アプリケーションごとのApplicationMasterは，スケジューラから適切なリソースコンテナをネゴシエートし，ステータスを追跡し，進行状況を監視します． システムの観点から見ると，ApplicationMaster自体は通常のコンテナとして実行されます．
+
+YARNのアーキテクチャは次のとおりです：
 
 ![MapR_3](assets/MapR_3.png)
 
-One of the crucial implementation details for MapReduce within the new YARN **system** that I’d like to point out is that we have reused the existing MapReduce **framework** without any major surgery. This was very important to ensure **compatibility** for existing MapReduce applications and users. Here is a short video introduction for YARN.
+新しいYARN**システム**内のMapReduceの重要な実装の詳細の1つは，大きな改変をせずに既存のMapReduce**フレームワーク**を再利用したことです． これは，既存のMapReduceアプリケーションとユーザーの**互換性**を確保するために非常に重要でした． ここにYARNの短い動画紹介があります．
 
-<iframe width="500" height="281" src="https://www.youtube.com/embed/wlouNFscZS0?start=147&amp;feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player3"></iframe>
+[https://www.youtube.com/watch?v=wlouNFscZS0](https://www.youtube.com/watch?v=wlouNFscZS0)
 
 ## 4. Concept: Hive and Pig <a id="concepts-hive-pig"></a>
 
-### 4.1 Introduction: Apache Hive
+### 4.1 はじめに： Apache Hive
 
-Hive is an SQL like query language that enables those analysts familiar with SQL to run queries on large volumes of data.  Hive has three main functions: data summarization, query and analysis. Hive provides tools that enable easy data extraction, transformation and loading (ETL).
+Apache Hiveは，Hadoopと統合された様々なデータベースやファイルシステムに格納されたデータを照会するためのSQLインターフェースを提供します．Hiveを利用すると，SQLに慣れている方は，大量のデータに対してクエリを実行できます．Hiveには主に，データの要約，クエリ，分析の3つの機能があります．またHiveは，簡単なデータ抽出（Extraction）や変換（Transformation），ローディング（Loading）を可能にする（ETL）ツールを提供します．
 
-### 4.2 Goals of the module
+### 4.2 このモジュールの目的
 
--   Understanding Apache Hive
--   Understanding Apache Tez
--   Understanding Ambari Hive User Views on Hortonworks Sandbox
+-   Apache Hiveについて理解すること
+-   Apache Tezについて理解すること
+-   Ambari Hive User Views on Hortonworks Sandboxについて理解すること
 
 ### [4.3 Apache Hive](https://hive.apache.org/)**™**
 
-Data analysts use Hive to explore, structure and analyze that data, then turn it into business insights. Hive implements a dialect of SQL (Hive QL) that focuses on analytics and presents a rich set of SQL semantics including OLAP functions, sub-queries, common table expressions and more. Hive allows SQL developers or users with SQL tools to easily query, analyze and process data stored in Hadoop.Hive also allows programmers familiar with the MapReduce framework to plug in their custom mappers and reducers to perform more sophisticated analysis that may not be supported by the built-in capabilities of the language.
+データアナリストは，Hiveを利用してデータを探索，構造化，分析し，それをビジネス視点に置き換えます．Hiveは分析に重点をおいたSQL（Hive QL）言語を実装し，OLAP関数，サブクエリ，共通テーブル式など豊富なSQLセマンティクスを提供します．Hiveを利用すると，SQL開発者やSQLツールを持つユーザは，Hadoopに保存されたデータを簡単にクエリ，分析，処理することができます．Hiveは，MapReduceフレームワークに精通したプログラマが，カスタムマッパーやレデューサーを拡張して，言語の組み込み機能でサポートされていない分析を行うこともできます．
 
 Hive users have a choice of 3 runtimes when [executing SQL queries](https://hortonworks.com/blog/5-ways-make-hive-queries-run-faster/). Users can choose between Apache Hadoop MapReduce, Apache Tez or Apache Spark frameworks as their execution backend.
 
-Here are some advantageous characteristics of Hive for enterprise SQL in Hadoop:
+Hiveユーザは，SQLクエリを実行するときに3ランタイムを選択できます． ユーザは，バックエンドとしてApache Hadoop MapReduce，Apache Tez，またはApache Sparkフレームワークを選択できます．
+
+HadoopのエンタープライズSQLに対するHiveのいくつかの利点を以下に示します：
 
 | Feature | Description |
 |---------|-------------|
-| Familiar| Query data with a SQL-based language |
-| Fast    | Interactive response times, even over huge datasets |
-| Scalable and Extensible| As data variety and volume grows, more commodity machines can be added, without a corresponding reduction in performance|
+| 慣れ親しんだ文法| SQLベースの言語によるデータの照会 |
+| 速度    | 巨大なデータセットであってもインタラクティブな応答時間 |
+| スケーラブルで拡張可能| データの種類や量が増えても性能を低下させず，より多くのコモディティマシンを追加できる|
 
-### 4.3.1 How Hive Works
+### 4.3.1 Hiveの動作
 
-The tables in Hive are similar to tables in a relational database, and data units are organized in a taxonomy from larger to more granular units. Databases are comprised of tables, which are made up of partitions. Data can be accessed via a simple query language and Hive supports overwriting or appending data.
+Hiveのテーブルは，リレーショナルデータベースのテーブルと似ています．データユニットは，より大きな単位からより細かい単位まで分類されています． データベースは，テーブルで構成され，パーティションで構成されています． データは簡単なクエリ言語でアクセスでき，Hiveはデータの上書きまたは追加をサポートします．
 
-Within a particular database, data in the tables is serialized and each table has a corresponding Hadoop Distributed File System (HDFS) directory. Each table can be sub-divided into partitions that determine how data is distributed within sub-directories of the table directory. Data within partitions can be further broken down into buckets.
+特定のデータベース内では，テーブル内のデータがシリアライズされ，各テーブルには対応するHadoop分散ファイルシステム（HDFS）ディレクトリがあります． 各テーブルは，テーブルディレクトリのサブディレクトリ内でのデータの分散方法を決定し，パーティションに細分することができます． パーティション内のデータは，さらにバケットに分割できます．
 
-### 4.3.2 Components of Hive
+### 4.3.2 Hiveコンポーネント
 
--   [**HCatalog**](https://cwiki.apache.org/confluence/display/Hive/HCatalog) is a component of Hive. It is a table and storage management layer for Hadoop that enables users with different data processing tools — including Pig and MapReduce — to more easily read and write data on the grid. HCatalog holds a set of files paths and metadata about data in a Hadoop cluster. This allows scripts, MapReduce and Tez, jobs to be decoupled from data location and metadata like the schema. Additionally, since HCatalog also supports tools like Hive and Pig, the location and metadata can be shared between tools. Using the open APIs of HCatalog external tools that want to integrate, such as Teradata Aster, can also use leverage file path location and metadata in HCatalog.
+[**HCatalog**](https://cwiki.apache.org/confluence/display/Hive/HCatalog)はHiveのコンポーネントです． これは，Hadoop用のテーブルとストレージ管理レイヤで，PigやMapReduceなどのさまざまなデータ処理ツールを持つユーザが，グリッド上のデータをより簡単に読み書きできるようにします． HCatalogは，Hadoopクラスタ内のデータに関する一連のファイルパスとメタデータを保持します． これにより，スクリプト，MapReduce，Tezジョブを，データの場所とスキーマのようなメタデータから切り離すことができます． さらに，HCatalogはHiveやPigのようなツールもサポートしているので，ツール間で場所とメタデータを共有することができます． Teradata Asterなど，統合したいHCatalogの外部ツールのオープンAPIを使用すると，HCatalogでファイル・パスの場所とメタデータを活用することもできます．
 
-> At one point HCatalog was its own Apache project. However, in March, 2013, [HCatalog’s project merged](https://hive.apache.org/hcatalog_downloads.html) with Hive.  HCatalog is currently released as part of Hive.
+> 以前，HCatalogは独自のApacheプロジェクトでした． しかし，2013年3月，HCatalogのプロジェクトは[Hiveと合併]((https://hive.apache.org/hcatalog_downloads.html))しました． HCatalogは現在，Hiveの一部としてリリースされています．
 
--   [**WebHCat**](https://cwiki.apache.org/confluence/display/Hive/WebHCat) provides a service that you can use to run Hadoop MapReduce (or YARN), Pig, Hive jobs or perform Hive metadata operations using an HTTP (REST style) interface.
+- [**WebHCat**](https://cwiki.apache.org/confluence/display/Hive/WebHCat)は，Hadoop MapReduce（またはYARN），Pig，Hiveジョブを実行したり，HTTP（RESTスタイル）インターフェイスを利用してHiveメタデータ操作を実行するために使用できるサービスを提供します．
 
-Here is a short video introduction on Hive:
+Hiveの紹介動画をご覧ください：
 
-<iframe width="500" height="281" src="https://www.youtube.com/embed/Pn7Sp2-hUXE?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player4"></iframe>
+[https://www.youtube.com/watch?v=Pn7Sp2-hUXE](https://www.youtube.com/watch?v=Pn7Sp2-hUXE)
 
 ### [4.3.3 Apache Tez](https://tez.apache.org/)
 
-Apache Tez is an extensible framework for building high performance batch and interactive data processing applications, coordinated by YARN in Apache Hadoop. Tez improves the MapReduce paradigm by dramatically improving its speed, while maintaining MapReduce’s ability to scale to petabytes of data. Important Hadoop ecosystem projects like Apache Hive and Apache Pig use Apache Tez, as do a growing number of third party data access applications developed for the broader Hadoop ecosystem.
+Apache Tezは，Apache HadoopのYARNによって調整された高性能バッチおよび対話型データ処理アプリケーションを構築するための拡張可能なフレームワークです． TezはMapReduceのスピードを飛躍的に向上させ，MapReduceのペタバイト（PB）のデータに拡張できるようにします． Apache HiveやApache Pigのような重要なHadoopエコシステムプロジェクトはApache Tezを利用しています．
 
-Apache Tez provides a developer API and framework to write native [YARN](https://hortonworks.com/hadoop/yarn/) applications that bridge the spectrum of interactive and batch workloads. It allows those data access applications to work with petabytes of data over thousands nodes. The Apache Tez component library allows developers to create Hadoop applications that integrate natively with Apache Hadoop YARN and perform well within mixed workload clusters.
+Apache Tezは，開発者向けのAPIとフレームワークを提供し，インタラクティブなワークロードとバッチワークロードのスペクトルを橋渡しするネイティブの[YARN](https://hortonworks.com/hadoop/yarn/)アプリケーションを作成します．これにより，これらのデータアクセスアプリケーションは数千のノードを超えるペタバイトのデータで動作することができます． Apache Tezコンポーネントライブラリを利用すると，開発者は，Hadoopアプリケーションを作成して，Apache Hadoop YARNとネイティブに統合し，複数のワークロードクラスタでうまく動作するようにできます．
 
-Since Tez is extensible and embeddable, it provides the fit-to-purpose freedom to express highly optimized data processing applications, giving them an advantage over end-user-facing engines such as [MapReduce](https://hortonworks.com/hadoop/mapreduce/) and [Apache Spark](https://hortonworks.com/hadoop/spark/). Tez also offers a customizable execution architecture that allows users to express complex computations as dataflow graphs, permitting dynamic performance optimizations based on real information about the data and the resources required to process it.
+Tezは拡張性と組込み性があり，高度に最適化されたデータ処理アプリケーションを表現する目的に合わせた自由さを提供し，[MapReduce](https://hortonworks.com/hadoop/mapreduce/)や[Apache Spark](https://hortonworks.com/hadoop/spark/)などのエンドユーザ向けエンジンに優位性をもたらします． Tezはまた，データフローグラフとして複雑な計算を表現できるカスタマイズ可能な実行アーキテクチャを提供し，データとその処理に必要なリソースに関する実際の情報に基づいて動的なパフォーマンスの最適化を可能にします．
 
 ![Hive_1](assets/Hive_1.png)
 
@@ -252,23 +245,23 @@ Since Tez is extensible and embeddable, it provides the fit-to-purpose freedom t
 
 ![Hive_3](assets/Hive_3.png)
 
-Here is a short video introduction on Tez.
+Tezの紹介動画をご覧ください：
 
-<iframe width="500" height="281" src="https://www.youtube.com/embed/cPSfA1bhgVA?feature=oembed&amp;start=50&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player5"></iframe>
+[https://www.youtube.com/watch?time_continue=50&v=cPSfA1bhgVA](https://www.youtube.com/watch?time_continue=50&v=cPSfA1bhgVA)
 
-### 4.3.4 Stinger and Stinger.next
+### 4.3.4 StingerとStinger.next
 
-The Stinger Initiative was started to enable Hive to support an even broader range of use cases at truly Big Data scale: bringing it beyond its Batch roots to support interactive queries – all with a common SQL access layer.
+Stinger Initiativeは，Hiveが真にビッグデータスケールでより広範なユースケースをサポートできるようにしました．バッチルーツを超えてインタラクティブなクエリをサポートします．すべてが共通のSQLアクセスレイヤでサポートされています．
 
-Stinger.next is a continuation of this initiative focused on even further enhancing the [speed](https://hortonworks.com/blog/benchmarking-apache-hive-13-enterprise-hadoop/), scale and breadth of SQL support to enable truly real-time access in Hive while also bringing support for transactional capabilities. And just as the original Stinger initiative did, this will be addressed through a familiar three-phase delivery schedule and developed completely in the open Apache Hive community.
+Stinger.nextは，Hiveで真にリアルタイムにアクセスできるように，SQLサポートの[速度](https://hortonworks.com/blog/benchmarking-apache-hive-13-enterprise-hadoop/)，規模，幅をさらに強化し，トランザクション機能をサポートすることに重点を置いたこのイニシアチブの継続です． また，オリジナルのStingerイニシアチブと同様に，これは使い慣れた3段階の配信スケジュールで対処され，完全にオープンなApache Hiveコミュニティで開発されます．
 
 ![Hive_4](assets/Hive_4.png)
 
 ### 4.3.5 Ambari Hive View 2.0 on Hortonworks Sandbox
 
-To make it easy to interact with Hive we use a tool in the Hortonworks Sandbox called the Ambari Hive View 2.0. It provides an interactive interface to Hive 2. We can create, edit, save and run queries, and have Hive evaluate them for us using a series of MapReduce jobs or Tez jobs.
+Hiveとのやり取りを簡単にするために，Hortonworks SandboxのAmbari Hive Viewというツールを利用しています．[Ambari Hive View 2.0](https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.0.3/bk_ambari-views/content/ch_using_hive_view.html)は，Hiveへのインタラクティブなインターフェースを提供します．クエリの作成や編集，保存，実行をすることができ，MapReduceジョブまたはTezジョブを利用して，Hiveに評価させることができます．
 
-Let’s now open Ambari Hive View 2.0 and get introduced to the environment. Go to the Ambari User View icon and select Hive View 2.0:
+それではAmbari Hive View 2.0を開いて，その環境を体験してみましょう．Ambari User Viewアイコンのメニューから，Hive View 2.0を選択します．
 
 ![Hive View 2](assets/selector_views_concepts.png)
 
@@ -276,86 +269,96 @@ Ambari Hive View 2.0
 
 ![Hive_View_2.0](assets/ambari_hive_user_view_concepts.png)
 
--   There are six tabs to interact with SQL:
-    -   **QUERY**: This is the interface shown above and the primary interface to write, edit and execute new SQL statements
-    -   **JOBS**: This allows you to look at past queries or currently running queries.  It also allows you to see all SQL queries you have authority to view.  For example, if you are an operator and an analyst needs help with a query, then the Hadoop operator can use the History feature to see the query that was sent from the reporting tool.
-    -   **TABLES**: Provides one central place to view, create, delete, and manage tables of whichever databases that you select.
-    -   **SAVED QUERIES**: shows all the queries that have been saved by the current user. Click the gear icon to the right of the query list to view the history of a query or to delete it.
-    -   **UDFs**: User-defined functions (UDFs) can be added to queries by pointing to a JAR file on HDFS and indicating the Java classpath, which contains the UDF definition. After the UDF is added here, an Insert UDF button appears in the Query Editor that enables you to add the UDF to your query.
-    -   **SETTINGS**: Allows you to append settings to queries that you execute in Hive View.
+次に，Hive ViewのSQL編集機能を詳しく見ていきましょう．
 
-The Apache Hive project provides a data warehouse view of the data in HDFS. Using a SQL dialect, [HiveQL](https://cwiki.apache.org/confluence/display/Hive/LanguageManual) (HQL), Hive lets you create summarizations of your data and perform ad-hoc queries and analysis of large datasets in the Hadoop cluster. The overall approach with Hive is to project a table structure on the dataset and then manipulate it with SQL. The notion of projecting a table structure on a file is often referred to as [Schema-On-Read](https://hortonworks.com/blog/hivehcatalog-data-geeks-big-data-glue/). Since you are using data in HDFS, your operations can be scaled across all the datanodes and you can manipulate huge datasets.
+- SQLを利用するための6つのタブがあります．
+  - QUERY：これは先程の画像で示したメインのインターフェースであり，新しいSQL文の記述や編集，実行をすることができます．
+  - JOBS：過去のクエリや現在実行中のクエリを確認することができます．また，表示可能な全てのSQLクエリを表示させることもできます．例えば，管理者や分析者がクエリのヘルプを必要とするとき，Hadoop管理者は履歴機能を利用してレポートツールから送信されたクエリを表示させることができます．
+  - TABLES：選択したデータベースのテーブルを表示や作成，削除および管理するための中心地を提供します．
+  - SAVED QUERIES：現在のユーザによって保存された全てのクエリを表示します．クエリの履歴を表示または削除するには，クエリのリストの右側にある歯車アイコンをクリックします．
+  - UDFs：HDFS上のJARファイルとUDF定義を含むJavaのClassPathを示すことで，ユーザ定義関数（UDFs：User-defined functions）をクエリに追加できます．ここにUDFを追加すると，UDF挿入ボタンがクエリエディタに表示され，UDFをクエリに追加できます．
+  - SETTINGS：Hive Viewで実行するクエリに設定を追加できます．
 
-### 4.4 Introduction: Apache Pig
+Apache Hiveプロジェクトは，HDFS内のデータのデータウェアハウスビューを提供します． [HiveQL](https://cwiki.apache.org/confluence/display/Hive/LanguageManual)（HQL）というSQL言語を使用すると，データの要約を作成し，Hadoopクラスタの大規模なデータセットのアドホッククエリと分析を実行できます． Hiveの全体的なアプローチは，データセットにテーブル構造を投影し，それをSQLで操作することです． ファイルにテーブル構造を投影するという考え方は，しばしば[スキーマ・オン・リード](https://hortonworks.com/blog/hivehcatalog-data-geeks-big-data-glue/)と呼ばれます． HDFSでデータを使用しているため，すべてのデータノードで操作を拡張でき，巨大なデータセットを操作できます．
 
-MapReduce allows allows you to specify map and reduce functions, but working out how to fit your data processing into this pattern may sometimes require you to write multiple MapReduce stages. With Pig, data structures are much richer and the transformations you can apply to data are much more powerful.
+### 4.4 はじめに: Apache Pig
 
-### 4.4.1 Goals of this Module
+MapReduceでは，マップや関数を指定することができますが，データ処理をこのパターンに合わせる方法を検討すると，複数のMapReduceステージを記述する必要が生じることがあります． Pigでは，データ構造がより豊富になり，データに適用できる変換がはるかに強力になります．
 
--   Understanding Apache Pig
--   Understanding Apache Pig on Tez
--   Understanding Ambari Pig User Views on Hortonworks Sandbox
+### 4.4.1 このモジュールの目的
+
+-   Apache Pigについて理解すること
+-   Apache Pig on Tezについて理解すること
+-   Ambari Pig User Views on Hortonworks Sandboxすること
 
 ### [4.4.2 Apache Pig](https://pig.apache.org/)**™**
 
-Apache Pig allows Apache Hadoop users to write complex MapReduce transformations using a simple scripting language called Pig Latin. Pig translates the Pig Latin script into MapReduce so that it can be executed within YARN for access to a single dataset stored in the Hadoop Distributed File System (HDFS).
+Apache Pigにより，Apache Hadoopユーザは，Pig Latinと呼ばれる簡単なスクリプト言語を使用して複雑なMapReduce変換を記述できます． Pig LatinスクリプトをMapReduceに変換して，Yado内でHadoop分散ファイルシステム（HDFS）に格納された単一のデータセットにアクセスできるようにします．
 
 Pig was designed for performing a long series of data operations, making it ideal for three categories of Big Data jobs:
+Pigは長い一連のデータ操作を実行するように設計されており，Big Dataジョブの3つのカテゴリに対して理想的です．
 
--   **Extract-transform-load (ETL)** data pipelines,
--   **Research** on raw data, and
--   **Iterative data processing.**
+-   データ抽出（Extraction）や変換（Transformation），ローディング（Loading）の（**ETL**）データパイプライン，
+-   生データに関する**リサーチ**，
+-   **反復データ処理**．
 
-Whatever the use case, Pig will be:
+ユースケースが何であろうと，Pigは次のようになります：
 
 | Characteristic | Benefit |
 |----------------|---------|
-| Extensible | Pig users can create custom functions to meet their particular processing requirements
-| Easily Programmed | Complex tasks involving interrelated data transformations can be simplified and encoded as data flow sequences. Pig programs accomplish huge tasks, but they are easy to write and maintain.
-| Self-Optimizing | Because the system automatically optimizes execution of Pig jobs, the user can focus on semantics.
+| 拡張可能 | Pigユーザーは，特定の処理要件を満たすカスタム関数を作成できます
+| 簡単なプログラミング | Pigプログラムは巨大な作業を実現できる上，記述やメンテナンスが容易です．相互に関連するデータ変換をを含む複雑なタスクはデータフローシーケンスとして単純化，符号化できます．
+| 自己最適化 | システムはPigジョブの実行を自動的に最適化するため，ユーザは内容に集中できます．
 
-Please refer the following video on Pig for more clarity:
+より理解を深めるために，次の動画を参照してください：
 
-<iframe width="500" height="281" src="https://www.youtube.com/embed/PQb9I-8986s?feature=oembed&amp;enablejsapi=1" frameborder="0" allowfullscreen="" id="player6"></iframe>
+[https://www.youtube.com/watch?v=PQb9I-8986s](https://www.youtube.com/watch?v=PQb9I-8986s)
 
 ### 4.4.3 How Pig Works
 
-Pig runs on Apache Hadoop YARN and makes use of MapReduce and the Hadoop Distributed File System (HDFS). The language for the platform is called Pig Latin, which abstracts from the Java MapReduce idiom into a form similar to SQL. While SQL is designed to query the data, Pig Latin allows you to write a data flow that describes how your data will be transformed (such as aggregate, join and sort).
+PigはApache Hadoop YARNで動作し，MapReduceとHadoop分散ファイルシステム（HDFS）を利用します． プラットフォームの言語はPig Latinと呼ばれ，Java MapReduceイディオムからSQLに似た形式に抽象化されています． SQLはデータを照会するように設計されていますが，Pig Latinでは，データの変換方法（集計，結合，ソートなど）を記述するデータフローを記述できます．
 
-Since Pig Latin scripts can be graphs (instead of requiring a single output) it is possible to build complex data flows involving multiple inputs, transforms, and outputs. Users can extend Pig Latin by writing their own functions, using Java, Python, Ruby, or other scripting languages. Pig Latin is sometimes extended using UDFs (User Defined Functions), which the user can write in any of those languages and then call directly from the Pig Latin.
+Pig Latinスクリプトは（単一の出力を必要とするのではなく）グラフにすることができるので，複数の入力，変換，および出力を含む複雑なデータフローを構築することが可能です． ユーザは，Java，Python，Ruby，その他のスクリプト言語を使用して，独自の関数を記述してPig Latinを拡張できます． Pig LatinはUDF（ユーザー定義関数）を使用して拡張されることがあります．ユーザはこれらの言語のいずれかで記述し，Pig Latinから直接呼び出すことができます．
 
-The user can run Pig in two modes, using either the “pig” command or the “java” command:
+ユーザは，`pig`コマンドまたは`java`コマンドのいずれかを利用して，Pigを2つのモードで実行できます．
 
--   **MapReduce Mode.** This is the default mode, which requires access to a Hadoop cluster. The cluster may be a pseudo- or fully distributed one.
--   **Local Mode.** With access to a single machine, all files are installed and run using a local host and file system
+-   **MapReduce Mode.** これはHadoopクラスタへのアクセスを必要とするデフォルトモードです． クラスタは，擬似または完全に分散されたものでも動作します．
+-   **Local Mode.** 単一のマシンにアクセスすると，すべてのファイルがローカルホストとファイルシステムを使用してインストールされ実行されます．
 
 #### 4.4.4 Ambari Pig User Views on Hortonworks Sandbox
 
-To get to the Ambari Pig User View on Sandbox, click on the User Views icon at top right and select **Pig**:
+サンドボックスのAmbari Pig User Viewにアクセスするには，右上のUser Viewsアイコンをクリックし，**Pig**を選択します：
 
 ![Screen Shot 2016-02-17 at 7.12.41 PM](assets/ambari_pig_view_concepts.png)
 
-This will bring up the Ambari Pig User View interface. Your Pig View does not have any scripts to display, so it will look like the following:
+Ambari Pig User Viewのインターフェースには，まだスクリプトが存在しないので以下のように表示されます．
 
 ![Pig_2](assets/pig_view_scripts_list_empty_concepts.png)
 
-On the left is a list of your scripts, and on the right is a composition box for writing scripts. A special feature of the interface is the Pig helper at the bottom. The Pig helper will provide us with templates for the statements, functions, I/O statements, HCatLoader() and Python user defined functions. At the very bottom are status areas that will show the results of our script and log files.
+左側にはスクリプトのリストがあり，右側にはスクリプトを書くための構成ボックスがあります．特別なインターフェース機能は，スクリプトファイルの名前の下に存在する`PIG helper`です．Pigヘルパーはステートメント，関数，I/Oステートメント，HCatLoader()およびPythonユーザ定義関数のテンプレートを提供します．一番下にはスクリプトとログファイルの結果を示すステータス領域があります．
 
-The following screenshot shows and describes the various components and features of the Pig User View:
+次のスクリーンショットでは，Pig Viewの様々なコンポーネントと機能を示しています：．
 
 ![Pig_3](assets/pig_view_workspace_interface_concepts.png)
 
 ## Further Reading
 
-- HDFS is one of the 4 components of [Apache Hadoop](http://hadoop.apache.org/) the other 3 are Hadoop Common, [Hadoop YARN](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html) and [Hadoop MapReduce](https://hortonworks.com/hadoop/mapreduce/).
-- To learn more about YARN watch the following [YARN introduction video](https://www.youtube.com/watch?v=ZYXVNxmMchc&list=PL2y_WpKCCNQc-7RJNoYym4_g7EZb3yzJW).
+- HDFSは[Apache Hadoop](http://hadoop.apache.org/)の4つのコンポーネントの1つで，残りの3つはHadoop Commonと[Hadoop YARN](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html)，[Hadoop MapReduce](https://hortonworks.com/hadoop/mapreduce/)です．
+
+
+- YARNの詳細については，以下の紹介動画をご覧ください．[YARN introduction video](https://www.youtube.com/watch?v=ZYXVNxmMchc&list=PL2y_WpKCCNQc-7RJNoYym4_g7EZb3yzJW)
+
+
 - [Hadoop 2.7.0 Blog](https://hortonworks.com/blog/apache-hadoop-2-7-0-released/)
+
+
 - [Understanding Hadoop 2.0](https://hortonworks.com/blog/understanding-hadoop-2-0/)
 
 
+- [Apache Ambari](https://ambari.apache.org/)は．Hadoop操作のためのオープンソースおよびオープンソースコミュニティベースのWebベースのツールであり，[Ambari User Views](https://cwiki.apache.org/confluence/display/AMBARI/Views)を介して拡張され，ユーザビューとして開発ツールの一覧を提供しています．
 
-- [Apache Ambari](https://ambari.apache.org/) is an open source and open community based web based tool for Hadoop operations which has been extended via [Ambari User Views](https://cwiki.apache.org/confluence/display/AMBARI/Views) to provide a growing list of developer tools as User Views.
-- Follow this link to learn more about the [Ambari User VIews included in HDP](https://hortonworks.com/hadoop/ambari/).
+
+- [Ambari User Views included in HDP](https://hortonworks.com/hadoop/ambari/)の詳細についてはこのリンクをクリックしてください．
 
 **Hive Blogs**:
 
@@ -377,7 +380,7 @@ The following screenshot shows and describes the various components and features
 
 -   [Apache ORC Launches as a Top-Level Project](https://hortonworks.com/blog/apache-orc-launches-as-a-top-level-project/)
 -   [ORCFile in HDP 2: Better Compression, Better Performance](https://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/)
--   To learn more about HDFS watch the following [HDFS introduction video](https://www.youtube.com/watch?v=1_ly9dZnmWc).
+-   HDFSの詳細については，以下の紹介動画をご覧ください．[HDFS introduction video](https://www.youtube.com/watch?v=1_ly9dZnmWc)
 
 
 **HDFS Blogs:**

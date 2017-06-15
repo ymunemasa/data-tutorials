@@ -1,98 +1,90 @@
----
-title: Hadoop Tutorial – Getting Started with HDP
-tutorial-id: 100
-platform: hdp-2.6.0
-tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
----
+# Lab 1：センサデータをHDFSに読み込ませよう
+## はじめに
 
-# Hadoop Tutorial – Getting Started with HDP
-
-## Lab 1: Loading Sensor Data into HDFS
-
-## Introduction
-
-In this section, you will download the sensor data and load that into HDFS using Ambari User Views. You will get introduced to the Ambari Files User View to manage files. You can perform tasks like create directories, navigate file systems and upload files to HDFS.  In addition, you’ll perform a few other file-related tasks as well.  Once you get the basics, you will create two directories and then load two files into HDFS using the Ambari Files User View.
-
-## Prerequisites
-
-The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
-
--   Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) (Optional)
--   Allow yourself around **20 minutes** to complete this tutorial.
-
-## Outline
-
--   [HDFS backdrop](#hdfs-backdrop)
--   [Step 1.1: Download and Extract the Sensor Data Files](#step1.1) – [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
--   [Step 1.2: Load the Sensor Data into HDFS](#step1.2)
--   [Summary](#summary-lab1)
--   [Further Reading](#further-reading)
+このセクションでは，Ambari User Viewsを利用して，センサデータをダウンロードし，HDFSに読み込ませます．ファイルを管理するために，Ambari Files User Viewを導入します．ディレクトリの作成，ファイルシステムの案内，HDFSへのファイルのアップロードなどのタスクを実行します．さらに，他のファイル関連のタスクも実行します．基礎を習得したら，Ambari File User Viewを利用して，2つのファイルをHDFSに読み込ませましょう．
 
 
-## HDFS backdrop <a id="hdfs-backdrop"></a>
+## 前提条件
 
-A single physical machine gets saturated with its storage capacity as the data grows. This growth drives the need to partition your data across separate machines. This type of File system that manages storage of data across a network of machines is called Distributed File Systems. [HDFS](https://hortonworks.com/blog/thinking-about-the-hdfs-vs-other-storage-technologies/) is a core component of Apache Hadoop and is designed to store large files with streaming data access patterns, running on clusters of commodity hardware. With Hortonworks Data Platform HDP 2.2, HDFS is now expanded to support [heterogeneous storage](https://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)  media within the HDFS cluster.
+このチュートリアルは，Hortonworks Sandboxを利用して，HDPに入門するための一連のチュートリアルの一部です．このチュートリアルを進める前に，以下の条件を満たしていることを確認してください．
 
-## Step 1.1: Download and Extract the Sensor Data Files <a id="step1.1"></a>
-
-1.  You can download the sample sensor data contained in a compressed (.zip) folder here:  [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
-2.  Save the Geolocation.zip file to your computer, then extract the files. You should see a Geolocation folder that contains the following files:
-    -   geolocation.csv – This is the collected geolocation data from the trucks. It contains **records** showing _truck location, date, time, type of event, speed, etc_.
-    -   trucks.csv – This is data was exported from a relational database and it shows **info** on _truck models, driverid, truckid, and aggregated mileage info_.
-
-## Step 1.2: Load the Sensor Data into HDFS <a id="step1.2"></a>
-
-1\.   Go to Ambari Dashboard and open the **HDFS Files** view. Click on the 9 square Ambari User Views icon next to the username button and select the **HDFS Files** menu item.
-
-![Screen Shot 2015-07-21 at 10.17.21 AM](assets/files_view_lab1.png)
-
-2\.  Start from the top root of the HDFS file system, you will see all the files the logged in user (_maria_dev_ in this case) has access to see:
-
-![Lab2_2](assets/root_files_view_folder_lab1.png)
-
-3\. Navigate to `/user/maria_dev` directory by clicking on the directory links.
-
-4\.  Let's create a data directory to upload the data that we are going to use for this use case.  Click the ![Lab2_3](assets/new_folder_icon_lab1.png) button to create the data directory inside the `maria_dev` directory. Now navigate into the `data` directory.
-
-![add_new_folder_data_lab1](assets/add_new_folder_data_lab1.png)
-
-### 1.2.1 Upload Geolocation and Trucks CSV Files to data Folder
-
-1\.   If you're not already in your newly created directory path `/user/maria_dev/data`, go to the **data** folder. Then  click on the ![upload_icon_lab1](assets/upload_icon_lab1.png) button to upload the corresponding **geolocation.csv** and **trucks.csv** files into it.
-
-2\. An **Upload file** window will appear, click on the cloud symbol.
-
-![upload_file_lab1](assets/upload_file_lab1.png)
-
-3\. Another window will appear, navigate to the destination the two csv files were downloaded. Click on one at a time, press open to complete the upload. Repeat the process until both files are uploaded.
-
-![upload_file_window_lab1](assets/upload_file_window_lab1.png)
-
-Both files are uploaded to HDFS as shown in the Files View UI:
-
-![uploaded_files_lab1](assets/uploaded_files_lab1.png)
-
-You can also perform the following operations on a file or folder by clicking on the entity's row: **Open**, **Rename**, **Permissions**, **Delete**, **Copy**, **Move**, **Download** and **concatenate**.
-
-### 1.2.2 Set Write Permissions to Write to data Folder
-
-1.  click on the `data` folder's row, which is contained within the directory path `/user/maria_dev`.
-2.  Click **Permissions**.
-3.  Make sure that the background of all the **write** boxes are checked (**blue**).
-
-Refer to image for a visual explanation.
-
-![edit_permissions_lab1](assets/edit_permissions_lab1.png)
-
-## Summary <a id="summary-lab1"></a>
-
-Congratulations! Let’s summarize the skills and knowledge we acquired from this tutorial. We learned **Hadoop Distributed File System (HDFS)** was built to manage storing data across multiple machines. Now we can upload data into the HDFS using Ambari’s HDFS **Files view**.
+- [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)をダウンロードおよびインストール済み
+- [Hortonworks Sandboxの使い方を学習している](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)（任意）
+- このチュートリアルを完了するのに**20分**ほど掛かります．
 
 
-## Further Reading
--   [HDFS](https://hortonworks.com/hadoop/hdfs/)
--   [Manage Files on HDFS with Command Line: Hands-on Tutorial](https://hortonworks.com/hadoop-tutorial/using-commandline-manage-files-hdfs/)
--   [HDFS User Guide](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html)
--   Build your HDFS Architecture Knowledge [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.0.4/hdfs_design.html)
--   [HDP OPERATIONS: HADOOP ADMINISTRATION](https://hortonworks.com/training/class/hdp-operations-hadoop-administration-fundamentals/)
+## 概要
+- [HDFSの背景](#hdfs-backdrop)
+- [Step 1.1 ：センサデータファイルをダウンロードして展開](#step1.1) - [Geolocation.zip](https://app.box.com/HadoopCrashCourseData)
+- [Step 1.2：HDFSにセンサデータを読み込ませる](#step1.2)
+- [まとめ](#summary)
+- [参考文献](#further-reading)
+
+
+## HDFSの背景 <a id="hdfs-backdrop"></a>
+
+1台の物理マシンでは，データが増加するにつれてストレージ容量が限界に達してしまいます．このデータ増加のために，データを別々のマシンに分割する必要があります．ネットワークのマシン間でデータのストレージを管理するこのタイプのファイルシステムは，分散ファイルシステムと呼ばれます．[HDFS](https://hortonworks.com/blog/thinking-about-the-hdfs-vs-other-storage-technologies/)はApache Hadoopの中心的なコンポーネントであり，コモディティハードウェアのクラスタ上で実行されるストリーミングデータアクセスパターンを含む大きなファイルを格納するように設計されています．Hortonworks Data Platform HDP 2.2では，HDFSがクラスタ内の[様々なストレージメディア](https://hortonworks.com/blog/heterogeneous-storage-policies-hdp-2-2/)をサポートするように拡張されました．
+
+
+## Step 1.1：センサデータファイルをダウンロードして展開 <a id="step1.1"></a>
+1. サンプルセンサデータはここからダウンロードできます： [Geolocation.zip](https://app.box.com/HadoopCrashCourseData)
+2. Geolocation.zipをダウンロードし，ファイルを展開します．次のファイルを含むGeolocationフォルダが展開されます．
+- geolocation.csv - これはトラックから収集されたジオロケーションデータです．トラックの場所，日付，時刻，イベントの種類，速度などを示す**レコード**が含まれています．
+- trucks.csv - これはリレーショナルデータベースからエクスポートされたデータで，トラックモデル，運転手ID，トラックID，および集計された燃費（マイレージ）に関する情報が含まれています．
+
+
+## Step 1.2：HDFSにセンサデータを読み込ませる <a id="step1.2"></a>
+1. Ambariのダッシュボードに移動し，**HDFS File View**を開きます．ユーザ名ボタンの横にあるメニューアイコンのボタンをクリックし，メニュー項目から**Files View**を選択します．
+
+	![](assets/lab1/lab1-1.png)
+
+2. HDFSファイルシステムの一番上のルートから始め，ログインしているユーザ（この場合は*maria_dev*）の全てのファイルが表示されます．
+
+	![](assets/lab1/lab1-2.png)
+
+3. `/user/maria_dev`のディレクトリのリンクをクリックして移動します．
+4. 今回のユースケースで利用するデータをアップロードするために`data`ディレクトリを作成しましょう．**New Folder**のボタンをクリックして，`maria_dev`ディレクトリ内に`data`ディレクトリを作成します．そして，`data`ディレクトリに移動します．
+
+	![](assets/lab1/lab1-3.png)
+
+
+**Step 1.2.1：dataフォルダにGeolocationとTrucksのCSVファイルをアップロード**
+
+
+1. 新しく作成したディレクトリ`/user/maria_dev/data`にまだ移動していない場合，そのディレクトリに移動します．次に，**upload**ボタンをクリックして，**geolocation.csv**と**trucks.csv**をアップロードします．
+2. ファイルのアップロードウィンドウが表示されるので，雲の画像をクリックします．
+
+	![](assets/lab1/lab1-4.png)
+
+3. 別のウィンドウが表示されるので，2つのcsvファイルをダウンロードしたディレクトリに移動します．1度に1つのファイルが選択できるので，**Open**を押してアップロードを完了します．これを繰り返し，両方のアップロードが完了するとFiles ViewのUIに表示されます．
+
+	![](assets/lab1/lab1-5.png)
+
+4. ここで，ファイルやディレクトリに対して，**開く**，**名前変更**，**権限変更**，**削除**，**コピー**，**移動**，**ダウンロード**，**ファイル連結**などの操作を実行できます．
+
+	![](assets/lab1/lab1-6.png)
+
+
+**Step 1.1.2：データディレクトリへの書き込み権限を許可する**
+
+
+1. ディレクトリ`/user/maria_dev`に含まれている`data`ディレクトリをクリックします．
+2. **Permissions**をクリックします
+3. 全ての**Write**ボックスの背景が**青色**にチェックされていることを確認してください．
+
+視覚的な説明については画像を参照してください．
+
+![](assets/lab1/lab1-7.png)
+
+## まとめ <a id="summary"></a>
+
+おめでとうございます！今回のチュートリアルで得たスキルと知識をまとめましょう．
+**Hadoop Distributed File System（HDFS）**は，複数のマシン間でデータを管理するために構築されたものです．そして，AmbariのHDFS **Files View**を利用することで，HDFSにデータをアップロードできます．
+
+## 参考文献 <a id="further-reading"></a>
+- [HDFS](http://hortonworks.com/apache/hdfs/)
+- [Manage Files on HDFS with Command Line: Hands-on Tutorial](http://hortonworks.com/hadoop-tutorial/using-commandline-manage-files-hdfs/)
+- [HDFS User Guide](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html)
+- Build your HDFS Architecture Knowledge [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.0.4/hdfs_design.html)
+- [HDP OPERATIONS: HADOOP ADMINISTRATION](http://hortonworks.com/training/class/hdp-operations-hadoop-administration-1/)
+
