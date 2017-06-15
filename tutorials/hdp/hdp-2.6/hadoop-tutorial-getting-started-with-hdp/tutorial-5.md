@@ -58,7 +58,7 @@ Sparkでは，MapReduce型ジョブや反復アルゴリズムなどのバッチ
     
 	```
 	http://sandbox.hortonworks.com:9995
-```
+	```
 
   ZeppelinのWelcomeページが表示されるはずです．
 
