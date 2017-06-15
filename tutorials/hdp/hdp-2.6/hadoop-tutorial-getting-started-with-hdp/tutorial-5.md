@@ -1,461 +1,446 @@
----
-title: Hadoop Tutorial – Getting Started with HDP
-tutorial-id: 100
-platform: hdp-2.6.0
-tags: [ambari, hive, pig, spark, zeppelin]
----
+# Lab 4：Spackでリスクファクタを算出しよう
 
-# Hadoop Tutorial – Getting Started with HDP
+注：このチュートリアルは任意で，Lab 3と同様の結果が得られます．必要に応じて，次のチュートリアルに進んでください．
 
-## Lab 4: Spark - Risk Factor
+## はじめに
 
-**Note:**  This lab is optional and produces the same result as in Lab 3. You may continue on to the next lab if you wish.
+このチュートリアルではApache Sparkを紹介します．このチュートリアルの最初のセクションでは，HDFSにデータを読み込ませ，Hiveを利用してデータを操作する方法を学びました．トラックのセンサデータを利用して，全てのドライバに関連するリスクをより理解できるようになりました．このセクションではApache Sparkを利用してリスクを計算する方法を説明します．
 
-## Introduction
 
-In this tutorial we will introduce Apache Spark. In the earlier section of the lab you have learned how to load data into HDFS and then manipulate it using Hive. We are using the Truck sensor data to better understand risk associated with every driver. This section will teach you how to compute risk using Apache spark.
+## 前提条件
 
-## Prerequisites
+このチュートリアルは，Hortonworks Sandboxを利用して，HDPに入門するための一連のチュートリアルの一部です．このチュートリアルを進める前に，以下の条件を満たしていることを確認してください．
 
-This tutorial is a part of a series of hands on tutorials to get you started on HDP using the Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
+- Hortonworks Sandbox
+- [Hortonworks Sandboxの使い方を学習している](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
+- Lab 1：センサデータをHDFSに読み込ませよう
+- Lab 2：Hiveでデータ操作をしよう
+- このチュートリアルを完了するのに1時間ほど掛かります．
 
--   Hortonworks Sandbox
--   [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
--   Lab 1: Loading sensor data into HDFS
--   Lab 2: Data Manipulation with Apache Hive
--   Allow yourself around one hour to complete this tutorial.
 
-## Outline
+## 概要
+- [背景](#backdrop)
+- [Apache Sparkの基本](#spark-basics)
+- [Step 4.1：Ambariを使ってSparkサービスを設定する](#step4.1)
+- [Step 4.2：Hive Contextを作成する](#step4.2)
+- [Step 4.3：Hive ContextからRDDを作成する](@step4.3)
+- [Step 4.4：テーブルに対するクエリ](#step4.4)
+- [Step 4.5：ORCとしてHiveにデータを読み込み，保存する](#step4.5)
+- [Sparkコードレビュー](#code-review)
+- [まとめ](#summary)
+- [参考文献](#further-reading)
+- [付録A：SparkインタラクティブシェルでSparkを実行する](#appendix)
 
--   [Concepts](#concepts)
--   [Apache Spark Basics](#apache-spark-basics)
--   [Step 4.1: Configure Spark services using Ambari](#step4.1)
--   [Step 4.2: Create a Hive Context](#step4.2)
--   [Step 4.3: Create a RDD from Hive Context](#step4.3)
--   [Step 4.4 Querying Against a Table](#step4.4)
--   [Step 4.5: Load and save data into Hive as ORC](#step4.5)
--   [Full Spark Code Review for Lab](#full-spark-code-review-for-lab)
--   [Summary](#summary-lab4)
--   [Further Reading](#further-reading)
--   [Appendix A: Run Spark in the Spark Interactive Shell](#run-spark-in-shell)
+## 背景 <a id="backdrop"></a>
 
-## Concepts
+MapReduceは便利ですが，ジョブの実行時間がとても長くなることがあります．またMapReduceジョブは，特定のユースケースに対してのみ機能します．より多くのユースケースに対応できるフレームワークが必要です．
 
-MapReduce has been useful, but the amount of time it takes for the jobs to run can at times be exhaustive. Also, MapReduce jobs only work for a specific set of use cases. There is a need for computing framework that works for a wider set of use cases.
+Apache Sparkは，高速で汎用性の高く使いやすいプラットフォームとして，設計されています．これはMapReduceモデルを拡張し，他全体のレベルに引き上げます．メモリ内で計算するため，処理と応答の処理を大幅に高速化しています．
 
-Apache Spark was designed to be a fast, general-purpose, easy-to-use computing platform. It extends the MapReduce model and takes it to a whole other level. The speed comes from the in-memory computations. Applications running in memory allow for much faster processing and response.
 
-## Apache Spark Basics <a id="apache-spark-basics"></a>
+## Apache Sparkの基本 <a id="spark-basics"></a>
 
-[Apache Spark](https://hortonworks.com/hadoop/spark/) is a fast, in-memory data processing engine with elegant and expressive development [APIs](https://spark.apache.org/docs/1.6.1/api/R/index.html) in [Scala](https://spark.apache.org/docs/1.6.1/api/scala/index.html#package),[Java](https://spark.apache.org/docs/1.6.1/api/java/index.html), and [Python](https://spark.apache.org/docs/1.6.1/api/python/index.html) and [R](https://spark.apache.org/docs/1.6.1/api/R/index.html) that allow data workers to efficiently execute machine learning algorithms that require fast iterative access to datasets. Spark on [Apache Hadoop YARN](https://hortonworks.com/hadoop/YARN) enables deep integration with Hadoop and other YARN enabled workloads in the enterprise.
+Apache Sparkは，ScalaやJava，PythonおよびRのエレガントで表現力豊かな開発APIを備えた高速メモリ内データ処理エンジンであり，データワーカに迅速な反復アクセスが必要な機械学習アルゴリズムを効率的に実行できます．Spark on Apache Hadoop YARNは，企業内のHadoopや他のYARN対応ワークロードとの結合を可能にします．
 
-You can run batch application such as MapReduce types jobs or iterative algorithms that build upon each other. You can also run interactive queries and process streaming data with your application. Spark also provides a number of libraries which you can easily use to expand beyond the basic Spark capabilities such as Machine Learning algorithms, SQL, streaming, and graph processing. Spark runs on Hadoop clusters such as Hadoop YARN or Apache Mesos, or even in a Standalone Mode with its own scheduler. The Sandbox includes both Spark 1.6 and Spark 2.0.
+Sparkでは，MapReduce型ジョブや反復アルゴリズムなどのバッチアプリケーションを実行します．インタラクティブなクエリを実行し，アプリケーションでストリーミングデータを処理することもできます．Sparkには，機械学習アルゴリズムやSQL，ストリーミング，グラフ処理などを簡単に利用できるライブラリも用意されています．Sparkは，Hadoop YARNやApache MososなどのHadoopクラスタ，または独自のスケジューラを利用するスタンドアロンモードでも動作します．Sandboxには，Spark 1.6とSpark 2.0の両方が含まれています．
 
-![Lab4_1](assets/Lab4_1.png)
+![](assets/lab4/lab4-1.png)
 
-Let's get started!
+それでは始めましょう！
 
-## Step 4.1: Configure Spark services using Ambari <a id="step4.1"></a>
 
-1\.  Log on to Ambari Dashboard as `maria_dev`. At the bottom left corner of the services column, check that Spark and Zeppelin are running.
+## Step 4.1：Ambariを使ってSparkサービスを設定する <a id="step4.1"></a>
+1. Ambari Dashboardに`maria_dev`としてログオンします．サービスの列の左下にあるSparkとZeppelinが動作していることを確認します．これらのサービスが無効になっている場合は，サービスを開始してください．
+  
+	![](assets/lab4/lab4-2.png)
+  
+2. ブラウザにURLを入力して，Zeppelinインターフェースを開いてください
+    
+	```
+	http://sandbox.hortonworks.com:9995
+```
 
-**Note:** If these services are disabled, start these services.
+  ZeppelinのWelcomeページが表示されるはずです．
 
-![ambari_dashboard_lab4](assets/ambari_dashboard_lab4.png)
+	![](assets/lab4/lab4-3.png)
 
-2\. Open Zeppelin interface using browser URL:
 
-~~~
-http://sandbox.hortonworks.com:9995
-~~~
+  任意で，Sparkでコードを実行するためにSparkシェルにアクセスしたい場合は付録Aを参照してください．
+  
+3. Zeppelin Notebookを作成する
 
-You should see a Zeppelin Welcome Page:
+	左上のNotebookタブをクリックし，Create new noteを選択してください．ノートブックの名前を`Compute Riskfactor with Spark`に設定します．
+	
+	![](assets/lab4/lab4-4.png)
+	
+	![](assets/lab4/lab4-5.png)
 
-![zeppelin_welcome_page](assets/zeppelin_welcome_page_lab4.png)
+ 
+## Step 4.2：Hive Contextを作成する <a id="step4.2"></a>
 
-Optionally, if you want to find out how to access the Spark shell to run code on Spark refer to [Appendix A](#run-spark-in-shell).
+SparkはORCファイルをサポートしています．ORCファイルによって効率的なカラムストレージとPredicate Pushdown機能を活用して，より高速なメモリ内処理が可能になります．HiveContextは，Hiveに格納されているデータと統合するSpark SQL実行エンジンのインスタンスです．より基本的なSQLContextは，Hiveに依存しないSpark SQLサポートのサブセットを提供します．HiveContextは，クラスパス上のhive-site.xmlからHiveの設定を読み込みます．
 
-3\.  Create a Zeppelin Notebook
+**SQLライブラリをインポートする**
 
-Click on a Notebook tab at the top left and select **Create new note**. Name your notebook `Compute Riskfactor with Spark`.
+Pigセクションを終えている場合は，Sparkを利用してテーブルのリスクファクタを再設定できるように，テーブルのリスクファクタを削除する必要があります．Zeppelinノートブークに次のコードを貼り付けてから，再生ボタンをクリックします．または，Shift + Enterを押してコードを実行します．
 
-![create_new_notebook](assets/create_new_notebook_hello_hdp_lab4.png)
-
-![notebook_name](assets/notebook_name_hello_hdp_lab4.png)
-
-### Step 4.2: Create a Hive Context <a id="step4.2"></a>
-
-For improved Hive integration, [ORC file](https://hortonworks.com/blog/orcfile-in-hdp-2-better-compression-better-performance/) support for Spark. This allows Spark to read data stored in ORC files. Spark can leverage ORC file’s more efficient columnar storage and predicate pushdown capability for even faster in-memory processing. HiveContext is an instance of the Spark SQL execution engine that integrates with data stored in Hive. The more basic SQLContext provides a subset of the Spark SQL support that does not depend on Hive. It reads the configuration for Hive from hive-site.xml on the classpath.
-
-#### Import sql libraries:
-
-If you have gone through Pig section, you have to drop the table riskfactor so that you can populate it again using Spark. Copy and paste the following code into your Zeppelin notebook, then click the play button. Alternatively, press `shift+enter` to run the code.
-
-~~~scala
+```
 %jdbc(hive) show tables
-~~~
+```
 
-If you see a table named `riskfactor`, let us drop it:
+`riskfactor`という名前のテーブルが既に存在する場合は，それを削除してください．
 
-~~~scala
+```
 %jdbc(hive) drop table riskfactor
-~~~
+```
 
-To verify table has been dropped, let us do show tables again:
+テーブルが削除されたことを確認するには，再度テーブルを表示させてください．
 
-~~~scala
+```
 %jdbc(hive) show tables
-~~~
+```
 
-![drop_table_lab4](assets/drop_table_lab4.png)
+![](assets/lab4/lab4-6.png)
 
-#### Instantiate SparkSession
+**SparkSessionをインスタンス化する**
 
-~~~scala
+```
 %spark2
 val hiveContext = new org.apache.spark.sql.SparkSession.Builder().getOrCreate()
-~~~
+```
 
-![Lab4_6](assets/instantiate_hivecontext_hello_hdp_lab4.png)
+![](assets/lab4/lab4-7.png)
 
-## Step 4.3: Create a RDD from Hive Context <a id="step4.3"></a>
+
+## Step 4.3：Hive ContextからRDDを作成する <a id="step4.3"></a>
 
 **What is a RDD?**
 
-Spark’s primary core abstraction is called a Resilient Distributed Dataset or RDD. It is a distributed collection of elements that is parallelized across the cluster. In other words, a RDD is an immutable collection of objects that is partitioned and distributed across multiple physical nodes of a YARN cluster and that can be operated in parallel.
+Sparkの主要なコア部分は，Resilent Distributed Dataset，またはRDDと呼ばれます．これは，クラスタ全体で並列化された要素の分散コレクションです．言い換えると，RDDはYARNクラスタの複数の物理ノードに分割，分散され，並列に操作できるオブジェクトの不変な集合体です．
 
-There are three methods for creating a RDD:
+RDDを作成する方法は3つあります．
 
-1.  Parallelize an existing collection. This means that the data already resides within Spark and can now be operated on in parallel.
-2.  Create a RDD by referencing a dataset. This dataset can come from any storage source supported by Hadoop such as HDFS, Cassandra, HBase etc.
-3.  Create a RDD by transforming an existing RDD to create a new RDD.
+- 既存のコレクションを並列化します．これはデータが既にSpark内に存在し，並列で操作できることを意味します．
+- データセットを参照してRDDを作成します．このデータセットは，HDFSやCassandra，HBaseなどのHadoopでサポートされている全てのストレージソースから取得できます．
+- 既存のRDDを変換して，新しいRDDを作成します．
 
-We will be using the later two methods in our tutorial.
+チュートリアルでは後半の2つの方法を利用します．
 
-**RDD Transformations and Actions**
+**RDDのTransformationsとActions**
 
-Typically, RDDs are instantiated by loading data from a shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat on a YARN cluster.
+通常，RDDは共有ファイルシステムやHDFS，HBase，YARNクラスタ上のHadoop InputFormatを提供するデータソースからデータを読み込むことによってインスタンス化されます．
 
-Once a RDD is instantiated, you can apply a [series of operations](https://spark.apache.org/docs/1.2.0/programming-guide.html#rdd-operations). All operations fall into one of two types: [transformations](https://spark.apache.org/docs/1.2.0/programming-guide.html#transformations) or [actions](https://spark.apache.org/docs/1.2.0/programming-guide.html#actions).
+RDDがインスタンス化されると，一連の操作を適用することができます．全ての操作は，[Transformations](https://spark.apache.org/docs/1.2.0/programming-guide.html#transformations)または[Actions](https://spark.apache.org/docs/1.2.0/programming-guide.html#actions)の2つのタイプのいずれかに分類されます．
 
--   **Transformation** operations, as the name suggests, create new datasets from an existing RDD and build out the processing DAG that can then be applied on the partitioned dataset across the YARN cluster. Transformations do not return a value. In fact, nothing is evaluated during the definition of these transformation statements. Spark just creates these Direct Acyclic Graphs or DAG, which will only be evaluated at runtime. We call this *lazy* evaluation.
--   An **Action** operation, on the other hand, executes a DAG and returns a value.
 
-### 4.3.1 View List of Tables in Hive Warehouse
+- 変換操作では，既存のRDDから新しいデータセットを作成し，DAG処理を構築します．DAG処理は，YARNクラスタ全体でパーティションデータセットに適用できます．変換操作は値を返しません．実際にはこれらの変換ステートメントの定義中に評価されるものはありません．Sparkは，これらのDAGを作成します．これは実行時にのみ評価されます．これをlazyな評価と呼びます．
+- 一方Action操作はDAGを実行し，値を返します．
 
-Use a simple show command to see the list of tables in Hive warehouse.
+**Step 4.3.1：Hive Warehouseのテーブル一覧を表示する**
 
-~~~scala
+Hiveウェアハウス内のテーブルのリストを表示するには，単純にshowコマンドを利用します．
+
+```
 %spark2
 hiveContext.sql("show tables").show()
-~~~
+```
 
-![Lab4_7](assets/view_list_tables_hive_hello_hdp_lab4.png)
+![](assets/lab4/lab4-8.png)
 
-You will notice that the `geolocation` table and the `drivermileage` table that we created earlier in an tutorial are already listed in **Hive metastore** and can be directly queried upon.
+既にチュートリアルで作成した`geolocation`テーブルと`drivermileage`テーブルはHiveメタストアにリストされており，直接クエリが可能です．
 
-### 4.3.2 Query Tables To Build Spark RDD
+**Step 4.3.2：Spark RDDを構築するためのクエリテーブル**
 
-We will do a simple select query to fetch data from `geolocation` and `drivermileage` tables to a spark variable. Getting data into Spark this way also allows to copy table schema to RDD.
+`geolocation`と`drivermileage`テーブルからspark変数にデータをフェッチする簡単なselectクエリを実行します．この方法でSparkからデータを取得すると，テーブルスキーマにRDDをコピーすることもできます．
 
-~~~scala
+```
 %spark2
 val geolocation_temp1 = hiveContext.sql("select * from geolocation")
-~~~
+```
 
-![Lab4_8](assets/query_tables_build_spark_rdd_hello_hdp_lab4.png)
+![](assets/lab4/lab4-9.png)
 
-~~~scala
-%spark2
-val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
-~~~
 
-![Lab4_9](assets/drivermileage_spark_rdd_hello_hdp_lab4.png)
+## Step 4.4：テーブルに対するクエリ  <a id="step4.4"></a>
 
-## Step 4.4 Querying Against a Table <a id="step4.4"></a>
+**Step 4.4.1：一時テーブルの登録**
 
-### 4.4.1 Registering a Temporary Table
+次に，一時テーブルを登録し，SQL構文を利用して，そのテーブルに対してクエリを実行しましょう．
 
-Now let’s register temporary tables and use SQL syntax to query against that table.
-
-~~~scala
+```
 %spark2
 geolocation_temp1.createOrReplaceTempView("geolocation_temp1")
 drivermileage_temp1.createOrReplaceTempView("drivermileage_temp1")
 hiveContext.sql("show tables").show()
-~~~
+```
 
-![name_rdd](assets/name_rdd_hello_hdp_lab4.png)
+![](assets/lab4/lab4-10.png)
 
-Next, we will perform an iteration and a filter operation. First, we need to filter drivers that have non-normal events associated with them and then count the number for non-normal events for each driver.
+次にイテレーションとフィルタ操作を行います．まず，正常ではないイベントを持つドライバをフィルタリングし，各ドライバの非正常イベントの数をカウントする必要があります．
 
-~~~scala
+```
 %spark2
 val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from geolocation_temp1 where event!='normal' group by driverid")
-~~~
+```
 
-![filter_drivers_nonnormal_events](assets/filter_drivers_nonnormal_events_hello_hdp_lab4.png)
-
--   As stated earlier about RDD transformations, select operation is a RDD transformation and therefore does not return anything.
-
--   The resulting table will have a count of total non-normal events associated with each driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied to it.
+![](assets/lab4/lab4-11.png)
 
 
-~~~scala
+- 前にRDD変換について述べたように，select操作はRDD変換であるため，何も返ってきません．
+- 結果の表は，各ドライバに関連付けられた正常ではないイベントの合計がカウントされます．このフィルタリングされたテーブルを一時テーブルとして登録し，後のSQLクエリをそのテーブルに適用できるようにします．
+
+```
 %spark2
 geolocation_temp2.createOrReplaceTempView("geolocation_temp2")
 hiveContext.sql("show tables").show()
-~~~
+```
+
+![](assets/lab4/lab4-12.png)
 
 
-![register_table](assets/register_filtered_table_hello_hdp_lab4.png)
+- RDDでaction操作を実行すると，結果を表示できます．
 
-
--   You can view the result by executing an action operation on the RDD.
-
-~~~scala
+```
 %spark2
 geolocation_temp2.show(10)
-~~~
+```
+
+![](assets/lab4/lab4-13.png)
+
+**Step 4.4.2：join操作の実行**
+
+このセクションでは，join操作を実行します．geolocation_temp2テーブルには，ドライバの詳細とそれぞれ正常ではないイベントがカウントされています．drivermileage_temp1テーブルには，各ドライバの移動距離の合計が表示されます．
 
 
-![Lab4_11](assets/view_results_op_on_rdd_hello_hdp_lab4.png)
+- 共通のカラムで2つの表を結合します．この例ではdriveridです．
 
 
-### 4.4.2  Perform join Operation
-
-In this section we will perform a join operation geolocation_temp2 table has details of drivers and count of their respective non-normal events. drivermileage_temp1 table has details of total miles travelled by each driver.
-
--   We will join two tables on common column, which in our case is `driverid`.
-
-~~~scala
+```
 %spark2
 val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geolocation_temp2 a,drivermileage_temp1 b where a.driverid=b.driverid")
-~~~
+```
 
-![Lab4_12](assets/join_op_column_hello_hdp_lab4.png)
 
--   The resulting data set will give us total miles and total non-normal events for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied to it.
+![](assets/lab4/lab4-14.png)
 
-~~~scala
+
+- 得られるデータセットは，特定のドライバの合計マイル数と非正常なイベントの総数です．．このフィルタリングされたテーブルを一時テーブルとして登録し，後続のSQLクエリをそのテーブルに適用できるようにします．
+
+```
 %spark2
 joined.createOrReplaceTempView("joined")
 hiveContext.sql("show tables").show()
-~~~
+```
 
-![register_join_table](assets/register_joined_table_hello_hdp_lab4.png)
+![](assets/lab4/lab4-15.png)
 
--   You can view the result by executing action operation on RDD.
 
-~~~scala
+- RDDでaction操作を実行して，結果を表示できます．
+
+```
 %spark2
 joined.show(10)
-~~~
+ ```
 
-![Lab4_13](assets/show_results_joined_table_hello_hdp_lab4.png)
+![](assets/lab4/lab4-16.png)
 
-### 4.4.3  Compute Driver Risk Factor
+**Step 4.4.3：ドライバのリスクファクタを計算する**
 
-In this section we will associate a driver risk factor with every driver. Driver risk factor will be calculated by dividing total miles travelled by non-normal event occurrences.
+このセクションでは，ドライバのリスクファクタを全てのドライバに関連付けます．ドライバのリスクファクタは，正常ではない事故の発生総数を除算することで計算できます．
 
-~~~scala
+```
 %spark2
 val risk_factor_spark = hiveContext.sql("select driverid, occurance, totmiles, totmiles/occurance riskfactor from joined")
-~~~
+```
 
-![Lab4_14](assets/calculate_riskfactor_hello_hdp_lab4.png)
+![](assets/lab4/lab4-17.png)
 
-*   The resulting data set will give us total miles and total non normal events and what is a risk for a particular driver. Register this filtered table as a temporary table so that subsequent SQL queries can be applied to it.
 
-~~~scala
+- 得られるデータセットは合計マイル数と非正常イベントの総数，特定のドライバのリスクファクタです．このフィルタリングされたテーブルを一時テーブルとして登録し，後のSQLクエリをそのテーブルに適用できるようにします．
+
+```
 %spark2
 risk_factor_spark.createOrReplaceTempView("risk_factor_spark")
 hiveContext.sql("show tables").show()
-~~~
+```
 
--   View the results
+- 結果を表示します
 
-~~~scala
+```
 %spark2
 risk_factor_spark.show(10)
-~~~
+```
 
-![Lab4_15](assets/view_results_filtertable_hello_hdp_lab4.png)
+![](assets/lab4/lab4-18.png)
 
-## Step 4.5: Load and Save Data into Hive as ORC <a id="step4.5"></a>
 
-In this section we store data in a smart ORC (Optimized Row Columnar) format using Spark. ORC is a self-describing type-aware columnar file format designed for Hadoop workloads. It is optimized for large streaming reads and with integrated support for finding required rows fast. Storing data in a columnar format lets the reader read, decompress, and process only the values required for the current query. Because ORC files are type aware, the writer chooses the most appropriate encoding for the type and builds an internal index as the file is persisted.
+## Step 4.5：ORCとしてHiveにデータを読み込み，保存する <a id="step4.5"></a>
 
-Predicate pushdown uses those indexes to determine which stripes in a file need to be read for a particular query and the row indexes can narrow the search to a particular set of 10,000 rows. ORC supports the complete set of types in Hive, including the complex types: structs, lists, maps, and unions.
+このセクションでは，Sparkを利用してORC（Optimized Row Columnar）形式でデータを格納します．ORCは，Hadoopワークロード用に設計された自己記述型認識カラム形式です．これは大規模なストリーミングの読み込みと，必要な行を素早く見つけるための統合サポートに最適化されています．データをカラム形式で保存すると，リーダーは現在の必要な値だけ読み，解凍，処理することができます．ORCファイルはタイプを認識しているため，ライターはそのタイプに最も適したエンコーディングを選択し，ファイルが永続化されるときに内部インデックスを利用します．
 
-### 4.5.1 Create an ORC table
+Predicate Pushdownでは，これらの索引を利用して特定のクエリに対してファイルのどこを読み込む必要があるかを判断し，行索引によって検索を10,000行の特定の集合に絞り込むことができます．ORCは，構造体やリスト，マップおよび共用体の複合型を含むHiveの完全な型セットをサポートしています．
 
-Create a table and store it as ORC. Specifying as *orc* at the end of the SQL statement below ensures that the Hive table is stored in the ORC format.
+**Step 4.5.1：ORCテーブルを作成する**
 
-~~~scala
+テーブルを作成し，ORCとして格納します．次のSQL文の最後に`orc`を指定すると，HiveテーブルがORC形式で格納されます．
+
+```
 %spark2
 hiveContext.sql("create table finalresults( driverid String, occurance bigint, totmiles bigint, riskfactor double) stored as orc").toDF()
 hiveContext.sql("show tables").show()
-~~~
+```
 
-> Note: toDF() creates a DataFrame with columns driverid String, occurance bigint, etc.
+注：toDF()は，列driveid Stringやoccurrence brightなどでDataFrameを作成します．
 
-![create_orc_table](assets/create_orc_table_hello_hdp_lab4.png)
+![](assets/lab4/lab4-19.png)
 
-### 4.5.2 Convert data into ORC table
+**Step 4.5.2：ORCテーブルにデータを変換する**
 
-Before we load the data into hive table that we created above, we will have to convert our data file into ORC format too.
+上記で作成したHiveテーブルにデータを読み込む前に，データファイルをORC形式に変換する必要があります．
 
-~~~scala
+```
 %spark2
 risk_factor_spark.write.format("orc").save("risk_factor_spark")
-~~~
+```
 
-![risk_factor_orc](assets/convert_orc_table_hello_hdp_lab4.png)
+![](assets/lab4/lab4-20.png)
 
-### 4.5.3 Load the data into Hive table using load data command
+**Step 4.5.3：load dataコマンドを利用して，Hiveテーブルにデータを読み込む**
 
-~~~scala
+```
 %spark2
 hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
-~~~
+```
 
-![load_data_to_finalresults](assets/load_data_to_finalresults_hello_hdp_lab4.png)
+![](assets/lab4/lab4-21.png)
 
-### 4.5.4 Create the final table Riskfactor using CTAS
+**Step 4.5.4：CTASを利用して，Riskfactorテーブルを作成する**
 
-~~~scala
+```
 %spark
 hiveContext.sql("create table riskfactor as select * from finalresults").toDF()
-~~~
+```
 
-![create_table_riskfactor_spark](assets/create_table_riskfactor_spark.png)
+![](assets/lab4/lab4-22.png)
 
-### 4.5.5 Verify Data Successfully Populated Hive Table in Hive
 
-Execute a select query to verify your table has been successfully stored. You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
+**Step 4.5.5：データが正常にHiveに格納されたことを確認する**
 
-![riskfactor_table_populated](assets/riskfactor_table_populated.png)
+selectクエリを実行して，テーブルが正常に格納されたことを確認します．Ambari Hive User Viewを利用して，作成したHiveテーブルにデータが格納されているかどうかを確認できます．
 
-## Full Spark Code Review for Lab
+![](assets/lab4/lab4-23.png)
 
-**Instantiate SparkSession**
 
-~~~scala
+## Sparkコードレビュー <a id="code-review"></a>
+
+**SparkSessionをインスタンス化**
+
+```
 %spark2
 val hiveContext = new org.apache.spark.sql.SparkSession.Builder().getOrCreate()
-~~~
+```
 
-**Shows tables in the default hive database**
+**デフォルトのHiveデータベースにテーブルを表示**
 
-~~~scala
+```
 hiveContext.sql("show tables").show()
-~~~
+```
 
-**Select all rows and columns from tables, stores hive script into variable
-and registers variables as RDD**
+**テーブルから全ての行と列を選択，Hiveスクリプトを変数に格納し，変数をRDDとして登録**
 
-~~~scala
+```
 val geolocation_temp1 = hiveContext.sql("select * from geolocation")
-
 val drivermileage_temp1 = hiveContext.sql("select * from drivermileage")
-
 geolocation_temp1.createOrReplaceTempView("geolocation_temp1")
 drivermileage_temp1.createOrReplaceTempView("drivermileage_temp1")
-
-val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from geolocation_temp1 where event!='normal' group by driverid")
-
+val geolocation_temp2 = hiveContext.sql("SELECT driverid, count(driverid) occurance from geolocation_temp1 where event!='normal' group by driverid")    
 geolocation_temp2.createOrReplaceTempView("geolocation_temp2")
-~~~
+```
 
-**Load first 10 rows from geolocation_temp2, which is the data from
-drivermileage table**
+**geolocation_temp2からdrivermileageテーブルの最初の10行のデータを読み込む**
 
-~~~scala
+```
 geolocation_temp2.show(10)
-~~~
+```
 
-**Create joined to join 2 tables by the same driverid and register joined
-as a RDD**
+**同じドライバIDで2つのテーブルを結合して作成，，RDDとして結合して登録**
 
-~~~scala
+```
 val joined = hiveContext.sql("select a.driverid,a.occurance,b.totmiles from geolocation_temp2 a,drivermileage_temp1 b where a.driverid=b.driverid")
-
 joined.createOrReplaceTempView("joined")
-~~~
+```
 
-**Load first 10 rows and columns in joined**
+**最初の10行と列を結合して読み込む**
 
-~~~scala
+```
 joined.show(10)
-~~~
+```
 
-**Initialize risk_factor_spark and register as an RDD**
+**risk_factor_sparkを初期化し，RDDとして登録**
 
-~~~scala
-val risk_factor_spark = hiveContext.sql("select driverid, occurance, totmiles, totmiles/occurance riskfactor from joined")
-
+```
+val risk_factor_spark = hiveContext.sql("select driverid, occurance, totmiles, totmiles/occurance riskfactor from joined") 
 risk_factor_spark.createOrReplaceTempView("risk_factor_spark")
-~~~
+```
 
-**Print the first 10 lines from the risk_factor_spark table**
+**risk_factor_sparkテーブルから最初の10行を出力**
 
-~~~scala
+```
 risk_factor_spark.show(10)
-~~~
+```
 
-**Create table finalresults in Hive, save it as ORC, load data into it,
-and then create the final table called riskfactor using CTAS**
+**Hiveでfinalresultsテーブルを作成し，ORCとして保存．データを読み込んでからCTASを利用してriskfactorテーブルを作成します．**
 
-~~~scala
+```
 hiveContext.sql("create table finalresults( driverid String, occurance bigint, totmiles bigint, riskfactor double) stored as orc").toDF()
-
 risk_factor_spark.write.format("orc").save("risk_factor_spark")
-
 hiveContext.sql("load data inpath 'risk_factor_spark' into table finalresults")
-
 hiveContext.sql("create table riskfactor as select * from finalresults").toDF()
-~~~
+```
 
-## Summary <a id="summary-lab4"></a>
 
-Congratulations! Let’s summarize the spark coding skills and knowledge we acquired to compute risk factor associated with every driver. Apache Spark is efficient for computation because of its **in-memory data processing engine**. We learned how to integrate hive with spark by creating a **Hive Context**. We used our existing data from Hive to create an **RDD**. We learned to perform **RDD transformations and actions** to create new datasets from existing RDDs. These new datasets include filtered, manipulated and processed data. After we computed **risk factor**, we learned to load and save data into Hive as **ORC**.
+## まとめ <a id="summary"></a>
 
-## Further Reading
+おめでとうございます！全てのドライバに関するリスクファクタを算出するために学んだSparkコーディングスキルと知識をまとめましょう．Apache Sparkは，メモリ内データ処理エンジンなので効率的です．Hive Contextを作成することで，HiveとSparkを統合する方法を学びました．既存のHiveデータを利用して，RDDを作成しました．また既存のRDDから新しいデータセットを作成するためにRDDのTransrationsとActionについてに学びました．これらの新しいデータセットはフィルタリング，操作，処理されたデータが含まれています．リスクファクタを計算した後に，データをHiveに読み込ませ，ORCとして保存する方法を学びました．
 
-To learn more about Spark, checkout these resources:
--   [Apache Spark](https://hortonworks.com/hadoop/spark/)
--   [Apache Spark Welcome](http://spark.apache.org/)
--   [Spark Programming Guide](http://spark.apache.org/docs/latest/programming-guide.html#passing-functions-to-spark)
--   [Learning Spark](http://www.amazon.com/Learning-Spark-Lightning-Fast-Data-Analysis/dp/1449358624/ref=sr_1_1?ie=UTF8&qid=1456010684&sr=8-1&keywords=apache+spark)
--   [Advanced Analytics with Spark](http://www.amazon.com/Advanced-Analytics-Spark-Patterns-Learning/dp/1491912766/ref=pd_bxgy_14_img_2?ie=UTF8&refRID=19EGG68CJ0NTNE9RQ2VX)
+## 参考文献 <a id=further-reading"></a>
 
-## Appendix A: Run Spark Code in the Spark Interactive Shell <a id="run-spark-in-shell"></a>
+Sparkの詳細については，以下の資料を参照してください．
 
-1) Open your terminal or putty.  SSH into the Sandbox using `root` as login and `hadoop` as password.
+- [Apache Spark](https://hortonworks.com/hadoop/spark/)
+- [Apache Spark Welcome](http://spark.apache.org/)
+- [Spark Programming Guide](http://spark.apache.org/docs/latest/programming-guide.html#passing-functions-to-spark)
+- [Learning Spark](http://www.amazon.com/Learning-Spark-Lightning-Fast-Data-Analysis/dp/1449358624/ref=sr_1_1?ie=UTF8&qid=1456010684&sr=8-1&keywords=apache+spark)
+- [Advanced Analytics with Spark](http://www.amazon.com/Advanced-Analytics-Spark-Patterns-Learning/dp/1491912766/ref=pd_bxgy_14_img_2?ie=UTF8&refRID=19EGG68CJ0NTNE9RQ2VX)
 
-~~~
+
+## 付録A：SparkインタラクティブシェルでSparkを実行する <a id="appendix"></a>
+
+ターミナルまたはPuttyを開きます．SSHでSandboxに入ります．ユーザは`root`で，パスワードは`hadoop`です．
+
+```
 ssh root@sandbox.hortonworks.com -p 2222
 login: root
 password: hadoop
-~~~
+```
 
-Optionally, if you don’t have an SSH client installed and configured you can use the built-in web client which can be accessed from:
+任意で，SSHクライアントをインストールおよび設定をしていない場合は，次のURLからアクセスできる組み込みWebクライアントを利用してください．
 
-~~~
+```
 http://sandbox.hortonworks.com:4200/
 login: root
 password: hadoop
-~~~
+```
 
-2) Let's enter the Spark interactive shell (spark repl). Type the command
+Sparkのインタラクティブシェル（spark repl）に入りましょう．次のコマンドを入力してください．
 
-~~~
+```
 spark-shell
-~~~
+```
 
-This will load the default Spark Scala API. Issue the command `exit` to drop out of the Spark Shell.
+これで，デフォルトのSpark Scala APIが読み込まれます．`exit`コマンドを実行すると，Spark Shellを終了できます．
 
-![spark_shell_welcome_page](assets/spark_shell_hello_hdp_lab4.png)
+![](assets/lab4/lab4-24.png)
 
-The coding exercise we just went through can be also completed using a Spark shell. Just as we did in Zeppelin, you can copy and paste the code.
+Spark Shellを利用してコーディングをすることも可能です．Zeppelinのようにコードをコピー＆ペーストすることもできます．
+

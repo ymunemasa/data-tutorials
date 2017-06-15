@@ -1,129 +1,119 @@
----
-title: Hadoop Tutorial – Getting Started with HDP
-tutorial-id: 100
-platform: hdp-2.5.0
-tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
----
+# Lab 6：Excelでデータレポーティングをしよう
 
-# Hadoop Tutorial – Getting Started with HDP
+## はじめに
 
-# Lab 6: Data Reporting with Excel
+このチュートリアルでは，ExcelとPower Viewが必要です．ですが，類似ツールを利用して取り組むのは自由です．このセクションでは，Microsoft Excel Professional Plus 2013を利用して，データにアクセスします．また，ODBC接続を利用します．
 
-## Introduction
+## 前提条件
 
-This step is optional as it requires you to have Excel and Power View, however feel free to connect from any reporting tool to do a similar exercise.   In this section, we will use Microsoft Excel Professional Plus 2013 to access the refined data. We will be using the ODBC connection.
+このチュートリアルは，Hortonworks Sandboxを利用して，HDPに入門するための一連のチュートリアルの一部です．このチュートリアルを進める前に，以下の条件を満たしていることを確認してください．
 
-## Prerequisites
+- Hortonworks Sandbox
+- Lab 1：センサデータをHDFSに読み込ませよう
+- Lab 2：Hiveでデータ操作をしよう
+- Lab 3：Pigでリスクファクタを算出しよう / Lab 4：Spackでリスクファクタを算出しよう
+- [Hortonworks ODBC Driver](http://hortonworks.com/downloads/#addons)をインストールおよび設定済み
+- このチュートリアルを完了するのに1時間ほど掛かります．
 
-The tutorial is a part of series of hands on tutorial to get you started on HDP using Hortonworks sandbox. Please ensure you complete the prerequisites before proceeding with this tutorial.
+## 概要
 
--   Lab 0: (Hortonworks sandbox set up)
--   Lab 1: Loading sensor data into HDFS
--   Lab 2: Data Manipulation with Apache Hive
--   Lab 3: Use Pig to compute Driver Risk Factor/ Lab 4: Use Spark to compute Driver Risk Factor
--   Install and configure [Hortonworks ODBC Driver](http://hortonworks.com/downloads/#addons)
--   Allow yourself around half an hour to complete this tutorial.
+-   [Step 6.1: Microsoft Excelでデータにアクセスする](#step6.1)
+-   [Step 6.2: Microsoft Excelでデータを視覚化する](#step6.2)
+-   [まとめ](#summary)
+-   [参考文献](#further-reading)
 
-## Outline
+## Step 6.1:  Microsoft Excelでデータにアクセスする <a id="step6.1"></a>
 
--   [Step 6.b.1: Access Data in Microsoft Excel](#step6.b.1)
--   [Step 6.b.2: Visualize Data with Microsoft Excel](#step6.b.2)
--   [Summary](#summary)
--   [Further Reading](#further-reading)
+Hive ODBC DriverはHortonworksアドオンページにあります．Windows ODBC Driverのセットアップは，以下の手順に従ってください．ODBC接続マネージャを開き，設定した接続で開きます．以下の画像のようになるはずです．
 
-## Step 6.b.1: Access Data in Microsoft Excel <a id="step6.b.1"></a>
+**For Windows Users：**
 
-The [Hive ODBC driver](http://hortonworks.com/downloads/#addons) can be found at the Hortonworks Add-on page.  For [Windows ODBC driver setup](https://hortonworks.com/hadoop-tutorial/how-to-install-and-configure-the-hortonworks-odbc-driver-on-windows-7/) follow these instructions. Open the ODBC connection manager and open the connection you setup up. It should look like this.
+1. 新規の空白のブックを開いてください. そして，**データ > その他のデータ ソース > Microsoft Query**を選択してください．
+	
+	![](assets/lab6/lab6-1.png)
 
-**For Windows users**:-
+2. そしてデータソースの選択のポップアップで，インストールしたHortonworks ODBCデータソースを選択し，**OK**をクリックします．
 
-1) Open a new blank workbook. Select **Data > From Other Sources > From Microsoft Query**.
+	Hortonworks ODBC Driverを利用するとExcelおよびODBCをサポートするその他のBI（Business Intelligence）アプリケーションでHortonworksデータにアクセスできます．
+	
+	![](assets/lab6/lab6-2.png)
 
-![open_query](assets/17_open_query.png)
+	avg_mileageテーブルをインポートします．
 
-2) On the Choose Data Source pop-up, select the Hortonworks ODBC data source you installed previously, then click **OK**.
+3. 全てデフォルトを選択して，完了ボタンを押すまでクリックします．完了ボタンをクリックすると，ExcelはデータをHadoopに要求します．これにはしばらく時間が掛かります．データが返ってくると，ワークシートにデータを配置するように要求されます．このようにセルの`$A%1`に配置します．
 
-The Hortonworks ODBC driver enables you to access Hortonworks data with Excel and other Business Intelligence (BI) applications that support ODBC.
+	![](assets/lab6/lab6-3.png)
 
-![data_source](assets/18_choose_data_source.png)
+4. データが配置されると，avg_mileageテーブルがスプレットシートにインポートされます．
 
- We will import the avg_mileage table.
+	![](assets/lab6/lab6-4.png)
 
-3)  Accept the defaults for everything and click through till you hit the Finish button. After you click on Finish, Excel will send the data request over to Hadoop. It will take awhile for this to happen. When the data is returned it will ask you to place the data in the workbook. We want to be in cell \$A\$1 like this.
+## Step 6.2: Microsoft Excelでデータを視覚化する <a id="step6.2"></a>
 
-![Lab5_6](assets/Lab5_61.png)
+1. ここでPower Viewレポートを挿入します．Power Viewレポートが無い場合は，この[リンク](https://support.office.com/en-us/article/Turn-on-Power-View-in-Excel-2016-for-Windows-f8fc21a6-08fc-407a-8a91-643fa848729a)を辿ってPower Viewレポートを設定してください．これにより，ワークブック内に新しいタブが作成され，Power Viewページにデータが挿入されます．
 
-4)  The data is placed you will see the avg_mileage table imported into your spreadsheet.
+	![](assets/lab6/lab6-5.png)
 
-![Lab5_7](assets/Lab5_7.jpg)
+2. 上部のデザインタブを選択して，縦棒グラフをクリックし，ドロップダウンメニューで積み重ね列を選択します．これで棒グラフが生成されます．グラフの右下を掴んで画面一杯に広げます．フィルタタブを閉じるとグラフが拡大して表示されます．
 
-## Step 6.b.2: Visualize Data with Microsoft Excel <a id="step6.b.2"></a>
+	![](assets/lab6/lab6-6.png)
 
-1)  So now we are going to insert a Power View report. Follow this [link](https://support.office.com/en-us/article/Turn-on-Power-View-in-Excel-2016-for-Windows-f8fc21a6-08fc-407a-8a91-643fa848729a) to set up the Power View Report if you do not have it. This will create a new tab in your workbook with the data inserted in the Power View page.
+3. チュートリアルを終了するには，Geolocationテーブルに報告されたイベントのマップを作成します．クエリを作成し，データのマップを随時作成する方法を説明します．
 
-![Lab5_14](assets/Lab5_14.jpg)
+4. マップについては，位置情報とデータポイントが必要です．Geolocationテーブルを見ると，それぞれのイベントの位置に簡単にプロットできます．このテーブルには，driverid，city，stateカラムが必要です．select文でこれらの列を抽出できるので，クエリエディタからクエリを作成しましょう．
 
-2)  Select the design tab at the top and then select a column chart and use the stacked column version in the drop down menu. This will give you a bar chart. Grab the lower right of the chart and stretch it out to the full pane. Close the filter tab and the chart will expand and look like this.
+5. Geolocationカラムのサブセットのクエリです．
 
-![Lab5_9](assets/Lab5_9.jpg)
+	```sql
+	select driverid, city, state from geolocation;
+	```
 
-3)  So to finish off the tutorial I am going to create a map of the events reported in the geolocation table. I will show you how you can build up the queries and create a map of the data on an ad hoc basis.
+	![](assets/lab6/lab6-7.png)
 
-4)  For a map we need location information and a data point. Looking at the geolocation table I will simply plot the location of each of the events. I will need the driverid, city and state columns from this table. We know that the select statement will let me extract these columns. So to start off I can just create the select query in the Query Editor.
+6. クエリを実行すると，結果が表示されます．より複雑なクエリでは，正しい結果が得られるまでクエリを変更できます．今回の結果はこのように見えるでしょう．
 
-5) Query subset of geolocation columns
+	![](assets/lab6/lab6-8.png)
 
-~~~
-select driverid, city, state from geolocation;
-~~~
+7. 今回はうまい具合に結果が見えるので，結果をテーブルに取り込みましょう．CTAS（Create Table Select As）の一部として，select文を利用します．テーブルイベントを呼び出すと，クエリは次のようになります．
 
-![Lab5_10](assets/Lab5_10.png)
+	**Create table avg_mileage from existing trucks_mileage data**
 
-6)  After I execute the query I see what results are returned. In a more complex query you can easily make changes to the query at this point till you get the right results. So the results I get back look like this.
+	```sql
+	CREATE TABLE events
+	STORED AS ORC
+	AS
+	SELECT driverid, city, state FROM geolocation;
+	```
+	
+	![](assets/lab6/lab6-9.png)
 
-![Lab5_11](assets/Lab5_11.png)
+8. クエリを実行できたらテーブルイベントが作成されます．以前のように，Excelでテーブルを空のワークシートにインポートすることができます．インポートされたデータは次のようになります．
 
-7)  Since my results look fine I now need to capture the result in a table. So I will use the select statement as part of my CTAS (create table select as) pattern. I will call the table events and the query now looks like this.
+	![](assets/lab6/lab6-10.png)
 
-**Create table avg_mileage from existing trucks_mileage data**
+9. これで，ExcelワークブックにPower Viewタブを挿入できます．マップを取得するには，上部のデザインタブを選択し，メニューバーのマップボタンを選択します．
 
-~~~
-CREATE TABLE events
-STORED AS ORC
-AS
-SELECT driverid, city, state FROM geolocation;
-~~~
+	![](assets/lab6/lab6-11.png)
 
-![Lab5_12](assets/Lab5_12.png)
+10. Bingを利用してPower Viewでジオコーディングを行い，都市および州の列をマップ座標に変換するため，ネットワークが接続されていることを確認してください．イベントが発生した場所だけ見たい場合は，driveridのチェックを外してください．完成したマップは以下のようになります．
 
-8)  I can execute the query and the table events gets created. As we saw earlier I can go to Excel and import the table into a blank worksheet. The imported data will look like this.
+	![](assets/lab6/lab6-12.png)
 
-![Lab5_13](assets/Lab5_13.jpg)
+## まとめ <a id="summary"></a>
+Hortonworks Data Platform（HDP）がGeolocationデータをどのように保存および分析できるかを紹介しました．さらに独自のクエリを構築するためのいくつかの手法を紹介しました．リスクファクタと1ガロンあたりのマイルを棒グラフとして簡単にプロットすることができます．地図作成の基礎を学んだので，次は特定のイベント形式だけをプロットしましょう．学ん手法を利用すれば，データを抽出してExcelで可視化するのはとても簡単なことです．
 
-9)  Now I can insert the PowerView tab in the Excel workbook. To get a map I just select the Design tab at the top and select the Map button in the menu bar.
+おめでとうございます！HadoopとHDPに関するチュートリアルを終えました．今度はMap Reduce，YARN，HDFS，Hive，Pig，SparkなどのHadoopとその関連エコシステムの基本について理解を深めるといいでしょう．
 
-![Lab5_8](assets/Lab5_8.jpg)
-
-10)  Make sure you have a network connection because Power View using Bing to do the geocoding which translates the city and state columns into map coordinates. If we just want to see where events took place we can uncheck the driverid. The finished map looks like this.
-
-![Lab5_15](assets/Lab5_15.jpg)
-
-## Summary
-
-We’ve shown how the Hortonworks Data Platform (HDP) can store and analyze geolocation data. In addition I have shown you a few techniques on building your own queries. You can easily plot risk factor and miles per gallon as bar charts. I showed you the basics of creating maps. A good next step is to only plot certain types of events. Using the pattern I gave you it is pretty straightforward to extract the data and visualize it in Excel.
-
-Congratulations on finishing a comprehensive series on Hadoop and HDP. By now you should have a good understanding on fundamentals of Hadoop and its related ecosystem such as Map Reduce, YARN, HDFS, Hive, Pig and Spark.
-
-## Further Reading
-As a Hadoop practitioner you can choose three basic personas to build upon your skill:
+## 参考文献 <a id="further-reading"></a>
+Hadoopを使い始める人は，スキルを磨くために3つの道を選択することができます．
 
 -   Hadoop Developer- [Click Here!](https://hortonworks.com/tutorials/#tuts-developers)
 -   Hadoop Administrator-[Click Here!](https://hortonworks.com/tutorials/#tuts-admins)
 -   Data Scientist- [Click Here!](https://hortonworks.com/tutorials/#tuts-analysts)
 
-**Case Studies**
+**事例紹介**
 
-Learn more about Hadoop through these case studies:
+これらの事例紹介を通じて，Hadoopについて詳しく学びましょう．
 
 -   Analytics- [New types of data and new opportunities](https://hortonworks.com/solutions/advanced-analytic-apps/)
 -   Data Architecture Optimization: [Reduce cost by moving data and processing to Hadoop](https://hortonworks.com/solutions/data-architecture-optimization/)

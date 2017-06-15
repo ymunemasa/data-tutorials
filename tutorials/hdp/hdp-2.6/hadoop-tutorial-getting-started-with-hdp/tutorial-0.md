@@ -1,35 +1,29 @@
----
-title: Hadoop Tutorial – Getting Started with HDP
-tutorial-id: 100
-platform: hdp-2.6.0
-tags: [ambari, hive, pig, spark, zeppelin, technical-preview]
----
+# Hadoopチュートリアル - HDP入門
+## はじめに
 
-# Hadoop Tutorial – Getting Started with HDP
+このチュートリアルでは，あなたがHadoopとHDPに入門し，その構想を理解することを目指しています．最初のHDPアプリケーションを構築するために，IoT （Internet of Things）ユースケースを利用します．
 
-## Introduction
+このチュートリアルでは，Hortonworks Data Platformを利用して，Tracking IoT [Data Discovery](https://hortonworks.com/solutions/advanced-analytic-apps/#data-discovery)（別名 IoT Discovery）ユースケースのデータを修正する方法について解説します．
+IoT Discoveryのユースケースには，車両や端末，人々の移動が含まれます．分析は，分析データと位置情報を結びつけさせることを対象としています．
 
-Hello World is often used by developers to familiarize themselves with new concepts by building a simple program. This tutorial aims to achieve a similar purpose by getting practitioners started with Hadoop and HDP. We will use an Internet of Things (IoT) use case to build your first HDP application.
+私たちのチュートリアルでは，トラック車両隊をユースケースとして扱います．各トラックには，位置情報とイベントのデータを記録する機能が備わっています．これらのイベントはデータを処理するデータセンタにストリーミングされます．会社はリスクを理解するためにこのデータを利用したいと考えています．
 
-This tutorial describes how to refine data for a Trucking IoT  [Data Discovery](https://hortonworks.com/solutions/advanced-analytic-apps/#data-discovery) (aka IoT Discovery) use case using the Hortonworks Data Platform. The IoT Discovery use cases involves vehicles, devices and people moving across a map or similar surface. Your analysis is targeted to linking location information with your analytic data.
+ここでは，このチュートリアルで行う[ジオロケーションデータの分析](http://youtu.be/n8fdYHoEEAM)の動画を紹介します．
 
-For our tutorial we are looking at a use case where we have a truck fleet. Each truck has been equipped to log location and event data. These events are streamed back to a datacenter where we will be processing the data.  The company wants to use this data to better understand risk.
 
-Here is the video of [Analyzing Geolocation Data](http://youtu.be/n8fdYHoEEAM) to show you what you’ll be doing in this tutorial.
+## 前提条件
+- [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)をダウンロードおよびインストールしてください
+- HDPに入門する前に，Hortonworks Sandboxの使い方を学び，VMのSandboxとAmbariのインターフェースに慣れることを**強く**おすすめします．
+- データセットは[Geolocation.zip](https://app.box.com/HadoopCrashCourseData)を利用します．
+- （任意）[Hortonworks ODBC Driver](http://hortonworks.com/downloads/#addons)をインストールしてください．
+- このチュートリアルでは，Hortonworks SandboxがOracle VirtualBox仮想マシン（VM）にインストールされています．実際の画面の表示とは異なる場合があります．
 
-## Prerequisites
 
--   Downloaded and Installed [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)
--   Before entering hello HDP labs, we **highly recommend** you go through [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/) to become familiar with the Sandbox in a VM and the Ambari Interface.
--   Data Set Used: [**Geolocation.zip**](https://app.box.com/HadoopCrashCourseData)
--   ***Optional*** Install [Hortonworks ODBC Driver](http://hortonworks.com/downloads/#addons)
--   In this tutorial, the Hortonworks Sandbox is installed on an Oracle VirtualBox virtual machine (VM) – your screens may be different.
+## 目次
+1. **Concepts**：Hortonworks Data Platform（HDP）の基礎を固める構想について
+2. **Lab 1**：センサデータをHDFSに読み込ませよう
+3. **Lab 2**：Hiveによるデータ操作をしよう
+4. **Lab 3**：Pigを利用して，ドライバのリスクファクタを算出しよう
+5. **Lab 4**：Apache Sparkを利用して，ドライバのリスクファクタを算出しよう
+6. **Lab 5**：Zeppelinによる視覚化とデータレポーティングをしよう
 
-## Outline
-
-1.  **Concepts** Concepts that will strengthen your foundation in the Hortonworks Data Platform (HDP)
-1.  **Lab 1** Loading Sensor Data into HDFS
-2.  **Lab 2** Data Manipulation with Hive
-3.  **Lab 3** Use Pig to compute Driver Risk Factor
-4.  **Lab 4** Use Apache Spark to compute Driver Risk Factor
-5.  **Lab 5** Optional Visualization and Reporting with Zeppelin
