@@ -1,5 +1,5 @@
 ---
-title: Real-Time Event Processing In NiFi, SAM, Schema Registry and SuperSet
+title: Real-Time Event Processing In NiFi, SAM, Schema Registry and SuperSet (Mac/Linux)
 author: James Medel
 tutorial-id: 830
 experience: Advanced
@@ -13,7 +13,8 @@ product: HDF
 series: HDF > Develop with Hadoop > Real World Examples
 ---
 
-# Real-Time Event Processing In NiFi, SAM, Schema Registry and SuperSet
+
+# Real-Time Event Processing In NiFi, SAM, Schema Registry and SuperSet (Mac/Linux)
 
 > This tutorial is tailored for the MAC and Linux OS user.
 
