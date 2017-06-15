@@ -13,7 +13,9 @@ product: HDF
 series: HDF > Develop with Hadoop > Real World Examples
 ---
 
-# Real-Time Event Processing In NiFi, SAM, Schema Registry and SuperSet
+# Real-Time Event Processing In NiFi, SAM, Schema Registry and SuperSet (Windows)
+
+> This tutorial is tailored for the **Windows 10 OS user**, but it is possible for other Windows users to rebuild.
 
 ## Introduction
 
@@ -23,11 +25,21 @@ In this tutorial, you will learn how to build the Stream Analytics Manager (SAM)
 
 - [Downloaded HDF 3.0 Sandbox](https://hortonworks.com/downloads/#sandbox)
 - [Deployed and Installed HDF 3.0 Sandbox](https://hortonworks.com/tutorial/sandbox-deployment-and-install-guide/)
+- 4 cores/ 8GB RAM
+- If you are using Windows OS version below 10, then download [Git Bash](https://git-scm.com/downloads) and all shell commands should be universal.
 
-Download SAM Demo Dependencies onto your local machine.
+1\. Open Notepad as an administrator. Open the "hosts" file at this path: `c:\Windows\System32\drivers\etc\hosts` and add:
 
 ~~~bash
-cd ~/Downloads
+127.0.0.1   localhost   sandbox-hdf.hortonworks.com
+~~~
+
+> Note: Make sure to remove the "#" hash symbol from the left side of the line and add "sandbox-hdf.hortonworks.com".
+
+2\. Open the Ubuntu Shell on Windows 10. Download SAM Demo Dependencies onto your local machine.
+
+~~~bash
+cd /mnt/c/Users/james/Downloads
 wget https://github.com/hortonworks/data-tutorials/raw/master/tutorials/hdf/realtime-event-processing-in-nifi-sam-sr-superset/assets/templates.zip
 unzip templates.zip
 ~~~
@@ -36,11 +48,11 @@ This templates folder includes the NiFi flow, SAM topology, SAM custom UDF and S
 
 **Setup HDF to Run SAM Demo**
 
-1\. Login to the Ambari UI at `http://sandbox-hdf.hortonworks.com:9080` using `admin/admin`.
+1\. Login to the Ambari UI at `http://localhost:9080` using `admin/admin`.
 
 2\. In the left hand sidebar, select "Streaming Analytics Manager (SAM)," Summary tab appears, click on "Service Actions", click on the "Start" button and turn off "maintenance mode".
 
-3\. Open your terminal on your host machine. SSH into the HDF sandbox. The "bootstrap-storage.sh drop-create" command resets the tables in mysql to store SAM metadata. "bootstrap.sh pulls" creates SAM (streamline) default components, notifiers, udfs and roles. Run the commands:
+3\. Go back to your Ubuntu Shell. SSH into the HDF sandbox. The "bootstrap-storage.sh drop-create" command resets the tables in mysql to store SAM metadata. "bootstrap.sh pulls" creates SAM (streamline) default components, notifiers, udfs and roles. Run the commands:
 
 ~~~bash
 ssh root@localhost -p 12222
@@ -49,13 +61,15 @@ cd /usr/hdf/current/streamline
 ./bootstrap/bootstrap.sh
 ~~~
 
+> Root password is "Hadoop"
+
 4\. Go to SAM Service in the the left hand sidebar of Ambari Dashboard. Then
 click on "Config" -> "Streamline Config". Search "registry.url" in the filter box, then enter "registry.url" field:
 `http://sandbox-hdf.hortonworks.com:17788/api/v1`.
 
 ![sam_registry_url](assets/images/setup/sam_registry_url.png)
 
-Then save the configuration and call it "updated registry.url". Restart SAM service.
+Then **save the configuration** and call it "updated registry.url". **Restart SAM service**.
 
 5\. Go to Druid Service, "Config", "Advanced" to update directories, so Druid can write to them. In the search box, type **druid.indexer.logs.directory**. Update this config with `/home/druid/logs`.
 
@@ -67,11 +81,11 @@ Then save the configuration and call it "updated registry.url". Restart SAM serv
 
 Once both configs have been updated, save the configuration and call it: "updated directories, so druid can write to them".
 
-7\. From the left hand sidebar, choose HDFS and start the service like you did with SAM earlier.
+7\. From the left hand sidebar, choose HDFS and start the service like you did with SAM earlier. "Turn off maintenance mode."
 
 ![start_hdfs_service](assets/images/setup/start_hdfs_service.png)
 
-8\. Start **Storm, Ambari Metrics, Kafka, Druid, Registry** and **Streaming Analytics Manager (SAM)** the same way you started HDFS.
+8\. Start and turn off maintenance mode **Storm, Ambari Metrics, Kafka, Druid and Registry** the same way you started HDFS.
 
 ## Outline
 
@@ -140,7 +154,7 @@ and this property will appear. Update the **MAPBOX_API_KEY** with the one you ob
 
 ### Step 2: Check Kafka Truck Topics Are Created
 
-1\. Switch to user hdfs and create directories and give permissions to all users, so SAM can write data to all those directories.
+1\. Navigate back to your Ubuntu Shell. Switch to user hdfs and create directories and give permissions to all users, so SAM can write data to all those directories.
 
 ~~~bash
 su hdfs
@@ -154,7 +168,7 @@ cd /usr/hdp/current/kafka-broker/bin/
 
 ### Step 3: Create Truck Schemas in Schema Registry
 
-Access Schema Registry at `sandbox-hdf.hortonworks.com:17788` or through Ambari Quick Links "Registry UI". Create 4 Truck Schemas.
+Access Schema Registry at `localhost:17788` or through Ambari Quick Links "Registry UI". Create 4 Truck Schemas.
 
 1\. Click on "+" button to add new schemas. A window called "Add New Schema" will appear.
 
@@ -225,19 +239,19 @@ Click **Save**.
 
 ### Step 4: Deploy NiFi Flow to GeoEnrich Kafka Data
 
-1\. Launch NiFi "Quick Link" from Ambari NiFi Service Summary window or open NiFi UI at `http://sandbox-hdf.hortonworks.com:19090/nifi`.
+1\. Launch NiFi "Quick Link" from Ambari NiFi Service Summary window or open NiFi UI at `http://localhost:19090/nifi`.
 
 2\. Use NiFi upload template button in the "Operate panel" to upload `Nifi_and_Schema_Registry_Integration.xml` found in the "templates" -> "nifi" folder downloaded from earlier.
 
 ![upload_nifi_template](assets/images/step4_nifi/upload_nifi_template.png)
 
-3\. Drag the template icon onto the canvas from the "components toolbar" and add the template just uploaded.
+3\. Drag the template icon onto the canvas from the "components toolbar" and add the template just uploaded. 
 
 ![template_of_nifi_flow_use_case1](assets/images/step4_nifi/template_of_nifi_flow_use_case1.png)
 
-4\. Click on the gear in the left corner of the "Operate panel", then open the "Controller Services" tab.
+4\. Make sure to unselect the NiFi flow. Click on the gear in the left corner of the "Operate panel", then open the "Controller Services" tab.
 
-5\. Check "HWX Schema Registry" service. Verify the Schema Registry REST API URL points to the appropriate Schema Registry port running on your HDF 3.0 Sandbox. It should be `http://sandbox-hdf.hortonworks.com:17788/api/v1`.
+5\. Check "HWX Schema Registry" service. Click on the pencil icon to verify the Schema Registry REST API URL points to the appropriate Schema Registry port running on your HDF 3.0 Sandbox. It should be `http://sandbox-hdf.hortonworks.com:17788/api/v1`.
 
 6\. Verify the "HWX Schema Registry" service is enabled. Verify all other referencing services dependent on "HWX Schema Registry" are enabled. If they are not enabled as shown below, click on the **Lightning Bolt** symbol to enable them.
 
@@ -249,7 +263,7 @@ Click **Save**.
 
 ### Step 5: Deploy SAM Topology to Preprocess Data for Druid SuperSet
 
-1\. Launch Streaming Analytics Manager (SAM) "Quick Link" from Ambari SAM Service Summary window or open SAM UI at `http://sandbox-hdf.hortonworks.com:17777/`.
+1\. Launch Streaming Analytics Manager (SAM) "Quick Link" from Ambari SAM Service Summary window or open SAM UI at `http://localhost:17777/`.
 
 2\. In the left corner, click on Tool "Configuration" -> Select "Service Pool" Link
 
@@ -276,18 +290,18 @@ Table 5: Environment metadata
 
 | Property | Value   |
 | :------------- | :------------- |
-| Name   | HDF3_Docker_Sandbox    |
+| Name   | HDF3_Sandbox    |
 | Description   | SAM Environment Config    |
 | Services | Include all services |
 
-Click OK to create the Environment.
+Click **OK** to create the Environment.
 
 ![HDF3_Docker_Sandbox](assets/images/step5_sam/HDF3_Docker_Sandbox.png)
 
 ![environment_created_successfully](assets/images/step5_sam/environment_created_successfully.png)
 
 7\. Click on "Tool" icon in the left hand corner, then "Application Resources",
-then press UDF tab. Click '+' to Add a new UDF. Include the following property
+then press **UDF tab**. Click '+' to Add a new UDF. Include the following property
 values in the "ADD UDF" window fields in regards to the table below, then click OK:
 
 | Property | Value   |
@@ -314,7 +328,7 @@ Press the SAM logo to return to the "My Application" page.
 8\. Click the "+" button to add a new application. Select "Import Application". Choose "IOT-Trucking-Ref-App.json" template from the "sam" folder.
 
 - Application Name: `IOT-Trucking-Demo`
-- Environment: HDF3_Docker_Sandbox
+- Environment: HDF3_Sandbox
 
 Click **OK**.
 
@@ -340,7 +354,7 @@ It should show the demo deployed successfully.
 
 ### Step 6: Execute Data-Loader on the App
 
-1\. Exit from hdfs user, and then execute the Data-Loader to generate data and transport to the Kafka Topics.
+1\. Open the Ubuntu Shell. Exit from hdfs user, and then execute the Data-Loader to generate data and transport to the Kafka Topics.
 
 ~~~bash
 exit
@@ -368,7 +382,7 @@ the app, click on the app.
 
 ![overview_sam_app](assets/images/step6_data_loader/overview_sam_app.png)
 
-5\. Click on the Storm Monitor and verify storm is processing tuples.
+5\. Click on the Storm Monitor UI at "localhost:18744" and verify storm is processing tuples.
 
 ![storm_process_data](assets/images/step6_data_loader/storm_process_data.png)
 
