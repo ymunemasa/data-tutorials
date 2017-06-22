@@ -479,7 +479,7 @@ Some notable differences between these users in the Sandbox are mentioned below:
 | Amy (amy_ds) | Service Operator | Yes | Yes | No | No | No | No | No | No | SELECT |
 | Holger (holger_gov) | Service Administrator | Yes | Yes | Yes | No | No | No | No | Yes | SELECT, CREATE, DROP |
 
-**Do not forget** to check out the [scripts](assets/User_Scripts) from which these users and their operations are created.
+**Do not forget** to check out the [scripts](assets/user-scripts.zip) from which these users and their operations are created.
 
 ## Section 4: Troubleshoot <a id="section4"></a>
 
