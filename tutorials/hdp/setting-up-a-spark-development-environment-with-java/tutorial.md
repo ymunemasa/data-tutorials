@@ -5,7 +5,7 @@ tutorial-id: 802
 experience: Intermediate
 persona: Data Scientist & Analyst
 source: Hortonworks
-use case: Data Discovery
+use case: Predictive
 technology: Apache Spark
 release: hdp-2.6.0
 environment: Sandbox
