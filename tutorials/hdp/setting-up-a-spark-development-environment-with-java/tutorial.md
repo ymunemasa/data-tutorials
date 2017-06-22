@@ -284,5 +284,3 @@ Then click the + button at the upper-left and add a new remote configuration. Fi
 ![intellij7](assets/intellij7.png)
 
 If you run this debug configuration from your IDE immediately after submitting your Spark job, the debugger will attach and Spark will stop at breakpoints. You can also inspect the values of live variables within your program. This is invaluable when trying to pin down bugs in your code.
-
-Tutorial By Greg Womack (Twitter: @gregw134)
