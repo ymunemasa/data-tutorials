@@ -1,8 +1,16 @@
 ---
 title: Learning the Ropes of the Hortonworks Sandbox
+author: Edgar Orendain
 tutorial-id: 160
-platform: hdp-2.5.0
-tags: [ambari]
+experience: Beginner
+persona: Developer
+source: Hortonworks
+use case: Data Discovery
+technology: Apache Ambari
+release: hdp-2.6.0
+environment: Sandbox
+product: HDP
+series: HDP > Develop with Hadoop > Hello World
 ---
 
 # Learning the Ropes of the Hortonworks Sandbox
