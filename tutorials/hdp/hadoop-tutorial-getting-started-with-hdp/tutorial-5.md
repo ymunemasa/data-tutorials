@@ -58,22 +58,20 @@ Sparkでは，MapReduce型ジョブや反復アルゴリズムなどのバッチ
 	http://sandbox.hortonworks.com:9995
 	```
 
-  ZeppelinのWelcomeページが表示されるはずです．
+    ZeppelinのWelcomeページが表示されるはずです．
 
-	![](assets/lab4/lab4-3.png)
+    ![](assets/lab4/lab4-3.png)
 
-
-  任意で，Sparkでコードを実行するためにSparkシェルにアクセスしたい場合は付録Aを参照してください．
+    任意で，Sparkでコードを実行するためにSparkシェルにアクセスしたい場合は付録Aを参照してください．
   
 3. Zeppelin Notebookを作成する
-
-	左上のNotebookタブをクリックし，Create new noteを選択してください．ノートブックの名前を`Compute Riskfactor with Spark`に設定します．
+    
+    左上のNotebookタブをクリックし，Create new noteを選択してください．ノートブックの名前を`Compute Riskfactor with Spark`に設定します．
 	
-	![](assets/lab4/lab4-4.png)
+    ![](assets/lab4/lab4-4.png)
 	
 	![](assets/lab4/lab4-5.png)
 
- 
 ## Step 4.2：Hive Contextを作成する <a id="step4.2"></a>
 
 SparkはORCファイルをサポートしています．ORCファイルによって効率的なカラムストレージとPredicate Pushdown機能を活用して，より高速なメモリ内処理が可能になります．HiveContextは，Hiveに格納されているデータと統合するSpark SQL実行エンジンのインスタンスです．より基本的なSQLContextは，Hiveに依存しないSpark SQLサポートのサブセットを提供します．HiveContextは，クラスパス上のhive-site.xmlからHiveの設定を読み込みます．
