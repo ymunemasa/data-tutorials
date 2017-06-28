@@ -28,7 +28,7 @@ This tutorial walks through the general approach for installing the Hortonworks 
 -   [Load Sandbox Into Docker](#load-sandbox-into-docker)
 -   [Start Sandbox](#start-sandbox)
     -   [For HDP 2.6 Sandbox](#for-hdp-2.6-sandbox)
-    -   [For HDF 2.1 Sandbox](#for-hdf-2.1-sandbox)
+    -   [For HDF 3.0 Sandbox](#for-hdf-3.0-sandbox)
 -   [Further Reading](#further-reading)
 
 
@@ -98,11 +98,22 @@ Download one of the following scripts and save it somewhere on your computer.
 -   For Windows: Use this [start-start_sandbox-hdp.ps1](assets/start_sandbox-hdp.ps1)
 
 
-### For HDF 2.1 Sandbox
+### For HDF 3.0 Sandbox
 
 -   For Linux/Mac: Use this [start_sandbox-hdf.sh](assets/start_sandbox-hdf.sh)
 -   For Windows: Use this [start_sandbox-hdf.ps1](assets/start_sandbox-hdf.ps1)
 
+For HDF 3.0 users, change the Docker Image name to "sandbox-hdf":
+
+~~~
+docker tag [IMAGE-ID] sandbox-hdf
+~~~
+
+Untag the previous docker REPOSITORY called "sandbox":
+
+~~~
+docker rmi sandbox
+~~~
 
 Run the script you just downloaded.  It will start the sandbox for you, creating the sandbox docker container in the process if neceesary.
 
