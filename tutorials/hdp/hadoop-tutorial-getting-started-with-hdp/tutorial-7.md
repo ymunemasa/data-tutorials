@@ -35,7 +35,7 @@ Let's bring in data from table **avg_mileage**. We created this table in the _Hi
 
 2\. Select **Data** > **From Other Sources** > **From Microsoft Query**
 
-![excel-open-query](assets/excel-open-query.png)
+![excel-open-query](assets/excel-open-query.jpg)
 
 3\. On the Choose Data Source pop-up, select the Hortonworks ODBC data source you installed previously, then click **OK**.
 
