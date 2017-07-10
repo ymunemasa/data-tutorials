@@ -72,7 +72,7 @@ and copy the downloaded file to HDFS:
 hdfs dfs -put ./yahoo_stocks.csv /tmp/
 ~~~
 
-![](assets/Screenshot%202015-05-28%2008.49.55.png?dl=1)
+![](assets/Screenshot%202015-05-28%2008.49.55.png)
 
 ## Starting the Spark shell
 
