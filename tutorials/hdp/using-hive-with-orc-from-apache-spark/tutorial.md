@@ -54,7 +54,7 @@ This tutorial will be using Spark 1.6.x. API syntax for all the examples.
 
 To begin, login to Hortonworks Sandbox through SSH:
 
-![](assets/Screenshot_2015-04-13_07_58_43.png?dl=1)
+![](assets/Screenshot_2015-04-13_07_58_43.png)
 
 The default password is `hadoop`.
 
