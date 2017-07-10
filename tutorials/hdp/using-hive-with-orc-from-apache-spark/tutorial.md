@@ -64,7 +64,7 @@ Now let’s download the dataset with the command below:
 wget http://hortonassets.s3.amazonaws.com/tutorial/data/yahoo_stocks.csv
 ~~~
 
-![](assets/Screenshot%202015-05-28%2008.49.00.png?dl=1)
+![](assets/Screenshot%202015-05-28%2008.49.00.png)
 
 and copy the downloaded file to HDFS:
 
