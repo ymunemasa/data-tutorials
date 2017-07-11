@@ -271,7 +271,7 @@ Let’s now open Ambari Hive View 2.0 and get introduced to the environment. Go 
 
 Ambari Hive View 2.0
 
-![Hive_View_2.0](assets/ambari_hive_user_view_concepts.png)
+![Hive_View_2.0](assets/ambari_hive_user_view_concepts.jpg)
 
 There are 6 tabs to interact with Hive View 2.0:
 

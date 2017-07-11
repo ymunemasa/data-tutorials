@@ -44,7 +44,7 @@ Let’s now open Ambari Hive View 2.0 and get introduced to the environment. Go 
 
 The Ambari Hive View looks like the following:
 
-![Lab2_2](assets/ambari_hive_user_view_concepts.png)
+![Lab2_2](assets/ambari_hive_user_view_concepts.jpg)
 
 Now let’s take a closer look at the SQL editing capabilities in Hive View:
 
@@ -96,7 +96,7 @@ Complete form as follows using `/user/maria_dev/data/trucks.csv` as the HDFS Pat
 You should see a similar screen:
 > Note: that the first row contains the names of the columns.
 
-![Preview](assets/click_gear_button_lab2.png)
+![Preview](assets/click_gear_button_lab2.jpg)
 
 Click `Create` button to complete table creation.
 
