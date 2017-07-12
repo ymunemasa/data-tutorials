@@ -1,8 +1,8 @@
 ---
-title: DataFrame, Dataset, and SparkSQL Thrift Server examples in Spark Shell
+title: DataFrame and Dataset Examples in Spark REPL
 author: Robert Hryniewicz
 tutorial-id: 391
-experience: Intermediate
+experience: Beginner
 persona: Developer
 source: Hortonworks
 use case: Data Discovery
@@ -13,7 +13,7 @@ product: HDP
 series: HDP > Develop with Hadoop > Apache Spark
 ---
 
-# DataFrame, Dataset, and SparkSQL Thrift Server examples in Spark Shell
+# DataFrame and Dataset Examples in Spark REPL
 
 ## Introduction
 
@@ -37,7 +37,6 @@ Please ensure you complete the prerequisites before proceeding with this tutoria
 
 -   [DataFrame API Example](#dataframe-api-example)
 -   [DataSet API Example](#dataset-api-example)
--   [SparkSQL Thrift Server Example](#sparksql-thrift-server-example)
 
 -   [Further Reading](#further-reading)
 
@@ -347,89 +346,6 @@ You should see the following
 ~~~
 
 To exit type `exit`.
-
-
-## SparkSQL Thrift Server Example
-
-SparkSQL’s thrift server provides JDBC access to SparkSQL.
-
-**Create logs directory**
-
-Change ownership of `logs` directory from `root` to `spark` user:
-
-~~~ bash
-cd /usr/hdp/current/spark-client
-chown spark:hadoop logs
-~~~
-
-**Start Thrift Server**
-
-~~~ bash
-su spark
-./sbin/start-thriftserver.sh --master yarn-client --executor-memory 512m --hiveconf hive.server2.thrift.port=10015
-~~~
-
-**Connect to the Thrift Server over Beeline**
-
-Launch Beeline:
-
-~~~ bash
-./bin/beeline
-~~~
-
-**Connect to Thrift Server and issue SQL commands**
-
-On the `beeline>` prompt type:
-
-~~~ sql
-!connect jdbc:hive2://localhost:10015
-~~~
-
-***Notes***
-- This example does not have security enabled, so any username-password combination should work.
-- The connection may take a few seconds to be available in a Sandbox environment.
-
-You should see an output similar to the following:
-
-~~~
-beeline> !connect jdbc:hive2://localhost:10015
-Connecting to jdbc:hive2://localhost:10015
-Enter username for jdbc:hive2://localhost:10015:
-Enter password for jdbc:hive2://localhost:10015:
-...
-Connected to: Spark SQL (version 1.6.2)
-Driver: Spark Project Core (version 1.6.1.2.5.0.0-817)
-Transaction isolation: TRANSACTION_REPEATABLE_READ
-0: jdbc:hive2://localhost:10015>
-~~~
-
-Once connected, try `show tables`:
-
-~~~ sql
-show tables;
-~~~
-
-You should see an output similar to the following:
-
-~~~ bash
-+------------+--------------+--+
-| tableName  | isTemporary  |
-+------------+--------------+--+
-| sample_07  | false        |
-| sample_08  | false        |
-| testtable  | false        |
-+------------+--------------+--+
-3 rows selected (2.399 seconds)
-0: jdbc:hive2://localhost:10015>
-~~~
-
-Type `Ctrl+C` to exit beeline.
-
-**Stop Thrift Server**
-
-~~~ bash
-./sbin/stop-thriftserver.sh
-~~~
 
 ## Further Reading
 
