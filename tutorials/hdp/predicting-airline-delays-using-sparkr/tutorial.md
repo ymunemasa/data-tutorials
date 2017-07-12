@@ -7,10 +7,10 @@ persona: Data Scientist & Analyst
 source: Hortonworks
 use case: Predictive
 technology: Apache Spark, Apache SparkR, Machine Learning
-release: hdp-2.6.0
+release: hdp-2.6.1
 environment: Sandbox
 product: HDP
-series: HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
+series: HDP > Develop with Hadoop > Apache Spark
 ---
 
 
