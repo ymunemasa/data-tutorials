@@ -372,3 +372,7 @@ To exit SparkR type:
 ~~~ js
 quit()
 ~~~
+
+## Next steps
+
+Next learn more about [Spark DataFrames and Datasets](https://hortonworks.com/tutorial/dataframe-and-dataset-examples-in-spark-repl/) that allow for higher-level data manipulation and abstract away optimization details.
