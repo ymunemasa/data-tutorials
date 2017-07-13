@@ -101,7 +101,7 @@ To verify table has been dropped, let us do show tables again:
 %jdbc(hive) show tables
 ~~~
 
-![drop_table_lab4](assets/drop_table_lab4.png)
+![drop_table_lab4](assets/drop_table_lab4.jpg)
 
 ### Instantiate SparkSession
 
@@ -329,7 +329,7 @@ hiveContext.sql("create table riskfactor as select * from finalresults").toDF()
 
 Execute a select query to verify your table has been successfully stored. You can go to Ambari Hive user view to check whether the Hive table you created has the data populated in it.
 
-![riskfactor_table_populated](assets/riskfactor_table_populated.png)
+![riskfactor_table_populated](assets/riskfactor_table_populated.jpg)
 
 ## Full Spark Code Review
 

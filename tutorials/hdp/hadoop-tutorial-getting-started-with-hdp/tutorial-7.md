@@ -110,7 +110,7 @@ SELECT driverid, city, state FROM geolocation;
 
 The finished map looks like this.
 
-![Lab5_15](assets/Lab5_15.png)
+![Lab5_15](assets/Lab5_15.jpg)
 
 ## Summary
 
