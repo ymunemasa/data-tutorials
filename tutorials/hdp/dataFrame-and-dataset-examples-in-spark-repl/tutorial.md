@@ -349,4 +349,4 @@ To exit type `exit`.
 
 ## Further Reading
 
-Next, explore more advanced SparkSQL commands in a Zeppelin Notebook: https://hortonworks.com/tutorial/learning-spark-sql-with-zeppelin/
+Next, explore more advanced [SparkSQL commands in a Zeppelin Notebook]( https://hortonworks.com/tutorial/learning-spark-sql-with-zeppelin/).
