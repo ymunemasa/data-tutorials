@@ -70,3 +70,9 @@ Pi is roughly 3.143648
 16/02/25 21:27:12 INFO ContextHandler: stopped o.s.j.s.ServletContextHandler{/metrics/json,null}
 ...
 ~~~
+
+## Next steps
+
+At this point, you might want to set up a complete development  environment for writing and debugging your Spark applications.
+
+Checkout one of the following tutorials on how to set up a full development environment for either [Python](https://hortonworks.com/tutorial/setting-up-a-spark-development-environment-with-python/), [Scala](https://hortonworks.com/tutorial/setting-up-a-spark-development-environment-with-scala/), or [Java](https://hortonworks.com/tutorial/setting-up-a-spark-development-environment-with-java/).
