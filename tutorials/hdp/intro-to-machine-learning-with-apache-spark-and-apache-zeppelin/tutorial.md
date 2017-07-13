@@ -61,22 +61,9 @@ To summarize, we will be 1) setting up a two dimensional dataset, 2) creating a 
 
 ### Option 1: Setup Hortonworks Data Cloud (HDCloud) on AWS
 
-1a. Create an [Amazon Web Services (AWS) Account](https://aws.amazon.com/) if you don't have one
+This option is ideal if you want to experience a production-ready multi-node cluster in a cloud.
 
-1b. Follow this step-by-step doc to [Setup and Launch a Controller on HDCloud](https://hortonworks.github.io/hdp-aws/launch/index.html)
-
-1c. Create a *Data Science* [Cluster](https://hortonworks.github.io/hdp-aws/create/index.html) (use settings listed below)
-
-Select/specify the following for your cluster:
-
-  - HDP Version: HDP 2.6 or later
-  - Cluster Type: "Data Science: Apache Spark 2.1+, Apache Zeppelin 0.6.2+" or later
-  - Worker instance count: one or more
-  - Remote Access: 0.0.0.0/0
-
-Here's a screenshot with sample settings:
-
-![setting-up-hd-cloud](assets/spinning-up-hdcloud-cluster.jpg)
+See the [Getting Started with HDCloud](https://hortonworks.com/tutorial/getting-started-with-apache-spark-and-apache-zeppelin-on-hdcloud/) tutorial for details.
 
 ### Option 2: Download and Setup Hortonworks Data Platform (HDP) Sandbox
 
