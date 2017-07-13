@@ -94,5 +94,3 @@ Once your notebook is imported, you can open it from the Zeppelin home screen by
 ## Final Words
 
 Once you have completed part one and part two of the lab you should have a basic toolset to start exploring new datasets using a high-level  programatic Dataset or DataFrame APIs, or a SQL API. Both APIs provide the same performance while giving you the choice to choose one or both to accomplish a task demanding high performance data exploration, wrangling, munging, and visualization.
-
-Make sure to checkout other Spark [tutorials](https://hortonworks.com/tutorials/) where you will find more hands-on tutorials with labs as well as tutorials covering Spark Streaming, Machine Learning and more.
