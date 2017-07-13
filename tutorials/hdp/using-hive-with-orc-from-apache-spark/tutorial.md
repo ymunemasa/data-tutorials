@@ -7,7 +7,7 @@ persona: Data Scientist & Analyst
 source: Hortonworks
 use case: Predictive
 technology: Apache Hive, Apache Spark, Apache ORC
-release: hdp-2.6.0
+release: hdp-2.6.1
 environment: Sandbox
 product: HDP
 series: HDP > Develop with Hadoop > Apache Spark
