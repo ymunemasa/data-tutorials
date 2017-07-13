@@ -1,5 +1,5 @@
 ---
-title: Getting Started with Apache Spark and Apache Zeppelin on HDCloud
+title: Getting Started with HDCloud
 author: Robert Hryniewicz
 tutorial-id: 395
 experience: Beginner
@@ -13,13 +13,13 @@ product: HDCloud
 series: HDP > Develop with Hadoop > Apache Spark
 ---
 
-# Getting Started with Apache Spark and Apache Zeppelin on HDCloud
+# Getting Started with HDCloud
 
 ## Introduction
 
-This tutorial will help you quickly spin-up a cloud environment where you can dynamically resize your cluster from one to hundred's of nodes. HDCloud is ideal for short-lived on-demand processing, allowing you to quickly perform heavy computation on large datasets without impacting production clusters. HDCloud gives you the ultimate control to allocate the resources necessary to accomplish your goals within a reasonable time-frame.
+This tutorial will help you quickly spin-up a cloud environment where you can dynamically resize your cluster from one to hundreds of nodes. HDCloud is ideal for short-lived on-demand processing, allowing you to quickly perform heavy computation on large datasets. It gives you the ultimate control to allocate and de-allocate resources as needed.
 
-In this tutorial we will focus on spinning up a Data Science persona environment that's ideally suited to our Apache Spark cloud based tutorial series.
+In this tutorial we will focus on spinning up a Data Science persona environment that's ideally suited to our Apache Spark and Apache Zeppelin cloud-based tutorial series.
 
 ## Getting Started Videos
 
@@ -56,6 +56,6 @@ Here's a screenshot with sample settings:
 
 Now that you have your HDCloud environment set-up, checkout one of these cloud-ready tutorials:
 
-1) [Spark in 5 Minutes tutorial](https://hortonworks.com/tutorial/hands-on-tour-of-apache-spark-in-5-minutes/) analyzing a Silicon Valley film series dataset.
+1) [Spark in 5 Minutes](https://hortonworks.com/tutorial/hands-on-tour-of-apache-spark-in-5-minutes/) tutorial analyzing a Silicon Valley film series dataset
 
-2) A more in depth [tutorial on Spark SQL](https://hortonworks.com/tutorial/learning-spark-sql-with-zeppelin/)
+2) A more in-depth tutorial on [Spark SQL](https://hortonworks.com/tutorial/learning-spark-sql-with-zeppelin/)
