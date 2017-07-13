@@ -88,7 +88,7 @@ Congratulations! Let’s summarize the skills and knowledge we acquired from thi
 
 ## Further Reading
 -   [HDFS](https://hortonworks.com/hadoop/hdfs/)
--   [Manage Files on HDFS with Command Line: Hands-on Tutorial](https://hortonworks.com/tutorial/using-commandline-manage-files-hdfs/)
+-   [Tutorial: Manage Files on HDFS via Cli/Ambari Files View](https://hortonworks.com/tutorial/manage-files-on-hdfs-via-cli-ambari-files-view/)
 -   [HDFS User Guide](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsUserGuide.html)
 -   Build your HDFS Architecture Knowledge [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.0.4/hdfs_design.html)
 -   [HDP OPERATIONS: HADOOP ADMINISTRATION](https://hortonworks.com/training/class/hdp-operations-hadoop-administration-fundamentals/)
