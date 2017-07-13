@@ -10,7 +10,7 @@ technology: Apache Hive, Tableau
 release: hdp-2.6.0
 environment: HDCloud
 product: HDP
-series: HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
+series: HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop, HDP > Develop with Hadoop > Apache Hive
 ---
 
 
