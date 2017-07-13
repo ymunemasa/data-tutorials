@@ -4,7 +4,7 @@ Stormで処理したリアルタイム分析の結果をKafkaトピックから�
 
 `Reporting` ProcessGroup内にプロセッサを追加します。
 
-![](https://github.com/ijokarumawak/hdf-tutorials-ja/blob/master/images/nifi/consume-kafka/flow.png)
+![](assets/flow.png)
 
 - ConsumeKafka_0_10: `report`トピックからメッセージを受信します
 - UpdateAttribute: `filename` Attributeを設定します
@@ -57,6 +57,6 @@ Stormで処理したリアルタイム分析の結果をKafkaトピックから�
 watch cat /opt/hdf-handson/report/latest.json
 ```
 
-![](https://github.com/ijokarumawak/hdf-tutorials-ja/blob/master/images/nifi/consume-kafka/test.png)
+![](assets/test.png)
 
 ### [前へ](tutorial-4.md) | [次へ](tutorial-6.md)
