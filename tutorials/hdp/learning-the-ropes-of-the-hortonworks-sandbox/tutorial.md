@@ -35,7 +35,7 @@ Let's begin our Hadoop journey.
 -   [Step 1: Explore the Sandbox in a VM](#explore-sandbox-vm)
     -   [1.1 Install the Sandbox](#install-sandbox)
     -   [1.2 Learn the Host Address of Your Environment](#learn-host-address-environment)
-    -   [1.3 Add Sandbox Hostname to Your Hosts File](#add sandbox hostname to your hosts file)
+    -   [1.3 Add Sandbox Hostname to Your Hosts File](#add-sandbox-hostname-to-your-hosts-file)
     -   [1.4 Connect to the Welcome Screen](#connect-to-welcome-screen)
     -   [1.5 Multiple Ways to Execute Terminal Commands](#ways-execute-terminal-command)
     -   [1.6 Learn Your Sandbox Version](#learn-sandbox-version)
@@ -50,17 +50,17 @@ Let's begin our Hadoop journey.
 -   [Step 1: Troubleshoot Problems](#troubleshoot-problems)
 -   [Further Reading](#further-reading)
 
-## What is the Sandbox? <a id="what-is-the-sandbox"></a>
+## What is the Sandbox?
 
 The Sandbox is a straightforward, pre-configured, learning environment that contains the latest developments from Apache Hadoop Enterprise, specifically Hortonworks Data Platform (HDP) Distribution. The Sandbox comes packaged in a virtual environment that can run in the cloud or on your personal machine. The Sandbox allows you to learn and explore HDP on your own.
 
 If you want to explore Hortonworks Sandbox in Microsoft Azure, please skip to `Section 2`.
 
-## Section 1: Sandbox in VM <a id="section1"></a>
+## Section 1: Sandbox in VM
 
-## Step 1: Explore the Sandbox in a VM <a id="explore-sandbox-vm"></a>
+## Step 1: Explore the Sandbox in a VM
 
-### 1.1 Install the Sandbox <a id="install-sandbox"></a>
+### 1.1 Install the Sandbox
 
 Start the Hortonworks Sandbox following the [Installation Steps](https://hortonworks.com/tutorial/sandbox-deployment-and-install-guide/) to start the VM.
 
@@ -68,7 +68,7 @@ Start the Hortonworks Sandbox following the [Installation Steps](https://hortonw
 
 > **Note:** The Sandbox [system requirements](https://hortonworks.com/products/sandbox/) include that you have a 64 bit OS with at least 8 GB of RAM and enabled BIOS for virtualization. Find out about the newest features, known and resolved issues along with other updates on HDP and HDF from the [release notes](https://hortonworks.com/tutorial/hortonworks-sandbox-guide/).
 
-### 1.2 Learn the Host Address of Your Environment <a id="learn-host-address-environment"></a>
+### 1.2 Learn the Host Address of Your Environment
 
 Once you have installed the Sandbox VM, it resolves to the localhost on your environment, the address of which varies depending upon the Virtual Machine you are using(Vmware, VirtualBox etc). As, a general thumb rule, wait for the installation to complete and confirmation screen will tell you the localhost IP address your sandbox resolves to. For example:
 
@@ -108,7 +108,7 @@ echo '{Host-Name} sandbox.hortonworks.com' | sudo tee -a /etc/hosts
 
 Then save the file.
 
-### 1.4 Connect to the Welcome Screen <a id="connect-to-welcome-screen"></a>
+### 1.4 Connect to the Welcome Screen
 
 Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
 
@@ -118,7 +118,7 @@ Click on `Launch Dashboard` to go to Ambari with a [Hello HDP tutorial](https://
 
 `Launch Dashboard` opens the Ambari user interface and an additional tutorial window.  You should login to Ambari using the username and password based on the tutorials you are following in the tutorial window.  Most of the tutorials login to Ambari using `raj_ops/raj_ops` or `maria_dev/maria_dev`.
 
-### 1.5 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command"></a>
+### 1.5 Multiple Ways to Execute Terminal Commands
 
 > **Note:** For all methods below, the login credential instructions will be the same to access the Sandbox through the terminal.
 
@@ -164,7 +164,7 @@ Open the Sandbox through Virtualbox or VMware. The Sandbox VM Welcome Screen wil
 
 > VirtualBox VM Terminal. When you type the password, the entry doesn't echo on the screen, it hides the user input. Carefully type correct password.
 
-### 1.6 Learn Your Sandbox Version <a id="learn-sandbox-version"></a>
+### 1.6 Learn Your Sandbox Version
 
 To find information about your sandbox, execute the command:
 
@@ -172,7 +172,7 @@ To find information about your sandbox, execute the command:
 sandbox-version
 ~~~
 
-### 1.7 Send Data Between Sandbox CentOS & Local Machine <a id="send-data-btwn-sandbox-local-machine"></a>
+### 1.7 Send Data Between Sandbox CentOS & Local Machine
 
 Open your terminal (linux or mac) or git bash (windows). To send data, in our example HDF .tar.gz file, from your local machine to the azure sandbox, you would input the the following command. If you want to try this command, replace the HDF filename with another filename from your Downloads folder. Modify the command and execute:
 
@@ -197,13 +197,13 @@ scp -P <input-port> <input-username@hostname-:/sandbox-dir-path> </input-directo
 What is the difference between the two command definitions above?
 To send data from local machine to sandbox, the local machine directory path comes before sandbox directory. To transfer data from sandbox to local machine, the command arguments are reversed.
 
-## Step 2: Explore Ambari <a id="explore-ambari"></a>
+## Step 2: Explore Ambari
 
 Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 
 > **Note:** Both the username and password to login are **maria_dev**.
 
-### 2.1 Use Terminal to Find the Host IP Sandbox Runs On <a id="find-host-ip-sandbox-runs-on"></a>
+### 2.1 Use Terminal to Find the Host IP Sandbox Runs On
 
 If you want to search for the host address your sandbox is running on, ssh into the sandbox terminal upon successful installation and follow subsequent steps:
 
@@ -214,7 +214,7 @@ If you want to search for the host address your sandbox is running on, ssh into 
 
 ![Host_Address_Sandbox_Runs_On](assets/find_host_sandbox_runs_on_learning_the_ropes_sandbox.png)
 
-#### Services Provided By the Sandbox <a id="services-provided-by-sandbox"></a>
+#### Services Provided By the Sandbox
 
 | Service | URL |
 |---------|-----:|
@@ -240,7 +240,7 @@ If you want to search for the host address your sandbox is running on, ssh into 
 
 Please go to [Section 3](#section3) to know more about these users.
 
-### 2.2 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password"></a>
+### 2.2 Setup Ambari admin Password Manually
 
 1.  Start your sandbox and open a terminal (mac or linux) or putty (windows)
 2.  SSH into the sandbox as root using `ssh root@127.0.0.1 -p 2222`. For Azure and VMware users, your `_host_` and `_port_` will be different.
@@ -257,7 +257,7 @@ ambari-agent restart
 
 ![Terminal Update Ambari admin password](assets/terminal_update_ambari_password_learning_the_ropes_sandbox.png)
 
-### 2.3 Explore Ambari Welcome Screen 5 Key Capabilities <a id="explore-ambari-welcome-screen"></a>
+### 2.3 Explore Ambari Welcome Screen 5 Key Capabilities
 
 Enter the **Ambari Welcome URL** and then you should see a similar screen:
 
@@ -269,7 +269,7 @@ Enter the **Ambari Welcome URL** and then you should see a similar screen:
 4.  “**Ambari User Views**” list the set of Ambari Users views that are part of the cluster
 5.  “**Deploy Views**” provides administration for adding and removing Ambari User Views
 
-### 2.4 Explore Ambari Dashboard Links <a id="explore-ambari-dashboard"></a>
+### 2.4 Explore Ambari Dashboard Links
 
 Enter the **Ambari Dashboard URL** and you should see a similar screen:
 
@@ -283,22 +283,22 @@ and then the
 
 2\.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
 
-## Section 2: Sandbox in Microsoft Azure <a id="section2"></a>
+## Section 2: Sandbox in Microsoft Azure
 
-## Step 1: Explore the Sandbox in Azure <a id="explore-sandbox-azure"></a>
+## Step 1: Explore the Sandbox in Azure
 
-### 1.1 Deploy the Sandbox in Azure <a id="deploy-sandbox-azure"></a>
+### 1.1 Deploy the Sandbox in Azure
 
 Follow the tutorial [here](https://hortonworks.com/tutorial/sandbox-deployment-and-install-guide/section/4/) to deploy the latest HDP Sandbox on Azure.
 
-### 1.2 Connect to the Welcome Screen <a id="connect-to-welcome-screen-azure"></a>
+### 1.2 Connect to the Welcome Screen
 
 Append the port number :8888 to your host address, open your browser, and access Sandbox Welcome page at `http://_host_:8888/.`
 Here, `host` is your public IP address that is generated when you deployed the HDP Sandbox in Azure. Take note of the IP address. In this example, it is 23.99.9.232. Your machine will have a different IP.
 
 ![Sandbox Welcome Screen Azure](assets/azure_welcome_page_learning_ropes_sandbox.png)
 
-### 1.3 Multiple Ways to Execute Terminal Commands <a id="ways-execute-terminal-command-azure"></a>
+### 1.3 Multiple Ways to Execute Terminal Commands
 
 #### Secure Shell (SSH) Method:
 
@@ -326,7 +326,7 @@ Open your web browser. Replace the following text by your `host` into your brows
 
 > Appearance of Web Shell. When you type the password, the entry doesn't echo on the screen, it hides the user input. Carefully type correct password.
 
-### 1.4 Send Data Between Azure Sandbox & Local Machine <a id="send-data-btwn-sandbox-local-machine-azure"></a>
+### 1.4 Send Data Between Azure Sandbox & Local Machine
 
 Open your terminal (linux or mac) or git bash (windows). To send data, in our example HDF .tar.gz file, from your local machine to the azure sandbox, you would input the the following command. If you want to try this command, replace the HDF filename with another filename from your Downloads folder. Also replace james94 with your azure username you provided while deploying the sandbox. Lastly, replace the 2nd james94 folder_name with your azure username, which is the folder of your sandbox. Modify the command and execute:
 
@@ -351,13 +351,13 @@ scp -P <input-port> <input-username@hostname-:/sandbox-dir-path> </input-directo
 What is the difference between the two command definitions above?
 To send data from local machine to sandbox, the local machine directory path comes before sandbox directory. To transfer data from sandbox to local machine, the command arguments are reversed.
 
-## Step 2: Explore Ambari in Azure<a id="explore-ambari-azure"></a>
+## Step 2: Explore Ambari in Azure
 
 Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 
 > **Note:** Both the username and password to login are **maria_dev**.
 
-#### Services Provided By the Sandbox in Azure<a id="services-provided-by-sandbox-azure"></a>
+#### Services Provided By the Sandbox in Azure
 
 | Service | URL |
 |---------|-----:|
@@ -378,7 +378,7 @@ Navigate to Ambari welcome page using the **url** given on Sandbox welcome page.
 | Ambari, OS | maria_dev | maria_dev |
 
 
-### 2.1 Setup Ambari admin Password Manually <a id="setup-ambari-admin-password-azure"></a>
+### 2.1 Setup Ambari admin Password Manually
 
 1\.  Open a terminal (mac or linux) or putty (windows)
 
@@ -402,7 +402,7 @@ ambari-agent restart
 
 ![Terminal Update Ambari admin password Azure](assets/azure_update_admin_password_learning_ropes_sandbox.png)
 
-### 2.2 Explore Ambari Welcome Screen 5 Key Capabilities <a id="explore-ambari-welcome-screen-azure"></a>
+### 2.2 Explore Ambari Welcome Screen 5 Key Capabilities
 
 Enter the `Manage Ambari` page using the link above or click on the Ambari id pull down and select `Manage Ambari`:
 
@@ -420,7 +420,7 @@ and then you should see a similar screen:
 4.  “**Ambari User Views**” list the set of Ambari Users views that are part of the cluster
 5.  “**Deploy Views**” provides administration for adding and removing Ambari User Views
 
-### 2.3 Explore Ambari Dashboard Links <a id="explore-ambari-dashboard-azure"></a>
+### 2.3 Explore Ambari Dashboard Links
 
 Enter the **Ambari Dashboard URL** and you should see a similar screen:
 
@@ -434,7 +434,7 @@ and then the
 
 2.  **Dashboard**, **Services**, **Hosts**, **Alerts**, **Admin** and User Views icon (represented by 3×3 matrix ) to become familiar with the Ambari resources available to you.
 
-## Section 3: New Users in Sandbox <a id="section3"></a>
+## Section 3: New Users in Sandbox
 
 Ambari 2.4 introduced the notion of Role-Based Access Control(RBAC) for the Ambari web  interface.  Ambari now includes additional cluster operation roles providing more granular division of control of the Ambari Dashboard and the various Ambari Views.  The image below illustrates the various Ambari Roles.  Only the admin id has access to view or change these roles.  Please refer to the [HDP Ambari roles documentation](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.0.1/bk_ambari-administration/content/cluster_roles.html) for more information.
 
@@ -497,19 +497,19 @@ Some notable differences between these users in the Sandbox are mentioned below:
 
 **Do not forget** to check out the [scripts](assets/user-scripts.zip) from which these users and their operations are created.
 
-## Section 4: Troubleshoot <a id="section4"></a>
+## Section 4: Troubleshoot
 
-## Step 1: Troubleshoot Problems <a id="troubleshoot-problems"></a>
+## Step 1: Troubleshoot Problems
 
 Check [Hortonworks Community Connection](https://hortonworks.com/community/forums/)(HCC) for answers to problems you may come across during your hadoop journey.
 
 ![Hortonworks Community Connection Main Page](assets/hcc_page_learning_the_ropes_sandbox.png)
 
-### 1.1 Technique for Finding Answers in HCC <a id="technique-for-finding-answers-hcc"></a>
+### 1.1 Technique for Finding Answers in HCC
 -   Insert quotes around your tutorial related problem
 -   Be specific by including keywords (error, tutorial name, etc.)
 
-## Further Reading <a id="further-reading"></a>
+## Further Reading
 
 -   To learn more about Hadoop please explore the [HDP Getting Started documentation](http://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.2.4/bk_getting-started-guide/content/ch_about-hortonworks-data-platform.html).
 -   To get started with Hortonworks Data Platform, explore [Hadoop Tutorial - Getting Started with HDP](https://hortonworks.com/tutorial/hadoop-tutorial-getting-started-with-hdp/)
