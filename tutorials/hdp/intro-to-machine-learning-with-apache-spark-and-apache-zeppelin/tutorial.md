@@ -26,7 +26,7 @@ In this tutorial, we will introduce you to Machine Learning with Apache Spark. T
 
 -   This tutorial is a part of series of hands-on tutorials using the [Hortonworks Data Platform (HDP)](https://hortonworks.com/products/data-center/hdp/) via either the [Hortonworks Data Cloud (HDCloud)](https://hortonworks.com/products/cloud/aws/) or a pre-configured downloadable [HDP Sandbox](https://hortonworks.com/products/sandbox/).
 -   The Zeppelin notebook uses mostly [Scala](http://www.dhgarrette.com/nlpclass/scala/basics.html) syntax. A pure Python version is coming soon.
--   If you are new to Zeppelin, review the following tutorial: [Getting Started with Apache Zeppelin](https://hortonworks.com/tutorial/getting-started-apache-zeppelin/)
+-   If you are new to Zeppelin, review the following tutorial: [Getting Started with Apache Zeppelin](https://hortonworks.com/tutorial/getting-started-with-apache-zeppelin/)
 
 ## Outline
 -   [Tutorial Details](#tutorial-details)
@@ -61,22 +61,9 @@ To summarize, we will be 1) setting up a two dimensional dataset, 2) creating a 
 
 ### Option 1: Setup Hortonworks Data Cloud (HDCloud) on AWS
 
-1a. Create an [Amazon Web Services (AWS) Account](https://aws.amazon.com/) if you don't have one
+This option is ideal if you want to experience a production-ready multi-node cluster in a cloud.
 
-1b. Follow this step-by-step doc to [Setup and Launch a Controller on HDCloud](https://hortonworks.github.io/hdp-aws/launch/index.html)
-
-1c. Create a *Data Science* [Cluster](https://hortonworks.github.io/hdp-aws/create/index.html) (use settings listed below)
-
-Select/specify the following for your cluster:
-
-  - HDP Version: HDP 2.6 or later
-  - Cluster Type: "Data Science: Apache Spark 2.1+, Apache Zeppelin 0.6.2+" or later
-  - Worker instance count: one or more
-  - Remote Access: 0.0.0.0/0
-
-Here's a screenshot with sample settings:
-
-![setting-up-hd-cloud](assets/spinning-up-hdcloud-cluster.jpg)
+See the [Getting Started with HDCloud](https://hortonworks.com/tutorial/getting-started-with-apache-spark-and-apache-zeppelin-on-hdcloud/) tutorial for details.
 
 ### Option 2: Download and Setup Hortonworks Data Platform (HDP) Sandbox
 
@@ -102,7 +89,7 @@ A dynamic preview (allowing code copy) can be found [here](https://www.zeppelinh
 
 ## Start the Tutorial
 
-To begin the tutorial, import the *Intro to Machine Learning* notebook into your Zeppelin environment. (If at any point you have any issues, make sure to checkout the [Getting Started with Zeppelin](https://hortonworks.com/tutorial/getting-started-apache-zeppelin/) tutorial.)
+To begin the tutorial, import the *Intro to Machine Learning* notebook into your Zeppelin environment. (If at any point you have any issues, make sure to checkout the [Getting Started with Zeppelin](https://hortonworks.com/tutorial/getting-started-with-apache-zeppelin/) tutorial.)
 
 On the Zeppelin home screen click `Import note` -> `Add from URL` and copy and paste the following URL:
 https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.6/2CCBNZ5YY/note.json
@@ -114,6 +101,9 @@ Once your notebook is imported, you can open it from the Zeppelin home screen by
 
 ### Final words
 
-We hope that you've been able to successfully run this first lab introducing basic, yet very common, Linear Regression model. More advanced Machine Learning models are introduced as part of series tackling specific examples, such as Twitter sentiment analysis, article auto-classification and so on.
+We hope that you've been able to successfully run this first lab introducing basic, yet very common, Linear Regression model.
 
-Make sure to checkout other [tutorials](https://hortonworks.com/tutorials/) for more examples on using Spark and Machine Learning.
+Next, if you would like to learn more on how to deploy machine learning models in production, checkout this tutorial on [deploying machine learning models with structured streaming](https://hortonworks.com/tutorial/deploying-machine-learning-models-using-spark-structured-streaming/).
+
+
+For a more advanced example, checkout our tutorial on [Twitter sentiment analysis](https://hortonworks.com/tutorial/deploying-machine-learning-models-using-spark-structured-streaming/).

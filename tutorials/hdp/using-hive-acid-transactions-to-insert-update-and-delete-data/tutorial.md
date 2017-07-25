@@ -10,7 +10,7 @@ technology: Apache Hive
 release: hdp-2.6.0
 environment: Sandbox
 product: HDP
-series: HDP > Develop with Hadoop > Hello World
+series: HDP > Develop with Hadoop > Hello World, HDP > Develop with Hadoop > Apache Hive
 ---
 
 # Using Hive ACID Transactions to Insert, Update and Delete Data

@@ -10,7 +10,7 @@ technology: Apache Ambari, Apache Hive, HDFS
 release: hdp-2.6.0
 environment: Sandbox
 product: HDP
-series: HDP > Develop with Hadoop > Hello World
+series: HDP > Develop with Hadoop > Hello World, HDP > Develop with Hadoop > Apache Hive
 ---
 
 
@@ -165,6 +165,6 @@ Excellent!  We've learned how to upload data into HDFS, create tables and load d
 
 ## Further Reading
 
--   Follow up on this tutorial, by performing more analytics and using visualization tools to find value in the tutorial [Visualizing Website Clickstream Data](https://hortonworks.com/tutorial/how-to-visualize-website-clickstream-data/)
+-   Follow up on this tutorial, by performing more analytics and using visualization tools to find value in the tutorial [Visualizing Website Clickstream Data](https://hortonworks.com/tutorial/visualize-website-clickstream-data/)
 -   Check out [more Hive tutorials](http://hortonworks.com/hadoop/hive/#tutorials).
 -   For information on Hive operators, functions and the language, check out the [LanguageManual DDL](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL) and [LanguageManual UDF](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+UDF).

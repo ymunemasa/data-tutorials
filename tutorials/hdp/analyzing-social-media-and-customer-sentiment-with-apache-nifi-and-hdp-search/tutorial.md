@@ -39,7 +39,7 @@ Finally, we will use [Apache Zeppelin](https://hortonworks.com/hadoop/zeppelin/)
 
 - Downloaded and Installed the [Hortonworks Sandbox with HDP](https://hortonworks.com/hdp/downloads/)
 - [Learning the Ropes of the Hortonworks Sandbox](https://hortonworks.com/tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
-- [Deploying Hortonworks Sandbox on Microsoft Azure](https://hortonworks.com/tutorial/deploying-hortonworks-sandbox-on-microsoft-azure/)
+- [Deploying Hortonworks Sandbox on Microsoft Azure](https://hortonworks.com/tutorial/sandbox-deployment-and-install-guide/section/4/)
 
 ## Outline
 
@@ -55,7 +55,7 @@ Finally, we will use [Apache Zeppelin](https://hortonworks.com/hadoop/zeppelin/)
 
 ## Install Apache Nifi <a id="install-apache-nifi"></a>
 
-The first thing you're going to need if you haven't done it already is install the Apache Nifi service on your Sandbox. Follow the [Set up Nifi Environment section](https://hortonworks.com/tutorial/learning-ropes-apache-nifi/#section_3) of [Analyze Traffic Pattern with Apache Nifi](https://hortonworks.com/tutorial/learning-ropes-apache-nifi/).
+The first thing you're going to need if you haven't done it already is install the Apache NiFi service on your Sandbox. Click on **Actions** button in the left sidebar on the Ambari Dashboard. Click on **Add Service**. Then from the list of services, choose **NiFi**. Then click next, and continue clicking next until you reach the page where a progress bar shows NiFi is being installed. If recommended configurations are not set, you can ignore them since they are for a production cluster, but we are building a demo on a sandbox. You should see NiFi installed successfully.
 
 ## Configure and Start Solr <a id="configure-and-start-solr"></a>
 
@@ -143,7 +143,7 @@ cd /opt/lucidworks-hdpsearch/solr/server/solr-webapp/webapp/banana/app/dashboard
 
 mv default.json default.json.orig
 
-wget https://raw.githubusercontent.com/hortonworks/data-tutorials/master/tutorials/hdp/hdp-2.5/analyzing-social-media-and-customer-sentiment-with-apache-nifi-and-hdp-search/assets/default.json
+wget https://raw.githubusercontent.com/hortonworks/data-tutorials/master/tutorials/hdp/analyzing-social-media-and-customer-sentiment-with-apache-nifi-and-hdp-search/assets/default.json
 ~~~
 
 ![wget_json](assets/images/wget_json.png)
@@ -210,7 +210,7 @@ Please make note of your **Consumer Key**, **Consumer Secret**, **Access Token**
 
 ## Create a Data Flow with NiFi <a id="creating-a-data-flow-with-nifi"></a>
 
-The first thing you'll need to do here is download the NiFi data flow template for the [Twitter Dashboard here](https://raw.githubusercontent.com/hortonworks/data-tutorials/master/tutorials/hdp/hdp-2.5/analyzing-social-media-and-customer-sentiment-with-apache-nifi-and-hdp-search/assets/Twitter_JSON_Flow.xml)
+The first thing you'll need to do here is download the NiFi data flow template for the [Twitter Dashboard here](https://raw.githubusercontent.com/hortonworks/data-tutorials/master/tutorials/hdp/analyzing-social-media-and-customer-sentiment-with-apache-nifi-and-hdp-search/assets/Twitter_JSON_Flow.xml)
 
 Make note of where you download this file. You'll need it in the next step.
 
@@ -287,7 +287,7 @@ This section is for anyone who didn't want to set up a Twitter app so they could
 First you'll need to SSH into the sandbox execute the following command
 
 ~~~bash
-wget https://raw.githubusercontent.com/hortonworks/data-tutorials/master/tutorials/hdp/hdp-2.5/analyzing-social-media-and-customer-sentiment-with-apache-nifi-and-hdp-search/assets/twitter-gen.sh
+wget https://raw.githubusercontent.com/hortonworks/data-tutorials/master/tutorials/hdp/analyzing-social-media-and-customer-sentiment-with-apache-nifi-and-hdp-search/assets/twitter-gen.sh
 ~~~
 
 Then run the command with your specified number of tweets that you would like to generate.
@@ -467,7 +467,7 @@ Then create two new directories inside of `/tmp/data/tables`. One named **time_z
 
 ![Data Table Folders](assets/images/two_new_tweet_dir_sentiment_analysis.png)
 
-In each of the folders respectively you'll need to upload the [`dictionary.tsv` file](https://raw.githubusercontent.com/hortonworks/data-tutorials/master/tutorials/hdp/hdp-2.5/analyzing-social-media-and-customer-sentiment-with-apache-nifi-and-hdp-search/assets/dictionary.tsv), and the [`time_zone_map.tsv` file](https://raw.githubusercontent.com/hortonworks/data-tutorials/master/tutorials/hdp/hdp-2.5/analyzing-social-media-and-customer-sentiment-with-apache-nifi-and-hdp-search/assets/time_zone_map.tsv) to each of their respective directories.
+In each of the folders respectively you'll need to upload the [`dictionary.tsv` file](https://raw.githubusercontent.com/hortonworks/data-tutorials/master/tutorials/hdp/analyzing-social-media-and-customer-sentiment-with-apache-nifi-and-hdp-search/assets/dictionary.tsv), and the [`time_zone_map.tsv` file](https://raw.githubusercontent.com/hortonworks/data-tutorials/master/tutorials/hdp/analyzing-social-media-and-customer-sentiment-with-apache-nifi-and-hdp-search/assets/time_zone_map.tsv) to each of their respective directories.
 
 After doing so, you'll need to run the following command on the Sandbox:
 
@@ -709,7 +709,6 @@ Using this data you can determine how you might want to market your products to 
 ## Further Reading
 
 - [NiFi blogs](https://hortonworks.com/blog/category/nifi/)
-- [Indexing and Searching Documents with Apache Solr](https://hortonworks.com/tutorial/searching-data-solr/)
 - [Introduction to Data Science with Apache Zeppelin](https://hortonworks.com/blog/introduction-to-data-science-with-apache-spark/)
 - [Hortonworks Community Connection](https://hortonworks.com/community/)
 - [HDP Sandbox & Learning Forum](https://community.hortonworks.com/spaces/81/index.html)

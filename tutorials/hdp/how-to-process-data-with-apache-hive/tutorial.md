@@ -10,7 +10,7 @@ technology: Apache Ambari, Apache Hive
 release: hdp-2.6.0
 environment: Sandbox
 product: HDP
-series: HDP > Develop with Hadoop > Hello World, HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop
+series: HDP > Develop with Hadoop > Hello World, HDP > Hadoop for Data Scientists & Analysts > Introduction to Data Analysis with Hadoop, HDP > Develop with Hadoop > Apache Hive
 ---
 
 

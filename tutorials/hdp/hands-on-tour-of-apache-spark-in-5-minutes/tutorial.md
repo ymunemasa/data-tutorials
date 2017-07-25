@@ -7,7 +7,7 @@ persona: Developer
 source: Hortonworks
 use case: Predictive
 technology: Apache Spark, Apache Zeppelin
-release: hdp-2.6.0
+release: hdp-2.6.1
 environment: Sandbox
 product: HDP
 series: HDP > Develop with Hadoop > Apache Spark
@@ -34,7 +34,7 @@ To make things fun and interesting, we will introduce a film series dataset from
 
 -   This tutorial is a part of series of hands-on tutorials using the [Hortonworks Data Platform (HDP)](https://hortonworks.com/products/data-center/hdp/) via either the [Hortonworks Data Cloud (HDCloud)](https://hortonworks.com/products/cloud/aws/) or a pre-configured downloadable [HDP Sandbox](https://hortonworks.com/products/sandbox/).
 -   The Zeppelin notebook uses basic [Scala](http://www.dhgarrette.com/nlpclass/scala/basics.html) syntax. A Python version is coming soon.
--   If you are new to Zeppelin, review the following tutorial: [Getting Started with Apache Zeppelin](https://hortonworks.com/tutorial/getting-started-apache-zeppelin/)
+-   If you are new to Zeppelin, review the following tutorial: [Getting Started with Apache Zeppelin](https://hortonworks.com/tutorial/getting-started-with-apache-zeppelin/)
 
 ## Outline
 -   [Tutorial Details](#tutorial-details)
@@ -59,22 +59,9 @@ By the end of this tutorial, you should have a basic understanding of Spark and 
 
 ### Option 1: Setup Hortonworks Data Cloud (HDCloud) on AWS
 
-1a. Create an [Amazon Web Services (AWS) Account](https://aws.amazon.com/) if you don't have one
+This option is ideal if you want to experience a production-ready multi-node cluster in a cloud.
 
-1b. Follow this step-by-step doc to [Setup and Launch a Controller on HDCloud](https://hortonworks.github.io/hdp-aws/launch/index.html)
-
-1c. Create a *Data Science* [Cluster](https://hortonworks.github.io/hdp-aws/create/index.html) (use settings listed below)
-
-Select/specify the following for your cluster:
-
--   HDP Version: HDP 2.6 or later
--   Cluster Type: "Data Science: Apache Spark 2.1+, Apache Zeppelin 0.6.2+" or later
--   Worker instance count: one or more
--   Remote Access: 0.0.0.0/0
-
-Here's a screenshot with sample settings:
-
-![setting-up-hd-cloud](assets/spinning-up-hdcloud-cluster.jpg)
+See the [Getting Started with HDCloud](https://hortonworks.com/tutorial/getting-started-with-apache-spark-and-apache-zeppelin-on-hdcloud/) tutorial for details.
 
 ### Option 2: Download and Setup Hortonworks Data Platform (HDP) Sandbox
 
@@ -100,7 +87,7 @@ A dynamic preview (allowing code copy) can be found [here](https://www.zeppelinh
 
 ## Start the Tutorial
 
-To begin the tutorial, import the *Apache Spark in 5 Minutes* notebook into your Zeppelin environment. (If at any point you have any issues, make sure to checkout the [Getting Started with Zeppelin](https://hortonworks.com/tutorial/getting-started-apache-zeppelin/) tutorial.)
+To begin the tutorial, import the *Apache Spark in 5 Minutes* notebook into your Zeppelin environment. (If at any point you have any issues, make sure to checkout the [Getting Started with Zeppelin](https://hortonworks.com/tutorial/getting-started-with-apache-zeppelin/) tutorial.)
 
 On the Zeppelin home screen click `Import note` -> `Add from URL` and copy and paste the following URL: [https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.6/2CBTZPY14/note.json](https://raw.githubusercontent.com/hortonworks-gallery/zeppelin-notebooks/hdp-2.6/2CBTZPY14/note.json)
 
