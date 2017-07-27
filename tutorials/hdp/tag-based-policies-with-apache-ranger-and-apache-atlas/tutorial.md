@@ -583,7 +583,6 @@ select * from employee;
 
 **Figure 57: raj_ops has access to employee data**
 
-The query executes successfully. The query can be checked in the Ranger audit log which will show the access granted and associated policy which granted access. Select Service Name as `Sandbox_hive` in the search bar.
 クエリは正常に実行されます．Rangerの監査ログで照会できます．Rangerの監査ログには，アクセスを許可されたアクセス権限と関連づけられたポリシーが表示されます．検索バーでサービス名を`Sandbox_hive`として選択します．
 
 > 下の更新画像に注目してください．
