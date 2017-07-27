@@ -13,140 +13,141 @@ product: HDP
 series: HDP > Hadoop Administration > Security
 ---
 
-# Tag Based Policies with Apache Ranger and Apache Atlas
+# Apache RangerとApache Atlasによるタグベースのポリシー
 
-## Introduction
+## はじめに
 
-You will explore integration of Apache Atlas and Apache Ranger, and introduced the concept of tag or classification based policies. Enterprises can classify data in Apache Atlas and use the classification to build security policies in Apache Ranger.
+Apache AtlasとApache Rangerの統合を検討し，タグまたは分類ベースのポリシーの概念を紹介します．企業はApache Atlasでデータを分類し，Apache Rangerでセキュリティポリシーを構築できます．
 
 This tutorial walks through an example of tagging data in Atlas and building a security policy in Ranger.
+このチュートリアルでは，Atlasでデータにタグを付与し，Rangerでセキュリティポリシーを作成する例を紹介します．
 
-## Prerequisites
+## 前提条件
 
--   [Download Hortonworks 2.6 Sandbox](https://hortonworks.com/downloads/#sandbox)
--   [Install Hortonworks 2.6 Sandbox](https://hortonworks.com/tutorial/sandbox-deployment-and-install-guide/section/3/)
--   Add Sandbox Hostname to Your Hosts File, refer to [Learning the Ropes of Hortonworks Sandbox](https://github.com/hortonworks/data-tutorials/blob/master/tutorials/hdp/learning-the-ropes-of-the-hortonworks-sandbox/tutorial.md), section **1.3 Add Sandbox Hostname to Your Hosts File**
+-   [Hortonworks 2.6 Sandbox](https://hortonworks.com/downloads/#sandbox)のダウンロード
+-   [Hortonworks 2.6 Sandbox](https://hortonworks.com/tutorial/sandbox-deployment-and-install-guide/section/3/)のインストール
+-   サンドボックスのホスト名をホストファイルに追加する方法については，[Learning the Ropes of Hortonworks Sandbox](https://github.com/hortonworks/data-tutorials/blob/master/tutorials/hdp/learning-the-ropes-of-the-hortonworks-sandbox/tutorial.md) section **1.3 Add Sandbox Hostname to Your Hosts File** を参照してください．
 
--   (Optional) Set the Ambari Password, refer to [Learning the Ropes of Hortonworks Sandbox](https://github.com/hortonworks/data-tutorials/blob/master/tutorials/hdp/learning-the-ropes-of-the-hortonworks-sandbox/tutorial.md), section **2.2 Setup Ambari admin Password Manually**
+-   (任意) Ambariのパスワードを設定します． [Learning the Ropes of Hortonworks Sandbox](https://github.com/hortonworks/data-tutorials/blob/master/tutorials/hdp/learning-the-ropes-of-the-hortonworks-sandbox/tutorial.md), section **2.2 Setup Ambari admin Password Manually**を参照してください．
 
-## Outline
+## 目次
 
--   [Step 1: Enable Ranger Audit to Solr](#step-1-enable-ranger-audit-to-solr)
--   [Step 2: Restart All Services Affected](#step-2-restart-all-services-affected)
--   [Step 3: Explore General Information](#step-3-explore-general-information)
--   [Step 4: Explore Sandbox User Personas Policy](#step-4-explore-sandbox-user-personas-policy)
--   [Step 5: Access Without Tag Based Policies](#step-5-access-without-tag-based-policies)
--   [Step 6: Create a Ranger Policy to Limit Access of Hive Data](step-6-create-a-ranger-policy-to-limit-access-of-hive-data)
--   [Step 7: Create Atlas Tag to Classify Data](#step-7-create-atlas-tag-to-classify-data)
--   [Step 8: Create Ranger Tag Based Policy](#step-8-create-ranger-tag-based-policy)
--   [Summary](#summary)
--   [Further Reading](#further-reading)
+-   [Step 1: Ranger Audit to Solrを有効にする](#step-1-enable-ranger-audit-to-solr)
+-   [Step 2: 関連する全てのサービスを再起動する](#step-2-restart-all-services-affected)
+-   [Step 3: 一般情報について](#step-3-explore-general-information)
+-   [Step 4: サンドボックスユーザポリシーを探す](#step-4-explore-sandbox-user-personas-policy)
+-   [Step 5: タグベースのポリシーなしのアクセス](#step-5-access-without-tag-based-policies)
+-   [Step 6: Hiveデータへのアクセスを制限するRangerのポリシーを作成する](step-6-create-a-ranger-policy-to-limit-access-of-hive-data)
+-   [Step 7: Atlasタグを作成してデータを分類する](#step-7-create-atlas-tag-to-classify-data)
+-   [Step 8: Rangerのタグベースのポリシーの作成](#step-8-create-ranger-tag-based-policy)
+-   [まとめ](#summary)
+-   [参考文献](#further-reading)
 
-### Step 1: Enable Ranger Audit to Solr
+### Step 1: Ranger Audit to Solrを有効にする
 
-Log into Ambari as `raj_ops` user. User/Password is `raj_ops/raj_ops`
+Ambariに`raj_ops`ユーザとしてログインします．ユーザ名/パスワードは`raj_ops/raj_ops`です．
 
 ![ambari_dashboard_rajops](assets/images/ambari_dashboard_rajops.png)
 
 **Figure 1: Ambari Dashboard**
 
-Click on the **Ranger** Service in the Ambari Stack of services on the left side column.
+左側のAmbariのサービス一覧から**Ranger**をクリックしてください．
 
-Select the **Configs** tab.
+**Configs**タブを選択します．
 
-Select the **Ranger Audit** tab. Turn **ON** Ranger's Audit to Solr feature. Click on the **OFF button** under **Audit to Solr** to turn it **ON**.
+**Ranger Audit**を選択します．RangerのAudit to Solrの機能を**ON**にします．**ON**にするためには，**Audit to Solr**の**OFF**ボタンをクリックします．
 
-**Save** the configuration. In the **Save Configuration** window that appears, write `Enable Audit to Solr Feature`, then click **Save** in that window. click **OK** button on Dependent Configurations window. click **Proceed Anyway.** On the **Save Configuration Changes** window, click **OK**.
+**Save**ボタンをクリックして構成を保存します．表示される**Save Configurtion**ウィンドウのNotesに`Enable Audit to Solr Feature`と入力し，そのウィンドウで**Save**ボタンをクリックします．次にDependent Configrationsウィンドウの**OK**ボタンをクリックし，続いて**Proceed Anyway**ボタンをクリックします．**Save Configration Changes**ウィンドウで**OK**をクリックします．
 
 ![enable_audit_to_solr](assets/images/activate_ranger_audit_to_solr.png)
 
 **Figure 2: Ranger 'Audit to Solr' Config**
 
-### Step 2: Restart All Services Affected
+### Step 2: 関連する全てのサービスを再起動する
 
-After Enabling Ranger Audit to Solr, there are services that will need to be restarted for the changes to take effect on our HDP sandbox.
+Ranger Audit to Solrを有効にした後，HDPサンドボックスで変更を有効にするために再起動が必要なサービスがあります．
 
 ![affected_services](assets/images/affected_services.jpg)
 
 **Figure 3: Affected Services After Ranger Audit Config Set**
 
-Let's start by restarting services from the top of the Ambari Stack.
+Ambariのサービス一覧からサービスを再起動しましょう．
 
 ### 2.1: Restart HDFS Service
 
-1\. Restart **HDFS**. Click on HDFS. Click on **Service Actions**, **Restart All** to restart all components of HDFS. It will also restart all affected components of HDFS.
+1\. HDFSを再起動します．まずはHDFSをクリックします．**Service Actions**，**Restart All**をクリックして，HDFSの全てのコンポーネントを再起動します．HDFSに関連する全てのコンポーネントも再起動します．
 
 ![restart_all_hdfs_components](assets/images/restart_all_hdfs_components.jpg)
 
 **Figure 4: Restart All HDFS Components**
 
-2\. On the **Confirmation** window, press **Confirm Restart All**.
+2\. **Confirmation**ウィンドウで，**Confirm Restart All**をクリックします．
 
 ![hdfs_confirmation_restart](assets/images/hdfs_confirmation_restart.jpg)
 
 **Figure 5: Confirm HDFS Restart**
 
-**Background Operation Running** window will appear showing HDFS currently is being restarted. This window will appear for other services you perform a service action upon.
+HDFSが現在再起動中であることを示す**Background Operation Runnning**ウィンドウが表示されます．
 
 ![background_operation_running_hdfs](assets/images/background_operation_running_hdfs.jpg)
 
 **Figure 6: Background Operation Running Window**
 
-Click **X** button in top right corner.
+左上隅の**X**ボタンをクリックします．
 
-3\. Once HDFS finishes restarting, you will be able to see the components health.
+3\. HDFSの再起動が完了すると，コンポーネントの状態を確認することができます．
 
 ![hdfs_service_restart_result](assets/images/hdfs_service_restart_result.jpg)
 
 **Figure 7: Summary of HDFS Service's That Were Restarted**
 
-You may notice there is one component still needs to be restarted. **SNameNode** says **Stopped**. Click on its name.
+まだ再起動の必要があるコンポーネントが確認できます．**SNameNode**は**Stopped**と表示されます．その名前をクリックします．
 
-You are taken to the **Hosts Summary** page. It lists all components related to every service within the Ambari stack for the Sandbox host.
+**Host Summary**ページが表示されます．サンドボックスホストのAmbariサービス一覧の全てのサービスに関連する全てのコンポーネントがリストされます．
 
-4\. Search for **SNameNode**, click on **Stopped** dropdown button, click **Start**.
+4\. **SNameNode**を検索し，**Stopped**ドロップダウンボタンをクリックし，**Start**をクリックします．
 
 ![host_components](assets/images/host_components.jpg)
 
 **Figure 8: SNameNode Start**
 
-Starting SNameNode is like restarting it since it was initially off, it will be refreshed from the recent changes from Ranger Audit config.
+SNameNodeの起動により，Ranger Auditの設定は最近の変更から更新されます．
 
-5\. Exit the Background Operations Window. Click on the Ambari icon ![ambari_icon](assets/images/ambari_icon.jpg) in the top right corner.
+5\. Background Operationsウィンドウを終了します．右上のAmbariのアイコン![ambari_icon](assets/images/ambari_icon.jpg)をクリックしてください．
 
-6\. Head back to **HDFS** Service's **Summary** page. Click on **Service Actions** dropdown, click **Turn off Maintenance Mode**.
+6\. **HDFS**サービスの**Summary**ページに戻ります．**Service Actions**ドロップダウンをクリックし，**Turn off Maintenance Mode**をクリックします．
 
-7\. When the **Confirmation** window appears, confirm you want to **Turn off Maintenance Mode**, click **OK**.
+7\. **Confirmation**ウィンドウが表示されたら，**Turn off Maintenance Mode**を確認し，**OK**をクリックします．
 
-An **Information** window will appear conveying the result, click **OK**.
+**Information**ウィンドウが表示されるので，**OK**をクリックします．
 
 ![hdfs_summary_components](assets/images/hdfs_summary_components.jpg)
 
 **Figure 9: HDFS Summary of Final Restart Result**
 
-Now **HDFS** service has been successfully restarted. Initially, we did **Restart All**, which restarted most components, but some components have to be manually restarted like **SNameNode**.
+**HDFS**のサービスが正常に再起動しました．初めは，**Restart All**を実行して殆どのコンポーネントを再起動しましたが，**SNameNode**のように一部のコンポーネントを手動で再起動する必要がありました．
 
-### 2.2: Stop Services Not Used in Tag Based Policies
+### 2.2: タグベースポリシーで利用されていないサービスを停止する
 
-Before we can restart the rest of the remaining services, we need to stop services that will not be used as part of the Tag Based Policies tutorial.
+残りのサービスを再起動する前にタグベースポリシーのチュートリアルの一部で利用されないサービスを停止する必要があります．
 
-Stopping a service uses a similar approach as in section **2.1**, but instead of using **Restart All**, click on the **Stop** button located in **Service Actions**.
+サービスを停止するには，セクション**2.1**同様の手段を利用しますが，**Restart All**をする代わりに，**Service Actions**にある**Stop**ボタンをクリックします．
 
-1\. Stop **(1) Oozie**, **(2) Flume**, **(3) Spark2** and **(4) Zeppelin**
+1\. **(1) Oozie**，**(2) Flume**，**(3) Spark2**，**(4) Zeppelin**を停止します．
 
 ![stop_services_not_needed](assets/images/stop_services_not_needed.jpg)
 
-### 2.3: Restart the Other Affected Services from Ranger Config
+### 2.3: Ranger Configに影響を受けるサービスを再起動する
 
-1\. Follow the similar approach used in section **2.1** to restart the remaining affected services by the list order: **(1) YARN**, **(2) Hive**, **(3) HBase**, **(4) Storm**, **(5) Ambari Infra** **(6) Atlas**, **(7) Kafka**, **(8) Knox**, **(9) Ranger**.
+1\. 残りの影響を受けるサービスをセクション**2.1**同様に次の順序で再起動します． **(1) YARN**, **(2) Hive**, **(3) HBase**, **(4) Storm**, **(5) Ambari Infra** **(6) Atlas**, **(7) Kafka**, **(8) Knox**, **(9) Ranger**.
 
 ![services_left_to_restart](assets/images/services_left_to_restart.jpg)
 
 **Figure 10: Remaining Affected Services that Need to be Restarted**
 
-> Note: Also turn off maintenance mode for **HBase**, **Atlas** and **Kafka**.
+> Note: **HBase**，**Atlas**，**Kafka**のMaintenance Modeもオフにしてください．
 
-2\. In your **Background Operations Running** window, it should show that all the above services **(1-9)** are being restarted.
+2\. **Background Operations Running**ウィンドウで，上記の全てのサービス**(1-9)**が再起動されていることを確認します．
 
 ![remaining_services_restarted](assets/images/remaining_services_restarted.jpg)
 
@@ -156,36 +157,36 @@ Stopping a service uses a similar approach as in section **2.1**, but instead of
 
 **Figure 12: Result of Affected Services Restarted**
 
-> Note: sometimes **Atlas Metadata Server** will fail to restart, all you need to do is go to the component and individually start it
+> Note: **Atlas Metadata Server**が再起動に失敗することがあります．その場合コンポーネントを個別に再起動される必要があります．
 
-### 2.4 Verify "ranger_audits" Infra Solr Collection Created
+### 2.4 作成したInfra Solr Collectionの"ranger_audits"を確認する
 
-Once we restart Ranger, it should go into Infra Solr and create a new Solr
-Collection called "ranger_audits" as in the picture below:
+Rangerを再起動すると，Infra Solrに入り，新しいSolrを作成する必要があります．
+下の図のように"ranger_audits"というコレクションがあります．
 
 ![verify_ranger_audit_solr_collection_created](assets/images/verify_ranger_audit_solr_collection_created.jpg)
 
-### Step 3: Explore General Information
+### Step 3: 一般情報について
 
-This section will introduce the personas we will be using in this tutorial for Ranger, Atlas and Ambari.
+このセクションでは，このチュートリアルで利用するRanger，Atlas，Ambariに利用するユーザを紹介します．
 
-Earlier you were introduced to the raj_ops persona. Here is a brief description of each persona:
+以前はras_opsユーザとしてログインしました．以下に各ユーザの簡単な役割を紹介します．
 
 - raj_ops: Big Data Operations
 - maria_dev: Big Data Developer
 - holger_gov: Big Data Governance
 
-Access Ranger with the following credentials:
+次の認証情報でRangerにアクセスします：
 
 User id – **raj_ops**
 Password – **raj_ops**
 
-And for Atlas:
+Atlas:
 
 User id – **holger_gov**
 Password – **holger_gov**
 
-And for Ambari:
+Ambari:
 
 User id – **raj_ops**
 Password – **raj_ops**
@@ -193,59 +194,59 @@ Password – **raj_ops**
 User id – **maria_dev**
 Password – **maria_dev**
 
-### Step 4: Explore Sandbox User Personas Policy
+### Step 4: サンドボックスユーザポリシーを探る
 
-In this section, you will explore the prebuilt Ranger Policy for the HDP Sandbox user personas that grant them permission to a particular database. This policy affects which **tables** and **columns** these user personas have access to in the **foodmart** database.
+このセクションでは，サンドボックスユーザの個人向けに，事前に作成されている特定のデータベースに対しての権限を与えるRangerポリシーについて説明します．このポリシーはこれらのユーザが**foodmart**データベースの**tables**と**colums**にアクセスできるかどうかに影響します．
 
-1\. Access the Ranger UI Login page at `sandbox.hortonworks.com:6080`.
+1\. `sandbox.hortonworks.com:6080`のRanger UI Loginページにアクセスします．
 
-Login Credentials: username = `raj_ops`, password = `raj_ops`
+ログイン認証情報：ユーザ名/パスワード，`raj_ops`/`raj_ops`
 
 ![ranger_login_rajops](assets/images/ranger_login_rajops.png)
 
 **Figure 13: Ranger Login is raj_ops/raj_ops**
 
-Press `Sign In` button, the home page of Ranger will be displayed.
+`Sign In`ボタンをクリックし，Rangerのトップページを表示します．
 
-2\. Click on the `Sandbox_hive` Resource Board.
+2\. `Sandbox_hive`をクリックし，Resource Boardを表示します．
 
 ![click_sandbox_hive_rajops](assets/images/click_sandbox_hive_rajops.png)
 
 **Figure 14: Ranger Resource Based Policies Dashboard**
 
-3\. You will see a list of all the policies under the Sandbox_hive repository. Select policy called: **policy for raj_ops, holger_gov, maria_dev and amy_ds**
+3\. Sandbox_hiveリポジトリの下にある全てのポリシーのリストが表示されます．**raj_ops，holger_gov，maria_dev，amy_ds**のポリシーを選択します．
 
 ![click_policy_for_all_users_rajops](assets/images/click_policy_for_all_users_rajops.png)
 
 **Figure 15: Sandbox_hive Repository's Policies**
 
-This policy is meant for these 4 users and is applied to all tables and all columns of a `foodmart` database.
+これらのポリシーはこれらの4人のユーザを対象としており，`foodmart`データベースの全てのテーブルとカラムに適用されます．
 
 ![sample_foodmart_policy_rajops](assets/images/sample_foodmart_policy_rajops.png)
 
 **Figure 16: Ranger Policy Details**
 
-4\. To check the type of access this policy grants to users, explore the table within the **Allow Conditions** section:
+4\. このポリシーがユーザに許可するアクセス権限を確認するには，**Allow Conditions**セクションの表を参照してください．
 
 ![allow_condition_sample_policy_rajops](assets/images/allow_condition_sample_policy_rajops.png)
 
 **Figure 17: Ranger Policy Allow Conditions Section**
 
-You can give any access to the users as per their roles in the organization.
+組織内の役割ごとにユーザにアクセスできます．
 
-### Step 5: Access Without Tag Based Policies
+### Step 5: タグベースのポリシーなしのアクセス
 
-In the previous section, you saw the data within the foodmart database that users within the HDP sandbox have access to, now you will create a brand new hive table called `employee` within a different database called `default`.
+前のセクションでは，HDFサンドボックス内のユーザがアクセスできるfoodmartデータベース内のデータを確認したので，次に`default`という別のデータベース内に`employee`というHiveテーブルを作成します．
 
-Keep in mind, for this new table, no policies have been created to authorize what our sandbox users can access within this table and its columns.
+この新しいテーブルでは，このテーブルとその列内でサンドボックスユーザがアクセスできるポリシーを承認するポリシーは作成されていません．
 
-1\. Go to **Hive View 2.0**. Hover over the Ambari 9 square menu icon ![ambari_menu_icon](assets/images/ambari_menu_icon.jpg), select **Hive View 2.0**.
+1\. **Hive View 2.0**にアクセスしてください．Ambariのメニューアイコン![ambari_menu_icon](assets/images/ambari_menu_icon.jpg)からメニューを開き**Hive View 2.0**を選択してください：
 
 ![menu_hive_view2](assets/images/menu_hive_view2.jpg)
 
 **Figure 18: Access Hive View 2.0 From Ambari Views**
 
-2\. Create the `employee` table:
+2\. `employee`テーブルを作成します：
 
 ~~~sql
 create table employee (ssn string, name string, location string)
@@ -255,31 +256,32 @@ stored as textfile;
 ~~~
 
 Then, click the green `Execute` button.
+続いて，緑の`Execute`ボタンをクリックします．
 
 ![create_hive_table](assets/images/create_hive_table_employee.png)
 
 **Figure 19: Hive Employee Table Created**
 
-3\. Verify the table was created successfully by going to the **TABLES** tab:
+3\. **TABLES**タブに移動して，テーブルが正常に作成されたことを確認します：
 
 ![list_hive_table](assets/images/list_hive_table.png)
 
 **Figure 20: Check TABLES for Employee Table**
 
-4\. Now we will populate this table with data.
+4\. 次に，このテーブルにデータを入力します．
 
-5\. Enter the HDP Sandbox's CentOS command line interface by using the Web Shell Client at `sandbox.hortonworks.com:4200`
+5\. `sandbox.hortonworks.com:4200`でWeb Shell Clientを利用して，HDPサンドボックスのCentOSコマンドラインに入ります：
 
-Login credentials are:
+ログイン認証情報：
 
 username = `root`
-password = `hadoop` (is the initial password, but you will asked to change it)
+password = `hadoop` (初回にパスワードを聞かれるので，パスワードを変更してください）
 
 ![web_shell_client](assets/images/web_shell_client.jpg)
 
 **Figure 21: HDP Sandbox Web Shell Client**
 
-5\. Create the `employeedata.txt` file with the following data using the command:
+5\. 次のコマンドを利用して，次のデータを含む`employeedata.txt`ファイルを作成します：
 
 ~~~bash
 printf "111-111-111,James,San Jose\\n222-222-222,Mike,Santa Clara\\n333-333-333,Robert,Fremont" > employeedata.txt
@@ -289,7 +291,7 @@ printf "111-111-111,James,San Jose\\n222-222-222,Mike,Santa Clara\\n333-333-333,
 
 **Figure 22: Shell Command to Create Data**
 
-5\. Copy the employeedata.txt file from your centOS file system to HDFS. The particular location the file will be stored in is Hive warehouse's employee table directory:
+6\. CentOsファイルシステムからemployeedata.txtをHDFSにコピーします．ファイルが格納される特定の場所は，Hiveウェアハウスの上業員表ディレクトリです．
 
 ~~~
 hdfs dfs -copyFromLocal employeedata.txt /apps/hive/warehouse/employee
@@ -299,43 +301,39 @@ hdfs dfs -copyFromLocal employeedata.txt /apps/hive/warehouse/employee
 
 **Figure 23: HDFS Command to Populate Employee Table with Data**
 
-7\. Go back to `Hive View 2.0`. Verify the hive table `employee` has been populated with data:
+7\. `Hive View 2.0`に戻ります．Hiveテーブル`employee`にデータが入力されていることを確認します．
 
 ~~~sql
 select * from employee;
 ~~~
 
-**Execute** the hive query to the load the data.
+Hiveクエリを実行して，データを読み込みます．
 
 ![employee_data](assets/images/load_employee_data.png)
 
 **Figure 24: Check That Table Is Populated with Data**
 
-Notice you have an `employee` data table in Hive with `ssn, name and location`
-as part of its columns. The ssn and location columns hold sensitive information
-and most users should not have access to it.
+Hiveの列の一部として，`ssn, name and location`を持つ`employee`データテーブルがあることに注目してください．ssn列とlocation列には，機密情報が格納されており，殆どのユーザはその情報にアクセスできません．
 
-### Step 6: Create a Ranger Policy to Limit Access of Hive Data
+### Step 6: Hiveデータへのアクセスを制限するRangerのポリシーを作成する
 
-Your goal is to create a Ranger Policy which allows general users access to the `name`
-column while excluding them access to the `ssn and location` columns.
-This policy will be assigned to `maria_dev` and `raj_ops`.
+目的は，`ssnとlocation`カラムへのアクセスを除外し，`name`カラムに一般ユーザがアクセスできるようにRangerポリシーを作成することです．このポリシーは`maria_dev`と`raj_ops`に割り当てられます．
 
-1\. Go to Ranger UI on: `sandbox.hortonworks.com:6080`
+1\. `sandbox.hortonworks.com:6080`にアクセスしてRanger UIを表示します：
 
 ![ranger_homepage_rajops](assets/images/ranger_homepage_rajops.png)
 
 **Figure 25: Ranger Resource Board Policies Dashboard**
 
-### 6.1 Create Ranger Policy to Restrict Employee Table Access
+### 6.1 従業員テーブルのアクセスを制限するRangerポリシーの作成
 
-2\. Go back to `Sandbox_hive` and then `Add New Policy`:
+2\. `Sandbox_hive`と`Add New Policy`に戻ります：
 
 ![new_sandbox_hive_policies](assets/images/new_sandbox_hive_policies.png)
 
 **Figure 26: Add New Ranger Policy**
 
-3\. In the `Policy Details`, enter following values:
+3\. `Policy Details`に次の値を入力します：
 
 ~~~
 Policy Names - policy to restrict employee data
@@ -345,7 +343,7 @@ Hive_column - ssn, location (NOTE : Do NOT forget to EXCLUDE these columns)
 Description - Any description
 ~~~
 
-4\. In the `Allow Conditions`, it should have the following values:
+4\. `Allow Conditions`では，以下の値を持つ必要があります：
 
 ~~~
 Select Group – blank, no input
@@ -357,63 +355,53 @@ Permissions – Click on the + sign next to Add Permissions and click on select 
 
 **Figure 27: Add select Permission to Permissions Column**
 
-You should have your policy configured like this:
+ポリシーを次のように設定する必要があります．
 
 ![employee_policy_rajops](assets/images/employee_policy_rajops.png)
 
 **Figure 28: Ranger Policy Details and Allow Conditions**
 
-5\. Click on `Add` and you can see the list of policies that are present in `Sandbox_hive`.
+5\. `Add`をクリックすると，`Sandbox_hive`にあるポリシーの一覧を見ることができます．
 
 ![employee_policy_added_rajops](assets/images/employee_policy_added_rajops.png)
 
 **Figure 29: New Policy Created**
 
-6\. Disable the `Hive Global Tables Allow` Policy to take away `raj_ops` and `maria_dev`
-access to the employee table's ssn and location column data. Go inside this Policy,
-to the right of `Policy Name` there is an `enable button` that can be toggled to
-`disabled`. Toggle it. Then click **save**.
+6\. `Hive Global Tables Allow`ポリシーを無効にして，`raj_ops`と`maria_dev`の従業員のssnとlocationカラムのデータへのアクセス権限を取り除きます．このポリシーの中に入ると，`Policy Name`の右側に`disabled`に切り替えることができる`enable`ボタンがあります．それを切り替えて，**Save**ボタンをクリックします．
 
 ![hive_global_policy_rajops](assets/images/hive_global_policy_rajops.png)
 
 **Figure 30: Disabled Hive Global Tables Allow Policy**
 
-### 6.2 Verify Ranger Policy is in Effect
+### 6.2 Rangerポリシーが有効であることを確認する
 
-1\. To check the access if `maria_dev` has access to the Hive `employee` table,
-re-login to Ambari as `maria_dev` user.
+1\. `maria_dev`が`employee`テーブルにアクセスできるかどうか確認するには，Ambariに`maria_dev`ユーザとして再ログインしてください：
 
 ![maria_dev_ambari_login](assets/images/maria_dev_ambari_login.png)
 
 **Figure 31: maria_dev trying to access employee data**
 
-2\. Go directly to `Hive View 2.0`, then **QUERY** tab, write the hive script to load the data from employee table.
+2\. `Hive View 2.0`の**QUERY**タブに直接行き，Hiveスクリプトを記述いて従業員テーブルからデータを読み込みます：
 
 ~~~sql
 select * from employee;
 ~~~
 
-3\. You will notice a red message appears. Click on the **NOTIFICATIONS** tab:
+3\. 赤いメッセージが表示されます．**NOTIFICATIONS**タブをクリックしてください：
 
 ![maria_dev_access_error](assets/images/load_data_authorization_error.png)
 
 **Figure 32: maria_dev encounters an authorization error**
 
-Authorization error will appear. This is expected as the user `maria_dev` and
-`raj_ops` do not have access to 2 columns in this table (ssn and location).
+承認エラーが表示されます．`maria_dev`と`raj_ops`はこのテーブルの2つのカラム（ssnとlocation）にアクセスできません．
 
-4\. For further verification, you can view the **Audits** tab in Ranger.
-Go back to Ranger and click on `Audits=>Access` and select
-`Service Name=>Sandbox_hive`. You will see the entry of Access Denied
-for maria_dev. maria_dev tried to access data she didn't have authorization
-to view.
+4\. 更に確認するためにRangerの**Audits**タブを表示します．Rangerに戻り**Audits=>Access**をクリックし，`Service Name=>Sandbox_hive`を選択します．maira_devに対するアクセス拒否のエントリが表示されます．maria_devは，閲覧する権限を持たないデータにアクセスしようとしました．
 
 ![new_policy_audit](assets/images/new_policy_audit.png)
 
 **Figure 33: Ranger Audits Logged the Data Access Attempt**
 
-5\. Return to `Hive View 2.0`, try running a query to access the `name` column
-from the `employee` table. `maria_dev` should be able to access that data.
+5\. `Hive View 2.0`に戻り，`employee`テーブルから`name`カラムにアクセスするためのクエリを実行してください．`maria_dev`はそのデータにアクセスできるはずです．
 
 ~~~sql
 SELECT name FROM employee;
@@ -423,27 +411,21 @@ SELECT name FROM employee;
 
 **Figure 34: maria_dev queries name column of employee table**
 
-The query runs successfully.
-Even, **raj_ops** user cannot not see all the columns for the location and SSN.
-We will provide access to this user to all columns later via Atlas Ranger Tag
-Based Policies.
+クエリは正常に実行されます．**raj_ops**ユーザは，ssnとlocationの列を全て表示することはできません．あとでAtlas Rangerのタグベースのポリシーを利用して，このユーザが全ての列にアクセスできるようにします．
 
-### Step 7: Create Atlas Tag to Classify Data
+### Step 7: Atlasタグを作成してデータを分類する
 
-The goal of this section is to classify all data in the ssn and location columns
-with a `PII` tag. So later when we create a Ranger Tag Based Policy, users
-who are associated with the `PII` tag can override permissions established in
-the Ranger Resource Board policy.
+このセクションの目的は，`PII`タグで，ssnとlocation列の全てのデータを分類することです．したがって，あとでRangerタグベースポリシーを作成するときはに`PII`タグを関連付けられているユーザは，Ranger Resource Boardポリシーで設定された権限を上書きできます．
 
-1\. Login into Atlas web app using `http://sandbox.hortonworks:21000/`.
+1\. `http://sandbox.hortonworks:21000/`にアクセスして，Atlasウェブアプリケーションにログインします．
 
-- username **holger_gov** and password **holger_gov**.
+- username **holger_gov**，password **holger_gov**.
 
 ![atlas_login](assets/images/atlas_login.jpg)
 
 **Figure 35: Atlas Login**
 
-2\. Go to `Tags` and press the `+ Create Tag` button to create a new tag.
+2\. `Tags`へ移動し，`+ Create Tag`ボタンをクリックして新しいタグを作成します．
 
 - Name the tag: `PII`
 - Add Description: `Personal Identifiable Information`
@@ -452,14 +434,13 @@ the Ranger Resource Board policy.
 
 **Figure 36: Create Atlas Tag - PII**
 
-Press the **Create** button. Then you should see your new tag displayed on the Tag
-page:
+**Create**ボタンをクリックします．次に新しいタグがタグページに表示されます．
 
 ![atlas_pii_tag_created](assets/images/atlas_pii_tag_created.jpg)
 
 **Figure 37: Atlas Tag Available to Tag Entities**
 
-3\. Go to the `Search` tab. In `Search By Type`, write `hive_table`
+3\. `Search`タブに移動します．`Search By Type`には`hive_table`を選択しておいてください．
 
 ![atlas_search_tab](assets/images/atlas_search_tab.jpg)
 
@@ -469,39 +450,35 @@ page:
 
 **Figure 39: Search Hive Tables**
 
-4\. `employee` table should appear. Select it.
+4\. `employee`テーブルが表示されます．それを選択してください．
 
 ![employee_table_atlas](assets/images/employee_table_atlas.jpg)
 
 **Figure 40: Selecting Employee Table via Atlas Basic Search**
 
-- How does Atlas get Hive employee table?
+- AtlasはどのようにしてHive従業員テーブルを取得しますか？
 
-Hive communicates information through Kafka, which then is transmitted to Atlas.
-This information includes the Hive tables created and all kinds of data
-associated with those tables.
+HiveはKafkaを介して情報を伝達し，それをAtlasに送信します．この情報には，作成されたHiveテーブルと，これらのテーブルに関連づけられた全ての種類のデータが含まれます．
 
-5\. View the details of the `employee` table.
+5\. `employee`テーブルの詳細を表示します．
 
 ![hive_employee_atlas_properties](assets/images/hive_employee_atlas_properties.jpg)
 
 **Figure 41: Viewing Properties Atlas Collected on Employee Table**
 
-6\. View the **Schema** associated with
-the table. It'll list all columns of this table.
+6\. テーブルに関連付けられた**Schema**を表示します．この表の全ての列がリストされます．
 
 ![hive_employee_atlas_schema](assets/images/hive_employee_atlas_schema.jpg)
 
 **Figure 42: Viewing Schema Atlas Collected on Employee Table**
 
-7\. Press the **blue +** button to assign the `PII` tag to the `ssn` column.
-Click **save**.
+7\. **blue +**ボタンをクリックして，`PII`タグを`ssn`カラムに割り当てます．**save**をクリックして保存します．
 
 ![add_pii_tag_to_ssn](assets/images/add_pii_tag_to_ssn.jpg)
 
 **Figure 43: Tag PII to ssn Column**
 
-8\. Repeat the same process to add the `PII` tag to the `location` column.
+8\. 同じプロセスを繰り返して`PII`タグを`location`カラムに追加します．
 
 ![add_pii_tag_to_location](assets/images/add_pii_tag_to_location.jpg)
 
@@ -511,43 +488,41 @@ Click **save**.
 
 **Figure 45: Added PII tag to Employee's ssn and Location Columns**
 
-We have classified all data in the `ssn and location` columns as `PII`.
+`ssnとlocation`カラムの全てのデータを`PII`として分類します．
 
-### Step 8: Create Ranger Tag Based Policy
+### Step 8: Rangerのタグベースのポリシーの作成
 
-Head back to the Ranger UI. The tag and entity (ssn, location) relationship will be automatically inherited by Ranger. In Ranger, we can create a tag based policy
-by accessing it from the top menu. Go to `Access Manager → Tag Based Policies`.
+RangerのUIに戻ります．タグとエンティティ（ssh，location）の関係はRangerによって自動的に継承されます．Rangerでは，トップメニューからアクセスしてタグベースのポリシーを作成できます．`Access Manager → Tag Based Policies`に移動します．
 
-![select_tag_based_policies_rajops](assets/select_tag_based_policies_rajops.png)
+![select_tag_based_policies_rajops](assets/images/select_tag_based_policies_rajops.png)
 
 **Figure 46: Ranger Tag Based Policies Dashboard**
 
-You will see a folder called TAG that does not have any repositories yet.
+空のリポジトリのTAGというフォルダが表示されます．
 
 ![new_tag_rajops](assets/images/new_tag_rajops.png)
 
 **Figure 47: Tag Repositories Folder**
 
-Click `+` button to create a new tag repository.
+`+`ボタンをクリックして新しいタグリポジトリを作成します．
 
 ![add_sandbox_tag_rajops](assets/images/add_sandbox_tag_rajops.png)
 
 **Figure 48: Add New Tag Repository**
 
-Name it `Sandbox_tag` and click `Add`.
+`Sandbox_tag`と名前をつけて，`Add`をクリックします．
 
 ![added_sandbox_tag_rajops](assets/images/added_sandbox_tag_rajops.png)
 
 **Figure 49: Sandbox_tag Repository**
 
-Click on `Sandbox_tag` to add a policy.
+`Sandbox_tag`をクリックしてポリシーを追加します．
 
 ![add_new_policy_rajops](assets/images/add_new_policy_rajops.png)
 
 **Figure 50: Add New Policy to Sandbox_tag Repository**
 
-Click on the `Add New Policy` button.
-Give following details:
+`Add New Policy`ボタンをクリックしてください．以下に詳細を記述します．
 
 ~~~
 Policy Name – PII column access policy
@@ -560,7 +535,7 @@ Audit logging – Yes
 
 **Figure 51: Policy Details and Allow Conditions**
 
-In the Allow Conditions, it should have the following values:
+許可条件には，次の値が必要です．
 
 ~~~
 Select Group - blank
@@ -568,40 +543,37 @@ Select User - raj_ops
 Component Permissions - Select hive
 ~~~
 
-You can select the component permission through the following popup. Check the
-**checkbox** to the left of the word component to give `raj_ops` permission to
-`select, update, create, drop, alter, index, lock and all` operations against
-the hive table `employee` columns specified by `PII` tag.
+次のポップアップからコンポーネント権限を選択できます．wordコンポーネントの左側にある**checkbox**をチェックして，`PII`タグで指定されたHiveテーブル`employee`カラムに対する`select，update，create, drop，alter，index，lock，all`の操作権限を`raj_ops`に与えます．
 
 ![new_allow_permissions](assets/images/new_allow_permissions.png)
 
 **Figure 52: Add Hive Component Permissions to the Policy**
 
-Please verify that Allow Conditions section is looking like this:
+Allow Confitionsセクションが次のようになっていることを確認してください：
 
 ![allow_conditions_rajops](assets/images/allow_conditions_rajops.png)
 
 **Figure 53: Allow Conditions for PII column access policy**
 
-This signifies that only `raj_ops` is allowed to do any operation on the columns that are specified by PII tag. Click `Add`.
+これは`raj_ops`だけがPIIタグで指定された列に対して，何らかの操作を実行できることを示します．`Add`をクリックします．
 
 ![pii_policy_created_rajops](assets/images/pii_policy_created_rajops.png)
 
 **Figure 54: Policy Created for PII tag**
 
-Now click on `Resource Based Policies` and edit `Sandbox_hive` repository by clicking on the button next to it.
+`Resource Based Policies`をクリックし，隣にあるボタンをクリックして`Sandbox_hive`リポジトリを編集します．
 
 ![editing_sandbox_hive](assets/images/editing_sandbox_hive.png)
 
 **Figure 55: Edit Button of Sandbox_hive Repository**
 
-Click on `Select Tag Service` and select `Sandbox_tag`. Click on `Save`.
+`Select Tag Service`をクリックして，`Sandbox_tag`を選択します．`Save`をクリックして保存します．
 
 ![new_edited_sandbox_hive](assets/images/new_edited_sandbox_hive.png)
 
 **Figure 56: Added Tag Service to Sandbox_hive Repository**
 
-The Ranger tag based policy is now enabled for **raj_ops** user. You can test it by running the query on all columns in employee table.
+**raj_ops**ユーザに対してRangerタグベースのポリシーが有効になりました．従業員の全ての列に対してクエリを実行することによってテストができます．
 
 ~~~sql
 select * from employee;
@@ -612,24 +584,24 @@ select * from employee;
 **Figure 57: raj_ops has access to employee data**
 
 The query executes successfully. The query can be checked in the Ranger audit log which will show the access granted and associated policy which granted access. Select Service Name as `Sandbox_hive` in the search bar.
+クエリは正常に実行されます．Rangerの監査ログで照会できます．Rangerの監査ログには，アクセスを許可されたアクセス権限と関連づけられたポリシーが表示されます．検索バーでサービス名を`Sandbox_hive`として選択します．
 
-> Note update picture below
+> 下の更新画像に注目してください．
 
 ![audit_results_rajops](assets/images/audit_results_rajops.png)
 
 **Figure 58: Ranger Audits Confirms raj_ops Access to employee table**
 
-> **NOTE**: There are 2 policies which provided access to raj_ops user, one is a tag based policy and the other is hive resource based policy. The associated tags (PII) is also denoted in the tags column in the audit record).
+> **NOTE**: ras_opsユーザにアクセスできる2つのポリシーがあり，1つがタグベースのポリシーで，もうひとつはHiveベースのポリシーです．関連タグ（PII）も監査レコードのタグ列に表示されます．
 
-## Summary
+## まとめ
 
-Ranger traditionally provided group or user based authorization for resources such as table, column in Hive or a file in HDFS.
-With the new Atlas -Ranger integration, administrators can conceptualize security policies based on data classification, and not necessarily in terms of tables or columns. Data stewards can easily classify data in Atlas and use in the classification in Ranger to create security policies.
-This represents a paradigm shift in security and governance in Hadoop, benefiting customers with mature Hadoop deployments as well as customers looking to adopt Hadoop and big data infrastructure for first time.
+Rangerは伝統的にHiveのテーブル，カラム，HDFSのファイルなどのリソースに対するグループまたはユーザベースの認可を提供していました．新しいAtlas-Rangerの統合により，管理者はデータ分類に基づいてセキュリティポリシーを概念化できますが，必ずしもテーブルや列ではありません．データ管理者はAtlasのデータを簡単に分類し，Rangerでセキュリティポリシーを作成できます．これはHadoopのセキュリティとガバナンスにおけるパラダイムシフトを表しています．成熟したHadoop展開のお客様や，H
+adoopと大規模なデータインフラストラクチャを初めて採用しようとする顧客に役立っています．
 
-## Further Reading
+## 参考文献
 
-- For more information on Ranger and Solr Audit integration, refer to [Install and Configure Solr For Ranger Audits](https://cwiki.apache.org/confluence/display/RANGER/Install+and+Configure+Solr+for+Ranger+Audits+-+Apache+Ranger+0.5)
-- For more information on how Ranger provides Authorization for Services within Hadoop, refer to [Ranger FAQ](http://ranger.apache.org/faq.html)
-- For more information on on HDP Security, refer to [HDP Security Doc](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.1/bk_security/content/ch_hdp-security-guide-overview.html)
-- For more information on security and governance, refer to [Integration of Atlas and Ranger Classification-Based Security Policies](https://hortonworks.com/solutions/security-and-governance/)
+- RangerとSolr Auditの統合の詳細については[Install and Configure Solr For Ranger Audits](https://cwiki.apache.org/confluence/display/RANGER/Install+and+Configure+Solr+for+Ranger+Audits+-+Apache+Ranger+0.5)を参照してください．
+- RangerがHadoop内のサービスの認可を提供する方法の詳細については[Ranger FAQ](http://ranger.apache.org/faq.html)を参照してください
+- HDPセキュリティの詳細については[HDP Security Doc](https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.1/bk_security/content/ch_hdp-security-guide-overview.html)を参照してください．
+- セキュリティとガバナンスの詳細については[Integration of Atlas and Ranger Classification-Based Security Policies](https://hortonworks.com/solutions/security-and-governance/)を参照してください．
