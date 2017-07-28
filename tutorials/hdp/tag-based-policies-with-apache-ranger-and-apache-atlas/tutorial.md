@@ -19,7 +19,6 @@ series: HDP > Hadoop Administration > Security
 
 Apache AtlasとApache Rangerの統合を検討し，タグまたは分類ベースのポリシーの概念を紹介します．企業はApache Atlasでデータを分類し，Apache Rangerでセキュリティポリシーを構築できます．
 
-This tutorial walks through an example of tagging data in Atlas and building a security policy in Ranger.
 このチュートリアルでは，Atlasでデータにタグを付与し，Rangerでセキュリティポリシーを作成する例を紹介します．
 
 ## 前提条件
@@ -93,7 +92,7 @@ HDFSが現在再起動中であることを示す**Background Operation Runnning
 
 **Figure 6: Background Operation Running Window**
 
-左上隅の**X**ボタンをクリックします．
+右上隅の**X**ボタンをクリックします．
 
 3\. HDFSの再起動が完了すると，コンポーネントの状態を確認することができます．
 
