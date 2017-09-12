@@ -4,7 +4,7 @@ ZeppelinはHDFスタックに含まれる製品ではありませんが、本ハ
 
 `http://<host>:8090/`
 
-![](https://github.com/ijokarumawak/hdf-tutorials-ja/blob/master/images/zeppelin/welcome-page.png)
+![](assets/welcome-page.png)
 
 `Create new note`をクリックし、新しいノートブックを作成しましょう。名前は何でもOKです。
 
@@ -30,14 +30,14 @@ select * from average_age
 
 次のような結果が得られます。しかし、これだと、棒グラフや円グラフで表示した際に意味のあるグラフにはなりません。
 
-![](https://github.com/ijokarumawak/hdf-tutorials-ja/blob/master/images/zeppelin/sql-result.png)
+![](assets/sql-result.png)
 
 
 行列を入れ替えたほうがよさそうですね。
 
 これもNiFiで変換してみましょう。
 
-![](https://github.com/ijokarumawak/hdf-tutorials-ja/blob/master/images/zeppelin/add-jolt-transform.png)
+![](assets/add-jolt-transform.png)
 
 JoltTransformationJSON
 
@@ -67,6 +67,6 @@ Jolt Specificationには以下のJSONを設定します:
 
 Zeppelinで棒グラフ表示すると、次のように各keyの値をY軸の値として表示できます:
 
-![](https://github.com/ijokarumawak/hdf-tutorials-ja/blob/master/images/zeppelin/after-jolt-bar-chart.png)
+![](assets/after-jolt-bar-chart.png)
 
 ### [前へ](tutorial-5.md) 
