@@ -5,3 +5,5 @@ builder/_tutorials
 # Common files that contributors' machines may attempt to commit
 *.DS_Store
 Thumbs.db
+
+tutorials/hdf/Intro_NiFi_Kafka_Storm/HDFハンズオン-6:-おまけ-Zeppelinで可視化.md
