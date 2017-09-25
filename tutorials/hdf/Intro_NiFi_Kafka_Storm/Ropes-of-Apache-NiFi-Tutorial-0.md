@@ -291,4 +291,4 @@ NiFiの設定に関する詳細情報は、[System Administrator's Guide](http:/
 
 ---
 
-[前へ](Apache-NiFi-Dataflow-Automation-Concepts) | [次へ](Ropes-of-Apache-NiFi%3A-Tutorial-1)
+[前へ](Apache-NiFi-Dataflow-Automation-Concepts.md) | [次へ](Ropes-of-Apache-NiFi-Tutorial-1.md)
