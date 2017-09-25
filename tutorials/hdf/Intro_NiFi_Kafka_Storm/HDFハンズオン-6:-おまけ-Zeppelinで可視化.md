@@ -69,4 +69,4 @@ Zeppelinで棒グラフ表示すると、次のように各keyの値をY軸の�
 
 ![](https://github.com/ijokarumawak/hdf-tutorials-ja/blob/master/images/zeppelin/after-jolt-bar-chart.png)
 
-### [前へ](https://github.com/ijokarumawak/hdf-tutorials-ja/wiki/HDF%E3%83%8F%E3%83%B3%E3%82%BA%E3%82%AA%E3%83%B3-5:-%E5%88%86%E6%9E%90%E7%B5%90%E6%9E%9C%E3%82%92%E4%BF%9D%E5%AD%98) 
+### [前へ](https://github.com/hortonworksjp/data-tutorials/blob/master/tutorials/hdf/Intro_NiFi_Kafka_Storm/HDF%E3%83%8F%E3%83%B3%E3%82%B9%E3%82%99%E3%82%AA%E3%83%B3-5:-%E5%88%86%E6%9E%90%E7%B5%90%E6%9E%9C%E3%82%92%E4%BF%9D%E5%AD%98.md) 
