@@ -38,4 +38,4 @@ NiFiはデータフローオーケストレーションツールとして、各�
 
 ![](https://github.com/ijokarumawak/hdf-tutorials-ja/blob/master/images/sample-system.png?raw=true)
 
-### [次へ](https://github.com/ijokarumawak/hdf-tutorials-ja/wiki/HDF%E3%83%8F%E3%83%B3%E3%82%BA%E3%82%AA%E3%83%B3-1:-%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%96%E8%BE%BC)
+### [次へ](https://github.com/hortonworksjp/data-tutorials/blob/master/tutorials/hdf/Intro_NiFi_Kafka_Storm/HDF%E3%83%8F%E3%83%B3%E3%82%B9%E3%82%99%E3%82%AA%E3%83%B3-1:-%E3%83%86%E3%82%99%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%96%E8%BE%BC.md)
