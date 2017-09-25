@@ -138,4 +138,4 @@ NiFiを利用した興味深いユースケースの記事:
 
 ---
 
-[前へ](Learning-the-Ropes-of-Apache-NiFi) | [次へ](Ropes-of-Apache-NiFi:-Tutorial-0.md)
+[前へ](Learning-the-Ropes-of-Apache-NiFi) | [次へ](Ropes-of-Apache-NiFi:-Tutorial-0)
