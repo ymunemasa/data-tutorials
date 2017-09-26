@@ -1,4 +1,4 @@
-Welcome to HDF Tutorials
+Welcome to HDF Setup tutorials
 
 [Hortonworksが提供しているチュートリアル](https://github.com/hortonworks/data-tutorials)を行うために、「Hortonworks Data Platform (HDP)」と「Hortonworks DataFlow (HDF)」が入ったビッグデータ分析基盤テスト用の環境を構築します。一つのインスタンスに全てのサービスをインストールしますので、パフォーマンステストには向きませんが、インストールから試したいという方は参考にしてください。
 Azureや、Docker, VMwware, Virutal Boxでは、Sandboxというあらかじめ全て設定済みの環境がありますが、今回は素の仮想インスタンス上に一から構築してみます。

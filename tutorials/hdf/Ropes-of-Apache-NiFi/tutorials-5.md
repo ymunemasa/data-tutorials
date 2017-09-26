@@ -128,4 +128,4 @@ GetHTTPプロセッサの利用方法も学び、ライブストリームをNext
 - [Hortonworks NiFi User Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_UserGuide/content/index.html)
 - [Hortonworks NiFi Developer Guide](http://docs.hortonworks.com/HDPDocuments/HDF1/HDF-1.2.0.1/bk_DeveloperGuide/content/index.html)
 
-[前へ](Ropes-of-Apache-NiFi-Tutorial-2.md)
+[前へ](tutorials-4.md)

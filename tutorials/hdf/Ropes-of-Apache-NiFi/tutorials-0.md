@@ -52,4 +52,4 @@ NiFiはデータの取得、シンプルなイベントプロセッシング、�
 
 手助けが必要な際や、チュートリアルに関する質問は、まずFind Answeresボタンをクリックし、質問に対するHCCでの既存の回答を確認してください。回答が見つからない場合は新規のHCC問い合わせをAsk Questionsをクリックして作成してください。
 
-[次へ](Apache-NiFi-Dataflow-Automation-Concepts.md)
+[次へ](tutorials-1.md)
