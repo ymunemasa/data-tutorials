@@ -66,4 +66,4 @@ Attribute値を抜き出すだけでなく、加工したり、条件判定し�
 
 - 「HandleHttpRequestから２つの`success`が出力されているのは何かにおうな...」と感じた方はするどいですね！このフローでは今追加した２つめのルートの結果にかかわらず、HandleHttpResponseは正常の結果を返してしまいます。ハンズオンとしてはエラー処理まで実装していると時間が足りないので割愛しますが、プロダクションシステムでは的確にエラーハンドリングも実装しておきたいところです。どのようにフローをデザインすると良いでしょうか?
 
-### [前へ](https://github.com/hortonworksjp/data-tutorials/blob/master/tutorials/hdf/Intro_NiFi_Kafka_Storm/HDF%E3%83%8F%E3%83%B3%E3%82%B9%E3%82%99%E3%82%AA%E3%83%B3-1:-%E3%83%86%E3%82%99%E3%83%BC%E3%82%BF%E3%81%AE%E5%8F%96%E8%BE%BC.md) | [次へ](https://github.com/hortonworksjp/data-tutorials/blob/master/tutorials/hdf/Intro_NiFi_Kafka_Storm/HDF%E3%83%8F%E3%83%B3%E3%82%B9%E3%82%99%E3%82%AA%E3%83%B3-3:-Kafka%E3%81%B8%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B7%E3%82%99%E7%99%BB%E9%8C%B2.md)
+### [前へ](tutorials-1.md)| [次へ](tutorials-3.md)

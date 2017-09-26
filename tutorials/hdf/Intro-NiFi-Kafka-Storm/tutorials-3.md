@@ -57,4 +57,4 @@ cd /usr/hdf/current/kafka-broker
 ./bin/kafka-console-consumer.sh --topic input --bootstrap-server 0.hdf.aws.mine:6667 --new-consumer
 ```
 
-### [前へ](https://github.com/hortonworksjp/data-tutorials/blob/master/tutorials/hdf/Intro_NiFi_Kafka_Storm/HDF%E3%83%8F%E3%83%B3%E3%82%B9%E3%82%99%E3%82%AA%E3%83%B3-2:-%E3%83%86%E3%82%99%E3%83%BC%E3%82%BF%E3%81%AE%E5%A4%89%E6%8F%9B.md) | [次へ](https://github.com/hortonworksjp/data-tutorials/blob/master/tutorials/hdf/Intro_NiFi_Kafka_Storm/HDF%E3%83%8F%E3%83%B3%E3%82%B9%E3%82%99%E3%82%AA%E3%83%B3-4:-Storm%E3%81%A6%E3%82%99%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0%E5%88%86%E6%9E%90.md)
+### [前へ](tutorials-2.md)| [次へ](tutorials-4.md)

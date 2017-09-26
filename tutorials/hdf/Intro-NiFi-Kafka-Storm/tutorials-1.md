@@ -151,4 +151,4 @@ NiFiのUIに戻ってみると、HandleHttpRequestからHandleHttpResponseまで
 - NiFiでControllerServiceとはどのようなものですか? どういうときに必要になりますか?
 - NiFi内部を流れるデータオブジェクトは何と呼びますか?
 
-### [前へ](https://github.com/hortonworksjp/data-tutorials/blob/master/tutorials/hdf/Intro_NiFi_Kafka_Storm/HDF%E3%83%8F%E3%83%B3%E3%82%B9%E3%82%99%E3%82%AA%E3%83%B3-0:-NiFi%2C-Kafka%2C-Storm%E3%82%92%E7%B5%84%E3%81%BF%E5%90%88%E3%82%8F%E3%81%9B%E3%81%A6%E5%88%A9%E7%94%A8%E3%81%99%E3%82%8B.md) | [次へ](https://github.com/hortonworksjp/data-tutorials/blob/master/tutorials/hdf/Intro_NiFi_Kafka_Storm/HDF%E3%83%8F%E3%83%B3%E3%82%B9%E3%82%99%E3%82%AA%E3%83%B3-2:-%E3%83%86%E3%82%99%E3%83%BC%E3%82%BF%E3%81%AE%E5%A4%89%E6%8F%9B.md)
+### [前へ](tutorials-0.md)| [次へ](tutorials-2.md)

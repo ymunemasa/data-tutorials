@@ -59,4 +59,4 @@ watch cat /opt/hdf-handson/report/latest.json
 
 ![](https://github.com/ijokarumawak/hdf-tutorials-ja/blob/master/images/nifi/consume-kafka/test.png)
 
-### [前へ](https://github.com/hortonworksjp/data-tutorials/blob/master/tutorials/hdf/Intro_NiFi_Kafka_Storm/HDF%E3%83%8F%E3%83%B3%E3%82%B9%E3%82%99%E3%82%AA%E3%83%B3-4:-Storm%E3%81%A6%E3%82%99%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0%E5%88%86%E6%9E%90.md) | [次へ](https://github.com/hortonworksjp/data-tutorials/blob/master/tutorials/hdf/Intro_NiFi_Kafka_Storm/HDF%E3%83%8F%E3%83%B3%E3%82%B9%E3%82%99%E3%82%AA%E3%83%B3-6:-%E3%81%8A%E3%81%BE%E3%81%91-Zeppelin%E3%81%A6%E3%82%99%E5%8F%AF%E8%A6%96%E5%8C%96.md)
+### [前へ](tutorials-4.md)| [次へ](tutorials-6.md)
