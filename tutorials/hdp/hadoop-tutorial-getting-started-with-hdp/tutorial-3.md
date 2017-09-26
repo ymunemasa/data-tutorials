@@ -502,3 +502,5 @@ SELECT * FROM drivermileage LIMIT 100;
 - [Hive Language Manual](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL)
 - [HDP DEVELOPER: APACHE PIG AND HIVE](https://hortonworks.com/training/class/hadoop-2-data-analysis-pig-hive/)
 
+
+### [前へ](tutorial-2.md) | [次へ](tutorial-4.md)

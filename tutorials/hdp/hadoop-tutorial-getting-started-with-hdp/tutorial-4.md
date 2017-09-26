@@ -300,3 +300,5 @@ Pig Latinの基礎を学び，これらのリソースを利用して膨大な�
 - Pigの様々な演算子については[Pig Latin Basics](http://pig.apache.org/docs/r0.14.0/basic.html)を参照してください
 - [HDP DEVELOPER: APACHE PIG AND HIVE](https://hortonworks.com/training/class/hadoop-2-data-analysis-pig-hive/)
 
+
+### [前へ](tutorial-3.md) | [次へ](tutorial-5.md)

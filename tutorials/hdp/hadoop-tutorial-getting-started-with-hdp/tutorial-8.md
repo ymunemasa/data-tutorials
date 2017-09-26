@@ -206,3 +206,6 @@ Congratulations on completing our HDP tutorial labs!
 
 -   More advanced Zoomdata tutorials and product guides are available in the [Zoomdata Support Portal](http://docs.zoomdata.com/zoomdata-docs-portal).
 -   To obtain product pricing, schedule a demo, or request general information, visit the [Zoomdata Contact](http://www.zoomdata.com/contact) page.
+
+
+### [前へ](tutorial-7.md)

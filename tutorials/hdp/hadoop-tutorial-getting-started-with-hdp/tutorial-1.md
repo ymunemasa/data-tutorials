@@ -9,6 +9,28 @@
 -   [Hortonworks Sandbox](https://hortonworks.com/downloads/#sandbox)をダウンロードおよびインストール済み
 -   [Hortonworks Sandboxの使い方を学習している](https://hortonworks.com/hadoop-tutorial/learning-the-ropes-of-the-hortonworks-sandbox/)
 
+
+## 環境準備
+### 下記サービスがインストールされたクラスタを準備ください。
+
+| チュートリアル | 選択するサービス| 
+|--------------|---------------|
+| HDP系チュートリアル  | HDFS, YARN + MapReduce, Tez, Hive, Pig, ZooKeeper, Ambari Metrics, SmartSence, Spark2, Zeppelin Notebook, Slider        |
+| HDF系チュートリアル  | HDFS, YARN + MapReduce, ZooKeeper, Ambari Metrics, SmartSence, NiFi, Storm, Kafka, Spark2, Zeppelin Notebook        |
+
+- [Ambariを使ってHDP、HDF環境を構築](../../Setup/Bluemix.md)
+- [Sandboxを使ってお手軽にHDP、HDF環境を構築](../../Setup/Azure.md)
+
+### 必要なアセットをダウンロード
+- ローカルPCで、チュートリアルの中で利用する[Assets](assets/templates.zip)をダウロード
+- インスタンスで、StormのJavaプログラムと、スクリプトをダウンロード
+
+```
+[root@hdp1 ~]# wget https://github.com/hortonworksjp/data-tutorials/tutorials/hdf/Intro-NiFi-Kafka-Storm/assets/hdf.tutorial.storm-1.0-SNAPSHOT.jar
+[root@hdp1 ~]# wget https://github.com/hortonworksjp/data-tutorials/tutorials/hdf/Intro-NiFi-Kafka-Storm/assets/scripts.sh
+```
+
+
 ## 概要
 
 -   [1. Concept: Hadoop & HDP](#concepts-hadoop-hdp)
@@ -410,3 +432,6 @@ Ambari Pig User Viewのインターフェースには，まだスクリプトが
 -   [Configuring YARN Capacity Scheduler with Ambari](https://hortonworks.com/tutorial/configuring-yarn-capacity-scheduler-ambari/)
 -   [Multi-Tenancy in HDP 2.0: Capacity Scheduler and YARN](https://hortonworks.com/blog/multi-tenancy-in-hdp-2-0-capacity-scheduler-and-yarn/)
 -   [Better SLAs via Resource-preemption in YARN’s Capacity Scheduler](https://hortonworks.com/blog/better-slas-via-resource-preemption-in-yarns-capacityscheduler/)
+
+
+### [前へ](tutorial-０.md) | [次へ](tutorial-2.md)

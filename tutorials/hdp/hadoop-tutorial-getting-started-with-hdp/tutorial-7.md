@@ -120,3 +120,5 @@ Hadoopを使い始める人は，スキルを磨くために3つの道を選択�
 -   Industry specific: [Examples of Hadoop across Industries](https://hortonworks.com/industry/)
 -   [The Definitive Guide by O`Reilly](http://hadoopbook.com/)
 -   [Hadoop for Dummies](http://www.wiley.com/WileyCDA/WileyTitle/productCd-1118607554.html)
+
+### [前へ](tutorial-6.md) | [次へ](tutorial-8.md)

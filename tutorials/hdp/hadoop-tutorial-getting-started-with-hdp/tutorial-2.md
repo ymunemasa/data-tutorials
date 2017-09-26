@@ -88,3 +88,5 @@
 - Build your HDFS Architecture Knowledge [HDFS Architecture Guide](https://hadoop.apache.org/docs/r1.0.4/hdfs_design.html)
 - [HDP OPERATIONS: HADOOP ADMINISTRATION](http://hortonworks.com/training/class/hdp-operations-hadoop-administration-1/)
 
+### [前へ](tutorial-1.md) | [次へ](tutorial-3.md)
+
