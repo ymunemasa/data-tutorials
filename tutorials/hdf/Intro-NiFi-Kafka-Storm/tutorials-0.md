@@ -1,5 +1,15 @@
 本チュートリアルでは[Hortonworks DataFlow(HDF)](https://hortonworks.com/products/data-center/hdf/)で利用可能なOSSプロダクトを少しずつ触りながら、HDFを利用するとどんなシステムが構築できるのかを学習していきます。
 
+
+## 0-0: 環境設定
+1. 下記サービスがインストールされたクラスタを用意ください。
+
+```HDFS, YARN + MapReduce, ZooKeeper, Ambari Metrics, SmartSence, NiFi, Storm, Kafka, Spark2, Zeppelin Notebook```
+
+2. チュートリアルの中で利用する[Assets](assets/assets.zip)をダウロード
+
+---
+
 ## 0-1: Hortonworks DataFlow (HDF)とは
 
 [Hortonworks DataFlow (HDF)](https://hortonworks.com/products/data-center/hdf/)とは、高速なストリーミング分析を容易に実現し、データ収集、キュレーション、分析、デリバリをリアルタイムで、オンプレミスでもクラウドでも実行可能な、Apache NiFi、Kafka、Stormが統合されたソリューションです。
