@@ -21,9 +21,11 @@ IBMとHortonworksとの提携
 # Bluemix でインスタンスのオーダー
 [Bluemix Infrastructure ポータル](https://control.softlayer.com/)から、下記のスペックを選択し、一番下にある[Add to Order]をクリック
 
-- Data Center: TOK02
-- Flavor: Memory 4 X 2.0 GHz Cores x 32GB x 100GB (SAN)
+- Data Center: SJC04 - San Jose
+- Flavor: 4 x 2.0 GHz Cores x 32 GB x 100 GB (SAN)
+- 1 番目のディスク: 100GB (SAN)
 - OS: CentOS 7.x Minimal Install (64 bit)
+- アップリンク・ポート速度: 100 Mbps Public & Private Network Uplinks
 
 ## FQDNの登録（Local PCで作業）
 今回は、毎回、IPアドレスを入力するのが面倒なので、Local PCに登録しました。
