@@ -21,7 +21,7 @@ IBMとHortonworksとの提携
 # Bluemix でインスタンスのオーダー
 [Bluemix Infrastructure ポータル](https://control.softlayer.com/)から、下記のスペックを選択し、一番下にある[Add to Order]をクリック
 
-- Data Center: SJC04 - San Jose
+- Data Center: SNG01 - Singapore
 - Flavor: 4 x 2.0 GHz Cores x 32 GB x 100 GB (SAN)
 - 1 番目のディスク: 100GB (SAN)
 - OS: CentOS 7.x Minimal Install (64 bit)
