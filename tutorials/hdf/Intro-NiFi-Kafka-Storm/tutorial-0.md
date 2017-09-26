@@ -17,8 +17,10 @@
 - インスタンスで、StormのJavaプログラムと、スクリプトをダウンロード
 
 ```
-[root@hdp1 ~]# wget https://github.com/hortonworksjp/data-tutorials/tutorials/hdf/Intro-NiFi-Kafka-Storm/assets/tools.zip
-[root@hdp1 ~]# wget https://github.com/hortonworksjp/data-tutorials/blob/master/tutorials/hdf/Intro-NiFi-Kafka-Storm/assets/tools.zip
+[root@hdp1 ~]# wget https://github.com/hortonworksjp/data-tutorials/tutorials/hdf/Intro-NiFi-Kafka-Storm/assets/hdf.tutorial.storm-1.0-SNAPSHOT.jar
+[root@hdp1 ~]# wget https://github.com/hortonworksjp/data-tutorials/tutorials/hdf/Intro-NiFi-Kafka-Storm/assets/get-data.sh
+[root@hdp1 ~]# wget https://github.com/hortonworksjp/data-tutorials/tutorials/hdf/Intro-NiFi-Kafka-Storm/assets/post-data.sh
+
 ```
 
 
