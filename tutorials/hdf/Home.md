@@ -5,5 +5,5 @@ Welcome to HDF Tutorials
 [IBM Azure (Sandbox)](Setup/Azure.md)
 
 # 各チュートリアル
-[入門 Apache NiFi, Kafka, Storm](Intro-NiFi-Kafka-Storm.md)
-[入門 Apache NiFi, Kafka, Storm, Druid, Superset](Real-time-event-processing.md)
+[入門 Apache NiFi, Kafka, Storm](Intro-NiFi-Kafka-Storm/tutorials-0.md)
+[入門 Apache NiFi, Kafka, Storm, Druid, Superset](Real-time-event-processing/tutorials-0-short.md)
